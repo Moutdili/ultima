@@ -77,4 +77,73 @@ message) reste active. Le ping F7 de la V0.1 sera aussi soumis à ce drapeau.
 
 ## Journal de merge
 
-_(rempli après chaque merge : build + test + grep read-only + staging)_
+Vague 1 lancée à 20:28 (5 agents en parallèle). Rendus : A1 20:33, A3 20:33, B1 20:35.
+
+### 20:34 — merge A3 `m3/catalog` (5f314d8) → main `f1e9d89`
+Avant : main avancé en fast-forward sur `2cf1da0` (Hermes : tools/multi-lab.sh + verify-deploy.sh,
+identiques aux copies non suivies présentes dans l'arbre → copies retirées, pas de perte).
+```
+$ git log --oneline -1
+f1e9d89 merge: m3/catalog (A3) first_card_hint, signals, intents_by_monster
+$ dotnet build Ultima/Ultima.csproj -c Release
+    0 Error(s)
+    0 Warning(s)
+Build succeeded.
+$ dotnet test Ultima.Tests/Ultima.Tests.csproj -c Release
+Passed!  - Failed:     0, Passed:    12, Skipped:     0, Total:    12, Duration: 24 ms - Ultima.Tests.dll (net9.0)
+$ grep -rn "CardPileCmd\|DamageCmd\|PowerCmd.Apply\|CreatureCmd" Ultima/ --include=*.cs
+(exit 1 — 1 = aucun appel)
+$ bash tools/build.sh && ls -l build/mods/Ultima
+total 84
+-rw-r--r--. 1 mio mio 47616 Oct 27 20:34 Ultima.Core.dll
+-rw-r--r--. 1 mio mio 31232 Oct 27 20:34 Ultima.dll
+-rw-r--r--. 1 mio mio   280 Oct 27 20:34 Ultima.json
+```
+JSON : `json.load` OK sur les 6 fichiers de data/catalog.
+
+### 20:34 — merge A1 `m1/reader` (bff5438) → main `3e0675d`
+```
+$ git log --oneline -1
+3e0675d merge: m1/reader (A1) CombatReader + IntentParser
+$ dotnet build Ultima/Ultima.csproj -c Release
+    0 Error(s)
+    0 Warning(s)
+Build succeeded.
+$ dotnet test Ultima.Tests/Ultima.Tests.csproj -c Release
+Passed!  - Failed:     0, Passed:    12, Skipped:     0, Total:    12, Duration: 23 ms - Ultima.Tests.dll (net9.0)
+$ grep -rn "CardPileCmd\|DamageCmd\|PowerCmd.Apply\|CreatureCmd" Ultima/ --include=*.cs
+(exit 1 — 1 = aucun appel)
+$ bash tools/build.sh && ls -l build/mods/Ultima
+total 96
+-rw-r--r--. 1 mio mio 47616 Oct 27 20:34 Ultima.Core.dll
+-rw-r--r--. 1 mio mio 44032 Oct 27 20:34 Ultima.dll
+-rw-r--r--. 1 mio mio   280 Oct 27 20:34 Ultima.json
+```
+Revue chef : getters + `Hook.ModifyDamage` (calcul d'affichage du jeu) uniquement ; multiplicateurs
+lus (`ModelDb.Power<WeakPower>().DynamicVars["DamageDecrease"]`, PaperKrane, Debilitate, Cruelty) ;
+grep `0.75|1.5` sur GameApi → vide.
+
+### 20:35 — merge B1 `m4/forecast` (952e5ca) → main `cd20ae0` (poussé)
+Écart d'ordre : B1 mergé avant A2 (A2 non rendu, aucune dépendance entre eux).
+```
+$ git log --oneline -1
+cd20ae0 merge: m4/forecast (B1) F1/F2 engine, oracle, adapter
+$ dotnet build Ultima/Ultima.csproj -c Release
+    0 Error(s)
+    0 Warning(s)
+Build succeeded.
+$ dotnet test Ultima.Tests/Ultima.Tests.csproj -c Release
+Passed!  - Failed:     0, Passed:    49, Skipped:     0, Total:    49, Duration: 28 ms - Ultima.Tests.dll (net9.0)
+$ grep -rn "CardPileCmd\|DamageCmd\|PowerCmd.Apply\|CreatureCmd" Ultima/ --include=*.cs
+(exit 1 — 1 = aucun appel)
+$ bash tools/build.sh && ls -l build/mods/Ultima
+total 104
+-rw-r--r--. 1 mio mio 52736 Oct 27 20:35 Ultima.Core.dll
+-rw-r--r--. 1 mio mio 46080 Oct 27 20:35 Ultima.dll
+-rw-r--r--. 1 mio mio   280 Oct 27 20:35 Ultima.json
+```
+
+### Incohérence relevée dans SPEC.md §4 F2 (non modifiée : critère d'acceptation = hors discrétion)
+« `16x3` avec 20 block et 35 PV → 2e coup létal » est arithmétiquement faux : 48 − 20 = 28 < 35,
+le joueur survit à 7 PV. Les tests (LethalIndexTests + ForecastTests) prouvent la variante correcte
+(12 PV → 2e coup, overkill 16) et le cas 35 PV → 7 PV restants. **À corriger par Mio dans SPEC.md.**
