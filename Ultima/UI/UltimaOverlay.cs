@@ -18,7 +18,8 @@ public partial class UltimaOverlay : Control
     public const int ExpandedWidth = 260;
     public const double ExpandDuration = 0.18;
     public const double DefaultCollapseDelaySec = 2.5;
-    public const float RestAlpha = 0.35f;            // SPEC F7 : 0.25-0.35
+    public const float RestAlpha = 0.30f;            // skill sts2-overlay-ui ; SPEC F7 : 0.25-0.35
+    public const double FadeDuration = 0.15;         // fondu d'opacité au survol (skill : 150 ms)
     public const int Pad = 10;
     public const int ContentWidth = ExpandedWidth - RailWidth - 2 * Pad;
     public const int CriticalHpPercent = 30;
@@ -40,7 +41,8 @@ public partial class UltimaOverlay : Control
     private readonly List<EnemyRow> _rows = new();
     private readonly StyleBoxFlat[] _pastilles = new StyleBoxFlat[3];
     private Godot.Timer? _collapseTimer;
-    private Tween? _tween;
+    private Tween? _tween, _fadeTween;
+    private float _fadeTarget = RestAlpha;
     private Viewport? _viewport;
 
     private CombatSnapshot? _snapshot;
@@ -99,6 +101,7 @@ public partial class UltimaOverlay : Control
         {
             if (_viewport != null) _viewport.SizeChanged -= OnViewportSizeChanged;
             _tween?.Kill();
+            _fadeTween?.Kill();
         }
         catch (Exception ex) { ModEntry.Write($"ui _ExitTree: {ex}"); }
     }

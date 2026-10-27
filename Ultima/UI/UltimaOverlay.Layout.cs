@@ -120,7 +120,7 @@ public partial class UltimaOverlay
     {
         if (_expanded || _hidden) return;
         _expanded = true;
-        UpdateAlpha();
+        UpdateAlpha(animate: true);
         StartTween(1f);
     }
 
@@ -128,6 +128,7 @@ public partial class UltimaOverlay
     {
         if (!_expanded) return;
         _expanded = false;
+        UpdateAlpha(animate: true);
         StartTween(0f);
     }
 
@@ -153,12 +154,36 @@ public partial class UltimaOverlay
         catch (Exception ex) { ModEntry.Write($"ui tween done: {ex}"); }
     }
 
-    /// <summary>Repos 0.35 ; 1.0 si déployé ou si létal (statique, jamais de clignotement).</summary>
-    private void UpdateAlpha()
+    private float TargetAlpha()
+    {
+        float a = _expanded || _lethal ? 1f : RestAlpha;
+        return Math.Min(a, _placementAlpha);
+    }
+
+    /// <summary>
+    /// Repos 0.30 ; 1.0 si déployé ou si létal (statique, jamais de clignotement).
+    /// <paramref name="animate"/> : fondu one-shot 150 ms ease-out (survol / retour au repli) ;
+    /// sinon valeur posée directement (Render, placement).
+    /// </summary>
+    private void UpdateAlpha(bool animate = false)
     {
         if (_root == null) return;
-        float a = _expanded || _progress > 0f || _lethal ? 1f : RestAlpha;
-        a = Math.Min(a, _placementAlpha);
+        float a = TargetAlpha();
+        if (animate)
+        {
+            _fadeTween?.Kill();
+            _fadeTarget = a;
+            _fadeTween = CreateTween();
+            _fadeTween.TweenProperty(_root, "modulate:a", a, FadeDuration)
+                .SetTrans(Tween.TransitionType.Cubic)
+                .SetEase(Tween.EaseType.Out);
+            return;
+        }
+        if (_fadeTween != null && _fadeTween.IsValid() && _fadeTween.IsRunning())
+        {
+            if (Mathf.IsEqualApprox(_fadeTarget, a)) return; // le fondu en cours y va déjà
+            _fadeTween.Kill();
+        }
         if (!Mathf.IsEqualApprox(_root.Modulate.A, a)) _root.Modulate = _root.Modulate with { A = a };
     }
 
@@ -169,6 +194,7 @@ public partial class UltimaOverlay
         if (!_hidden) return;
         _collapseTimer?.Stop();
         _tween?.Kill();
+        _fadeTween?.Kill();
         _expanded = false;
         _hovered = false;
         ApplyProgress(0f);
