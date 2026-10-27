@@ -1,6 +1,8 @@
 using System;
 using System.IO;
+using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Runtime.Loader;
 using Godot;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Logging;
@@ -25,6 +27,12 @@ public static class ModEntry
             Directory.CreateDirectory(Path.GetDirectoryName(LogPath)!);
             Log.Warn($"[ULTIMA] boot — game {DetectGameVersion()} — log {LogPath}");
             Write("boot");
+
+            // Le resolver du jeu ne connait que `sts2` et `0Harmony` (ModManager.cs:892).
+            // Sans ca, Ultima.Core.dll n'est jamais trouve et l'injection echoue en
+            // FileNotFoundException. On charge nos DLL soeurs nous-memes.
+            AppDomain.CurrentDomain.AssemblyResolve += ResolveSiblingAssembly;
+            PreloadSiblingAssemblies();
             Config.UltimaConfig.Load();
             PreloadLibGcc();
             new Harmony(HarmonyId).PatchAll(typeof(ModEntry).Assembly);
@@ -45,6 +53,61 @@ public static class ModEntry
     /// → aucun patch appliqué, overlay inexistant. On force le chargement global ici pour
     /// que le symbole soit déjà résolu au moment du dlopen de Harmony.
     /// </summary>
+    /// <summary>Charge les DLL livrées à côté de Ultima.dll (ex. Ultima.Core.dll).</summary>
+    private static void PreloadSiblingAssemblies()
+    {
+        try
+        {
+            var dir = Path.GetDirectoryName(typeof(ModEntry).Assembly.Location);
+            if (string.IsNullOrEmpty(dir)) return;
+            // Le loader du jeu charge chaque mod dans son propre AssemblyLoadContext
+            // (ModManager.cs:718). On charge nos dépendances dans CE contexte, sinon on
+            // obtient deux identités de type différentes pour Ultima.Core.
+            var alc = AssemblyLoadContext.GetLoadContext(typeof(ModEntry).Assembly)
+                      ?? AssemblyLoadContext.Default;
+
+            foreach (var dll in Directory.GetFiles(dir, "*.dll"))
+            {
+                var name = Path.GetFileNameWithoutExtension(dll);
+                if (name is "Ultima" or "0Harmony" or "sts2" or "GodotSharp" or "GodotSharpEditor") continue;
+                try
+                {
+                    alc.LoadFromAssemblyPath(dll);
+                    Write($"assembly: {name} precharge (ALC {alc.Name ?? \"isole\"})");
+                }
+                catch (Exception ex)
+                {
+                    Write($"assembly: {name} non charge ({ex.GetType().Name})");
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Write($"assembly: preload failed {ex.Message}");
+        }
+    }
+
+    /// <summary>Filet de sécurité : résout toute DLL du dossier du mod à la demande.</summary>
+    private static Assembly? ResolveSiblingAssembly(object? sender, ResolveEventArgs args)
+    {
+        try
+        {
+            var simple = new AssemblyName(args.Name).Name;
+            if (string.IsNullOrEmpty(simple)) return null;
+            var dir = Path.GetDirectoryName(typeof(ModEntry).Assembly.Location);
+            if (string.IsNullOrEmpty(dir)) return null;
+            var candidate = Path.Combine(dir, simple + ".dll");
+            if (!File.Exists(candidate)) return null;
+            Write($"assembly: {simple} resolu a la demande");
+            return Assembly.LoadFrom(candidate);
+        }
+        catch (Exception ex)
+        {
+            Write($"assembly: resolution {args.Name} echouee ({ex.GetType().Name})");
+            return null;
+        }
+    }
+
     private const int RtldNow = 0x00002;
     private const int RtldGlobal = 0x00100;
 
