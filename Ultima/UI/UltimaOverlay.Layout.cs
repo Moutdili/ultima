@@ -103,6 +103,13 @@ public partial class UltimaOverlay
         _placementAlpha = r.Alpha;
         ApplyProgress(_progress);
         UpdateAlpha();
+
+        if (!_loggedLayout)
+        {
+            _loggedLayout = true;
+            ModEntry.Write($"ui layout: viewport={area.Size} pos={_root.GlobalPosition} " +
+                           $"size={_root.Size} alpha={TargetAlpha():F2} parent={GetParent()?.Name}");
+        }
     }
 
     /// <summary>t ∈ [0,1] : 0 = rail, 1 = déployé. S'étend vers la gauche, bord droit fixe.</summary>

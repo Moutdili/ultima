@@ -14,11 +14,11 @@ namespace Ultima.UI;
 /// </summary>
 public partial class UltimaOverlay : Control
 {
-    public const int RailWidth = 8;
+    public const int RailWidth = 14;                 // 8 px était invisible en jeu (retour Mio)
     public const int ExpandedWidth = 260;
     public const double ExpandDuration = 0.18;
     public const double DefaultCollapseDelaySec = 2.5;
-    public const float RestAlpha = 0.30f;            // skill sts2-overlay-ui ; SPEC F7 : 0.25-0.35
+    public const float RestAlpha = 0.62f;            // 0.30 rendait le rail indiscernable sur un décor chargé
     public const double FadeDuration = 0.15;         // fondu d'opacité au survol (skill : 150 ms)
     public const int Pad = 10;
     public const int ContentWidth = ExpandedWidth - RailWidth - 2 * Pad;
@@ -51,7 +51,7 @@ public partial class UltimaOverlay : Control
     private TurnForecast? _forecast;
     private IReadOnlyList<PriorityAlert> _alerts = Array.Empty<PriorityAlert>();
     private IReadOnlyList<Rect2> _avoid = Array.Empty<Rect2>();
-    private bool _built, _hidden, _detail, _expanded, _hovered, _lethal;
+    private bool _built, _hidden, _detail, _expanded, _hovered, _lethal, _loggedLayout;
     private float _progress, _expandedHeight = RailHeight, _rightX, _topY, _placementAlpha = 1f;
 
     /// <summary>Rendu sur événement (au plus 1×/frame). Réutilise les nodes ; liste reconstruite
@@ -262,6 +262,17 @@ public partial class UltimaOverlay : Control
             p.AddThemeStyleboxOverride("panel", _pastilles[i]);
             _rail.AddChild(p);
         }
+
+        // Liseré or sur le bord droit : repère visible même quand le panneau est replié,
+        // sur n'importe quel décor (retour Mio : « rien n'apparaît »).
+        var accent = new ColorRect
+        {
+            MouseFilter = MouseFilterEnum.Ignore,
+            Color = new Color(UltimaPalette.Gold, 0.85f),
+            Position = new Vector2(RailWidth - 2, 0),
+            Size = new Vector2(2, RailHeight),
+        };
+        _rail.AddChild(accent);
 
         BuildMenu();
 
