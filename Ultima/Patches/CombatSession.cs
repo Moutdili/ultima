@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Godot;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Nodes.Combat;
@@ -29,6 +30,11 @@ internal sealed class CombatSession
     private CombatState? _lastState;
     private bool _scheduled;
     private bool _stopped;
+
+    // SPEC §5 Performance : coût cible < 1 ms par mise à jour → mesuré et loggé en fin de session.
+    private int _refreshCount;
+    private double _refreshTotalMs;
+    private double _refreshMaxMs;
 
     private CombatSession(NCombatUi ui, UltimaOverlay overlay)
     {
@@ -89,6 +95,7 @@ internal sealed class CombatSession
     {
         _scheduled = false;
         if (_stopped) return;
+        var sw = Stopwatch.StartNew();
         try
         {
             if (!GodotObject.IsInstanceValid(_overlay) || _overlay.IsQueuedForDeletion())
@@ -115,6 +122,13 @@ internal sealed class CombatSession
         catch (Exception ex)
         {
             ModEntry.Write($"session: refresh failed {ex.GetType().Name}: {ex.Message}");
+        }
+        finally
+        {
+            var ms = sw.Elapsed.TotalMilliseconds;
+            _refreshCount++;
+            _refreshTotalMs += ms;
+            if (ms > _refreshMaxMs) _refreshMaxMs = ms;
         }
     }
 
@@ -158,7 +172,9 @@ internal sealed class CombatSession
             }
             MultiFeature.OnCombatEnd();
             if (ReferenceEquals(_current, this)) _current = null;
-            ModEntry.Write($"session: stopped ({reason})");
+            var avg = _refreshCount > 0 ? _refreshTotalMs / _refreshCount : 0;
+            ModEntry.Write($"session: stopped ({reason}) refreshes={_refreshCount} " +
+                           $"avg={avg:0.###}ms max={_refreshMaxMs:0.###}ms (cible < 1 ms)");
         }
         catch (Exception ex)
         {
