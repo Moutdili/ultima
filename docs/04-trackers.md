@@ -123,6 +123,20 @@ au lieu de mentir. C'est le modèle à reprendre pour F5 (RunScore).
 **Règle** : on lit pour comprendre, on réimplémente. Aucun copier-coller de code tiers
 sans vérifier la licence du dépôt.
 
+## Licences (vérifiées dépôt par dépôt)
+
+| Dépôt | Licence | Conséquence |
+|---|---|---|
+| STS2MCP | MIT (© Yikun Ji) | réutilisation autorisée avec notice |
+| **STS2-DamageTracker** (BAIGUANGMEI) | **MIT** | réutilisation autorisée avec notice |
+| CombatSolver | MIT (© Torch1230) | idem |
+| spirescope, BaseLib, Modding-Tutorial, tierlist-overlay, ViewedCardsStatistics | MIT | idem |
+| **Slay-the-Spire-2-Damage-Logger** (Hsyuan) | **GPL** | ⚠️ copyleft : ne pas copier ni lier |
+| sts2-multiplayer-damage-stat, sts2decktracker, sts2-deck-tracker, sts2-advisor, ModTemplate | aucune | réimplémenter |
+
+Correction par rapport à la première version de ce document : `STS2-DamageTracker` **a** une
+licence MIT (et non « aucune »), et le Damage-Logger est GPL (piège à éviter).
+
 ## Risques concurrentiels (à surveiller)
 
 1. **CombatSolver passe Linux + multi** → il mangerait F1/F2. Aujourd'hui : Windows/solo.

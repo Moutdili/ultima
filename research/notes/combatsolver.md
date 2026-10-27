@@ -13,17 +13,17 @@ Le dépôt suit une règle de dépendance stricte documentée : `Runtime` captur
 
 | Répertoire | Fichiers `.cs` | Rôle réel | Classes pivots |
 |---|---:|---|---|
-| `src/Engine/Common` | 23 | Plomberie de données partagée : clonage, identité d'objets, side-tables, caches de modèles. **Aucune règle de combat.** | `PredictionForkContext`, `PredictionStateStore`, `PredictedCard`, `SimCardPile`, `CanonicalModels`, `DynamicVarSetAccess` |
+| `src/Engine/Common` | 28 (dont 5 dans `Common/Mirrors`) | Plomberie de données partagée : clonage, identité d'objets, side-tables, caches de modèles. **Aucune règle de combat.** | `PredictionForkContext`, `PredictionStateStore`, `PredictedCard`, `SimCardPile`, `CanonicalModels`, `DynamicVarSetAccess` |
 | `src/Engine/InCombat/Simulation` | 36 | Le moteur de commandes : `CombatPredictionSimulator` en 30+ partials (Attack, Damage, Block, Card, CardPile, Draw, Energy, EndTurn, Potion, Orb, Heal, PowerAmounts…) + `SimulatedCombatState` | `CombatPredictionSimulator` (`CombatPredictionSimulator.cs:19`), `SimulatedCombatState` (`SimulatedCombatState.cs:30`) |
-| `src/Engine/InCombat/Mirrors` | 10 + sous-dossiers `Hooks/*` | Ré-implémentations **synchrones** des hooks vanilla (async côté natif), classées par domaine : Attack, Block, Card, Damage, Death, Power, Relic, TurnStart/TurnEnd | `HookMirrors` (+ 8 partials), `MethodMirrorRegistry<T>`, `MirrorMethodSpec` |
+| `src/Engine/InCombat/Mirrors` | 10 + sous-dossiers `Hooks/*` | Ré-implémentations **synchrones** des hooks vanilla (async côté natif), classées par domaine : Attack, Block, Card, Damage, Death, Power, Relic, TurnStart/TurnEnd | `HookMirrors` (7 fichiers, 6 partials), `MethodMirrorRegistry<T>`, `MirrorMethodSpec` |
 | `src/Search` | 176 | Beam search, rétention, scoring, budgets, portefeuilles de largeur, continuations. Le plus gros bloc du dépôt. | `CombatBeamSolver` (~30 partials), `CombatSearchCoordinator` (7 partials), `BeamRetentionPolicy`, `StateEvaluation` |
 | `src/Prediction` | 56 | Compensations de domaine, une par mécanique : pouvoirs, reliques, potions, IA de monstre, enchantements, orbes, choix | `IntentForecaster`, `BranchMonsterAi`, `MonsterMoveSemantics`, `PersistentPowerSupport`, `PlayerTurnEndLifecycle` |
 | `src/Api` | 6 | Surface publique v6 + worker isolé | `PreCombatForecastApi`, `PreCombatForecastContracts`, `PreCombatForecastWorker` |
 | `src/Runtime` | 64 | Capture de la racine sur le thread principal, orchestration, déploiement natif, GC/NoGC, notifications, statistiques | `Entry`, `SolverController` (3 714 lignes), `SolverDispatcher`, `CombatRootSnapshot`, `SearchGcPolicy` |
 | `src/Strategy` | **1** | **Ce n'est pas une couche stratégie.** Un seul fichier de maths « value-only » partagées entre conseil de run et évaluation de branche | `CardMechanismFacts` (`CardMechanismFacts.cs:4`) — `AttackHits`, `ImmediateShivSupply`, `EstimatedShivPlays` |
-| `src/UI` | 28 | Rendu du snapshot uniquement ; `SolverOverlaySnapshot.Capture` est l'unique frontière de projection (`docs/ARCHITECTURE.md:105`) | `SolverOverlay`, `SolverRouteRow`, `SolverActionPill` |
+| `src/UI` | 28 | Rendu du snapshot uniquement ; `SolverOverlaySnapshot.Capture` est l'unique frontière de projection (`docs/ARCHITECTURE.md:98`) | `SolverOverlay`, `SolverRouteRow`, `SolverActionPill` |
 | `src/Diagnostics` | 3 | Enregistrement perf opt-in (P/Invoke Windows) | `PerformanceSession`, `PerformanceRecording` |
-| `src/Testing` | ~39 | Hôte de test headless, protocole fichier, assertions | `UnattendedTestRunner`, `ProtocolHost` |
+| `src/Testing` | 239 | Hôte de test headless, protocole fichier, assertions | `UnattendedTestRunner`, `ProtocolHost` |
 
 **Boucle d'exécution** (`docs/ARCHITECTURE.md:9`) : capture d'une racine stable sur le thread principal → gel de la politique → recherche en arrière-plan sur des branches ombre → retour sur le thread principal → déploiement via les entrées natives publiques → vérification du stamp de continuation ou nouvelle capture.
 
@@ -239,7 +239,7 @@ Contraintes codées en dur :
 - `ForecastAsync` / `SimulateAsync` / `SimulatePlanningAsync` **ne jettent pas** : elles renvoient `PreCombatForecastStatus.Unsupported` avec le message « Windows only » (`:93-99`, `:217-223`, `:356-362`) et vérifient `NGame.IsMainThread()` (`:364-370`, `:100-106`, `:224-230`).
 - `ValidateOptions` (`:616-652`) borne : `SearchBudgetMilliseconds` ∈ [1 000, 30 000] (`:627-628`), `OverallTimeoutMilliseconds` ≥ budget + 10 000 et ≤ 180 000 (`:629-633`), `MaxDegreeOfParallelism` ∈ [1, 16] (`:634-635`), cohérence `MapPointKind`/`RoomKind` (`:638-650`).
 
-Sémantique : la prévision **ne construit jamais de combat dans le processus courant**. Elle sérialise le run complet, fabrique un token d'état opaque, puis lance un **processus de jeu Windows headless** possédant le même ensemble de mods ; le résultat n'est publié qu'après revalidation du run, du combat et du token (`README.md:44`, `:577-609`). Toute divergence renvoie `LiveStateChanged`.
+Sémantique : la prévision **ne construit jamais de combat dans le processus courant**. Elle sérialise le run complet, fabrique un token d'état opaque, puis lance un **processus de jeu Windows headless** possédant le même ensemble de mods ; le résultat n'est publié qu'après revalidation du run, du combat et du token (`README.md:44`, `PreCombatForecastApi.cs:577-609`). Toute divergence renvoie `LiveStateChanged`.
 
 ### 3.5 `PreCombatForecastContracts` — champs exacts
 
@@ -440,7 +440,7 @@ pour chaque hit h dans [0 .. repeats-1] :
     reste -= (d - absorbé)                                      // LoseHp, SimCreatureState.cs:63-64
     si reste <= 0 → létal au coup h, overkill = -reste
 ```
-Points de vigilance mesurés dans le code : le block est un `int` donc l'absorbé est tronqué (`SimCreatureState.cs:55`) ; il n'y a **qu'une** troncature, dans `LoseHp` (`:63`), pas dans `ModifyDamage` ; `Vulnerable` s'applique avant le block (`CombatPredictionSimulator.Damage.cs:139` vs `:161`).
+Points de vigilance mesurés dans le code : le block est un `int`, donc l'absorbé est tronqué (`SimCreatureState.cs:55`) ; `ModifyDamage` n'arrondit jamais (multiplications `decimal`), la conversion decimal→int des PV se fait une seule fois dans `LoseHp` (`:63`) ; `Vulnerable` s'applique avant le block (`CombatPredictionSimulator.Damage.cs:139` vs `:161`).
 
 **Garde-fou d'exactitude** : le dépôt refuse de prétendre à l'exactitude quand `attack.DamageCalc` est dynamique sur un move non listé (`IntentForecaster.cs:128-132`) et expose `IsExactForModeledDamage` (`:103`). Reproduire ce booléen est plus utile que de forcer un chiffre : c'est ce qui distingue « 16×3, létal » de « 16×3 environ, létal peut-être ».
 
@@ -524,7 +524,7 @@ Suivi du texte MIT standard (permission d'usage/copie/modification/fusion/public
 
 ---
 
-## 10 idées concrètes à voler pour ULTIMA
+## 11. 10 idées concrètes à voler pour ULTIMA
 
 Classées par **rapport gain / effort** décroissant. « Gain » = ce que ça apporte aux features F1/F2/F5 ; « Effort » = ce qu'il faut écrire côté ULTIMA.
 
@@ -532,7 +532,7 @@ Classées par **rapport gain / effort** décroissant. « Gain » = ce que ça ap
 |---|---|---|---|---|
 | 1 | **Table `(monster, moveId) → (baseDamage, repeats)` figée au chargement**, comme `BranchMonsterStaticSnapshot.Capture` (`BranchMonsterAi.cs:40-90`) | ★★★★★ F2 | ★ | Une seule passe sur les `MoveState` au démarrage, puis zéro réflexion en combat. Donne directement le 16×3. |
 | 2 | **`AdjustForecastAttack` : passer le dégât d'intent dans `ModifyDamage` avec `ValueProp.Move`** (`CorePowerSupport.cs:717-732`) | ★★★★★ F1 | ★★ | Applique Weak/Vulnerable/Force exactement comme le jeu, sans rejouer un combat. C'est *la* brique qui rend F1 juste plutôt qu'approximatif. |
-| 3 | **Lire les multiplicateurs depuis `DynamicVars["DamageDecrease"|"DamageIncrease"]` au lieu de coder 0.25/0.5** (`ModifyDamageMirrors.cs:215,237`) + `DynamicVarSetAccess` comme pont (`DynamicVarSetAccess.cs:29-48`) | ★★★★ F1 | ★ | Immunise contre les reliques (`PaperKrane`, `PaperPhrog`, `Cruelty`, `Debilitate`) et les changements de version. |
+| 3 | **Lire les multiplicateurs depuis `DynamicVars["DamageDecrease"]` et `DynamicVars["DamageIncrease"]` au lieu de coder 0.25/0.5** (`ModifyDamageMirrors.cs:215,237`) + `DynamicVarSetAccess` comme pont (`DynamicVarSetAccess.cs:29-48`) | ★★★★ F1 | ★ | Immunise contre les reliques (`PaperKrane`, `PaperPhrog`, `Cruelty`, `Debilitate`) et les changements de version. |
 | 4 | **Index de létalité par coup avec absorption de block séquentielle** (§8), branché sur `SimCreatureState.DamageBlock`/`LoseHp` comme référence sémantique (`SimCreatureState.cs:49-72`) | ★★★★★ F2 | ★★ | Répond exactement à « 16×3 : lequel tue ? ». Une boucle de 3 itérations, aucun état. |
 | 5 | **Booléen de confiance `IsExactForModeledDamage` + liste des raisons** (`IntentForecaster.cs:19-27, 103`) | ★★★★ F1/F2 | ★ | Afficher « exact » vs « estimé » vaut mieux qu'un chiffre faux. Le dépôt montre comment accumuler `UnsupportedDetails`/`ApproximationDetails` en `HashSet<string>` triés. |
 | 6 | **`LiveEndTurnRiskEvaluator` : rejouer *un seul* demi-tour sur un `SimulatedCombatState` jetable** (`LiveEndTurnRiskEvaluator.cs:21-150`) | ★★★★ F1 | ★★★ | Donne la perte de PV réelle du tour ennemi, block et morts compris, sans beam. C'est le pont entre « instantané » et « simulation profonde » pour plus tard. |
@@ -540,8 +540,6 @@ Classées par **rapport gain / effort** décroissant. « Gain » = ce que ça ap
 | 8 | **`RelicCounterCatalog` : table relique → période** (`RelicCounterCatalog.cs:10-23`) | ★★★ F5 | ★ | Données prêtes à l'emploi pour un scoring « prochain déclenchement ». 11 reliques, aucune logique. |
 | 9 | **Clé de cache d'état à 128 bits (`StateFingerprint`)** (`StateFingerprint.cs:5-57`) | ★★★ F5 / cache | ★★ | Permet un cache de prévision invalidé par état exact plutôt que par un hash de texte. Deux chaînes indépendantes, zéro allocation. |
 | 10 | **`FastLaneVerification` : variable d'environnement unique qui rejoue le chemin lent et jette à la première divergence** (`FastLaneVerification.cs:16-21`) | ★★★ qualité | ★ | Patron de test différentiel à coût nul en production, activable seulement en CI. À reprendre tel quel pour valider F1/F2 contre un calcul naïf. |
-| 11 | **`PlanAction` comme format d'export valeur-pur** (22 champs, `CombatPlan.cs:132-171`) | ★★ F5 | ★★ | Si ULTIMA doit exporter/importer des routes, ce record est déjà sérialisable sans référence d'objet. |
-| 12 | **`TranspositionFrontier` : frontière Pareto à 5 dimensions au lieu d'un meilleur score** (`CombatBeamSolver.Transpositions.cs:22-55`) | ★★ F5 futur | ★★★★ | Utile seulement si ULTIMA fait un jour de la recherche. À garder pour le mode « simulation profonde », pas avant. |
 
 **Les trois à faire en premier** : #1 (table statique), #2 (`ModifyDamage` sur les intents), #4 (boucle de létalité). Ensemble ils couvrent F1 et F2 avec environ 150 lignes de C# et aucune dépendance au solveur.
 
