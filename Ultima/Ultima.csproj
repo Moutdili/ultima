@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Godot.NET.Sdk/4.5.1">
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <LangVersion>latest</LangVersion>
@@ -7,6 +7,12 @@
     <AssemblyName>Ultima</AssemblyName>
     <RootNamespace>Ultima</RootNamespace>
     <EnableDynamicLoading>true</EnableDynamicLoading>
+    <!-- Godot.NET.Sdk = generateurs de source Godot : SANS eux, _Ready/_Process/_UnhandledInput
+         d'un node du mod ne sont jamais appeles par le moteur (HasGodotClassMethod absent).
+         Meme SDK que la prior art (sts2decktracker, ModTemplate). Verifie sur 0.107.1. -->
+    <GodotDisabledSourceGenerators>GodotPluginsInitializer</GodotDisabledSourceGenerators>
+    <!-- Godot.NET.Sdk sort par defaut dans .godot/mono/temp/bin : on garde le chemin de tools/build.sh -->
+    <OutputPath>bin/$(Configuration)/net9.0/</OutputPath>
     <!-- Chemin du jeu, surchargeable : -p:Sts2DataDir=... -->
     <Sts2DataDir Condition="'$(Sts2DataDir)' == ''">$(HOME)/.var/app/com.valvesoftware.Steam/.local/share/Steam/steamapps/common/Slay the Spire 2/data_sts2_linuxbsd_x86_64</Sts2DataDir>
   </PropertyGroup>
@@ -29,9 +35,11 @@
       <HintPath>$(Sts2DataDir)/0Harmony.dll</HintPath>
       <Private>false</Private>
     </Reference>
-    <Reference Include="GodotSharp">
-      <HintPath>$(Sts2DataDir)/GodotSharp.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <!-- Ressources embarquees dans Ultima.dll (R7 : aucun .json dans mods/ hors manifest).
+         Lecture : Assembly.GetManifestResourceStream("<LogicalName>"). -->
+    <EmbeddedResource Include="UI/Shaders/*.gdshader" LogicalName="Ultima.Shaders.%(Filename)%(Extension)" />
+    <EmbeddedResource Include="../data/catalog/priority_cards.json" LogicalName="Ultima.Catalog.priority_cards.json" />
   </ItemGroup>
 </Project>
