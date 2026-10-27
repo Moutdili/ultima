@@ -19,7 +19,7 @@
 | G3 Read-only | ✅ M0 | grep des appels interdits → aucune ligne (exit 1) |
 | G4 Charge (`overlay injected`) | ⏳ humain | jeu non lançable par l'agent ; pas encore de `ultima.log` |
 | G5 Exactitude (3 rencontres) | ⏳ humain | — |
-| G6 CI | ✅ main@074e06e | GitHub API : workflow `CI` completed/success sur `074e06e` |
+| G6 CI | ✅ main@03132ab + toutes les branches | GitHub API 20:45 : `CI` completed/success sur main (03132ab, 13d8b88, f086ac2, cd20ae0, 8330a59) et m1-m5 (têtes bff5438, 33628f8, 5f314d8, 952e5ca, d70795d) |
 
 ## M0 — bootstrap (20:15 → 20:30)
 
@@ -63,6 +63,19 @@ message) reste active. Le ping F7 de la V0.1 sera aussi soumis à ce drapeau.
 **D6 — `Ultima/Config/**` (UltimaConfig, `mods/Ultima/ultima.cfg`) appartient au chef.**
 `ModEntry` charge la config au boot et logge `ULTIMA ready — game <version>` (SPEC §10.2).
 
+**D7 — Overlay V0.1 retiré (`Ultima/Overlay/UltimaOverlay.cs`).** Remplacé par
+`Ultima.UI.UltimaOverlay` (A2), qui reprend F8 et lève F7 → `NetBridge.SendPing` (soumis à D4).
+Garder le V0.1 = touches F7/F8 traitées deux fois s'il était réinjecté + `new Color(...)` littéral
+contraire à docs/17 §8. `NetBridge`/`UltimaPingMessage` sont conservés et utilisés (R2).
+`tools/verify-deploy.sh` (Hermes) pointait sur le type V0.1 → repointé sur `Ultima.UI.UltimaOverlay`.
+
+**D8 — Vague 3 en parallèle.** P0-P2 committés/testés/poussés à 20:44. Lancement simultané :
+A4 (revue charte, lecture seule), C1 (badge F3 sur la carte en main — complète P1), C2 (F5 RunScore,
+P4). L'ordre de MERGE respecte la priorité (C1 avant C2) ; F6 (P5) non lancé.
+
+**D9 — PID dans chaque ligne de log** (`[<pid>]`) : en multi local, host et client partagent
+`mods/Ultima/ultima.log` (tools/multi-lab.sh lance les 2 instances depuis le même dossier de jeu).
+
 ## Propriété des fichiers (ce run)
 
 | Agent | Branche | Possède |
@@ -74,6 +87,8 @@ message) reste active. Le ping F7 de la V0.1 sera aussi soumis à ce drapeau.
 | B1 Forecast | m4/forecast | `Ultima/Features/Forecast/**`, `Ultima.Core/Forecast/**`, `Ultima.Tests/ForecastTests.cs` |
 | B2 Multi | m5/multi | `Ultima/Features/Multi/**`, `Ultima/Features/Priority/**`, `Ultima.Tests/PriorityTests.cs` |
 | A4 Design QA | m6/design-qa | `docs/18-design-qa.md` (lecture seule ailleurs) |
+| C1 Badge | m7/badge | `Ultima/Features/Priority/HandBadges.cs` |
+| C2 Score | m8/score | `Ultima.Core/Score/**`, `Ultima.Tests/ScoreTests.cs`, `Ultima/Features/Score/**` |
 
 ## Journal de merge
 
@@ -167,7 +182,80 @@ handlers désenregistrés en fin de combat (`INetGameService.UnregisterMessageHa
 Remarque B2 retenue : `NetBridge.Attach()`/`SendPing` (V0.1) seront aussi soumis à la config
 dans le câblage chef.
 
+### 20:42 — merge A2 `m2/ui` (e81f4e0 … 33628f8) → main `a3d9d06`
+```
+$ git log --oneline -1
+a3d9d06 merge: m2/ui (A2) glass overlay: rail, expansion, levels, co-op colors
+$ dotnet build Ultima/Ultima.csproj -c Release
+    0 Error(s)
+    0 Warning(s)
+Build succeeded.
+$ dotnet test Ultima.Tests/Ultima.Tests.csproj -c Release
+Passed!  - Failed:     0, Passed:    64, Skipped:     0, Total:    64, Duration: 30 ms - Ultima.Tests.dll (net9.0)
+$ grep -rn "CardPileCmd\|DamageCmd\|PowerCmd.Apply\|CreatureCmd" Ultima/ --include=*.cs
+(exit 1 — 1 = aucun appel)
+$ bash tools/build.sh && ls -l build/mods/Ultima
+total 160
+-rw-r--r--. 1 mio mio 59392 Oct 27 20:42 Ultima.Core.dll
+-rw-r--r--. 1 mio mio 98304 Oct 27 20:42 Ultima.dll
+-rw-r--r--. 1 mio mio   280 Oct 27 20:42 Ultima.json
+```
+Écarts de process A2 (acceptés) : e81f4e0 = 276 lignes (> 250) ; 4bd5486 ne compile pas seul
+(moitié de classe partial, complétée par 5a5aed7) — la tête de branche est verte.
+
+### 20:43-20:46 — câblage chef `af94f07` (+ `03132ab` verify-deploy, `3bf36aa` PID) → déployé
+`CombatSession` : CombatSetUp / CombatStateChanged / TurnStarted → CombatReader → DamageForecast →
+PriorityFeature + MultiFeature → `UltimaOverlay.Render` (≤ 1×/frame) ; AvoidRects (intents, main,
+bouton fin de tour). Incident : `3bf36aa` a d'abord été committé avec une erreur de build
+(`Environment` ambigu Godot/System) — corrigé et amendé AVANT tout push ; règle appliquée depuis :
+commit conditionné au build vert.
+```
+$ git log --oneline -1
+3bf36aa feat(core): tag each log line with the process id
+$ dotnet build Ultima/Ultima.csproj -c Release
+    0 Error(s)
+    0 Warning(s)
+Build succeeded.
+$ dotnet test Ultima.Tests/Ultima.Tests.csproj -c Release
+Passed!  - Failed:     0, Passed:    64, Skipped:     0, Total:    64, Duration: 30 ms - Ultima.Tests.dll (net9.0)
+$ grep -rn "CardPileCmd\|DamageCmd\|PowerCmd.Apply\|CreatureCmd" Ultima/ --include=*.cs
+(exit 1 — 1 = aucun appel)
+$ bash tools/build.sh && ls -l build/mods/Ultima
+total 164
+-rw-r--r--. 1 mio mio 59392 Oct 27 20:46 Ultima.Core.dll
+-rw-r--r--. 1 mio mio 99328 Oct 27 20:46 Ultima.dll
+-rw-r--r--. 1 mio mio   280 Oct 27 20:46 Ultima.json
+$ bash tools/deploy.sh && bash tools/verify-deploy.sh
+build   : 20:46:01  99328 o
+déployé : 20:46:03  99328 o
+✅ callbacks Godot présents (3 marqueurs)
+✅ déploiement à jour
+```
+
 ### Incohérence relevée dans SPEC.md §4 F2 (non modifiée : critère d'acceptation = hors discrétion)
 « `16x3` avec 20 block et 35 PV → 2e coup létal » est arithmétiquement faux : 48 − 20 = 28 < 35,
 le joueur survit à 7 PV. Les tests (LethalIndexTests + ForecastTests) prouvent la variante correcte
 (12 PV → 2e coup, overkill 16) et le cas 35 PV → 7 PV restants. **À corriger par Mio dans SPEC.md.**
+
+## PRÊT POUR TEST HUMAIN (build déployé : main@3bf36aa, 20:46)
+
+Log : `<jeu>/mods/Ultima/ultima.log` · Config : `<jeu>/mods/Ultima/ultima.cfg` (créé au 1er boot).
+
+1. Lancer le jeu → le log contient `ULTIMA ready — game v0.107.1` puis `config: …`.
+2. Entrer en combat → attendre `overlay injected` puis `session: started (multi=False, custom_net=False)`
+   et `ULTIMA state: <n> enemies, <n> intents`.
+3. Overlay : rail de 8 px au bord droit (3 pastilles), survol → panneau verre 260 px ; retour au rail
+   après 2,5 s ; F8 masque ; F9 détail (variantes Weak/Vuln, total du tour, label du jeu).
+4. **G5 exactitude (3 rencontres)** : pour chaque ennemi, `NxM` affiché == chiffres de l'intent du jeu.
+   Le log ne doit contenir AUCUN `forecast: oracle mismatch` ni `reader: raw/perHit mismatch`.
+5. Létalité : avec un block connu, vérifier « Ne coup LÉTAL » / « tout bloqué » à la main.
+6. F3 : une carte prioritaire jouable (ex. Fetch qui brille en or) → ligne `PRIO` dans l'overlay.
+7. FPS avec le flou ≥ 55 (sinon `[ui] blur_amount=1.0` dans ultima.cfg, puis 0 = repli sans flou).
+8. Aucun chevauchement main / intents / bouton fin de tour en 1080p, 1440p, 21:9.
+9. Multi (2 instances, même machine) : `bash tools/multi-lab.sh` (host `--fastmp=host_standard`,
+   client `--fastmp=join --clientId=1001`).
+   - config OFF (défaut) : `multi: voie A active (HoverChanged)` ; B survole une carte prioritaire →
+     chez A `multi: hover <B> -> <Carte> (prio)` + ligne PRIO distante colorée au personnage de B.
+   - config ON (`[net] custom_messages=true`, fichier partagé par les 2 instances) : F7 → `net: ping
+     sent` / `net: ping received` ; `multi: hello sent/received` ; `multi: priority sent/received`.
+   - lignes préfixées `[<pid>]` pour distinguer host et client.
