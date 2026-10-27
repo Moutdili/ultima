@@ -13,3 +13,8 @@ research/repos/
 
 # exports locaux
 *.log
+# artefacts locaux d'agents
+.claude/
+.mcp.json.bak
+status/
+

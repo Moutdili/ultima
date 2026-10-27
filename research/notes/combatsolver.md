@@ -62,9 +62,9 @@ Le tour est découpé en phases nommées, pas en une méthode unique.
 - Exécution des moves : roster figé `actingEnemies` (`:1045`), boucle `:1115`, skip stun `ConsumeStunNextMove` (`:1120`), move forcé `TryConsumeForcedMonsterMove` (`:1125`), puis `MonsterMoveSemantics.ApplyForecastMove(...)` (`:1162`).
 - Après les moves : `TriggerEnemySideTurnEndEffects` (`:1186`), poison joueur (`:1201`), `PrepareMonsterMovesForNextRound` (`:1222`).
 - Début de tour joueur : `AdvanceRoundPlayerStart` (`CombatBeamSolver.RoundTransition.cs:11`) → `CurrentSide = Player` (`:25`), `RoundNumber++` (`:27`), `AdvancePlayerTurn` (`:28`), `BeginSideTurn` (`:29`), snapshot des montants de pouvoirs (`:30`), `BeforeSideTurnStart` (`:32`).
-- Reset block joueur : `ShouldClearBlock` puis `DamageBlock(Block, ValueProp.Move)`, sinon `PersistentRelicSupport.TriggerAfterPreventingBlockClear` (`RoundTransition.cs:38-47`).
-- Reset énergie : `ShouldPlayerResetEnergy(...)` → `LoseEnergy(Energy)` puis `GainEnergy(GetModifiedMaxEnergy(...) + ConsumeEnergyNextTurn(...))` (`RoundTransition.cs:56-59`).
-- Pioche : `PrepareBeforeHandDraw` → `PersistentPowerSupport.ConsumeModifiedHandDraw(combat, player, CombatManager.baseHandDrawCount)` → `simulator.Draw(player, progress.DrawCount, fromHandDraw: true)` (`TurnExecutionContinuation.cs:82,94,113`).
+- Reset block joueur : `ShouldClearBlock` puis `DamageBlock(Block, ValueProp.Move)`, sinon `PersistentRelicSupport.TriggerAfterPreventingBlockClear` (`CombatBeamSolver.RoundTransition.cs:38-47`).
+- Reset énergie : `ShouldPlayerResetEnergy(...)` → `LoseEnergy(Energy)` puis `GainEnergy(GetModifiedMaxEnergy(...) + ConsumeEnergyNextTurn(...))` (`CombatBeamSolver.RoundTransition.cs:56-59`).
+- Pioche : `PrepareBeforeHandDraw` → `PersistentPowerSupport.ConsumeModifiedHandDraw(combat, player, CombatManager.baseHandDrawCount)` → `simulator.Draw(player, progress.DrawCount, fromHandDraw: true)` (`CombatBeamSolver.TurnExecutionContinuation.cs:82,94,113`).
 - Compteurs par tour remis à zéro dans `BeginSideTurn` (attaques, shivs, cartes block/skill, exhausts, défausses, énergie/étoiles dépensées…) — `SimulatedCombatState.cs:1260-1293`.
 - Durées Weak/Vulnerable/Frail/Intangible/NoBlock : `CorePowerSupport.TickDurations` (`CorePowerSupport.cs:703-715`).
 
@@ -154,7 +154,7 @@ Motifs (`PredictionRiskReason`, `PredictionRisk.cs:3-10`) : `MethodNotMirrored`,
 
 Entrée concrète : `internal sealed class CombatPredictionRiskEntry : CombatPredictionHistoryEntry { public required PredictionRiskReason Reason { get; init; } }` (`CombatPredictionHistoryEntry.cs:83-86`), avec `Index` et `Trace` hérités (`:76-81`).
 
-Émission : `MethodMirrorRegistry` mappe `Inferred` → `RecordMethodMirrorIncompleteRisk()` et `Unsupported` → `RecordMethodNotMirroredRisk()` (`MethodMirrorRegistry.cs:240-272`), résolus en `History.RecordRisk(...)` (`CombatMirrorContext.cs:39-47`). Le scoring transforme cela en pénalité : `RiskPenalty = -2_000` quand un gap non compensé existe (`SolverWeights.cs:14`, `StateEvaluation.cs:504-505`).
+Émission : `MethodMirrorRegistry` mappe `Inferred` → `RecordMethodMirrorIncompleteRisk()` et `Unsupported` → `RecordMethodNotMirroredRisk()` (`MethodMirrorRegistry.cs:240-272`), résolus en `History.RecordRisk(...)` (`CombatMirrorContext.cs:39-47`). Le scoring transforme cela en pénalité : `RiskPenalty = -2_000` quand un gap non compensé existe (`SolverWeights.cs:14`, `CombatBeamSolver.StateEvaluation.cs:504-505`).
 
 **`PreCombatForecastRisk` n'existe pas** — recherche sur `src/` et `docs/` : ABSENT.
 
@@ -171,13 +171,13 @@ Puis, par cible, dans `TryDamageTarget` :
 | 1b | passe **additive** (Force, etc.) : `damage += additive` | `HookMirrors.cs:800-812` |
 | 1c | passe **multiplicative** (Weak, Vulnerable, Surrounded…) : `damage *= multiplier` | `HookMirrors.cs:814-830` |
 | 1d | `ModifyDamageCap` puis `Math.Max(0, Math.Min(damage, cap))` | `HookMirrors.cs:833-838` |
-| 2 | `BeforeDamageReceived` (reçoit le montant déjà modifié, ne peut pas le changer) | `Damage.cs:149` ; facade `HookMirrors.cs:989-1014` |
-| 3 | absorption par block : `blockTargetState.DamageBlock(modifiedAmount, props)` | `Damage.cs:159-161` |
-| 4 | `ModifyHpLost` phase `BeforeOsty` | `Damage.cs:163-171` |
-| 5 | redirection de cible (`ModifyUnblockedDamageTarget`, pets) | `Damage.cs:175-180` |
-| 6 | `ModifyHpLost` phase `AfterOsty` + `AfterModifyingHpLostAfterOsty` | `Damage.cs:184-193` |
-| 7 | soustraction de PV : `SimCreatureState.LoseHp` | `Damage.cs:199` ; impl `SimCreatureState.cs:59-72` |
-| 8 | hooks post : `AfterBlockBroken` → `AfterCurrentHpChanged` → `AfterDamageGiven` → `AfterDamageReceived/Late` | `Damage.cs:280,287,292,304` |
+| 2 | `BeforeDamageReceived` (reçoit le montant déjà modifié, ne peut pas le changer) | `CombatPredictionSimulator.Damage.cs:149` ; facade `HookMirrors.cs:989-1014` |
+| 3 | absorption par block : `blockTargetState.DamageBlock(modifiedAmount, props)` | `CombatPredictionSimulator.Damage.cs:159-161` |
+| 4 | `ModifyHpLost` phase `BeforeOsty` | `CombatPredictionSimulator.Damage.cs:163-171` |
+| 5 | redirection de cible (`ModifyUnblockedDamageTarget`, pets) | `CombatPredictionSimulator.Damage.cs:175-180` |
+| 6 | `ModifyHpLost` phase `AfterOsty` + `AfterModifyingHpLostAfterOsty` | `CombatPredictionSimulator.Damage.cs:184-193` |
+| 7 | soustraction de PV : `SimCreatureState.LoseHp` | `CombatPredictionSimulator.Damage.cs:199` ; impl `SimCreatureState.cs:59-72` |
+| 8 | hooks post : `AfterBlockBroken` → `AfterCurrentHpChanged` → `AfterDamageGiven` → `AfterDamageReceived/Late` | `CombatPredictionSimulator.Damage.cs:280,287,292,304` |
 
 Points durs :
 - `LoseHp` est **le seul point de troncature decimal→int** du pipeline : `damage = (int)Math.Min(amount, 999999999m)` puis `CurrentHp = Math.Max(CurrentHp - damage, 0)` (`SimCreatureState.cs:63-64`).
@@ -201,7 +201,7 @@ Les deux sont enregistrés dans le **même** registre multiplicatif (`ModifyDama
 
 **Ordre Weak vs Vulnerable** : ABSENT. Aucun tri, aucune priorité, aucune doc — les deux passent dans la boucle des listeners dans l'ordre d'énumération (`HookMirrors.cs:814-830` sur la liste construite en `SimulatedCombatState.cs:1969-2062`). **Mais** chaque étape est une multiplication `decimal` sans arrondi, donc les deux commutent ; seuls le cap (`:833-836`) et le clamp final `Math.Max(0, …)` (`:838`) dépendent de l'ordre.
 
-**Block vs Weak/Vulnerable** : block vient **strictement après** — les multiplicateurs s'appliquent à `modifiedAmount` avant `DamageBlock` (`Damage.cs:139` vs `:161`).
+**Block vs Weak/Vulnerable** : block vient **strictement après** — les multiplicateurs s'appliquent à `modifiedAmount` avant `DamageBlock` (`CombatPredictionSimulator.Damage.cs:139` vs `:161`).
 
 **Aucune constante `0.75` / `1.5` en dur** pour ces deux pouvoirs : le seul `1.5m` du dépôt est dans la gestion de `SurroundedPower` (`ModifyDamageMirrors.cs:188-189`).
 
@@ -330,7 +330,7 @@ Il construit `new SimulatedCombatState(state)` (`:27`) puis rejoue **un seul** d
 **Boucle principale** : `while (frontier.Count > 0 && … && _run.Expanded < _profile.MaxExpandedNodes && !timeBudgetReached && !memoryNoProgressTruncated)` (`CombatBeamSolver.Phases.cs:1479-1485`), avec boucle interne de profondeur de jeu (`:1525-1527`). Le compteur de nœuds est incrémenté **par parent admis**, dans `TryAdmitExpansionParent` (`CombatBeamSolver.ExpansionPlan.cs:34`).
 
 **Cache / transpositions** :
-- Deux `Dictionary<StateFingerprint, TranspositionFrontier>` (admission et expansion) (`CombatBeamSolver.Models.cs:112-113`). La valeur est une **frontière de labels non dominés** à 5 dimensions, pas un simple meilleur score (`Transpositions.cs:22-55`) : `<=` sur 5 dims et `Score >=`.
+- Deux `Dictionary<StateFingerprint, TranspositionFrontier>` (admission et expansion) (`CombatBeamSolver.Models.cs:112-113`). La valeur est une **frontière de labels non dominés** à 5 dimensions, pas un simple meilleur score (`CombatBeamSolver.Transpositions.cs:22-55`) : `<=` sur 5 dims et `Score >=`.
 - Plafond `TranspositionEntryLimit = 1_000_000` (`SearchPolicySnapshot.cs:45-48`) ; au plafond les nouveaux états sont admis **sans être enregistrés** (`CombatBeamSolver.Expansion.Candidates.cs:869-877`) : **pas d'éviction LRU, un cutoff**.
 - `StandPatCache` et `ThreatProjectionCache` (clé `(fingerprint, roundIndex)`) (`CombatBeamSolver.Models.cs:117,125`).
 - `CanonicalModels` : cache par type générique fermé (§5).
@@ -340,15 +340,15 @@ Il construit `new SimulatedCombatState(state)` (`:27`) puis rejoue **un seul** d
 - Partition en **vagues ordonnées par parent** : une vague admet ≤ `acceptedCapacity` parents, chacun produisant des jobs (Prepare/Action/Choice/Potion/Tail) dispatchés sur un pool de lanes fixe (`CombatBeamSolver.AdmittedExpansion.cs:104-181`).
 - Lanes = `Thread` dédiés créés une fois par `Solve`, `ThreadPriority.BelowNormal`, handshake `AutoResetEvent` + `lock(_gate)` (`CombatBeamSolver.ParallelExpansion.cs:265-328`).
 - Chaque lane possède son **solver worker** privé, clone complet avec callback de progression neutralisé (`:394-419`).
-- État partagé (transpositions, dominance, admission, rangs, acceptation des nœuds) **uniquement sur le thread coordinateur** (`AdmittedExpansion.cs:158-171, 186-206`).
-- Déterminisme par **commit dans l'ordre des parents** : `CommitReadyParents()` ne valide que le préfixe `parents[0..committed]` dont `TailCompleted` est vrai, et jette si le compte ne correspond pas (`AdmittedExpansion.cs:158-171, 205-206`) ; l'appelant vérifie en plus l'ordre de soumission (`Phases.cs:1898-1905`).
-- Le fork est **sérialisé par parent** : « A parent simulator cannot be forked concurrently » — la lane prend un `ReplayForkSeed` sous `replayForkGate` puis ne consomme que son fork privé (`ParallelExpansion.cs:64-92, 421-511`).
+- État partagé (transpositions, dominance, admission, rangs, acceptation des nœuds) **uniquement sur le thread coordinateur** (`CombatBeamSolver.AdmittedExpansion.cs:158-171, 186-206`).
+- Déterminisme par **commit dans l'ordre des parents** : `CommitReadyParents()` ne valide que le préfixe `parents[0..committed]` dont `TailCompleted` est vrai, et jette si le compte ne correspond pas (`CombatBeamSolver.AdmittedExpansion.cs:158-171, 205-206`) ; l'appelant vérifie en plus l'ordre de soumission (`CombatBeamSolver.Phases.cs:1898-1905`).
+- Le fork est **sérialisé par parent** : « A parent simulator cannot be forked concurrently » — la lane prend un `ReplayForkSeed` sous `replayForkGate` puis ne consomme que son fork privé (`CombatBeamSolver.ParallelExpansion.cs:64-92, 421-511`).
 
 **Mémoire / GC** :
 - `SearchGcPolicy` : seuil de reclaim 256 MiB, délai de release 250 ms, limite de pression système 95 %, région NoGC minimale 512 MiB, part minimale région/config 50 % (`SearchGcPolicy.cs:10-23`). Budget NoGC par défaut **16 GiB** (`SolverSettings.cs:120, 171-172`).
 - Capacité effective = `min(configuré, (limite_système − charge) + heap_réutilisable)`, avec `limite_système = HighMemoryLoadThreshold × 95/100` (`SearchGcPolicy.cs:2653-2671`).
-- La pression mémoire gate le parallélisme à trois endroits : DoP plafonné à 2 en mode conservateur (`Phases.cs:168-175`), capacité de vague `min(2, dop)` (`:1721-1725`), et `MemorySafeParallelWaveCapacity` = `ParentWaveCapacity(desired, highWater, RemainingBytes)` (`:1730-1741`).
-- Arrêt propre : `ConsecutiveNoProgressReclaims >= policy.MemoryNoProgressRecoveryLimit` → `SEARCH_MEMORY_NO_PROGRESS_STOP` et drain de la frontière vers EndTurn (`Phases.cs:1197-1212, 1530-1542`).
+- La pression mémoire gate le parallélisme à trois endroits : DoP plafonné à 2 en mode conservateur (`CombatBeamSolver.Phases.cs:168-175`), capacité de vague `min(2, dop)` (`:1721-1725`), et `MemorySafeParallelWaveCapacity` = `ParentWaveCapacity(desired, highWater, RemainingBytes)` (`:1730-1741`).
+- Arrêt propre : `ConsecutiveNoProgressReclaims >= policy.MemoryNoProgressRecoveryLimit` → `SEARCH_MEMORY_NO_PROGRESS_STOP` et drain de la frontière vers EndTurn (`CombatBeamSolver.Phases.cs:1197-1212, 1530-1542`).
 
 **FastLaneVerification** :
 ```csharp
@@ -387,7 +387,7 @@ internal static readonly bool Enabled =
 | `GetProcessIoCounters` | `kernel32` | compteurs I/O (`PerformanceSession.cs:171-172`) | Gate `:141`. |
 | `Shell_NotifyIconW` | `shell32` | balloon de fin de recherche (`SearchCompletionNotifier.cs:197-203`) | Désactivé (`:50-51`). |
 | `LoadIconW`, `GetForegroundWindow`, `GetWindowThreadProcessId` | `user32` | icône + détection de premier plan (`:205-216`) | Désactivé (`:82-83, 144-145`). |
-| `OpenProcessToken`/`LookupPrivilegeValue`/`AdjustTokenPrivileges`/`NtSetSystemInformation` | `advapi32`/`ntdll` | helper `CombatSolver.MemoryCleaner`, projet séparé `net48`/`WinExe`/`x64` (`tools/runtime/CombatSolver.MemoryCleaner/Program.cs:101-133`, `.csproj:1-8`) | **Windows uniquement, jamais chargé sur Linux.** |
+| `OpenProcessToken`/`LookupPrivilegeValue`/`AdjustTokenPrivileges`/`NtSetSystemInformation` | `advapi32`/`ntdll` | helper `CombatSolver.MemoryCleaner`, projet séparé `net48`/`WinExe`/`x64` (`tools/runtime/CombatSolver.MemoryCleaner/tools/inspection/CoverageCatalog/Program.cs:101-133`, `.csproj:1-8`) | **Windows uniquement, jamais chargé sur Linux.** |
 
 **Gates `OperatingSystem.IsWindows()` et comportement Linux**
 
@@ -415,7 +415,7 @@ Il n'existe **aucune** branche `OperatingSystem.IsLinux()` ni aucun `RuntimeInfo
 - `D:/Steam` en probe de build, conditionné `'$(OS)' == 'Windows_NT'` (`CombatSolver.csproj:29`, `local.props.example:3-5`).
 - Aucun accès registre (ABSENT), aucune API console (ABSENT).
 
-**Version** : `min_game_version: "0.111.0"` (`CombatSolver.json:10`), `RitsuLibReferenceTarget 0.111.0` (`CombatSolver.csproj:36-37`), `GameVersion: "0.111.0"` en dur dans le catalogue de couverture (`tools/inspection/CoverageCatalog/Program.cs:200,208,239,245,602`). Pour ULTIMA en **0.107.1**, le manifeste exclut l'installation et le chemin RitsuLib n'existe pas.
+**Version** : `min_game_version: "0.111.0"` (`CombatSolver.json:10`), `RitsuLibReferenceTarget 0.111.0` (`CombatSolver.csproj:36-37`), `GameVersion: "0.111.0"` en dur dans le catalogue de couverture (`tools/inspection/CoverageCatalog/tools/inspection/CoverageCatalog/Program.cs:200,208,239,245,602`). Pour ULTIMA en **0.107.1**, le manifeste exclut l'installation et le chemin RitsuLib n'existe pas.
 
 ---
 
@@ -440,7 +440,7 @@ pour chaque hit h dans [0 .. repeats-1] :
     reste -= (d - absorbé)                                      // LoseHp, SimCreatureState.cs:63-64
     si reste <= 0 → létal au coup h, overkill = -reste
 ```
-Points de vigilance mesurés dans le code : le block est un `int` donc l'absorbé est tronqué (`SimCreatureState.cs:55`) ; il n'y a **qu'une** troncature, dans `LoseHp` (`:63`), pas dans `ModifyDamage` ; `Vulnerable` s'applique avant le block (`Damage.cs:139` vs `:161`).
+Points de vigilance mesurés dans le code : le block est un `int` donc l'absorbé est tronqué (`SimCreatureState.cs:55`) ; il n'y a **qu'une** troncature, dans `LoseHp` (`:63`), pas dans `ModifyDamage` ; `Vulnerable` s'applique avant le block (`CombatPredictionSimulator.Damage.cs:139` vs `:161`).
 
 **Garde-fou d'exactitude** : le dépôt refuse de prétendre à l'exactitude quand `attack.DamageCalc` est dynamique sur un move non listé (`IntentForecaster.cs:128-132`) et expose `IsExactForModeledDamage` (`:103`). Reproduire ce booléen est plus utile que de forcer un chiffre : c'est ce qui distingue « 16×3, létal » de « 16×3 environ, létal peut-être ».
 
@@ -471,7 +471,7 @@ Points de vigilance mesurés dans le code : le block est un `int` donc l'absorb�
 8. **Duplication de P/Invoke** : `GlobalMemoryStatusEx` déclaré deux fois, dans deux fichiers, avec deux structures (`PerformanceSession.cs:169-170`, `PhysicalMemoryUsage.cs:56-58`).
 9. **`Entry` n'a pas de Dispose.** `CombatManager.Instance.TurnStarted += OnTurnStarted` (`Entry.cs:65`) n'a aucun `-=` dans tout `src/` (recherche exhaustive) ; le teardown passe par `TreeExiting` (`:124-125`).
 10. **Bouton UI créé sans condition, action qui jette sur Linux** (`SolverOverlay.cs:2390-2394` vs `SystemMemoryReleaseService.cs:15-16`).
-11. **Version figée dans cinq endroits différents** : manifeste (`CombatSolver.json:10`), csproj (`:36-37`), `local.props.example:17`, csproj du catalogue (`CoverageCatalog.csproj:16-18`), code du catalogue (`Program.cs:200,208,239,245,602`). Cinq sources de vérité à synchroniser à la main.
+11. **Version figée dans cinq endroits différents** : manifeste (`CombatSolver.json:10`), csproj (`:36-37`), `local.props.example:17`, csproj du catalogue (`CoverageCatalog.csproj:16-18`), code du catalogue (`tools/inspection/CoverageCatalog/Program.cs:200,208,239,245,602`). Cinq sources de vérité à synchroniser à la main.
 12. **Le RNG ne peut pas être fast-forwardé** : `Advance` consomme `NextUnsignedLong()` par valeur parce que « v0.109.0 a supprimé la reconstruction par compteur » (`PredictionExtensions.cs:52-62`). Toute tentative de sauter N tirages est O(N).
 13. **`Rng` non partageable entre branches** : le fork fige l'état (`CombatPredictionRngSet.cs:29-32`) ; oublier de forker un flux produit une corruption silencieuse inter-branches.
 14. **Invariant « un seul règlement par sémantique » non vérifié automatiquement** — c'est une règle de revue (`AGENTS.md:99`), avec au moins deux incidents documentés (`PowerLifecycleSupport.cs:86-87`, `CombatPredictionSimulator.PowerAmounts.cs:16-21`).
@@ -541,7 +541,7 @@ Classées par **rapport gain / effort** décroissant. « Gain » = ce que ça ap
 | 9 | **Clé de cache d'état à 128 bits (`StateFingerprint`)** (`StateFingerprint.cs:5-57`) | ★★★ F5 / cache | ★★ | Permet un cache de prévision invalidé par état exact plutôt que par un hash de texte. Deux chaînes indépendantes, zéro allocation. |
 | 10 | **`FastLaneVerification` : variable d'environnement unique qui rejoue le chemin lent et jette à la première divergence** (`FastLaneVerification.cs:16-21`) | ★★★ qualité | ★ | Patron de test différentiel à coût nul en production, activable seulement en CI. À reprendre tel quel pour valider F1/F2 contre un calcul naïf. |
 | 11 | **`PlanAction` comme format d'export valeur-pur** (22 champs, `CombatPlan.cs:132-171`) | ★★ F5 | ★★ | Si ULTIMA doit exporter/importer des routes, ce record est déjà sérialisable sans référence d'objet. |
-| 12 | **`TranspositionFrontier` : frontière Pareto à 5 dimensions au lieu d'un meilleur score** (`Transpositions.cs:22-55`) | ★★ F5 futur | ★★★★ | Utile seulement si ULTIMA fait un jour de la recherche. À garder pour le mode « simulation profonde », pas avant. |
+| 12 | **`TranspositionFrontier` : frontière Pareto à 5 dimensions au lieu d'un meilleur score** (`CombatBeamSolver.Transpositions.cs:22-55`) | ★★ F5 futur | ★★★★ | Utile seulement si ULTIMA fait un jour de la recherche. À garder pour le mode « simulation profonde », pas avant. |
 
 **Les trois à faire en premier** : #1 (table statique), #2 (`ModifyDamage` sur les intents), #4 (boucle de létalité). Ensemble ils couvrent F1 et F2 avec environ 150 lignes de C# et aucune dépendance au solveur.
 
