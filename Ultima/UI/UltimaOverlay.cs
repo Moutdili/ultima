@@ -151,6 +151,7 @@ public partial class UltimaOverlay : Control
     }
 
     private bool _f7Down, _f8Down, _f9Down;
+    private bool _k1Down, _k2Down, _k3Down;
 
     /// <summary>
     /// F8 masquer, F9 détail, F7 ping — lus en polling avec détection de front (une seule
@@ -159,6 +160,34 @@ public partial class UltimaOverlay : Control
     /// </summary>
     private void PollKeys()
     {
+        // 1 / 2 / 3 : touches principales. Libres en build release — les chiffres ne sont
+        // mappés que sur des DebugHotkey côté jeu (NInputManager.cs:26), jamais sur les cartes.
+        bool k1 = Input.IsPhysicalKeyPressed(Key.Key1);
+        if (k1 && !_k1Down)
+        {
+            _detail = !_detail;
+            Apply();
+            ModEntry.Write($"ui key 1 -> detail={_detail}");
+        }
+        _k1Down = k1;
+
+        bool k2 = Input.IsPhysicalKeyPressed(Key.Key2);
+        if (k2 && !_k2Down)
+        {
+            ToggleHidden();
+            ModEntry.Write($"ui key 2 -> hidden={_hidden}");
+        }
+        _k2Down = k2;
+
+        bool k3 = Input.IsPhysicalKeyPressed(Key.Key3);
+        if (k3 && !_k3Down)
+        {
+            PingRequested?.Invoke();
+            ModEntry.Write("ui key 3 -> ping");
+        }
+        _k3Down = k3;
+
+        // Alias F7 / F8 / F9 conservés pour les claviers sans conflit.
         bool f8 = Input.IsPhysicalKeyPressed(Key.F8);
         if (f8 && !_f8Down)
         {
@@ -280,8 +309,8 @@ public partial class UltimaOverlay : Control
     private void BuildMenu()
     {
         _menu = new PopupMenu { Name = "UltimaMenu" };
-        _menu.AddCheckItem("Détail (F9)", MenuDetail);
-        _menu.AddItem("Masquer (F8)", MenuHide);
+        _menu.AddCheckItem("Détail (1)", MenuDetail);
+        _menu.AddItem("Masquer (2)", MenuHide);
         _menu.AddThemeStyleboxOverride("panel", UltimaStyles.Glass());
         var font = UltimaFonts.Get(FontRole.Body);
         if (font != null) _menu.AddThemeFontOverride("font", font);
