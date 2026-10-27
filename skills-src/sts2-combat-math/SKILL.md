@@ -46,6 +46,15 @@ double comptage. Idem pour Vulnerable côté joueur.
 
 Toujours arrondir comme le jeu : `(int)decimal` puis `Math.Max(0, ...)`.
 
+## Ordre du pipeline (confirmé)
+
+`enchant → additif → multiplicatif → cap → BeforeDamageReceived → block → ModifyHpLost → LoseHp`.
+Weak et Vulnerable commutent (decimal). Le block vient **strictement après** tous les
+multiplicateurs : ne jamais appliquer un multiplicateur après le block.
+
+⚠️ CombatSolver (qui documente cet ordre) cible la version **0.111.0** ; nous sommes en
+**0.107.1**. Revalider toute signature reprise.
+
 ## Létalité (NxM)
 
 ```

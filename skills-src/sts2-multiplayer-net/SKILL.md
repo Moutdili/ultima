@@ -30,6 +30,13 @@ et filtrer sur le catalogue. Zéro message custom, zéro risque.
 Aucun tracker multi public n'utilise `INetMessage` : cette voie est **non éprouvée**.
 Ne la prendre que si l'info n'existe pas dans l'état synchronisé (ex. main privée).
 
+## IDs de message : dépendants du mod-set
+
+Les IDs sont dérivés du `FullName` des types, ordonnés sur **l'ensemble des mods chargés**.
+BaseLib contourne ça en réécrivant `MessageTypes._cache` avec des IDs fixes 128-254.
+→ Conséquence obligatoire : **handshake `UltimaHello`** (version + capabilities) et ne
+broadcaster qu'aux peers qui ont répondu. Un client vanilla ne connaît pas l'ID.
+
 ## Contrat
 
 ```csharp

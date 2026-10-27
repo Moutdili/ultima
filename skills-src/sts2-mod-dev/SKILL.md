@@ -32,6 +32,9 @@ en user-space, pas de sudo sur cette machine).
 
 ## Règles
 
+0. **Aucun `.json` dans `mods/` sauf le manifest** : le loader parse *tout* `.json` comme
+   un manifeste. Config en `.cfg`/`.ini`, ou hors du dossier scanné.
+
 1. **Read-only** : ne jamais muter l'état de jeu (pas de `CardPileCmd`, `DamageCmd`,
    `PowerCmd.Apply` dans le code du tracker). Observer seulement.
 2. **Try/catch dans chaque patch Harmony** + log fichier : un mod ne crashe jamais le jeu.

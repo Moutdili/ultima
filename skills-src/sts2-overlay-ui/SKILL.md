@@ -22,6 +22,15 @@ internal static class CombatUiInjectionPatch
 `NCombatUi` n'est **pas** un singleton : une instance par combat, détruite à la fin.
 Recréer l'overlay dans `_Ready` est donc correct (pattern vérifié chez 999dulgi).
 
+## Glassmorphism (obligatoire)
+
+Le jeu ship `game/pck/shaders/dark_blur.gdshader` (`hint_screen_texture` + `lod` + mix).
+ULTIMA l'adapte : `lod=3.5`, `mix_percentage=0.72` vers `#192930`, + StyleBoxFlat
+(`bg #192930 @0.72`, border `#EFC851` @0.18, radius 10, shadow 0.35).
+Ne pas écrire un shader from scratch, ne pas blurer les enfants (coût plein écran).
+
+Détail et palette : skill `sts2-design-system` + `docs/17-charte.md`.
+
 ## Règles d'UX
 
 - Ne jamais couvrir la main, les intents, ni les boutons de fin de tour.

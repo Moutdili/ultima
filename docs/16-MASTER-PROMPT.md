@@ -74,6 +74,11 @@ R9. NE COPIE PAS STS2MCP TEL QUEL : son GET mute l'état (`OpenInventory`,
 R10. COMMIT + PUSH IMMÉDIAT après chaque unité de travail. Jamais de `git add -A`.
     Jamais de `--force`. Jamais de merge de main dans une branche.
 
+R11. PUSH — vérifié depuis fedora (test réel : branche poussée puis supprimée). Si un push
+    échoue quand même (réseau, clé, quota) : tu ne t'acharnes pas, tu notes dans STATUS.md
+    la branche ET le hash du commit local, et tu continues. La synchronisation sera faite
+    depuis fedora-hp (SSH GitHub y est aussi configuré) par l'humain.
+
 ════════════════════════════════════════════════════════════════════════
 2. LECTURE (10 min max, dans cet ordre, en entier)
 ════════════════════════════════════════════════════════════════════════

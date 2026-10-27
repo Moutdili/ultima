@@ -120,7 +120,9 @@ Règles :
 - `git push` **immédiatement** après chaque commit (pas de batch en fin de branche).
 - Jamais de `git add -A` : `git add <chemins possédés>` uniquement.
 - Jamais de `--force`, jamais de rebase de `main`.
-- Fin de milestone : `gh pr create --draft --base main --head <branche>`.
+- Fin de milestone : la branche est poussée — c'est le livrable. `gh` n'est **pas installé
+  sur fedora** : ne pas compter sur `gh pr create`. Si gh devient disponible, une PR draft
+  est un bonus, jamais un prérequis. Le rapport final liste les branches et leurs hashes.
 
 ## 6. Portes de validation (binaires)
 
