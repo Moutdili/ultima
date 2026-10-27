@@ -85,7 +85,10 @@ public partial class UltimaOverlay : Control
         {
             MouseFilter = MouseFilterEnum.Ignore;
             SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
-            SetProcess(false);
+            // Le jeu consomme les InputEvent (SetInputAsHandled) avant notre _UnhandledInput :
+            // les touches n'arrivaient jamais. On lit l'état clavier chaque frame (3 appels,
+            // coût négligeable) au lieu de dépendre du routage d'événements.
+            SetProcess(true);
             SetPhysicsProcess(false);
             Build();
             _viewport = GetViewport();
@@ -141,20 +144,45 @@ public partial class UltimaOverlay : Control
         catch (Exception ex) { ModEntry.Write($"ui _Input: {ex}"); }
     }
 
-    /// <summary>F8 masquer, F9 détail, F7 ping. Seules ces 3 touches sont consommées.</summary>
-    public override void _UnhandledInput(InputEvent @event)
+    public override void _Process(double delta)
     {
-        try
+        try { PollKeys(); }
+        catch (Exception ex) { ModEntry.Write($"ui _Process: {ex}"); }
+    }
+
+    private bool _f7Down, _f8Down, _f9Down;
+
+    /// <summary>
+    /// F8 masquer, F9 détail, F7 ping — lus en polling avec détection de front (une seule
+    /// action par appui). On ne consomme plus l'événement : le jeu ne voit pas ces touches
+    /// aujourd'hui, et les consommer depuis _Input risquerait de casser un raccourci du jeu.
+    /// </summary>
+    private void PollKeys()
+    {
+        bool f8 = Input.IsPhysicalKeyPressed(Key.F8);
+        if (f8 && !_f8Down)
         {
-            if (@event is not InputEventKey { Pressed: true, Echo: false } key) return;
-            Key k = key.Keycode;
-            if (k != Key.F7 && k != Key.F8 && k != Key.F9) return;
-            GetViewport()?.SetInputAsHandled();
-            if (k == Key.F8) ToggleHidden();
-            else if (k == Key.F9) { _detail = !_detail; Apply(); }
-            else PingRequested?.Invoke();
+            ToggleHidden();
+            ModEntry.Write($"ui key F8 -> hidden={_hidden}");
         }
-        catch (Exception ex) { ModEntry.Write($"ui _UnhandledInput: {ex}"); }
+        _f8Down = f8;
+
+        bool f9 = Input.IsPhysicalKeyPressed(Key.F9);
+        if (f9 && !_f9Down)
+        {
+            _detail = !_detail;
+            Apply();
+            ModEntry.Write($"ui key F9 -> detail={_detail}");
+        }
+        _f9Down = f9;
+
+        bool f7 = Input.IsPhysicalKeyPressed(Key.F7);
+        if (f7 && !_f7Down)
+        {
+            PingRequested?.Invoke();
+            ModEntry.Write("ui key F7 -> ping");
+        }
+        _f7Down = f7;
     }
 
     private void Build()
