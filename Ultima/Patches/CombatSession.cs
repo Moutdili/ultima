@@ -111,6 +111,7 @@ internal sealed class CombatSession
             {
                 forecast = DamageForecast.Build(snapshot);
                 var local = PriorityFeature.LocalAlerts(snapshot);
+                HandBadges.Update(_ui, local);   // F3 : badge PRIO sur la carte en main
                 alerts.AddRange(local);
                 MultiFeature.OnSnapshot(snapshot, local);
             }
@@ -170,6 +171,7 @@ internal sealed class CombatSession
                 _overlay.PingRequested -= OnPingRequested;
                 _overlay.TreeExiting -= OnOverlayExiting;
             }
+            if (GodotObject.IsInstanceValid(_ui)) HandBadges.Clear(_ui);
             MultiFeature.OnCombatEnd();
             if (ReferenceEquals(_current, this)) _current = null;
             var avg = _refreshCount > 0 ? _refreshTotalMs / _refreshCount : 0;
