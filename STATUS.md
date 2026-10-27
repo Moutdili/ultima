@@ -76,6 +76,28 @@ P4). L'ordre de MERGE respecte la priorité (C1 avant C2) ; F6 (P5) non lancé.
 **D9 — PID dans chaque ligne de log** (`[<pid>]`) : en multi local, host et client partagent
 `mods/Ultima/ultima.log` (tools/multi-lab.sh lance les 2 instances depuis le même dossier de jeu).
 
+**D10 — Skills `sts2-*` : aucun agent ne les a chargées (constat à 20:49, signalé par Mio).**
+Preuve : `grep -o '"input":{"skill":"[^"]*"'` sur les 8 transcripts d'agents → 0 invocation.
+Les skills étaient disponibles mais mes briefs ne les imposaient pas (ils renvoyaient à docs/).
+Correctifs : (1) A4 et C2 (en cours) ont reçu l'ordre de charger leurs skills ; (2) tout brief
+futur commence par « charge d'abord les skills X » ; (3) audit chef du travail déjà mergé :
+- `sts2-combat-math` : pas de contradiction ; B1 est plus strict que la skill (la skill écrit
+  `current * 0.75m` en dur — interdit par R6 ; B1 lit le multiplicateur et part du brut).
+- `sts2-multiplayer-net` : B2 conforme (voie A d'abord, Hello, version, diff, TurnNumber).
+- `sts2-mod-dev` / `sts2-game-api` : conformes (D1 rend obsolète la mention « refs GodotSharp » :
+  GodotSharp vient désormais du paquet Godot.NET.Sdk 4.5.1).
+- **`sts2-design-system` / `sts2-overlay-ui` : écarts réels sur l'UI (A2)** :
+  1. Verre : la skill dit de réutiliser `game/pck/shaders/dark_blur.gdshader` (flou par mipmap,
+     `lod 3.5`, mix 0.72 vers #192930) et de ne pas écrire de shader ; A2 a pris le shader 9 taps
+     de docs/17 §3 (« à valider visuellement ») → sans lod, risque de flou « fantôme ».
+  2. Coins radius 10 + ombre : seulement en repli chez A2, pas sur le verre réel.
+  3. Opacité repos : skill 0.30, A2 0.35 (SPEC 0.25-0.35 : les deux sont conformes).
+  4. Police min : skill 14 px, docs/17 12 px pour le secondaire (A2 suit docs/17).
+  docs/17 reste normatif (la skill le dit) → arbitrage chef après le rapport A4.
+
+**D8bis — C1 mergé (20:51)** : badge F3 « PRIO » sur la carte en main (`HandBadges`), câblé
+dans `CombatSession` (Update à chaque refresh, Clear à l'arrêt, sûr vis-à-vis du pooling).
+
 ## Propriété des fichiers (ce run)
 
 | Agent | Branche | Possède |
@@ -230,6 +252,25 @@ build   : 20:46:01  99328 o
 déployé : 20:46:03  99328 o
 ✅ callbacks Godot présents (3 marqueurs)
 ✅ déploiement à jour
+```
+
+### 20:51 — merge C1 `m7/badge` (896dc31) + câblage `661bd1c` (poussé, déployé)
+```
+$ git log --oneline -1
+661bd1c feat(core): wire F3 hand badges into the combat session
+$ dotnet build Ultima/Ultima.csproj -c Release
+    0 Error(s)
+    0 Warning(s)
+Build succeeded.
+$ dotnet test Ultima.Tests/Ultima.Tests.csproj -c Release
+Passed!  - Failed:     0, Passed:    64, Skipped:     0, Total:    64, Duration: 29 ms - Ultima.Tests.dll (net9.0)
+$ grep -rn "CardPileCmd\|DamageCmd\|PowerCmd.Apply\|CreatureCmd" Ultima/ --include=*.cs
+(exit 1 — 1 = aucun appel)
+$ bash tools/build.sh && ls -l build/mods/Ultima
+total 168
+-rw-r--r--. 1 mio mio  59392 Oct 27 20:51 Ultima.Core.dll
+-rw-r--r--. 1 mio mio 103424 Oct 27 20:51 Ultima.dll
+-rw-r--r--. 1 mio mio    280 Oct 27 20:51 Ultima.json
 ```
 
 ### Incohérence relevée dans SPEC.md §4 F2 (non modifiée : critère d'acceptation = hors discrétion)
