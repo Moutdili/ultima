@@ -31,7 +31,7 @@ fi
 
 # Le SDK Godot doit avoir généré le dispatch des callbacks (_Ready etc.).
 if command -v ilspycmd >/dev/null 2>&1; then
-  n=$(ilspycmd -t Ultima.Overlay.UltimaOverlay "$DST" 2>/dev/null | grep -cE "ScriptPath|HasGodotClassMethod" || true)
+  n=$(ilspycmd -t Ultima.UI.UltimaOverlay "$DST" 2>/dev/null | grep -cE "ScriptPath|HasGodotClassMethod" || true)
   if [ "${n:-0}" -lt 1 ]; then
     echo "❌ callbacks Godot ABSENTS du DLL (Microsoft.NET.Sdk au lieu de Godot.NET.Sdk)"
     exit 1
