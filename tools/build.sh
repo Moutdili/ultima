@@ -3,9 +3,22 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-DATA="$HOME/.var/app/com.valvesoftware.Steam/.local/share/Steam/steamapps/common/Slay the Spire 2/data_sts2_linuxbsd_x86_64"
-export DOTNET_ROOT="$HOME/.dotnet"
-DOTNET="$HOME/.dotnet/dotnet"
+# Détection auto de l'install (surchargeable : STS2_GAME=/chemin)
+GAME_DIR="${STS2_GAME:-}"
+if [ -z "$GAME_DIR" ]; then
+  for c in \
+    "$HOME/.var/app/com.valvesoftware.Steam/.local/share/Steam/steamapps/common/Slay the Spire 2" \
+    "$HOME/.local/share/Steam/steamapps/common/Slay the Spire 2" \
+    "$HOME/.steam/steam/steamapps/common/Slay the Spire 2"; do
+    [ -d "$c" ] && GAME_DIR="$c" && break
+  done
+fi
+[ -n "$GAME_DIR" ] || { echo "Jeu introuvable. Passer STS2_GAME=/chemin/vers/Slay the Spire 2"; exit 1; }
+DATA="$GAME_DIR/data_sts2_linuxbsd_x86_64"
+# dotnet : PATH (conteneur) sinon install user-space de l'hote
+DOTNET="$(command -v dotnet || true)"
+[ -n "$DOTNET" ] || DOTNET="$HOME/.dotnet/dotnet"
+export DOTNET_ROOT="${DOTNET_ROOT:-$HOME/.dotnet}"
 
 "$DOTNET" build Ultima/Ultima.csproj -c Release -p:Sts2DataDir="$DATA" "$@"
 

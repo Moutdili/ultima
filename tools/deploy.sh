@@ -3,7 +3,16 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-GAME="$HOME/.var/app/com.valvesoftware.Steam/.local/share/Steam/steamapps/common/Slay the Spire 2"
+GAME="${STS2_GAME:-}"
+if [ -z "$GAME" ]; then
+  for c in \
+    "$HOME/.var/app/com.valvesoftware.Steam/.local/share/Steam/steamapps/common/Slay the Spire 2" \
+    "$HOME/.local/share/Steam/steamapps/common/Slay the Spire 2" \
+    "$HOME/.steam/steam/steamapps/common/Slay the Spire 2"; do
+    [ -d "$c" ] && GAME="$c" && break
+  done
+fi
+[ -n "$GAME" ] || { echo "Jeu introuvable. Passer STS2_GAME=/chemin/vers/Slay the Spire 2"; exit 1; }
 DEST="$GAME/mods/Ultima"
 
 [ -d build/mods/Ultima ] || { echo "build/mods/Ultima absent → lancer tools/build.sh"; exit 1; }

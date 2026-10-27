@@ -5,7 +5,15 @@ ok=0; ko=0
 chk() { if eval "$2" >/dev/null 2>&1; then printf "  ✅ %s\n" "$1"; ok=$((ok+1)); else printf "  ❌ %s\n" "$1"; ko=$((ko+1)); fi; }
 info() { printf "  ·  %s\n" "$1"; }
 
-GAME="$HOME/.var/app/com.valvesoftware.Steam/.local/share/Steam/steamapps/common/Slay the Spire 2"
+GAME="${STS2_GAME:-}"
+if [ -z "$GAME" ]; then
+  for c in \
+    "$HOME/.var/app/com.valvesoftware.Steam/.local/share/Steam/steamapps/common/Slay the Spire 2" \
+    "$HOME/.local/share/Steam/steamapps/common/Slay the Spire 2" \
+    "$HOME/.steam/steam/steamapps/common/Slay the Spire 2"; do
+    [ -d "$c" ] && GAME="$c" && break
+  done
+fi
 DATA="$GAME/data_sts2_linuxbsd_x86_64"
 
 echo "== Machine =="
