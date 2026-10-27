@@ -1,0 +1,10 @@
+# Variante « tout-en-un » : ajoute le jeu monté en lecture seule.
+# Volontairement séparée : l'image de base reste légère et publiable.
+FROM ultima-toolchain:local
+
+ENV STS2_GAME=/game
+ENV STS2_DATA=/game/data_sts2_linuxbsd_x86_64
+
+# Le jeu n'est JAMAIS copié dans l'image (licence) : il est monté au runtime.
+#   podman run --rm -v "$HOME/.var/app/com.valvesoftware.Steam/.local/share/Steam/steamapps/common/Slay the Spire 2:/game:ro,z" ...
+CMD ["bash"]

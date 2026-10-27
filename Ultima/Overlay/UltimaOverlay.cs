@@ -1,11 +1,12 @@
 using Godot;
 using MegaCrit.Sts2.Core.Nodes.Combat;
+using Ultima.Net;
 
 namespace Ultima.Overlay;
 
 /// <summary>
-/// Overlay V0 : panneau discret, click-through, hotkey F8 pour masquer.
-/// Le contenu réel (forecast, létalité, priorité) se branche ici en V1.
+/// Overlay V0.1 : panneau discret + test de broadcast (F7 = ping, F8 = cacher).
+/// Le contenu analytique (F1/F2) se branche ici à l'étape suivante.
 /// </summary>
 public partial class UltimaOverlay : PanelContainer
 {
@@ -19,33 +20,54 @@ public partial class UltimaOverlay : PanelContainer
 
         _label = new Label
         {
-            Text = "ULTIMA — chargement du combat…",
+            Text = "ULTIMA — chargement…",
             MouseFilter = MouseFilterEnum.Ignore,
         };
         _label.AddThemeFontSizeOverride("font_size", 14);
         AddChild(_label);
 
+        NetBridge.Attach();
+        NetBridge.PingReceived += Refresh;
+        Refresh();
         SetProcess(true);
         ModEntry.Write("overlay ready");
     }
 
+    public override void _ExitTree()
+    {
+        NetBridge.PingReceived -= Refresh;
+        base._ExitTree();
+    }
+
     public override void _Process(double delta)
     {
-        // V0 : rien à recalculer. V1 : DamageForecast + LethalIndex + TurnPriority.
+        // V0.1 : rien à recalculer par frame. V1 : forecast + létalité sur événement.
     }
 
     public override void _UnhandledInput(InputEvent @event)
     {
-        if (@event is InputEventKey key && key.Pressed && !key.Echo && key.Keycode == Key.F8)
+        if (@event is not InputEventKey key || !key.Pressed || key.Echo) return;
+
+        switch (key.Keycode)
         {
-            _hidden = !_hidden;
-            Visible = !_hidden;
-            GetViewport().SetInputAsHandled();
+            case Key.F8:
+                _hidden = !_hidden;
+                Visible = !_hidden;
+                GetViewport().SetInputAsHandled();
+                break;
+            case Key.F7:
+                NetBridge.SendPing($"hello from {System.Environment.MachineName}");
+                Refresh();
+                GetViewport().SetInputAsHandled();
+                break;
         }
     }
 
-    public void SetStatus(string text)
+    private void Refresh()
     {
-        if (_label != null) _label.Text = text;
+        if (_label == null) return;
+        var net = NetBridge.IsMultiplayer ? "MULTI" : "SOLO";
+        var last = string.IsNullOrEmpty(NetBridge.LastPing) ? "aucun ping" : NetBridge.LastPing;
+        _label.Text = $"ULTIMA [{net}] · pings: {NetBridge.PingCount}\n{last}\nF7 = ping · F8 = hide";
     }
 }

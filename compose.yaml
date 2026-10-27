@@ -1,0 +1,18 @@
+# podman-compose up -d && podman-compose exec tool bash
+# SELinux Fedora : les volumes portent :z (sinon permission denied).
+services:
+  tool:
+    build:
+      context: .
+      dockerfile: containers/Containerfile
+    image: ultima-toolchain:local
+    working_dir: /work
+    volumes:
+      - .:/work:z
+      # Le jeu, en lecture seule (adapter si l'install n'est pas Flatpak)
+      - ${HOME}/.var/app/com.valvesoftware.Steam/.local/share/Steam/steamapps/common/Slay the Spire 2:/game:ro,z
+    environment:
+      STS2_GAME: /game
+      STS2_DATA: /game/data_sts2_linuxbsd_x86_64
+      DOTNET_CLI_TELEMETRY_OPTOUT: "1"
+    command: ["sleep", "infinity"]

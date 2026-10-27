@@ -17,6 +17,10 @@
   </Target>
 
   <ItemGroup>
+    <ProjectReference Include="../Ultima.Core/Ultima.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="sts2">
       <HintPath>$(Sts2DataDir)/sts2.dll</HintPath>
       <Private>false</Private>

@@ -11,7 +11,10 @@ DOTNET="$HOME/.dotnet/dotnet"
 
 OUT="build/mods/Ultima"
 mkdir -p "$OUT"
+# Ultima.dll + toutes les dépendances managées produites (Ultima.Core.dll).
+# Les assemblies du jeu ne sont PAS copiées (Private=false) : elles viennent du jeu.
 cp -f Ultima/bin/Release/net9.0/Ultima.dll "$OUT/"
+cp -f Ultima/bin/Release/net9.0/Ultima.Core.dll "$OUT/" 2>/dev/null || true
 cp -f Ultima/Ultima.json "$OUT/"
 echo "→ staging: $(pwd)/$OUT"
 ls -l "$OUT"

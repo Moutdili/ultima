@@ -1,0 +1,20 @@
+name: CI
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+
+jobs:
+  core:
+    name: Core + tests (sans le jeu)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "9.0.x"
+      - name: Build Core
+        run: dotnet build Ultima.Core/Ultima.Core.csproj -c Release
+      - name: Tests
+        run: dotnet test Ultima.Tests/Ultima.Tests.csproj -c Release --logger "console;verbosity=normal"

@@ -1,0 +1,21 @@
+{
+  "name": "ULTIMA (Fedora + .NET 9/10 + GDRE)",
+  "build": {
+    "dockerfile": "../containers/Containerfile",
+    "context": ".."
+  },
+  "workspaceMount": "source=${localWorkspaceFolder},target=/work,type=bind",
+  "workspaceFolder": "/work",
+  "containerEnv": {
+    "DOTNET_CLI_TELEMETRY_OPTOUT": "1"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": ["ms-dotnettools.csharp", "ms-dotnettools.csdevkit"],
+      "settings": {
+        "dotnet.defaultSolution": "Ultima.sln"
+      }
+    }
+  },
+  "postCreateCommand": "dotnet --version && dotnet test Ultima.Tests/Ultima.Tests.csproj -c Release"
+}
