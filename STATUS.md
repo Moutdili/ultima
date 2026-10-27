@@ -310,6 +310,33 @@ $ bash tools/deploy.sh && bash tools/verify-deploy.sh
 ✅ déploiement à jour
 ```
 
+### 21:03 — merge A2 refonte verre `m2/ui` (6b1f8b0 … f4b0ff2) → main `b2bd4cd` (poussé, déployé)
+A2 relancé avec `sts2-design-system` + `sts2-overlay-ui` chargées AVANT modification (D10/D11).
+Relecture chef du shader (jamais compilé hors jeu) : built-ins identiques au `dark_blur` du jeu
+(`hint_screen_texture`, `filter_linear_mipmap`, `texture(…, bias)`), `SCREEN_PIXEL_SIZE`, `exp2` ;
+masque SDF radius 10 avec AA 1 px ; highlight = bord haut seulement.
+```
+$ git log --oneline -1
+b2bd4cd merge: m2/ui (A2 rework) glass per sts2-design-system + QA fixes
+$ dotnet build Ultima/Ultima.csproj -c Release
+    0 Error(s)
+    0 Warning(s)
+Build succeeded.
+$ dotnet test Ultima.Tests/Ultima.Tests.csproj -c Release
+Passed!  - Failed:     0, Passed:    82, Skipped:     0, Total:    82, Duration: 30 ms - Ultima.Tests.dll (net9.0)
+$ grep -rn "CardPileCmd\|DamageCmd\|PowerCmd.Apply\|CreatureCmd" Ultima/ --include=*.cs
+(exit 1 — 1 = aucun appel)
+$ bash tools/build.sh && ls -l build/mods/Ultima
+total 196
+-rw-r--r--. 1 mio mio  74240 Oct 27 21:03 Ultima.Core.dll
+-rw-r--r--. 1 mio mio 116736 Oct 27 21:03 Ultima.dll
+-rw-r--r--. 1 mio mio    280 Oct 27 21:03 Ultima.json
+$ grep "new Color(|Color.FromHtml|Colors." hors UltimaPalette → (aucune) ; grep "_Process|SetLoops" UI+Patches → (aucun)
+$ strings Ultima.dll | grep -c Ultima.Shaders.glass_blur.gdshader → 1
+$ bash tools/verify-deploy.sh → ✅ callbacks Godot présents (3 marqueurs) / ✅ déploiement à jour
+```
+Re-QA A4 (v2, charte + skills) lancée sur `m9/design-qa2` = main@b2bd4cd.
+
 ### Incohérence relevée dans SPEC.md §4 F2 (non modifiée : critère d'acceptation = hors discrétion)
 « `16x3` avec 20 block et 35 PV → 2e coup létal » est arithmétiquement faux : 48 − 20 = 28 < 35,
 le joueur survit à 7 PV. Les tests (LethalIndexTests + ForecastTests) prouvent la variante correcte
@@ -322,11 +349,16 @@ Log : `<jeu>/mods/Ultima/ultima.log` · Config : `<jeu>/mods/Ultima/ultima.cfg` 
 1. Lancer le jeu → le log contient `ULTIMA ready — game v0.107.1` puis `config: …`.
 2. Entrer en combat → attendre `overlay injected` puis `session: started (multi=False, custom_net=False)`
    et `ULTIMA state: <n> enemies, <n> intents`.
-3. Overlay : rail de 8 px au bord droit (3 pastilles), survol → panneau verre 260 px ; retour au rail
-   après 2,5 s ; F8 masque ; F9 détail (variantes Weak/Vuln, total du tour, label du jeu).
+3. Overlay : rail de 8 px au bord droit (3 pastilles, opacité 0.30), survol → fondu 150 ms + panneau
+   verre 260 px ; retour au rail après 2,5 s ; F8 masque ; F9 détail (variantes Weak/Vuln, total du
+   tour, label du jeu) ; clic droit → menu (Détail / Masquer).
+3bis. **Verre (point d'inquiétude de Mio)** : capture d'écran du panneau déployé sur un décor chargé.
+   Attendu : flou lisse (pas de contours doublés), teinte bleu-nuit, coins arrondis, liseré or fin,
+   reflet uniquement en haut. Si le panneau est un rectangle uni sans flou → le shader n'a pas
+   compilé : chercher `SHADER ERROR` dans le log Godot du jeu et me le transmettre.
 4. **G5 exactitude (3 rencontres)** : pour chaque ennemi, `NxM` affiché == chiffres de l'intent du jeu.
    Le log ne doit contenir AUCUN `forecast: oracle mismatch` ni `reader: raw/perHit mismatch`.
-5. Létalité : avec un block connu, vérifier « Ne coup LÉTAL » / « tout bloqué » à la main.
+5. Létalité : avec un block connu, vérifier « → Ne LÉTAL » / « → N PV » / « → bloqué » à la main.
 6. F3 : une carte prioritaire jouable (ex. Fetch qui brille en or) → ligne `PRIO` dans l'overlay.
 7. FPS avec le flou ≥ 55 (sinon `[ui] blur_amount=1.0` dans ultima.cfg, puis 0 = repli sans flou).
 8. Aucun chevauchement main / intents / bouton fin de tour en 1080p, 1440p, 21:9.
