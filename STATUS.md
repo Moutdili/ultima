@@ -143,6 +143,30 @@ total 104
 -rw-r--r--. 1 mio mio   280 Oct 27 20:35 Ultima.json
 ```
 
+### 20:38 — merge B2 `m5/multi` (b934278, d70795d) → main `f086ac2` (poussé)
+```
+$ git log --oneline -1
+f086ac2 merge: m5/multi (B2) F3 local priority + F4 hover / opt-in net
+$ dotnet build Ultima/Ultima.csproj -c Release
+    0 Error(s)
+    0 Warning(s)
+Build succeeded.
+$ dotnet test Ultima.Tests/Ultima.Tests.csproj -c Release
+Passed!  - Failed:     0, Passed:    64, Skipped:     0, Total:    64, Duration: 32 ms - Ultima.Tests.dll (net9.0)
+$ grep -rn "CardPileCmd\|DamageCmd\|PowerCmd.Apply\|CreatureCmd" Ultima/ --include=*.cs
+(exit 1 — 1 = aucun appel)
+$ bash tools/build.sh && ls -l build/mods/Ultima
+total 124
+-rw-r--r--. 1 mio mio 59392 Oct 27 20:38 Ultima.Core.dll
+-rw-r--r--. 1 mio mio 61440 Oct 27 20:38 Ultima.dll
+-rw-r--r--. 1 mio mio   280 Oct 27 20:38 Ultima.json
+```
+Revue chef : voie B (`MultiNet`) inactive si `custom_messages=false` ou solo ; priorité envoyée
+seulement si TOUS les autres joueurs ont répondu au Hello (`PriorityProtocol.CanSendPriority`) ;
+handlers désenregistrés en fin de combat (`INetGameService.UnregisterMessageHandler`, :75).
+Remarque B2 retenue : `NetBridge.Attach()`/`SendPing` (V0.1) seront aussi soumis à la config
+dans le câblage chef.
+
 ### Incohérence relevée dans SPEC.md §4 F2 (non modifiée : critère d'acceptation = hors discrétion)
 « `16x3` avec 20 block et 35 PV → 2e coup létal » est arithmétiquement faux : 48 − 20 = 28 < 35,
 le joueur survit à 7 PV. Les tests (LethalIndexTests + ForecastTests) prouvent la variante correcte
