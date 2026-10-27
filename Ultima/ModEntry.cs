@@ -45,34 +45,45 @@ public static class ModEntry
     /// → aucun patch appliqué, overlay inexistant. On force le chargement global ici pour
     /// que le symbole soit déjà résolu au moment du dlopen de Harmony.
     /// </summary>
+    private const int RtldNow = 0x00002;
+    private const int RtldGlobal = 0x00100;
+
+    [DllImport("libdl.so.2", EntryPoint = "dlopen", CharSet = CharSet.Ansi, SetLastError = true)]
+    private static extern IntPtr DlOpen(string fileName, int flags);
+
     private static void PreloadLibGcc()
     {
+        // RTLD_GLOBAL obligatoire : c'est ce qui rend les symboles visibles au dlopen suivant
+        // (celui que Harmony fait sur son mm-exhelper.so). NativeLibrary ne garantit pas ce flag.
         string[] candidates =
         {
             "libgcc_s.so.1",
-            "/usr/lib/libgcc_s.so.1",
-            "/usr/lib/x86_64-linux-gnu/libgcc_s.so.1",
             "/usr/lib64/libgcc_s.so.1",
+            "/usr/lib/x86_64-linux-gnu/libgcc_s.so.1",
+            "/usr/lib/libgcc_s.so.1",
             "/lib/x86_64-linux-gnu/libgcc_s.so.1",
+            "libunwind.so.8",
+            "/usr/lib64/libunwind.so.8",
+            "/usr/lib/x86_64-linux-gnu/libunwind.so.8",
         };
 
+        int loaded = 0;
         foreach (var name in candidates)
         {
             try
             {
-                // NativeLibrary.Load utilise dlopen(RTLD_GLOBAL) sous Unix : c'est exactement
-                // ce qu'il faut pour rendre _Unwind_RaiseException visible au helper de Harmony.
-                if (!NativeLibrary.TryLoad(name, out _)) continue;
-                Write($"dlopen: {name} charge en global (workaround godot#81032)");
-                return;
+                if (DlOpen(name, RtldNow | RtldGlobal) == IntPtr.Zero) continue;
+                Write($"dlopen: {name} (RTLD_GLOBAL) — workaround godot#81032");
+                loaded++;
             }
             catch
             {
-                // on tente le candidat suivant
+                // candidat suivant
             }
         }
 
-        Write("dlopen: libgcc_s introuvable — Harmony va probablement echouer");
+        if (loaded == 0)
+            Write("dlopen: libgcc_s/libunwind introuvable — Harmony va probablement echouer");
     }
 
     public static string DetectGameVersion()
