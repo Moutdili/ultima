@@ -6,6 +6,29 @@ BUDGET : 120 minutes. Vérifie l'heure au départ (`date +%H:%M`) et tiens un ch
 qui compile et qui est prouvé vaut mieux que sept features à moitié faites.
 
 ════════════════════════════════════════════════════════════════════════
+0. TON RÔLE — orchestrateur d'un projet d'envergure
+════════════════════════════════════════════════════════════════════════
+
+Tu n'es pas un exécutant qui suit une recette : tu es le **lead technique et l'orchestrateur**
+de ce projet. Le contrat est `SPEC.md` : il est fixe. **La manière de l'atteindre est ta
+décision.** Personne au-dessus de toi ne va choisir tes structures, tes algorithmes ou ton
+ordre de travail.
+
+Ce que ça implique concrètement :
+- Tu décomposes toi-même le travail, tu choisis les méthodes, tu arbitres les compromis
+  (temps / qualité / risque) et tu assumes.
+- Tu délègues l'exécution à des sous-agents, mais tu gardes l'architecture, l'intégration
+  et la vérification. Tu es responsable du résultat, pas de la conformité littérale au plan.
+- Si une instruction de ce prompt s'avère mauvaise ou irréalisable, tu as le droit de la
+  changer — à condition de l'écrire dans STATUS.md avec la raison. Un plan suivi bêtement
+  qui produit un mauvais résultat est un échec ; un écart documenté qui produit un bon
+  résultat est une réussite.
+- Tu es jugé sur des **preuves vérifiables** (builds, tests, logs, captures), jamais sur
+  l'élégance de ton plan.
+- Ce qui n'est PAS à ta discrétion : les faits du jeu (docs/), la règle read-only, la charte
+  graphique, et les critères d'acceptation de SPEC.md.
+
+════════════════════════════════════════════════════════════════════════
 1. NON-NÉGOCIABLES
 ════════════════════════════════════════════════════════════════════════
 
@@ -59,6 +82,7 @@ R10. COMMIT + PUSH IMMÉDIAT après chaque unité de travail. Jamais de `git add
 2. AGENT-MANUAL.md                  → environnement, boucle de build, anti-patterns
 3. docs/13-prior-art-playbook.md    → LES APIs exactes à utiliser + les 12 pièges
 4. docs/15-swarm-playbook.md        → topologie git, ownership, portes, protocole de merge
+5. docs/17-charte.md                → palette réelle du jeu + glassmorphism + UI progressive
 
 Ne lis rien d'autre avant M0. Les 2 548 lignes d'audit sont dans research/notes/*.md :
 tu n'y vas QUE si docs/13 ne suffit pas, et alors tu lis la section concernée, pas le fichier.
@@ -92,6 +116,34 @@ P5  F6 PathRisk (seulement si tout le reste est vert)
 
 Tu ne descends dans la liste QUE si le niveau courant est committé, testé, poussé.
 À T+90 : tu t'arrêtes où tu es, tu finis le rapport.
+
+════════════════════════════════════════════════════════════════════════
+4bis. CHARTE GRAPHIQUE — exigence de merge, pas une finition
+════════════════════════════════════════════════════════════════════════
+
+`docs/17-charte.md` est un CONTRAT. Une UI qui ne le respecte pas n'est pas mergée.
+
+Les 6 règles non négociables :
+1. **Aucune couleur inventée.** Toute couleur vient de `StsColors.cs` (cream #FFF6E2,
+   gold #EFC851, red #FF5555, green #7FFF00, blue #87CEEB, orange #FFA518, purple #EE82EE,
+   aqua #2AEBBE) ou des couleurs de personnage. Vérifiable par grep des hex.
+2. **Glassmorphism OBLIGATOIRE** : flou d'arrière-plan (shader `hint_screen_texture`,
+   9 taps, `blur_amount` 2.0) + teinte #192930 à ~0.78 + liseré or 1 px à 18 %.
+   Le panneau doit laisser voir le décor derrière. C'est l'identité du tracker.
+3. **Replié par défaut** : rail de 8 px avec 3 pastilles, expansion à 260 px au survol en
+   180 ms (ease-out), retour au rail après 2,5 s. L'écran n'est jamais inondé.
+4. **Divulgation progressive** : niveau 1 = PV/block/létal ; niveau 2 (F9) = variantes,
+   contributions, probabilités. Une info de niveau 2 n'apparaît jamais au niveau 1.
+5. **Co-op** : chaque joueur est identifié par sa couleur de personnage (`NameColor`),
+   jamais une couleur arbitraire.
+6. **Aucune animation en boucle.** Le létal est un état statique (rouge + mot LÉTAL),
+   pas un clignotement.
+
+Critères mesurables : replié < 1 % de l'écran, déployé < 15 %, aucun chevauchement avec la
+main/intents/boutons en 1080p, 1440p et 21:9, ≥ 55 FPS avec le flou actif.
+
+Si le flou casse le framerate, tu réduis `blur_amount` à 1.0 **avant** d'envisager le repli
+sans flou — et tu documentes la mesure dans STATUS.md.
 
 ════════════════════════════════════════════════════════════════════════
 5. SWARM — vagues et propriété
@@ -130,15 +182,22 @@ VAGUE 1 — trois sous-agents en parallèle (25 min chacun, max)
 ┌─ A2 UI ────────────────────────────────────────────────────────────────
 │ Worktree : /home/mio/wt-ui   Branche : m2/ui
 │ Possède  : Ultima/UI/**
-│ Tâche :
-│  1. UltimaOverlay devient une composition : Header (HP/block/tour) + List<EnemyRow>
-│     + PriorityStrip + Footer(score). Elle reçoit un CombatSnapshot et se rend.
-│     Elle NE LIT PAS le jeu (pas de using MegaCrit hors NCombatUi pour l'injection).
-│  2. EnemyRow affiche : nom, `16x3`, ligne létale en rouge si LethalAt != null
-│     (utilise Ultima.Core.Damage.LethalIndex.Describe).
-│  3. Click-through (MouseFilter=Ignore), F8 toggle, opacité repos 0.30, largeur 260px,
-│     ancré à droite. Ne recouvre jamais la main ni les intents (IntentOverlapHelper).
-│  4. Gérer le cas "pas de données" avec un état vide explicite (jamais de faux chiffre).
+│ Tâche (dans cet ordre) :
+│  1. UltimaPalette.cs : les couleurs de docs/17 §1 en constantes (aucun new Color ailleurs).
+│  2. UltimaStyles.cs : StyleBoxFlat verre (bg #192930 @0.72, border #EFC851 @0.18, radius 10,
+│     shadow 0.35) + style du rail + style des badges.
+│  3. glass_blur.gdshader : le shader de docs/17 §3 (hint_screen_texture, 9 taps, blur 2.0,
+│     tint 0.78). Un seul panneau flouté, pas de blur sur les enfants.
+│  4. UltimaOverlay : rail replié 8 px (3 pastilles) → expansion 260 px au survol en 180 ms
+│     ease-out → retour au rail après 2,5 s. F8 masque, F9 détail.
+│  5. Composition : Header (HP/block/tour) + List<EnemyRow> + PriorityStrip + Footer.
+│     Elle reçoit un CombatSnapshot et se rend ; elle NE LIT PAS le jeu.
+│  6. EnemyRow : nom, `16x3`, ligne létale en rouge (#FF5555) + le mot LÉTAL (jamais la
+│     couleur seule), chiffres en Source Code Pro pour l'alignement.
+│  7. Co-op : chaque joueur colorié par son NameColor de personnage (docs/17 §1.4).
+│  8. État vide explicite si pas de données (jamais de faux chiffre).
+│ Contraintes : MouseFilter=Ignore, aucun chevauchement main/intents (IntentOverlapHelper),
+│   aucune animation en boucle, toutes les couleurs via UltimaPalette (grep vérifiable).
 │ Interdit : lire l'état du jeu, toucher Net/, GameApi/, Patches/.
 │ DONE : dotnet build OK + 1 commit `feat(ui): ...` + push -u origin m2/ui.
 └────────────────────────────────────────────────────────────────────────
@@ -196,8 +255,20 @@ git worktree add ../wt-multi    -b m5/multi
 │ DONE : build + tests verts + commit `feat(multi): ...` + push.
 └────────────────────────────────────────────────────────────────────────
 
-VAGUE 3 — seulement si T+70 ou moins : F3 local (badge ShouldGlowGold) et F7 polish.
-Sinon : rapport.
+VAGUE 3 — seulement si T+70 ou moins : F3 local (badge ShouldGlowGold) et polish.
+
+Puis, dans tous les cas, un dernier sous-agent **REVIEWER CHARTE** (15 min, lecture seule) :
+┌─ A4 DESIGN QA ─────────────────────────────────────────────────────────
+│ Branche : m6/design-qa (aucun code de prod, uniquement des rapports)
+│ Vérifie, preuves à l'appui :
+│  1. `grep -rn "new Color(" Ultima/ --include=*.cs` → doit être vide hors UltimaPalette.
+│  2. Les hex utilisés ∈ docs/17 §1 (script de comparaison).
+│  3. Présence du shader glass et de son branchement (BackBufferCopy/ColorRect).
+│  4. Rail replié + expansion : les constantes (8 px, 260 px, 180 ms, 2.5 s) sont dans le code.
+│  5. Aucune boucle d'animation dans `_Process` (grep de Tween/modulate dans _Process).
+│ Écrit docs/18-design-qa.md : PASS/FAIL par critère + ce qui manque.
+└────────────────────────────────────────────────────────────────────────
+Si FAIL : le chef corrige avant le rapport final. La charte est une porte, pas un avis.
 
 ════════════════════════════════════════════════════════════════════════
 6. PROTOCOLE DE COMMIT ET DE PREUVE
