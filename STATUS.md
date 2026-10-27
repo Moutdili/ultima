@@ -98,6 +98,20 @@ futur commence par « charge d'abord les skills X » ; (3) audit chef du travail
 **D8bis — C1 mergé (20:51)** : badge F3 « PRIO » sur la carte en main (`HandBadges`), câblé
 dans `CombatSession` (Update à chaque refresh, Clear à l'arrêt, sûr vis-à-vis du pooling).
 
+**D11 — Verre refait selon les skills (demande explicite de Mio, 20:53).** Constat QA A4
+(`docs/18-design-qa.md`, FAIL 10 et 11) + écarts skills. Décisions chef, confiées à A2 relancé
+AVEC chargement obligatoire de `sts2-design-system` + `sts2-overlay-ui` :
+- shader dérivé de `game/pck/shaders/dark_blur.gdshader` (le jeu l'utilise dans `main_menu.tscn`
+  et `epoch_slot.tscn` → technique prouvée sur ce moteur) : échantillonnage mipmap `lod 3.5`,
+  3×3 taps AU lod (lettre de la charte : 9 taps, blur_amount 2.0) avec offsets en pixels écran
+  indépendants de panel_size → plus de flou fantôme ; teinte #192930 mix 0.78 (prompt maître) ;
+- highlight corrigé (bug de la charte : éclairait 90 % du panneau) → bord haut seulement ;
+- coins radius 10 + liseré + ombre sur le VRAI verre (masque SDF), plus seulement en repli ;
+- opacité repos 0.30 + fondu 150 ms (skill), panneau déployé jamais à 0.35 (lisibilité) ;
+- chiffres PV en Source Code Pro (QA 10) ; police min 14 px partout (skill 14 ∧ charte ≥ 12).
+QA 11 (chevauchement) corrigé par le chef : `4a5f996` (cartes de la main, corps + PV des
+créatures, piles pioche/défausse/épuisement).
+
 ## Propriété des fichiers (ce run)
 
 | Agent | Branche | Possède |
@@ -271,6 +285,29 @@ total 168
 -rw-r--r--. 1 mio mio  59392 Oct 27 20:51 Ultima.Core.dll
 -rw-r--r--. 1 mio mio 103424 Oct 27 20:51 Ultima.dll
 -rw-r--r--. 1 mio mio    280 Oct 27 20:51 Ultima.json
+```
+
+### 20:55 — merge A4 `m6/design-qa` (d572da9, docs) + C2 `m8/score` (8b75c5d, 589f830) + câblage `61544f3`
+QA : verdict FAIL (10 typo PV en Kreon ; 11 preuve de non-chevauchement) — correctifs en cours (D11).
+```
+$ git log --oneline -1
+61544f3 feat(core): wire F5 score ledger into the combat session
+$ dotnet build Ultima/Ultima.csproj -c Release
+    0 Error(s)
+    0 Warning(s)
+Build succeeded.
+$ dotnet test Ultima.Tests/Ultima.Tests.csproj -c Release
+Passed!  - Failed:     0, Passed:    82, Skipped:     0, Total:    82, Duration: 34 ms - Ultima.Tests.dll (net9.0)
+$ grep -rn "CardPileCmd\|DamageCmd\|PowerCmd.Apply\|CreatureCmd" Ultima/ --include=*.cs
+(exit 1 — 1 = aucun appel)
+$ bash tools/build.sh && ls -l build/mods/Ultima
+total 192
+-rw-r--r--. 1 mio mio  74240 Oct 27 20:55 Ultima.Core.dll
+-rw-r--r--. 1 mio mio 111104 Oct 27 20:55 Ultima.dll
+-rw-r--r--. 1 mio mio    280 Oct 27 20:55 Ultima.json
+$ bash tools/deploy.sh && bash tools/verify-deploy.sh
+✅ callbacks Godot présents (3 marqueurs)
+✅ déploiement à jour
 ```
 
 ### Incohérence relevée dans SPEC.md §4 F2 (non modifiée : critère d'acceptation = hors discrétion)
