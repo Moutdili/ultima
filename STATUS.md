@@ -337,6 +337,39 @@ $ bash tools/verify-deploy.sh → ✅ callbacks Godot présents (3 marqueurs) / 
 ```
 Re-QA A4 (v2, charte + skills) lancée sur `m9/design-qa2` = main@b2bd4cd.
 
+### 21:10 — correctifs chef après QA v2 → main `fc795a4` (poussé, déployé)
+QA v2 (A4, `05bed7c`, skills rechargées) : critères 1-10 et 12 PASS ; skills appliquées ou écarts
+justifiés ; FAIL critère 11 (repli de placement, zones périmées au redimensionnement) + note perf.
+- `82f8cec` fix(ui) : flou (lecture d'écran) attaché seulement pendant l'ouverture / à l'état déployé ;
+  rail au repos = remplissage plat → plus de copie plein écran par frame replié. Repli de placement
+  = position de chevauchement MINIMAL. Preuve : contrôle jetable de `Placement.Compute` (scratchpad,
+  structs GodotSharp) → 4/4 PASS, dont repli y=402 (520 px²) préféré à y=394 (1560 px²).
+- `240b5ca` fix(core) : la session s'abonne à `Viewport.SizeChanged` → zones à éviter recalculées.
+- Reste assumé (G5 de A2) : sans aucune place libre, le panneau DÉPLOYÉ (survol volontaire) reste
+  opaque à la position de moindre chevauchement ; le rail au repos descend à 0.35.
+```
+$ git log --oneline -1
+fc795a4 merge: m9/design-qa2 (A4) design QA v2 after glass rework
+$ dotnet build Ultima/Ultima.csproj -c Release
+    0 Error(s)
+    0 Warning(s)
+Build succeeded.
+$ dotnet test Ultima.Tests/Ultima.Tests.csproj -c Release
+Passed!  - Failed:     0, Passed:    82, Skipped:     0, Total:    82, Duration: 30 ms - Ultima.Tests.dll (net9.0)
+$ grep -rn "CardPileCmd\|DamageCmd\|PowerCmd.Apply\|CreatureCmd" Ultima/ --include=*.cs
+(exit 1 — 1 = aucun appel)
+$ bash tools/build.sh && ls -l build/mods/Ultima
+total 196
+-rw-r--r--. 1 mio mio  74240 Oct 27 21:10 Ultima.Core.dll
+-rw-r--r--. 1 mio mio 116736 Oct 27 21:10 Ultima.dll
+-rw-r--r--. 1 mio mio    280 Oct 27 21:10 Ultima.json
+$ bash tools/deploy.sh && bash tools/verify-deploy.sh
+build   : 21:10:00  116736 o
+déployé : 21:10:03  116736 o
+✅ callbacks Godot présents (3 marqueurs)
+✅ déploiement à jour
+```
+
 ### Incohérence relevée dans SPEC.md §4 F2 (non modifiée : critère d'acceptation = hors discrétion)
 « `16x3` avec 20 block et 35 PV → 2e coup létal » est arithmétiquement faux : 48 − 20 = 28 < 35,
 le joueur survit à 7 PV. Les tests (LethalIndexTests + ForecastTests) prouvent la variante correcte
@@ -369,3 +402,39 @@ Log : `<jeu>/mods/Ultima/ultima.log` · Config : `<jeu>/mods/Ultima/ultima.cfg` 
    - config ON (`[net] custom_messages=true`, fichier partagé par les 2 instances) : F7 → `net: ping
      sent` / `net: ping received` ; `multi: hello sent/received` ; `multi: priority sent/received`.
    - lignes préfixées `[<pid>]` pour distinguer host et client.
+
+## LIVRABLE FINAL (21:12, T+57) — main `fc795a4`
+
+### 1. Livré, feature par feature (branche → commits)
+| Feature | État | Branches / commits |
+|---|---|---|
+| F1 DamageForecast | ✅ code + tests, câblé, déployé · ⏳ G5 humain | m1/reader `bff5438` (lecture typée AttackIntent, multiplicateurs LUS) · m4/forecast `952e5ca` (variantes, oracle label) · câblage `af94f07` |
+| F2 LethalIndex | ✅ par ennemi + tour complet (block partagé) + co-op pire cas | Ultima.Core (existant) + m4/forecast `952e5ca` (SequenceLethal) |
+| F3 TurnPriority | ✅ ligne PRIO + badge sur la carte (ShouldGlowGold = oracle) | m3/catalog `5f314d8` (first_card_hint, signals) · m5/multi `b934278` · m7/badge `896dc31` · câblage `661bd1c` |
+| F4 Partage multi | ✅ voie A (HoverChanged, aucun message) · voie B codée mais OFF par défaut (D4) · ⏳ test 2 instances | m5/multi `d70795d` · gating R8 `af94f07` |
+| F5 RunScore minimal | ✅ ledger dégâts directs + non attribués listés par raison + `runscore.csv` | m8/score `8b75c5d`, `589f830` · câblage `61544f3` |
+| F7 UI verre | ✅ charte + skills (QA v2) · ⏳ rendu/FPS humain | m2/ui `e81f4e0`…`33628f8`, refonte `6b1f8b0`…`f4b0ff2` · chef `4a5f996`, `82f8cec`, `240b5ca` · QA m6 `d572da9`, m9 `05bed7c` |
+| Socle chef | ✅ | `d0bc229` Godot.NET.Sdk (D1) · `ddca437` contrats + cfg · `3bf36aa` PID · `ec4a571` mesure perf · `03132ab` verify-deploy |
+
+### 2. Sortie brute des 4 commandes de preuve (main `fc795a4`)
+Voir le bloc « 21:10 » ci-dessus (build 0/0, tests 82/82, grep read-only vide, staging 3 fichiers),
++ `verify-deploy.sh` ✅. CI GitHub : verte sur toutes les branches m1-m9 et sur les commits main
+précédents (fc795a4 en cours au moment du rapport).
+
+### 3. Reste à tester en jeu
+La checklist « PRÊT POUR TEST HUMAIN » ci-dessus (G4 log, G5 exactitude 3 rencontres, verre +
+capture, FPS ≥ 55, chevauchements 1080p/1440p/21:9, multi 2 instances, CSV F5).
+
+### 4. Non fait, et pourquoi
+- **F6 PathRisk** : non lancé. P5 « seulement si tout le reste est vert » ; à T+55 la porte charte
+  venait d'être refermée et la marge (35 min) ne permettait pas injection écran de carte + UI + tests
+  prouvés. Consolidation préférée (prompt maître : mieux vaut un livrable prouvé).
+- **F5 dans l'UI** : sources non attribuées listées dans le log et le CSV, pas encore dans l'overlay
+  (F5 « minimal » demandé par le prompt maître).
+- **F4 voie B active par défaut** : volontairement OFF (D4, comportement vanilla non vérifié).
+- **Défilement du niveau 2** au-delà de 40 % de la hauteur : non fait (≥ 5 ennemis au niveau 2).
+- **G4/G5** : portes humaines, jeu non lançable par l'agent.
+
+### 5. Tag
+`v0.1.0` posé sur `fc795a4` : F1+F2 verts sur toutes les portes automatiques (build, 82 tests, read-only,
+CI, oracle intégré). Le message du tag précise que G4/G5 restent à valider en jeu.
