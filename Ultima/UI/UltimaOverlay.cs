@@ -203,7 +203,8 @@ public partial class UltimaOverlay : Control
         }
         _glassMat = new ShaderMaterial { Shader = shader };
         _glassMat.SetShaderParameter("blur_amount", Mathf.Clamp(BlurAmount, 0f, 6f));
-        var glass = new ColorRect { MouseFilter = MouseFilterEnum.Ignore, Material = _glassMat };
+        // Color = repli visuel si le shader ne compile pas (sinon rectangle blanc) ; réécrit par COLOR.
+        var glass = new ColorRect { MouseFilter = MouseFilterEnum.Ignore, Material = _glassMat, Color = UltimaPalette.GlassFill };
         glass.SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
         root.AddChild(glass);
         var edge = new Panel { MouseFilter = MouseFilterEnum.Ignore };

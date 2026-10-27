@@ -93,9 +93,6 @@ public partial class UltimaOverlay
         float maxH = area.Size.Y * Placement.MaxHeightFraction;
         _expandedHeight = Mathf.Clamp(_content.Size.Y + 2 * Pad, RailHeight, Math.Max(RailHeight, maxH));
         var r = Placement.Compute(area, new Vector2(ExpandedWidth, _expandedHeight), _avoid);
-        // Taille NOMINALE du panneau déployé : rayon de flou stable pendant le Tween et
-        // pas d'offset démesuré sur le rail de 8 px (le shader divise par panel_size).
-        _glassMat?.SetShaderParameter("panel_size", new Vector2(ExpandedWidth, _expandedHeight));
         _rightX = area.End.X;
         _topY = r.Position.Y;
         _placementAlpha = r.Alpha;
