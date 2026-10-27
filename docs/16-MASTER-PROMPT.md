@@ -37,7 +37,18 @@ R6. PAS DE VALEUR DE JEU EN DUR. Dégâts, coûts, multiplicateurs : lus dans le
     (DamageCalc, DynamicVars, pouvoirs) ou passés en paramètre. Une constante de jeu dans
     le code = bug.
 
-R7. COMMIT + PUSH IMMÉDIAT après chaque unité de travail. Jamais de `git add -A`.
+R7. CONFIG EN `.cfg`/`.ini`, JAMAIS `.json` dans `mods/` : le loader parse tout `.json`
+    comme un manifeste. (Piège vérifié.)
+
+R8. BROADCAST : handshake `UltimaHello` obligatoire et **même mod-set des deux côtés**.
+    Les IDs de `INetMessage` dépendent de l'ensemble des types chargés. Ne jamais envoyer
+    à un pair qui n'a pas répondu au handshake.
+
+R9. NE COPIE PAS STS2MCP TEL QUEL : son GET mute l'état (`OpenInventory`,
+    `chestButton.ForceClick`, `merchantButton.ForceClick`). On ne reprend que les builders
+    de lecture, jamais ces lignes.
+
+R10. COMMIT + PUSH IMMÉDIAT après chaque unité de travail. Jamais de `git add -A`.
     Jamais de `--force`. Jamais de merge de main dans une branche.
 
 ════════════════════════════════════════════════════════════════════════

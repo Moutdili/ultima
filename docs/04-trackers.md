@@ -35,6 +35,19 @@ Tous les chiffres viennent de l'API ou du code, pas d'un souvenir.
 | **STS2 Modding Assistant MCP** (Nexus 345) | — | — | 2026 | MCP 151 outils pour modder STS2 |
 | **proto-git/sts2-coach** | 1 | TS | 2026-04-27 | Coach vocal + overlay (save watcher) |
 
+## Versions cibles (vérifiées dans les manifests/code)
+
+| Dépôt | Version de jeu visée | Note |
+|---|---|---|
+| ronishae/sts2-deck-tracker | `min_game_version: 0.107.1` | aligné sur nous |
+| 999dulgi/sts2decktracker | aucune déclaration, code citant **0.110.0** | plus récent que notre 0.107.1 → revalider |
+| CombatSolver | `min_game_version: 0.111.0` | idem |
+| STS2MCP | README 0.103.2, code ciblant **0.107** | proche, mais voir avertissement |
+
+⚠️ **STS2MCP n'est pas read-only côté GET** : `OpenInventory()` (`StateBuilder.cs:552`),
+`chestButton.ForceClick()` (`:2306`), `merchantButton.ForceClick()` (`:1475`) mutent l'état
+pendant la construction du JSON. On reprend les builders de lecture, jamais ces lignes.
+
 ## Analyse des 5 qui comptent vraiment
 
 ### 1. STS2MCP — la référence pour LIRE l'état

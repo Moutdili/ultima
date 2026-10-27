@@ -60,6 +60,16 @@ Ne devine jamais un nom : `rg "class NCombatUi" ~/sts2/game/pck/src/Core`.
 3. `TurnPriority` — cartes « payoff si première carte du tour » + alerte multi.
 4. `RunScore` + `PathRisk` — contribution dégâts, score de run, risque des embranchements.
 
+## Pièges vérifiés (audits d'octobre 2026)
+
+- **Aucun `.json` dans `mods/` sauf le manifest** : le loader parse tout `.json` comme manifeste.
+  Config en `.cfg`/`.ini` ou hors du dossier scanné.
+- **IDs de messages custom = dépendants du mod-set** : handshake obligatoire, mêmes mods des
+  deux côtés. BaseLib fixe les IDs 128-254 pour cette raison ; on ne dépend pas de BaseLib.
+- **Ne pas copier STS2MCP tel quel** : son GET mute l'état (`OpenInventory`, `ForceClick`).
+- **999dulgi cible ≥ 0.110**, CombatSolver ≥ 0.111, nous sommes en **0.107.1** : revalider.
+- Pipeline de dégâts : enchant → additif → multiplicatif → cap → block → HP. Block après tout.
+
 ## Anti-patterns déjà payés par la communauté
 
 - Patcher les surcharges de `GetDescriptionForPile` → texte dupliqué.

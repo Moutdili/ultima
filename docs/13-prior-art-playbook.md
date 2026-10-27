@@ -13,7 +13,44 @@ Sources :
 
 ---
 
-## 0. État du repo (ne pas refaire)
+## 0. CORRECTIONS CRITIQUES (issues des audits — lis-les en premier)
+
+C1. **Aucun `.json` dans `mods/` autre que le manifest.** Le loader désérialise *tout* `.json`
+    sous `mods/` comme un manifeste. La config d'ULTIMA doit être en `.cfg`/`.ini`, ou dans un
+    sous-dossier non scanné. (`research/notes/overlays-templates.md`)
+
+C2. **Les IDs de `INetMessage` dépendent de l'ensemble des types chargés** (dérivés du FullName,
+    ordre stable seulement à mod-set identique). BaseLib contourne ça en réécrivant
+    `MessageTypes._cache` avec des IDs fixes 128-254 (`CustomMessageWrapper`).
+    → Conséquence : handshake `UltimaHello` obligatoire, et **même mod-set des deux côtés**
+    pour le broadcast. Ne jamais supposer qu'un pair sans ULTIMA comprendra l'ID.
+
+C3. **STS2MCP n'est PAS read-only côté GET** : `OpenInventory()` (`StateBuilder.cs:552`),
+    `chestButton.ForceClick()` (`:2306`), `merchantButton.ForceClick()` (`:1475`) mutent l'état
+    pendant la construction du JSON. Ne jamais reprendre ces lignes.
+
+C4. **STS2MCP n'utilise pas `AttackIntent`** : `DamageCalc`, `Repeats`, `GetSingleDamage` sont
+    ABSENTS de son code (il ne lit que le label). Notre lecture typée vient du **source du jeu**
+    (docs/05), pas de STS2MCP. Le « 60 % du travail » ne concerne que HP/block/pouvoirs/piles.
+
+C5. **Versions de jeu différentes selon les dépôts** :
+    - 999dulgi : écrit pour **≥ 0.110** (`CardPileWatcher.cs:175`) → plus récent que notre 0.107.1.
+    - ronishae : déclare `min_game_version: 0.107.1` → aligné sur nous.
+    - CombatSolver : `min_game_version 0.111.0` → ses APIs ne sont pas garanties chez nous.
+    → Tout pattern repris de 999dulgi ou CombatSolver doit être revalidé sur 0.107.1.
+
+C6. **Pipeline réel confirmé** (CombatSolver, `CorePowerSupport.cs:717-732`) :
+    enchant → additif → multiplicatif → cap → `BeforeDamageReceived` → block → `ModifyHpLost`
+    → `LoseHp`. Weak et Vulnerable commutent (decimal), le block vient **strictement après**.
+    `IntentForecaster.Build` produit déjà un `ForecastAttackHit(Damage, BaseDamage)` par coup :
+    c'est exactement la structure de F2.
+
+C7. **Licences corrigées** : `STS2-DamageTracker` = MIT ; `Slay-the-Spire-2-Damage-Logger` = GPL-3.0
+    (à éviter) ; freude916/999dulgi/ronishae/advisor = aucune licence → réimplémenter.
+
+---
+
+## 0bis. État du repo (ne pas refaire)
 
 - `Ultima.Core` : `LethalIndex` + `DamageMath` **écrits et testés (12 tests verts)**.
 - `Ultima/Net` : `UltimaPingMessage` + `NetBridge` — **compilent**, premier test live à faire.
