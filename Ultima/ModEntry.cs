@@ -61,7 +61,8 @@ public static class ModEntry
     {
         try
         {
-            File.AppendAllText(LogPath, $"{DateTime.Now:O} {line}\n");
+            // PID : en multi local (tools/multi-lab.sh) les 2 instances partagent ce fichier.
+            File.AppendAllText(LogPath, $"{DateTime.Now:O} [{System.Environment.ProcessId}] {line}\n");
         }
         catch
         {
