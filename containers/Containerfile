@@ -22,7 +22,10 @@ RUN curl -fsSL https://dot.net/v1/dotnet-install.sh -o /tmp/dotnet-install.sh \
     && dotnet --list-sdks
 
 # ilspycmd (décompilation C#)
-RUN dotnet tool install --global ilspycmd && ilspycmd --version
+# --tool-path explicite : `--global` installe dans $HOME/.dotnet/tools (/root/...),
+# qui n'est pas dans le PATH de l'image. On cible le dossier déjà présent dans PATH.
+RUN dotnet tool install --tool-path /usr/local/dotnet/tools ilspycmd \
+ && /usr/local/dotnet/tools/ilspycmd --version
 
 # GDRE Tools (extraction du .pck Godot) — binaire Linux headless
 ARG GDRE_VERSION=2.7.4
@@ -31,8 +34,10 @@ RUN mkdir -p /opt/gdre \
        "https://github.com/GDRETools/gdsdecomp/releases/download/v${GDRE_VERSION}/GDRE_tools-v${GDRE_VERSION}-linux.zip" \
     && unzip -q /tmp/gdre.zip -d /opt/gdre \
     && rm -f /tmp/gdre.zip \
-    && ln -sf /opt/gdre/gdre_tools.x86_64 /usr/local/bin/gdre_tools \
-    && chmod +x /opt/gdre/gdre_tools.x86_64 \
+    && GDRE_BIN="$(find /opt/gdre -maxdepth 2 -type f -name 'gdre_tools*' ! -name '*.pck' | head -1)" \
+    && echo "GDRE_BIN=$GDRE_BIN" \
+    && chmod +x "$GDRE_BIN" \
+    && ln -sf "$GDRE_BIN" /usr/local/bin/gdre_tools \
     && (gdre_tools --gdre-version || true)
 
 # Node 22 (REA MCP) — optionnel mais présent pour `rea mcp doctor`

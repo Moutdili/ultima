@@ -1,6 +1,9 @@
 # ULTIMA — raccourcis. Tout passe par podman par défaut (reproductible).
 IMAGE      ?= ultima-toolchain:local
-PODMAN     ?= podman
+ENGINE     ?= $(shell command -v podman >/dev/null 2>&1 && echo podman || echo docker)
+# --userns=keep-id n'existe que sous podman ; sous docker on laisse vide.
+USERNS     ?= $(if $(filter podman,$(ENGINE)),--userns=keep-id,)
+PODMAN     ?= $(ENGINE)
 GAME_DIR   ?= $(shell for c in "$(HOME)/.var/app/com.valvesoftware.Steam/.local/share/Steam/steamapps/common/Slay the Spire 2" "$(HOME)/.local/share/Steam/steamapps/common/Slay the Spire 2" "$(HOME)/.steam/steam/steamapps/common/Slay the Spire 2"; do [ -d "$$c" ] && echo "$$c" && break; done)
 SEL        ?= z
 
@@ -22,20 +25,20 @@ image:
 	$(PODMAN) build -t $(IMAGE) -f containers/Containerfile .
 
 build:
-	$(PODMAN) run --rm --userns=keep-id -v "$$PWD:/work:$(SEL)" -w /work \
+	$(PODMAN) run --rm $(USERNS) --userns=keep-id -v "$$PWD:/work:$(SEL)" -w /work \
 	  -v "$(GAME_DIR):/game:ro,$(SEL)" -e STS2_DATA=/game/data_sts2_linuxbsd_x86_64 \
 	  $(IMAGE) bash tools/build.sh
 
 test:
-	$(PODMAN) run --rm --userns=keep-id -v "$$PWD:/work:$(SEL)" -w /work $(IMAGE) \
+	$(PODMAN) run --rm $(USERNS) --userns=keep-id -v "$$PWD:/work:$(SEL)" -w /work $(IMAGE) \
 	  dotnet test Ultima.Tests/Ultima.Tests.csproj -c Release
 
 ci: test
-	$(PODMAN) run --rm --userns=keep-id -v "$$PWD:/work:$(SEL)" -w /work $(IMAGE) bash -c \
+	$(PODMAN) run --rm $(USERNS) --userns=keep-id -v "$$PWD:/work:$(SEL)" -w /work $(IMAGE) bash -c \
 	  '! grep -rn "CardPileCmd\|DamageCmd\|PowerCmd.Apply\|CreatureCmd" Ultima/ --include=*.cs | grep -v "^\s*//"'
 
 deploy:
-	$(PODMAN) run --rm --userns=keep-id -v "$$PWD:/work:$(SEL)" -w /work \
+	$(PODMAN) run --rm $(USERNS) --userns=keep-id -v "$$PWD:/work:$(SEL)" -w /work \
 	  -v "$(GAME_DIR):/game:z" -e STS2_DATA=/game/data_sts2_linuxbsd_x86_64 \
 	  $(IMAGE) bash tools/deploy.sh
 
@@ -43,15 +46,15 @@ doctor:
 	bash tools/doctor.sh
 
 shell:
-	$(PODMAN) run --rm -it --userns=keep-id -v "$$PWD:/work:$(SEL)" -w /work $(IMAGE) bash
+	$(PODMAN) run --rm $(USERNS) -it --userns=keep-id -v "$$PWD:/work:$(SEL)" -w /work $(IMAGE) bash
 
 decompile:
-	$(PODMAN) run --rm --userns=keep-id -v "$$PWD:/work:$(SEL)" -w /work \
+	$(PODMAN) run --rm $(USERNS) --userns=keep-id -v "$$PWD:/work:$(SEL)" -w /work \
 	  -v "$(GAME_DIR):/game:ro,$(SEL)" -e STS2_GAME=/game \
 	  $(IMAGE) bash tools/decompile.sh
 
 index:
-	$(PODMAN) run --rm --userns=keep-id -v "$$PWD:/work:$(SEL)" -w /work $(IMAGE) \
+	$(PODMAN) run --rm $(USERNS) --userns=keep-id -v "$$PWD:/work:$(SEL)" -w /work $(IMAGE) \
 	  python3 tools/index_source.py --src game/pck/src/Core --out data/catalog --repo .
 
 clean:
