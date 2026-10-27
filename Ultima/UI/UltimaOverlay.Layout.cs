@@ -156,8 +156,10 @@ public partial class UltimaOverlay
 
     private float TargetAlpha()
     {
-        float a = _expanded || _lethal ? 1f : RestAlpha;
-        return Math.Min(a, _placementAlpha);
+        // G5 : déployé = toujours 1.0, même en repli de placement (à 0.35 le texte tombait
+        // à 2.99:1, QA docs/18 §12). Seul le rail au repos peut baisser.
+        if (_expanded) return 1f;
+        return Math.Min(_lethal ? 1f : RestAlpha, _placementAlpha);
     }
 
     /// <summary>
