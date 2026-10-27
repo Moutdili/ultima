@@ -1,0 +1,612 @@
+[
+ {
+  "class": "BansheesCry",
+  "file": "Models/Cards/BansheesCry.cs",
+  "base": "CardModel",
+  "cost": 9,
+  "type": "Attack",
+  "rarity": "Rare",
+  "target": "AllEnemies",
+  "vars": {
+   "damagevar": 33.0
+  },
+  "glow_gold": false,
+  "glow_red": false,
+  "turn_conditional": true,
+  "priority_candidate": true
+ },
+ {
+  "class": "BeatIntoShape",
+  "file": "Models/Cards/BeatIntoShape.cs",
+  "base": "CardModel",
+  "cost": 1,
+  "type": "Attack",
+  "rarity": "Rare",
+  "target": "AnyEnemy",
+  "vars": {
+   "damagevar": 5.0
+  },
+  "upgrade_delta": [
+   2.0,
+   2.0,
+   2.0
+  ],
+  "glow_gold": false,
+  "glow_red": false,
+  "turn_conditional": true,
+  "priority_candidate": true
+ },
+ {
+  "class": "Bolas",
+  "file": "Models/Cards/Bolas.cs",
+  "base": "CardModel",
+  "cost": 0,
+  "type": "Attack",
+  "rarity": "Rare",
+  "target": "AnyEnemy",
+  "vars": {
+   "damagevar": 3.0
+  },
+  "upgrade_delta": [
+   1.0
+  ],
+  "glow_gold": false,
+  "glow_red": false,
+  "turn_conditional": true,
+  "priority_candidate": true
+ },
+ {
+  "class": "BubbleBubble",
+  "file": "Models/Cards/BubbleBubble.cs",
+  "base": "CardModel",
+  "cost": 1,
+  "type": "Skill",
+  "rarity": "Uncommon",
+  "target": "AnyEnemy",
+  "upgrade_delta": [
+   3.0
+  ],
+  "glow_gold": true,
+  "glow_red": false,
+  "turn_conditional": false,
+  "priority_candidate": true
+ },
+ {
+  "class": "Clash",
+  "file": "Models/Cards/Clash.cs",
+  "base": "CardModel",
+  "cost": 0,
+  "type": "Attack",
+  "rarity": "Event",
+  "target": "AnyEnemy",
+  "vars": {
+   "damagevar": 14.0
+  },
+  "upgrade_delta": [
+   4.0
+  ],
+  "glow_gold": true,
+  "glow_red": false,
+  "turn_conditional": false,
+  "priority_candidate": true
+ },
+ {
+  "class": "DeathMarch",
+  "file": "Models/Cards/DeathMarch.cs",
+  "base": "CardModel",
+  "cost": 1,
+  "type": "Attack",
+  "rarity": "Uncommon",
+  "target": "AnyEnemy",
+  "upgrade_delta": [
+   1.0,
+   2.0
+  ],
+  "glow_gold": false,
+  "glow_red": false,
+  "turn_conditional": true,
+  "priority_candidate": true
+ },
+ {
+  "class": "DeathsDoor",
+  "file": "Models/Cards/DeathsDoor.cs",
+  "base": "CardModel",
+  "cost": 1,
+  "type": "Skill",
+  "rarity": "Uncommon",
+  "target": "Self",
+  "vars": {
+   "blockvar": 6.0
+  },
+  "upgrade_delta": [
+   1.0
+  ],
+  "glow_gold": true,
+  "glow_red": false,
+  "turn_conditional": true,
+  "priority_candidate": true
+ },
+ {
+  "class": "Dismantle",
+  "file": "Models/Cards/Dismantle.cs",
+  "base": "CardModel",
+  "cost": 1,
+  "type": "Attack",
+  "rarity": "Uncommon",
+  "target": "AnyEnemy",
+  "vars": {
+   "damagevar": 8.0
+  },
+  "upgrade_delta": [
+   2.0
+  ],
+  "glow_gold": true,
+  "glow_red": false,
+  "turn_conditional": false,
+  "priority_candidate": true
+ },
+ {
+  "class": "Eidolon",
+  "file": "Models/Cards/Eidolon.cs",
+  "base": "CardModel",
+  "cost": 2,
+  "type": "Skill",
+  "rarity": "Rare",
+  "target": "Self",
+  "glow_gold": true,
+  "glow_red": false,
+  "turn_conditional": false,
+  "priority_candidate": true
+ },
+ {
+  "class": "EvilEye",
+  "file": "Models/Cards/EvilEye.cs",
+  "base": "CardModel",
+  "cost": 1,
+  "type": "Skill",
+  "rarity": "Uncommon",
+  "target": "Self",
+  "vars": {
+   "blockvar": 8.0
+  },
+  "upgrade_delta": [
+   3.0
+  ],
+  "glow_gold": true,
+  "glow_red": false,
+  "turn_conditional": true,
+  "priority_candidate": true
+ },
+ {
+  "class": "Fetch",
+  "file": "Models/Cards/Fetch.cs",
+  "base": "CardModel",
+  "cost": 0,
+  "type": "Attack",
+  "rarity": "Uncommon",
+  "target": "AnyEnemy",
+  "upgrade_delta": [
+   3.0
+  ],
+  "tags": [
+   "OstyAttack"
+  ],
+  "glow_gold": true,
+  "glow_red": true,
+  "turn_conditional": true,
+  "priority_candidate": true
+ },
+ {
+  "class": "Finisher",
+  "file": "Models/Cards/Finisher.cs",
+  "base": "CardModel",
+  "cost": 1,
+  "type": "Attack",
+  "rarity": "Uncommon",
+  "target": "AnyEnemy",
+  "vars": {
+   "damagevar": 6.0
+  },
+  "upgrade_delta": [
+   2.0
+  ],
+  "glow_gold": false,
+  "glow_red": false,
+  "turn_conditional": true,
+  "priority_candidate": true
+ },
+ {
+  "class": "Flatten",
+  "file": "Models/Cards/Flatten.cs",
+  "base": "CardModel",
+  "cost": 2,
+  "type": "Attack",
+  "rarity": "Common",
+  "target": "AnyEnemy",
+  "upgrade_delta": [
+   4.0
+  ],
+  "tags": [
+   "OstyAttack"
+  ],
+  "glow_gold": true,
+  "glow_red": true,
+  "turn_conditional": true,
+  "priority_candidate": true
+ },
+ {
+  "class": "ForgottenRitual",
+  "file": "Models/Cards/ForgottenRitual.cs",
+  "base": "CardModel",
+  "cost": 1,
+  "type": "Skill",
+  "rarity": "Uncommon",
+  "target": "Self",
+  "upgrade_delta": [
+   1.0
+  ],
+  "glow_gold": true,
+  "glow_red": false,
+  "turn_conditional": true,
+  "priority_candidate": true
+ },
+ {
+  "class": "Ftl",
+  "file": "Models/Cards/Ftl.cs",
+  "base": "CardModel",
+  "cost": 0,
+  "type": "Attack",
+  "rarity": "Uncommon",
+  "target": "AnyEnemy",
+  "vars": {
+   "damagevar": 5.0
+  },
+  "upgrade_delta": [
+   1.0,
+   1.0
+  ],
+  "glow_gold": true,
+  "glow_red": false,
+  "turn_conditional": true,
+  "priority_candidate": true
+ },
+ {
+  "class": "GangUp",
+  "file": "Models/Cards/GangUp.cs",
+  "base": "CardModel",
+  "cost": 1,
+  "type": "Attack",
+  "rarity": "Uncommon",
+  "target": "AnyEnemy",
+  "upgrade_delta": [
+   2.0
+  ],
+  "glow_gold": false,
+  "glow_red": false,
+  "turn_conditional": true,
+  "priority_candidate": true
+ },
+ {
+  "class": "GoForTheEyes",
+  "file": "Models/Cards/GoForTheEyes.cs",
+  "base": "CardModel",
+  "cost": 0,
+  "type": "Attack",
+  "rarity": "Common",
+  "target": "AnyEnemy",
+  "vars": {
+   "damagevar": 3.0
+  },
+  "upgrade_delta": [
+   1.0,
+   1.0
+  ],
+  "glow_gold": true,
+  "glow_red": false,
+  "turn_conditional": false,
+  "priority_candidate": true
+ },
+ {
+  "class": "GoldAxe",
+  "file": "Models/Cards/GoldAxe.cs",
+  "base": "CardModel",
+  "cost": 1,
+  "type": "Attack",
+  "rarity": "Rare",
+  "target": "AnyEnemy",
+  "glow_gold": false,
+  "glow_red": false,
+  "turn_conditional": true,
+  "priority_candidate": true
+ },
+ {
+  "class": "GrandFinale",
+  "file": "Models/Cards/GrandFinale.cs",
+  "base": "CardModel",
+  "cost": 0,
+  "type": "Attack",
+  "rarity": "Rare",
+  "target": "AllEnemies",
+  "vars": {
+   "damagevar": 60.0
+  },
+  "upgrade_delta": [
+   15.0
+  ],
+  "glow_gold": true,
+  "glow_red": false,
+  "turn_conditional": false,
+  "priority_candidate": true
+ },
+ {
+  "class": "HeavenlyDrill",
+  "file": "Models/Cards/HeavenlyDrill.cs",
+  "base": "CardModel",
+  "cost": 0,
+  "type": "Attack",
+  "rarity": "Rare",
+  "target": "AnyEnemy",
+  "vars": {
+   "damagevar": 8.0
+  },
+  "upgrade_delta": [
+   2.0
+  ],
+  "glow_gold": true,
+  "glow_red": false,
+  "turn_conditional": false,
+  "priority_candidate": true
+ },
+ {
+  "class": "HelixDrill",
+  "file": "Models/Cards/HelixDrill.cs",
+  "base": "CardModel",
+  "cost": 0,
+  "type": "Attack",
+  "rarity": "Rare",
+  "target": "AnyEnemy",
+  "vars": {
+   "damagevar": 3.0
+  },
+  "upgrade_delta": [
+   2.0
+  ],
+  "glow_gold": false,
+  "glow_red": false,
+  "turn_conditional": true,
+  "priority_candidate": true
+ },
+ {
+  "class": "Impatience",
+  "file": "Models/Cards/Impatience.cs",
+  "base": "CardModel",
+  "cost": 0,
+  "type": "Skill",
+  "rarity": "Uncommon",
+  "target": "Self",
+  "upgrade_delta": [
+   1.0
+  ],
+  "glow_gold": true,
+  "glow_red": false,
+  "turn_conditional": false,
+  "priority_candidate": true
+ },
+ {
+  "class": "LunarBlast",
+  "file": "Models/Cards/LunarBlast.cs",
+  "base": "CardModel",
+  "cost": 0,
+  "type": "Attack",
+  "rarity": "Uncommon",
+  "target": "AnyEnemy",
+  "vars": {
+   "damagevar": 4.0
+  },
+  "upgrade_delta": [
+   1.0
+  ],
+  "glow_gold": false,
+  "glow_red": false,
+  "turn_conditional": true,
+  "priority_candidate": true
+ },
+ {
+  "class": "MakeItSo",
+  "file": "Models/Cards/MakeItSo.cs",
+  "base": "CardModel",
+  "cost": 0,
+  "type": "Attack",
+  "rarity": "Rare",
+  "target": "AnyEnemy",
+  "vars": {
+   "damagevar": 6.0
+  },
+  "upgrade_delta": [
+   3.0
+  ],
+  "glow_gold": false,
+  "glow_red": false,
+  "turn_conditional": true,
+  "priority_candidate": true
+ },
+ {
+  "class": "MementoMori",
+  "file": "Models/Cards/MementoMori.cs",
+  "base": "CardModel",
+  "cost": 1,
+  "type": "Attack",
+  "rarity": "Uncommon",
+  "target": "AnyEnemy",
+  "upgrade_delta": [
+   2.0,
+   1.0
+  ],
+  "glow_gold": false,
+  "glow_red": false,
+  "turn_conditional": true,
+  "priority_candidate": true
+ },
+ {
+  "class": "Normality",
+  "file": "Models/Cards/Normality.cs",
+  "base": "CardModel",
+  "type": "Curse",
+  "rarity": "Curse",
+  "target": "None",
+  "glow_gold": false,
+  "glow_red": true,
+  "turn_conditional": true,
+  "priority_candidate": true
+ },
+ {
+  "class": "PactsEnd",
+  "file": "Models/Cards/PactsEnd.cs",
+  "base": "CardModel",
+  "cost": 0,
+  "type": "Attack",
+  "rarity": "Rare",
+  "target": "AllEnemies",
+  "vars": {
+   "damagevar": 17.0
+  },
+  "upgrade_delta": [
+   6.0
+  ],
+  "glow_gold": true,
+  "glow_red": false,
+  "turn_conditional": false,
+  "priority_candidate": true
+ },
+ {
+  "class": "Pinpoint",
+  "file": "Models/Cards/Pinpoint.cs",
+  "base": "CardModel",
+  "cost": 3,
+  "type": "Attack",
+  "rarity": "Uncommon",
+  "target": "AnyEnemy",
+  "vars": {
+   "damagevar": 15.0
+  },
+  "upgrade_delta": [
+   4.0
+  ],
+  "glow_gold": false,
+  "glow_red": false,
+  "turn_conditional": true,
+  "priority_candidate": true
+ },
+ {
+  "class": "Radiate",
+  "file": "Models/Cards/Radiate.cs",
+  "base": "CardModel",
+  "cost": 0,
+  "type": "Attack",
+  "rarity": "Uncommon",
+  "target": "AllEnemies",
+  "vars": {
+   "damagevar": 3.0
+  },
+  "upgrade_delta": [
+   1.0
+  ],
+  "glow_gold": false,
+  "glow_red": false,
+  "turn_conditional": true,
+  "priority_candidate": true
+ },
+ {
+  "class": "Rattle",
+  "file": "Models/Cards/Rattle.cs",
+  "base": "CardModel",
+  "cost": 1,
+  "type": "Attack",
+  "rarity": "Uncommon",
+  "target": "AnyEnemy",
+  "upgrade_delta": [
+   2.0
+  ],
+  "tags": [
+   "OstyAttack"
+  ],
+  "glow_gold": false,
+  "glow_red": true,
+  "turn_conditional": true,
+  "priority_candidate": true
+ },
+ {
+  "class": "Restlessness",
+  "file": "Models/Cards/Restlessness.cs",
+  "base": "CardModel",
+  "cost": 0,
+  "type": "Skill",
+  "rarity": "Uncommon",
+  "target": "Self",
+  "upgrade_delta": [
+   1.0,
+   1.0
+  ],
+  "glow_gold": true,
+  "glow_red": false,
+  "turn_conditional": false,
+  "priority_candidate": true
+ },
+ {
+  "class": "Spite",
+  "file": "Models/Cards/Spite.cs",
+  "base": "CardModel",
+  "cost": 0,
+  "type": "Attack",
+  "rarity": "Uncommon",
+  "target": "AnyEnemy",
+  "vars": {
+   "damagevar": 5.0
+  },
+  "upgrade_delta": [
+   1.0
+  ],
+  "glow_gold": true,
+  "glow_red": false,
+  "turn_conditional": true,
+  "priority_candidate": true
+ },
+ {
+  "class": "Stomp",
+  "file": "Models/Cards/Stomp.cs",
+  "base": "CardModel",
+  "cost": 3,
+  "type": "Attack",
+  "rarity": "Uncommon",
+  "target": "AllEnemies",
+  "vars": {
+   "damagevar": 12.0
+  },
+  "upgrade_delta": [
+   3.0
+  ],
+  "glow_gold": false,
+  "glow_red": false,
+  "turn_conditional": true,
+  "priority_candidate": true
+ },
+ {
+  "class": "ThrummingHatchet",
+  "file": "Models/Cards/ThrummingHatchet.cs",
+  "base": "CardModel",
+  "cost": 1,
+  "type": "Attack",
+  "rarity": "Uncommon",
+  "target": "AnyEnemy",
+  "vars": {
+   "damagevar": 11.0
+  },
+  "upgrade_delta": [
+   3.0
+  ],
+  "glow_gold": false,
+  "glow_red": false,
+  "turn_conditional": true,
+  "priority_candidate": true
+ }
+]

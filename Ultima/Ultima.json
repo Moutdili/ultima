@@ -1,0 +1,11 @@
+{
+  "id": "Ultima",
+  "name": "ULTIMA",
+  "author": "Mio",
+  "description": "Combat intelligence overlay: damage forecast, lethal index, turn priority, run scoring.",
+  "version": "0.1.0",
+  "has_pck": false,
+  "has_dll": true,
+  "dependencies": [],
+  "affects_gameplay": false
+}

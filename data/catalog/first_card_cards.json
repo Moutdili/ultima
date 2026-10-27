@@ -1,0 +1,11 @@
+[
+ {
+  "class": "Normality",
+  "file": "Models/Cards/Normality.cs",
+  "base": "CardModel",
+  "type": "Curse",
+  "rarity": "Curse",
+  "target": "None",
+  "first_card_candidate": true
+ }
+]

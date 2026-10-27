@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>Ultima</AssemblyName>
+    <RootNamespace>Ultima</RootNamespace>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+    <!-- Chemin du jeu, surchargeable : -p:Sts2DataDir=... -->
+    <Sts2DataDir Condition="'$(Sts2DataDir)' == ''">$(HOME)/.var/app/com.valvesoftware.Steam/.local/share/Steam/steamapps/common/Slay the Spire 2/data_sts2_linuxbsd_x86_64</Sts2DataDir>
+  </PropertyGroup>
+
+  <Target Name="ValidateGameReferences" BeforeTargets="ResolveReferences">
+    <Error Condition="!Exists('$(Sts2DataDir)/sts2.dll')"
+           Text="sts2.dll introuvable dans $(Sts2DataDir). Passer -p:Sts2DataDir=... (cf. tools/doctor.sh)." />
+  </Target>
+
+  <ItemGroup>
+    <Reference Include="sts2">
+      <HintPath>$(Sts2DataDir)/sts2.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="0Harmony">
+      <HintPath>$(Sts2DataDir)/0Harmony.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="GodotSharp">
+      <HintPath>$(Sts2DataDir)/GodotSharp.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,6544 @@
+[
+ {
+  "class": "Aeonglass",
+  "file": "Models/Monsters/Aeonglass.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 535, 512)",
+   "values": [
+    535,
+    512
+   ]
+  },
+  "max_hp": {
+   "expr": "MinInitialHp",
+   "values": []
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "EBB_MOVE",
+    "method": "EbbMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "EbbDamage)",
+     "new DefendIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   },
+   {
+    "state": "EYE_LASERS_MOVE",
+    "method": "EyeLasersMove",
+    "intent": "MultiAttackIntent",
+    "args": [
+     "EyeLasersDamage",
+     "EyeLasersRepeat"
+    ],
+    "values": [
+     [
+      12,
+      11
+     ],
+     [
+      2
+     ]
+    ]
+   },
+   {
+    "state": "INCREASING_INTENSITY_MOVE",
+    "method": "IncreasingIntensityMove",
+    "intent": "StatusIntent",
+    "args": [
+     "WitherAmount)",
+     "new BuffIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   }
+  ]
+ },
+ {
+  "class": "Architect",
+  "file": "Models/Monsters/Architect.cs",
+  "min_hp": {
+   "expr": "9999",
+   "values": [
+    9999
+   ]
+  },
+  "max_hp": {
+   "expr": "9999",
+   "values": [
+    9999
+   ]
+  },
+  "ascension_scaled": false
+ },
+ {
+  "class": "AssassinRubyRaider",
+  "file": "Models/Monsters/AssassinRubyRaider.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 19, 18)",
+   "values": [
+    19,
+    18
+   ]
+  },
+  "max_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 24, 23)",
+   "values": [
+    24,
+    23
+   ]
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "KILLSHOT_MOVE",
+    "method": "KillshotMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "KillshotDamage"
+    ],
+    "values": [
+     [
+      11,
+      10
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "class": "AxeRubyRaider",
+  "file": "Models/Monsters/AxeRubyRaider.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 21, 20)",
+   "values": [
+    21,
+    20
+   ]
+  },
+  "max_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 23, 22)",
+   "values": [
+    23,
+    22
+   ]
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "SWING_1",
+    "method": "SwingMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "SwingDamage)",
+     "new DefendIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   },
+   {
+    "state": "SWING_2",
+    "method": "SwingMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "SwingDamage)",
+     "new DefendIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   },
+   {
+    "state": "BIG_SWING",
+    "method": "BigSwingMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "BigSwingDamage"
+    ],
+    "values": [
+     [
+      13,
+      12
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "class": "Axebot",
+  "file": "Models/Monsters/Axebot.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 76, 70)",
+   "values": [
+    76,
+    70
+   ]
+  },
+  "max_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 86, 78)",
+   "values": [
+    86,
+    78
+   ]
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "BOOT_UP_MOVE",
+    "method": "BootUpMove",
+    "intent": "DefendIntent",
+    "args": [
+     ")",
+     "new BuffIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   },
+   {
+    "state": "ONE_TWO_MOVE",
+    "method": "OneTwoMove",
+    "intent": "MultiAttackIntent",
+    "args": [
+     "OneTwoDamage",
+     "2"
+    ],
+    "values": [
+     [
+      10,
+      9
+     ],
+     [
+      2
+     ]
+    ]
+   },
+   {
+    "state": "HAMMER_UPPERCUT_MOVE",
+    "method": "HammerUppercutMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "HammerUppercutDamage)",
+     "new DebuffIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   }
+  ]
+ },
+ {
+  "class": "BattleFriendV1",
+  "file": "Models/Monsters/BattleFriendV1.cs",
+  "min_hp": {
+   "expr": "75",
+   "values": [
+    75
+   ]
+  },
+  "max_hp": {
+   "expr": "75",
+   "values": [
+    75
+   ]
+  },
+  "ascension_scaled": false
+ },
+ {
+  "class": "BattleFriendV2",
+  "file": "Models/Monsters/BattleFriendV2.cs",
+  "min_hp": {
+   "expr": "150",
+   "values": [
+    150
+   ]
+  },
+  "max_hp": {
+   "expr": "150",
+   "values": [
+    150
+   ]
+  },
+  "ascension_scaled": false
+ },
+ {
+  "class": "BattleFriendV3",
+  "file": "Models/Monsters/BattleFriendV3.cs",
+  "min_hp": {
+   "expr": "300",
+   "values": [
+    300
+   ]
+  },
+  "max_hp": {
+   "expr": "300",
+   "values": [
+    300
+   ]
+  },
+  "ascension_scaled": false
+ },
+ {
+  "class": "BigDummy",
+  "file": "Models/Monsters/BigDummy.cs",
+  "min_hp": {
+   "expr": "9999",
+   "values": [
+    9999
+   ]
+  },
+  "max_hp": {
+   "expr": "9999",
+   "values": [
+    9999
+   ]
+  },
+  "ascension_scaled": false,
+  "moves": [
+   {
+    "state": "NOTHING",
+    "method": "NothingMove",
+    "intent": "HiddenIntent",
+    "args": [],
+    "values": []
+   }
+  ]
+ },
+ {
+  "class": "BowlbugEgg",
+  "file": "Models/Monsters/BowlbugEgg.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 23, 21)",
+   "values": [
+    23,
+    21
+   ]
+  },
+  "max_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 24, 22)",
+   "values": [
+    24,
+    22
+   ]
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "BITE_MOVE",
+    "method": "BiteMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "BiteDamage)",
+     "new DefendIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   }
+  ]
+ },
+ {
+  "class": "BowlbugNectar",
+  "file": "Models/Monsters/BowlbugNectar.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 36, 35)",
+   "values": [
+    36,
+    35
+   ]
+  },
+  "max_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 39, 38)",
+   "values": [
+    39,
+    38
+   ]
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "THRASH_MOVE",
+    "method": "ThrashMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "ThrashDamage"
+    ],
+    "values": [
+     [
+      3
+     ]
+    ]
+   },
+   {
+    "state": "BUFF_MOVE",
+    "method": "BuffMove",
+    "intent": "BuffIntent",
+    "args": [],
+    "values": []
+   },
+   {
+    "state": "THRASH2_MOVE",
+    "method": "ThrashMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "ThrashDamage"
+    ],
+    "values": [
+     [
+      3
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "class": "BowlbugRock",
+  "file": "Models/Monsters/BowlbugRock.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 46, 45)",
+   "values": [
+    46,
+    45
+   ]
+  },
+  "max_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 49, 48)",
+   "values": [
+    49,
+    48
+   ]
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "HEADBUTT_MOVE",
+    "method": "HeadbuttMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "HeadbuttDamage"
+    ],
+    "values": [
+     [
+      16,
+      15
+     ]
+    ]
+   },
+   {
+    "state": "DIZZY_MOVE",
+    "method": "DizzyMove",
+    "intent": "StunIntent",
+    "args": [],
+    "values": []
+   }
+  ]
+ },
+ {
+  "class": "BowlbugSilk",
+  "file": "Models/Monsters/BowlbugSilk.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 41, 40)",
+   "values": [
+    41,
+    40
+   ]
+  },
+  "max_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 44, 43)",
+   "values": [
+    44,
+    43
+   ]
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "THRASH_MOVE",
+    "method": "ThrashMove",
+    "intent": "MultiAttackIntent",
+    "args": [
+     "ThrashDamage",
+     "2"
+    ],
+    "values": [
+     [
+      5,
+      4
+     ],
+     [
+      2
+     ]
+    ]
+   },
+   {
+    "state": "TOXIC_SPIT_MOVE",
+    "method": "SpitMove",
+    "intent": "DebuffIntent",
+    "args": [],
+    "values": []
+   }
+  ]
+ },
+ {
+  "class": "BruteRubyRaider",
+  "file": "Models/Monsters/BruteRubyRaider.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 31, 30)",
+   "values": [
+    31,
+    30
+   ]
+  },
+  "max_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 34, 33)",
+   "values": [
+    34,
+    33
+   ]
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "BEAT_MOVE",
+    "method": "BeatMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "BeatDamage"
+    ],
+    "values": [
+     [
+      8,
+      7
+     ]
+    ]
+   },
+   {
+    "state": "ROAR_MOVE",
+    "method": "RoarMove",
+    "intent": "BuffIntent",
+    "args": [],
+    "values": []
+   }
+  ]
+ },
+ {
+  "class": "BygoneEffigy",
+  "file": "Models/Monsters/BygoneEffigy.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 132, 127)",
+   "values": [
+    132,
+    127
+   ]
+  },
+  "max_hp": {
+   "expr": "MinInitialHp",
+   "values": []
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "SLEEP_MOVE",
+    "method": "InitialSleepMove",
+    "intent": "SleepIntent",
+    "args": [],
+    "values": []
+   },
+   {
+    "state": "WAKE_MOVE",
+    "method": "WakeMove",
+    "intent": "BuffIntent",
+    "args": [],
+    "values": []
+   },
+   {
+    "state": "SLEEP_MOVE_2",
+    "method": "SleepMove",
+    "intent": "SleepIntent",
+    "args": [],
+    "values": []
+   },
+   {
+    "state": "SLASHES_MOVE",
+    "method": "SlashMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "SlashDamage"
+    ],
+    "values": [
+     [
+      15,
+      13
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "class": "Byrdonis",
+  "file": "Models/Monsters/Byrdonis.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 90, 81)",
+   "values": [
+    90,
+    81
+   ]
+  },
+  "max_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 90, 84)",
+   "values": [
+    90,
+    84
+   ]
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "PECK_MOVE",
+    "method": "PeckMove",
+    "intent": "MultiAttackIntent",
+    "args": [
+     "PeckDamage",
+     "PeckRepeat"
+    ],
+    "values": [
+     [
+      4,
+      3
+     ],
+     [
+      3,
+      3
+     ]
+    ]
+   },
+   {
+    "state": "SWOOP_MOVE",
+    "method": "SwoopMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "SwoopDamage"
+    ],
+    "values": [
+     [
+      19,
+      17
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "class": "Byrdpip",
+  "file": "Models/Monsters/Byrdpip.cs",
+  "min_hp": {
+   "expr": "9999",
+   "values": [
+    9999
+   ]
+  },
+  "max_hp": {
+   "expr": "9999",
+   "values": [
+    9999
+   ]
+  },
+  "ascension_scaled": false
+ },
+ {
+  "class": "CalcifiedCultist",
+  "file": "Models/Monsters/CalcifiedCultist.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 39, 38)",
+   "values": [
+    39,
+    38
+   ]
+  },
+  "max_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 42, 41)",
+   "values": [
+    42,
+    41
+   ]
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "INCANTATION_MOVE",
+    "method": "IncantationMove",
+    "intent": "BuffIntent",
+    "args": [],
+    "values": []
+   },
+   {
+    "state": "DARK_STRIKE_MOVE",
+    "method": "DarkStrikeMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "DarkStrikeDamage"
+    ],
+    "values": [
+     [
+      11,
+      9
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "class": "CeremonialBeast",
+  "file": "Models/Monsters/CeremonialBeast.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 262, 252)",
+   "values": [
+    262,
+    252
+   ]
+  },
+  "max_hp": {
+   "expr": "MinInitialHp",
+   "values": []
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "STAMP_MOVE",
+    "method": "StampMove",
+    "intent": "BuffIntent",
+    "args": [],
+    "values": []
+   },
+   {
+    "state": "PLOW_MOVE",
+    "method": "PlowMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "PlowDamage)",
+     "new BuffIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   },
+   {
+    "state": "STUN_MOVE",
+    "method": "StunnedMove",
+    "intent": "StunIntent",
+    "args": [],
+    "values": []
+   },
+   {
+    "state": "BEAST_CRY_MOVE",
+    "method": "BeastCryMove",
+    "intent": "DebuffIntent",
+    "args": [],
+    "values": []
+   },
+   {
+    "state": "STOMP_MOVE",
+    "method": "StompMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "StompDamage"
+    ],
+    "values": [
+     [
+      17,
+      15
+     ]
+    ]
+   },
+   {
+    "state": "CRUSH_MOVE",
+    "method": "CrushMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "CrushDamage)",
+     "new BuffIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   }
+  ]
+ },
+ {
+  "class": "Chomper",
+  "file": "Models/Monsters/Chomper.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 63, 60)",
+   "values": [
+    63,
+    60
+   ]
+  },
+  "max_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 67, 64)",
+   "values": [
+    67,
+    64
+   ]
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "CLAMP_MOVE",
+    "method": "ClampMove",
+    "intent": "MultiAttackIntent",
+    "args": [
+     "ClampDamage",
+     "2"
+    ],
+    "values": [
+     [
+      9,
+      8
+     ],
+     [
+      2
+     ]
+    ]
+   },
+   {
+    "state": "SCREECH_MOVE",
+    "method": "ScreechMove",
+    "intent": "StatusIntent",
+    "args": [
+     "3"
+    ],
+    "values": [
+     [
+      3
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "class": "CorpseSlug",
+  "file": "Models/Monsters/CorpseSlug.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 27, 25)",
+   "values": [
+    27,
+    25
+   ]
+  },
+  "max_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 29, 27)",
+   "values": [
+    29,
+    27
+   ]
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "WHIP_SLAP_MOVE",
+    "method": "WhipSlapMove",
+    "intent": "MultiAttackIntent",
+    "args": [
+     "WhipSlapDamage",
+     "WhipSlapRepeat"
+    ],
+    "values": [
+     [
+      3
+     ],
+     [
+      2
+     ]
+    ]
+   },
+   {
+    "state": "GLOMP_MOVE",
+    "method": "GlompMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "GlompDamage"
+    ],
+    "values": [
+     [
+      9,
+      8
+     ]
+    ]
+   },
+   {
+    "state": "GOOP_MOVE",
+    "method": "GoopMove",
+    "intent": "DebuffIntent",
+    "args": [],
+    "values": []
+   }
+  ]
+ },
+ {
+  "class": "CrossbowRubyRaider",
+  "file": "Models/Monsters/CrossbowRubyRaider.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 19, 18)",
+   "values": [
+    19,
+    18
+   ]
+  },
+  "max_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 22, 21)",
+   "values": [
+    22,
+    21
+   ]
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "FIRE_MOVE",
+    "method": "FireMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "FireDamage"
+    ],
+    "values": [
+     [
+      16,
+      14
+     ]
+    ]
+   },
+   {
+    "state": "RELOAD_MOVE",
+    "method": "ReloadMove",
+    "intent": "DefendIntent",
+    "args": [],
+    "values": []
+   }
+  ]
+ },
+ {
+  "class": "Crusher",
+  "file": "Models/Monsters/Crusher.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 219, 209)",
+   "values": [
+    219,
+    209
+   ]
+  },
+  "max_hp": {
+   "expr": "MinInitialHp",
+   "values": []
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "THRASH_MOVE",
+    "method": "ThrashMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "ThrashDamage"
+    ],
+    "values": [
+     [
+      14,
+      12
+     ]
+    ]
+   },
+   {
+    "state": "ENLARGING_STRIKE_MOVE",
+    "method": "EnlargingStrikeMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "EnlargingStrikeDamage"
+    ],
+    "values": [
+     [
+      4,
+      4
+     ]
+    ]
+   },
+   {
+    "state": "BUG_STING_MOVE",
+    "method": "BugStingMove",
+    "intent": "MultiAttackIntent",
+    "args": [
+     "BugStingDamage",
+     "BugStingTimes)",
+     "new DebuffIntent("
+    ],
+    "values": [
+     [
+      7,
+      6
+     ],
+     null,
+     null
+    ]
+   },
+   {
+    "state": "ADAPT_MOVE",
+    "method": "AdaptMove",
+    "intent": "BuffIntent",
+    "args": [],
+    "values": []
+   },
+   {
+    "state": "GUARDED_STRIKE_MOVE",
+    "method": "GuardedStrikeMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "GuardedStrikeDamage)",
+     "new DefendIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   }
+  ]
+ },
+ {
+  "class": "CubexConstruct",
+  "file": "Models/Monsters/CubexConstruct.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 70, 65)",
+   "values": [
+    70,
+    65
+   ]
+  },
+  "max_hp": {
+   "expr": "MinInitialHp",
+   "values": []
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "CHARGE_UP_MOVE",
+    "method": "ChargeUpMove",
+    "intent": "BuffIntent",
+    "args": [],
+    "values": []
+   },
+   {
+    "state": "REPEATER_BLAST_MOVE",
+    "method": "RepeaterBlastMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "BlastDamage)",
+     "new BuffIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   },
+   {
+    "state": "REPEATER_BLAST_MOVE_2",
+    "method": "RepeaterBlastMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "BlastDamage)",
+     "new BuffIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   },
+   {
+    "state": "EXPEL_MOVE",
+    "method": "ExpelBlastMove",
+    "intent": "MultiAttackIntent",
+    "args": [
+     "ExpelDamage",
+     "2"
+    ],
+    "values": [
+     [
+      6,
+      5
+     ],
+     [
+      2
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "class": "DampCultist",
+  "file": "Models/Monsters/DampCultist.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 52, 51)",
+   "values": [
+    52,
+    51
+   ]
+  },
+  "max_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 54, 53)",
+   "values": [
+    54,
+    53
+   ]
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "INCANTATION_MOVE",
+    "method": "IncantationMove",
+    "intent": "BuffIntent",
+    "args": [],
+    "values": []
+   },
+   {
+    "state": "DARK_STRIKE_MOVE",
+    "method": "DarkStrikeMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "DarkStrikeDamage"
+    ],
+    "values": [
+     [
+      3,
+      1
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "class": "DecimillipedeSegment",
+  "file": "Models/Monsters/DecimillipedeSegment.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 46, 40)",
+   "values": [
+    46,
+    40
+   ]
+  },
+  "max_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 52, 46)",
+   "values": [
+    52,
+    46
+   ]
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "WRITHE_MOVE",
+    "method": "WritheMove",
+    "intent": "MultiAttackIntent",
+    "args": [
+     "WritheDamage",
+     "2"
+    ],
+    "values": [
+     [
+      6,
+      5
+     ],
+     [
+      2
+     ]
+    ]
+   },
+   {
+    "state": "BULK_MOVE",
+    "method": "BulkMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "BulkDamage)",
+     "new BuffIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   },
+   {
+    "state": "CONSTRICT_MOVE",
+    "method": "ConstrictMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "ConstrictDamage)",
+     "new DebuffIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   },
+   {
+    "state": "REATTACH_MOVE",
+    "method": "ReattachMove",
+    "intent": "HealIntent",
+    "args": [],
+    "values": []
+   }
+  ]
+ },
+ {
+  "class": "DeprecatedMonster",
+  "file": "Models/Monsters/DeprecatedMonster.cs",
+  "min_hp": {
+   "expr": "0",
+   "values": [
+    0
+   ]
+  },
+  "max_hp": {
+   "expr": "0",
+   "values": [
+    0
+   ]
+  },
+  "ascension_scaled": false
+ },
+ {
+  "class": "DevotedSculptor",
+  "file": "Models/Monsters/DevotedSculptor.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 172, 162)",
+   "values": [
+    172,
+    162
+   ]
+  },
+  "max_hp": {
+   "expr": "MinInitialHp",
+   "values": []
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "FORBIDDEN_INCANTATION_MOVE",
+    "method": "ForbiddenIncantationMove",
+    "intent": "BuffIntent",
+    "args": [],
+    "values": []
+   },
+   {
+    "state": "SAVAGE_MOVE",
+    "method": "SavageMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "SavageDamage"
+    ],
+    "values": [
+     [
+      15,
+      12
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "class": "Entomancer",
+  "file": "Models/Monsters/Entomancer.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 155, 145)",
+   "values": [
+    155,
+    145
+   ]
+  },
+  "max_hp": {
+   "expr": "MinInitialHp",
+   "values": []
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "PHEROMONE_SPIT_MOVE",
+    "method": "SpitMove",
+    "intent": "BuffIntent",
+    "args": [],
+    "values": []
+   },
+   {
+    "state": "BEES_MOVE",
+    "method": "BeesMove",
+    "intent": "MultiAttackIntent",
+    "args": [
+     "BeesDamage",
+     "BeesRepeat"
+    ],
+    "values": [
+     [
+      3,
+      3
+     ],
+     [
+      8,
+      7
+     ]
+    ]
+   },
+   {
+    "state": "SPEAR_MOVE",
+    "method": "SpearMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "SpearMoveDamage"
+    ],
+    "values": [
+     [
+      20,
+      18
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "class": "Exoskeleton",
+  "file": "Models/Monsters/Exoskeleton.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 25, 24)",
+   "values": [
+    25,
+    24
+   ]
+  },
+  "max_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 29, 28)",
+   "values": [
+    29,
+    28
+   ]
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "SKITTER_MOVE",
+    "method": "SkitterMove",
+    "intent": "MultiAttackIntent",
+    "args": [
+     "SkitterDamage",
+     "SkitterRepeats"
+    ],
+    "values": [
+     [
+      1
+     ],
+     [
+      4,
+      3
+     ]
+    ]
+   },
+   {
+    "state": "MANDIBLES_MOVE",
+    "method": "MandiblesMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "MandiblesDamage"
+    ],
+    "values": [
+     [
+      9,
+      8
+     ]
+    ]
+   },
+   {
+    "state": "ENRAGE_MOVE",
+    "method": "EnrageMove",
+    "intent": "BuffIntent",
+    "args": [],
+    "values": []
+   }
+  ]
+ },
+ {
+  "class": "EyeWithTeeth",
+  "file": "Models/Monsters/EyeWithTeeth.cs",
+  "min_hp": {
+   "expr": "6",
+   "values": [
+    6
+   ]
+  },
+  "max_hp": {
+   "expr": "MinInitialHp",
+   "values": []
+  },
+  "ascension_scaled": false,
+  "moves": [
+   {
+    "state": "DISTRACT_MOVE",
+    "method": "DistractMove",
+    "intent": "StatusIntent",
+    "args": [
+     "3"
+    ],
+    "values": [
+     [
+      3
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "class": "Fabricator",
+  "file": "Models/Monsters/Fabricator.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 155, 150)",
+   "values": [
+    155,
+    150
+   ]
+  },
+  "max_hp": {
+   "expr": "MinInitialHp",
+   "values": []
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "FABRICATE_MOVE",
+    "method": "FabricateMove",
+    "intent": "SummonIntent",
+    "args": [],
+    "values": []
+   },
+   {
+    "state": "FABRICATING_STRIKE_MOVE",
+    "method": "FabricatingStrikeMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "FabricatingStrikeDamage)",
+     "new SummonIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   },
+   {
+    "state": "DISINTEGRATE_MOVE",
+    "method": "DisintegrateMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "DisintegrateDamage"
+    ],
+    "values": [
+     [
+      13,
+      11
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "class": "FakeMerchantMonster",
+  "file": "Models/Monsters/FakeMerchantMonster.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 175, 165)",
+   "values": [
+    175,
+    165
+   ]
+  },
+  "max_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 175, 165)",
+   "values": [
+    175,
+    165
+   ]
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "SWIPE_MOVE",
+    "method": "SwipeMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "SwipeDamage"
+    ],
+    "values": [
+     [
+      15,
+      13
+     ]
+    ]
+   },
+   {
+    "state": "SPEW_COINS_MOVE",
+    "method": "SpewCoinsMove",
+    "intent": "MultiAttackIntent",
+    "args": [
+     "2",
+     "8"
+    ],
+    "values": [
+     [
+      2
+     ],
+     [
+      8
+     ]
+    ]
+   },
+   {
+    "state": "THROW_RELIC_MOVE",
+    "method": "ThrowRelicMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "ThrowRelicDamage)",
+     "new DebuffIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   },
+   {
+    "state": "ENRAGE_MOVE",
+    "method": "EnrageMove",
+    "intent": "BuffIntent",
+    "args": [],
+    "values": []
+   }
+  ]
+ },
+ {
+  "class": "FatGremlin",
+  "file": "Models/Monsters/FatGremlin.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 14, 13)",
+   "values": [
+    14,
+    13
+   ]
+  },
+  "max_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 18, 17)",
+   "values": [
+    18,
+    17
+   ]
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "SPAWNED_MOVE",
+    "method": "SpawnedMove",
+    "intent": "StunIntent",
+    "args": [],
+    "values": []
+   },
+   {
+    "state": "FLEE_MOVE",
+    "method": "FleeMove",
+    "intent": "EscapeIntent",
+    "args": [],
+    "values": []
+   }
+  ]
+ },
+ {
+  "class": "FlailKnight",
+  "file": "Models/Monsters/FlailKnight.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 108, 101)",
+   "values": [
+    108,
+    101
+   ]
+  },
+  "max_hp": {
+   "expr": "MinInitialHp",
+   "values": []
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "WAR_CHANT",
+    "method": "WarChantMove",
+    "intent": "BuffIntent",
+    "args": [],
+    "values": []
+   },
+   {
+    "state": "FLAIL_MOVE",
+    "method": "FlailMove",
+    "intent": "MultiAttackIntent",
+    "args": [
+     "FlailDamage",
+     "2"
+    ],
+    "values": [
+     [
+      10,
+      9
+     ],
+     [
+      2
+     ]
+    ]
+   },
+   {
+    "state": "RAM_MOVE",
+    "method": "RamMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "RamDamage"
+    ],
+    "values": [
+     [
+      17,
+      15
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "class": "Flyconid",
+  "file": "Models/Monsters/Flyconid.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 51, 47)",
+   "values": [
+    51,
+    47
+   ]
+  },
+  "max_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 53, 49)",
+   "values": [
+    53,
+    49
+   ]
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "VULNERABLE_SPORES_MOVE",
+    "method": "VulnerableSporesMove",
+    "intent": "DebuffIntent",
+    "args": [],
+    "values": []
+   },
+   {
+    "state": "FRAIL_SPORES_MOVE",
+    "method": "FrailSporesMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "SporeDamage)",
+     "new DebuffIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   },
+   {
+    "state": "SMASH_MOVE",
+    "method": "SmashMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "SmashDamage"
+    ],
+    "values": [
+     [
+      12,
+      11
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "class": "Fogmog",
+  "file": "Models/Monsters/Fogmog.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 78, 74)",
+   "values": [
+    78,
+    74
+   ]
+  },
+  "max_hp": {
+   "expr": "MinInitialHp",
+   "values": []
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "ILLUSION_MOVE",
+    "method": "IllusionMove",
+    "intent": "SummonIntent",
+    "args": [],
+    "values": []
+   },
+   {
+    "state": "SWIPE_MOVE",
+    "method": "SwipeMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "SwipeDamage)",
+     "new BuffIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   },
+   {
+    "state": "SWIPE_RANDOM_MOVE",
+    "method": "SwipeMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "SwipeDamage)",
+     "new BuffIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   },
+   {
+    "state": "HEADBUTT_MOVE",
+    "method": "HeadbuttMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "HeadbuttDamage"
+    ],
+    "values": [
+     [
+      16,
+      14
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "class": "FossilStalker",
+  "file": "Models/Monsters/FossilStalker.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 54, 51)",
+   "values": [
+    54,
+    51
+   ]
+  },
+  "max_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 56, 53)",
+   "values": [
+    56,
+    53
+   ]
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "TACKLE_MOVE",
+    "method": "TackleMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "TackleDamage)",
+     "new DebuffIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   },
+   {
+    "state": "LATCH_MOVE",
+    "method": "LatchMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "LatchDamage"
+    ],
+    "values": [
+     [
+      14,
+      12
+     ]
+    ]
+   },
+   {
+    "state": "LASH_MOVE",
+    "method": "LashAttack",
+    "intent": "MultiAttackIntent",
+    "args": [
+     "LashDamage",
+     "LashRepeat"
+    ],
+    "values": [
+     [
+      4,
+      3
+     ],
+     [
+      2
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "class": "FrogKnight",
+  "file": "Models/Monsters/FrogKnight.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 199, 191)",
+   "values": [
+    199,
+    191
+   ]
+  },
+  "max_hp": {
+   "expr": "MinInitialHp",
+   "values": []
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "FOR_THE_QUEEN",
+    "method": "ForTheQueenMove",
+    "intent": "BuffIntent",
+    "args": [],
+    "values": []
+   },
+   {
+    "state": "STRIKE_DOWN_EVIL",
+    "method": "StrikeDownEvilMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "StrikeDownEvilDamage"
+    ],
+    "values": [
+     [
+      23,
+      21
+     ]
+    ]
+   },
+   {
+    "state": "TONGUE_LASH",
+    "method": "TongueLashMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "TongueLashDamage)",
+     "new DebuffIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   },
+   {
+    "state": "BEETLE_CHARGE",
+    "method": "BeetleChargeMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "BeetleChargeDamage"
+    ],
+    "values": [
+     [
+      40,
+      35
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "class": "FuzzyWurmCrawler",
+  "file": "Models/Monsters/FuzzyWurmCrawler.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 58, 55)",
+   "values": [
+    58,
+    55
+   ]
+  },
+  "max_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 59, 57)",
+   "values": [
+    59,
+    57
+   ]
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "FIRST_ACID_GOOP",
+    "method": "AcidGoop",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "AcidGoopDamage"
+    ],
+    "values": [
+     [
+      6,
+      4
+     ]
+    ]
+   },
+   {
+    "state": "ACID_GOOP",
+    "method": "AcidGoop",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "AcidGoopDamage"
+    ],
+    "values": [
+     [
+      6,
+      4
+     ]
+    ]
+   },
+   {
+    "state": "INHALE",
+    "method": "Inhale",
+    "intent": "BuffIntent",
+    "args": [],
+    "values": []
+   }
+  ]
+ },
+ {
+  "class": "GasBomb",
+  "file": "Models/Monsters/GasBomb.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 8, 7)",
+   "values": [
+    8,
+    7
+   ]
+  },
+  "max_hp": {
+   "expr": "MinInitialHp",
+   "values": []
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "EXPLODE_MOVE",
+    "method": "ExplodeMove",
+    "intent": "DeathBlowIntent",
+    "args": [
+     "() => ExplodeDamage"
+    ],
+    "values": [
+     null
+    ]
+   }
+  ]
+ },
+ {
+  "class": "GlobeHead",
+  "file": "Models/Monsters/GlobeHead.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 158, 148)",
+   "values": [
+    158,
+    148
+   ]
+  },
+  "max_hp": {
+   "expr": "MinInitialHp",
+   "values": []
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "THUNDER_STRIKE",
+    "method": "ThunderStrike",
+    "intent": "MultiAttackIntent",
+    "args": [
+     "ThunderStrikeDamage",
+     "3"
+    ],
+    "values": [
+     [
+      7,
+      6
+     ],
+     [
+      3
+     ]
+    ]
+   },
+   {
+    "state": "SHOCKING_SLAP",
+    "method": "ShockingSlap",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "ShockingSlapDamage)",
+     "new DebuffIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   },
+   {
+    "state": "GALVANIC_BURST",
+    "method": "GalvanicBurstMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "GalvanicBurstDamage)",
+     "new BuffIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   }
+  ]
+ },
+ {
+  "class": "GremlinMerc",
+  "file": "Models/Monsters/GremlinMerc.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 51, 47)",
+   "values": [
+    51,
+    47
+   ]
+  },
+  "max_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 53, 49)",
+   "values": [
+    53,
+    49
+   ]
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "GIMME_MOVE",
+    "method": "GimmeMove",
+    "intent": "MultiAttackIntent",
+    "args": [
+     "GimmeDamage",
+     "GimmeRepeat"
+    ],
+    "values": [
+     [
+      8,
+      7
+     ],
+     [
+      2
+     ]
+    ]
+   },
+   {
+    "state": "DOUBLE_SMASH_MOVE",
+    "method": "DoubleSmashMove",
+    "intent": "MultiAttackIntent",
+    "args": [
+     "DoubleSmashDamage",
+     "DoubleSmashRepeat)",
+     "new DebuffIntent("
+    ],
+    "values": [
+     [
+      7,
+      6
+     ],
+     null,
+     null
+    ]
+   },
+   {
+    "state": "HEHE_MOVE",
+    "method": "HeheMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "HeheDamage)",
+     "new BuffIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   }
+  ]
+ },
+ {
+  "class": "Guardbot",
+  "file": "Models/Monsters/Guardbot.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 17, 16)",
+   "values": [
+    17,
+    16
+   ]
+  },
+  "max_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 21, 20)",
+   "values": [
+    21,
+    20
+   ]
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "GUARD_MOVE",
+    "method": "GuardMove",
+    "intent": "DefendIntent",
+    "args": [],
+    "values": []
+   }
+  ]
+ },
+ {
+  "class": "HauntedShip",
+  "file": "Models/Monsters/HauntedShip.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 67, 63)",
+   "values": [
+    67,
+    63
+   ]
+  },
+  "max_hp": {
+   "expr": "MinInitialHp",
+   "values": []
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "SWIPE_MOVE",
+    "method": "SwipeMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "SwipeDamage"
+    ],
+    "values": [
+     [
+      14,
+      13
+     ]
+    ]
+   },
+   {
+    "state": "STOMP_MOVE",
+    "method": "StompMove",
+    "intent": "MultiAttackIntent",
+    "args": [
+     "StompDamage",
+     "StompRepeat"
+    ],
+    "values": [
+     [
+      5,
+      4
+     ],
+     [
+      3
+     ]
+    ]
+   },
+   {
+    "state": "HAUNT_MOVE",
+    "method": "HauntMove",
+    "intent": "DebuffIntent",
+    "args": [
+     ")",
+     "new StatusIntent(HauntDazed"
+    ],
+    "values": [
+     null,
+     null
+    ]
+   }
+  ]
+ },
+ {
+  "class": "HunterKiller",
+  "file": "Models/Monsters/HunterKiller.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 126, 121)",
+   "values": [
+    126,
+    121
+   ]
+  },
+  "max_hp": {
+   "expr": "MinInitialHp",
+   "values": []
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "TENDERIZING_GOOP_MOVE",
+    "method": "GoopMove",
+    "intent": "DebuffIntent",
+    "args": [],
+    "values": []
+   },
+   {
+    "state": "BITE_MOVE",
+    "method": "BiteMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "BiteDamage"
+    ],
+    "values": [
+     [
+      19,
+      17
+     ]
+    ]
+   },
+   {
+    "state": "PUNCTURE_MOVE",
+    "method": "PunctureMove",
+    "intent": "MultiAttackIntent",
+    "args": [
+     "PunctureDamage",
+     "3"
+    ],
+    "values": [
+     [
+      8,
+      7
+     ],
+     [
+      3
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "class": "InfestedPrism",
+  "file": "Models/Monsters/InfestedPrism.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 171, 161)",
+   "values": [
+    171,
+    161
+   ]
+  },
+  "max_hp": {
+   "expr": "MinInitialHp",
+   "values": []
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "JAB_MOVE",
+    "method": "JabMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "JabDamage"
+    ],
+    "values": [
+     [
+      17,
+      15
+     ]
+    ]
+   },
+   {
+    "state": "RADIATE_MOVE",
+    "method": "RadiateMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "RadiateDamage)",
+     "new DefendIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   },
+   {
+    "state": "WHIRLWIND_MOVE",
+    "method": "WhirlwindMove",
+    "intent": "MultiAttackIntent",
+    "args": [
+     "WhirlwindDamage",
+     "WhirlwindRepeat"
+    ],
+    "values": [
+     [
+      6,
+      5
+     ],
+     [
+      3
+     ]
+    ]
+   },
+   {
+    "state": "PULSATE_MOVE",
+    "method": "PulsateMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "PulsateDamage)",
+     "new BuffIntent()",
+     "new DefendIntent("
+    ],
+    "values": [
+     null,
+     null,
+     null
+    ]
+   }
+  ]
+ },
+ {
+  "class": "Inklet",
+  "file": "Models/Monsters/Inklet.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 12, 11)",
+   "values": [
+    12,
+    11
+   ]
+  },
+  "max_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 18, 17)",
+   "values": [
+    18,
+    17
+   ]
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "JAB_MOVE",
+    "method": "JabMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "JabDamage"
+    ],
+    "values": [
+     [
+      4,
+      3
+     ]
+    ]
+   },
+   {
+    "state": "WHIRLWIND_MOVE",
+    "method": "WhirlwindMove",
+    "intent": "MultiAttackIntent",
+    "args": [
+     "WhirlwindDamage",
+     "3"
+    ],
+    "values": [
+     [
+      3,
+      2
+     ],
+     [
+      3
+     ]
+    ]
+   },
+   {
+    "state": "PIERCING_GAZE_MOVE",
+    "method": "PiercingGazeMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "PiercingGazeDamage"
+    ],
+    "values": [
+     [
+      11,
+      10
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "class": "KinFollower",
+  "file": "Models/Monsters/KinFollower.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 62, 58)",
+   "values": [
+    62,
+    58
+   ]
+  },
+  "max_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 63, 59)",
+   "values": [
+    63,
+    59
+   ]
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "QUICK_SLASH_MOVE",
+    "method": "QuickSlashMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "QuickSlashDamage"
+    ],
+    "values": [
+     [
+      5,
+      5
+     ]
+    ]
+   },
+   {
+    "state": "BOOMERANG_MOVE",
+    "method": "BoomerangMove",
+    "intent": "MultiAttackIntent",
+    "args": [
+     "BoomerangDamage",
+     "2"
+    ],
+    "values": [
+     [
+      2,
+      2
+     ],
+     [
+      2
+     ]
+    ]
+   },
+   {
+    "state": "POWER_DANCE_MOVE",
+    "method": "PowerDanceMove",
+    "intent": "BuffIntent",
+    "args": [],
+    "values": []
+   }
+  ]
+ },
+ {
+  "class": "KinPriest",
+  "file": "Models/Monsters/KinPriest.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 199, 190)",
+   "values": [
+    199,
+    190
+   ]
+  },
+  "max_hp": {
+   "expr": "MinInitialHp",
+   "values": []
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "ORB_OF_FRAILTY_MOVE",
+    "method": "OrbOfFrailtyMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "OrbOfFrailtyDamage)",
+     "new DebuffIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   },
+   {
+    "state": "ORB_OF_WEAKNESS_MOVE",
+    "method": "OrbOfWeaknessMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "OrbOfWeaknessDamage)",
+     "new DebuffIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   },
+   {
+    "state": "BEAM_MOVE",
+    "method": "BeamMove",
+    "intent": "MultiAttackIntent",
+    "args": [
+     "BeamDamage",
+     "3"
+    ],
+    "values": [
+     [
+      3,
+      3
+     ],
+     [
+      3
+     ]
+    ]
+   },
+   {
+    "state": "RITUAL_MOVE",
+    "method": "RitualMove",
+    "intent": "BuffIntent",
+    "args": [],
+    "values": []
+   }
+  ]
+ },
+ {
+  "class": "KnowledgeDemon",
+  "file": "Models/Monsters/KnowledgeDemon.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 399, 379)",
+   "values": [
+    399,
+    379
+   ]
+  },
+  "max_hp": {
+   "expr": "MinInitialHp",
+   "values": []
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "CURSE_OF_KNOWLEDGE_MOVE",
+    "method": "CurseOfKnowledge",
+    "intent": "DebuffIntent",
+    "args": [],
+    "values": []
+   },
+   {
+    "state": "SLAP_MOVE",
+    "method": "SlapMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "SlapDamage"
+    ],
+    "values": [
+     [
+      18,
+      17
+     ]
+    ]
+   },
+   {
+    "state": "KNOWLEDGE_OVERWHELMING_MOVE",
+    "method": "KnowledgeOverwhelmingMove",
+    "intent": "MultiAttackIntent",
+    "args": [
+     "KnowledgeOverwhelmingDamage",
+     "3"
+    ],
+    "values": [
+     [
+      9,
+      8
+     ],
+     [
+      3
+     ]
+    ]
+   },
+   {
+    "state": "PONDER_MOVE",
+    "method": "PonderMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "PonderDamage)",
+     "new HealIntent()",
+     "new BuffIntent("
+    ],
+    "values": [
+     null,
+     null,
+     null
+    ]
+   }
+  ]
+ },
+ {
+  "class": "LagavulinMatriarch",
+  "file": "Models/Monsters/LagavulinMatriarch.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 233, 222)",
+   "values": [
+    233,
+    222
+   ]
+  },
+  "max_hp": {
+   "expr": "MinInitialHp",
+   "values": []
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "SLEEP_MOVE",
+    "method": "SleepMove",
+    "intent": "SleepIntent",
+    "args": [],
+    "values": []
+   },
+   {
+    "state": "SLASH_MOVE",
+    "method": "SlashMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "SlashDamage"
+    ],
+    "values": [
+     [
+      21,
+      19
+     ]
+    ]
+   },
+   {
+    "state": "SLASH2_MOVE",
+    "method": "Slash2Move",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "Slash2Damage)",
+     "new DefendIntent("
+    ],
+    "values": [
+     [
+      2
+     ],
+     null
+    ]
+   },
+   {
+    "state": "DISEMBOWEL_MOVE",
+    "method": "DisembowelMove",
+    "intent": "MultiAttackIntent",
+    "args": [
+     "DisembowelDamage",
+     "DisembowelRepeat"
+    ],
+    "values": [
+     [
+      10,
+      9
+     ],
+     [
+      2
+     ]
+    ]
+   },
+   {
+    "state": "SOUL_SIPHON_MOVE",
+    "method": "SoulSiphonMove",
+    "intent": "DebuffIntent",
+    "args": [
+     ")",
+     "new BuffIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   }
+  ]
+ },
+ {
+  "class": "LeafSlimeM",
+  "file": "Models/Monsters/LeafSlimeM.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 33, 32)",
+   "values": [
+    33,
+    32
+   ]
+  },
+  "max_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 36, 35)",
+   "values": [
+    36,
+    35
+   ]
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "CLUMP_SHOT",
+    "method": "ClumpShotMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "ClumpDamage"
+    ],
+    "values": [
+     [
+      9,
+      8
+     ]
+    ]
+   },
+   {
+    "state": "STICKY_SHOT",
+    "method": "StickyShotMove",
+    "intent": "StatusIntent",
+    "args": [
+     "2"
+    ],
+    "values": [
+     [
+      2
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "class": "LeafSlimeS",
+  "file": "Models/Monsters/LeafSlimeS.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 12, 11)",
+   "values": [
+    12,
+    11
+   ]
+  },
+  "max_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 16, 15)",
+   "values": [
+    16,
+    15
+   ]
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "TACKLE_MOVE",
+    "method": "TackleMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "TackleDamage"
+    ],
+    "values": [
+     [
+      4,
+      3
+     ]
+    ]
+   },
+   {
+    "state": "GOOP_MOVE",
+    "method": "GoopMove",
+    "intent": "StatusIntent",
+    "args": [
+     "1"
+    ],
+    "values": [
+     [
+      1
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "class": "LivingFog",
+  "file": "Models/Monsters/LivingFog.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 82, 80)",
+   "values": [
+    82,
+    80
+   ]
+  },
+  "max_hp": {
+   "expr": "MinInitialHp",
+   "values": []
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "ADVANCED_GAS_MOVE",
+    "method": "AdvancedGasMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "AdvancedGasDamage)",
+     "new CardDebuffIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   },
+   {
+    "state": "BLOAT_MOVE",
+    "method": "BloatMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "BloatDamage)",
+     "new SummonIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   },
+   {
+    "state": "SUPER_GAS_BLAST_MOVE",
+    "method": "SuperGasBlastMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "SuperGasBlastDamage"
+    ],
+    "values": [
+     [
+      9,
+      8
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "class": "LivingShield",
+  "file": "Models/Monsters/LivingShield.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 65, 55)",
+   "values": [
+    65,
+    55
+   ]
+  },
+  "max_hp": {
+   "expr": "MinInitialHp",
+   "values": []
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "SHIELD_SLAM_MOVE",
+    "method": "ShieldSlamMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "ShieldSlamDamage"
+    ],
+    "values": [
+     [
+      6
+     ]
+    ]
+   },
+   {
+    "state": "SMASH_MOVE",
+    "method": "SmashMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "SmashDamage)",
+     "new BuffIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   }
+  ]
+ },
+ {
+  "class": "LouseProgenitor",
+  "file": "Models/Monsters/LouseProgenitor.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 138, 134)",
+   "values": [
+    138,
+    134
+   ]
+  },
+  "max_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 141, 136)",
+   "values": [
+    141,
+    136
+   ]
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "WEB_CANNON_MOVE",
+    "method": "WebMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "WebDamage)",
+     "new DebuffIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   },
+   {
+    "state": "POUNCE_MOVE",
+    "method": "PounceMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "PounceDamage"
+    ],
+    "values": [
+     [
+      16,
+      14
+     ]
+    ]
+   },
+   {
+    "state": "CURL_AND_GROW_MOVE",
+    "method": "CurlAndGrowMove",
+    "intent": "DefendIntent",
+    "args": [
+     ")",
+     "new BuffIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   }
+  ]
+ },
+ {
+  "class": "MagiKnight",
+  "file": "Models/Monsters/MagiKnight.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 89, 82)",
+   "values": [
+    89,
+    82
+   ]
+  },
+  "max_hp": {
+   "expr": "MinInitialHp",
+   "values": []
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "POWER_SHIELD_MOVE",
+    "method": "PowerShieldMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "PowerShieldDamage)",
+     "new DefendIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   },
+   {
+    "state": "DAMPEN_MOVE",
+    "method": "DampenMove",
+    "intent": "DebuffIntent",
+    "args": [],
+    "values": []
+   },
+   {
+    "state": "PREP_MOVE",
+    "method": "PrepMove",
+    "intent": "DefendIntent",
+    "args": [],
+    "values": []
+   },
+   {
+    "state": "MAGIC_BOMB",
+    "method": "MagicBombMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "BombDamage"
+    ],
+    "values": [
+     [
+      40,
+      35
+     ]
+    ]
+   },
+   {
+    "state": "RAM_MOVE",
+    "method": "SpearMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "SpearDamage"
+    ],
+    "values": [
+     [
+      11,
+      10
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "class": "Mawler",
+  "file": "Models/Monsters/Mawler.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 76, 72)",
+   "values": [
+    76,
+    72
+   ]
+  },
+  "max_hp": {
+   "expr": "MinInitialHp",
+   "values": []
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "RIP_AND_TEAR_MOVE",
+    "method": "RipAndTearMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "RipAndTearDamage"
+    ],
+    "values": [
+     [
+      16,
+      14
+     ]
+    ]
+   },
+   {
+    "state": "ROAR_MOVE",
+    "method": "RoarMove",
+    "intent": "DebuffIntent",
+    "args": [],
+    "values": []
+   },
+   {
+    "state": "CLAW_MOVE",
+    "method": "ClawMove",
+    "intent": "MultiAttackIntent",
+    "args": [
+     "ClawDamage",
+     "2"
+    ],
+    "values": [
+     [
+      5,
+      4
+     ],
+     [
+      2
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "class": "MechaKnight",
+  "file": "Models/Monsters/MechaKnight.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 320, 300)",
+   "values": [
+    320,
+    300
+   ]
+  },
+  "max_hp": {
+   "expr": "MinInitialHp",
+   "values": []
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "CHARGE_MOVE",
+    "method": "ChargeMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "ChargeDamage"
+    ],
+    "values": [
+     [
+      30,
+      25
+     ]
+    ]
+   },
+   {
+    "state": "FLAMETHROWER_MOVE",
+    "method": "FlamethrowerMove",
+    "intent": "StatusIntent",
+    "args": [
+     "4"
+    ],
+    "values": [
+     [
+      4
+     ]
+    ]
+   },
+   {
+    "state": "WINDUP_MOVE",
+    "method": "WindupMove",
+    "intent": "DefendIntent",
+    "args": [
+     ")",
+     "new BuffIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   },
+   {
+    "state": "HEAVY_CLEAVE_MOVE",
+    "method": "HeavyCleaveMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "HeavyCleaveDamage"
+    ],
+    "values": [
+     [
+      40,
+      35
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "class": "MockArtifactMonster",
+  "file": "Models/Monsters/Mocks/MockArtifactMonster.cs",
+  "min_hp": {
+   "expr": "9999",
+   "values": [
+    9999
+   ]
+  },
+  "max_hp": {
+   "expr": "9999",
+   "values": [
+    9999
+   ]
+  },
+  "ascension_scaled": false,
+  "moves": [
+   {
+    "state": "NOTHING",
+    "method": "NothingMove",
+    "intent": "HiddenIntent",
+    "args": [],
+    "values": []
+   }
+  ]
+ },
+ {
+  "class": "MockAttackAndSummonMinionMonster",
+  "file": "Models/Monsters/Mocks/MockAttackAndSummonMinionMonster.cs",
+  "min_hp": {
+   "expr": "10",
+   "values": [
+    10
+   ]
+  },
+  "max_hp": {
+   "expr": "10",
+   "values": [
+    10
+   ]
+  },
+  "ascension_scaled": false,
+  "moves": [
+   {
+    "state": "ATTACK_AND_SUMMON_MINION",
+    "method": "AttackAndSummonMinionMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "1"
+    ],
+    "values": [
+     [
+      1
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "class": "MockAttackMonster",
+  "file": "Models/Monsters/Mocks/MockAttackMonster.cs",
+  "min_hp": {
+   "expr": "9999",
+   "values": [
+    9999
+   ]
+  },
+  "max_hp": {
+   "expr": "9999",
+   "values": [
+    9999
+   ]
+  },
+  "ascension_scaled": false,
+  "moves": [
+   {
+    "state": "ATTACK",
+    "method": "AttackMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "1"
+    ],
+    "values": [
+     [
+      1
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "class": "MockIntangibleMonster",
+  "file": "Models/Monsters/Mocks/MockIntangibleMonster.cs",
+  "min_hp": {
+   "expr": "9999",
+   "values": [
+    9999
+   ]
+  },
+  "max_hp": {
+   "expr": "9999",
+   "values": [
+    9999
+   ]
+  },
+  "ascension_scaled": false,
+  "moves": [
+   {
+    "state": "INTANGIBLE",
+    "method": "IntangibleMove",
+    "intent": "HiddenIntent",
+    "args": [],
+    "values": []
+   },
+   {
+    "state": "NOTHING",
+    "method": "NothingMove",
+    "intent": "HiddenIntent",
+    "args": [],
+    "values": []
+   }
+  ]
+ },
+ {
+  "class": "MockPlatingMonster",
+  "file": "Models/Monsters/Mocks/MockPlatingMonster.cs",
+  "min_hp": {
+   "expr": "9999",
+   "values": [
+    9999
+   ]
+  },
+  "max_hp": {
+   "expr": "9999",
+   "values": [
+    9999
+   ]
+  },
+  "ascension_scaled": false,
+  "moves": [
+   {
+    "state": "NOTHING",
+    "method": "NothingMove",
+    "intent": "HiddenIntent",
+    "args": [],
+    "values": []
+   }
+  ]
+ },
+ {
+  "class": "MockReattachMonster",
+  "file": "Models/Monsters/Mocks/MockReattachMonster.cs",
+  "min_hp": {
+   "expr": "1",
+   "values": [
+    1
+   ]
+  },
+  "max_hp": {
+   "expr": "1",
+   "values": [
+    1
+   ]
+  },
+  "ascension_scaled": false,
+  "moves": [
+   {
+    "state": "NOTHING",
+    "method": "NothingMove",
+    "intent": "HiddenIntent",
+    "args": [],
+    "values": []
+   },
+   {
+    "state": "REATTACH_MOVE",
+    "method": "ReattachMove",
+    "intent": "HealIntent",
+    "args": [],
+    "values": []
+   }
+  ]
+ },
+ {
+  "class": "MultiAttackMoveMonster",
+  "file": "Models/Monsters/MultiAttackMoveMonster.cs",
+  "min_hp": {
+   "expr": "999",
+   "values": [
+    999
+   ]
+  },
+  "max_hp": {
+   "expr": "999",
+   "values": [
+    999
+   ]
+  },
+  "ascension_scaled": false,
+  "moves": [
+   {
+    "state": "POKE",
+    "method": "PokeMove",
+    "intent": "MultiAttackIntent",
+    "args": [
+     "1",
+     "5"
+    ],
+    "values": [
+     [
+      1
+     ],
+     [
+      5
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "class": "Myte",
+  "file": "Models/Monsters/Myte.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 64, 61)",
+   "values": [
+    64,
+    61
+   ]
+  },
+  "max_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 69, 67)",
+   "values": [
+    69,
+    67
+   ]
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "TOXIC_MOVE",
+    "method": "ToxicMove",
+    "intent": "StatusIntent",
+    "args": [
+     "2"
+    ],
+    "values": [
+     [
+      2
+     ]
+    ]
+   },
+   {
+    "state": "BITE_MOVE",
+    "method": "BiteMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "BiteDamage"
+    ],
+    "values": [
+     [
+      15,
+      13
+     ]
+    ]
+   },
+   {
+    "state": "SUCK_MOVE",
+    "method": "SuckMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "SuckDamage)",
+     "new BuffIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   }
+  ]
+ },
+ {
+  "class": "Nibbit",
+  "file": "Models/Monsters/Nibbit.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 44, 42)",
+   "values": [
+    44,
+    42
+   ]
+  },
+  "max_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 48, 46)",
+   "values": [
+    48,
+    46
+   ]
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "BUTT_MOVE",
+    "method": "ButtMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "ButtDamage"
+    ],
+    "values": [
+     [
+      13,
+      12
+     ]
+    ]
+   },
+   {
+    "state": "SLICE_MOVE",
+    "method": "SliceMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "SliceDamage)",
+     "new DefendIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   },
+   {
+    "state": "HISS_MOVE",
+    "method": "HissMove",
+    "intent": "BuffIntent",
+    "args": [],
+    "values": []
+   }
+  ]
+ },
+ {
+  "class": "Noisebot",
+  "file": "Models/Monsters/Noisebot.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 19, 18)",
+   "values": [
+    19,
+    18
+   ]
+  },
+  "max_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 24, 23)",
+   "values": [
+    24,
+    23
+   ]
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "NOISE_MOVE",
+    "method": "NoiseMove",
+    "intent": "StatusIntent",
+    "args": [
+     "2"
+    ],
+    "values": [
+     [
+      2
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "class": "OneHpMonster",
+  "file": "Models/Monsters/OneHpMonster.cs",
+  "min_hp": {
+   "expr": "1",
+   "values": [
+    1
+   ]
+  },
+  "max_hp": {
+   "expr": "1",
+   "values": [
+    1
+   ]
+  },
+  "ascension_scaled": false,
+  "moves": [
+   {
+    "state": "NOTHING",
+    "method": "NothingMove",
+    "intent": "HiddenIntent",
+    "args": [],
+    "values": []
+   }
+  ]
+ },
+ {
+  "class": "Osty",
+  "file": "Models/Monsters/Osty.cs",
+  "min_hp": {
+   "expr": "1",
+   "values": [
+    1
+   ]
+  },
+  "max_hp": {
+   "expr": "1",
+   "values": [
+    1
+   ]
+  },
+  "ascension_scaled": false
+ },
+ {
+  "class": "Ovicopter",
+  "file": "Models/Monsters/Ovicopter.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 126, 124)",
+   "values": [
+    126,
+    124
+   ]
+  },
+  "max_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 132, 130)",
+   "values": [
+    132,
+    130
+   ]
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "LAY_EGGS_MOVE",
+    "method": "LayEggsMove",
+    "intent": "SummonIntent",
+    "args": [],
+    "values": []
+   },
+   {
+    "state": "SMASH_MOVE",
+    "method": "SmashMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "SmashDamage"
+    ],
+    "values": [
+     [
+      17,
+      16
+     ]
+    ]
+   },
+   {
+    "state": "TENDERIZER_MOVE",
+    "method": "TenderizerMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "TenderizerDamage)",
+     "new DebuffIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   },
+   {
+    "state": "NUTRITIONAL_PASTE_MOVE",
+    "method": "NutritionalPasteMove",
+    "intent": "BuffIntent",
+    "args": [],
+    "values": []
+   }
+  ]
+ },
+ {
+  "class": "OwlMagistrate",
+  "file": "Models/Monsters/OwlMagistrate.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 247, 231)",
+   "values": [
+    247,
+    231
+   ]
+  },
+  "max_hp": {
+   "expr": "MinInitialHp",
+   "values": []
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "MAGISTRATE_SCRUTINY",
+    "method": "MagistrateScrutinyMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "ScrutinyDamage"
+    ],
+    "values": [
+     [
+      17,
+      16
+     ]
+    ]
+   },
+   {
+    "state": "PECK_ASSAULT",
+    "method": "PeckAssaultMove",
+    "intent": "MultiAttackIntent",
+    "args": [
+     "PeckAssaultDamage",
+     "6"
+    ],
+    "values": [
+     [
+      4,
+      4
+     ],
+     [
+      6
+     ]
+    ]
+   },
+   {
+    "state": "JUDICIAL_FLIGHT",
+    "method": "JudicialFlightMove",
+    "intent": "BuffIntent",
+    "args": [],
+    "values": []
+   },
+   {
+    "state": "VERDICT",
+    "method": "VerdictMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "VerdictDamage)",
+     "new DebuffIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   }
+  ]
+ },
+ {
+  "class": "PaelsLegion",
+  "file": "Models/Monsters/PaelsLegion.cs",
+  "min_hp": {
+   "expr": "9999",
+   "values": [
+    9999
+   ]
+  },
+  "max_hp": {
+   "expr": "9999",
+   "values": [
+    9999
+   ]
+  },
+  "ascension_scaled": false
+ },
+ {
+  "class": "Parafright",
+  "file": "Models/Monsters/Parafright.cs",
+  "min_hp": {
+   "expr": "21",
+   "values": [
+    21
+   ]
+  },
+  "max_hp": {
+   "expr": "MinInitialHp",
+   "values": []
+  },
+  "ascension_scaled": false,
+  "moves": [
+   {
+    "state": "SLAM_MOVE",
+    "method": "SlamMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "SlamDamage"
+    ],
+    "values": [
+     [
+      17,
+      16
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "class": "PhantasmalGardener",
+  "file": "Models/Monsters/PhantasmalGardener.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 27, 26)",
+   "values": [
+    27,
+    26
+   ]
+  },
+  "max_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 32, 31)",
+   "values": [
+    32,
+    31
+   ]
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "BITE_MOVE",
+    "method": "BiteMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "BiteDamage"
+    ],
+    "values": [
+     [
+      5,
+      5
+     ]
+    ]
+   },
+   {
+    "state": "LASH_MOVE",
+    "method": "LashMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "LashDamage"
+    ],
+    "values": [
+     [
+      7,
+      7
+     ]
+    ]
+   },
+   {
+    "state": "FLAIL_MOVE",
+    "method": "FlailMove",
+    "intent": "MultiAttackIntent",
+    "args": [
+     "FlailDamage",
+     "FlailRepeat"
+    ],
+    "values": [
+     [
+      1
+     ],
+     [
+      3,
+      3
+     ]
+    ]
+   },
+   {
+    "state": "ENLARGE_MOVE",
+    "method": "EnlargeMove",
+    "intent": "BuffIntent",
+    "args": [],
+    "values": []
+   }
+  ]
+ },
+ {
+  "class": "PhrogParasite",
+  "file": "Models/Monsters/PhrogParasite.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 66, 61)",
+   "values": [
+    66,
+    61
+   ]
+  },
+  "max_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 68, 64)",
+   "values": [
+    68,
+    64
+   ]
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "INFECT_MOVE",
+    "method": "InfectMove",
+    "intent": "StatusIntent",
+    "args": [
+     "3"
+    ],
+    "values": [
+     [
+      3
+     ]
+    ]
+   },
+   {
+    "state": "LASH_MOVE",
+    "method": "LashMove",
+    "intent": "MultiAttackIntent",
+    "args": [
+     "LashDamage",
+     "4"
+    ],
+    "values": [
+     [
+      5,
+      4
+     ],
+     [
+      4
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "class": "PunchConstruct",
+  "file": "Models/Monsters/PunchConstruct.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 60, 55)",
+   "values": [
+    60,
+    55
+   ]
+  },
+  "max_hp": {
+   "expr": "MinInitialHp",
+   "values": []
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "READY_MOVE",
+    "method": "ReadyMove",
+    "intent": "DefendIntent",
+    "args": [],
+    "values": []
+   },
+   {
+    "state": "STRONG_PUNCH_MOVE",
+    "method": "StrongPunchMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "StrongPunchDamage"
+    ],
+    "values": [
+     [
+      16,
+      14
+     ]
+    ]
+   },
+   {
+    "state": "FAST_PUNCH_MOVE",
+    "method": "FastPunchMove",
+    "intent": "MultiAttackIntent",
+    "args": [
+     "FastPunchDamage",
+     "FastPunchRepeat)",
+     "new DebuffIntent("
+    ],
+    "values": [
+     [
+      6,
+      5
+     ],
+     null,
+     null
+    ]
+   }
+  ]
+ },
+ {
+  "class": "Queen",
+  "file": "Models/Monsters/Queen.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 419, 400)",
+   "values": [
+    419,
+    400
+   ]
+  },
+  "max_hp": {
+   "expr": "MinInitialHp",
+   "values": []
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "PUPPET_STRINGS_MOVE",
+    "method": "PuppetStringsMove",
+    "intent": "CardDebuffIntent",
+    "args": [],
+    "values": []
+   },
+   {
+    "state": "YOU_ARE_MINE_MOVE",
+    "method": "YoureMineMove",
+    "intent": "DebuffIntent",
+    "args": [],
+    "values": []
+   },
+   {
+    "state": "BURN_BRIGHT_FOR_ME_MOVE",
+    "method": "BurnBrightForMeMove",
+    "intent": "BuffIntent",
+    "args": [
+     ")",
+     "new DefendIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   },
+   {
+    "state": "OFF_WITH_YOUR_HEAD_MOVE",
+    "method": "OffWithYourHeadMove",
+    "intent": "MultiAttackIntent",
+    "args": [
+     "OffWithYourHeadDamage",
+     "5"
+    ],
+    "values": [
+     [
+      4,
+      3
+     ],
+     [
+      5
+     ]
+    ]
+   },
+   {
+    "state": "EXECUTION_MOVE",
+    "method": "ExecutionMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "ExecutionDamage"
+    ],
+    "values": [
+     [
+      18,
+      15
+     ]
+    ]
+   },
+   {
+    "state": "ENRAGE_MOVE",
+    "method": "EnrageMove",
+    "intent": "BuffIntent",
+    "args": [],
+    "values": []
+   }
+  ]
+ },
+ {
+  "class": "Rocket",
+  "file": "Models/Monsters/Rocket.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 209, 199)",
+   "values": [
+    209,
+    199
+   ]
+  },
+  "max_hp": {
+   "expr": "MinInitialHp",
+   "values": []
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "TARGETING_RETICLE_MOVE",
+    "method": "TargetingReticleMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "TargetingReticleDamage"
+    ],
+    "values": [
+     [
+      4,
+      3
+     ]
+    ]
+   },
+   {
+    "state": "PRECISION_BEAM_MOVE",
+    "method": "PrecisionBeamMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "PrecisionBeamDamage"
+    ],
+    "values": [
+     [
+      20,
+      18
+     ]
+    ]
+   },
+   {
+    "state": "CHARGE_UP_MOVE",
+    "method": "ChargeUpMove",
+    "intent": "BuffIntent",
+    "args": [],
+    "values": []
+   },
+   {
+    "state": "LASER_MOVE",
+    "method": "LaserMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "LaserDamage"
+    ],
+    "values": [
+     [
+      35,
+      31
+     ]
+    ]
+   },
+   {
+    "state": "RECHARGE_MOVE",
+    "method": "RechargeMove",
+    "intent": "SleepIntent",
+    "args": [],
+    "values": []
+   }
+  ]
+ },
+ {
+  "class": "ScrollOfBiting",
+  "file": "Models/Monsters/ScrollOfBiting.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 33, 30)",
+   "values": [
+    33,
+    30
+   ]
+  },
+  "max_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 39, 37)",
+   "values": [
+    39,
+    37
+   ]
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "CHOMP",
+    "method": "ChompMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "ChompDamage"
+    ],
+    "values": [
+     [
+      16,
+      14
+     ]
+    ]
+   },
+   {
+    "state": "CHEW",
+    "method": "ChewState",
+    "intent": "MultiAttackIntent",
+    "args": [
+     "ChewDamage",
+     "2"
+    ],
+    "values": [
+     [
+      6,
+      5
+     ],
+     [
+      2
+     ]
+    ]
+   },
+   {
+    "state": "MORE_TEETH",
+    "method": "MoreTeethMove",
+    "intent": "BuffIntent",
+    "args": [],
+    "values": []
+   }
+  ]
+ },
+ {
+  "class": "Seapunk",
+  "file": "Models/Monsters/Seapunk.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 47, 44)",
+   "values": [
+    47,
+    44
+   ]
+  },
+  "max_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 49, 46)",
+   "values": [
+    49,
+    46
+   ]
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "SEA_KICK_MOVE",
+    "method": "SeaKickMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "SeaKickDamage"
+    ],
+    "values": [
+     [
+      13,
+      11
+     ]
+    ]
+   },
+   {
+    "state": "SPINNING_KICK_MOVE",
+    "method": "SpinningKickMove",
+    "intent": "MultiAttackIntent",
+    "args": [
+     "SpinningKickDamage",
+     "SpinningKickRepeat"
+    ],
+    "values": [
+     [
+      2
+     ],
+     [
+      4
+     ]
+    ]
+   },
+   {
+    "state": "BUBBLE_BURP_MOVE",
+    "method": "BubbleBurpMove",
+    "intent": "BuffIntent",
+    "args": [
+     ")",
+     "new DefendIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   }
+  ]
+ },
+ {
+  "class": "SewerClam",
+  "file": "Models/Monsters/SewerClam.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 58, 56)",
+   "values": [
+    58,
+    56
+   ]
+  },
+  "max_hp": {
+   "expr": "MinInitialHp",
+   "values": []
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "PRESSURIZE_MOVE",
+    "method": "PressurizeMove",
+    "intent": "BuffIntent",
+    "args": [],
+    "values": []
+   },
+   {
+    "state": "JET_MOVE",
+    "method": "JetMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "JetDamage"
+    ],
+    "values": [
+     [
+      11,
+      10
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "class": "ShrinkerBeetle",
+  "file": "Models/Monsters/ShrinkerBeetle.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 40, 38)",
+   "values": [
+    40,
+    38
+   ]
+  },
+  "max_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 42, 40)",
+   "values": [
+    42,
+    40
+   ]
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "SHRINKER_MOVE",
+    "method": "ShrinkMove",
+    "intent": "DebuffIntent",
+    "args": [
+     "strong: true"
+    ],
+    "values": [
+     null
+    ]
+   },
+   {
+    "state": "CHOMP_MOVE",
+    "method": "ChompMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "ChompDamage"
+    ],
+    "values": [
+     [
+      8,
+      7
+     ]
+    ]
+   },
+   {
+    "state": "STOMP_MOVE",
+    "method": "StompMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "StompDamage"
+    ],
+    "values": [
+     [
+      14,
+      13
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "class": "SingleAttackMoveMonster",
+  "file": "Models/Monsters/SingleAttackMoveMonster.cs",
+  "min_hp": {
+   "expr": "999",
+   "values": [
+    999
+   ]
+  },
+  "max_hp": {
+   "expr": "999",
+   "values": [
+    999
+   ]
+  },
+  "ascension_scaled": false,
+  "moves": [
+   {
+    "state": "POKE",
+    "method": "PokeMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "1"
+    ],
+    "values": [
+     [
+      1
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "class": "SkulkingColony",
+  "file": "Models/Monsters/SkulkingColony.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 80, 75)",
+   "values": [
+    80,
+    75
+   ]
+  },
+  "max_hp": {
+   "expr": "MinInitialHp",
+   "values": []
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "ZOOM_MOVE",
+    "method": "ZoomMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "ZoomDamage"
+    ],
+    "values": [
+     [
+      16,
+      14
+     ]
+    ]
+   },
+   {
+    "state": "ZOOM_MOVE_2",
+    "method": "ZoomMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "ZoomDamage"
+    ],
+    "values": [
+     [
+      16,
+      14
+     ]
+    ]
+   },
+   {
+    "state": "INERTIA_MOVE",
+    "method": "InertiaMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "InertiaDamage)",
+     "new BuffIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   },
+   {
+    "state": "PIERCING_STABS_MOVE",
+    "method": "PiercingStabsMove",
+    "intent": "MultiAttackIntent",
+    "args": [
+     "PiercingStabsDamage",
+     "PiercingStabsRepeat"
+    ],
+    "values": [
+     [
+      8,
+      7
+     ],
+     [
+      2
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "class": "SlimedBerserker",
+  "file": "Models/Monsters/SlimedBerserker.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 281, 261)",
+   "values": [
+    281,
+    261
+   ]
+  },
+  "max_hp": {
+   "expr": "MinInitialHp",
+   "values": []
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "VOMIT_ICHOR_MOVE",
+    "method": "VomitIchorMove",
+    "intent": "StatusIntent",
+    "args": [
+     "10"
+    ],
+    "values": [
+     [
+      10
+     ]
+    ]
+   },
+   {
+    "state": "LEECHING_HUG_MOVE",
+    "method": "LeechingHugMove",
+    "intent": "DebuffIntent",
+    "args": [
+     ")",
+     "new BuffIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   },
+   {
+    "state": "SMOTHER_MOVE",
+    "method": "SmotherMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "SmotherDamage"
+    ],
+    "values": [
+     [
+      33,
+      30
+     ]
+    ]
+   },
+   {
+    "state": "FURIOUS_PUMMELING_MOVE",
+    "method": "FuriousPummelingMove",
+    "intent": "MultiAttackIntent",
+    "args": [
+     "PummelingDamage",
+     "4"
+    ],
+    "values": [
+     [
+      5,
+      4
+     ],
+     [
+      4
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "class": "SlitheringStrangler",
+  "file": "Models/Monsters/SlitheringStrangler.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 54, 53)",
+   "values": [
+    54,
+    53
+   ]
+  },
+  "max_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 56, 55)",
+   "values": [
+    56,
+    55
+   ]
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "CONSTRICT",
+    "method": "ConstrictMove",
+    "intent": "DebuffIntent",
+    "args": [],
+    "values": []
+   },
+   {
+    "state": "THWACK",
+    "method": "ThwackMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "ThwackDamage)",
+     "new DefendIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   },
+   {
+    "state": "LASH",
+    "method": "LashMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "LashDamage"
+    ],
+    "values": [
+     [
+      13,
+      12
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "class": "SludgeSpinner",
+  "file": "Models/Monsters/SludgeSpinner.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 41, 37)",
+   "values": [
+    41,
+    37
+   ]
+  },
+  "max_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 42, 39)",
+   "values": [
+    42,
+    39
+   ]
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "OIL_SPRAY_MOVE",
+    "method": "OilSprayMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "OilSprayDamage)",
+     "new DebuffIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   },
+   {
+    "state": "SLAM_MOVE",
+    "method": "SlamMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "SlamDamage"
+    ],
+    "values": [
+     [
+      12,
+      11
+     ]
+    ]
+   },
+   {
+    "state": "RAGE_MOVE",
+    "method": "RageMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "RageDamage)",
+     "new BuffIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   }
+  ]
+ },
+ {
+  "class": "SlumberingBeetle",
+  "file": "Models/Monsters/SlumberingBeetle.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 89, 86)",
+   "values": [
+    89,
+    86
+   ]
+  },
+  "max_hp": {
+   "expr": "MinInitialHp",
+   "values": []
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "SNORE_MOVE",
+    "method": "SnoreMove",
+    "intent": "SleepIntent",
+    "args": [],
+    "values": []
+   },
+   {
+    "state": "ROLL_OUT_MOVE",
+    "method": "RolloutMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "RolloutDamage)",
+     "new BuffIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   }
+  ]
+ },
+ {
+  "class": "SnappingJaxfruit",
+  "file": "Models/Monsters/SnappingJaxfruit.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 34, 31)",
+   "values": [
+    34,
+    31
+   ]
+  },
+  "max_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 36, 33)",
+   "values": [
+    36,
+    33
+   ]
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "ENERGY_ORB_MOVE",
+    "method": "EnergyOrb",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "EnergyDamage)",
+     "new BuffIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   }
+  ]
+ },
+ {
+  "class": "SneakyGremlin",
+  "file": "Models/Monsters/SneakyGremlin.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 11, 10)",
+   "values": [
+    11,
+    10
+   ]
+  },
+  "max_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 15, 14)",
+   "values": [
+    15,
+    14
+   ]
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "SPAWNED_MOVE",
+    "method": "SpawnedMove",
+    "intent": "StunIntent",
+    "args": [],
+    "values": []
+   },
+   {
+    "state": "TACKLE_MOVE",
+    "method": "TackleMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "TackleDamage"
+    ],
+    "values": [
+     [
+      10,
+      9
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "class": "SoulFysh",
+  "file": "Models/Monsters/SoulFysh.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 221, 211)",
+   "values": [
+    221,
+    211
+   ]
+  },
+  "max_hp": {
+   "expr": "MinInitialHp",
+   "values": []
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "BECKON_MOVE",
+    "method": "BeckonMove",
+    "intent": "StatusIntent",
+    "args": [
+     "BeckonMoveAmount"
+    ],
+    "values": [
+     [
+      2
+     ]
+    ]
+   },
+   {
+    "state": "DE_GAS_MOVE",
+    "method": "DeGasMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "DeGasDamage"
+    ],
+    "values": [
+     [
+      17,
+      16
+     ]
+    ]
+   },
+   {
+    "state": "GAZE_MOVE",
+    "method": "GazeMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "GazeDamage)",
+     "new StatusIntent(GazeMoveAmount"
+    ],
+    "values": [
+     null,
+     null
+    ]
+   },
+   {
+    "state": "FADE_MOVE",
+    "method": "FadeMove",
+    "intent": "BuffIntent",
+    "args": [],
+    "values": []
+   },
+   {
+    "state": "SCREAM_MOVE",
+    "method": "ScreamMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "ScreamDamage)",
+     "new DebuffIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   }
+  ]
+ },
+ {
+  "class": "SoulNexus",
+  "file": "Models/Monsters/SoulNexus.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 254, 234)",
+   "values": [
+    254,
+    234
+   ]
+  },
+  "max_hp": {
+   "expr": "MinInitialHp",
+   "values": []
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "SOUL_BURN_MOVE",
+    "method": "SoulBurnMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "SoulBurnDamage"
+    ],
+    "values": [
+     [
+      31,
+      29
+     ]
+    ]
+   },
+   {
+    "state": "MAELSTROM_MOVE",
+    "method": "MaelstromMove",
+    "intent": "MultiAttackIntent",
+    "args": [
+     "MaelstromDamage",
+     "MaelstromRepeat"
+    ],
+    "values": [
+     [
+      7,
+      6
+     ],
+     [
+      4,
+      4
+     ]
+    ]
+   },
+   {
+    "state": "DRAIN_LIFE_MOVE",
+    "method": "DrainLifeMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "DrainLifeDamage)",
+     "new DebuffIntent(strong: true"
+    ],
+    "values": [
+     null,
+     null
+    ]
+   }
+  ]
+ },
+ {
+  "class": "SpectralKnight",
+  "file": "Models/Monsters/SpectralKnight.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 97, 93)",
+   "values": [
+    97,
+    93
+   ]
+  },
+  "max_hp": {
+   "expr": "MinInitialHp",
+   "values": []
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "HEX",
+    "method": "HexMove",
+    "intent": "DebuffIntent",
+    "args": [],
+    "values": []
+   },
+   {
+    "state": "SOUL_SLASH",
+    "method": "SoulSlashMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "SoulSlashDamage"
+    ],
+    "values": [
+     [
+      17,
+      15
+     ]
+    ]
+   },
+   {
+    "state": "SOUL_FLAME",
+    "method": "SoulFlameMove",
+    "intent": "MultiAttackIntent",
+    "args": [
+     "SoulFlameDamage",
+     "3"
+    ],
+    "values": [
+     [
+      4,
+      3
+     ],
+     [
+      3
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "class": "SpinyToad",
+  "file": "Models/Monsters/SpinyToad.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 121, 116)",
+   "values": [
+    121,
+    116
+   ]
+  },
+  "max_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 124, 119)",
+   "values": [
+    124,
+    119
+   ]
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "PROTRUDING_SPIKES_MOVE",
+    "method": "SpikesMove",
+    "intent": "BuffIntent",
+    "args": [],
+    "values": []
+   },
+   {
+    "state": "SPIKE_EXPLOSION_MOVE",
+    "method": "ExplosionMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "ExplosionDamage"
+    ],
+    "values": [
+     [
+      25,
+      23
+     ]
+    ]
+   },
+   {
+    "state": "TONGUE_LASH_MOVE",
+    "method": "LashMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "LashDamage"
+    ],
+    "values": [
+     [
+      19,
+      17
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "class": "Stabbot",
+  "file": "Models/Monsters/Stabbot.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 19, 18)",
+   "values": [
+    19,
+    18
+   ]
+  },
+  "max_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 24, 23)",
+   "values": [
+    24,
+    23
+   ]
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "STAB_MOVE",
+    "method": "StabMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "StabDamage)",
+     "new DebuffIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   }
+  ]
+ },
+ {
+  "class": "TenHpMonster",
+  "file": "Models/Monsters/TenHpMonster.cs",
+  "min_hp": {
+   "expr": "10",
+   "values": [
+    10
+   ]
+  },
+  "max_hp": {
+   "expr": "10",
+   "values": [
+    10
+   ]
+  },
+  "ascension_scaled": false,
+  "moves": [
+   {
+    "state": "NOTHING",
+    "method": "NothingMove",
+    "intent": "HiddenIntent",
+    "args": [],
+    "values": []
+   }
+  ]
+ },
+ {
+  "class": "TerrorEel",
+  "file": "Models/Monsters/TerrorEel.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 150, 140)",
+   "values": [
+    150,
+    140
+   ]
+  },
+  "max_hp": {
+   "expr": "MinInitialHp",
+   "values": []
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "CRASH_MOVE",
+    "method": "CrashMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "CrashDamage"
+    ],
+    "values": [
+     [
+      18,
+      16
+     ]
+    ]
+   },
+   {
+    "state": "THRASH_MOVE",
+    "method": "ThrashMove",
+    "intent": "MultiAttackIntent",
+    "args": [
+     "ThrashDamage",
+     "ThrashRepeat)",
+     "new BuffIntent("
+    ],
+    "values": [
+     [
+      4,
+      3
+     ],
+     null,
+     null
+    ]
+   },
+   {
+    "state": "STUN_MOVE",
+    "method": "StunMove",
+    "intent": "StunIntent",
+    "args": [],
+    "values": []
+   },
+   {
+    "state": "TERROR_MOVE",
+    "method": "TerrorMove",
+    "intent": "DebuffIntent",
+    "args": [],
+    "values": []
+   }
+  ]
+ },
+ {
+  "class": "TestSubject",
+  "file": "Models/Monsters/TestSubject.cs",
+  "min_hp": {
+   "expr": "FirstFormHp",
+   "values": []
+  },
+  "max_hp": {
+   "expr": "MinInitialHp",
+   "values": []
+  },
+  "ascension_scaled": false,
+  "moves": [
+   {
+    "state": "RESPAWN_MOVE",
+    "method": "RespawnMove",
+    "intent": "HealIntent",
+    "args": [
+     ")",
+     "new BuffIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   },
+   {
+    "state": "BITE_MOVE",
+    "method": "BiteMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "BiteDamage"
+    ],
+    "values": [
+     [
+      22,
+      20
+     ]
+    ]
+   },
+   {
+    "state": "SKULL_BASH_MOVE",
+    "method": "SkullBashMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "SkullBashDamage)",
+     "new DebuffIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   },
+   {
+    "state": "MULTI_CLAW_MOVE",
+    "method": "MultiClawMove",
+    "intent": "MultiAttackIntent",
+    "args": [
+     "MultiClawDamage",
+     "() => MultiClawTotalCount"
+    ],
+    "values": [
+     [
+      11,
+      10
+     ],
+     null
+    ]
+   },
+   {
+    "state": "PHASE3_LACERATE_MOVE",
+    "method": "Phase3LacerateMove",
+    "intent": "MultiAttackIntent",
+    "args": [
+     "Phase3LacerateDamage",
+     "3"
+    ],
+    "values": [
+     [
+      11,
+      10
+     ],
+     [
+      3
+     ]
+    ]
+   },
+   {
+    "state": "BIG_POUNCE",
+    "method": "BigPounceMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "BigPounceDamage"
+    ],
+    "values": [
+     [
+      45
+     ]
+    ]
+   },
+   {
+    "state": "BURNING_GROWL_MOVE",
+    "method": "BurningGrowlMove",
+    "intent": "StatusIntent",
+    "args": [
+     "BurningGrowlBurnCount)",
+     "new BuffIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   }
+  ]
+ },
+ {
+  "class": "TheAdversaryMkOne",
+  "file": "Models/Monsters/TheAdversaryMkOne.cs",
+  "min_hp": {
+   "expr": "100",
+   "values": [
+    100
+   ]
+  },
+  "max_hp": {
+   "expr": "MinInitialHp",
+   "values": []
+  },
+  "ascension_scaled": false,
+  "moves": [
+   {
+    "state": "SMASH_MOVE",
+    "method": "SmashMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "SmashDamage"
+    ],
+    "values": [
+     [
+      12
+     ]
+    ]
+   },
+   {
+    "state": "BEAM_MOVE",
+    "method": "BeamMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "BeamDamage"
+    ],
+    "values": [
+     [
+      15
+     ]
+    ]
+   },
+   {
+    "state": "BARRAGE_MOVE",
+    "method": "BarrageMove",
+    "intent": "MultiAttackIntent",
+    "args": [
+     "BarrageDamage",
+     "BarrageRepeat)",
+     "new BuffIntent("
+    ],
+    "values": [
+     [
+      8
+     ],
+     null,
+     null
+    ]
+   }
+  ]
+ },
+ {
+  "class": "TheAdversaryMkThree",
+  "file": "Models/Monsters/TheAdversaryMkThree.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 300, 300)",
+   "values": [
+    300,
+    300
+   ]
+  },
+  "max_hp": {
+   "expr": "MinInitialHp",
+   "values": []
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "CRASH_MOVE",
+    "method": "CrashMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "CrashDamage"
+    ],
+    "values": [
+     [
+      15
+     ]
+    ]
+   },
+   {
+    "state": "FLAME_BEAM_MOVE",
+    "method": "FlameBeamMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "FlameBeamDamage"
+    ],
+    "values": [
+     [
+      18
+     ]
+    ]
+   },
+   {
+    "state": "BARRAGE_MOVE",
+    "method": "BarrageMove",
+    "intent": "MultiAttackIntent",
+    "args": [
+     "BarrageDamage",
+     "BarrageRepeat)",
+     "new BuffIntent("
+    ],
+    "values": [
+     [
+      10
+     ],
+     null,
+     null
+    ]
+   }
+  ]
+ },
+ {
+  "class": "TheAdversaryMkTwo",
+  "file": "Models/Monsters/TheAdversaryMkTwo.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 200, 200)",
+   "values": [
+    200,
+    200
+   ]
+  },
+  "max_hp": {
+   "expr": "MinInitialHp",
+   "values": []
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "BASH_MOVE",
+    "method": "BashMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "BashDamage"
+    ],
+    "values": [
+     [
+      13
+     ]
+    ]
+   },
+   {
+    "state": "FLAME_BEAM_MOVE",
+    "method": "FlameBeamMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "FlameBeamDamage"
+    ],
+    "values": [
+     [
+      16
+     ]
+    ]
+   },
+   {
+    "state": "BARRAGE_MOVE",
+    "method": "BarrageMove",
+    "intent": "MultiAttackIntent",
+    "args": [
+     "BarrageDamage",
+     "BarrageRepeat)",
+     "new BuffIntent("
+    ],
+    "values": [
+     [
+      9
+     ],
+     null,
+     null
+    ]
+   }
+  ]
+ },
+ {
+  "class": "TheForgotten",
+  "file": "Models/Monsters/TheForgotten.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 111, 106)",
+   "values": [
+    111,
+    106
+   ]
+  },
+  "max_hp": {
+   "expr": "MinInitialHp",
+   "values": []
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "MIASMA",
+    "method": "MiasmaMove",
+    "intent": "DebuffIntent",
+    "args": [
+     ")",
+     "new DefendIntent()",
+     "new BuffIntent("
+    ],
+    "values": [
+     null,
+     null,
+     null
+    ]
+   },
+   {
+    "state": "DREAD",
+    "method": "DreadMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "() => DreadDamage"
+    ],
+    "values": [
+     null
+    ]
+   }
+  ]
+ },
+ {
+  "class": "TheInsatiable",
+  "file": "Models/Monsters/TheInsatiable.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 341, 321)",
+   "values": [
+    341,
+    321
+   ]
+  },
+  "max_hp": {
+   "expr": "MinInitialHp",
+   "values": []
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "LIQUIFY_GROUND_MOVE",
+    "method": "LiquifyMove",
+    "intent": "BuffIntent",
+    "args": [
+     ")",
+     "new StatusIntent(6"
+    ],
+    "values": [
+     null,
+     [
+      6
+     ]
+    ]
+   },
+   {
+    "state": "THRASH_MOVE",
+    "method": "ThrashMove",
+    "intent": "MultiAttackIntent",
+    "args": [
+     "ThrashDamage",
+     "2"
+    ],
+    "values": [
+     [
+      9,
+      8
+     ],
+     [
+      2
+     ]
+    ]
+   },
+   {
+    "state": "THRASH_MOVE_2",
+    "method": "ThrashMove",
+    "intent": "MultiAttackIntent",
+    "args": [
+     "ThrashDamage",
+     "2"
+    ],
+    "values": [
+     [
+      9,
+      8
+     ],
+     [
+      2
+     ]
+    ]
+   },
+   {
+    "state": "LUNGING_BITE_MOVE",
+    "method": "BiteMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "BiteDamage"
+    ],
+    "values": [
+     [
+      31,
+      28
+     ]
+    ]
+   },
+   {
+    "state": "SALIVATE_MOVE",
+    "method": "SalivateMove",
+    "intent": "BuffIntent",
+    "args": [],
+    "values": []
+   }
+  ]
+ },
+ {
+  "class": "TheLost",
+  "file": "Models/Monsters/TheLost.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 99, 93)",
+   "values": [
+    99,
+    93
+   ]
+  },
+  "max_hp": {
+   "expr": "MinInitialHp",
+   "values": []
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "DEBILITATING_SMOG",
+    "method": "DebilitatingSmogMove",
+    "intent": "DebuffIntent",
+    "args": [
+     ")",
+     "new BuffIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   },
+   {
+    "state": "EYE_LASERS",
+    "method": "EyeLasersMove",
+    "intent": "MultiAttackIntent",
+    "args": [
+     "EyeLasersDamage",
+     "2"
+    ],
+    "values": [
+     [
+      5,
+      4
+     ],
+     [
+      2
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "class": "TheObscura",
+  "file": "Models/Monsters/TheObscura.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 129, 123)",
+   "values": [
+    129,
+    123
+   ]
+  },
+  "max_hp": {
+   "expr": "MinInitialHp",
+   "values": []
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "ILLUSION_MOVE",
+    "method": "IllusionMove",
+    "intent": "SummonIntent",
+    "args": [],
+    "values": []
+   },
+   {
+    "state": "PIERCING_GAZE_MOVE",
+    "method": "PiercingGazeMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "PiercingGazeDamage"
+    ],
+    "values": [
+     [
+      11,
+      10
+     ]
+    ]
+   },
+   {
+    "state": "SAIL_MOVE",
+    "method": "WailMove",
+    "intent": "BuffIntent",
+    "args": [],
+    "values": []
+   },
+   {
+    "state": "HARDENING_STRIKE_MOVE",
+    "method": "HardeningStrikeMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "HardeningStrikeDamage)",
+     "new DefendIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   }
+  ]
+ },
+ {
+  "class": "ThievingHopper",
+  "file": "Models/Monsters/ThievingHopper.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 84, 79)",
+   "values": [
+    84,
+    79
+   ]
+  },
+  "max_hp": {
+   "expr": "MinInitialHp",
+   "values": []
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "THIEVERY_MOVE",
+    "method": "ThieveryMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "TheftDamage)",
+     "new CardDebuffIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   },
+   {
+    "state": "NAB_MOVE",
+    "method": "NabMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "NabDamage"
+    ],
+    "values": [
+     [
+      16,
+      14
+     ]
+    ]
+   },
+   {
+    "state": "HAT_TRICK_MOVE",
+    "method": "HatTrickMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "HatTrickDamage"
+    ],
+    "values": [
+     [
+      23,
+      21
+     ]
+    ]
+   },
+   {
+    "state": "FLUTTER_MOVE",
+    "method": "FlutterMove",
+    "intent": "BuffIntent",
+    "args": [],
+    "values": []
+   },
+   {
+    "state": "ESCAPE_MOVE",
+    "method": "EscapeMove",
+    "intent": "EscapeIntent",
+    "args": [],
+    "values": []
+   }
+  ]
+ },
+ {
+  "class": "Toadpole",
+  "file": "Models/Monsters/Toadpole.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 22, 21)",
+   "values": [
+    22,
+    21
+   ]
+  },
+  "max_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 26, 25)",
+   "values": [
+    26,
+    25
+   ]
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "SPIKE_SPIT_MOVE",
+    "method": "SpikeSpitMove",
+    "intent": "MultiAttackIntent",
+    "args": [
+     "SpikeSpitDamage",
+     "SpikeSpitRepeat"
+    ],
+    "values": [
+     [
+      4,
+      3
+     ],
+     [
+      3
+     ]
+    ]
+   },
+   {
+    "state": "WHIRL_MOVE",
+    "method": "WhirlMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "WhirlDamage"
+    ],
+    "values": [
+     [
+      8,
+      7
+     ]
+    ]
+   },
+   {
+    "state": "SPIKEN_MOVE",
+    "method": "SpikenMove",
+    "intent": "BuffIntent",
+    "args": [],
+    "values": []
+   }
+  ]
+ },
+ {
+  "class": "TorchHeadAmalgam",
+  "file": "Models/Monsters/TorchHeadAmalgam.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 211, 199)",
+   "values": [
+    211,
+    199
+   ]
+  },
+  "max_hp": {
+   "expr": "MinInitialHp",
+   "values": []
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "TACKLE_MOVE",
+    "method": "TackleMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "TackleDamage"
+    ],
+    "values": [
+     [
+      19,
+      18
+     ]
+    ]
+   },
+   {
+    "state": "TACKLE_2_MOVE",
+    "method": "TackleMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "TackleDamage"
+    ],
+    "values": [
+     [
+      19,
+      18
+     ]
+    ]
+   },
+   {
+    "state": "BEAM_MOVE",
+    "method": "SoulBeamMove",
+    "intent": "MultiAttackIntent",
+    "args": [
+     "SoulBeamDamage",
+     "3"
+    ],
+    "values": [
+     [
+      8,
+      8
+     ],
+     [
+      3
+     ]
+    ]
+   },
+   {
+    "state": "TACKLE_3_MOVE",
+    "method": "WeakTackleMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "WeakTackleDamage"
+    ],
+    "values": [
+     [
+      15,
+      14
+     ]
+    ]
+   },
+   {
+    "state": "TACKLE_4_MOVE",
+    "method": "WeakTackleMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "WeakTackleDamage"
+    ],
+    "values": [
+     [
+      15,
+      14
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "class": "ToughEgg",
+  "file": "Models/Monsters/ToughEgg.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 15, 14)",
+   "values": [
+    15,
+    14
+   ]
+  },
+  "max_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 19, 18)",
+   "values": [
+    19,
+    18
+   ]
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "HATCH_MOVE",
+    "method": "HatchMove",
+    "intent": "SummonIntent",
+    "args": [],
+    "values": []
+   },
+   {
+    "state": "NIBBLE_MOVE",
+    "method": "NibbleMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "NibbleDamage"
+    ],
+    "values": [
+     [
+      5,
+      4
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "class": "TrackerRubyRaider",
+  "file": "Models/Monsters/TrackerRubyRaider.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 22, 21)",
+   "values": [
+    22,
+    21
+   ]
+  },
+  "max_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 26, 25)",
+   "values": [
+    26,
+    25
+   ]
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "TRACK_MOVE",
+    "method": "TrackMove",
+    "intent": "DebuffIntent",
+    "args": [],
+    "values": []
+   },
+   {
+    "state": "HOUNDS_MOVE",
+    "method": "HoundsMove",
+    "intent": "MultiAttackIntent",
+    "args": [
+     "HoundsDamage",
+     "HoundsRepeat"
+    ],
+    "values": [
+     [
+      1,
+      1
+     ],
+     [
+      9,
+      8
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "class": "Tunneler",
+  "file": "Models/Monsters/Tunneler.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 92, 87)",
+   "values": [
+    92,
+    87
+   ]
+  },
+  "max_hp": {
+   "expr": "MinInitialHp",
+   "values": []
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "BITE_MOVE",
+    "method": "BiteMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "BiteDamage"
+    ],
+    "values": [
+     [
+      15,
+      13
+     ]
+    ]
+   },
+   {
+    "state": "BURROW_MOVE",
+    "method": "BurrowMove",
+    "intent": "BuffIntent",
+    "args": [
+     ")",
+     "new DefendIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   },
+   {
+    "state": "BELOW_MOVE",
+    "method": "BelowMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "BelowDamage"
+    ],
+    "values": [
+     [
+      26,
+      23
+     ]
+    ]
+   },
+   {
+    "state": "DIZZY_MOVE",
+    "method": "StillDizzyMove",
+    "intent": "StunIntent",
+    "args": [],
+    "values": []
+   }
+  ]
+ },
+ {
+  "class": "TurretOperator",
+  "file": "Models/Monsters/TurretOperator.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 51, 41)",
+   "values": [
+    51,
+    41
+   ]
+  },
+  "max_hp": {
+   "expr": "MinInitialHp",
+   "values": []
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "UNLOAD_MOVE",
+    "method": "UnloadMove",
+    "intent": "MultiAttackIntent",
+    "args": [
+     "FireDamage",
+     "5"
+    ],
+    "values": [
+     [
+      4,
+      3
+     ],
+     [
+      5
+     ]
+    ]
+   },
+   {
+    "state": "UNLOAD_MOVE_2",
+    "method": "UnloadMove",
+    "intent": "MultiAttackIntent",
+    "args": [
+     "FireDamage",
+     "5"
+    ],
+    "values": [
+     [
+      4,
+      3
+     ],
+     [
+      5
+     ]
+    ]
+   },
+   {
+    "state": "RELOAD_MOVE",
+    "method": "ReloadMove",
+    "intent": "BuffIntent",
+    "args": [],
+    "values": []
+   }
+  ]
+ },
+ {
+  "class": "TwigSlimeM",
+  "file": "Models/Monsters/TwigSlimeM.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 27, 26)",
+   "values": [
+    27,
+    26
+   ]
+  },
+  "max_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 29, 28)",
+   "values": [
+    29,
+    28
+   ]
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "POKEY_POUNCE_MOVE",
+    "method": "ClumpShotMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "ClumpDamage"
+    ],
+    "values": [
+     [
+      12,
+      11
+     ]
+    ]
+   },
+   {
+    "state": "STICKY_SHOT_MOVE",
+    "method": "StickyShotMove",
+    "intent": "StatusIntent",
+    "args": [
+     "1"
+    ],
+    "values": [
+     [
+      1
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "class": "TwigSlimeS",
+  "file": "Models/Monsters/TwigSlimeS.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 8, 7)",
+   "values": [
+    8,
+    7
+   ]
+  },
+  "max_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 12, 11)",
+   "values": [
+    12,
+    11
+   ]
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "TACKLE_MOVE",
+    "method": "TackleMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "TackleDamage"
+    ],
+    "values": [
+     [
+      5,
+      4
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "class": "TwoTailedRat",
+  "file": "Models/Monsters/TwoTailedRat.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 18, 17)",
+   "values": [
+    18,
+    17
+   ]
+  },
+  "max_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 22, 21)",
+   "values": [
+    22,
+    21
+   ]
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "SCRATCH_MOVE",
+    "method": "ScratchMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "ScratchDamage"
+    ],
+    "values": [
+     [
+      9,
+      8
+     ]
+    ]
+   },
+   {
+    "state": "DISEASE_BITE_MOVE",
+    "method": "DiseaseBiteMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "DiseaseBiteDamage"
+    ],
+    "values": [
+     [
+      7,
+      6
+     ]
+    ]
+   },
+   {
+    "state": "SCREECH_MOVE",
+    "method": "ScreechMove",
+    "intent": "DebuffIntent",
+    "args": [],
+    "values": []
+   },
+   {
+    "state": "CALL_FOR_BACKUP_MOVE",
+    "method": "CallForBackup",
+    "intent": "SummonIntent",
+    "args": [],
+    "values": []
+   }
+  ]
+ },
+ {
+  "class": "Vantom",
+  "file": "Models/Monsters/Vantom.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 183, 173)",
+   "values": [
+    183,
+    173
+   ]
+  },
+  "max_hp": {
+   "expr": "MinInitialHp",
+   "values": []
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "INK_BLOT_MOVE",
+    "method": "InkBlotMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "InkBlotDamage"
+    ],
+    "values": [
+     [
+      8,
+      7
+     ]
+    ]
+   },
+   {
+    "state": "INKY_LANCE_MOVE",
+    "method": "InkyLanceMove",
+    "intent": "MultiAttackIntent",
+    "args": [
+     "InkyLanceDamage",
+     "2"
+    ],
+    "values": [
+     [
+      7,
+      6
+     ],
+     [
+      2
+     ]
+    ]
+   },
+   {
+    "state": "DISMEMBER_MOVE",
+    "method": "DismemberMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "DismemberDamage)",
+     "new StatusIntent(3"
+    ],
+    "values": [
+     null,
+     [
+      3
+     ]
+    ]
+   },
+   {
+    "state": "PREPARE_MOVE",
+    "method": "PrepareMove",
+    "intent": "BuffIntent",
+    "args": [],
+    "values": []
+   }
+  ]
+ },
+ {
+  "class": "VineShambler",
+  "file": "Models/Monsters/VineShambler.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 64, 61)",
+   "values": [
+    64,
+    61
+   ]
+  },
+  "max_hp": {
+   "expr": "MinInitialHp",
+   "values": []
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "GRASPING_VINES_MOVE",
+    "method": "GraspingVinesMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "GraspingVinesDamage)",
+     "new CardDebuffIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   },
+   {
+    "state": "SWIPE_MOVE",
+    "method": "SwipeMove",
+    "intent": "MultiAttackIntent",
+    "args": [
+     "SwipeDamage",
+     "2"
+    ],
+    "values": [
+     [
+      7,
+      6
+     ],
+     [
+      2
+     ]
+    ]
+   },
+   {
+    "state": "CHOMP_MOVE",
+    "method": "ChompMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "ChompDamage"
+    ],
+    "values": [
+     [
+      18,
+      16
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "class": "WaterfallGiant",
+  "file": "Models/Monsters/WaterfallGiant.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 250, 240)",
+   "values": [
+    250,
+    240
+   ]
+  },
+  "max_hp": {
+   "expr": "MinInitialHp",
+   "values": []
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "PRESSURIZE_MOVE",
+    "method": "PressurizeMove",
+    "intent": "BuffIntent",
+    "args": [],
+    "values": []
+   },
+   {
+    "state": "STOMP_MOVE",
+    "method": "StompMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "StompDamage)",
+     "new DebuffIntent()",
+     "new BuffIntent("
+    ],
+    "values": [
+     null,
+     null,
+     null
+    ]
+   },
+   {
+    "state": "RAM_MOVE",
+    "method": "RamMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "RamDamage)",
+     "new BuffIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   },
+   {
+    "state": "SIPHON_MOVE",
+    "method": "SiphonMove",
+    "intent": "HealIntent",
+    "args": [
+     ")",
+     "new BuffIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   },
+   {
+    "state": "PRESSURE_GUN_MOVE",
+    "method": "PressureGunMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "() => CurrentPressureGunDamage)",
+     "new BuffIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   },
+   {
+    "state": "PRESSURE_UP_MOVE",
+    "method": "PressureUpMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "PressureUpDamage)",
+     "new BuffIntent("
+    ],
+    "values": [
+     null,
+     null
+    ]
+   },
+   {
+    "state": "ABOUT_TO_BLOW_MOVE",
+    "method": "AboutToBlowMove",
+    "intent": "StunIntent",
+    "args": [],
+    "values": []
+   },
+   {
+    "state": "EXPLODE_MOVE",
+    "method": "ExplodeMove",
+    "intent": "DeathBlowIntent",
+    "args": [
+     "() => SteamEruptionDamage"
+    ],
+    "values": [
+     null
+    ]
+   }
+  ]
+ },
+ {
+  "class": "Wriggler",
+  "file": "Models/Monsters/Wriggler.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 18, 17)",
+   "values": [
+    18,
+    17
+   ]
+  },
+  "max_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 22, 21)",
+   "values": [
+    22,
+    21
+   ]
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "NASTY_BITE_MOVE",
+    "method": "BiteMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "BiteDamage"
+    ],
+    "values": [
+     [
+      7,
+      6
+     ]
+    ]
+   },
+   {
+    "state": "WRIGGLE_MOVE",
+    "method": "WriggleMove",
+    "intent": "BuffIntent",
+    "args": [
+     ")",
+     "new StatusIntent(1"
+    ],
+    "values": [
+     null,
+     [
+      1
+     ]
+    ]
+   },
+   {
+    "state": "SPAWNED_MOVE",
+    "method": "SpawnedMove",
+    "intent": "StunIntent",
+    "args": [],
+    "values": []
+   }
+  ]
+ },
+ {
+  "class": "Zapbot",
+  "file": "Models/Monsters/Zapbot.cs",
+  "min_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 19, 18)",
+   "values": [
+    19,
+    18
+   ]
+  },
+  "max_hp": {
+   "expr": "AscensionHelper.GetValueIfAscension(AscensionLevel.ToughEnemies, 24, 23)",
+   "values": [
+    24,
+    23
+   ]
+  },
+  "ascension_scaled": true,
+  "moves": [
+   {
+    "state": "ZAP",
+    "method": "ZapMove",
+    "intent": "SingleAttackIntent",
+    "args": [
+     "ZapDamage"
+    ],
+    "values": [
+     [
+      15,
+      14
+     ]
+    ]
+   }
+  ]
+ }
+]

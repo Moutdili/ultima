@@ -1,0 +1,15 @@
+# décompilation (volumineuse, jamais commitée)
+game/
+logs/
+data/catalog/*.tmp
+
+# build
+bin/
+obj/
+build/
+
+# clones de recherche
+research/repos/
+
+# exports locaux
+*.log

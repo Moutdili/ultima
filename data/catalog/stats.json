@@ -1,0 +1,31 @@
+{
+ "source_root": "/home/mio/sts2/game/pck/src/Core",
+ "cards": 578,
+ "cards_by_type": {
+  "Power": 111,
+  "Skill": 234,
+  "Attack": 195,
+  "Curse": 18,
+  "Status": 17,
+  "Quest": 3
+ },
+ "cards_by_rarity": {
+  "Rare": 155,
+  "Uncommon": 219,
+  "Common": 100,
+  "Ancient": 18,
+  "Curse": 18,
+  "Basic": 19,
+  "Status": 17,
+  "Event": 19,
+  "Quest": 3,
+  "Token": 10
+ },
+ "cards_priority_candidates": 34,
+ "monsters": 123,
+ "monsters_with_hp": 123,
+ "monsters_ascension_scaled": 100,
+ "monsters_with_moves": 115,
+ "monsters_with_attack_moves": 103,
+ "powers_modifying_damage": 30
+}
