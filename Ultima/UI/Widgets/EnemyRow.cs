@@ -98,7 +98,7 @@ public partial class EnemyRow : VBoxContainer
         }
         else
         {
-            l = UltimaFonts.NewLabel(role, 12, color);
+            l = UltimaFonts.NewLabel(role, 14, color);
             _detailLines.Add(l);
             _detail.AddChild(l);
         }

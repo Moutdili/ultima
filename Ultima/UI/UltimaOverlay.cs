@@ -166,13 +166,13 @@ public partial class UltimaOverlay : Control
         headerLine.AddChild(_vitals);
         _enemies = new VBoxContainer { MouseFilter = MouseFilterEnum.Ignore };
         _enemies.AddThemeConstantOverride("separation", 2);
-        _notice = UltimaFonts.NewLabel(FontRole.Body, 12, UltimaPalette.Orange);
+        _notice = UltimaFonts.NewLabel(FontRole.Body, 14, UltimaPalette.Orange);
         _notice.Text = OverlayText.ForecastUnavailable;
-        _turn = UltimaFonts.NewLabel(FontRole.Mono, 12, UltimaPalette.Cream); // chiffres PV : SCP
-        _turnBy = UltimaFonts.NewLabel(FontRole.Body, 12, UltimaPalette.Cream);
+        _turn = UltimaFonts.NewLabel(FontRole.Mono, 14, UltimaPalette.Cream); // chiffres PV : SCP
+        _turnBy = UltimaFonts.NewLabel(FontRole.Body, 14, UltimaPalette.Cream);
         _threats = new ThreatList();
         _priority = new PriorityStrip();
-        var footer = UltimaFonts.NewLabel(FontRole.Body, 12, UltimaPalette.HalfTransparentCream);
+        var footer = UltimaFonts.NewLabel(FontRole.Body, 14, UltimaPalette.HalfTransparentCream);
         footer.Text = OverlayText.Footer;
         foreach (var c in new Control[] { headerLine, _enemies, _notice, _turn, _turnBy, _threats, _priority, footer })
             _content.AddChild(c);
