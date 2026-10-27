@@ -22,10 +22,16 @@
   "Token": 10
  },
  "cards_priority_candidates": 34,
+ "cards_first_card_hint": 26,
+ "priority_added_by_first_card_hint": 0,
  "monsters": 123,
  "monsters_with_hp": 123,
  "monsters_ascension_scaled": 100,
  "monsters_with_moves": 115,
  "monsters_with_attack_moves": 103,
- "powers_modifying_damage": 30
+ "powers_modifying_damage": 30,
+ "intents_by_monster_monsters": 103,
+ "offensive_intents": 217,
+ "offensive_intents_damage_unresolved": 2,
+ "offensive_intents_repeats_unresolved": 1
 }

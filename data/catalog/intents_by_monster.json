@@ -1,0 +1,3276 @@
+{
+ "Aeonglass": [
+  {
+   "move": "EBB_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    32,
+    26
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "EbbDamage"
+   ]
+  },
+  {
+   "move": "EYE_LASERS_MOVE",
+   "intent": "MultiAttackIntent",
+   "damage": [
+    12,
+    11
+   ],
+   "repeats": [
+    2
+   ],
+   "args": [
+    "EyeLasersDamage",
+    "EyeLasersRepeat"
+   ]
+  }
+ ],
+ "AssassinRubyRaider": [
+  {
+   "move": "KILLSHOT_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    11,
+    10
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "KillshotDamage"
+   ]
+  }
+ ],
+ "AxeRubyRaider": [
+  {
+   "move": "SWING_1",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    6,
+    5
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "SwingDamage"
+   ]
+  },
+  {
+   "move": "SWING_2",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    6,
+    5
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "SwingDamage"
+   ]
+  },
+  {
+   "move": "BIG_SWING",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    13,
+    12
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "BigSwingDamage"
+   ]
+  }
+ ],
+ "Axebot": [
+  {
+   "move": "ONE_TWO_MOVE",
+   "intent": "MultiAttackIntent",
+   "damage": [
+    10,
+    9
+   ],
+   "repeats": [
+    2
+   ],
+   "args": [
+    "OneTwoDamage",
+    "2"
+   ]
+  },
+  {
+   "move": "HAMMER_UPPERCUT_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    14,
+    12
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "HammerUppercutDamage"
+   ]
+  }
+ ],
+ "BowlbugEgg": [
+  {
+   "move": "BITE_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    8,
+    7
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "BiteDamage"
+   ]
+  }
+ ],
+ "BowlbugNectar": [
+  {
+   "move": "THRASH_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    3
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "ThrashDamage"
+   ]
+  },
+  {
+   "move": "THRASH2_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    3
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "ThrashDamage"
+   ]
+  }
+ ],
+ "BowlbugRock": [
+  {
+   "move": "HEADBUTT_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    16,
+    15
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "HeadbuttDamage"
+   ]
+  }
+ ],
+ "BowlbugSilk": [
+  {
+   "move": "THRASH_MOVE",
+   "intent": "MultiAttackIntent",
+   "damage": [
+    5,
+    4
+   ],
+   "repeats": [
+    2
+   ],
+   "args": [
+    "ThrashDamage",
+    "2"
+   ]
+  }
+ ],
+ "BruteRubyRaider": [
+  {
+   "move": "BEAT_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    8,
+    7
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "BeatDamage"
+   ]
+  }
+ ],
+ "BygoneEffigy": [
+  {
+   "move": "SLASHES_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    15,
+    13
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "SlashDamage"
+   ]
+  }
+ ],
+ "Byrdonis": [
+  {
+   "move": "PECK_MOVE",
+   "intent": "MultiAttackIntent",
+   "damage": [
+    4,
+    3
+   ],
+   "repeats": [
+    3,
+    3
+   ],
+   "args": [
+    "PeckDamage",
+    "PeckRepeat"
+   ]
+  },
+  {
+   "move": "SWOOP_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    19,
+    17
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "SwoopDamage"
+   ]
+  }
+ ],
+ "CalcifiedCultist": [
+  {
+   "move": "DARK_STRIKE_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    11,
+    9
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "DarkStrikeDamage"
+   ]
+  }
+ ],
+ "CeremonialBeast": [
+  {
+   "move": "PLOW_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    20,
+    18
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "PlowDamage"
+   ]
+  },
+  {
+   "move": "STOMP_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    17,
+    15
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "StompDamage"
+   ]
+  },
+  {
+   "move": "CRUSH_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    19,
+    17
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "CrushDamage"
+   ]
+  }
+ ],
+ "Chomper": [
+  {
+   "move": "CLAMP_MOVE",
+   "intent": "MultiAttackIntent",
+   "damage": [
+    9,
+    8
+   ],
+   "repeats": [
+    2
+   ],
+   "args": [
+    "ClampDamage",
+    "2"
+   ]
+  }
+ ],
+ "CorpseSlug": [
+  {
+   "move": "WHIP_SLAP_MOVE",
+   "intent": "MultiAttackIntent",
+   "damage": [
+    3
+   ],
+   "repeats": [
+    2
+   ],
+   "args": [
+    "WhipSlapDamage",
+    "WhipSlapRepeat"
+   ]
+  },
+  {
+   "move": "GLOMP_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    9,
+    8
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "GlompDamage"
+   ]
+  }
+ ],
+ "CrossbowRubyRaider": [
+  {
+   "move": "FIRE_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    16,
+    14
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "FireDamage"
+   ]
+  }
+ ],
+ "Crusher": [
+  {
+   "move": "THRASH_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    14,
+    12
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "ThrashDamage"
+   ]
+  },
+  {
+   "move": "ENLARGING_STRIKE_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    4,
+    4
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "EnlargingStrikeDamage"
+   ]
+  },
+  {
+   "move": "BUG_STING_MOVE",
+   "intent": "MultiAttackIntent",
+   "damage": [
+    7,
+    6
+   ],
+   "repeats": [
+    2
+   ],
+   "args": [
+    "BugStingDamage",
+    "BugStingTimes"
+   ]
+  },
+  {
+   "move": "GUARDED_STRIKE_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    14,
+    12
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "GuardedStrikeDamage"
+   ]
+  }
+ ],
+ "CubexConstruct": [
+  {
+   "move": "REPEATER_BLAST_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    8,
+    7
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "BlastDamage"
+   ]
+  },
+  {
+   "move": "REPEATER_BLAST_MOVE_2",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    8,
+    7
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "BlastDamage"
+   ]
+  },
+  {
+   "move": "EXPEL_MOVE",
+   "intent": "MultiAttackIntent",
+   "damage": [
+    6,
+    5
+   ],
+   "repeats": [
+    2
+   ],
+   "args": [
+    "ExpelDamage",
+    "2"
+   ]
+  }
+ ],
+ "DampCultist": [
+  {
+   "move": "DARK_STRIKE_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    3,
+    1
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "DarkStrikeDamage"
+   ]
+  }
+ ],
+ "DecimillipedeSegment": [
+  {
+   "move": "WRITHE_MOVE",
+   "intent": "MultiAttackIntent",
+   "damage": [
+    6,
+    5
+   ],
+   "repeats": [
+    2
+   ],
+   "args": [
+    "WritheDamage",
+    "2"
+   ]
+  },
+  {
+   "move": "BULK_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    7,
+    6
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "BulkDamage"
+   ]
+  },
+  {
+   "move": "CONSTRICT_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    9,
+    8
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "ConstrictDamage"
+   ]
+  }
+ ],
+ "DevotedSculptor": [
+  {
+   "move": "SAVAGE_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    15,
+    12
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "SavageDamage"
+   ]
+  }
+ ],
+ "Entomancer": [
+  {
+   "move": "BEES_MOVE",
+   "intent": "MultiAttackIntent",
+   "damage": [
+    3,
+    3
+   ],
+   "repeats": [
+    8,
+    7
+   ],
+   "args": [
+    "BeesDamage",
+    "BeesRepeat"
+   ]
+  },
+  {
+   "move": "SPEAR_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    20,
+    18
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "SpearMoveDamage"
+   ]
+  }
+ ],
+ "Exoskeleton": [
+  {
+   "move": "SKITTER_MOVE",
+   "intent": "MultiAttackIntent",
+   "damage": [
+    1
+   ],
+   "repeats": [
+    4,
+    3
+   ],
+   "args": [
+    "SkitterDamage",
+    "SkitterRepeats"
+   ]
+  },
+  {
+   "move": "MANDIBLES_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    9,
+    8
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "MandiblesDamage"
+   ]
+  }
+ ],
+ "Fabricator": [
+  {
+   "move": "FABRICATING_STRIKE_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    21,
+    18
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "FabricatingStrikeDamage"
+   ]
+  },
+  {
+   "move": "DISINTEGRATE_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    13,
+    11
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "DisintegrateDamage"
+   ]
+  }
+ ],
+ "FakeMerchantMonster": [
+  {
+   "move": "SWIPE_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    15,
+    13
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "SwipeDamage"
+   ]
+  },
+  {
+   "move": "SPEW_COINS_MOVE",
+   "intent": "MultiAttackIntent",
+   "damage": [
+    2
+   ],
+   "repeats": [
+    8
+   ],
+   "args": [
+    "2",
+    "8"
+   ]
+  },
+  {
+   "move": "THROW_RELIC_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    10,
+    9
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "ThrowRelicDamage"
+   ]
+  }
+ ],
+ "FlailKnight": [
+  {
+   "move": "FLAIL_MOVE",
+   "intent": "MultiAttackIntent",
+   "damage": [
+    10,
+    9
+   ],
+   "repeats": [
+    2
+   ],
+   "args": [
+    "FlailDamage",
+    "2"
+   ]
+  },
+  {
+   "move": "RAM_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    17,
+    15
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "RamDamage"
+   ]
+  }
+ ],
+ "Flyconid": [
+  {
+   "move": "FRAIL_SPORES_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    9,
+    8
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "SporeDamage"
+   ]
+  },
+  {
+   "move": "SMASH_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    12,
+    11
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "SmashDamage"
+   ]
+  }
+ ],
+ "Fogmog": [
+  {
+   "move": "SWIPE_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    9,
+    8
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "SwipeDamage"
+   ]
+  },
+  {
+   "move": "SWIPE_RANDOM_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    9,
+    8
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "SwipeDamage"
+   ]
+  },
+  {
+   "move": "HEADBUTT_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    16,
+    14
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "HeadbuttDamage"
+   ]
+  }
+ ],
+ "FossilStalker": [
+  {
+   "move": "TACKLE_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    11,
+    9
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "TackleDamage"
+   ]
+  },
+  {
+   "move": "LATCH_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    14,
+    12
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "LatchDamage"
+   ]
+  },
+  {
+   "move": "LASH_MOVE",
+   "intent": "MultiAttackIntent",
+   "damage": [
+    4,
+    3
+   ],
+   "repeats": [
+    2
+   ],
+   "args": [
+    "LashDamage",
+    "LashRepeat"
+   ]
+  }
+ ],
+ "FrogKnight": [
+  {
+   "move": "STRIKE_DOWN_EVIL",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    23,
+    21
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "StrikeDownEvilDamage"
+   ]
+  },
+  {
+   "move": "TONGUE_LASH",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    14,
+    13
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "TongueLashDamage"
+   ]
+  },
+  {
+   "move": "BEETLE_CHARGE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    40,
+    35
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "BeetleChargeDamage"
+   ]
+  }
+ ],
+ "FuzzyWurmCrawler": [
+  {
+   "move": "FIRST_ACID_GOOP",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    6,
+    4
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "AcidGoopDamage"
+   ]
+  },
+  {
+   "move": "ACID_GOOP",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    6,
+    4
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "AcidGoopDamage"
+   ]
+  }
+ ],
+ "GlobeHead": [
+  {
+   "move": "THUNDER_STRIKE",
+   "intent": "MultiAttackIntent",
+   "damage": [
+    7,
+    6
+   ],
+   "repeats": [
+    3
+   ],
+   "args": [
+    "ThunderStrikeDamage",
+    "3"
+   ]
+  },
+  {
+   "move": "SHOCKING_SLAP",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    14,
+    13
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "ShockingSlapDamage"
+   ]
+  },
+  {
+   "move": "GALVANIC_BURST",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    17,
+    16
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "GalvanicBurstDamage"
+   ]
+  }
+ ],
+ "GremlinMerc": [
+  {
+   "move": "GIMME_MOVE",
+   "intent": "MultiAttackIntent",
+   "damage": [
+    8,
+    7
+   ],
+   "repeats": [
+    2
+   ],
+   "args": [
+    "GimmeDamage",
+    "GimmeRepeat"
+   ]
+  },
+  {
+   "move": "DOUBLE_SMASH_MOVE",
+   "intent": "MultiAttackIntent",
+   "damage": [
+    7,
+    6
+   ],
+   "repeats": [
+    2
+   ],
+   "args": [
+    "DoubleSmashDamage",
+    "DoubleSmashRepeat"
+   ]
+  },
+  {
+   "move": "HEHE_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    9,
+    8
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "HeheDamage"
+   ]
+  }
+ ],
+ "HauntedShip": [
+  {
+   "move": "SWIPE_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    14,
+    13
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "SwipeDamage"
+   ]
+  },
+  {
+   "move": "STOMP_MOVE",
+   "intent": "MultiAttackIntent",
+   "damage": [
+    5,
+    4
+   ],
+   "repeats": [
+    3
+   ],
+   "args": [
+    "StompDamage",
+    "StompRepeat"
+   ]
+  }
+ ],
+ "HunterKiller": [
+  {
+   "move": "BITE_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    19,
+    17
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "BiteDamage"
+   ]
+  },
+  {
+   "move": "PUNCTURE_MOVE",
+   "intent": "MultiAttackIntent",
+   "damage": [
+    8,
+    7
+   ],
+   "repeats": [
+    3
+   ],
+   "args": [
+    "PunctureDamage",
+    "3"
+   ]
+  }
+ ],
+ "InfestedPrism": [
+  {
+   "move": "JAB_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    17,
+    15
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "JabDamage"
+   ]
+  },
+  {
+   "move": "RADIATE_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    13,
+    11
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "RadiateDamage"
+   ]
+  },
+  {
+   "move": "WHIRLWIND_MOVE",
+   "intent": "MultiAttackIntent",
+   "damage": [
+    6,
+    5
+   ],
+   "repeats": [
+    3
+   ],
+   "args": [
+    "WhirlwindDamage",
+    "WhirlwindRepeat"
+   ]
+  },
+  {
+   "move": "PULSATE_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    10,
+    8
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "PulsateDamage"
+   ]
+  }
+ ],
+ "Inklet": [
+  {
+   "move": "JAB_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    4,
+    3
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "JabDamage"
+   ]
+  },
+  {
+   "move": "WHIRLWIND_MOVE",
+   "intent": "MultiAttackIntent",
+   "damage": [
+    3,
+    2
+   ],
+   "repeats": [
+    3
+   ],
+   "args": [
+    "WhirlwindDamage",
+    "3"
+   ]
+  },
+  {
+   "move": "PIERCING_GAZE_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    11,
+    10
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "PiercingGazeDamage"
+   ]
+  }
+ ],
+ "KinFollower": [
+  {
+   "move": "QUICK_SLASH_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    5,
+    5
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "QuickSlashDamage"
+   ]
+  },
+  {
+   "move": "BOOMERANG_MOVE",
+   "intent": "MultiAttackIntent",
+   "damage": [
+    2,
+    2
+   ],
+   "repeats": [
+    2
+   ],
+   "args": [
+    "BoomerangDamage",
+    "2"
+   ]
+  }
+ ],
+ "KinPriest": [
+  {
+   "move": "ORB_OF_FRAILTY_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    9,
+    8
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "OrbOfFrailtyDamage"
+   ]
+  },
+  {
+   "move": "ORB_OF_WEAKNESS_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    9,
+    8
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "OrbOfWeaknessDamage"
+   ]
+  },
+  {
+   "move": "BEAM_MOVE",
+   "intent": "MultiAttackIntent",
+   "damage": [
+    3,
+    3
+   ],
+   "repeats": [
+    3
+   ],
+   "args": [
+    "BeamDamage",
+    "3"
+   ]
+  }
+ ],
+ "KnowledgeDemon": [
+  {
+   "move": "SLAP_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    18,
+    17
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "SlapDamage"
+   ]
+  },
+  {
+   "move": "KNOWLEDGE_OVERWHELMING_MOVE",
+   "intent": "MultiAttackIntent",
+   "damage": [
+    9,
+    8
+   ],
+   "repeats": [
+    3
+   ],
+   "args": [
+    "KnowledgeOverwhelmingDamage",
+    "3"
+   ]
+  },
+  {
+   "move": "PONDER_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    13,
+    11
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "PonderDamage"
+   ]
+  }
+ ],
+ "LagavulinMatriarch": [
+  {
+   "move": "SLASH_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    21,
+    19
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "SlashDamage"
+   ]
+  },
+  {
+   "move": "SLASH2_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    14,
+    12
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "Slash2Damage"
+   ]
+  },
+  {
+   "move": "DISEMBOWEL_MOVE",
+   "intent": "MultiAttackIntent",
+   "damage": [
+    10,
+    9
+   ],
+   "repeats": [
+    2
+   ],
+   "args": [
+    "DisembowelDamage",
+    "DisembowelRepeat"
+   ]
+  }
+ ],
+ "LeafSlimeM": [
+  {
+   "move": "CLUMP_SHOT",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    9,
+    8
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "ClumpDamage"
+   ]
+  }
+ ],
+ "LeafSlimeS": [
+  {
+   "move": "TACKLE_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    4,
+    3
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "TackleDamage"
+   ]
+  }
+ ],
+ "LivingFog": [
+  {
+   "move": "ADVANCED_GAS_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    9,
+    8
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "AdvancedGasDamage"
+   ]
+  },
+  {
+   "move": "BLOAT_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    6,
+    5
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "BloatDamage"
+   ]
+  },
+  {
+   "move": "SUPER_GAS_BLAST_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    9,
+    8
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "SuperGasBlastDamage"
+   ]
+  }
+ ],
+ "LivingShield": [
+  {
+   "move": "SHIELD_SLAM_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    6
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "ShieldSlamDamage"
+   ]
+  },
+  {
+   "move": "SMASH_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    18,
+    16
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "SmashDamage"
+   ]
+  }
+ ],
+ "LouseProgenitor": [
+  {
+   "move": "WEB_CANNON_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    10,
+    9
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "WebDamage"
+   ]
+  },
+  {
+   "move": "POUNCE_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    16,
+    14
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "PounceDamage"
+   ]
+  }
+ ],
+ "MagiKnight": [
+  {
+   "move": "POWER_SHIELD_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    7,
+    6
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "PowerShieldDamage"
+   ]
+  },
+  {
+   "move": "MAGIC_BOMB",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    40,
+    35
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "BombDamage"
+   ]
+  },
+  {
+   "move": "RAM_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    11,
+    10
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "SpearDamage"
+   ]
+  }
+ ],
+ "Mawler": [
+  {
+   "move": "RIP_AND_TEAR_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    16,
+    14
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "RipAndTearDamage"
+   ]
+  },
+  {
+   "move": "CLAW_MOVE",
+   "intent": "MultiAttackIntent",
+   "damage": [
+    5,
+    4
+   ],
+   "repeats": [
+    2
+   ],
+   "args": [
+    "ClawDamage",
+    "2"
+   ]
+  }
+ ],
+ "MechaKnight": [
+  {
+   "move": "CHARGE_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    30,
+    25
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "ChargeDamage"
+   ]
+  },
+  {
+   "move": "HEAVY_CLEAVE_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    40,
+    35
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "HeavyCleaveDamage"
+   ]
+  }
+ ],
+ "MockAttackAndSummonMinionMonster": [
+  {
+   "move": "ATTACK_AND_SUMMON_MINION",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    1
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "1"
+   ]
+  }
+ ],
+ "MockAttackMonster": [
+  {
+   "move": "ATTACK",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    1
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "1"
+   ]
+  }
+ ],
+ "MultiAttackMoveMonster": [
+  {
+   "move": "POKE",
+   "intent": "MultiAttackIntent",
+   "damage": [
+    1
+   ],
+   "repeats": [
+    5
+   ],
+   "args": [
+    "1",
+    "5"
+   ]
+  }
+ ],
+ "Myte": [
+  {
+   "move": "BITE_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    15,
+    13
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "BiteDamage"
+   ]
+  },
+  {
+   "move": "SUCK_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    6,
+    4
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "SuckDamage"
+   ]
+  }
+ ],
+ "Nibbit": [
+  {
+   "move": "BUTT_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    13,
+    12
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "ButtDamage"
+   ]
+  },
+  {
+   "move": "SLICE_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    7,
+    6
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "SliceDamage"
+   ]
+  }
+ ],
+ "Ovicopter": [
+  {
+   "move": "SMASH_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    17,
+    16
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "SmashDamage"
+   ]
+  },
+  {
+   "move": "TENDERIZER_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    8,
+    7
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "TenderizerDamage"
+   ]
+  }
+ ],
+ "OwlMagistrate": [
+  {
+   "move": "MAGISTRATE_SCRUTINY",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    17,
+    16
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "ScrutinyDamage"
+   ]
+  },
+  {
+   "move": "PECK_ASSAULT",
+   "intent": "MultiAttackIntent",
+   "damage": [
+    4,
+    4
+   ],
+   "repeats": [
+    6
+   ],
+   "args": [
+    "PeckAssaultDamage",
+    "6"
+   ]
+  },
+  {
+   "move": "VERDICT",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    36,
+    33
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "VerdictDamage"
+   ]
+  }
+ ],
+ "Parafright": [
+  {
+   "move": "SLAM_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    17,
+    16
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "SlamDamage"
+   ]
+  }
+ ],
+ "PhantasmalGardener": [
+  {
+   "move": "BITE_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    5,
+    5
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "BiteDamage"
+   ]
+  },
+  {
+   "move": "LASH_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    7,
+    7
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "LashDamage"
+   ]
+  },
+  {
+   "move": "FLAIL_MOVE",
+   "intent": "MultiAttackIntent",
+   "damage": [
+    1
+   ],
+   "repeats": [
+    3,
+    3
+   ],
+   "args": [
+    "FlailDamage",
+    "FlailRepeat"
+   ]
+  }
+ ],
+ "PhrogParasite": [
+  {
+   "move": "LASH_MOVE",
+   "intent": "MultiAttackIntent",
+   "damage": [
+    5,
+    4
+   ],
+   "repeats": [
+    4
+   ],
+   "args": [
+    "LashDamage",
+    "4"
+   ]
+  }
+ ],
+ "PunchConstruct": [
+  {
+   "move": "STRONG_PUNCH_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    16,
+    14
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "StrongPunchDamage"
+   ]
+  },
+  {
+   "move": "FAST_PUNCH_MOVE",
+   "intent": "MultiAttackIntent",
+   "damage": [
+    6,
+    5
+   ],
+   "repeats": [
+    2
+   ],
+   "args": [
+    "FastPunchDamage",
+    "FastPunchRepeat"
+   ]
+  }
+ ],
+ "Queen": [
+  {
+   "move": "OFF_WITH_YOUR_HEAD_MOVE",
+   "intent": "MultiAttackIntent",
+   "damage": [
+    4,
+    3
+   ],
+   "repeats": [
+    5
+   ],
+   "args": [
+    "OffWithYourHeadDamage",
+    "5"
+   ]
+  },
+  {
+   "move": "EXECUTION_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    18,
+    15
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "ExecutionDamage"
+   ]
+  }
+ ],
+ "Rocket": [
+  {
+   "move": "TARGETING_RETICLE_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    4,
+    3
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "TargetingReticleDamage"
+   ]
+  },
+  {
+   "move": "PRECISION_BEAM_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    20,
+    18
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "PrecisionBeamDamage"
+   ]
+  },
+  {
+   "move": "LASER_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    35,
+    31
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "LaserDamage"
+   ]
+  }
+ ],
+ "ScrollOfBiting": [
+  {
+   "move": "CHOMP",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    16,
+    14
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "ChompDamage"
+   ]
+  },
+  {
+   "move": "CHEW",
+   "intent": "MultiAttackIntent",
+   "damage": [
+    6,
+    5
+   ],
+   "repeats": [
+    2
+   ],
+   "args": [
+    "ChewDamage",
+    "2"
+   ]
+  }
+ ],
+ "Seapunk": [
+  {
+   "move": "SEA_KICK_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    13,
+    11
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "SeaKickDamage"
+   ]
+  },
+  {
+   "move": "SPINNING_KICK_MOVE",
+   "intent": "MultiAttackIntent",
+   "damage": [
+    2
+   ],
+   "repeats": [
+    4
+   ],
+   "args": [
+    "SpinningKickDamage",
+    "SpinningKickRepeat"
+   ]
+  }
+ ],
+ "SewerClam": [
+  {
+   "move": "JET_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    11,
+    10
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "JetDamage"
+   ]
+  }
+ ],
+ "ShrinkerBeetle": [
+  {
+   "move": "CHOMP_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    8,
+    7
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "ChompDamage"
+   ]
+  },
+  {
+   "move": "STOMP_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    14,
+    13
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "StompDamage"
+   ]
+  }
+ ],
+ "SingleAttackMoveMonster": [
+  {
+   "move": "POKE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    1
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "1"
+   ]
+  }
+ ],
+ "SkulkingColony": [
+  {
+   "move": "ZOOM_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    16,
+    14
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "ZoomDamage"
+   ]
+  },
+  {
+   "move": "ZOOM_MOVE_2",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    16,
+    14
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "ZoomDamage"
+   ]
+  },
+  {
+   "move": "INERTIA_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    11,
+    9
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "InertiaDamage"
+   ]
+  },
+  {
+   "move": "PIERCING_STABS_MOVE",
+   "intent": "MultiAttackIntent",
+   "damage": [
+    8,
+    7
+   ],
+   "repeats": [
+    2
+   ],
+   "args": [
+    "PiercingStabsDamage",
+    "PiercingStabsRepeat"
+   ]
+  }
+ ],
+ "SlimedBerserker": [
+  {
+   "move": "SMOTHER_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    33,
+    30
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "SmotherDamage"
+   ]
+  },
+  {
+   "move": "FURIOUS_PUMMELING_MOVE",
+   "intent": "MultiAttackIntent",
+   "damage": [
+    5,
+    4
+   ],
+   "repeats": [
+    4
+   ],
+   "args": [
+    "PummelingDamage",
+    "4"
+   ]
+  }
+ ],
+ "SlitheringStrangler": [
+  {
+   "move": "THWACK",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    8,
+    7
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "ThwackDamage"
+   ]
+  },
+  {
+   "move": "LASH",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    13,
+    12
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "LashDamage"
+   ]
+  }
+ ],
+ "SludgeSpinner": [
+  {
+   "move": "OIL_SPRAY_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    9,
+    8
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "OilSprayDamage"
+   ]
+  },
+  {
+   "move": "SLAM_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    12,
+    11
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "SlamDamage"
+   ]
+  },
+  {
+   "move": "RAGE_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    7,
+    6
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "RageDamage"
+   ]
+  }
+ ],
+ "SlumberingBeetle": [
+  {
+   "move": "ROLL_OUT_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    18,
+    16
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "RolloutDamage"
+   ]
+  }
+ ],
+ "SnappingJaxfruit": [
+  {
+   "move": "ENERGY_ORB_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    4,
+    3
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "EnergyDamage"
+   ]
+  }
+ ],
+ "SneakyGremlin": [
+  {
+   "move": "TACKLE_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    10,
+    9
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "TackleDamage"
+   ]
+  }
+ ],
+ "SoulFysh": [
+  {
+   "move": "DE_GAS_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    17,
+    16
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "DeGasDamage"
+   ]
+  },
+  {
+   "move": "GAZE_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    8,
+    7
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "GazeDamage"
+   ]
+  },
+  {
+   "move": "SCREAM_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    15,
+    13
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "ScreamDamage"
+   ]
+  }
+ ],
+ "SoulNexus": [
+  {
+   "move": "SOUL_BURN_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    31,
+    29
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "SoulBurnDamage"
+   ]
+  },
+  {
+   "move": "MAELSTROM_MOVE",
+   "intent": "MultiAttackIntent",
+   "damage": [
+    7,
+    6
+   ],
+   "repeats": [
+    4,
+    4
+   ],
+   "args": [
+    "MaelstromDamage",
+    "MaelstromRepeat"
+   ]
+  },
+  {
+   "move": "DRAIN_LIFE_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    19,
+    18
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "DrainLifeDamage"
+   ]
+  }
+ ],
+ "SpectralKnight": [
+  {
+   "move": "SOUL_SLASH",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    17,
+    15
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "SoulSlashDamage"
+   ]
+  },
+  {
+   "move": "SOUL_FLAME",
+   "intent": "MultiAttackIntent",
+   "damage": [
+    4,
+    3
+   ],
+   "repeats": [
+    3
+   ],
+   "args": [
+    "SoulFlameDamage",
+    "3"
+   ]
+  }
+ ],
+ "SpinyToad": [
+  {
+   "move": "SPIKE_EXPLOSION_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    25,
+    23
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "ExplosionDamage"
+   ]
+  },
+  {
+   "move": "TONGUE_LASH_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    19,
+    17
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "LashDamage"
+   ]
+  }
+ ],
+ "Stabbot": [
+  {
+   "move": "STAB_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    12,
+    11
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "StabDamage"
+   ]
+  }
+ ],
+ "TerrorEel": [
+  {
+   "move": "CRASH_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    18,
+    16
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "CrashDamage"
+   ]
+  },
+  {
+   "move": "THRASH_MOVE",
+   "intent": "MultiAttackIntent",
+   "damage": [
+    4,
+    3
+   ],
+   "repeats": [
+    3
+   ],
+   "args": [
+    "ThrashDamage",
+    "ThrashRepeat"
+   ]
+  }
+ ],
+ "TestSubject": [
+  {
+   "move": "BITE_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    22,
+    20
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "BiteDamage"
+   ]
+  },
+  {
+   "move": "SKULL_BASH_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    16,
+    14
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "SkullBashDamage"
+   ]
+  },
+  {
+   "move": "MULTI_CLAW_MOVE",
+   "intent": "MultiAttackIntent",
+   "damage": [
+    11,
+    10
+   ],
+   "repeats": null,
+   "args": [
+    "MultiClawDamage",
+    "() => MultiClawTotalCount"
+   ]
+  },
+  {
+   "move": "PHASE3_LACERATE_MOVE",
+   "intent": "MultiAttackIntent",
+   "damage": [
+    11,
+    10
+   ],
+   "repeats": [
+    3
+   ],
+   "args": [
+    "Phase3LacerateDamage",
+    "3"
+   ]
+  },
+  {
+   "move": "BIG_POUNCE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    45
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "BigPounceDamage"
+   ]
+  }
+ ],
+ "TheAdversaryMkOne": [
+  {
+   "move": "SMASH_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    12
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "SmashDamage"
+   ]
+  },
+  {
+   "move": "BEAM_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    15
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "BeamDamage"
+   ]
+  },
+  {
+   "move": "BARRAGE_MOVE",
+   "intent": "MultiAttackIntent",
+   "damage": [
+    8
+   ],
+   "repeats": [
+    2
+   ],
+   "args": [
+    "BarrageDamage",
+    "BarrageRepeat"
+   ]
+  }
+ ],
+ "TheAdversaryMkThree": [
+  {
+   "move": "CRASH_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    15
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "CrashDamage"
+   ]
+  },
+  {
+   "move": "FLAME_BEAM_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    18
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "FlameBeamDamage"
+   ]
+  },
+  {
+   "move": "BARRAGE_MOVE",
+   "intent": "MultiAttackIntent",
+   "damage": [
+    10
+   ],
+   "repeats": [
+    2
+   ],
+   "args": [
+    "BarrageDamage",
+    "BarrageRepeat"
+   ]
+  }
+ ],
+ "TheAdversaryMkTwo": [
+  {
+   "move": "BASH_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    13
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "BashDamage"
+   ]
+  },
+  {
+   "move": "FLAME_BEAM_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    16
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "FlameBeamDamage"
+   ]
+  },
+  {
+   "move": "BARRAGE_MOVE",
+   "intent": "MultiAttackIntent",
+   "damage": [
+    9
+   ],
+   "repeats": [
+    2
+   ],
+   "args": [
+    "BarrageDamage",
+    "BarrageRepeat"
+   ]
+  }
+ ],
+ "TheForgotten": [
+  {
+   "move": "DREAD",
+   "intent": "SingleAttackIntent",
+   "damage": null,
+   "repeats": [
+    1
+   ],
+   "args": [
+    "() => DreadDamage"
+   ]
+  }
+ ],
+ "TheInsatiable": [
+  {
+   "move": "THRASH_MOVE",
+   "intent": "MultiAttackIntent",
+   "damage": [
+    9,
+    8
+   ],
+   "repeats": [
+    2
+   ],
+   "args": [
+    "ThrashDamage",
+    "2"
+   ]
+  },
+  {
+   "move": "THRASH_MOVE_2",
+   "intent": "MultiAttackIntent",
+   "damage": [
+    9,
+    8
+   ],
+   "repeats": [
+    2
+   ],
+   "args": [
+    "ThrashDamage",
+    "2"
+   ]
+  },
+  {
+   "move": "LUNGING_BITE_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    31,
+    28
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "BiteDamage"
+   ]
+  }
+ ],
+ "TheLost": [
+  {
+   "move": "EYE_LASERS",
+   "intent": "MultiAttackIntent",
+   "damage": [
+    5,
+    4
+   ],
+   "repeats": [
+    2
+   ],
+   "args": [
+    "EyeLasersDamage",
+    "2"
+   ]
+  }
+ ],
+ "TheObscura": [
+  {
+   "move": "PIERCING_GAZE_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    11,
+    10
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "PiercingGazeDamage"
+   ]
+  },
+  {
+   "move": "HARDENING_STRIKE_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    7,
+    6
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "HardeningStrikeDamage"
+   ]
+  }
+ ],
+ "ThievingHopper": [
+  {
+   "move": "THIEVERY_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    19,
+    17
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "TheftDamage"
+   ]
+  },
+  {
+   "move": "NAB_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    16,
+    14
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "NabDamage"
+   ]
+  },
+  {
+   "move": "HAT_TRICK_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    23,
+    21
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "HatTrickDamage"
+   ]
+  }
+ ],
+ "Toadpole": [
+  {
+   "move": "SPIKE_SPIT_MOVE",
+   "intent": "MultiAttackIntent",
+   "damage": [
+    4,
+    3
+   ],
+   "repeats": [
+    3
+   ],
+   "args": [
+    "SpikeSpitDamage",
+    "SpikeSpitRepeat"
+   ]
+  },
+  {
+   "move": "WHIRL_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    8,
+    7
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "WhirlDamage"
+   ]
+  }
+ ],
+ "TorchHeadAmalgam": [
+  {
+   "move": "TACKLE_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    19,
+    18
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "TackleDamage"
+   ]
+  },
+  {
+   "move": "TACKLE_2_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    19,
+    18
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "TackleDamage"
+   ]
+  },
+  {
+   "move": "BEAM_MOVE",
+   "intent": "MultiAttackIntent",
+   "damage": [
+    8,
+    8
+   ],
+   "repeats": [
+    3
+   ],
+   "args": [
+    "SoulBeamDamage",
+    "3"
+   ]
+  },
+  {
+   "move": "TACKLE_3_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    15,
+    14
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "WeakTackleDamage"
+   ]
+  },
+  {
+   "move": "TACKLE_4_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    15,
+    14
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "WeakTackleDamage"
+   ]
+  }
+ ],
+ "ToughEgg": [
+  {
+   "move": "NIBBLE_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    5,
+    4
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "NibbleDamage"
+   ]
+  }
+ ],
+ "TrackerRubyRaider": [
+  {
+   "move": "HOUNDS_MOVE",
+   "intent": "MultiAttackIntent",
+   "damage": [
+    1,
+    1
+   ],
+   "repeats": [
+    9,
+    8
+   ],
+   "args": [
+    "HoundsDamage",
+    "HoundsRepeat"
+   ]
+  }
+ ],
+ "Tunneler": [
+  {
+   "move": "BITE_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    15,
+    13
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "BiteDamage"
+   ]
+  },
+  {
+   "move": "BELOW_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    26,
+    23
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "BelowDamage"
+   ]
+  }
+ ],
+ "TurretOperator": [
+  {
+   "move": "UNLOAD_MOVE",
+   "intent": "MultiAttackIntent",
+   "damage": [
+    4,
+    3
+   ],
+   "repeats": [
+    5
+   ],
+   "args": [
+    "FireDamage",
+    "5"
+   ]
+  },
+  {
+   "move": "UNLOAD_MOVE_2",
+   "intent": "MultiAttackIntent",
+   "damage": [
+    4,
+    3
+   ],
+   "repeats": [
+    5
+   ],
+   "args": [
+    "FireDamage",
+    "5"
+   ]
+  }
+ ],
+ "TwigSlimeM": [
+  {
+   "move": "POKEY_POUNCE_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    12,
+    11
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "ClumpDamage"
+   ]
+  }
+ ],
+ "TwigSlimeS": [
+  {
+   "move": "TACKLE_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    5,
+    4
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "TackleDamage"
+   ]
+  }
+ ],
+ "TwoTailedRat": [
+  {
+   "move": "SCRATCH_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    9,
+    8
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "ScratchDamage"
+   ]
+  },
+  {
+   "move": "DISEASE_BITE_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    7,
+    6
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "DiseaseBiteDamage"
+   ]
+  }
+ ],
+ "Vantom": [
+  {
+   "move": "INK_BLOT_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    8,
+    7
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "InkBlotDamage"
+   ]
+  },
+  {
+   "move": "INKY_LANCE_MOVE",
+   "intent": "MultiAttackIntent",
+   "damage": [
+    7,
+    6
+   ],
+   "repeats": [
+    2
+   ],
+   "args": [
+    "InkyLanceDamage",
+    "2"
+   ]
+  },
+  {
+   "move": "DISMEMBER_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    30,
+    26
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "DismemberDamage"
+   ]
+  }
+ ],
+ "VineShambler": [
+  {
+   "move": "GRASPING_VINES_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    9,
+    8
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "GraspingVinesDamage"
+   ]
+  },
+  {
+   "move": "SWIPE_MOVE",
+   "intent": "MultiAttackIntent",
+   "damage": [
+    7,
+    6
+   ],
+   "repeats": [
+    2
+   ],
+   "args": [
+    "SwipeDamage",
+    "2"
+   ]
+  },
+  {
+   "move": "CHOMP_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    18,
+    16
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "ChompDamage"
+   ]
+  }
+ ],
+ "WaterfallGiant": [
+  {
+   "move": "STOMP_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    16,
+    15
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "StompDamage"
+   ]
+  },
+  {
+   "move": "RAM_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    11,
+    10
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "RamDamage"
+   ]
+  },
+  {
+   "move": "PRESSURE_GUN_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": null,
+   "repeats": [
+    1
+   ],
+   "args": [
+    "() => CurrentPressureGunDamage"
+   ]
+  },
+  {
+   "move": "PRESSURE_UP_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    14,
+    13
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "PressureUpDamage"
+   ]
+  }
+ ],
+ "Wriggler": [
+  {
+   "move": "NASTY_BITE_MOVE",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    7,
+    6
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "BiteDamage"
+   ]
+  }
+ ],
+ "Zapbot": [
+  {
+   "move": "ZAP",
+   "intent": "SingleAttackIntent",
+   "damage": [
+    15,
+    14
+   ],
+   "repeats": [
+    1
+   ],
+   "args": [
+    "ZapDamage"
+   ]
+  }
+ ]
+}
