@@ -35,7 +35,7 @@ public partial class UltimaOverlay : Control
     private ShaderMaterial? _glassMat;
     private ColorRect? _glass;
     private VBoxContainer? _content, _enemies;
-    private Label? _header, _notice, _turn;
+    private Label? _header, _vitals, _notice, _turn, _turnBy;
     private ThreatList? _threats;
     private PriorityStrip? _priority;
     private readonly List<EnemyRow> _rows = new();
@@ -157,17 +157,24 @@ public partial class UltimaOverlay : Control
         _content.AddThemeConstantOverride("separation", 4);
         _clip.AddChild(_content);
 
-        _header = UltimaFonts.NewLabel(FontRole.Title, 16, UltimaPalette.Cream);
+        var headerLine = new HBoxContainer { MouseFilter = MouseFilterEnum.Ignore };
+        headerLine.AddThemeConstantOverride("separation", 6);
+        _header = UltimaFonts.NewLabel(FontRole.Title, 16, UltimaPalette.Cream, trim: false);
+        _vitals = UltimaFonts.NewLabel(FontRole.Mono, 16, UltimaPalette.Cream); // chiffres PV : SCP
+        _vitals.SizeFlagsHorizontal = SizeFlags.ExpandFill;
+        headerLine.AddChild(_header);
+        headerLine.AddChild(_vitals);
         _enemies = new VBoxContainer { MouseFilter = MouseFilterEnum.Ignore };
         _enemies.AddThemeConstantOverride("separation", 2);
         _notice = UltimaFonts.NewLabel(FontRole.Body, 12, UltimaPalette.Orange);
         _notice.Text = OverlayText.ForecastUnavailable;
-        _turn = UltimaFonts.NewLabel(FontRole.Body, 12, UltimaPalette.Cream); // LÉTAL avant le nom : seule la fin est tronquée
+        _turn = UltimaFonts.NewLabel(FontRole.Mono, 12, UltimaPalette.Cream); // chiffres PV : SCP
+        _turnBy = UltimaFonts.NewLabel(FontRole.Body, 12, UltimaPalette.Cream);
         _threats = new ThreatList();
         _priority = new PriorityStrip();
         var footer = UltimaFonts.NewLabel(FontRole.Body, 12, UltimaPalette.HalfTransparentCream);
         footer.Text = OverlayText.Footer;
-        foreach (var c in new Control[] { _header, _enemies, _notice, _turn, _threats, _priority, footer })
+        foreach (var c in new Control[] { headerLine, _enemies, _notice, _turn, _turnBy, _threats, _priority, footer })
             _content.AddChild(c);
 
         _rail = new Control { MouseFilter = MouseFilterEnum.Ignore, Size = new Vector2(RailWidth, RailHeight) };

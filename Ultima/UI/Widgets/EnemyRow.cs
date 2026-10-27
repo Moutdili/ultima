@@ -11,7 +11,7 @@ namespace Ultima.UI.Widgets;
 public partial class EnemyRow : VBoxContainer
 {
     public const int DamageColumnWidth = 52;
-    public const int OutcomeColumnWidth = 100;
+    public const int OutcomeColumnWidth = 94;   // « → 10e LÉTAL » en Source Code Pro 14
 
     private readonly Label _name;
     private readonly Label _damage;
@@ -33,7 +33,7 @@ public partial class EnemyRow : VBoxContainer
         _damage.CustomMinimumSize = new Vector2(DamageColumnWidth, 0);
         _damage.HorizontalAlignment = HorizontalAlignment.Right;
         // jamais tronqué : le mot LÉTAL doit rester lisible
-        _outcome = UltimaFonts.NewLabel(FontRole.Body, 14, UltimaPalette.Cream, trim: false);
+        _outcome = UltimaFonts.NewLabel(FontRole.Mono, 14, UltimaPalette.Cream, trim: false); // chiffres PV : SCP
         _outcome.CustomMinimumSize = new Vector2(OutcomeColumnWidth, 0);
         line.AddChild(_name);
         line.AddChild(_damage);

@@ -16,8 +16,10 @@ public partial class UltimaOverlay
         var f = _forecast;
         bool waiting = s == null;
 
-        _header!.Text = s == null ? OverlayText.Waiting : OverlayText.Header(s);
+        _header!.Text = s == null ? OverlayText.Waiting : OverlayText.HeaderTurn(s);
         UltimaFonts.SetColor(_header, waiting ? UltimaPalette.HalfTransparentCream : UltimaPalette.Cream);
+        _vitals!.Visible = s != null;
+        if (s != null) _vitals.Text = OverlayText.HeaderVitals(s);
 
         BindEnemies(s, f);
         _notice!.Visible = !waiting && f == null;   // pas de létalité inventée
@@ -25,10 +27,13 @@ public partial class UltimaOverlay
         // Niveau 2 uniquement (F9) : total du tour + co-op.
         bool showTurn = !waiting && _detail && f != null;
         _turn!.Visible = showTurn;
+        string? by = showTurn ? OverlayText.TurnBy(f!) : null;
+        _turnBy!.Visible = by != null;
         if (showTurn)
         {
             _turn.Text = OverlayText.Turn(f!);
             UltimaFonts.SetColor(_turn, f!.LethalHitIndex != null ? UltimaPalette.Red : UltimaPalette.Cream);
+            if (by != null) _turnBy.Text = by;
         }
         _threats!.Bind(showTurn && f!.Players.Count > 1 ? f.Players : Array.Empty<PlayerThreat>());
         _priority!.Bind(waiting ? Array.Empty<PriorityAlert>() : _alerts, _detail);

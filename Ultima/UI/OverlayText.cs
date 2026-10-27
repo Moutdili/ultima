@@ -13,7 +13,11 @@ public static class OverlayText
 
     public static string Ordinal(int n) => n == 1 ? "1er" : $"{n}e";
 
-    public static string Header(CombatSnapshot s) => $"T{s.Turn} · {s.Hp}/{s.MaxHp} PV · {s.Block} block";
+    /// <summary>En-tête, partie titre (Kreon Bold) : « T3 · ».</summary>
+    public static string HeaderTurn(CombatSnapshot s) => $"T{s.Turn} ·";
+
+    /// <summary>En-tête, chiffres PV/block (Source Code Pro) : « 62/80 PV · 12 block ».</summary>
+    public static string HeaderVitals(CombatSnapshot s) => $"{s.Hp}/{s.MaxHp} PV · {s.Block} block";
 
     public static string Hits(int perHit, int repeats) => $"{perHit}x{repeats}";
 
@@ -40,12 +44,14 @@ public static class OverlayText
         return parts.Count == 0 ? "—" : string.Join("+", parts);
     }
 
+    /// <summary>Issue niveau 1, forme courte du schéma docs/17 §4 (« 16x3 → 3e LÉTAL », « → bloqué ») :
+    /// en Source Code Pro 14 la colonne tient sur 94 px. Pas d'attaque → vide (la colonne NxM dit « — »).</summary>
     public static string Outcome(LethalIndex.Result r, bool hasAttacks)
     {
-        if (r.LethalAt is int n) return $"→ {Ordinal(n)} coup {Lethal}";
-        if (!hasAttacks) return "→ pas d'attaque";
-        if (r.FullyBlocked) return "→ tout bloqué";
-        return $"→ {r.HpAfter} PV restants";
+        if (r.LethalAt is int n) return $"→ {Ordinal(n)} {Lethal}";
+        if (!hasAttacks) return "";
+        if (r.FullyBlocked) return "→ bloqué";
+        return $"→ {r.HpAfter} PV";
     }
 
     /// <summary>Niveau 2 : hypothèse « si l'ennemi est affaibli ». null = rien à dire.</summary>
@@ -65,16 +71,20 @@ public static class OverlayText
         return labels.Count == 0 ? null : "jeu : " + string.Join(" · ", labels);
     }
 
+    /// <summary>Total du tour (Source Code Pro) : « Tour : 54 → 5e coup LÉTAL » ou « Tour : 54 → 8 PV restants ».</summary>
     public static string Turn(TurnForecast f) =>
         f.LethalHitIndex is int n
-            ? $"Tour : {f.TotalIncoming} → {Lethal} au {Ordinal(n)} coup"
-              + (string.IsNullOrEmpty(f.LethalEnemyName) ? "" : $" ({f.LethalEnemyName})")
+            ? $"Tour : {f.TotalIncoming} → {Ordinal(n)} coup {Lethal}"
             : $"Tour : {f.TotalIncoming} → {f.HpAfter} PV restants";
+
+    /// <summary>Ennemi qui porte le coup létal du tour (ligne Kreon sous le total) ; null si survie.</summary>
+    public static string? TurnBy(TurnForecast f) =>
+        f.LethalHitIndex != null && !string.IsNullOrEmpty(f.LethalEnemyName) ? $"par {f.LethalEnemyName}" : null;
 
     public static string Threat(PlayerThreat p) =>
         p.LethalHitIndex is int n
-            ? $"{p.Incoming} → {Lethal} au {Ordinal(n)} coup"
-            : $"{p.Incoming} → {p.HpAfter} PV restants";
+            ? $"{p.Incoming} → {Ordinal(n)} {Lethal}"
+            : $"{p.Incoming} → {p.HpAfter} PV";
 
     public static string PriorityPlayer(PriorityAlert a) =>
         a.IsRemote ? $"({a.PlayerName} · distant)" : $"({a.PlayerName})";
