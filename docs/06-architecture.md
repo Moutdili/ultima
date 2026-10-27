@@ -47,6 +47,7 @@
 | Lecture d'état | hooks + lecture directe des modèles | pas de polling par frame coûteux |
 | Calcul dégâts | appeler le vrai pipeline | zéro divergence avec le jeu |
 | Multi | `INetMessage` custom | natif, auto-découvert, pas de hack |
+| Multi F3 (v1) | `HoveredModelTracker` d'abord, message custom seulement si nécessaire | l'état survolé est déjà synchronisé ; personne n'a validé `INetMessage` en public |
 | Persistance | fichiers dans le dossier du mod | pas de `%APPDATA%` sous Linux |
 | Packaging | DLL + PCK minimal (icône, scène optionnelle) | build sans Godot éditeur |
 | Tests | logique Core en console (`tests/`) | la logique pure ne doit pas exiger le jeu |

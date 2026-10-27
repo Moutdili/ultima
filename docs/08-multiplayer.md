@@ -26,6 +26,33 @@ public static void Initialize()
 → **Un mod peut déclarer ses propres `INetMessage`** : le loader les découvre par réflexion
 et leur attribue un ID. C'est la voie officielle pour broadcaster nos alertes.
 
+## Voie 1 (recommandée) : sans message custom
+
+Vérifié dans le code : `RunManager.Instance.HoveredModelTracker` est une propriété **publique**
+(`Runs/RunManager.cs:155`).
+
+```csharp
+// Core/Multiplayer/Game/PeerInput/HoveredModelTracker.cs
+public AbstractModel? GetHoveredModel(ulong playerId);
+public event Action<ulong>? HoverChanged;
+public void OnLocalCardHovered(CardModel card);   // côté joueur local
+public void OnLocalCardSelected(CardModel card);
+```
+
+`NPlayerHand` appelle déjà `OnLocalCardHovered` / `OnLocalCardDeselected`, et
+`NMultiplayerPlayerIntentHandler` consomme `GetHoveredModel(playerId)` pour afficher
+l'intent des joueurs distants.
+
+→ **Le jeu synchronise déjà « qui survole/sélectionne quelle carte ».** Pour F3 il suffit de :
+
+1. s'abonner à `HoverChanged`,
+2. `var m = GetHoveredModel(playerId)` → si c'est une `CardModel` du catalogue prioritaire,
+3. afficher l'alerte chez tout le monde.
+
+Zéro `INetMessage`, zéro risque de désérialisation, zéro problème de compatibilité.
+Limite honnête : on voit la carte **survolée/sélectionnée**, pas la main privée du joueur.
+Pour l'annonce proactive (« je tiens une carte prio »), il faut un message custom → voie 2.
+
 ## Envoi
 
 ```csharp
@@ -45,7 +72,7 @@ net.RegisterMessageHandler<UltimaPriorityMessage>((msg, senderId) => { ... });
 
 `NetMessageBus.RegisterMessageHandler<T>` (Multiplayer/NetMessageBus.cs:110).
 
-## Messages proposés (V1)
+## Voie 2 — messages proposés (V1.5, optionnel / non éprouvé)
 
 ```csharp
 public sealed class UltimaPriorityMessage : INetMessage

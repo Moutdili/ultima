@@ -13,6 +13,23 @@ list.AddRange(INetMessageSubtypes.All);
 list.AddRange(ReflectionHelper.GetSubtypesInMods<INetMessage>());   // ← mods auto-découverts
 ```
 
+## Voie recommandée d'abord : pas de message custom du tout
+
+`RunManager.Instance.HoveredModelTracker` (propriété publique, `Runs/RunManager.cs:155`) :
+
+```csharp
+public AbstractModel? GetHoveredModel(ulong playerId);
+public event Action<ulong>? HoverChanged;
+```
+
+Le jeu synchronise déjà la carte survolée/sélectionnée par chaque joueur
+(`NPlayerHand` → `OnLocalCardHovered`, consommé par `NMultiplayerPlayerIntentHandler`).
+→ Pour une alerte « ce joueur joue une carte prioritaire », s'abonner à `HoverChanged`
+et filtrer sur le catalogue. Zéro message custom, zéro risque.
+
+Aucun tracker multi public n'utilise `INetMessage` : cette voie est **non éprouvée**.
+Ne la prendre que si l'info n'existe pas dans l'état synchronisé (ex. main privée).
+
 ## Contrat
 
 ```csharp
