@@ -27,7 +27,7 @@ Le dépôt suit une règle de dépendance stricte documentée : `Runtime` captur
 
 **Boucle d'exécution** (`docs/ARCHITECTURE.md:9`) : capture d'une racine stable sur le thread principal → gel de la politique → recherche en arrière-plan sur des branches ombre → retour sur le thread principal → déploiement via les entrées natives publiques → vérification du stamp de continuation ou nouvelle capture.
 
-**Point notable pour ULTIMA** : `src/Strategy` ne contient aucune heuristique de décision. Les vraies heuristiques sont dans `src/Search` (`SolverWeights`, `StateEvaluation`, `BeamRetentionPolicy`), et les constantes y sont exprimées en unités de « 30 000 × PV » (`src/Search/SolverWeights.cs:10-12`).
+**Point notable pour ULTIMA** : `src/Strategy` ne contient aucune heuristique de décision. Les vraies heuristiques sont dans `src/Search` (`SolverWeights`, `StateEvaluation`, `BeamRetentionPolicy`), et les constantes y sont exprimées en unités de « 30 000 × PV » (`src/Search/SolverWeights.cs:12`).
 
 ---
 
@@ -387,7 +387,7 @@ internal static readonly bool Enabled =
 | `GetProcessIoCounters` | `kernel32` | compteurs I/O (`PerformanceSession.cs:171-172`) | Gate `:141`. |
 | `Shell_NotifyIconW` | `shell32` | balloon de fin de recherche (`SearchCompletionNotifier.cs:197-203`) | Désactivé (`:50-51`). |
 | `LoadIconW`, `GetForegroundWindow`, `GetWindowThreadProcessId` | `user32` | icône + détection de premier plan (`:205-216`) | Désactivé (`:82-83, 144-145`). |
-| `OpenProcessToken`/`LookupPrivilegeValue`/`AdjustTokenPrivileges`/`NtSetSystemInformation` | `advapi32`/`ntdll` | helper `CombatSolver.MemoryCleaner`, projet séparé `net48`/`WinExe`/`x64` (`tools/runtime/CombatSolver.MemoryCleaner/tools/inspection/CoverageCatalog/Program.cs:101-133`, `.csproj:1-8`) | **Windows uniquement, jamais chargé sur Linux.** |
+| `OpenProcessToken`/`LookupPrivilegeValue`/`AdjustTokenPrivileges`/`NtSetSystemInformation` | `advapi32`/`ntdll` | helper `CombatSolver.MemoryCleaner`, projet séparé `net48`/`WinExe`/`x64` (`tools/runtime/CombatSolver.MemoryCleaner/Program.cs:101-133`, `.csproj:1-8`) | **Windows uniquement, jamais chargé sur Linux.** |
 
 **Gates `OperatingSystem.IsWindows()` et comportement Linux**
 
@@ -415,7 +415,7 @@ Il n'existe **aucune** branche `OperatingSystem.IsLinux()` ni aucun `RuntimeInfo
 - `D:/Steam` en probe de build, conditionné `'$(OS)' == 'Windows_NT'` (`CombatSolver.csproj:29`, `local.props.example:3-5`).
 - Aucun accès registre (ABSENT), aucune API console (ABSENT).
 
-**Version** : `min_game_version: "0.111.0"` (`CombatSolver.json:10`), `RitsuLibReferenceTarget 0.111.0` (`CombatSolver.csproj:36-37`), `GameVersion: "0.111.0"` en dur dans le catalogue de couverture (`tools/inspection/CoverageCatalog/tools/inspection/CoverageCatalog/Program.cs:200,208,239,245,602`). Pour ULTIMA en **0.107.1**, le manifeste exclut l'installation et le chemin RitsuLib n'existe pas.
+**Version** : `min_game_version: "0.111.0"` (`CombatSolver.json:10`), `RitsuLibReferenceTarget 0.111.0` (`CombatSolver.csproj:36-37`), `GameVersion: "0.111.0"` en dur dans le catalogue de couverture (`tools/inspection/CoverageCatalog/Program.cs:200,208,239,245,602`). Pour ULTIMA en **0.107.1**, le manifeste exclut l'installation et le chemin RitsuLib n'existe pas.
 
 ---
 

@@ -28,6 +28,14 @@ chk "node >= 22" "node --version"
 chk "java" "java -version"
 
 echo "== Jeu =="
+if [ -d "$GAME" ]; then
+  case "$GAME" in
+    *".var/app"*) info "chemin détecté: $GAME (Flatpak)";;
+    *)            info "chemin détecté: $GAME (Steam natif)";;
+  esac
+else
+  info "chemin détecté: AUCUN — installer le jeu ou passer STS2_GAME=..."
+fi
 chk "racine jeu" "test -d '$GAME'"
 chk "sts2.dll" "test -f '$DATA/sts2.dll'"
 chk "SlayTheSpire2.pck" "test -f '$GAME/SlayTheSpire2.pck'"
