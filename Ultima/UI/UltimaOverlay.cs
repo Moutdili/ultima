@@ -32,6 +32,7 @@ public partial class UltimaOverlay : Control
 
     private Control? _root, _clip, _rail;
     private ShaderMaterial? _glassMat;
+    private ColorRect? _glass;
     private VBoxContainer? _content, _enemies;
     private Label? _header, _notice, _turn;
     private ThreatList? _threats;
@@ -201,16 +202,34 @@ public partial class UltimaOverlay : Control
             root.AddChild(panel);
             return;
         }
+        // ombre DERRIÈRE le verre (Panel dédié, StyleBoxFlat ombre seule)
+        var shadow = new Panel { MouseFilter = MouseFilterEnum.Ignore };
+        shadow.AddThemeStyleboxOverride("panel", UltimaStyles.ShadowOnly());
+        shadow.SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
+        root.AddChild(shadow);
+
         _glassMat = new ShaderMaterial { Shader = shader };
         _glassMat.SetShaderParameter("blur_amount", Mathf.Clamp(BlurAmount, 0f, 6f));
+        _glassMat.SetShaderParameter("corner_radius", (float)UltimaStyles.CornerRadius);
         // Color = repli visuel si le shader ne compile pas (sinon rectangle blanc) ; réécrit par COLOR.
         var glass = new ColorRect { MouseFilter = MouseFilterEnum.Ignore, Material = _glassMat, Color = UltimaPalette.GlassFill };
         glass.SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
+        glass.Resized += OnGlassResized;   // rect_size du masque SDF : sur événement, pas par frame
         root.AddChild(glass);
+        _glass = glass;
         var edge = new Panel { MouseFilter = MouseFilterEnum.Ignore };
         edge.AddThemeStyleboxOverride("panel", UltimaStyles.GlassEdge());
         edge.SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
         root.AddChild(edge);
+    }
+
+    private void OnGlassResized()
+    {
+        try
+        {
+            if (_glass != null) _glassMat?.SetShaderParameter("rect_size", _glass.Size);
+        }
+        catch (Exception ex) { ModEntry.Write($"ui glass resized: {ex}"); }
     }
 
     private static Shader? LoadGlassShader()
