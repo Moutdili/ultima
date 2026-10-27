@@ -1,0 +1,231 @@
+using Godot;
+using Ultima.Core.Model;
+using Ultima.UI.Layout;
+using Ultima.UI.Theme;
+using Ultima.UI.Widgets;
+
+namespace Ultima.UI;
+
+/// <summary>
+/// Overlay ULTIMA (docs/17) : rail 8 px → panneau verre 260 px au survol, ancré au bord droit.
+/// Ne lit PAS le jeu : reçoit des DTO via <see cref="Render"/>. Click-through : tous les nodes
+/// en MouseFilter Ignore, survol testé dans <c>_Input</c> sans jamais consommer la souris.
+/// Aucune animation en boucle, aucun traitement par frame : seul un Tween de 0.18 s à l'expansion.
+/// </summary>
+public partial class UltimaOverlay : Control
+{
+    public const int RailWidth = 8;
+    public const int ExpandedWidth = 260;
+    public const double ExpandDuration = 0.18;
+    public const double DefaultCollapseDelaySec = 2.5;
+    public const float RestAlpha = 0.35f;            // SPEC F7 : 0.25-0.35
+    public const int Pad = 10;
+    public const int ContentWidth = ExpandedWidth - RailWidth - 2 * Pad;
+    public const int CriticalHpPercent = 30;
+    private const int PastilleHeight = 14, PastilleGap = 6, RailPad = 4;
+    public const int RailHeight = 2 * RailPad + 3 * PastilleHeight + 2 * PastilleGap;
+    private const string GlassShaderResource = "Ultima.Shaders.glass_blur.gdshader";
+
+    public float BlurAmount { get; set; } = 2.0f;
+    public double CollapseDelaySec { get; set; } = DefaultCollapseDelaySec;
+    public event Action? PingRequested;
+
+    private Control? _root, _clip, _rail;
+    private ShaderMaterial? _glassMat;
+    private VBoxContainer? _content, _enemies;
+    private Label? _header, _notice, _turn;
+    private ThreatList? _threats;
+    private PriorityStrip? _priority;
+    private readonly List<EnemyRow> _rows = new();
+    private readonly StyleBoxFlat[] _pastilles = new StyleBoxFlat[3];
+    private Godot.Timer? _collapseTimer;
+    private Tween? _tween;
+    private Viewport? _viewport;
+
+    private CombatSnapshot? _snapshot;
+    private TurnForecast? _forecast;
+    private IReadOnlyList<PriorityAlert> _alerts = Array.Empty<PriorityAlert>();
+    private IReadOnlyList<Rect2> _avoid = Array.Empty<Rect2>();
+    private bool _built, _hidden, _detail, _expanded, _hovered, _lethal;
+    private float _progress, _expandedHeight = RailHeight, _rightX, _topY, _placementAlpha = 1f;
+
+    /// <summary>Rendu sur événement (au plus 1×/frame). Réutilise les nodes ; liste reconstruite
+    /// seulement si le nombre d'ennemis change. snapshot null → état vide explicite.</summary>
+    public void Render(CombatSnapshot? snapshot, TurnForecast? forecast, IReadOnlyList<PriorityAlert> alerts)
+    {
+        try
+        {
+            _snapshot = snapshot;
+            _forecast = forecast;
+            _alerts = alerts ?? Array.Empty<PriorityAlert>();
+            if (_built) Apply();
+        }
+        catch (Exception ex) { ModEntry.Write($"ui Render: {ex}"); }
+    }
+
+    /// <summary>Zones (coordonnées globales) que le panneau ne doit jamais couvrir.</summary>
+    public void SetAvoidRects(IReadOnlyList<Rect2> globalRects)
+    {
+        try
+        {
+            _avoid = globalRects ?? Array.Empty<Rect2>();
+            if (_built) Relayout();
+        }
+        catch (Exception ex) { ModEntry.Write($"ui SetAvoidRects: {ex}"); }
+    }
+
+    public override void _Ready()
+    {
+        try
+        {
+            MouseFilter = MouseFilterEnum.Ignore;
+            SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
+            SetProcess(false);
+            SetPhysicsProcess(false);
+            Build();
+            _viewport = GetViewport();
+            _viewport.SizeChanged += OnViewportSizeChanged;
+            _built = true;
+            Apply();
+            ModEntry.Write($"ui overlay ready (blur={BlurAmount}, collapse={CollapseDelaySec}s)");
+        }
+        catch (Exception ex) { ModEntry.Write($"ui _Ready: {ex}"); }
+    }
+
+    public override void _ExitTree()
+    {
+        try
+        {
+            if (_viewport != null) _viewport.SizeChanged -= OnViewportSizeChanged;
+            _tween?.Kill();
+        }
+        catch (Exception ex) { ModEntry.Write($"ui _ExitTree: {ex}"); }
+    }
+
+    /// <summary>Survol uniquement : ne marque JAMAIS l'événement souris comme traité.</summary>
+    public override void _Input(InputEvent @event)
+    {
+        try
+        {
+            if (@event is not InputEventMouseMotion || _root == null || _hidden) return;
+            bool inside = _root.GetGlobalRect().HasPoint(_root.GetGlobalMousePosition());
+            if (inside == _hovered) return;
+            _hovered = inside;
+            if (inside)
+            {
+                _collapseTimer?.Stop();
+                Expand();
+            }
+            else if (_expanded)
+            {
+                _collapseTimer?.Start(Math.Max(0.05, CollapseDelaySec));
+            }
+        }
+        catch (Exception ex) { ModEntry.Write($"ui _Input: {ex}"); }
+    }
+
+    /// <summary>F8 masquer, F9 détail, F7 ping. Seules ces 3 touches sont consommées.</summary>
+    public override void _UnhandledInput(InputEvent @event)
+    {
+        try
+        {
+            if (@event is not InputEventKey { Pressed: true, Echo: false } key) return;
+            Key k = key.Keycode;
+            if (k != Key.F7 && k != Key.F8 && k != Key.F9) return;
+            GetViewport()?.SetInputAsHandled();
+            if (k == Key.F8) ToggleHidden();
+            else if (k == Key.F9) { _detail = !_detail; Apply(); }
+            else PingRequested?.Invoke();
+        }
+        catch (Exception ex) { ModEntry.Write($"ui _UnhandledInput: {ex}"); }
+    }
+
+    private void Build()
+    {
+        _root = new Control { Name = "UltimaPanel", MouseFilter = MouseFilterEnum.Ignore };
+        AddChild(_root);
+        BuildGlass(_root);
+
+        _clip = new Control { MouseFilter = MouseFilterEnum.Ignore, ClipContents = true, Visible = false };
+        _clip.SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
+        _root.AddChild(_clip);
+        _content = new VBoxContainer { MouseFilter = MouseFilterEnum.Ignore };
+        _content.AddThemeConstantOverride("separation", 4);
+        _clip.AddChild(_content);
+
+        _header = UltimaFonts.NewLabel(FontRole.Title, 16, UltimaPalette.Cream);
+        _enemies = new VBoxContainer { MouseFilter = MouseFilterEnum.Ignore };
+        _enemies.AddThemeConstantOverride("separation", 2);
+        _notice = UltimaFonts.NewLabel(FontRole.Body, 12, UltimaPalette.Orange);
+        _notice.Text = OverlayText.ForecastUnavailable;
+        _turn = UltimaFonts.NewLabel(FontRole.Body, 12, UltimaPalette.Cream); // LÉTAL avant le nom : seule la fin est tronquée
+        _threats = new ThreatList();
+        _priority = new PriorityStrip();
+        var footer = UltimaFonts.NewLabel(FontRole.Body, 12, UltimaPalette.HalfTransparentCream);
+        footer.Text = OverlayText.Footer;
+        foreach (var c in new Control[] { _header, _enemies, _notice, _turn, _threats, _priority, footer })
+            _content.AddChild(c);
+
+        _rail = new Control { MouseFilter = MouseFilterEnum.Ignore, Size = new Vector2(RailWidth, RailHeight) };
+        _root.AddChild(_rail);
+        for (int i = 0; i < _pastilles.Length; i++)
+        {
+            _pastilles[i] = UltimaStyles.Badge(UltimaPalette.Gray);
+            var p = new Panel
+            {
+                MouseFilter = MouseFilterEnum.Ignore,
+                Position = new Vector2(0, RailPad + i * (PastilleHeight + PastilleGap)),
+                Size = new Vector2(RailWidth, PastilleHeight),
+            };
+            p.AddThemeStyleboxOverride("panel", _pastilles[i]);
+            _rail.AddChild(p);
+        }
+
+        _collapseTimer = new Godot.Timer { OneShot = true, WaitTime = Math.Max(0.05, CollapseDelaySec) };
+        _collapseTimer.Timeout += OnCollapseTimeout;
+        AddChild(_collapseTimer);
+    }
+
+    /// <summary>Un seul ColorRect flouté (shader) derrière le contenu ; sinon repli StyleBoxFlat.</summary>
+    private void BuildGlass(Control root)
+    {
+        Shader? shader = BlurAmount > 0f ? LoadGlassShader() : null;
+        if (shader == null)
+        {
+            ModEntry.Write(BlurAmount > 0f
+                ? "ui: shader verre introuvable -> repli StyleBoxFlat"
+                : "ui: BlurAmount=0 -> repli StyleBoxFlat");
+            var panel = new Panel { MouseFilter = MouseFilterEnum.Ignore };
+            panel.AddThemeStyleboxOverride("panel", UltimaStyles.Glass());
+            panel.SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
+            root.AddChild(panel);
+            return;
+        }
+        _glassMat = new ShaderMaterial { Shader = shader };
+        _glassMat.SetShaderParameter("blur_amount", Mathf.Clamp(BlurAmount, 0f, 6f));
+        var glass = new ColorRect { MouseFilter = MouseFilterEnum.Ignore, Material = _glassMat };
+        glass.SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
+        root.AddChild(glass);
+        var edge = new Panel { MouseFilter = MouseFilterEnum.Ignore };
+        edge.AddThemeStyleboxOverride("panel", UltimaStyles.GlassEdge());
+        edge.SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
+        root.AddChild(edge);
+    }
+
+    private static Shader? LoadGlassShader()
+    {
+        try
+        {
+            using var stream = typeof(UltimaOverlay).Assembly.GetManifestResourceStream(GlassShaderResource);
+            if (stream == null) return null;
+            using var reader = new StreamReader(stream);
+            return new Shader { Code = reader.ReadToEnd() };
+        }
+        catch (Exception ex)
+        {
+            ModEntry.Write($"ui: lecture shader echouee ({ex.Message})");
+            return null;
+        }
+    }
+
+}
