@@ -10,6 +10,7 @@ using Ultima.Core.Model;
 using Ultima.Features.Forecast;
 using Ultima.Features.Multi;
 using Ultima.Features.Priority;
+using Ultima.Features.Score;
 using Ultima.GameApi;
 using Ultima.Net;
 using Ultima.UI;
@@ -75,6 +76,7 @@ internal sealed class CombatSession
         // R8 : tout le transport custom (ping V0.1 compris) est soumis à [net] custom_messages.
         if (UltimaConfig.CustomNetMessages) NetBridge.Attach();
         MultiFeature.OnCombatStart();
+        ScoreFeature.OnCombatStart();   // F5 : ingestion incrémentale de l'historique
         ModEntry.Write($"session: started (multi={NetBridge.IsMultiplayer}, custom_net={UltimaConfig.CustomNetMessages})");
     }
 
@@ -173,6 +175,7 @@ internal sealed class CombatSession
             }
             if (GodotObject.IsInstanceValid(_ui)) HandBadges.Clear(_ui);
             MultiFeature.OnCombatEnd();
+            ScoreFeature.OnCombatEnd();     // F5 : flush mods/Ultima/runscore.csv
             if (ReferenceEquals(_current, this)) _current = null;
             var avg = _refreshCount > 0 ? _refreshTotalMs / _refreshCount : 0;
             ModEntry.Write($"session: stopped ({reason}) refreshes={_refreshCount} " +
