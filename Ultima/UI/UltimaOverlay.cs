@@ -26,6 +26,7 @@ public partial class UltimaOverlay : Control
     private const int PastilleHeight = 14, PastilleGap = 6, RailPad = 4;
     public const int RailHeight = 2 * RailPad + 3 * PastilleHeight + 2 * PastilleGap;
     private const string GlassShaderResource = "Ultima.Shaders.glass_blur.gdshader";
+    private const int MenuDetail = 0, MenuHide = 1;
 
     public float BlurAmount { get; set; } = 2.0f;
     public double CollapseDelaySec { get; set; } = DefaultCollapseDelaySec;
@@ -41,6 +42,7 @@ public partial class UltimaOverlay : Control
     private readonly List<EnemyRow> _rows = new();
     private readonly StyleBoxFlat[] _pastilles = new StyleBoxFlat[3];
     private Godot.Timer? _collapseTimer;
+    private PopupMenu? _menu;
     private Tween? _tween, _fadeTween;
     private float _fadeTarget = RestAlpha;
     private Viewport? _viewport;
@@ -106,12 +108,23 @@ public partial class UltimaOverlay : Control
         catch (Exception ex) { ModEntry.Write($"ui _ExitTree: {ex}"); }
     }
 
-    /// <summary>Survol uniquement : ne marque JAMAIS l'événement souris comme traité.</summary>
+    /// <summary>
+    /// Survol : ne marque JAMAIS l'événement comme traité. Seule exception (charte §4, menu) :
+    /// un clic DROIT dans la zone de l'overlay est consommé et ouvre le menu contextuel.
+    /// </summary>
     public override void _Input(InputEvent @event)
     {
         try
         {
-            if (@event is not InputEventMouseMotion || _root == null || _hidden) return;
+            if (_root == null || _hidden) return;
+            if (@event is InputEventMouseButton { ButtonIndex: MouseButton.Right } mb)
+            {
+                if (!_root.GetGlobalRect().HasPoint(_root.GetGlobalMousePosition())) return;
+                GetViewport()?.SetInputAsHandled();
+                if (mb.Pressed) OpenMenu();
+                return;
+            }
+            if (@event is not InputEventMouseMotion) return;
             bool inside = _root.GetGlobalRect().HasPoint(_root.GetGlobalMousePosition());
             if (inside == _hovered) return;
             _hovered = inside;
@@ -192,6 +205,8 @@ public partial class UltimaOverlay : Control
             _rail.AddChild(p);
         }
 
+        BuildMenu();
+
         _collapseTimer = new Godot.Timer { OneShot = true, WaitTime = Math.Max(0.05, CollapseDelaySec) };
         _collapseTimer.Timeout += OnCollapseTimeout;
         AddChild(_collapseTimer);
@@ -231,6 +246,42 @@ public partial class UltimaOverlay : Control
         edge.AddThemeStyleboxOverride("panel", UltimaStyles.GlassEdge());
         edge.SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
         root.AddChild(edge);
+    }
+
+    /// <summary>Menu clic droit (charte §4) : « Détail (F9) » / « Masquer (F8) », style verre.</summary>
+    private void BuildMenu()
+    {
+        _menu = new PopupMenu { Name = "UltimaMenu" };
+        _menu.AddCheckItem("Détail (F9)", MenuDetail);
+        _menu.AddItem("Masquer (F8)", MenuHide);
+        _menu.AddThemeStyleboxOverride("panel", UltimaStyles.Glass());
+        var font = UltimaFonts.Get(FontRole.Body);
+        if (font != null) _menu.AddThemeFontOverride("font", font);
+        _menu.AddThemeFontSizeOverride("font_size", UltimaFonts.MinFontSize);
+        _menu.AddThemeColorOverride("font_color", UltimaPalette.Cream);
+        _menu.AddThemeColorOverride("font_hover_color", UltimaPalette.Gold);
+        _menu.IdPressed += OnMenuId;
+        AddChild(_menu);
+    }
+
+    private void OpenMenu()
+    {
+        if (_menu == null || _root == null) return;
+        _menu.SetItemChecked(_menu.GetItemIndex(MenuDetail), _detail);
+        Vector2 at = _root.GetScreenTransform() * _root.GetLocalMousePosition();
+        _menu.Position = new Vector2I((int)at.X, (int)at.Y);
+        _menu.ResetSize();
+        _menu.Popup();
+    }
+
+    private void OnMenuId(long id)
+    {
+        try
+        {
+            if (id == MenuDetail) { _detail = !_detail; Apply(); }
+            else if (id == MenuHide) ToggleHidden();
+        }
+        catch (Exception ex) { ModEntry.Write($"ui menu: {ex}"); }
     }
 
     private void OnGlassResized()
