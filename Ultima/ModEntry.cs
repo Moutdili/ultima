@@ -24,9 +24,11 @@ public static class ModEntry
             Directory.CreateDirectory(Path.GetDirectoryName(LogPath)!);
             Log.Warn($"[ULTIMA] boot — game {DetectGameVersion()} — log {LogPath}");
             Write("boot");
+            Config.UltimaConfig.Load();
             new Harmony(HarmonyId).PatchAll(typeof(ModEntry).Assembly);
             Log.Warn("[ULTIMA] harmony patches applied");
             Write("harmony applied");
+            Write($"ULTIMA ready — game {DetectGameVersion()} — mod {typeof(ModEntry).Assembly.GetName().Version}");
         }
         catch (Exception ex)
         {
