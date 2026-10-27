@@ -117,6 +117,14 @@ public partial class UltimaOverlay
         _root.GlobalPosition = new Vector2(_rightX - w, _topY);
         _rail.Position = new Vector2(w - RailWidth, 0);
         _clip.Visible = t > 0f;
+        // Perf (QA v2) : un shader qui lit l'écran force une copie plein écran à CHAQUE frame,
+        // même sur 8 px. Au repos le rail garde le remplissage plat du ColorRect (GlassFill),
+        // le flou n'est actif que pendant l'ouverture et à l'état déployé.
+        if (_glass != null)
+        {
+            var wanted = t > 0f ? _glassMat : null;
+            if (!ReferenceEquals(_glass.Material, wanted)) _glass.Material = wanted;
+        }
         // contenu fixe à l'écran, révélé par le clip (rien ne glisse sous le regard)
         _content.Position = new Vector2(w - RailWidth - Pad - ContentWidth, Pad);
     }
