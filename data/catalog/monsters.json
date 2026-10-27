@@ -20,12 +20,20 @@
     "method": "EbbMove",
     "intent": "SingleAttackIntent",
     "args": [
-     "EbbDamage)",
-     "new DefendIntent("
+     "EbbDamage"
     ],
     "values": [
-     null,
-     null
+     [
+      32,
+      26
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "DefendIntent",
+      "args": [],
+      "values": []
+     }
     ]
    },
    {
@@ -51,12 +59,20 @@
     "method": "IncreasingIntensityMove",
     "intent": "StatusIntent",
     "args": [
-     "WitherAmount)",
-     "new BuffIntent("
+     "WitherAmount"
     ],
     "values": [
-     null,
-     null
+     [
+      2,
+      1
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "BuffIntent",
+      "args": [],
+      "values": []
+     }
     ]
    }
   ]
@@ -137,12 +153,20 @@
     "method": "SwingMove",
     "intent": "SingleAttackIntent",
     "args": [
-     "SwingDamage)",
-     "new DefendIntent("
+     "SwingDamage"
     ],
     "values": [
-     null,
-     null
+     [
+      6,
+      5
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "DefendIntent",
+      "args": [],
+      "values": []
+     }
     ]
    },
    {
@@ -150,12 +174,20 @@
     "method": "SwingMove",
     "intent": "SingleAttackIntent",
     "args": [
-     "SwingDamage)",
-     "new DefendIntent("
+     "SwingDamage"
     ],
     "values": [
-     null,
-     null
+     [
+      6,
+      5
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "DefendIntent",
+      "args": [],
+      "values": []
+     }
     ]
    },
    {
@@ -197,13 +229,14 @@
     "state": "BOOT_UP_MOVE",
     "method": "BootUpMove",
     "intent": "DefendIntent",
-    "args": [
-     ")",
-     "new BuffIntent("
-    ],
-    "values": [
-     null,
-     null
+    "args": [],
+    "values": [],
+    "extra_intents": [
+     {
+      "intent": "BuffIntent",
+      "args": [],
+      "values": []
+     }
     ]
    },
    {
@@ -229,12 +262,20 @@
     "method": "HammerUppercutMove",
     "intent": "SingleAttackIntent",
     "args": [
-     "HammerUppercutDamage)",
-     "new DebuffIntent("
+     "HammerUppercutDamage"
     ],
     "values": [
-     null,
-     null
+     [
+      14,
+      12
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "DebuffIntent",
+      "args": [],
+      "values": []
+     }
     ]
    }
   ]
@@ -340,12 +381,20 @@
     "method": "BiteMove",
     "intent": "SingleAttackIntent",
     "args": [
-     "BiteDamage)",
-     "new DefendIntent("
+     "BiteDamage"
     ],
     "values": [
-     null,
-     null
+     [
+      8,
+      7
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "DefendIntent",
+      "args": [],
+      "values": []
+     }
     ]
    }
   ]
@@ -728,12 +777,20 @@
     "method": "PlowMove",
     "intent": "SingleAttackIntent",
     "args": [
-     "PlowDamage)",
-     "new BuffIntent("
+     "PlowDamage"
     ],
     "values": [
-     null,
-     null
+     [
+      20,
+      18
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "BuffIntent",
+      "args": [],
+      "values": []
+     }
     ]
    },
    {
@@ -769,12 +826,20 @@
     "method": "CrushMove",
     "intent": "SingleAttackIntent",
     "args": [
-     "CrushDamage)",
-     "new BuffIntent("
+     "CrushDamage"
     ],
     "values": [
-     null,
-     null
+     [
+      19,
+      17
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "BuffIntent",
+      "args": [],
+      "values": []
+     }
     ]
    }
   ]
@@ -982,16 +1047,23 @@
     "intent": "MultiAttackIntent",
     "args": [
      "BugStingDamage",
-     "BugStingTimes)",
-     "new DebuffIntent("
+     "BugStingTimes"
     ],
     "values": [
      [
       7,
       6
      ],
-     null,
-     null
+     [
+      2
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "DebuffIntent",
+      "args": [],
+      "values": []
+     }
     ]
    },
    {
@@ -1006,12 +1078,20 @@
     "method": "GuardedStrikeMove",
     "intent": "SingleAttackIntent",
     "args": [
-     "GuardedStrikeDamage)",
-     "new DefendIntent("
+     "GuardedStrikeDamage"
     ],
     "values": [
-     null,
-     null
+     [
+      14,
+      12
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "DefendIntent",
+      "args": [],
+      "values": []
+     }
     ]
    }
   ]
@@ -1044,12 +1124,20 @@
     "method": "RepeaterBlastMove",
     "intent": "SingleAttackIntent",
     "args": [
-     "BlastDamage)",
-     "new BuffIntent("
+     "BlastDamage"
     ],
     "values": [
-     null,
-     null
+     [
+      8,
+      7
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "BuffIntent",
+      "args": [],
+      "values": []
+     }
     ]
    },
    {
@@ -1057,12 +1145,20 @@
     "method": "RepeaterBlastMove",
     "intent": "SingleAttackIntent",
     "args": [
-     "BlastDamage)",
-     "new BuffIntent("
+     "BlastDamage"
     ],
     "values": [
-     null,
-     null
+     [
+      8,
+      7
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "BuffIntent",
+      "args": [],
+      "values": []
+     }
     ]
    },
    {
@@ -1169,12 +1265,20 @@
     "method": "BulkMove",
     "intent": "SingleAttackIntent",
     "args": [
-     "BulkDamage)",
-     "new BuffIntent("
+     "BulkDamage"
     ],
     "values": [
-     null,
-     null
+     [
+      7,
+      6
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "BuffIntent",
+      "args": [],
+      "values": []
+     }
     ]
    },
    {
@@ -1182,12 +1286,20 @@
     "method": "ConstrictMove",
     "intent": "SingleAttackIntent",
     "args": [
-     "ConstrictDamage)",
-     "new DebuffIntent("
+     "ConstrictDamage"
     ],
     "values": [
-     null,
-     null
+     [
+      9,
+      8
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "DebuffIntent",
+      "args": [],
+      "values": []
+     }
     ]
    },
    {
@@ -1431,12 +1543,20 @@
     "method": "FabricatingStrikeMove",
     "intent": "SingleAttackIntent",
     "args": [
-     "FabricatingStrikeDamage)",
-     "new SummonIntent("
+     "FabricatingStrikeDamage"
     ],
     "values": [
-     null,
-     null
+     [
+      21,
+      18
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "SummonIntent",
+      "args": [],
+      "values": []
+     }
     ]
    },
    {
@@ -1510,12 +1630,20 @@
     "method": "ThrowRelicMove",
     "intent": "SingleAttackIntent",
     "args": [
-     "ThrowRelicDamage)",
-     "new DebuffIntent("
+     "ThrowRelicDamage"
     ],
     "values": [
-     null,
-     null
+     [
+      10,
+      9
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "DebuffIntent",
+      "args": [],
+      "values": []
+     }
     ]
    },
    {
@@ -1650,12 +1778,20 @@
     "method": "FrailSporesMove",
     "intent": "SingleAttackIntent",
     "args": [
-     "SporeDamage)",
-     "new DebuffIntent("
+     "SporeDamage"
     ],
     "values": [
-     null,
-     null
+     [
+      9,
+      8
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "DebuffIntent",
+      "args": [],
+      "values": []
+     }
     ]
    },
    {
@@ -1702,12 +1838,20 @@
     "method": "SwipeMove",
     "intent": "SingleAttackIntent",
     "args": [
-     "SwipeDamage)",
-     "new BuffIntent("
+     "SwipeDamage"
     ],
     "values": [
-     null,
-     null
+     [
+      9,
+      8
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "BuffIntent",
+      "args": [],
+      "values": []
+     }
     ]
    },
    {
@@ -1715,12 +1859,20 @@
     "method": "SwipeMove",
     "intent": "SingleAttackIntent",
     "args": [
-     "SwipeDamage)",
-     "new BuffIntent("
+     "SwipeDamage"
     ],
     "values": [
-     null,
-     null
+     [
+      9,
+      8
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "BuffIntent",
+      "args": [],
+      "values": []
+     }
     ]
    },
    {
@@ -1763,12 +1915,20 @@
     "method": "TackleMove",
     "intent": "SingleAttackIntent",
     "args": [
-     "TackleDamage)",
-     "new DebuffIntent("
+     "TackleDamage"
     ],
     "values": [
-     null,
-     null
+     [
+      11,
+      9
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "DebuffIntent",
+      "args": [],
+      "values": []
+     }
     ]
    },
    {
@@ -1847,12 +2007,20 @@
     "method": "TongueLashMove",
     "intent": "SingleAttackIntent",
     "args": [
-     "TongueLashDamage)",
-     "new DebuffIntent("
+     "TongueLashDamage"
     ],
     "values": [
-     null,
-     null
+     [
+      14,
+      13
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "DebuffIntent",
+      "args": [],
+      "values": []
+     }
     ]
    },
    {
@@ -1995,12 +2163,20 @@
     "method": "ShockingSlap",
     "intent": "SingleAttackIntent",
     "args": [
-     "ShockingSlapDamage)",
-     "new DebuffIntent("
+     "ShockingSlapDamage"
     ],
     "values": [
-     null,
-     null
+     [
+      14,
+      13
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "DebuffIntent",
+      "args": [],
+      "values": []
+     }
     ]
    },
    {
@@ -2008,12 +2184,20 @@
     "method": "GalvanicBurstMove",
     "intent": "SingleAttackIntent",
     "args": [
-     "GalvanicBurstDamage)",
-     "new BuffIntent("
+     "GalvanicBurstDamage"
     ],
     "values": [
-     null,
-     null
+     [
+      17,
+      16
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "BuffIntent",
+      "args": [],
+      "values": []
+     }
     ]
    }
   ]
@@ -2061,16 +2245,23 @@
     "intent": "MultiAttackIntent",
     "args": [
      "DoubleSmashDamage",
-     "DoubleSmashRepeat)",
-     "new DebuffIntent("
+     "DoubleSmashRepeat"
     ],
     "values": [
      [
       7,
       6
      ],
-     null,
-     null
+     [
+      2
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "DebuffIntent",
+      "args": [],
+      "values": []
+     }
     ]
    },
    {
@@ -2078,12 +2269,20 @@
     "method": "HeheMove",
     "intent": "SingleAttackIntent",
     "args": [
-     "HeheDamage)",
-     "new BuffIntent("
+     "HeheDamage"
     ],
     "values": [
-     null,
-     null
+     [
+      9,
+      8
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "BuffIntent",
+      "args": [],
+      "values": []
+     }
     ]
    }
   ]
@@ -2168,13 +2367,20 @@
     "state": "HAUNT_MOVE",
     "method": "HauntMove",
     "intent": "DebuffIntent",
-    "args": [
-     ")",
-     "new StatusIntent(HauntDazed"
-    ],
-    "values": [
-     null,
-     null
+    "args": [],
+    "values": [],
+    "extra_intents": [
+     {
+      "intent": "StatusIntent",
+      "args": [
+       "HauntDazed"
+      ],
+      "values": [
+       [
+        5
+       ]
+      ]
+     }
     ]
    }
   ]
@@ -2271,12 +2477,20 @@
     "method": "RadiateMove",
     "intent": "SingleAttackIntent",
     "args": [
-     "RadiateDamage)",
-     "new DefendIntent("
+     "RadiateDamage"
     ],
     "values": [
-     null,
-     null
+     [
+      13,
+      11
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "DefendIntent",
+      "args": [],
+      "values": []
+     }
     ]
    },
    {
@@ -2302,14 +2516,25 @@
     "method": "PulsateMove",
     "intent": "SingleAttackIntent",
     "args": [
-     "PulsateDamage)",
-     "new BuffIntent()",
-     "new DefendIntent("
+     "PulsateDamage"
     ],
     "values": [
-     null,
-     null,
-     null
+     [
+      10,
+      8
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "BuffIntent",
+      "args": [],
+      "values": []
+     },
+     {
+      "intent": "DefendIntent",
+      "args": [],
+      "values": []
+     }
     ]
    }
   ]
@@ -2462,12 +2687,20 @@
     "method": "OrbOfFrailtyMove",
     "intent": "SingleAttackIntent",
     "args": [
-     "OrbOfFrailtyDamage)",
-     "new DebuffIntent("
+     "OrbOfFrailtyDamage"
     ],
     "values": [
-     null,
-     null
+     [
+      9,
+      8
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "DebuffIntent",
+      "args": [],
+      "values": []
+     }
     ]
    },
    {
@@ -2475,12 +2708,20 @@
     "method": "OrbOfWeaknessMove",
     "intent": "SingleAttackIntent",
     "args": [
-     "OrbOfWeaknessDamage)",
-     "new DebuffIntent("
+     "OrbOfWeaknessDamage"
     ],
     "values": [
-     null,
-     null
+     [
+      9,
+      8
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "DebuffIntent",
+      "args": [],
+      "values": []
+     }
     ]
    },
    {
@@ -2570,14 +2811,25 @@
     "method": "PonderMove",
     "intent": "SingleAttackIntent",
     "args": [
-     "PonderDamage)",
-     "new HealIntent()",
-     "new BuffIntent("
+     "PonderDamage"
     ],
     "values": [
-     null,
-     null,
-     null
+     [
+      13,
+      11
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "HealIntent",
+      "args": [],
+      "values": []
+     },
+     {
+      "intent": "BuffIntent",
+      "args": [],
+      "values": []
+     }
     ]
    }
   ]
@@ -2624,14 +2876,20 @@
     "method": "Slash2Move",
     "intent": "SingleAttackIntent",
     "args": [
-     "Slash2Damage)",
-     "new DefendIntent("
+     "Slash2Damage"
     ],
     "values": [
      [
-      2
-     ],
-     null
+      14,
+      12
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "DefendIntent",
+      "args": [],
+      "values": []
+     }
     ]
    },
    {
@@ -2656,13 +2914,14 @@
     "state": "SOUL_SIPHON_MOVE",
     "method": "SoulSiphonMove",
     "intent": "DebuffIntent",
-    "args": [
-     ")",
-     "new BuffIntent("
-    ],
-    "values": [
-     null,
-     null
+    "args": [],
+    "values": [],
+    "extra_intents": [
+     {
+      "intent": "BuffIntent",
+      "args": [],
+      "values": []
+     }
     ]
    }
   ]
@@ -2784,12 +3043,20 @@
     "method": "AdvancedGasMove",
     "intent": "SingleAttackIntent",
     "args": [
-     "AdvancedGasDamage)",
-     "new CardDebuffIntent("
+     "AdvancedGasDamage"
     ],
     "values": [
-     null,
-     null
+     [
+      9,
+      8
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "CardDebuffIntent",
+      "args": [],
+      "values": []
+     }
     ]
    },
    {
@@ -2797,12 +3064,20 @@
     "method": "BloatMove",
     "intent": "SingleAttackIntent",
     "args": [
-     "BloatDamage)",
-     "new SummonIntent("
+     "BloatDamage"
     ],
     "values": [
-     null,
-     null
+     [
+      6,
+      5
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "SummonIntent",
+      "args": [],
+      "values": []
+     }
     ]
    },
    {
@@ -2855,12 +3130,20 @@
     "method": "SmashMove",
     "intent": "SingleAttackIntent",
     "args": [
-     "SmashDamage)",
-     "new BuffIntent("
+     "SmashDamage"
     ],
     "values": [
-     null,
-     null
+     [
+      18,
+      16
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "BuffIntent",
+      "args": [],
+      "values": []
+     }
     ]
    }
   ]
@@ -2889,12 +3172,20 @@
     "method": "WebMove",
     "intent": "SingleAttackIntent",
     "args": [
-     "WebDamage)",
-     "new DebuffIntent("
+     "WebDamage"
     ],
     "values": [
-     null,
-     null
+     [
+      10,
+      9
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "DebuffIntent",
+      "args": [],
+      "values": []
+     }
     ]
    },
    {
@@ -2915,13 +3206,14 @@
     "state": "CURL_AND_GROW_MOVE",
     "method": "CurlAndGrowMove",
     "intent": "DefendIntent",
-    "args": [
-     ")",
-     "new BuffIntent("
-    ],
-    "values": [
-     null,
-     null
+    "args": [],
+    "values": [],
+    "extra_intents": [
+     {
+      "intent": "BuffIntent",
+      "args": [],
+      "values": []
+     }
     ]
    }
   ]
@@ -2947,12 +3239,20 @@
     "method": "PowerShieldMove",
     "intent": "SingleAttackIntent",
     "args": [
-     "PowerShieldDamage)",
-     "new DefendIntent("
+     "PowerShieldDamage"
     ],
     "values": [
-     null,
-     null
+     [
+      7,
+      6
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "DefendIntent",
+      "args": [],
+      "values": []
+     }
     ]
    },
    {
@@ -3103,13 +3403,14 @@
     "state": "WINDUP_MOVE",
     "method": "WindupMove",
     "intent": "DefendIntent",
-    "args": [
-     ")",
-     "new BuffIntent("
-    ],
-    "values": [
-     null,
-     null
+    "args": [],
+    "values": [],
+    "extra_intents": [
+     {
+      "intent": "BuffIntent",
+      "args": [],
+      "values": []
+     }
     ]
    },
    {
@@ -3397,12 +3698,20 @@
     "method": "SuckMove",
     "intent": "SingleAttackIntent",
     "args": [
-     "SuckDamage)",
-     "new BuffIntent("
+     "SuckDamage"
     ],
     "values": [
-     null,
-     null
+     [
+      6,
+      4
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "BuffIntent",
+      "args": [],
+      "values": []
+     }
     ]
    }
   ]
@@ -3445,12 +3754,20 @@
     "method": "SliceMove",
     "intent": "SingleAttackIntent",
     "args": [
-     "SliceDamage)",
-     "new DefendIntent("
+     "SliceDamage"
     ],
     "values": [
-     null,
-     null
+     [
+      7,
+      6
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "DefendIntent",
+      "args": [],
+      "values": []
+     }
     ]
    },
    {
@@ -3584,12 +3901,20 @@
     "method": "TenderizerMove",
     "intent": "SingleAttackIntent",
     "args": [
-     "TenderizerDamage)",
-     "new DebuffIntent("
+     "TenderizerDamage"
     ],
     "values": [
-     null,
-     null
+     [
+      8,
+      7
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "DebuffIntent",
+      "args": [],
+      "values": []
+     }
     ]
    },
    {
@@ -3661,12 +3986,20 @@
     "method": "VerdictMove",
     "intent": "SingleAttackIntent",
     "args": [
-     "VerdictDamage)",
-     "new DebuffIntent("
+     "VerdictDamage"
     ],
     "values": [
-     null,
-     null
+     [
+      36,
+      33
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "DebuffIntent",
+      "args": [],
+      "values": []
+     }
     ]
    }
   ]
@@ -3888,16 +4221,23 @@
     "intent": "MultiAttackIntent",
     "args": [
      "FastPunchDamage",
-     "FastPunchRepeat)",
-     "new DebuffIntent("
+     "FastPunchRepeat"
     ],
     "values": [
      [
       6,
       5
      ],
-     null,
-     null
+     [
+      2
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "DebuffIntent",
+      "args": [],
+      "values": []
+     }
     ]
    }
   ]
@@ -3936,13 +4276,14 @@
     "state": "BURN_BRIGHT_FOR_ME_MOVE",
     "method": "BurnBrightForMeMove",
     "intent": "BuffIntent",
-    "args": [
-     ")",
-     "new DefendIntent("
-    ],
-    "values": [
-     null,
-     null
+    "args": [],
+    "values": [],
+    "extra_intents": [
+     {
+      "intent": "DefendIntent",
+      "args": [],
+      "values": []
+     }
     ]
    },
    {
@@ -4174,13 +4515,14 @@
     "state": "BUBBLE_BURP_MOVE",
     "method": "BubbleBurpMove",
     "intent": "BuffIntent",
-    "args": [
-     ")",
-     "new DefendIntent("
-    ],
-    "values": [
-     null,
-     null
+    "args": [],
+    "values": [],
+    "extra_intents": [
+     {
+      "intent": "DefendIntent",
+      "args": [],
+      "values": []
+     }
     ]
    }
   ]
@@ -4365,12 +4707,20 @@
     "method": "InertiaMove",
     "intent": "SingleAttackIntent",
     "args": [
-     "InertiaDamage)",
-     "new BuffIntent("
+     "InertiaDamage"
     ],
     "values": [
-     null,
-     null
+     [
+      11,
+      9
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "BuffIntent",
+      "args": [],
+      "values": []
+     }
     ]
    },
    {
@@ -4426,13 +4776,14 @@
     "state": "LEECHING_HUG_MOVE",
     "method": "LeechingHugMove",
     "intent": "DebuffIntent",
-    "args": [
-     ")",
-     "new BuffIntent("
-    ],
-    "values": [
-     null,
-     null
+    "args": [],
+    "values": [],
+    "extra_intents": [
+     {
+      "intent": "BuffIntent",
+      "args": [],
+      "values": []
+     }
     ]
    },
    {
@@ -4500,12 +4851,20 @@
     "method": "ThwackMove",
     "intent": "SingleAttackIntent",
     "args": [
-     "ThwackDamage)",
-     "new DefendIntent("
+     "ThwackDamage"
     ],
     "values": [
-     null,
-     null
+     [
+      8,
+      7
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "DefendIntent",
+      "args": [],
+      "values": []
+     }
     ]
    },
    {
@@ -4548,12 +4907,20 @@
     "method": "OilSprayMove",
     "intent": "SingleAttackIntent",
     "args": [
-     "OilSprayDamage)",
-     "new DebuffIntent("
+     "OilSprayDamage"
     ],
     "values": [
-     null,
-     null
+     [
+      9,
+      8
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "DebuffIntent",
+      "args": [],
+      "values": []
+     }
     ]
    },
    {
@@ -4575,12 +4942,20 @@
     "method": "RageMove",
     "intent": "SingleAttackIntent",
     "args": [
-     "RageDamage)",
-     "new BuffIntent("
+     "RageDamage"
     ],
     "values": [
-     null,
-     null
+     [
+      7,
+      6
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "BuffIntent",
+      "args": [],
+      "values": []
+     }
     ]
    }
   ]
@@ -4613,12 +4988,20 @@
     "method": "RolloutMove",
     "intent": "SingleAttackIntent",
     "args": [
-     "RolloutDamage)",
-     "new BuffIntent("
+     "RolloutDamage"
     ],
     "values": [
-     null,
-     null
+     [
+      18,
+      16
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "BuffIntent",
+      "args": [],
+      "values": []
+     }
     ]
    }
   ]
@@ -4647,12 +5030,20 @@
     "method": "EnergyOrb",
     "intent": "SingleAttackIntent",
     "args": [
-     "EnergyDamage)",
-     "new BuffIntent("
+     "EnergyDamage"
     ],
     "values": [
-     null,
-     null
+     [
+      4,
+      3
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "BuffIntent",
+      "args": [],
+      "values": []
+     }
     ]
    }
   ]
@@ -4747,12 +5138,26 @@
     "method": "GazeMove",
     "intent": "SingleAttackIntent",
     "args": [
-     "GazeDamage)",
-     "new StatusIntent(GazeMoveAmount"
+     "GazeDamage"
     ],
     "values": [
-     null,
-     null
+     [
+      8,
+      7
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "StatusIntent",
+      "args": [
+       "GazeMoveAmount"
+      ],
+      "values": [
+       [
+        1
+       ]
+      ]
+     }
     ]
    },
    {
@@ -4767,12 +5172,20 @@
     "method": "ScreamMove",
     "intent": "SingleAttackIntent",
     "args": [
-     "ScreamDamage)",
-     "new DebuffIntent("
+     "ScreamDamage"
     ],
     "values": [
-     null,
-     null
+     [
+      15,
+      13
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "DebuffIntent",
+      "args": [],
+      "values": []
+     }
     ]
    }
   ]
@@ -4831,12 +5244,24 @@
     "method": "DrainLifeMove",
     "intent": "SingleAttackIntent",
     "args": [
-     "DrainLifeDamage)",
-     "new DebuffIntent(strong: true"
+     "DrainLifeDamage"
     ],
     "values": [
-     null,
-     null
+     [
+      19,
+      18
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "DebuffIntent",
+      "args": [
+       "strong: true"
+      ],
+      "values": [
+       null
+      ]
+     }
     ]
    }
   ]
@@ -4978,12 +5403,20 @@
     "method": "StabMove",
     "intent": "SingleAttackIntent",
     "args": [
-     "StabDamage)",
-     "new DebuffIntent("
+     "StabDamage"
     ],
     "values": [
-     null,
-     null
+     [
+      12,
+      11
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "DebuffIntent",
+      "args": [],
+      "values": []
+     }
     ]
    }
   ]
@@ -5050,16 +5483,23 @@
     "intent": "MultiAttackIntent",
     "args": [
      "ThrashDamage",
-     "ThrashRepeat)",
-     "new BuffIntent("
+     "ThrashRepeat"
     ],
     "values": [
      [
       4,
       3
      ],
-     null,
-     null
+     [
+      3
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "BuffIntent",
+      "args": [],
+      "values": []
+     }
     ]
    },
    {
@@ -5095,13 +5535,14 @@
     "state": "RESPAWN_MOVE",
     "method": "RespawnMove",
     "intent": "HealIntent",
-    "args": [
-     ")",
-     "new BuffIntent("
-    ],
-    "values": [
-     null,
-     null
+    "args": [],
+    "values": [],
+    "extra_intents": [
+     {
+      "intent": "BuffIntent",
+      "args": [],
+      "values": []
+     }
     ]
    },
    {
@@ -5123,12 +5564,20 @@
     "method": "SkullBashMove",
     "intent": "SingleAttackIntent",
     "args": [
-     "SkullBashDamage)",
-     "new DebuffIntent("
+     "SkullBashDamage"
     ],
     "values": [
-     null,
-     null
+     [
+      16,
+      14
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "DebuffIntent",
+      "args": [],
+      "values": []
+     }
     ]
    },
    {
@@ -5183,12 +5632,20 @@
     "method": "BurningGrowlMove",
     "intent": "StatusIntent",
     "args": [
-     "BurningGrowlBurnCount)",
-     "new BuffIntent("
+     "BurningGrowlBurnCount"
     ],
     "values": [
-     null,
-     null
+     [
+      5,
+      3
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "BuffIntent",
+      "args": [],
+      "values": []
+     }
     ]
    }
   ]
@@ -5240,15 +5697,22 @@
     "intent": "MultiAttackIntent",
     "args": [
      "BarrageDamage",
-     "BarrageRepeat)",
-     "new BuffIntent("
+     "BarrageRepeat"
     ],
     "values": [
      [
       8
      ],
-     null,
-     null
+     [
+      2
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "BuffIntent",
+      "args": [],
+      "values": []
+     }
     ]
    }
   ]
@@ -5301,15 +5765,22 @@
     "intent": "MultiAttackIntent",
     "args": [
      "BarrageDamage",
-     "BarrageRepeat)",
-     "new BuffIntent("
+     "BarrageRepeat"
     ],
     "values": [
      [
       10
      ],
-     null,
-     null
+     [
+      2
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "BuffIntent",
+      "args": [],
+      "values": []
+     }
     ]
    }
   ]
@@ -5362,15 +5833,22 @@
     "intent": "MultiAttackIntent",
     "args": [
      "BarrageDamage",
-     "BarrageRepeat)",
-     "new BuffIntent("
+     "BarrageRepeat"
     ],
     "values": [
      [
       9
      ],
-     null,
-     null
+     [
+      2
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "BuffIntent",
+      "args": [],
+      "values": []
+     }
     ]
    }
   ]
@@ -5395,15 +5873,19 @@
     "state": "MIASMA",
     "method": "MiasmaMove",
     "intent": "DebuffIntent",
-    "args": [
-     ")",
-     "new DefendIntent()",
-     "new BuffIntent("
-    ],
-    "values": [
-     null,
-     null,
-     null
+    "args": [],
+    "values": [],
+    "extra_intents": [
+     {
+      "intent": "DefendIntent",
+      "args": [],
+      "values": []
+     },
+     {
+      "intent": "BuffIntent",
+      "args": [],
+      "values": []
+     }
     ]
    },
    {
@@ -5439,15 +5921,20 @@
     "state": "LIQUIFY_GROUND_MOVE",
     "method": "LiquifyMove",
     "intent": "BuffIntent",
-    "args": [
-     ")",
-     "new StatusIntent(6"
-    ],
-    "values": [
-     null,
-     [
-      6
-     ]
+    "args": [],
+    "values": [],
+    "extra_intents": [
+     {
+      "intent": "StatusIntent",
+      "args": [
+       "6"
+      ],
+      "values": [
+       [
+        6
+       ]
+      ]
+     }
     ]
    },
    {
@@ -5529,13 +6016,14 @@
     "state": "DEBILITATING_SMOG",
     "method": "DebilitatingSmogMove",
     "intent": "DebuffIntent",
-    "args": [
-     ")",
-     "new BuffIntent("
-    ],
-    "values": [
-     null,
-     null
+    "args": [],
+    "values": [],
+    "extra_intents": [
+     {
+      "intent": "BuffIntent",
+      "args": [],
+      "values": []
+     }
     ]
    },
    {
@@ -5607,12 +6095,20 @@
     "method": "HardeningStrikeMove",
     "intent": "SingleAttackIntent",
     "args": [
-     "HardeningStrikeDamage)",
-     "new DefendIntent("
+     "HardeningStrikeDamage"
     ],
     "values": [
-     null,
-     null
+     [
+      7,
+      6
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "DefendIntent",
+      "args": [],
+      "values": []
+     }
     ]
    }
   ]
@@ -5638,12 +6134,20 @@
     "method": "ThieveryMove",
     "intent": "SingleAttackIntent",
     "args": [
-     "TheftDamage)",
-     "new CardDebuffIntent("
+     "TheftDamage"
     ],
     "values": [
-     null,
-     null
+     [
+      19,
+      17
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "CardDebuffIntent",
+      "args": [],
+      "values": []
+     }
     ]
    },
    {
@@ -5965,13 +6469,14 @@
     "state": "BURROW_MOVE",
     "method": "BurrowMove",
     "intent": "BuffIntent",
-    "args": [
-     ")",
-     "new DefendIntent("
-    ],
-    "values": [
-     null,
-     null
+    "args": [],
+    "values": [],
+    "extra_intents": [
+     {
+      "intent": "DefendIntent",
+      "args": [],
+      "values": []
+     }
     ]
    },
    {
@@ -6257,14 +6762,26 @@
     "method": "DismemberMove",
     "intent": "SingleAttackIntent",
     "args": [
-     "DismemberDamage)",
-     "new StatusIntent(3"
+     "DismemberDamage"
     ],
     "values": [
-     null,
      [
-      3
+      30,
+      26
      ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "StatusIntent",
+      "args": [
+       "3"
+      ],
+      "values": [
+       [
+        3
+       ]
+      ]
+     }
     ]
    },
    {
@@ -6297,12 +6814,20 @@
     "method": "GraspingVinesMove",
     "intent": "SingleAttackIntent",
     "args": [
-     "GraspingVinesDamage)",
-     "new CardDebuffIntent("
+     "GraspingVinesDamage"
     ],
     "values": [
-     null,
-     null
+     [
+      9,
+      8
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "CardDebuffIntent",
+      "args": [],
+      "values": []
+     }
     ]
    },
    {
@@ -6367,14 +6892,25 @@
     "method": "StompMove",
     "intent": "SingleAttackIntent",
     "args": [
-     "StompDamage)",
-     "new DebuffIntent()",
-     "new BuffIntent("
+     "StompDamage"
     ],
     "values": [
-     null,
-     null,
-     null
+     [
+      16,
+      15
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "DebuffIntent",
+      "args": [],
+      "values": []
+     },
+     {
+      "intent": "BuffIntent",
+      "args": [],
+      "values": []
+     }
     ]
    },
    {
@@ -6382,25 +6918,34 @@
     "method": "RamMove",
     "intent": "SingleAttackIntent",
     "args": [
-     "RamDamage)",
-     "new BuffIntent("
+     "RamDamage"
     ],
     "values": [
-     null,
-     null
+     [
+      11,
+      10
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "BuffIntent",
+      "args": [],
+      "values": []
+     }
     ]
    },
    {
     "state": "SIPHON_MOVE",
     "method": "SiphonMove",
     "intent": "HealIntent",
-    "args": [
-     ")",
-     "new BuffIntent("
-    ],
-    "values": [
-     null,
-     null
+    "args": [],
+    "values": [],
+    "extra_intents": [
+     {
+      "intent": "BuffIntent",
+      "args": [],
+      "values": []
+     }
     ]
    },
    {
@@ -6408,12 +6953,17 @@
     "method": "PressureGunMove",
     "intent": "SingleAttackIntent",
     "args": [
-     "() => CurrentPressureGunDamage)",
-     "new BuffIntent("
+     "() => CurrentPressureGunDamage"
     ],
     "values": [
-     null,
      null
+    ],
+    "extra_intents": [
+     {
+      "intent": "BuffIntent",
+      "args": [],
+      "values": []
+     }
     ]
    },
    {
@@ -6421,12 +6971,20 @@
     "method": "PressureUpMove",
     "intent": "SingleAttackIntent",
     "args": [
-     "PressureUpDamage)",
-     "new BuffIntent("
+     "PressureUpDamage"
     ],
     "values": [
-     null,
-     null
+     [
+      14,
+      13
+     ]
+    ],
+    "extra_intents": [
+     {
+      "intent": "BuffIntent",
+      "args": [],
+      "values": []
+     }
     ]
    },
    {
@@ -6486,15 +7044,20 @@
     "state": "WRIGGLE_MOVE",
     "method": "WriggleMove",
     "intent": "BuffIntent",
-    "args": [
-     ")",
-     "new StatusIntent(1"
-    ],
-    "values": [
-     null,
-     [
-      1
-     ]
+    "args": [],
+    "values": [],
+    "extra_intents": [
+     {
+      "intent": "StatusIntent",
+      "args": [
+       "1"
+      ],
+      "values": [
+       [
+        1
+       ]
+      ]
+     }
     ]
    },
    {

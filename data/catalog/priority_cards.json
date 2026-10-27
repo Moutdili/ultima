@@ -13,7 +13,11 @@
   "glow_gold": false,
   "glow_red": false,
   "turn_conditional": true,
-  "priority_candidate": true
+  "priority_candidate": true,
+  "first_card_hint": true,
+  "signals": [
+   "CardPlaysFinished"
+  ]
  },
  {
   "class": "BeatIntoShape",
@@ -34,7 +38,9 @@
   "glow_gold": false,
   "glow_red": false,
   "turn_conditional": true,
-  "priority_candidate": true
+  "priority_candidate": true,
+  "first_card_hint": false,
+  "signals": []
  },
  {
   "class": "Bolas",
@@ -53,7 +59,11 @@
   "glow_gold": false,
   "glow_red": false,
   "turn_conditional": true,
-  "priority_candidate": true
+  "priority_candidate": true,
+  "first_card_hint": true,
+  "signals": [
+   "CardPlaysFinished"
+  ]
  },
  {
   "class": "BubbleBubble",
@@ -69,7 +79,11 @@
   "glow_gold": true,
   "glow_red": false,
   "turn_conditional": false,
-  "priority_candidate": true
+  "priority_candidate": true,
+  "first_card_hint": true,
+  "signals": [
+   "ShouldGlowGoldInternal"
+  ]
  },
  {
   "class": "Clash",
@@ -88,7 +102,11 @@
   "glow_gold": true,
   "glow_red": false,
   "turn_conditional": false,
-  "priority_candidate": true
+  "priority_candidate": true,
+  "first_card_hint": true,
+  "signals": [
+   "ShouldGlowGoldInternal"
+  ]
  },
  {
   "class": "DeathMarch",
@@ -105,7 +123,9 @@
   "glow_gold": false,
   "glow_red": false,
   "turn_conditional": true,
-  "priority_candidate": true
+  "priority_candidate": true,
+  "first_card_hint": false,
+  "signals": []
  },
  {
   "class": "DeathsDoor",
@@ -124,7 +144,11 @@
   "glow_gold": true,
   "glow_red": false,
   "turn_conditional": true,
-  "priority_candidate": true
+  "priority_candidate": true,
+  "first_card_hint": true,
+  "signals": [
+   "ShouldGlowGoldInternal"
+  ]
  },
  {
   "class": "Dismantle",
@@ -143,7 +167,11 @@
   "glow_gold": true,
   "glow_red": false,
   "turn_conditional": false,
-  "priority_candidate": true
+  "priority_candidate": true,
+  "first_card_hint": true,
+  "signals": [
+   "ShouldGlowGoldInternal"
+  ]
  },
  {
   "class": "Eidolon",
@@ -156,7 +184,11 @@
   "glow_gold": true,
   "glow_red": false,
   "turn_conditional": false,
-  "priority_candidate": true
+  "priority_candidate": true,
+  "first_card_hint": true,
+  "signals": [
+   "ShouldGlowGoldInternal"
+  ]
  },
  {
   "class": "EvilEye",
@@ -175,7 +207,11 @@
   "glow_gold": true,
   "glow_red": false,
   "turn_conditional": true,
-  "priority_candidate": true
+  "priority_candidate": true,
+  "first_card_hint": true,
+  "signals": [
+   "ShouldGlowGoldInternal"
+  ]
  },
  {
   "class": "Fetch",
@@ -194,7 +230,13 @@
   "glow_gold": true,
   "glow_red": true,
   "turn_conditional": true,
-  "priority_candidate": true
+  "priority_candidate": true,
+  "first_card_hint": true,
+  "signals": [
+   "ShouldGlowGoldInternal",
+   "ShouldGlowRedInternal",
+   "CardPlaysFinished"
+  ]
  },
  {
   "class": "Finisher",
@@ -213,7 +255,11 @@
   "glow_gold": false,
   "glow_red": false,
   "turn_conditional": true,
-  "priority_candidate": true
+  "priority_candidate": true,
+  "first_card_hint": true,
+  "signals": [
+   "CardPlaysFinished"
+  ]
  },
  {
   "class": "Flatten",
@@ -232,7 +278,12 @@
   "glow_gold": true,
   "glow_red": true,
   "turn_conditional": true,
-  "priority_candidate": true
+  "priority_candidate": true,
+  "first_card_hint": true,
+  "signals": [
+   "ShouldGlowGoldInternal",
+   "ShouldGlowRedInternal"
+  ]
  },
  {
   "class": "ForgottenRitual",
@@ -248,7 +299,11 @@
   "glow_gold": true,
   "glow_red": false,
   "turn_conditional": true,
-  "priority_candidate": true
+  "priority_candidate": true,
+  "first_card_hint": true,
+  "signals": [
+   "ShouldGlowGoldInternal"
+  ]
  },
  {
   "class": "Ftl",
@@ -268,7 +323,12 @@
   "glow_gold": true,
   "glow_red": false,
   "turn_conditional": true,
-  "priority_candidate": true
+  "priority_candidate": true,
+  "first_card_hint": true,
+  "signals": [
+   "ShouldGlowGoldInternal",
+   "CardPlaysFinished"
+  ]
  },
  {
   "class": "GangUp",
@@ -284,7 +344,9 @@
   "glow_gold": false,
   "glow_red": false,
   "turn_conditional": true,
-  "priority_candidate": true
+  "priority_candidate": true,
+  "first_card_hint": false,
+  "signals": []
  },
  {
   "class": "GoForTheEyes",
@@ -304,7 +366,11 @@
   "glow_gold": true,
   "glow_red": false,
   "turn_conditional": false,
-  "priority_candidate": true
+  "priority_candidate": true,
+  "first_card_hint": true,
+  "signals": [
+   "ShouldGlowGoldInternal"
+  ]
  },
  {
   "class": "GoldAxe",
@@ -317,7 +383,11 @@
   "glow_gold": false,
   "glow_red": false,
   "turn_conditional": true,
-  "priority_candidate": true
+  "priority_candidate": true,
+  "first_card_hint": true,
+  "signals": [
+   "CardPlaysFinished"
+  ]
  },
  {
   "class": "GrandFinale",
@@ -336,7 +406,11 @@
   "glow_gold": true,
   "glow_red": false,
   "turn_conditional": false,
-  "priority_candidate": true
+  "priority_candidate": true,
+  "first_card_hint": true,
+  "signals": [
+   "ShouldGlowGoldInternal"
+  ]
  },
  {
   "class": "HeavenlyDrill",
@@ -355,7 +429,11 @@
   "glow_gold": true,
   "glow_red": false,
   "turn_conditional": false,
-  "priority_candidate": true
+  "priority_candidate": true,
+  "first_card_hint": true,
+  "signals": [
+   "ShouldGlowGoldInternal"
+  ]
  },
  {
   "class": "HelixDrill",
@@ -374,7 +452,9 @@
   "glow_gold": false,
   "glow_red": false,
   "turn_conditional": true,
-  "priority_candidate": true
+  "priority_candidate": true,
+  "first_card_hint": false,
+  "signals": []
  },
  {
   "class": "Impatience",
@@ -390,7 +470,11 @@
   "glow_gold": true,
   "glow_red": false,
   "turn_conditional": false,
-  "priority_candidate": true
+  "priority_candidate": true,
+  "first_card_hint": true,
+  "signals": [
+   "ShouldGlowGoldInternal"
+  ]
  },
  {
   "class": "LunarBlast",
@@ -409,7 +493,11 @@
   "glow_gold": false,
   "glow_red": false,
   "turn_conditional": true,
-  "priority_candidate": true
+  "priority_candidate": true,
+  "first_card_hint": true,
+  "signals": [
+   "CardPlaysFinished"
+  ]
  },
  {
   "class": "MakeItSo",
@@ -428,7 +516,11 @@
   "glow_gold": false,
   "glow_red": false,
   "turn_conditional": true,
-  "priority_candidate": true
+  "priority_candidate": true,
+  "first_card_hint": true,
+  "signals": [
+   "CardPlaysFinished"
+  ]
  },
  {
   "class": "MementoMori",
@@ -445,7 +537,9 @@
   "glow_gold": false,
   "glow_red": false,
   "turn_conditional": true,
-  "priority_candidate": true
+  "priority_candidate": true,
+  "first_card_hint": false,
+  "signals": []
  },
  {
   "class": "Normality",
@@ -457,7 +551,11 @@
   "glow_gold": false,
   "glow_red": true,
   "turn_conditional": true,
-  "priority_candidate": true
+  "priority_candidate": true,
+  "first_card_hint": false,
+  "signals": [
+   "ShouldGlowRedInternal"
+  ]
  },
  {
   "class": "PactsEnd",
@@ -476,7 +574,11 @@
   "glow_gold": true,
   "glow_red": false,
   "turn_conditional": false,
-  "priority_candidate": true
+  "priority_candidate": true,
+  "first_card_hint": true,
+  "signals": [
+   "ShouldGlowGoldInternal"
+  ]
  },
  {
   "class": "Pinpoint",
@@ -495,7 +597,11 @@
   "glow_gold": false,
   "glow_red": false,
   "turn_conditional": true,
-  "priority_candidate": true
+  "priority_candidate": true,
+  "first_card_hint": true,
+  "signals": [
+   "CardPlaysFinished"
+  ]
  },
  {
   "class": "Radiate",
@@ -514,7 +620,9 @@
   "glow_gold": false,
   "glow_red": false,
   "turn_conditional": true,
-  "priority_candidate": true
+  "priority_candidate": true,
+  "first_card_hint": false,
+  "signals": []
  },
  {
   "class": "Rattle",
@@ -533,7 +641,11 @@
   "glow_gold": false,
   "glow_red": true,
   "turn_conditional": true,
-  "priority_candidate": true
+  "priority_candidate": true,
+  "first_card_hint": false,
+  "signals": [
+   "ShouldGlowRedInternal"
+  ]
  },
  {
   "class": "Restlessness",
@@ -550,7 +662,11 @@
   "glow_gold": true,
   "glow_red": false,
   "turn_conditional": false,
-  "priority_candidate": true
+  "priority_candidate": true,
+  "first_card_hint": true,
+  "signals": [
+   "ShouldGlowGoldInternal"
+  ]
  },
  {
   "class": "Spite",
@@ -569,7 +685,11 @@
   "glow_gold": true,
   "glow_red": false,
   "turn_conditional": true,
-  "priority_candidate": true
+  "priority_candidate": true,
+  "first_card_hint": true,
+  "signals": [
+   "ShouldGlowGoldInternal"
+  ]
  },
  {
   "class": "Stomp",
@@ -588,7 +708,11 @@
   "glow_gold": false,
   "glow_red": false,
   "turn_conditional": true,
-  "priority_candidate": true
+  "priority_candidate": true,
+  "first_card_hint": true,
+  "signals": [
+   "CardPlaysFinished"
+  ]
  },
  {
   "class": "ThrummingHatchet",
@@ -607,6 +731,10 @@
   "glow_gold": false,
   "glow_red": false,
   "turn_conditional": true,
-  "priority_candidate": true
+  "priority_candidate": true,
+  "first_card_hint": true,
+  "signals": [
+   "CardPlaysFinished"
+  ]
  }
 ]
