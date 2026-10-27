@@ -24,8 +24,11 @@ s=$(stat -c %Y "$SRC"); d=$(stat -c %Y "$DST")
 echo "build   : $(date -d @$s +%H:%M:%S)  $(stat -c %s "$SRC") o"
 echo "déployé : $(date -d @$d +%H:%M:%S)  $(stat -c %s "$DST") o"
 
-if [ "$s" -gt "$d" ]; then
-  echo "❌ PÉRIMÉ : le build est plus récent que le déployé → bash tools/deploy.sh"
+# Comparaison de CONTENU : une date plus récente peut cacher un staging périmé
+# (build échoué → deploy.sh recopie l'ancien binaire, la date devient plus récente).
+hs=$(sha256sum "$SRC" | cut -c1-16); hd=$(sha256sum "$DST" | cut -c1-16)
+if [ "$hs" != "$hd" ]; then
+  echo "❌ CONTENU DIFFÉRENT (build $hs ≠ déployé $hd) → bash tools/build.sh && bash tools/deploy.sh"
   exit 1
 fi
 

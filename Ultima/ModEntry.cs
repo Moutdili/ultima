@@ -73,7 +73,7 @@ public static class ModEntry
                 try
                 {
                     alc.LoadFromAssemblyPath(dll);
-                    Write($"assembly: {name} precharge (ALC {alc.Name ?? \"isole\"})");
+                    Write($"assembly: {name} precharge (contexte {(alc.Name ?? "-")})");
                 }
                 catch (Exception ex)
                 {
