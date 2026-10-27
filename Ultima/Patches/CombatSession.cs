@@ -28,6 +28,7 @@ internal sealed class CombatSession
 
     private readonly NCombatUi _ui;
     private readonly UltimaOverlay _overlay;
+    private Viewport? _viewport;
     private CombatState? _lastState;
     private bool _scheduled;
     private bool _stopped;
@@ -72,6 +73,9 @@ internal sealed class CombatSession
         MultiFeature.Changed += Schedule;
         _overlay.PingRequested += OnPingRequested;
         _overlay.TreeExiting += OnOverlayExiting;
+        // Fenêtre redimensionnée : les zones à éviter changent → nouveau refresh (QA v2 crit. 11).
+        _viewport = _ui.GetViewport();
+        if (_viewport != null) _viewport.SizeChanged += Schedule;
 
         // R8 : tout le transport custom (ping V0.1 compris) est soumis à [net] custom_messages.
         if (UltimaConfig.CustomNetMessages) NetBridge.Attach();
@@ -173,6 +177,7 @@ internal sealed class CombatSession
                 _overlay.PingRequested -= OnPingRequested;
                 _overlay.TreeExiting -= OnOverlayExiting;
             }
+            if (_viewport != null && GodotObject.IsInstanceValid(_viewport)) _viewport.SizeChanged -= Schedule;
             if (GodotObject.IsInstanceValid(_ui)) HandBadges.Clear(_ui);
             MultiFeature.OnCombatEnd();
             ScoreFeature.OnCombatEnd();     // F5 : flush mods/Ultima/runscore.csv
