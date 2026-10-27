@@ -103,7 +103,7 @@ public partial class EnemyRow : VBoxContainer
             _detail.AddChild(l);
         }
         var font = UltimaFonts.Get(role);
-        if (font != null) l.AddThemeFontOverride("font", font);
+        if (font != null && l.GetThemeFont("font") != font) l.AddThemeFontOverride("font", font);
         UltimaFonts.SetColor(l, color);
         l.Text = "  " + prefix + text;
         _detailUsed++;
