@@ -1,5 +1,8 @@
 # 17 — Charte graphique ULTIMA (dérivée des assets du jeu)
 
+> Voir aussi `docs/14-design-system-uiux.md` (design system étendu : anatomie du layout,
+> 4 modules fonctionnels, états visuels). `docs/17` fait foi en cas de divergence.
+>
 > **Statut : contrat visuel.** Aucune UI n'est mergée si elle ne respecte pas ce document.
 > Toutes les couleurs ci-dessous sont **extraites des thèmes du jeu**, pas inventées :
 > source dans `game/pck/themes/*.tres` (v0.107.1). Chaque valeur est reproductible.
