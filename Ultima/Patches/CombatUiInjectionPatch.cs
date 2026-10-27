@@ -1,13 +1,12 @@
 using System;
-using Godot;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Nodes.Combat;
 
 namespace Ultima.Patches;
 
 /// <summary>
-/// Injecte l'overlay ULTIMA dans l'écran de combat. Une instance par combat.
-/// Cible vérifiée : NCombatUi._Ready (même approche que sts2decktracker, v0.107.1).
+/// Injecte l'overlay ULTIMA dans l'écran de combat et démarre la session de composition.
+/// Une instance par combat. Cible vérifiée : NCombatUi._Ready (même approche que sts2decktracker, v0.107.1).
 /// </summary>
 [HarmonyPatch(typeof(NCombatUi), nameof(NCombatUi._Ready))]
 internal static class CombatUiInjectionPatch
@@ -16,17 +15,11 @@ internal static class CombatUiInjectionPatch
     {
         try
         {
-            var overlay = new Overlay.UltimaOverlay
-            {
-                Name = "UltimaOverlay",
-                Position = new Vector2(20, 160),
-            };
-            __instance.AddChild(overlay);
-            ModEntry.Write("overlay injected");
+            CombatSession.Start(__instance);
         }
         catch (Exception ex)
         {
-            ModEntry.Write($"overlay injection failed: {ex.Message}");
+            ModEntry.Write($"overlay injection failed: {ex.GetType().Name}: {ex.Message}");
         }
     }
 }
