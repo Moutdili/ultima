@@ -28,7 +28,8 @@ public static class UltimaStyles
         return s;
     }
 
-    /// <summary>Liseré seul (sans fond), posé sur le ColorRect du shader (rectangulaire → radius 0).</summary>
+    /// <summary>Liseré seul (sans fond) posé SUR le verre shader : 1 px gold @0.18, radius 10
+    /// (même rayon que le masque SDF du shader).</summary>
     public static StyleBoxFlat GlassEdge()
     {
         var s = new StyleBoxFlat
@@ -38,7 +39,23 @@ public static class UltimaStyles
             AntiAliasing = true,
         };
         s.SetBorderWidthAll(BorderWidth);
-        s.SetCornerRadiusAll(0);
+        s.SetCornerRadiusAll(CornerRadius);
+        return s;
+    }
+
+    /// <summary>Ombre seule DERRIÈRE le verre shader : noir @0.35, taille 6, radius 10. Avec
+    /// DrawCenter=false, StyleBoxFlat trace l'anneau d'ombre (dégradé vers l'extérieur) mais
+    /// pas son centre : rien n'assombrit le verre par-dessous.</summary>
+    public static StyleBoxFlat ShadowOnly()
+    {
+        var s = new StyleBoxFlat
+        {
+            DrawCenter = false,
+            ShadowColor = UltimaPalette.GlassShadow,
+            ShadowSize = ShadowSize,
+            AntiAliasing = true,
+        };
+        s.SetCornerRadiusAll(CornerRadius);
         return s;
     }
 

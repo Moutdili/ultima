@@ -38,9 +38,9 @@ public partial class ThreatList : VBoxContainer
     {
         var box = new HBoxContainer { MouseFilter = MouseFilterEnum.Ignore };
         box.AddThemeConstantOverride("separation", 6);
-        var name = UltimaFonts.NewLabel(FontRole.Body, 12, UltimaPalette.Cream);
+        var name = UltimaFonts.NewLabel(FontRole.Body, 14, UltimaPalette.Cream);
         name.SizeFlagsHorizontal = SizeFlags.ExpandFill;
-        var info = UltimaFonts.NewLabel(FontRole.Mono, 12, UltimaPalette.Cream, trim: false);
+        var info = UltimaFonts.NewLabel(FontRole.Mono, 14, UltimaPalette.Cream, trim: false);
         box.AddChild(name);
         box.AddChild(info);
         AddChild(box);

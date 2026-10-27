@@ -18,13 +18,15 @@ public partial class UltimaOverlay : Control
     public const int ExpandedWidth = 260;
     public const double ExpandDuration = 0.18;
     public const double DefaultCollapseDelaySec = 2.5;
-    public const float RestAlpha = 0.35f;            // SPEC F7 : 0.25-0.35
+    public const float RestAlpha = 0.30f;            // skill sts2-overlay-ui ; SPEC F7 : 0.25-0.35
+    public const double FadeDuration = 0.15;         // fondu d'opacité au survol (skill : 150 ms)
     public const int Pad = 10;
     public const int ContentWidth = ExpandedWidth - RailWidth - 2 * Pad;
     public const int CriticalHpPercent = 30;
     private const int PastilleHeight = 14, PastilleGap = 6, RailPad = 4;
     public const int RailHeight = 2 * RailPad + 3 * PastilleHeight + 2 * PastilleGap;
     private const string GlassShaderResource = "Ultima.Shaders.glass_blur.gdshader";
+    private const int MenuDetail = 0, MenuHide = 1;
 
     public float BlurAmount { get; set; } = 2.0f;
     public double CollapseDelaySec { get; set; } = DefaultCollapseDelaySec;
@@ -32,14 +34,17 @@ public partial class UltimaOverlay : Control
 
     private Control? _root, _clip, _rail;
     private ShaderMaterial? _glassMat;
+    private ColorRect? _glass;
     private VBoxContainer? _content, _enemies;
-    private Label? _header, _notice, _turn;
+    private Label? _header, _vitals, _notice, _turn, _turnBy;
     private ThreatList? _threats;
     private PriorityStrip? _priority;
     private readonly List<EnemyRow> _rows = new();
     private readonly StyleBoxFlat[] _pastilles = new StyleBoxFlat[3];
     private Godot.Timer? _collapseTimer;
-    private Tween? _tween;
+    private PopupMenu? _menu;
+    private Tween? _tween, _fadeTween;
+    private float _fadeTarget = RestAlpha;
     private Viewport? _viewport;
 
     private CombatSnapshot? _snapshot;
@@ -98,16 +103,28 @@ public partial class UltimaOverlay : Control
         {
             if (_viewport != null) _viewport.SizeChanged -= OnViewportSizeChanged;
             _tween?.Kill();
+            _fadeTween?.Kill();
         }
         catch (Exception ex) { ModEntry.Write($"ui _ExitTree: {ex}"); }
     }
 
-    /// <summary>Survol uniquement : ne marque JAMAIS l'événement souris comme traité.</summary>
+    /// <summary>
+    /// Survol : ne marque JAMAIS l'événement comme traité. Seule exception (charte §4, menu) :
+    /// un clic DROIT dans la zone de l'overlay est consommé et ouvre le menu contextuel.
+    /// </summary>
     public override void _Input(InputEvent @event)
     {
         try
         {
-            if (@event is not InputEventMouseMotion || _root == null || _hidden) return;
+            if (_root == null || _hidden) return;
+            if (@event is InputEventMouseButton { ButtonIndex: MouseButton.Right } mb)
+            {
+                if (!_root.GetGlobalRect().HasPoint(_root.GetGlobalMousePosition())) return;
+                GetViewport()?.SetInputAsHandled();
+                if (mb.Pressed) OpenMenu();
+                return;
+            }
+            if (@event is not InputEventMouseMotion) return;
             bool inside = _root.GetGlobalRect().HasPoint(_root.GetGlobalMousePosition());
             if (inside == _hovered) return;
             _hovered = inside;
@@ -153,17 +170,24 @@ public partial class UltimaOverlay : Control
         _content.AddThemeConstantOverride("separation", 4);
         _clip.AddChild(_content);
 
-        _header = UltimaFonts.NewLabel(FontRole.Title, 16, UltimaPalette.Cream);
+        var headerLine = new HBoxContainer { MouseFilter = MouseFilterEnum.Ignore };
+        headerLine.AddThemeConstantOverride("separation", 6);
+        _header = UltimaFonts.NewLabel(FontRole.Title, 16, UltimaPalette.Cream, trim: false);
+        _vitals = UltimaFonts.NewLabel(FontRole.Mono, 16, UltimaPalette.Cream); // chiffres PV : SCP
+        _vitals.SizeFlagsHorizontal = SizeFlags.ExpandFill;
+        headerLine.AddChild(_header);
+        headerLine.AddChild(_vitals);
         _enemies = new VBoxContainer { MouseFilter = MouseFilterEnum.Ignore };
         _enemies.AddThemeConstantOverride("separation", 2);
-        _notice = UltimaFonts.NewLabel(FontRole.Body, 12, UltimaPalette.Orange);
+        _notice = UltimaFonts.NewLabel(FontRole.Body, 14, UltimaPalette.Orange);
         _notice.Text = OverlayText.ForecastUnavailable;
-        _turn = UltimaFonts.NewLabel(FontRole.Body, 12, UltimaPalette.Cream); // LÉTAL avant le nom : seule la fin est tronquée
+        _turn = UltimaFonts.NewLabel(FontRole.Mono, 14, UltimaPalette.Cream); // chiffres PV : SCP
+        _turnBy = UltimaFonts.NewLabel(FontRole.Body, 14, UltimaPalette.Cream);
         _threats = new ThreatList();
         _priority = new PriorityStrip();
-        var footer = UltimaFonts.NewLabel(FontRole.Body, 12, UltimaPalette.HalfTransparentCream);
+        var footer = UltimaFonts.NewLabel(FontRole.Body, 14, UltimaPalette.HalfTransparentCream);
         footer.Text = OverlayText.Footer;
-        foreach (var c in new Control[] { _header, _enemies, _notice, _turn, _threats, _priority, footer })
+        foreach (var c in new Control[] { headerLine, _enemies, _notice, _turn, _turnBy, _threats, _priority, footer })
             _content.AddChild(c);
 
         _rail = new Control { MouseFilter = MouseFilterEnum.Ignore, Size = new Vector2(RailWidth, RailHeight) };
@@ -180,6 +204,8 @@ public partial class UltimaOverlay : Control
             p.AddThemeStyleboxOverride("panel", _pastilles[i]);
             _rail.AddChild(p);
         }
+
+        BuildMenu();
 
         _collapseTimer = new Godot.Timer { OneShot = true, WaitTime = Math.Max(0.05, CollapseDelaySec) };
         _collapseTimer.Timeout += OnCollapseTimeout;
@@ -201,15 +227,70 @@ public partial class UltimaOverlay : Control
             root.AddChild(panel);
             return;
         }
+        // ombre DERRIÈRE le verre (Panel dédié, StyleBoxFlat ombre seule)
+        var shadow = new Panel { MouseFilter = MouseFilterEnum.Ignore };
+        shadow.AddThemeStyleboxOverride("panel", UltimaStyles.ShadowOnly());
+        shadow.SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
+        root.AddChild(shadow);
+
         _glassMat = new ShaderMaterial { Shader = shader };
         _glassMat.SetShaderParameter("blur_amount", Mathf.Clamp(BlurAmount, 0f, 6f));
-        var glass = new ColorRect { MouseFilter = MouseFilterEnum.Ignore, Material = _glassMat };
+        _glassMat.SetShaderParameter("corner_radius", (float)UltimaStyles.CornerRadius);
+        // Color = repli visuel si le shader ne compile pas (sinon rectangle blanc) ; réécrit par COLOR.
+        var glass = new ColorRect { MouseFilter = MouseFilterEnum.Ignore, Material = _glassMat, Color = UltimaPalette.GlassFill };
         glass.SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
+        glass.Resized += OnGlassResized;   // rect_size du masque SDF : sur événement, pas par frame
         root.AddChild(glass);
+        _glass = glass;
         var edge = new Panel { MouseFilter = MouseFilterEnum.Ignore };
         edge.AddThemeStyleboxOverride("panel", UltimaStyles.GlassEdge());
         edge.SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
         root.AddChild(edge);
+    }
+
+    /// <summary>Menu clic droit (charte §4) : « Détail (F9) » / « Masquer (F8) », style verre.</summary>
+    private void BuildMenu()
+    {
+        _menu = new PopupMenu { Name = "UltimaMenu" };
+        _menu.AddCheckItem("Détail (F9)", MenuDetail);
+        _menu.AddItem("Masquer (F8)", MenuHide);
+        _menu.AddThemeStyleboxOverride("panel", UltimaStyles.Glass());
+        var font = UltimaFonts.Get(FontRole.Body);
+        if (font != null) _menu.AddThemeFontOverride("font", font);
+        _menu.AddThemeFontSizeOverride("font_size", UltimaFonts.MinFontSize);
+        _menu.AddThemeColorOverride("font_color", UltimaPalette.Cream);
+        _menu.AddThemeColorOverride("font_hover_color", UltimaPalette.Gold);
+        _menu.IdPressed += OnMenuId;
+        AddChild(_menu);
+    }
+
+    private void OpenMenu()
+    {
+        if (_menu == null || _root == null) return;
+        _menu.SetItemChecked(_menu.GetItemIndex(MenuDetail), _detail);
+        Vector2 at = _root.GetScreenTransform() * _root.GetLocalMousePosition();
+        _menu.Position = new Vector2I((int)at.X, (int)at.Y);
+        _menu.ResetSize();
+        _menu.Popup();
+    }
+
+    private void OnMenuId(long id)
+    {
+        try
+        {
+            if (id == MenuDetail) { _detail = !_detail; Apply(); }
+            else if (id == MenuHide) ToggleHidden();
+        }
+        catch (Exception ex) { ModEntry.Write($"ui menu: {ex}"); }
+    }
+
+    private void OnGlassResized()
+    {
+        try
+        {
+            if (_glass != null) _glassMat?.SetShaderParameter("rect_size", _glass.Size);
+        }
+        catch (Exception ex) { ModEntry.Write($"ui glass resized: {ex}"); }
     }
 
     private static Shader? LoadGlassShader()
