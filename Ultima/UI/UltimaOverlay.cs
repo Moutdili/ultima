@@ -160,30 +160,31 @@ public partial class UltimaOverlay : Control
     /// </summary>
     private void PollKeys()
     {
-        // 1 / 2 / 3 : touches principales. Libres en build release — les chiffres ne sont
-        // mappés que sur des DebugHotkey côté jeu (NInputManager.cs:26), jamais sur les cartes.
-        bool k1 = Input.IsPhysicalKeyPressed(Key.Key1);
+        // MAJ + 1/2/3 : les chiffres seuls sont mappés par le jeu (NInputManager), donc on
+        // exige Shift pour ne jamais marcher sur un raccourci existant.
+        bool shift = Input.IsPhysicalKeyPressed(Key.Shift);
+        bool k1 = shift && Input.IsPhysicalKeyPressed(Key.Key1);
         if (k1 && !_k1Down)
         {
             _detail = !_detail;
             Apply();
-            ModEntry.Write($"ui key 1 -> detail={_detail}");
+            ModEntry.Write($"ui key Maj+1 -> detail={_detail}");
         }
         _k1Down = k1;
 
-        bool k2 = Input.IsPhysicalKeyPressed(Key.Key2);
+        bool k2 = shift && Input.IsPhysicalKeyPressed(Key.Key2);
         if (k2 && !_k2Down)
         {
             ToggleHidden();
-            ModEntry.Write($"ui key 2 -> hidden={_hidden}");
+            ModEntry.Write($"ui key Maj+2 -> hidden={_hidden}");
         }
         _k2Down = k2;
 
-        bool k3 = Input.IsPhysicalKeyPressed(Key.Key3);
+        bool k3 = shift && Input.IsPhysicalKeyPressed(Key.Key3);
         if (k3 && !_k3Down)
         {
             PingRequested?.Invoke();
-            ModEntry.Write("ui key 3 -> ping");
+            ModEntry.Write("ui key Maj+3 -> ping");
         }
         _k3Down = k3;
 
@@ -309,8 +310,8 @@ public partial class UltimaOverlay : Control
     private void BuildMenu()
     {
         _menu = new PopupMenu { Name = "UltimaMenu" };
-        _menu.AddCheckItem("Détail (1)", MenuDetail);
-        _menu.AddItem("Masquer (2)", MenuHide);
+        _menu.AddCheckItem("Détail (Maj+1)", MenuDetail);
+        _menu.AddItem("Masquer (Maj+2)", MenuHide);
         _menu.AddThemeStyleboxOverride("panel", UltimaStyles.Glass());
         var font = UltimaFonts.Get(FontRole.Body);
         if (font != null) _menu.AddThemeFontOverride("font", font);
