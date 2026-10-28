@@ -1,0 +1,36 @@
+# pid=81569 : 10 transitions rail<->panneau (CLK_TCK=100)
+ticks avant=77 apres=125 delta=48 -> 480 ms CPU pour 10 transitions (~48 ms/transition)
+19:01:12.622 [ultima-x11] transition 14->260px en 184 ms, 18 images
+19:01:12.961 [ultima-x11] transition 260->14px en 182 ms, 19 images
+19:01:13.308 [ultima-x11] transition 14->260px en 184 ms, 18 images
+19:01:13.650 [ultima-x11] transition 260->14px en 184 ms, 19 images
+19:01:14.002 [ultima-x11] transition 14->260px en 190 ms, 18 images
+19:01:14.339 [ultima-x11] transition 260->14px en 183 ms, 19 images
+19:01:14.691 [ultima-x11] transition 14->260px en 186 ms, 18 images
+19:01:15.039 [ultima-x11] transition 260->14px en 184 ms, 19 images
+19:01:15.385 [ultima-x11] transition 14->260px en 184 ms, 18 images
+19:01:15.729 [ultima-x11] transition 260->14px en 181 ms, 19 images
+# APRES cache du panneau. pid=108166 : 10 transitions rail<->panneau (CLK_TCK=100)
+ticks avant=6 apres=27 delta=21 -> 210 ms CPU pour 10 transitions
+19:01:43.189 [ultima-x11] transition 14->260px en 183 ms, 20 images
+19:01:43.550 [ultima-x11] transition 260->14px en 182 ms, 22 images
+19:01:43.895 [ultima-x11] transition 14->260px en 180 ms, 21 images
+19:01:44.242 [ultima-x11] transition 260->14px en 184 ms, 22 images
+19:01:44.589 [ultima-x11] transition 14->260px en 187 ms, 22 images
+19:01:44.932 [ultima-x11] transition 260->14px en 188 ms, 23 images
+19:01:45.274 [ultima-x11] transition 14->260px en 186 ms, 22 images
+19:01:45.620 [ultima-x11] transition 260->14px en 188 ms, 23 images
+19:01:45.954 [ultima-x11] transition 14->260px en 181 ms, 21 images
+19:01:46.301 [ultima-x11] transition 260->14px en 188 ms, 23 images
+# FINAL (cache + 60 Hz). pid=110482 : 10 transitions rail<->panneau (CLK_TCK=100)
+ticks avant=6 apres=22 delta=16 -> 160 ms CPU pour 10 transitions
+19:02:06.872 [ultima-x11] transition 14->260px en 184 ms, 12 images
+19:02:07.224 [ultima-x11] transition 260->14px en 190 ms, 13 images
+19:02:07.569 [ultima-x11] transition 14->260px en 193 ms, 13 images
+19:02:07.909 [ultima-x11] transition 260->14px en 188 ms, 13 images
+19:02:08.255 [ultima-x11] transition 14->260px en 193 ms, 13 images
+19:02:08.599 [ultima-x11] transition 260->14px en 190 ms, 13 images
+19:02:08.944 [ultima-x11] transition 14->260px en 194 ms, 13 images
+19:02:09.280 [ultima-x11] transition 260->14px en 189 ms, 13 images
+19:02:09.622 [ultima-x11] transition 14->260px en 193 ms, 13 images
+19:02:09.964 [ultima-x11] transition 260->14px en 191 ms, 13 images

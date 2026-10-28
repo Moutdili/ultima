@@ -1,0 +1,13 @@
+# CPU ultima-x11 pid=81569 au repos (rail replie, substitut plein ecran au-dessous), fenetre 30 s
+utime+stime ticks: debut=20 fin=20 delta=0 (CLK_TCK=100)
+cpu_pct_sur_fenetre = 0.000 %
+ps -o %cpu (moyenne depuis le lancement) :
+    PID %CPU   RSS NLWP     ELAPSED CMD
+  81569  0.2 52816    9       01:36 dotnet /home/mio/v2-verrier-x11/overlay/x11/build/ultima-x11.dll run
+voluntary_ctxt_switches:	161
+nonvoluntary_ctxt_switches:	20
+# FINAL CPU au repos pid=110482 (rail replie, substitut plein ecran dessous), 30 s
+ticks debut=22 fin=22 delta=0
+cpu_pct_sur_fenetre = 0.000 %
+    PID %CPU   RSS NLWP     ELAPSED CMD
+ 110482  0.4 48468    9       00:47 dotnet /home/mio/v2-verrier-x11/overlay/x11/build/ultima-x11.dll run

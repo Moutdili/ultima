@@ -1,0 +1,23 @@
+/home/mio/v2-verrier-x11/overlay/x11/substitute/fake-fullscreen-game.py:95: DeprecationWarning: Gtk.Window.set_wmclass is deprecated
+  win.set_wmclass("ultima-substitut", "UltimaSubstitut")
+19:00:46 [substitut] xid=0x1600003 pid=105232 DISPLAY=:0
+19:00:46 [substitut] etat fenetre : fullscreen=True focused=True
+19:00:46 [substitut] etat fenetre : fullscreen=True focused=False
+19:00:46 [substitut] etat fenetre : fullscreen=True focused=False
+19:00:46 [substitut] etat fenetre : fullscreen=True focused=True
+19:00:46 [substitut] focus GAGNE
+19:00:46 [substitut] pointeur ENTREE x=1370 y=549 detail=virtual
+19:00:49 [substitut] CLIC bouton=1 x=1429 y=193
+19:00:49 [substitut] pointeur SORTIE x=1429 y=193 detail=inferior
+19:00:49 [substitut] pointeur SORTIE x=1386 y=255 detail=virtual
+19:00:50 [substitut] pointeur ENTREE x=1386 y=255 detail=virtual
+19:00:50 [substitut] CLIC bouton=1 x=1382 y=331
+19:00:50 [substitut] pointeur SORTIE x=1382 y=331 detail=inferior
+19:00:51 [substitut] CLIC bouton=1 x=1535 y=237
+19:00:51 [substitut] pointeur SORTIE x=1535 y=237 detail=inferior
+19:00:52 [substitut] CLIC bouton=1 x=1440 y=207
+19:00:52 [substitut] pointeur SORTIE x=1440 y=207 detail=inferior
+19:00:54 [substitut] pointeur SORTIE x=1360 y=279 detail=virtual
+19:00:58 [substitut] focus PERDU
+19:00:58 [substitut] etat fenetre : fullscreen=True focused=False
+19:01:11 [substitut] fin (4 clics)

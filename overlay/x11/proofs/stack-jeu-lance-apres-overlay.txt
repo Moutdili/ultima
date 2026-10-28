@@ -1,0 +1,7 @@
+# XQueryTree(root=0x411) : 22 enfants, ordre bas -> haut ; seuls les visibles (IsViewable) sont listes
+  0 pos=   0 0x00400009 1536x960+0+0 depth=0 override_redirect=1 name="mutter guard window"
+  1 pos=   4 0x00400003 1x1+-100+-100 depth=24 override_redirect=1 name=""
+  2 pos=  17 0x00c0001a 3072x1920+0+0 depth=32 override_redirect=0 name="ULTIMA substitut jeu (X11 plein ecran)"
+  3 pos=  19 0x00c00026 3072x1920+0+0 depth=32 override_redirect=0 name="ULTIMA substitut jeu (X11 plein ecran)"
+  4 pos=  20 0x01400002 520x464+2552+240 depth=32 override_redirect=1 name="ULTIMA"
+# la derniere ligne = la fenetre la plus haute dans la pile X

@@ -1,0 +1,63 @@
+18:58:00.623 [ultima-x11] polices du jeu chargees depuis /home/mio/sts2/game/pck/fonts
+18:58:00.633 [ultima-x11] window=0x1400002 visual=0x79 depth=32 override_redirect=1 screen=3072x1920 scale=2 (Xft.dpi=192) geom=28x464+3044+240 xfixes=6.0
+18:58:00.634 [ultima-x11] input_region_rects=0 (0 = click-through total)
+18:58:00.640 [ultima-x11] pid=81569 socket=/run/user/1000/ultima-x11.sock
+18:58:02.610 [ultima-x11] cmd 'status' -> ok window=0x1400002 expanded=false visible=true width=14 height=232 scale=2 xgeom=28x464+3044+240 input_rects=0 area_pct=0.22
+18:58:07.088 [ultima-x11] cmd 'snapshot /home/mio/v2-verrier-x11/overlay/x11/proofs/render-rail.png' -> ok /home/mio/v2-verrier-x11/overlay/x11/proofs/render-rail.png
+18:58:07.136 [ultima-x11] cmd 'toggle' -> ok expanded
+18:58:07.317 [ultima-x11] transition 14->260px en 187 ms, 18 images
+18:58:07.681 [ultima-x11] cmd 'status' -> ok window=0x1400002 expanded=true visible=true width=260 height=232 scale=2 xgeom=520x464+2552+240 input_rects=0 area_pct=4.09
+18:58:07.727 [ultima-x11] cmd 'snapshot /home/mio/v2-verrier-x11/overlay/x11/proofs/render-panel.png' -> ok /home/mio/v2-verrier-x11/overlay/x11/proofs/render-panel.png
+18:59:00.497 [ultima-x11] cmd 'toggle' -> ok collapsed
+18:59:00.680 [ultima-x11] transition 260->14px en 184 ms, 19 images
+19:00:01.013 [ultima-x11] cmd 'hide' -> ok hidden
+19:00:01.055 [ultima-x11] cmd 'status' -> ok window=0x1400002 expanded=false visible=false width=14 height=232 scale=2 xgeom=28x464+3044+240 input_rects=0 area_pct=0.22
+19:00:01.126 [ultima-x11] cmd 'show' -> ok shown
+19:00:01.201 [ultima-x11] cmd 'bogus' -> err commande inconnue 'bogus'
+19:00:46.358 [ultima-x11] cmd 'expand' -> ok expanded
+19:00:46.549 [ultima-x11] transition 14->260px en 191 ms, 19 images
+19:00:50.334 [ultima-x11] cmd 'collapse' -> ok collapsed
+19:00:50.515 [ultima-x11] transition 260->14px en 182 ms, 19 images
+19:01:04.354 [ultima-x11] cmd 'toggle' -> ok expanded
+19:01:04.539 [ultima-x11] transition 14->260px en 185 ms, 18 images
+19:01:04.702 [ultima-x11] cmd 'toggle' -> ok collapsed
+19:01:04.887 [ultima-x11] transition 260->14px en 187 ms, 20 images
+19:01:05.042 [ultima-x11] cmd 'toggle' -> ok expanded
+19:01:05.224 [ultima-x11] transition 14->260px en 182 ms, 18 images
+19:01:05.385 [ultima-x11] cmd 'toggle' -> ok collapsed
+19:01:05.572 [ultima-x11] transition 260->14px en 188 ms, 20 images
+19:01:05.723 [ultima-x11] cmd 'toggle' -> ok expanded
+19:01:05.904 [ultima-x11] transition 14->260px en 181 ms, 18 images
+19:01:06.073 [ultima-x11] cmd 'toggle' -> ok collapsed
+19:01:06.255 [ultima-x11] transition 260->14px en 184 ms, 19 images
+19:01:06.422 [ultima-x11] cmd 'toggle' -> ok expanded
+19:01:06.611 [ultima-x11] transition 14->260px en 190 ms, 19 images
+19:01:06.771 [ultima-x11] cmd 'toggle' -> ok collapsed
+19:01:06.956 [ultima-x11] transition 260->14px en 187 ms, 19 images
+19:01:07.114 [ultima-x11] cmd 'toggle' -> ok expanded
+19:01:07.302 [ultima-x11] transition 14->260px en 189 ms, 19 images
+19:01:07.454 [ultima-x11] cmd 'toggle' -> ok collapsed
+19:01:07.635 [ultima-x11] transition 260->14px en 183 ms, 19 images
+19:01:07.805 [ultima-x11] cmd 'status' -> ok window=0x1400002 expanded=false visible=true width=14 height=232 scale=2 xgeom=28x464+3044+240 input_rects=0 area_pct=0.22
+19:01:12.438 [ultima-x11] cmd 'toggle' -> ok expanded
+19:01:12.622 [ultima-x11] transition 14->260px en 184 ms, 18 images
+19:01:12.781 [ultima-x11] cmd 'toggle' -> ok collapsed
+19:01:12.961 [ultima-x11] transition 260->14px en 182 ms, 19 images
+19:01:13.124 [ultima-x11] cmd 'toggle' -> ok expanded
+19:01:13.308 [ultima-x11] transition 14->260px en 184 ms, 18 images
+19:01:13.467 [ultima-x11] cmd 'toggle' -> ok collapsed
+19:01:13.650 [ultima-x11] transition 260->14px en 184 ms, 19 images
+19:01:13.812 [ultima-x11] cmd 'toggle' -> ok expanded
+19:01:14.002 [ultima-x11] transition 14->260px en 190 ms, 18 images
+19:01:14.157 [ultima-x11] cmd 'toggle' -> ok collapsed
+19:01:14.339 [ultima-x11] transition 260->14px en 183 ms, 19 images
+19:01:14.506 [ultima-x11] cmd 'toggle' -> ok expanded
+19:01:14.691 [ultima-x11] transition 14->260px en 186 ms, 18 images
+19:01:14.858 [ultima-x11] cmd 'toggle' -> ok collapsed
+19:01:15.039 [ultima-x11] transition 260->14px en 184 ms, 19 images
+19:01:15.200 [ultima-x11] cmd 'toggle' -> ok expanded
+19:01:15.385 [ultima-x11] transition 14->260px en 184 ms, 18 images
+19:01:15.550 [ultima-x11] cmd 'toggle' -> ok collapsed
+19:01:15.729 [ultima-x11] transition 260->14px en 181 ms, 19 images
+19:01:32.224 [ultima-x11] cmd 'quit' -> ok bye
+19:01:32.224 [ultima-x11] arret

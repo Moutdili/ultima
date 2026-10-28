@@ -1,0 +1,9 @@
+_NET_CLIENT_LIST_STACKING(WINDOW): window id # 0x1200003
+_NET_ACTIVE_WINDOW(WINDOW): window id # 0x1200003
+_NET_WM_STATE(ATOM) = _NET_WM_STATE_FULLSCREEN, _NET_WM_STATE_FOCUSED
+WM_NAME(STRING) = "ULTIMA substitut jeu (X11 plein ecran)"
+WM_NAME(STRING) = "ULTIMA"
+WM_CLASS(STRING) = "ultima-x11", "Ultima"
+WM_HINTS(WM_HINTS):
+		Client accepts input or input focus: False
+_NET_WM_PID(CARDINAL) = 81569
