@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist gettext-domain="ultima">
+  <schema id="org.gnome.shell.extensions.ultima" path="/org/gnome/shell/extensions/ultima/">
+    <key name="toggle-panel" type="as">
+      <default><![CDATA[['<Super>F9']]]></default>
+      <summary>Déployer / replier le panneau (épinglé)</summary>
+      <description>Raccourci global géré par le compositeur : le jeu ne reçoit jamais la touche (leçon v1 n°3).</description>
+    </key>
+    <key name="toggle-visible" type="as">
+      <default><![CDATA[['<Super>F8']]]></default>
+      <summary>Masquer / afficher ULTIMA</summary>
+      <description>Masquage total (charte docs/17 §4, F8). Masqué : aucun suivi du pointeur, aucun coût.</description>
+    </key>
+    <key name="top-fraction" type="d">
+      <range min="0.0" max="0.9"/>
+      <default>0.22</default>
+      <summary>Haut du rail (fraction de la hauteur d'écran)</summary>
+      <description>Réglable sans recompiler pour éviter tout chevauchement avec les intents ou le bouton de fin de tour.</description>
+    </key>
+    <key name="height-fraction" type="d">
+      <range min="0.1" max="1.0"/>
+      <default>0.36</default>
+      <summary>Hauteur du rail et du panneau (fraction de la hauteur d'écran)</summary>
+      <description>0.36 en 1080p : 389 px ; surface repliée 0,26 %, déployée 4,9 %.</description>
+    </key>
+  </schema>
+</schemalist>

@@ -1,0 +1,9 @@
+{
+  "uuid": "ultima@mio",
+  "name": "ULTIMA overlay",
+  "description": "Panneau ULTIMA (tracker Slay the Spire 2) dessiné par le compositeur au-dessus du jeu plein écran : rail, verre flouté, click-through, raccourcis globaux. Spike S1, moteur B.",
+  "shell-version": ["50"],
+  "settings-schema": "org.gnome.shell.extensions.ultima",
+  "version-name": "0.1.0-spike",
+  "url": "https://github.com/Moutdili/ultima"
+}
