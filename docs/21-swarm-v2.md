@@ -149,6 +149,10 @@ Vague 2
 - **Git** : une branche par agent (`v2/<rôle>`), worktree dédié ; seul le chef merge dans `main`.
   **Hermes** (décision de Mio) : libre sur main. Le chef fait `git pull --ff-only` avant chaque
   push, ne touche jamais aux fichiers que Hermes a en cours, et le signale dans `STATUS.md`.
+- **Le bureau de Mio est à lui** (incident 2026-10-28 : un substitut plein écran a recouvert
+  son écran 4 min et une capture a enregistré une vidéo qu'il regardait). Sans fenêtre de test
+  convenue : aucune fenêtre visible, aucune capture d'écran, aucune entrée simulée, aucune
+  extension installée. Les tests visuels passent par le banc `tools/lab/` PENDANT une fenêtre de test.
 - **Les agents ne lancent JAMAIS le jeu.** Ils travaillent sur des substituts (fenêtre X11
   plein écran factice, session GNOME imbriquée, `sts2.dll` statique via MCP `rea`) puis
   demandent une fenêtre de test au chef.
