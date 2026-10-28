@@ -477,3 +477,23 @@ Décisions Mio : lecture mémoire OUI · probabiliste seulement · plein écran 
 4. C1 : lancer l'overlay X11, toggle, capture composée → visible au-dessus du plein écran ?
 5. C2 : installer l'extension, se reconnecter, activer, raccourci, capture → visible ? verre ?
 6. Fin : rapport d'audit (aucune écriture d'ULTIMA, `mods/` absent).
+
+## Vague 0 — résultats (19:09) : tout mergé, AUCUNE preuve sur le vrai jeu encore
+| Agent | Résultat prouvé | Non prouvé (→ fenêtre de test n°1) |
+|---|---|---|
+| G Forgeron | capture composée (portail), capture X11, audit no-write (réel : `mods/` vide, `modded/` intact), banc de test | WM_CLASS réelle du jeu |
+| F Éclaireur | méta v0.107.1, 4 sources datées, couverture complète (local) ; désaccord entre sources (ρ 0,19-0,44) | — |
+| C1 X11 | au-dessus d'un client X11 plein écran (capture composée), 49 clics traversants, 0 CPU au repos | vrai jeu Vulkan, FPS, pas de vrai flou |
+| C2 GNOME | 28/28 sur GNOME Shell 50.6 isolé : au-dessus du plein écran (addTopChrome + disable_unredirect), vrai flou, survol, Super+F9/F8 | vraie session, FPS avec flou |
+| A Archiviste | 250/250 runs, lecture sans verrou (strace), champs interdits jamais déclarés | save vanilla en cours, deck == écran |
+| B Miroir | ClrMD en process_vm_readv uniquement (0 ptrace/0 écriture), à travers bwrap imbriqués ; chemins récompense/shop | vrai jeu, prix affichés au shop |
+
+Pré-évaluation S1 : **C2 en tête** (vrai verre, survol, raccourcis natifs, plein écran couvert par le
+code de GNOME 50) ; C1 = repli (et support hors GNOME). Décision finale sur preuve réelle.
+
+Incident (mon brief) : C1 et G ont ouvert des fenêtres plein écran et pris des captures pendant que
+Mio utilisait son bureau (~4 min, une vidéo capturée puis supprimée, rien de commité). Règle ajoutée
+à docs/21 §6. Le banc C2 (GNOME Shell headless) a interrogé logind/GDM au 1er lancement ; session
+vérifiée intacte. Autorisation portail « screenshot » accordée (révocable).
+
+Prochaine étape : `tools/lab/TEST-WINDOW-1.md` (une déconnexion, ~35 min).
