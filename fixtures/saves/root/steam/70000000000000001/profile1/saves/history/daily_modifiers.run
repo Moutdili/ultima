@@ -1,0 +1,475 @@
+{
+  "acts": [
+    "ACT.UNDERDOCKS",
+    "ACT.HIVE",
+    "ACT.GLORY"
+  ],
+  "ascension": 0,
+  "build_id": "v0.107.1",
+  "game_mode": "daily",
+  "killed_by_encounter": "ENCOUNTER.GREMLIN_MERC_NORMAL",
+  "killed_by_event": "NONE.NONE",
+  "map_point_history": [
+    [
+      {
+        "map_point_type": "ancient",
+        "player_stats": [
+          {
+            "cards_gained": [
+              {
+                "id": "CARD.VOLTAIC"
+              },
+              {
+                "id": "CARD.GENETIC_ALGORITHM",
+                "props": {
+                  "ints": [
+                    {
+                      "name": "CurrentBlock",
+                      "value": 1
+                    },
+                    {
+                      "name": "IncreasedBlock",
+                      "value": 0
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "CARD.ICE_LANCE"
+              },
+              {
+                "id": "CARD.STORM"
+              },
+              {
+                "id": "CARD.CONSUMING_SHADOW"
+              },
+              {
+                "id": "CARD.TEMPEST"
+              },
+              {
+                "id": "CARD.COMPACT"
+              },
+              {
+                "id": "CARD.FOCUSED_STRIKE"
+              },
+              {
+                "id": "CARD.GLACIER"
+              },
+              {
+                "id": "CARD.CONSUMING_SHADOW"
+              },
+              {
+                "id": "CARD.ROCKET_PUNCH"
+              },
+              {
+                "id": "CARD.GLASSWORK"
+              },
+              {
+                "id": "CARD.VOLTAIC"
+              },
+              {
+                "id": "CARD.GLASSWORK"
+              },
+              {
+                "id": "CARD.LOOP"
+              },
+              {
+                "id": "CARD.CHAOS"
+              },
+              {
+                "id": "CARD.COOLHEADED"
+              },
+              {
+                "id": "CARD.TRASH_TO_TREASURE"
+              },
+              {
+                "id": "CARD.BALL_LIGHTNING"
+              },
+              {
+                "id": "CARD.ADAPTIVE_STRIKE"
+              },
+              {
+                "id": "CARD.SCRAPE"
+              },
+              {
+                "id": "CARD.FOCUSED_STRIKE"
+              },
+              {
+                "id": "CARD.FIGHT_THROUGH"
+              },
+              {
+                "id": "CARD.MACHINE_LEARNING"
+              },
+              {
+                "id": "CARD.METEOR_STRIKE"
+              },
+              {
+                "id": "CARD.SCAVENGE"
+              },
+              {
+                "id": "CARD.HOTFIX"
+              },
+              {
+                "id": "CARD.CLAW"
+              },
+              {
+                "id": "CARD.BOOT_SEQUENCE"
+              },
+              {
+                "id": "CARD.SCAVENGE"
+              }
+            ],
+            "current_gold": 99,
+            "current_hp": 75,
+            "damage_taken": 0,
+            "event_choices": [
+              {
+                "title": {
+                  "key": "INSANITY.title",
+                  "table": "modifiers"
+                }
+              }
+            ],
+            "gold_gained": 0,
+            "gold_lost": 0,
+            "gold_spent": 0,
+            "gold_stolen": 0,
+            "hp_healed": 75,
+            "max_hp": 75,
+            "max_hp_gained": 0,
+            "max_hp_lost": 0,
+            "player_id": 1,
+            "stolen_loot": 0
+          }
+        ],
+        "rooms": [
+          {
+            "model_id": "EVENT.NEOW",
+            "room_type": "event",
+            "turns_taken": 0
+          }
+        ]
+      },
+      {
+        "map_point_type": "monster",
+        "player_stats": [
+          {
+            "current_gold": 109,
+            "current_hp": 74,
+            "damage_taken": 1,
+            "gold_gained": 10,
+            "gold_lost": 0,
+            "gold_spent": 0,
+            "gold_stolen": 0,
+            "hp_healed": 0,
+            "max_hp": 75,
+            "max_hp_gained": 0,
+            "max_hp_lost": 0,
+            "player_id": 1,
+            "relic_choices": [
+              {
+                "choice": "RELIC.SYMBIOTIC_VIRUS",
+                "was_picked": true
+              }
+            ],
+            "stolen_loot": 0
+          }
+        ],
+        "rooms": [
+          {
+            "model_id": "ENCOUNTER.SEAPUNK_WEAK",
+            "monster_ids": [
+              "MONSTER.SEAPUNK"
+            ],
+            "room_type": "monster",
+            "turns_taken": 3
+          }
+        ]
+      },
+      {
+        "map_point_type": "monster",
+        "player_stats": [
+          {
+            "current_gold": 124,
+            "current_hp": 70,
+            "damage_taken": 4,
+            "gold_gained": 15,
+            "gold_lost": 0,
+            "gold_spent": 0,
+            "gold_stolen": 0,
+            "hp_healed": 0,
+            "max_hp": 75,
+            "max_hp_gained": 0,
+            "max_hp_lost": 0,
+            "player_id": 1,
+            "relic_choices": [
+              {
+                "choice": "RELIC.POTION_BELT",
+                "was_picked": true
+              }
+            ],
+            "stolen_loot": 0
+          }
+        ],
+        "rooms": [
+          {
+            "model_id": "ENCOUNTER.CORPSE_SLUGS_WEAK",
+            "monster_ids": [
+              "MONSTER.CORPSE_SLUG",
+              "MONSTER.CORPSE_SLUG"
+            ],
+            "room_type": "monster",
+            "turns_taken": 2
+          }
+        ]
+      },
+      {
+        "map_point_type": "monster",
+        "player_stats": [
+          {
+            "current_gold": 141,
+            "current_hp": 70,
+            "damage_taken": 0,
+            "gold_gained": 17,
+            "gold_lost": 0,
+            "gold_spent": 0,
+            "gold_stolen": 0,
+            "hp_healed": 0,
+            "max_hp": 75,
+            "max_hp_gained": 0,
+            "max_hp_lost": 0,
+            "player_id": 1,
+            "relic_choices": [
+              {
+                "choice": "RELIC.JUZU_BRACELET",
+                "was_picked": true
+              }
+            ],
+            "stolen_loot": 0
+          }
+        ],
+        "rooms": [
+          {
+            "model_id": "ENCOUNTER.TOADPOLES_WEAK",
+            "monster_ids": [
+              "MONSTER.TOADPOLE",
+              "MONSTER.TOADPOLE"
+            ],
+            "room_type": "monster",
+            "turns_taken": 2
+          }
+        ]
+      },
+      {
+        "map_point_type": "monster",
+        "player_stats": [
+          {
+            "current_gold": 0,
+            "current_hp": 0,
+            "damage_taken": 0,
+            "gold_gained": 0,
+            "gold_lost": 0,
+            "gold_spent": 0,
+            "gold_stolen": 20,
+            "hp_healed": 0,
+            "max_hp": 0,
+            "max_hp_gained": 0,
+            "max_hp_lost": 0,
+            "player_id": 1,
+            "stolen_loot": 0
+          }
+        ],
+        "rooms": [
+          {
+            "model_id": "ENCOUNTER.GREMLIN_MERC_NORMAL",
+            "monster_ids": [
+              "MONSTER.GREMLIN_MERC",
+              "MONSTER.SNEAKY_GREMLIN",
+              "MONSTER.FAT_GREMLIN"
+            ],
+            "room_type": "monster",
+            "turns_taken": 3
+          }
+        ]
+      }
+    ]
+  ],
+  "modifiers": [
+    {
+      "id": "MODIFIER.VINTAGE"
+    },
+    {
+      "id": "MODIFIER.INSANITY"
+    },
+    {
+      "id": "MODIFIER.NIGHT_TERRORS"
+    }
+  ],
+  "platform_type": "steam",
+  "players": [
+    {
+      "badges": [],
+      "character": "CHARACTER.DEFECT",
+      "deck": [
+        {
+          "floor_added_to_deck": 1,
+          "id": "CARD.VOLTAIC"
+        },
+        {
+          "floor_added_to_deck": 1,
+          "id": "CARD.GENETIC_ALGORITHM",
+          "props": {
+            "ints": [
+              {
+                "name": "CurrentBlock",
+                "value": 10
+              },
+              {
+                "name": "IncreasedBlock",
+                "value": 9
+              }
+            ]
+          }
+        },
+        {
+          "floor_added_to_deck": 1,
+          "id": "CARD.ICE_LANCE"
+        },
+        {
+          "floor_added_to_deck": 1,
+          "id": "CARD.STORM"
+        },
+        {
+          "floor_added_to_deck": 1,
+          "id": "CARD.CONSUMING_SHADOW"
+        },
+        {
+          "floor_added_to_deck": 1,
+          "id": "CARD.TEMPEST"
+        },
+        {
+          "floor_added_to_deck": 1,
+          "id": "CARD.COMPACT"
+        },
+        {
+          "floor_added_to_deck": 1,
+          "id": "CARD.FOCUSED_STRIKE"
+        },
+        {
+          "floor_added_to_deck": 1,
+          "id": "CARD.GLACIER"
+        },
+        {
+          "floor_added_to_deck": 1,
+          "id": "CARD.CONSUMING_SHADOW"
+        },
+        {
+          "floor_added_to_deck": 1,
+          "id": "CARD.ROCKET_PUNCH"
+        },
+        {
+          "floor_added_to_deck": 1,
+          "id": "CARD.GLASSWORK"
+        },
+        {
+          "floor_added_to_deck": 1,
+          "id": "CARD.VOLTAIC"
+        },
+        {
+          "floor_added_to_deck": 1,
+          "id": "CARD.GLASSWORK"
+        },
+        {
+          "floor_added_to_deck": 1,
+          "id": "CARD.LOOP"
+        },
+        {
+          "floor_added_to_deck": 1,
+          "id": "CARD.CHAOS"
+        },
+        {
+          "floor_added_to_deck": 1,
+          "id": "CARD.COOLHEADED"
+        },
+        {
+          "floor_added_to_deck": 1,
+          "id": "CARD.TRASH_TO_TREASURE"
+        },
+        {
+          "floor_added_to_deck": 1,
+          "id": "CARD.BALL_LIGHTNING"
+        },
+        {
+          "floor_added_to_deck": 1,
+          "id": "CARD.ADAPTIVE_STRIKE"
+        },
+        {
+          "floor_added_to_deck": 1,
+          "id": "CARD.SCRAPE"
+        },
+        {
+          "floor_added_to_deck": 1,
+          "id": "CARD.FOCUSED_STRIKE"
+        },
+        {
+          "floor_added_to_deck": 1,
+          "id": "CARD.FIGHT_THROUGH"
+        },
+        {
+          "floor_added_to_deck": 1,
+          "id": "CARD.MACHINE_LEARNING"
+        },
+        {
+          "floor_added_to_deck": 1,
+          "id": "CARD.METEOR_STRIKE"
+        },
+        {
+          "floor_added_to_deck": 1,
+          "id": "CARD.SCAVENGE"
+        },
+        {
+          "floor_added_to_deck": 1,
+          "id": "CARD.HOTFIX"
+        },
+        {
+          "floor_added_to_deck": 1,
+          "id": "CARD.CLAW"
+        },
+        {
+          "floor_added_to_deck": 1,
+          "id": "CARD.BOOT_SEQUENCE"
+        },
+        {
+          "floor_added_to_deck": 1,
+          "id": "CARD.SCAVENGE"
+        }
+      ],
+      "id": 1,
+      "max_potion_slot_count": 5,
+      "potions": [],
+      "relics": [
+        {
+          "floor_added_to_deck": 1,
+          "id": "RELIC.CRACKED_CORE"
+        },
+        {
+          "floor_added_to_deck": 2,
+          "id": "RELIC.SYMBIOTIC_VIRUS"
+        },
+        {
+          "floor_added_to_deck": 3,
+          "id": "RELIC.POTION_BELT"
+        },
+        {
+          "floor_added_to_deck": 4,
+          "id": "RELIC.JUZU_BRACELET"
+        }
+      ]
+    }
+  ],
+  "run_time": 151,
+  "schema_version": 9,
+  "start_time": 1792387500,
+  "was_abandoned": true,
+  "win": false
+}

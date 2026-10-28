@@ -1,0 +1,343 @@
+{
+  "acts": [
+    "ACT.OVERGROWTH",
+    "ACT.HIVE",
+    "ACT.GLORY"
+  ],
+  "ascension": 0,
+  "build_id": "v0.103.3",
+  "game_mode": "standard",
+  "killed_by_encounter": "ENCOUNTER.INKLETS_NORMAL",
+  "killed_by_event": "NONE.NONE",
+  "map_point_history": [
+    [
+      {
+        "map_point_type": "monster",
+        "player_stats": [
+          {
+            "card_choices": [
+              {
+                "card": {
+                  "floor_added_to_deck": 1,
+                  "id": "CARD.SETUP_STRIKE"
+                },
+                "was_picked": true
+              },
+              {
+                "card": {
+                  "id": "CARD.TREMBLE"
+                },
+                "was_picked": false
+              },
+              {
+                "card": {
+                  "id": "CARD.BLOOD_WALL"
+                },
+                "was_picked": false
+              }
+            ],
+            "cards_gained": [
+              {
+                "id": "CARD.SETUP_STRIKE"
+              }
+            ],
+            "current_gold": 116,
+            "current_hp": 73,
+            "damage_taken": 13,
+            "gold_gained": 17,
+            "gold_lost": 0,
+            "gold_spent": 0,
+            "gold_stolen": 0,
+            "hp_healed": 6,
+            "max_hp": 80,
+            "max_hp_gained": 0,
+            "max_hp_lost": 0,
+            "player_id": 1
+          }
+        ],
+        "rooms": [
+          {
+            "model_id": "ENCOUNTER.NIBBITS_WEAK",
+            "monster_ids": [
+              "MONSTER.NIBBIT"
+            ],
+            "room_type": "monster",
+            "turns_taken": 3
+          }
+        ]
+      },
+      {
+        "map_point_type": "monster",
+        "player_stats": [
+          {
+            "card_choices": [
+              {
+                "card": {
+                  "floor_added_to_deck": 2,
+                  "id": "CARD.BREAKTHROUGH"
+                },
+                "was_picked": true
+              },
+              {
+                "card": {
+                  "id": "CARD.INFLAME"
+                },
+                "was_picked": false
+              },
+              {
+                "card": {
+                  "id": "CARD.ANGER"
+                },
+                "was_picked": false
+              }
+            ],
+            "cards_gained": [
+              {
+                "id": "CARD.BREAKTHROUGH"
+              }
+            ],
+            "current_gold": 129,
+            "current_hp": 68,
+            "damage_taken": 11,
+            "gold_gained": 13,
+            "gold_lost": 0,
+            "gold_spent": 0,
+            "gold_stolen": 0,
+            "hp_healed": 6,
+            "max_hp": 80,
+            "max_hp_gained": 0,
+            "max_hp_lost": 0,
+            "player_id": 1
+          }
+        ],
+        "rooms": [
+          {
+            "model_id": "ENCOUNTER.SLIMES_WEAK",
+            "monster_ids": [
+              "MONSTER.LEAF_SLIME_S",
+              "MONSTER.LEAF_SLIME_M",
+              "MONSTER.TWIG_SLIME_S"
+            ],
+            "room_type": "monster",
+            "turns_taken": 4
+          }
+        ]
+      },
+      {
+        "map_point_type": "unknown",
+        "player_stats": [
+          {
+            "current_gold": 129,
+            "current_hp": 75,
+            "damage_taken": 0,
+            "event_choices": [
+              {
+                "title": {
+                  "key": "BYRDONIS_NEST.pages.INITIAL.options.EAT.title",
+                  "table": "events"
+                },
+                "variables": {
+                  "Card": {
+                    "type": "DynamicString",
+                    "decimal_value": 0,
+                    "bool_value": false,
+                    "string_value": "Byrdonis Egg"
+                  }
+                }
+              }
+            ],
+            "gold_gained": 0,
+            "gold_lost": 0,
+            "gold_spent": 0,
+            "gold_stolen": 0,
+            "hp_healed": 7,
+            "max_hp": 87,
+            "max_hp_gained": 7,
+            "max_hp_lost": 0,
+            "player_id": 1
+          }
+        ],
+        "rooms": [
+          {
+            "model_id": "EVENT.BYRDONIS_NEST",
+            "room_type": "event",
+            "turns_taken": 0
+          }
+        ]
+      },
+      {
+        "map_point_type": "monster",
+        "player_stats": [
+          {
+            "card_choices": [
+              {
+                "card": {
+                  "floor_added_to_deck": 4,
+                  "id": "CARD.DISMANTLE"
+                },
+                "was_picked": true
+              },
+              {
+                "card": {
+                  "id": "CARD.IRON_WAVE"
+                },
+                "was_picked": false
+              },
+              {
+                "card": {
+                  "id": "CARD.CINDER"
+                },
+                "was_picked": false
+              }
+            ],
+            "cards_gained": [
+              {
+                "id": "CARD.DISMANTLE"
+              }
+            ],
+            "current_gold": 143,
+            "current_hp": 81,
+            "damage_taken": 0,
+            "gold_gained": 14,
+            "gold_lost": 0,
+            "gold_spent": 0,
+            "gold_stolen": 0,
+            "hp_healed": 6,
+            "max_hp": 87,
+            "max_hp_gained": 0,
+            "max_hp_lost": 0,
+            "player_id": 1,
+            "potion_choices": [
+              {
+                "choice": "POTION.FIRE_POTION",
+                "was_picked": true
+              }
+            ]
+          }
+        ],
+        "rooms": [
+          {
+            "model_id": "ENCOUNTER.SHRINKER_BEETLE_WEAK",
+            "monster_ids": [
+              "MONSTER.SHRINKER_BEETLE"
+            ],
+            "room_type": "monster",
+            "turns_taken": 3
+          }
+        ]
+      },
+      {
+        "map_point_type": "monster",
+        "player_stats": [
+          {
+            "current_gold": 143,
+            "current_hp": 0,
+            "damage_taken": 16,
+            "gold_gained": 0,
+            "gold_lost": 0,
+            "gold_spent": 0,
+            "gold_stolen": 0,
+            "hp_healed": 0,
+            "max_hp": 87,
+            "max_hp_gained": 0,
+            "max_hp_lost": 0,
+            "player_id": 1
+          }
+        ],
+        "rooms": [
+          {
+            "model_id": "ENCOUNTER.INKLETS_NORMAL",
+            "monster_ids": [
+              "MONSTER.INKLET",
+              "MONSTER.INKLET",
+              "MONSTER.INKLET"
+            ],
+            "room_type": "monster",
+            "turns_taken": 2
+          }
+        ]
+      }
+    ]
+  ],
+  "modifiers": [],
+  "platform_type": "steam",
+  "players": [
+    {
+      "badges": [],
+      "character": "CHARACTER.IRONCLAD",
+      "deck": [
+        {
+          "floor_added_to_deck": 1,
+          "id": "CARD.STRIKE_IRONCLAD"
+        },
+        {
+          "floor_added_to_deck": 1,
+          "id": "CARD.STRIKE_IRONCLAD"
+        },
+        {
+          "floor_added_to_deck": 1,
+          "id": "CARD.STRIKE_IRONCLAD"
+        },
+        {
+          "floor_added_to_deck": 1,
+          "id": "CARD.STRIKE_IRONCLAD"
+        },
+        {
+          "floor_added_to_deck": 1,
+          "id": "CARD.STRIKE_IRONCLAD"
+        },
+        {
+          "floor_added_to_deck": 1,
+          "id": "CARD.DEFEND_IRONCLAD"
+        },
+        {
+          "floor_added_to_deck": 1,
+          "id": "CARD.DEFEND_IRONCLAD"
+        },
+        {
+          "floor_added_to_deck": 1,
+          "id": "CARD.DEFEND_IRONCLAD"
+        },
+        {
+          "floor_added_to_deck": 1,
+          "id": "CARD.DEFEND_IRONCLAD"
+        },
+        {
+          "floor_added_to_deck": 1,
+          "id": "CARD.BASH"
+        },
+        {
+          "floor_added_to_deck": 1,
+          "id": "CARD.SETUP_STRIKE"
+        },
+        {
+          "floor_added_to_deck": 2,
+          "id": "CARD.BREAKTHROUGH"
+        },
+        {
+          "floor_added_to_deck": 4,
+          "id": "CARD.DISMANTLE"
+        }
+      ],
+      "id": 1,
+      "max_potion_slot_count": 3,
+      "potions": [
+        {
+          "id": "POTION.FIRE_POTION",
+          "slot_index": 0
+        }
+      ],
+      "relics": [
+        {
+          "floor_added_to_deck": 1,
+          "id": "RELIC.BURNING_BLOOD"
+        }
+      ]
+    }
+  ],
+  "run_time": 413,
+  "schema_version": 9,
+  "start_time": 1780696537,
+  "was_abandoned": true,
+  "win": false
+}

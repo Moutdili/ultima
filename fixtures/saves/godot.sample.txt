@@ -1,0 +1,361 @@
+[INFO] AtlasManager: Loaded era_atlas with 27 sprites
+[INFO] Unloading 5 missed cache assets
+[INFO] Preloading 'Common' assets... count=686 vfx=92
+[INFO] [Startup] Resource stats (main menu loaded (complete)): StaticMem=0B, VRAM=381.6MB, Objects=8,037, Resources=454, Nodes=1,453, CachedAssets=5
+[INFO] Wrote 41422 bytes to path=user://steam/70000000000000001/modded/profile1/saves/current_run.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 41422 bytes to modded/profile1/saves/current_run.save in steam remote store
+[INFO] Continuing run with character: CHARACTER.IRONCLAD
+[INFO] Preloading 'characters=IRONCLAD' assets... count=37 vfx=48
+[INFO] Preloading 'Common' Complete: assets=778 time_elapsed=5,693ms
+[INFO] Preloading 'characters=IRONCLAD' Complete: assets=46 time_elapsed=3,742ms
+[INFO] Preloading 'Act=OVERGROWTH' assets... count=8 vfx=0
+[INFO] Preloading 'Act=OVERGROWTH' Complete: assets=8 time_elapsed=51ms
+[INFO] Preloading 'Combat Room' assets... count=11 vfx=0
+[INFO] Preloading 'Combat Room' Complete: assets=11 time_elapsed=41ms
+[INFO] Creating NCombatRoom with mode=ActiveCombat encounter=SLIMES_WEAK.
+[INFO] DevConsole: power 
+[INFO] DevConsole: power 10
+[INFO] DevConsole: power 10 o
+[INFO] DevConsole: block 20 0
+[INFO] DevConsole: block 20 0
+[INFO] DevConsole: power 20 0
+[INFO] DevConsole: win 
+[WARN] Warning: Packet writer is growing from 1024 bytes to 2048 bytes!
+[INFO] Wrote 42463 bytes to path=user://steam/70000000000000001/modded/profile1/saves/current_run.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 42463 bytes to modded/profile1/saves/current_run.save in steam remote store
+[INFO] CHARACTER.IRONCLAD fought ENCOUNTER.SLIMES_WEAK for the first time and WON >:)
+[INFO] CHARACTER.IRONCLAD fought MONSTER.LEAF_SLIME_S for the first time and WON >:(
+[INFO] CHARACTER.IRONCLAD fought MONSTER.LEAF_SLIME_M for the first time and WON >:(
+[INFO] CHARACTER.IRONCLAD fought MONSTER.TWIG_SLIME_S for the first time and WON >:(
+[INFO] Wrote 4620 bytes to path=user://steam/70000000000000001/modded/profile1/saves/progress.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 4620 bytes to modded/profile1/saves/progress.save in steam remote store
+[INFO] Card rarity: Rolled 0.47728595, need < -0.020000001 for rare (offset = -0.05)
+[INFO] Card rarity: Rolled 0.37887958, need < -0.01 for rare (offset = -0.04)
+[INFO] Card rarity: Rolled 0.17202562, need < 0 for rare (offset = -0.03)
+[INFO] Player 1 selected card reward
+[WARN] Asset not cached: res://scenes/ftue/power_card_ftue.tscn
+[INFO] Player has seen ftue power_card_ftue!
+[INFO] Wrote 4717 bytes to path=user://steam/70000000000000001/modded/profile1/saves/progress.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 4717 bytes to modded/profile1/saves/progress.save in steam remote store
+[INFO] Player 1 obtained CARD.STONE_ARMOR from card reward
+[INFO] Player 1 obtained 15 gold from reward
+[INFO] Player vote changed for 1: ->MapVote (gen: 1 coord: (4, 2))
+[INFO] Wrote 4717 bytes to path=user://steam/70000000000000001/modded/profile1/saves/progress.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 4717 bytes to modded/profile1/saves/progress.save in steam remote store
+[INFO] Wrote 43283 bytes to path=user://steam/70000000000000001/modded/profile1/saves/current_run.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 43283 bytes to modded/profile1/saves/current_run.save in steam remote store
+[INFO] Unloading 1 missed cache assets
+[INFO] Preloading 'Combat Room' assets... count=4 vfx=0
+[INFO] Preloading 'Combat Room' Complete: assets=4 time_elapsed=102ms
+[INFO] Creating NCombatRoom with mode=ActiveCombat encounter=FUZZY_WURM_CRAWLER_WEAK.
+[INFO] DevConsole: relic all
+[WARN] Asset not cached: res://images/relics/strawberry.png
+[WARN] Asset not cached: res://images/relics/pantograph.png
+[WARN] Asset not cached: res://images/relics/gambling_chip.png
+[WARN] Asset not cached: res://scenes/ftue/obtain_relic_ftue.tscn
+[INFO] (758, 430.68948) (402, 86) (959, 516.68945)
+[INFO] Player has seen ftue obtain_relic_ftue!
+[INFO] Wrote 4873 bytes to path=user://steam/70000000000000001/modded/profile1/saves/progress.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 4873 bytes to modded/profile1/saves/progress.save in steam remote store
+[INFO] Player 1 obtained RELIC.GAMBLING_CHIP from relic reward
+[INFO] Player 1 obtained RELIC.PANTOGRAPH from relic reward
+[INFO] Player 1 obtained RELIC.STRAWBERRY from relic reward
+[INFO] DevConsole: relic all
+[WARN] Asset not cached: res://images/relics/red_mask.png
+[WARN] Asset not cached: res://images/relics/orichalcum.png
+[WARN] Asset not cached: res://images/relics/kunai.png
+[INFO] Player 1 obtained RELIC.ORICHALCUM from relic reward
+[INFO] Player 1 obtained RELIC.KUNAI from relic reward
+[INFO] Player 1 obtained RELIC.RED_MASK from relic reward
+[INFO] DevConsole: relic all
+[WARN] Asset not cached: res://images/relics/meal_ticket.png
+[WARN] Asset not cached: res://images/relics/letter_opener.png
+[WARN] Asset not cached: res://images/relics/stone_calendar.png
+[INFO] Player 1 obtained RELIC.STONE_CALENDAR from relic reward
+[INFO] Player 1 obtained RELIC.LETTER_OPENER from relic reward
+[INFO] Player 1 obtained RELIC.MEAL_TICKET from relic reward
+[INFO] DevConsole: relic 
+ERROR: BUG: CommonPrefix 'relic ORNAMENTAL_FAN ' doesn't start with input 'relic nam'
+   at: void Godot.LineEdit.TextChangedTrampoline(object, Godot.NativeInterop.NativeVariantPtrArgs, Godot.NativeInterop.godot_variant&) (:0)
+   C# backtrace (most recent call first):
+       [0] void MegaCrit.Sts2.Core.Nodes.Debug.NDevConsole.UpdateGhostText()
+       [1] void Godot.LineEdit.TextChangedTrampoline(object, Godot.NativeInterop.NativeVariantPtrArgs, Godot.NativeInterop.godot_variant&)
+       [2] void Godot.DelegateUtils.InvokeWithVariantArgs(nint, System.Void*, Godot.NativeInterop.godot_variant**, int, Godot.NativeInterop.godot_variant*)
+ERROR: BUG: CommonPrefix 'relic ORNAMENTAL_FAN ' doesn't start with input 'relic name'
+   at: void Godot.LineEdit.TextChangedTrampoline(object, Godot.NativeInterop.NativeVariantPtrArgs, Godot.NativeInterop.godot_variant&) (:0)
+   C# backtrace (most recent call first):
+       [0] void MegaCrit.Sts2.Core.Nodes.Debug.NDevConsole.UpdateGhostText()
+       [1] void Godot.LineEdit.TextChangedTrampoline(object, Godot.NativeInterop.NativeVariantPtrArgs, Godot.NativeInterop.godot_variant&)
+       [2] void Godot.DelegateUtils.InvokeWithVariantArgs(nint, System.Void*, Godot.NativeInterop.godot_variant**, int, Godot.NativeInterop.godot_variant*)
+[INFO] DevConsole: relic name
+[INFO] DevConsole: relic al
+[WARN] Asset not cached: res://scenes/ftue/obtain_potion_ftue.tscn
+[INFO] Player has seen ftue obtain_potion_ftue!
+[INFO] Wrote 5103 bytes to path=user://steam/70000000000000001/modded/profile1/saves/progress.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 5103 bytes to modded/profile1/saves/progress.save in steam remote store
+[INFO] DevConsole: open 
+[INFO] DevConsole: energy 10 0
+[INFO] DevConsole: potion ENTROPIC_BREW
+[INFO] DevConsole: stars 10 0
+[INFO] DevConsole: travel boss
+[INFO] DevConsole: travel 
+[INFO] DevConsole: unlock all
+[INFO] Wrote 52954 bytes to path=user://steam/70000000000000001/modded/profile1/saves/progress.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 52954 bytes to modded/profile1/saves/progress.save in steam remote store
+[INFO] Player 1 playing card BASH (targeting Fuzzy Wurm Crawler (index 1))
+[WARN] Asset not cached: res://images/powers/vulnerable_power.png
+[INFO] Player 1 playing card STRIKE_IRONCLAD (targeting Fuzzy Wurm Crawler (index 1))
+[INFO] Player 1 playing card STRIKE_IRONCLAD (targeting Fuzzy Wurm Crawler (index 1))
+[WARN] Asset not cached: res://images/powers/dexterity_power.png
+[INFO] Player 1 playing card FLAME_BARRIER (no target)
+[WARN] Asset not cached: res://images/powers/flame_barrier_power.png
+[INFO] Player 1 playing card DEFEND_IRONCLAD (no target)
+[INFO] DevConsole: win 
+[WARN] Warning: Packet writer is growing from 2048 bytes to 4096 bytes!
+[INFO] Wrote 48726 bytes to path=user://steam/70000000000000001/modded/profile1/saves/current_run.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 48726 bytes to modded/profile1/saves/current_run.save in steam remote store
+[INFO] CHARACTER.IRONCLAD fought ENCOUNTER.FUZZY_WURM_CRAWLER_WEAK for the first time and WON >:)
+[INFO] CHARACTER.IRONCLAD has killed a MONSTER.FUZZY_WURM_CRAWLER. That's 2 kills
+[INFO] Wrote 53165 bytes to path=user://steam/70000000000000001/modded/profile1/saves/progress.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 53165 bytes to modded/profile1/saves/progress.save in steam remote store
+[INFO] Card rarity: Rolled 0.0961357, need < 0.01 for rare (offset = -0.02)
+[INFO] Card rarity: Rolled 0.7457134, need < 0.02 for rare (offset = -0.01)
+[INFO] Card rarity: Rolled 0.6807866, need < 0.03 for rare (offset = 0)
+[INFO] Player 1 selected card reward
+[INFO] Player 1 obtained CARD.HEADBUTT from card reward
+[WARN] Asset not cached: res://scenes/ftue/combat_reward_ftue.tscn
+[INFO] Player has seen ftue combat_reward_ftue!
+[INFO] Wrote 53191 bytes to path=user://steam/70000000000000001/modded/profile1/saves/progress.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 53191 bytes to modded/profile1/saves/progress.save in steam remote store
+[INFO] DevConsole: travel all
+[INFO] Player vote changed for 1: ->MapVote (gen: 1 coord: (3, 16))
+[INFO] Wrote 53191 bytes to path=user://steam/70000000000000001/modded/profile1/saves/progress.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 53191 bytes to modded/profile1/saves/progress.save in steam remote store
+[INFO] Wrote 49256 bytes to path=user://steam/70000000000000001/modded/profile1/saves/current_run.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 49256 bytes to modded/profile1/saves/current_run.save in steam remote store
+[INFO] Unloading 15 missed cache assets
+[INFO] Preloading 'Combat Room' assets... count=6 vfx=0
+[INFO] Preloading 'Combat Room' Complete: assets=6 time_elapsed=134ms
+[INFO] Creating NCombatRoom with mode=ActiveCombat encounter=VANTOM_BOSS.
+[WARN] Asset not cached: res://images/powers/slippery_power.png
+[WARN] Asset not cached: res://images/powers/weak_power.png
+[INFO] Player 1 chose cards [CURSE_OF_THE_BELL,CURSE_OF_THE_BELL]
+[INFO] DevConsole: win 
+[INFO] Wrote 50205 bytes to path=user://steam/70000000000000001/modded/profile1/saves/current_run.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 50205 bytes to modded/profile1/saves/current_run.save in steam remote store
+[INFO] CHARACTER.IRONCLAD fought ENCOUNTER.VANTOM_BOSS for the first time and WON >:)
+[INFO] Player already has Epoch: IRONCLAD2_EPOCH
+[INFO] CHARACTER.IRONCLAD has killed a MONSTER.VANTOM. That's 2 kills
+[INFO] Wrote 53390 bytes to path=user://steam/70000000000000001/modded/profile1/saves/progress.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 53390 bytes to modded/profile1/saves/progress.save in steam remote store
+[INFO] Card rarity: Rolled 0.43135476, need < 1 for rare (offset = 0)
+[INFO] Card rarity: Rolled 0.9988642, need < 1 for rare (offset = 0)
+[INFO] Card rarity: Rolled 0.1824631, need < 1 for rare (offset = 0)
+[INFO] Player 1 selected card reward
+[WARN] Asset not cached: res://images/packed/sprite_fonts/ironclad_energy_icon.png
+[INFO] Player 1 obtained CARD.MANGLE from card reward
+[INFO] DevConsole: act 2
+[WARN] Asset not cached: res://animations/map/the_insatiable_boss/the_insatiable_boss_node_skel_data.tres
+[INFO] Preloading 'Act=HIVE' assets... count=6 vfx=0
+[INFO] Preloading 'Act=HIVE' Complete: assets=6 time_elapsed=39ms
+[INFO] DevConsole: act 3
+[WARN] Asset not cached: res://animations/map/queen_boss/queen_boss_node_skel_data.tres
+[INFO] Preloading 'Act=GLORY' assets... count=6 vfx=0
+[INFO] Preloading 'Act=GLORY' Complete: assets=6 time_elapsed=33ms
+[INFO] Player vote changed for 1: ->MapVote (gen: 3 coord: (3, 14))
+[INFO] Wrote 53390 bytes to path=user://steam/70000000000000001/modded/profile1/saves/progress.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 53390 bytes to modded/profile1/saves/progress.save in steam remote store
+[INFO] Wrote 46253 bytes to path=user://steam/70000000000000001/modded/profile1/saves/current_run.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 46253 bytes to modded/profile1/saves/current_run.save in steam remote store
+[INFO] Unloading 5 missed cache assets
+[INFO] Preloading 'Combat Room' assets... count=16 vfx=0
+[INFO] Preloading 'Combat Room' Complete: assets=16 time_elapsed=133ms
+[INFO] Creating NCombatRoom with mode=ActiveCombat encounter=QUEEN_BOSS.
+[WARN] Asset not cached: res://images/powers/minion_power.png
+[WARN] Asset not cached: res://images/powers/weak_power.png
+[INFO] DevConsole: win 
+[INFO] Wrote 47265 bytes to path=user://steam/70000000000000001/modded/profile1/saves/current_run.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 47265 bytes to modded/profile1/saves/current_run.save in steam remote store
+[INFO] CHARACTER.IRONCLAD fought ENCOUNTER.QUEEN_BOSS for the first time and WON >:)
+[INFO] Player already has Epoch: IRONCLAD4_EPOCH
+[INFO] CHARACTER.IRONCLAD has killed a MONSTER.TORCH_HEAD_AMALGAM. That's 2 kills
+[INFO] CHARACTER.IRONCLAD has killed a MONSTER.QUEEN. That's 2 kills
+[INFO] Wrote 53588 bytes to path=user://steam/70000000000000001/modded/profile1/saves/progress.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 53588 bytes to modded/profile1/saves/progress.save in steam remote store
+[INFO] [ActChangeSynchronizer] Local player ready to move to next act
+[INFO] [ActChangeSynchronizer] All players ready to move to next act, beginning transition
+[INFO] Unloading 2 missed cache assets
+[INFO] Preloading 'Event Room' assets... count=1 vfx=0
+[INFO] Preloading 'Event Room' Complete: assets=1 time_elapsed=45ms
+[INFO] Creating NCombatRoom with mode=VisualOnly encounter=THE_ARCHITECT_EVENT_ENCOUNTER.
+[WARN] Asset not cached: res://scenes/creature_visuals/architect.tscn
+[WARN] Asset not cached: res://scenes/backgrounds/the_architect_event_encounter/the_architect_event_encounter_background.tscn
+[WARN] Asset not cached: res://scenes/backgrounds/the_architect_event_encounter/layers/the_architect_event_encounter_bg_00_a.tscn
+[INFO] SteamStatsManager: Global stats received (found=True), architect damage = 438286453150
+[INFO] DevConsole: win 
+[INFO] DevConsole: win 
+[INFO] DevConsole: win 
+[INFO] DevConsole: win 
+[INFO] DevConsole: win 
+[INFO] [ActChangeSynchronizer] Local player ready to move to next act
+[INFO] [ActChangeSynchronizer] All players ready to move to next act, beginning transition
+[INFO] Not playing on max singleplayer ascension (10)
+[INFO] CHARACTER.IRONCLAD has won a run with ancient EVENT.NEOW. That's 1 wins
+[INFO] Player already has Epoch: NEOW_EPOCH
+[INFO] Player already has Epoch: DAILY_RUN_EPOCH
+[INFO] Player already has Epoch: OROBAS_EPOCH
+[INFO] Wrote 55065 bytes to path=user://steam/70000000000000001/modded/profile1/saves/progress.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 55065 bytes to modded/profile1/saves/progress.save in steam remote store
+[INFO] Wrote 14166 bytes to path=user://steam/70000000000000001/modded/profile1/saves/history/1793132835.run save_dir=user://steam/70000000000000001
+[INFO] Wrote 14166 bytes to modded/profile1/saves/history/1793132835.run in steam remote store
+[INFO] Saved run history: 1793132835.run
+[INFO] Created Run History entry!
+[INFO] Skipping metrics upload, we're running modded.
+[INFO] SteamStatsManager: IncrementArchitectDamage by 270 (was 50341, now 50611) [get=True, set=True, store=True]
+[WARN] Asset not cached: res://images/ui/game_over_screen/score_floor.png
+[WARN] Asset not cached: res://scenes/screens/game_over_screen/score_line.tscn
+[WARN] Asset not cached: res://images/ui/game_over_screen/score_gold.png
+[WARN] Asset not cached: res://images/ui/game_over_screen/score_boss.png
+[WARN] Asset not cached: res://scenes/screens/game_over_screen/badge.tscn
+[WARN] Asset not cached: res://images/ui/game_over_screen/badge_silver.png
+[WARN] Asset not cached: res://images/ui/game_over_screen/badge_perfect.png
+[WARN] Asset not cached: res://images/ui/game_over_screen/badge_gold.png
+[WARN] Asset not cached: res://images/ui/game_over_screen/badge_speedy.png
+[WARN] Asset not cached: res://images/ui/game_over_screen/badge_bronze.png
+[WARN] Asset not cached: res://images/ui/game_over_screen/badge_tiny_deck.png
+[INFO] You got a new badge: PERFECT
+[INFO] You got a new badge: SPEEDY
+[INFO] You got a new badge: TINY_DECK
+[INFO] New Unlock, yay!
+[INFO] TODO: Play the ding unlock sfx here pls
+[INFO] Animate overflow score.
+[INFO] Wrote 55368 bytes to path=user://steam/70000000000000001/modded/profile1/saves/progress.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 55368 bytes to modded/profile1/saves/progress.save in steam remote store
+[INFO] Unloading 14 missed cache assets
+[INFO] Preloading 'Common' assets... count=125 vfx=1
+[WARN] Asset not cached: res://scenes/screens/main_menu.tscn
+[INFO] [Startup] Time to main menu (Godot ticks): 657604ms
+[INFO] Preloading 'Common' Complete: assets=125 time_elapsed=520ms
+[WARN] Asset not cached: res://scenes/screens/singleplayer_submenu.tscn
+[INFO] Max ascension changed to 0
+[INFO] Max ascension changed to 10
+[INFO] [StartRunLobby (1)] CHARACTER.IRONCLAD ascension set to preferred: 0
+[WARN] Asset not cached: res://scenes/ftue/ascension_singleplayer_ftue.tscn
+[INFO] Player has seen ftue ascension_singleplayer_ftue!
+[INFO] Wrote 55403 bytes to path=user://steam/70000000000000001/modded/profile1/saves/progress.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 55403 bytes to modded/profile1/saves/progress.save in steam remote store
+[INFO] Max ascension changed to 10
+[INFO] [StartRunLobby (1)] CHARACTER.SILENT ascension set to preferred: 0
+[INFO] Max ascension changed to 10
+[INFO] [StartRunLobby (1)] CHARACTER.DEFECT ascension set to preferred: 0
+[INFO] [StartRunLobby (1)] Local player 1 is ready
+[INFO] Embarking on a singleplayer DEFECT run. Ascension: 0 Seed: A5QJMXA931
+[INFO] Preloading 'characters=DEFECT' assets... count=37 vfx=6
+[INFO] Preloading 'characters=DEFECT' Complete: assets=43 time_elapsed=546ms
+[INFO] Preloading 'Act=UNDERDOCKS' assets... count=8 vfx=0
+[INFO] Preloading 'Act=UNDERDOCKS' Complete: assets=8 time_elapsed=46ms
+[INFO] Preloading 'Act=UNDERDOCKS' assets... count=0 vfx=0
+[INFO] Preloading 'Act=UNDERDOCKS' Complete: assets=0 time_elapsed=16ms
+[INFO] Wrote 55403 bytes to path=user://steam/70000000000000001/modded/profile1/saves/progress.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 55403 bytes to modded/profile1/saves/progress.save in steam remote store
+[INFO] Wrote 41125 bytes to path=user://steam/70000000000000001/modded/profile1/saves/current_run.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 41125 bytes to modded/profile1/saves/current_run.save in steam remote store
+[INFO] Unloading 3 missed cache assets
+[INFO] Preloading 'Event Room' assets... count=2 vfx=0
+[INFO] Preloading 'Event Room' Complete: assets=2 time_elapsed=234ms
+[WARN] Asset not cached: res://scenes/events/ancient_dialogue_line.tscn
+[WARN] Asset not cached: res://images/relics/happy_flower.png
+[INFO] Player 1 obtained RELIC.HAPPY_FLOWER from relic reward
+[INFO] Wrote 55403 bytes to path=user://steam/70000000000000001/modded/profile1/saves/progress.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 55403 bytes to modded/profile1/saves/progress.save in steam remote store
+[INFO] Wrote 43572 bytes to path=user://steam/70000000000000001/modded/profile1/saves/current_run.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 43572 bytes to modded/profile1/saves/current_run.save in steam remote store
+[INFO] Player vote changed for 1: ->MapVote (gen: 1 coord: (3, 1))
+[INFO] Wrote 55403 bytes to path=user://steam/70000000000000001/modded/profile1/saves/progress.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 55403 bytes to modded/profile1/saves/progress.save in steam remote store
+[INFO] Wrote 43420 bytes to path=user://steam/70000000000000001/modded/profile1/saves/current_run.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 43420 bytes to modded/profile1/saves/current_run.save in steam remote store
+[INFO] Unloading 2 missed cache assets
+[INFO] Preloading 'Combat Room' assets... count=10 vfx=0
+[INFO] Preloading 'Combat Room' Complete: assets=10 time_elapsed=100ms
+[INFO] Creating NCombatRoom with mode=ActiveCombat encounter=SLUDGE_SPINNER_WEAK.
+[WARN] Asset not cached: res://scenes/orbs/orb_visuals/lightning_orb.tscn
+[WARN] Asset not cached: res://images/orbs/lightning_orb.png
+[INFO] DevConsole: die 
+[INFO] CHARACTER.DEFECT fought ENCOUNTER.SLUDGE_SPINNER_WEAK for the first time and LOST :(
+[INFO] CHARACTER.DEFECT fought MONSTER.SLUDGE_SPINNER for the first time and LOST >:(
+[INFO] Player already has Epoch: NEOW_EPOCH
+[INFO] Player already has Epoch: OROBAS_EPOCH
+[INFO] Wrote 56376 bytes to path=user://steam/70000000000000001/modded/profile1/saves/progress.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 56376 bytes to modded/profile1/saves/progress.save in steam remote store
+[INFO] Wrote 4708 bytes to path=user://steam/70000000000000001/modded/profile1/saves/history/1793134265.run save_dir=user://steam/70000000000000001
+[INFO] Wrote 4708 bytes to modded/profile1/saves/history/1793134265.run in steam remote store
+[INFO] Saved run history: 1793134265.run
+[INFO] Created Run History entry!
+[INFO] Skipping metrics upload, we're running modded.
+[WARN] Asset not cached: res://images/ui/game_over_screen/score_floor.png
+[WARN] Asset not cached: res://scenes/screens/game_over_screen/score_line.tscn
+[WARN] Asset not cached: res://images/ui/game_over_screen/score_gold.png
+[INFO] MuteInBackground: FocusOut received [tween=False, windowFocused=False]
+[INFO] Limiting background FPS to 30
+[INFO] Not enough score to level up
+[INFO] Wrote 56376 bytes to path=user://steam/70000000000000001/modded/profile1/saves/progress.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 56376 bytes to modded/profile1/saves/progress.save in steam remote store
+[INFO] No discoveries this time. Very sad
+[INFO] MuteInBackground: FocusIn received [tween=True, msSinceFocusOut=2497, windowFocused=True]
+[INFO] MuteInBackground: Unmuted, restored volume to 0.5
+[INFO] Restored foreground FPS
+[INFO] Unloading 5 missed cache assets
+[INFO] Preloading 'Common' assets... count=125 vfx=1
+[WARN] Warning: Packet writer is growing from 1024 bytes to 2048 bytes!
+[WARN] Asset not cached: res://scenes/screens/main_menu.tscn
+[INFO] [Startup] Time to main menu (Godot ticks): 743296ms
+[INFO] Preloading 'Common' Complete: assets=125 time_elapsed=501ms
+[WARN] Asset not cached: res://scenes/screens/singleplayer_submenu.tscn
+[INFO] Max ascension changed to 0
+[INFO] Max ascension changed to 10
+[INFO] [StartRunLobby (1)] CHARACTER.IRONCLAD ascension set to preferred: 0
+[INFO] Max ascension changed to 10
+[INFO] [StartRunLobby (1)] CHARACTER.SILENT ascension set to preferred: 0
+[INFO] [StartRunLobby (1)] Local player 1 is ready
+[INFO] Embarking on a singleplayer SILENT run. Ascension: 0 Seed: 2VV09L3VEW
+[INFO] Preloading 'characters=SILENT' assets... count=37 vfx=9
+[INFO] Preloading 'characters=SILENT' Complete: assets=46 time_elapsed=518ms
+[INFO] Preloading 'Act=UNDERDOCKS' assets... count=8 vfx=0
+[INFO] Preloading 'Act=UNDERDOCKS' Complete: assets=8 time_elapsed=47ms
+[INFO] Preloading 'Act=UNDERDOCKS' assets... count=0 vfx=0
+[INFO] Preloading 'Act=UNDERDOCKS' Complete: assets=0 time_elapsed=16ms
+[INFO] Wrote 56376 bytes to path=user://steam/70000000000000001/modded/profile1/saves/progress.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 56376 bytes to modded/profile1/saves/progress.save in steam remote store
+[INFO] Wrote 40217 bytes to path=user://steam/70000000000000001/modded/profile1/saves/current_run.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 40217 bytes to modded/profile1/saves/current_run.save in steam remote store
+[INFO] Unloading 2 missed cache assets
+[INFO] Preloading 'Event Room' assets... count=2 vfx=0
+[INFO] Preloading 'Event Room' Complete: assets=2 time_elapsed=201ms
+[WARN] Asset not cached: res://scenes/events/ancient_dialogue_line.tscn
+[INFO] Player 1 selected card reward
+[INFO] Player 1 obtained CARD.GRAVEBLAST from card reward
+[INFO] Player 1 selected card reward
+[INFO] Player 1 obtained CARD.THUNDERCLAP from card reward
+[INFO] Wrote 56376 bytes to path=user://steam/70000000000000001/modded/profile1/saves/progress.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 56376 bytes to modded/profile1/saves/progress.save in steam remote store
+[INFO] Wrote 43796 bytes to path=user://steam/70000000000000001/modded/profile1/saves/current_run.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 43796 bytes to modded/profile1/saves/current_run.save in steam remote store
+[INFO] Player vote changed for 1: ->MapVote (gen: 1 coord: (4, 1))
+[INFO] Wrote 56376 bytes to path=user://steam/70000000000000001/modded/profile1/saves/progress.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 56376 bytes to modded/profile1/saves/progress.save in steam remote store
+[INFO] Wrote 43643 bytes to path=user://steam/70000000000000001/modded/profile1/saves/current_run.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 43643 bytes to modded/profile1/saves/current_run.save in steam remote store
+[INFO] Unloading 1 missed cache assets
+[INFO] Preloading 'Combat Room' assets... count=9 vfx=0
+[INFO] Preloading 'Combat Room' Complete: assets=9 time_elapsed=97ms
+[INFO] Creating NCombatRoom with mode=ActiveCombat encounter=TOADPOLES_WEAK.
+[INFO] MuteInBackground: FocusOut received [tween=False, windowFocused=False]
+[INFO] Limiting background FPS to 30
+[INFO] MuteInBackground: FocusIn received [tween=True, msSinceFocusOut=76322, windowFocused=True]
+[INFO] MuteInBackground: Unmuted, restored volume to 0.5
+[INFO] Restored foreground FPS
+[INFO] NGame.Quit called
+[INFO] Wrote 2417 bytes to path=user://steam/70000000000000001/settings.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 287 bytes to path=user://steam/70000000000000001/modded/profile1/saves/prefs.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 287 bytes to modded/profile1/saves/prefs.save in steam remote store
