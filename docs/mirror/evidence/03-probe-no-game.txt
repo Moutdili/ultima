@@ -1,0 +1,3 @@
+$ ultima-mirror probe   # jeu non lancé
+jeu non lancé : aucun processus dont /proc/PID/comm == "SlayTheSpire2" (mode dégradé : fichiers seulement)
+exit=2

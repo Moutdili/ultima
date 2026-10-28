@@ -1,0 +1,215 @@
+# cible de test dans bubblewrap : bwrap --unshare-user --unshare-pid --unshare-ipc --unshare-uts --unshare-cgroup --die-with-parent --ro-bind / / --dev /dev --proc /proc --tmpfs /tmp --ro-bind $HOME/.dotnet /tmp/sandbox-dotnet --setenv DOTNET_ROOT /tmp/sandbox-dotnet -- /tmp/sandbox-dotnet/dotnet Sts2Shape.TestTarget.dll
+TESTTARGET pid=2 runtime=v9.0.22 mutate=True
+EXPECT run: ascension=3 act=1 hp=61/70 gold>=99 deck=10 relics=2 potions=[FIRE_POTION_TEST,null,null]
+EXPECT reward: BACKFLIP_TEST, DAGGER_THROW_TEST, PREPARED_TEST+1
+EXPECT shop: ACROBATICS 76(→38), FOOTWORK 25 sale(→12), APOTHEOSIS 172(→86), VAJRA 147(→73), BLOCK_POTION 52(→26), removal 75(→37)
+EXPECT combat: round=2 energy=3 hand=[STRIKE_TEST,SURVIVOR_TEST] enemy JAW_WORM_TEST 30/44 block 6
+# vue hôte de la cible : PID hôte 119001, PID dans le bac à sable 2
+user ns 4026533781 / pid ns 4026533779 / mnt ns 4026533776  (sonde : 4026531837 / 4026531836 / 4026531832)
+/tmp/sandbox-dotnet (chemin de libcoreclr.so dans les maps) n'existe PAS sur l'hôte
+
+$ strace ... ultima-mirror probe --pid 119001 --count MegaCrit.Sts2.Core.Models.TestCard
+pid            : 119001 (comm=dotnet)
+libcoreclr.so  : /tmp/sandbox-dotnet/shared/Microsoft.NETCore.App/9.0.22/libcoreclr.so
+DAC            : /proc/119001/root/tmp/sandbox-dotnet/shared/Microsoft.NETCore.App/9.0.22/libmscordaccore.so  [à côté de libcoreclr.so via /proc/PID/root (espace de noms de la cible)]
+attache        : OK en 111 ms (suspend:false, lecture process_vm_readv)
+runtime        : Core Version 9.0.2226.52218 @Commit: faaecba82df8933d7af60972138ce25f9c776cbd (== DAC, vérifié)
+modules        : 10 ; tas : workstation, segments=8
+objets MegaCrit.Sts2.Core.Models.TestCard : 20 en 56 ms (inclut les objets morts non collectés)
+[run] stable après 2 lecture(s), 178 ms
+{
+  "InRun": true,
+  "LocalNetId": 1,
+  "AscensionLevel": 3,
+  "ActIndex": 1,
+  "CurrentRoomType": "MegaCrit.Sts2.Core.Rooms.MerchantRoom",
+  "Players": [
+    {
+      "NetId": 1,
+      "Character": "CHARACTER.SILENT_TEST",
+      "Hp": 61,
+      "MaxHp": 70,
+      "Block": 0,
+      "Gold": 134,
+      "MaxEnergy": 3,
+      "Deck": [
+        {
+          "Id": "CARD.STRIKE_TEST",
+          "Upgrade": 0
+        },
+        {
+          "Id": "CARD.STRIKE_TEST",
+          "Upgrade": 0
+        },
+        {
+          "Id": "CARD.STRIKE_TEST",
+          "Upgrade": 0
+        },
+        {
+          "Id": "CARD.STRIKE_TEST",
+          "Upgrade": 0
+        },
+        {
+          "Id": "CARD.STRIKE_TEST",
+          "Upgrade": 0
+        },
+        {
+          "Id": "CARD.DEFEND_TEST",
+          "Upgrade": 0
+        },
+        {
+          "Id": "CARD.DEFEND_TEST",
+          "Upgrade": 0
+        },
+        {
+          "Id": "CARD.DEFEND_TEST",
+          "Upgrade": 0
+        },
+        {
+          "Id": "CARD.DEFEND_TEST",
+          "Upgrade": 0
+        },
+        {
+          "Id": "CARD.NEUTRALIZE_TEST",
+          "Upgrade": 1
+        }
+      ],
+      "Relics": [
+        "RELIC.RING_OF_THE_SNAKE_TEST",
+        "RELIC.MEMBERSHIP_CARD"
+      ],
+      "PotionSlots": [
+        "POTION.FIRE_POTION_TEST",
+        null,
+        null
+      ]
+    }
+  ]
+}
+[reward] stable après 2 lecture(s), 9 ms
+{
+  "OpenRewardSets": 1,
+  "CardRewards": [
+    {
+      "AlreadyTaken": false,
+      "Offered": [
+        {
+          "Id": "CARD.BACKFLIP_TEST",
+          "Upgrade": 0
+        },
+        {
+          "Id": "CARD.DAGGER_THROW_TEST",
+          "Upgrade": 0
+        },
+        {
+          "Id": "CARD.PREPARED_TEST",
+          "Upgrade": 1
+        }
+      ]
+    }
+  ]
+}
+[shop] stable après 2 lecture(s), 24 ms
+{
+  "InShop": true,
+  "Cards": [
+    {
+      "Card": {
+        "Id": "CARD.ACROBATICS_TEST",
+        "Upgrade": 0
+      },
+      "BaseCost": 76,
+      "EstimatedDisplayedCost": 38,
+      "OnSale": false,
+      "Colorless": false
+    },
+    {
+      "Card": {
+        "Id": "CARD.FOOTWORK_TEST",
+        "Upgrade": 0
+      },
+      "BaseCost": 25,
+      "EstimatedDisplayedCost": 12,
+      "OnSale": true,
+      "Colorless": false
+    },
+    {
+      "Card": {
+        "Id": "CARD.APOTHEOSIS_TEST",
+        "Upgrade": 0
+      },
+      "BaseCost": 172,
+      "EstimatedDisplayedCost": 86,
+      "OnSale": false,
+      "Colorless": true
+    }
+  ],
+  "Relics": [
+    {
+      "Id": "RELIC.VAJRA_TEST",
+      "BaseCost": 147,
+      "EstimatedDisplayedCost": 73
+    }
+  ],
+  "Potions": [
+    {
+      "Id": "POTION.BLOCK_POTION_TEST",
+      "BaseCost": 52,
+      "EstimatedDisplayedCost": 26
+    }
+  ],
+  "RemovalBaseCost": 75,
+  "RemovalEstimatedCost": 37,
+  "RemovalUsed": false,
+  "PriceModifiers": [
+    "RELIC.MEMBERSHIP_CARD ×0.5"
+  ]
+}
+[combat] stable après 2 lecture(s), 8 ms
+{
+  "InProgress": true,
+  "Round": 2,
+  "Energy": 3,
+  "Hand": [
+    {
+      "Id": "CARD.STRIKE_TEST",
+      "Upgrade": 0
+    },
+    {
+      "Id": "CARD.SURVIVOR_TEST",
+      "Upgrade": 0
+    }
+  ],
+  "Enemies": [
+    {
+      "Id": "MONSTER.JAW_WORM_TEST",
+      "Hp": 30,
+      "MaxHp": 44,
+      "Block": 6
+    }
+  ]
+}
+exit=0
+# strace :
+      1 kill(
+   7688 process_vm_readv(
+# SECRET : 0
+
+$ ultima-mirror probe --pid 119001 --sections none --compare-save --save fixture_current_run.save
+pid            : 119001 (comm=dotnet)
+libcoreclr.so  : /tmp/sandbox-dotnet/shared/Microsoft.NETCore.App/9.0.22/libcoreclr.so
+DAC            : /proc/119001/root/tmp/sandbox-dotnet/shared/Microsoft.NETCore.App/9.0.22/libmscordaccore.so  [à côté de libcoreclr.so via /proc/PID/root (espace de noms de la cible)]
+attache        : OK en 62 ms (suspend:false, lecture process_vm_readv)
+runtime        : Core Version 9.0.2226.52218 @Commit: faaecba82df8933d7af60972138ce25f9c776cbd (== DAC, vérifié)
+modules        : 10 ; tas : workstation, segments=9
+[save] /tmp/claude-1000/-home-mio-sts2/2bdd79dc-eb28-47ae-88a0-9626f805aef6/scratchpad/fixture_current_run.save (modifié 19:05:39)
+  ÉGAL  ascension                    mémoire=3  save=3
+  ÉGAL  act_index                    mémoire=1  save=1
+  ÉGAL  players.count                mémoire=1  save=1
+  ÉGAL  player[1].hp                 mémoire=61  save=61
+  ÉGAL  player[1].max_hp             mémoire=70  save=70
+  DIFF  player[1].gold               mémoire=479  save=99
+  ÉGAL  player[1].deck(multiset)     mémoire=CARD.DEFEND_TEST,CARD.DEFEND_TEST,CARD.DEFEND_TEST,CARD.DEFEND_TEST,CARD.NEUTRALIZE_TEST+1,CARD.STRIKE_TEST,CARD.STRIKE_TEST,CARD.STRIKE_TEST,CARD.STRIKE_TEST,CARD.STRIKE_TEST  save=CARD.DEFEND_TEST,CARD.DEFEND_TEST,CARD.DEFEND_TEST,CARD.DEFEND_TEST,CARD.NEUTRALIZE_TEST+1,CARD.STRIKE_TEST,CARD.STRIKE_TEST,CARD.STRIKE_TEST,CARD.STRIKE_TEST,CARD.STRIKE_TEST
+  ÉGAL  player[1].relics(ordre)      mémoire=RELIC.RING_OF_THE_SNAKE_TEST,RELIC.MEMBERSHIP_CARD  save=RELIC.RING_OF_THE_SNAKE_TEST,RELIC.MEMBERSHIP_CARD
+[save] 7/8 égaux
+exit=6 (attendu : l'or de la cible augmente toutes les 250 ms, la fixture dit 99)
