@@ -164,7 +164,9 @@ jamais de touches lues dans le jeu.
    temps réel. La vision n'est qu'un repli si S2 échoue.
 2. **Probabiliste seulement.** Le daemon **ne lit PAS** `normal_encounter_ids`,
    `elite_encounter_ids`, `event_ids`, `relic_grab_bag`, `shared_relic_grab_bag`, `rng`, `odds`
-   joueur : ni affichés, ni utilisés dans un calcul (sinon fuite indirecte). Autorisé : ce que
+   joueur : ni affichés, ni utilisés dans un calcul (sinon fuite indirecte). Aussi masqués
+   (arbitrage A, appliqué) : variante, boss et ancien des actes FUTURS ; valeurs des tirages de
+   rareté du log (`Card rarity: Rolled x, need < y`) — seul le signal « tirage » est publié. Autorisé : ce que
    le joueur voit en jeu — type des cases de la carte, boss de l'acte, deck, reliques, PV, or,
    historique déjà joué, et les cotes PUBLIQUES des cases `?` décrites par le source du jeu.
 3. **Plein écran obligatoire.** Le moteur d'overlay doit passer au-dessus du jeu en plein
