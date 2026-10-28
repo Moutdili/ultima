@@ -1,0 +1,4 @@
+# Copies brutes des sources (contiennent des commentaires d auteurs) : usage local uniquement, jamais commitees.
+cache/
+# Variante complete (notes de listes protegees : Untapped, slaythetierlist) : usage personnel, jamais commitee.
+local/

@@ -1,0 +1,8091 @@
+{
+ "schema": "ultima.meta.relic_tiers/1",
+ "variant": "public",
+ "scope": "PUBLIC (sources redistribuables seulement ; les notes local-only sont dans data/meta/local/ après build_meta.py --fetch)",
+ "generated": "2026-10-28",
+ "patch_target": "v0.107.1",
+ "generator": "data/meta/src/build_meta.py",
+ "sources_file": "data/meta/sources.json",
+ "score_conventions": {
+  "S": "tier S/A/B/C/D/F des sources → score 90/75/60/45/30/15 (convention ÉCLAIREUR, linéaire, documentée docs/meta/README.md)",
+  "spirecodex": "score = Codex Score 0-100 tel que publié par Spire Codex (formule non publiée)",
+  "consensus": "médiane des scores normalisés, une voix par source (Spire Codex : tranche toutes ascensions v0.107.1) ; notes rated_for (carte notée dans la liste d’un autre personnage) exclues",
+  "ancient_category": "Baalorlord classe les reliques d'Ancients (EventRelicPool) en catégories « Always Amazing / Always Good / Needs Synergy / Inconsistent / Almost Never » : non converties en score (pas d'ordre de puissance prouvé)"
+ },
+ "coverage": {
+  "ironclad": {
+   "total_in_pool": 8,
+   "with_rating": 8,
+   "with_2plus_sources": 0,
+   "by_source": {
+    "spirecodex-scores": 8
+   },
+   "unrated": []
+  },
+  "silent": {
+   "total_in_pool": 8,
+   "with_rating": 8,
+   "with_2plus_sources": 0,
+   "by_source": {
+    "spirecodex-scores": 8
+   },
+   "unrated": []
+  },
+  "defect": {
+   "total_in_pool": 8,
+   "with_rating": 8,
+   "with_2plus_sources": 0,
+   "by_source": {
+    "spirecodex-scores": 8
+   },
+   "unrated": []
+  },
+  "regent": {
+   "total_in_pool": 8,
+   "with_rating": 8,
+   "with_2plus_sources": 0,
+   "by_source": {
+    "spirecodex-scores": 8
+   },
+   "unrated": []
+  },
+  "necrobinder": {
+   "total_in_pool": 8,
+   "with_rating": 8,
+   "with_2plus_sources": 0,
+   "by_source": {
+    "spirecodex-scores": 8
+   },
+   "unrated": []
+  },
+  "shared": {
+   "total_in_pool": 115,
+   "with_rating": 115,
+   "with_2plus_sources": 0,
+   "by_source": {
+    "spirecodex-scores": 115
+   },
+   "unrated": []
+  },
+  "ancient_event": {
+   "total_in_pool": 140,
+   "with_rating": 140,
+   "with_2plus_sources": 0,
+   "by_source": {
+    "spirecodex-scores": 140
+   },
+   "unrated": []
+  }
+ },
+ "groups": {
+  "ancient_event": {
+   "AlchemicalCoffer": {
+    "class": "AlchemicalCoffer",
+    "id": "ALCHEMICAL_COFFER",
+    "name_eng": "Alchemical Coffer",
+    "name_fra": "Caisse d'alchimie",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 34,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 10050,
+      "note": "toutes ascensions ; n=10050 prises, victoire 43.1 %, taux de prise 0.9 %"
+     }
+    ],
+    "consensus": {
+     "score": 34,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "ArcaneScroll": {
+    "class": "ArcaneScroll",
+    "id": "ARCANE_SCROLL",
+    "name_eng": "Arcane Scroll",
+    "name_fra": "Parchemin arcanique",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 0,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 72059,
+      "note": "toutes ascensions ; n=72059 prises, victoire 26.9 %, taux de prise 6.4 %"
+     }
+    ],
+    "consensus": {
+     "score": 0,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "ArchaicTooth": {
+    "class": "ArchaicTooth",
+    "id": "ARCHAIC_TOOTH",
+    "name_eng": "Archaic Tooth",
+    "name_fra": "Dent archaïque",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 18,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 63722,
+      "note": "toutes ascensions ; n=63722 prises, victoire 38.3 %, taux de prise 5.7 %"
+     }
+    ],
+    "consensus": {
+     "score": 18,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "Astrolabe": {
+    "class": "Astrolabe",
+    "id": "ASTROLABE",
+    "name_eng": "Astrolabe",
+    "name_fra": "Astrolabe",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 51,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 21440,
+      "note": "toutes ascensions ; n=21440 prises, victoire 48.1 %, taux de prise 1.9 %, Elo 1417.2 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 51,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "BeautifulBracelet": {
+    "class": "BeautifulBracelet",
+    "id": "BEAUTIFUL_BRACELET",
+    "name_eng": "Beautiful Bracelet",
+    "name_fra": "Bracelet brillant",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 100,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 12238,
+      "note": "toutes ascensions ; n=12238 prises, victoire 72.2 %, taux de prise 1.1 %"
+     }
+    ],
+    "consensus": {
+     "score": 100,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "BigMushroom": {
+    "class": "BigMushroom",
+    "id": "BIG_MUSHROOM",
+    "name_eng": "Big Mushroom",
+    "name_fra": "Gros champi",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 78,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 26076,
+      "note": "toutes ascensions ; n=26076 prises, victoire 56.2 %, taux de prise 2.3 %, Elo 1104.7 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 78,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "BiiigHug": {
+    "class": "BiiigHug",
+    "id": "BIIIG_HUG",
+    "name_eng": "Biiig Hug",
+    "name_fra": "Grooos câlin",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 45,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 10760,
+      "note": "toutes ascensions ; n=10760 prises, victoire 46.2 %, taux de prise 1.0 %"
+     }
+    ],
+    "consensus": {
+     "score": 45,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "BingBong": {
+    "class": "BingBong",
+    "id": "BING_BONG",
+    "name_eng": "Bing Bong",
+    "name_fra": "Bing bong",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 43,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 28094,
+      "note": "toutes ascensions ; n=28094 prises, victoire 45.8 %, taux de prise 2.5 %, Elo 1677.6 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 43,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "BlackBlood": {
+    "class": "BlackBlood",
+    "id": "BLACK_BLOOD",
+    "name_eng": "Black Blood",
+    "name_fra": "Sang noir",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 9,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 14095,
+      "note": "toutes ascensions ; n=14095 prises, victoire 35.6 %, taux de prise 1.3 %"
+     }
+    ],
+    "consensus": {
+     "score": 9,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "BlackStar": {
+    "class": "BlackStar",
+    "id": "BLACK_STAR",
+    "name_eng": "Black Star",
+    "name_fra": "Étoile noire",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 49,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 17111,
+      "note": "toutes ascensions ; n=17111 prises, victoire 47.5 %, taux de prise 1.5 %, Elo 1418.0 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 49,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "BlessedAntler": {
+    "class": "BlessedAntler",
+    "id": "BLESSED_ANTLER",
+    "name_eng": "Blessed Antler",
+    "name_fra": "Bois bénis",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 100,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 16042,
+      "note": "toutes ascensions ; n=16042 prises, victoire 65.9 %, taux de prise 1.4 %"
+     }
+    ],
+    "consensus": {
+     "score": 100,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "BloodSoakedRose": {
+    "class": "BloodSoakedRose",
+    "id": "BLOOD_SOAKED_ROSE",
+    "name_eng": "Blood-Soaked Rose",
+    "name_fra": "Rose sanguinolente",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 87,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 13080,
+      "note": "toutes ascensions ; n=13080 prises, victoire 58.9 %, taux de prise 1.2 %"
+     }
+    ],
+    "consensus": {
+     "score": 87,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "BoneTea": {
+    "class": "BoneTea",
+    "id": "BONE_TEA",
+    "name_eng": "Bone Tea",
+    "name_fra": "Thé d'os",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 6,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 34068,
+      "note": "toutes ascensions ; n=34068 prises, victoire 34.6 %, taux de prise 3.0 %"
+     }
+    ],
+    "consensus": {
+     "score": 6,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "BoomingConch": {
+    "class": "BoomingConch",
+    "id": "BOOMING_CONCH",
+    "name_eng": "Booming Conch",
+    "name_fra": "Conque retentissante",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 0,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 31276,
+      "note": "toutes ascensions ; n=31276 prises, victoire 29.1 %, taux de prise 2.8 %"
+     }
+    ],
+    "consensus": {
+     "score": 0,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "BrilliantScarf": {
+    "class": "BrilliantScarf",
+    "id": "BRILLIANT_SCARF",
+    "name_eng": "Brilliant Scarf",
+    "name_fra": "Écharpe étincelante",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 100,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 14400,
+      "note": "toutes ascensions ; n=14400 prises, victoire 67.2 %, taux de prise 1.3 %"
+     }
+    ],
+    "consensus": {
+     "score": 100,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "Byrdpip": {
+    "class": "Byrdpip",
+    "id": "BYRDPIP",
+    "name_eng": "Byrdpip",
+    "name_fra": "Oizillon",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 0,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 23448,
+      "note": "toutes ascensions ; n=23448 prises, victoire 31.3 %, taux de prise 2.1 %"
+     }
+    ],
+    "consensus": {
+     "score": 0,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "CallingBell": {
+    "class": "CallingBell",
+    "id": "CALLING_BELL",
+    "name_eng": "Calling Bell",
+    "name_fra": "Cloche d'appel",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 39,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 17331,
+      "note": "toutes ascensions ; n=17331 prises, victoire 44.7 %, taux de prise 1.5 %, Elo 1928.0 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 39,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "ChoicesParadox": {
+    "class": "ChoicesParadox",
+    "id": "CHOICES_PARADOX",
+    "name_eng": "Choices Paradox",
+    "name_fra": "Embarras du choix",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 90,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 21192,
+      "note": "toutes ascensions ; n=21192 prises, victoire 59.7 %, taux de prise 1.9 %"
+     }
+    ],
+    "consensus": {
+     "score": 90,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "ChosenCheese": {
+    "class": "ChosenCheese",
+    "id": "CHOSEN_CHEESE",
+    "name_eng": "The Chosen Cheese",
+    "name_fra": "Fromage d'élection",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 30,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 91008,
+      "note": "toutes ascensions ; n=91008 prises, victoire 41.8 %, taux de prise 8.1 %, Elo 1668.3 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 30,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "Claws": {
+    "class": "Claws",
+    "id": "CLAWS",
+    "name_eng": "Claws",
+    "name_fra": "Griffes",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 88,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 11370,
+      "note": "toutes ascensions ; n=11370 prises, victoire 59.4 %, taux de prise 1.0 %"
+     }
+    ],
+    "consensus": {
+     "score": 88,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "Crossbow": {
+    "class": "Crossbow",
+    "id": "CROSSBOW",
+    "name_eng": "Crossbow",
+    "name_fra": "Arbalète",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 100,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 17349,
+      "note": "toutes ascensions ; n=17349 prises, victoire 72.7 %, taux de prise 1.5 %"
+     }
+    ],
+    "consensus": {
+     "score": 100,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "CursedPearl": {
+    "class": "CursedPearl",
+    "id": "CURSED_PEARL",
+    "name_eng": "Cursed Pearl",
+    "name_fra": "Perle maudite",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 0,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 60241,
+      "note": "toutes ascensions ; n=60241 prises, victoire 27.9 %, taux de prise 5.4 %"
+     }
+    ],
+    "consensus": {
+     "score": 0,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "DarkstonePeriapt": {
+    "class": "DarkstonePeriapt",
+    "id": "DARKSTONE_PERIAPT",
+    "name_eng": "Darkstone Periapt",
+    "name_fra": "Amulette sombrepierre",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 0,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 9100,
+      "note": "toutes ascensions ; n=9100 prises, victoire 31.1 %, taux de prise 0.8 %"
+     }
+    ],
+    "consensus": {
+     "score": 0,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "DaughterOfTheWind": {
+    "class": "DaughterOfTheWind",
+    "id": "DAUGHTER_OF_THE_WIND",
+    "name_eng": "Daughter of the Wind",
+    "name_fra": "Fille des vents",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 58,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 37236,
+      "note": "toutes ascensions ; n=37236 prises, victoire 50.3 %, taux de prise 3.3 %"
+     }
+    ],
+    "consensus": {
+     "score": 58,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "DelicateFrond": {
+    "class": "DelicateFrond",
+    "id": "DELICATE_FROND",
+    "name_eng": "Delicate Frond",
+    "name_fra": "Fougère délicate",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 100,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 13016,
+      "note": "toutes ascensions ; n=13016 prises, victoire 66.5 %, taux de prise 1.2 %"
+     }
+    ],
+    "consensus": {
+     "score": 100,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "DiamondDiadem": {
+    "class": "DiamondDiadem",
+    "id": "DIAMOND_DIADEM",
+    "name_eng": "Diamond Diadem",
+    "name_fra": "Diadème de diamant",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 94,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 5938,
+      "note": "toutes ascensions ; n=5938 prises, victoire 61.1 %, taux de prise 0.5 %"
+     }
+    ],
+    "consensus": {
+     "score": 94,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "DistinguishedCape": {
+    "class": "DistinguishedCape",
+    "id": "DISTINGUISHED_CAPE",
+    "name_eng": "Distinguished Cape",
+    "name_fra": "Cape distinguée",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 89,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 13530,
+      "note": "toutes ascensions ; n=13530 prises, victoire 59.6 %, taux de prise 1.2 %"
+     }
+    ],
+    "consensus": {
+     "score": 89,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "DivineDestiny": {
+    "class": "DivineDestiny",
+    "id": "DIVINE_DESTINY",
+    "name_eng": "Divine Destiny",
+    "name_fra": "Destin divin",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 30,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 10364,
+      "note": "toutes ascensions ; n=10364 prises, victoire 41.9 %, taux de prise 0.9 %"
+     }
+    ],
+    "consensus": {
+     "score": 30,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "DreamCatcher": {
+    "class": "DreamCatcher",
+    "id": "DREAM_CATCHER",
+    "name_eng": "Dream Catcher",
+    "name_fra": "Attrape-rêves",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 0,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 9322,
+      "note": "toutes ascensions ; n=9322 prises, victoire 32.2 %, taux de prise 0.8 %"
+     }
+    ],
+    "consensus": {
+     "score": 0,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "Driftwood": {
+    "class": "Driftwood",
+    "id": "DRIFTWOOD",
+    "name_eng": "Driftwood",
+    "name_fra": "Bois flotté",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 26,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 17221,
+      "note": "toutes ascensions ; n=17221 prises, victoire 40.6 %, taux de prise 1.5 %"
+     }
+    ],
+    "consensus": {
+     "score": 26,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "DustyTome": {
+    "class": "DustyTome",
+    "id": "DUSTY_TOME",
+    "name_eng": "Dusty Tome",
+    "name_fra": "Grimoire poussiéreux",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 44,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 19966,
+      "note": "toutes ascensions ; n=19966 prises, victoire 46.1 %, taux de prise 1.8 %"
+     }
+    ],
+    "consensus": {
+     "score": 44,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "Ectoplasm": {
+    "class": "Ectoplasm",
+    "id": "ECTOPLASM",
+    "name_eng": "Ectoplasm",
+    "name_fra": "Ectoplasme",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 26,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 1815,
+      "note": "toutes ascensions ; n=1815 prises, victoire 40.7 %, taux de prise 0.2 %, Elo 1029.2 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 26,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "ElectricShrymp": {
+    "class": "ElectricShrymp",
+    "id": "ELECTRIC_SHRYMP",
+    "name_eng": "Electric Shrymp",
+    "name_fra": "Crevaite électrique",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 35,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 21596,
+      "note": "toutes ascensions ; n=21596 prises, victoire 43.3 %, taux de prise 1.9 %, Elo 1630.2 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 35,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "EmberTea": {
+    "class": "EmberTea",
+    "id": "EMBER_TEA",
+    "name_eng": "Ember Tea",
+    "name_fra": "Thé de braises",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 8,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 9708,
+      "note": "toutes ascensions ; n=9708 prises, victoire 35.4 %, taux de prise 0.9 %"
+     }
+    ],
+    "consensus": {
+     "score": 8,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "EmptyCage": {
+    "class": "EmptyCage",
+    "id": "EMPTY_CAGE",
+    "name_eng": "Empty Cage",
+    "name_fra": "Cage vide",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 40,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 15306,
+      "note": "toutes ascensions ; n=15306 prises, victoire 44.9 %, taux de prise 1.4 %, Elo 1582.5 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 40,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "FakeAnchor": {
+    "class": "FakeAnchor",
+    "id": "FAKE_ANCHOR",
+    "name_eng": "Anchor???",
+    "name_fra": "Ancre ???",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 44,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 9244,
+      "note": "toutes ascensions ; n=9244 prises, victoire 46.1 %, taux de prise 0.8 %, Elo 1716.2 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 44,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "FakeBloodVial": {
+    "class": "FakeBloodVial",
+    "id": "FAKE_BLOOD_VIAL",
+    "name_eng": "Blood Vial???",
+    "name_fra": "Fiole de sang ???",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 29,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 8165,
+      "note": "toutes ascensions ; n=8165 prises, victoire 41.6 %, taux de prise 0.7 %, Elo 1683.5 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 29,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "FakeHappyFlower": {
+    "class": "FakeHappyFlower",
+    "id": "FAKE_HAPPY_FLOWER",
+    "name_eng": "Happy Flower???",
+    "name_fra": "Fleur joyeuse ???",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 47,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 10586,
+      "note": "toutes ascensions ; n=10586 prises, victoire 47.0 %, taux de prise 0.9 %, Elo 1697.8 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 47,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "FakeLeesWaffle": {
+    "class": "FakeLeesWaffle",
+    "id": "FAKE_LEES_WAFFLE",
+    "name_eng": "Lee's Waffle???",
+    "name_fra": "Gaufre de Lee ???",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 20,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 7659,
+      "note": "toutes ascensions ; n=7659 prises, victoire 38.7 %, taux de prise 0.7 %, Elo 1696.1 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 20,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "FakeMango": {
+    "class": "FakeMango",
+    "id": "FAKE_MANGO",
+    "name_eng": "Mango???",
+    "name_fra": "Mangue ???",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 37,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 7966,
+      "note": "toutes ascensions ; n=7966 prises, victoire 43.9 %, taux de prise 0.7 %, Elo 1690.3 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 37,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "FakeMerchantsRug": {
+    "class": "FakeMerchantsRug",
+    "id": "FAKE_MERCHANTS_RUG",
+    "name_eng": "The Merchant's Rug???",
+    "name_fra": "Le tapis du Marchand ???",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 93,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 359,
+      "note": "toutes ascensions ; n=359 prises, victoire 61.3 %, taux de prise 0.0 %, Elo 1650.1 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 93,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "FakeOrichalcum": {
+    "class": "FakeOrichalcum",
+    "id": "FAKE_ORICHALCUM",
+    "name_eng": "Orichalcum???",
+    "name_fra": "Orichalque ???",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 34,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 4315,
+      "note": "toutes ascensions ; n=4315 prises, victoire 43.1 %, taux de prise 0.4 %, Elo 1667.9 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 34,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "FakeSneckoEye": {
+    "class": "FakeSneckoEye",
+    "id": "FAKE_SNECKO_EYE",
+    "name_eng": "Snecko Eye???",
+    "name_fra": "Œil de geckobra ???",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 0,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 576,
+      "note": "toutes ascensions ; n=576 prises, victoire 28.6 %, taux de prise 0.1 %, Elo 861.4 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 0,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "FakeStrikeDummy": {
+    "class": "FakeStrikeDummy",
+    "id": "FAKE_STRIKE_DUMMY",
+    "name_eng": "Strike Dummy???",
+    "name_fra": "Mannequin d'entraînement ???",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 30,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 4798,
+      "note": "toutes ascensions ; n=4798 prises, victoire 41.9 %, taux de prise 0.4 %, Elo 1667.3 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 30,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "FakeVenerableTeaSet": {
+    "class": "FakeVenerableTeaSet",
+    "id": "FAKE_VENERABLE_TEA_SET",
+    "name_eng": "Venerable Tea Set???",
+    "name_fra": "Service à thé vénérable ???",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 50,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 8979,
+      "note": "toutes ascensions ; n=8979 prises, victoire 47.9 %, taux de prise 0.8 %, Elo 1673.2 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 50,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "Fiddle": {
+    "class": "Fiddle",
+    "id": "FIDDLE",
+    "name_eng": "Fiddle",
+    "name_fra": "Violon",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 100,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 8639,
+      "note": "toutes ascensions ; n=8639 prises, victoire 66.0 %, taux de prise 0.8 %"
+     }
+    ],
+    "consensus": {
+     "score": 100,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "FishingRod": {
+    "class": "FishingRod",
+    "id": "FISHING_ROD",
+    "name_eng": "Fishing Rod",
+    "name_fra": "Canne à pêche",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 0,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 62554,
+      "note": "toutes ascensions ; n=62554 prises, victoire 27.7 %, taux de prise 5.6 %, Elo 1574.6 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 0,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "ForgottenSoul": {
+    "class": "ForgottenSoul",
+    "id": "FORGOTTEN_SOUL",
+    "name_eng": "Forgotten Soul",
+    "name_fra": "Âme oubliée",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 93,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 37357,
+      "note": "toutes ascensions ; n=37357 prises, victoire 60.7 %, taux de prise 3.3 %"
+     }
+    ],
+    "consensus": {
+     "score": 93,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "FragrantMushroom": {
+    "class": "FragrantMushroom",
+    "id": "FRAGRANT_MUSHROOM",
+    "name_eng": "Fragrant Mushroom",
+    "name_fra": "Champi aromatique",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 100,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 62180,
+      "note": "toutes ascensions ; n=62180 prises, victoire 68.1 %, taux de prise 5.5 %, Elo 1357.0 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 100,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "FurCoat": {
+    "class": "FurCoat",
+    "id": "FUR_COAT",
+    "name_eng": "Fur Coat",
+    "name_fra": "Manteau de fourrure",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 100,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 18579,
+      "note": "toutes ascensions ; n=18579 prises, victoire 64.8 %, taux de prise 1.7 %"
+     }
+    ],
+    "consensus": {
+     "score": 100,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "GlassEye": {
+    "class": "GlassEye",
+    "id": "GLASS_EYE",
+    "name_eng": "Glass Eye",
+    "name_fra": "Œil de verre",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 11,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 19884,
+      "note": "toutes ascensions ; n=19884 prises, victoire 36.3 %, taux de prise 1.8 %, Elo 1642.0 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 11,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "Glitter": {
+    "class": "Glitter",
+    "id": "GLITTER",
+    "name_eng": "Glitter",
+    "name_fra": "Paillettes",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 100,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 23048,
+      "note": "toutes ascensions ; n=23048 prises, victoire 66.6 %, taux de prise 2.0 %"
+     }
+    ],
+    "consensus": {
+     "score": 100,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "GoldenCompass": {
+    "class": "GoldenCompass",
+    "id": "GOLDEN_COMPASS",
+    "name_eng": "Golden Compass",
+    "name_fra": "Boussole dorée",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 51,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 19867,
+      "note": "toutes ascensions ; n=19867 prises, victoire 48.3 %, taux de prise 1.8 %"
+     }
+    ],
+    "consensus": {
+     "score": 51,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "GoldenPearl": {
+    "class": "GoldenPearl",
+    "id": "GOLDEN_PEARL",
+    "name_eng": "Golden Pearl",
+    "name_fra": "Perle dorée",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 0,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 47315,
+      "note": "toutes ascensions ; n=47315 prises, victoire 27.5 %, taux de prise 4.2 %, Elo 1699.8 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 0,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "HandDrill": {
+    "class": "HandDrill",
+    "id": "HAND_DRILL",
+    "name_eng": "Hand Drill",
+    "name_fra": "Perceuse",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 0,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 9480,
+      "note": "toutes ascensions ; n=9480 prises, victoire 32.7 %, taux de prise 0.8 %"
+     }
+    ],
+    "consensus": {
+     "score": 0,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "HeftyTablet": {
+    "class": "HeftyTablet",
+    "id": "HEFTY_TABLET",
+    "name_eng": "Hefty Tablet",
+    "name_fra": "Tablette lourde",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 0,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 88857,
+      "note": "toutes ascensions ; n=88857 prises, victoire 25.3 %, taux de prise 7.9 %"
+     }
+    ],
+    "consensus": {
+     "score": 0,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "HistoryCourse": {
+    "class": "HistoryCourse",
+    "id": "HISTORY_COURSE",
+    "name_eng": "History Course",
+    "name_fra": "Manuel d'Histoire",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 100,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 23199,
+      "note": "toutes ascensions ; n=23199 prises, victoire 89.9 %, taux de prise 2.1 %"
+     }
+    ],
+    "consensus": {
+     "score": 100,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "InfusedCore": {
+    "class": "InfusedCore",
+    "id": "INFUSED_CORE",
+    "name_eng": "Infused Core",
+    "name_fra": "Noyau infusé",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 17,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 12894,
+      "note": "toutes ascensions ; n=12894 prises, victoire 38.0 %, taux de prise 1.1 %"
+     }
+    ],
+    "consensus": {
+     "score": 17,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "IronClub": {
+    "class": "IronClub",
+    "id": "IRON_CLUB",
+    "name_eng": "Iron Club",
+    "name_fra": "Gourdin de fer",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 100,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 14353,
+      "note": "toutes ascensions ; n=14353 prises, victoire 74.1 %, taux de prise 1.3 %"
+     }
+    ],
+    "consensus": {
+     "score": 100,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "JeweledMask": {
+    "class": "JeweledMask",
+    "id": "JEWELED_MASK",
+    "name_eng": "Jeweled Mask",
+    "name_fra": "Masque serti",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 99,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 32414,
+      "note": "toutes ascensions ; n=32414 prises, victoire 62.5 %, taux de prise 2.9 %"
+     }
+    ],
+    "consensus": {
+     "score": 99,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "JewelryBox": {
+    "class": "JewelryBox",
+    "id": "JEWELRY_BOX",
+    "name_eng": "Jewelry Box",
+    "name_fra": "Coffre à bijoux",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 100,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 18026,
+      "note": "toutes ascensions ; n=18026 prises, victoire 67.9 %, taux de prise 1.6 %"
+     }
+    ],
+    "consensus": {
+     "score": 100,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "Kaleidoscope": {
+    "class": "Kaleidoscope",
+    "id": "KALEIDOSCOPE",
+    "name_eng": "Kaleidoscope",
+    "name_fra": "Kaléidoscope",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 0,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 47515,
+      "note": "toutes ascensions ; n=47515 prises, victoire 27.7 %, taux de prise 4.2 %"
+     }
+    ],
+    "consensus": {
+     "score": 0,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "LargeCapsule": {
+    "class": "LargeCapsule",
+    "id": "LARGE_CAPSULE",
+    "name_eng": "Large Capsule",
+    "name_fra": "Grande capsule",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 0,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 65214,
+      "note": "toutes ascensions ; n=65214 prises, victoire 29.1 %, taux de prise 5.8 %"
+     }
+    ],
+    "consensus": {
+     "score": 0,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "LastingCandy": {
+    "class": "LastingCandy",
+    "id": "LASTING_CANDY",
+    "name_eng": "Lasting Candy",
+    "name_fra": "Bonbon durable",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 41,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 73101,
+      "note": "toutes ascensions ; n=73101 prises, victoire 45.1 %, taux de prise 6.5 %, Elo 1482.1 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 41,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "LavaRock": {
+    "class": "LavaRock",
+    "id": "LAVA_ROCK",
+    "name_eng": "Lava Rock",
+    "name_fra": "Pierre volcanique",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 0,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 25754,
+      "note": "toutes ascensions ; n=25754 prises, victoire 30.8 %, taux de prise 2.3 %"
+     }
+    ],
+    "consensus": {
+     "score": 0,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "LeadPaperweight": {
+    "class": "LeadPaperweight",
+    "id": "LEAD_PAPERWEIGHT",
+    "name_eng": "Lead Paperweight",
+    "name_fra": "Presse-papier en plomb",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 0,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 45258,
+      "note": "toutes ascensions ; n=45258 prises, victoire 28.2 %, taux de prise 4.0 %"
+     }
+    ],
+    "consensus": {
+     "score": 0,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "LeafyPoultice": {
+    "class": "LeafyPoultice",
+    "id": "LEAFY_POULTICE",
+    "name_eng": "Leafy Poultice",
+    "name_fra": "Cataplasme",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 0,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 52957,
+      "note": "toutes ascensions ; n=52957 prises, victoire 30.3 %, taux de prise 4.7 %"
+     }
+    ],
+    "consensus": {
+     "score": 0,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "LordsParasol": {
+    "class": "LordsParasol",
+    "id": "LORDS_PARASOL",
+    "name_eng": "Lord's Parasol",
+    "name_fra": "Parasol seigneurial",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 95,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 14502,
+      "note": "toutes ascensions ; n=14502 prises, victoire 61.4 %, taux de prise 1.3 %"
+     }
+    ],
+    "consensus": {
+     "score": 95,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "LostCoffer": {
+    "class": "LostCoffer",
+    "id": "LOST_COFFER",
+    "name_eng": "Lost Coffer",
+    "name_fra": "Coffret perdu",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 0,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 36425,
+      "note": "toutes ascensions ; n=36425 prises, victoire 27.0 %, taux de prise 3.2 %"
+     }
+    ],
+    "consensus": {
+     "score": 0,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "LostWisp": {
+    "class": "LostWisp",
+    "id": "LOST_WISP",
+    "name_eng": "Lost Wisp",
+    "name_fra": "Feu follet perdu",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 53,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 13854,
+      "note": "toutes ascensions ; n=13854 prises, victoire 48.7 %, taux de prise 1.2 %"
+     }
+    ],
+    "consensus": {
+     "score": 53,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "MassiveScroll": {
+    "class": "MassiveScroll",
+    "id": "MASSIVE_SCROLL",
+    "name_eng": "Massive Scroll",
+    "name_fra": "Parchemin énorme",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 17,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 35550,
+      "note": "toutes ascensions ; n=35550 prises, victoire 38.1 %, taux de prise 3.2 %"
+     }
+    ],
+    "consensus": {
+     "score": 17,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "MawBank": {
+    "class": "MawBank",
+    "id": "MAW_BANK",
+    "name_eng": "Maw Bank",
+    "name_fra": "Tirelire-gueule",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 0,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 8971,
+      "note": "toutes ascensions ; n=8971 prises, victoire 30.8 %, taux de prise 0.8 %"
+     }
+    ],
+    "consensus": {
+     "score": 0,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "MeatCleaver": {
+    "class": "MeatCleaver",
+    "id": "MEAT_CLEAVER",
+    "name_eng": "Meat Cleaver",
+    "name_fra": "Couperet à viande",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 100,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 16326,
+      "note": "toutes ascensions ; n=16326 prises, victoire 65.9 %, taux de prise 1.5 %"
+     }
+    ],
+    "consensus": {
+     "score": 100,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "MrStruggles": {
+    "class": "MrStruggles",
+    "id": "MR_STRUGGLES",
+    "name_eng": "Mr. Struggles",
+    "name_fra": "Monsieur Carnage",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 45,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 28749,
+      "note": "toutes ascensions ; n=28749 prises, victoire 46.5 %, taux de prise 2.6 %"
+     }
+    ],
+    "consensus": {
+     "score": 45,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "MusicBox": {
+    "class": "MusicBox",
+    "id": "MUSIC_BOX",
+    "name_eng": "Music Box",
+    "name_fra": "Boîte à musique",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 100,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 20293,
+      "note": "toutes ascensions ; n=20293 prises, victoire 65.2 %, taux de prise 1.8 %"
+     }
+    ],
+    "consensus": {
+     "score": 100,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "NeowsBones": {
+    "class": "NeowsBones",
+    "id": "NEOWS_BONES",
+    "name_eng": "Neow's Bones",
+    "name_fra": "Osselets de Neow",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 0,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 62641,
+      "note": "toutes ascensions ; n=62641 prises, victoire 28.1 %, taux de prise 5.6 %, Elo 1729.2 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 0,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "NeowsTalisman": {
+    "class": "NeowsTalisman",
+    "id": "NEOWS_TALISMAN",
+    "name_eng": "Neow's Talisman",
+    "name_fra": "Talisman de Neow",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 0,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 15095,
+      "note": "toutes ascensions ; n=15095 prises, victoire 26.8 %, taux de prise 1.3 %"
+     }
+    ],
+    "consensus": {
+     "score": 0,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "NeowsTorment": {
+    "class": "NeowsTorment",
+    "id": "NEOWS_TORMENT",
+    "name_eng": "Neow's Torment",
+    "name_fra": "Tourment de Neow",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 0,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 25349,
+      "note": "toutes ascensions ; n=25349 prises, victoire 30.1 %, taux de prise 2.3 %"
+     }
+    ],
+    "consensus": {
+     "score": 0,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "NewLeaf": {
+    "class": "NewLeaf",
+    "id": "NEW_LEAF",
+    "name_eng": "New Leaf",
+    "name_fra": "Nouvelle page",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 0,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 43236,
+      "note": "toutes ascensions ; n=43236 prises, victoire 29.6 %, taux de prise 3.8 %"
+     }
+    ],
+    "consensus": {
+     "score": 0,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "NutritiousOyster": {
+    "class": "NutritiousOyster",
+    "id": "NUTRITIOUS_OYSTER",
+    "name_eng": "Nutritious Oyster",
+    "name_fra": "Huître nourrissante",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 0,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 22775,
+      "note": "toutes ascensions ; n=22775 prises, victoire 28.3 %, taux de prise 2.0 %"
+     }
+    ],
+    "consensus": {
+     "score": 0,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "NutritiousSoup": {
+    "class": "NutritiousSoup",
+    "id": "NUTRITIOUS_SOUP",
+    "name_eng": "Nutritious Soup",
+    "name_fra": "Soupe nourrissante",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 21,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 41559,
+      "note": "toutes ascensions ; n=41559 prises, victoire 39.1 %, taux de prise 3.7 %"
+     }
+    ],
+    "consensus": {
+     "score": 21,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "PaelsBlood": {
+    "class": "PaelsBlood",
+    "id": "PAELS_BLOOD",
+    "name_eng": "Pael's Blood",
+    "name_fra": "Sang de Paël",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 43,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 29086,
+      "note": "toutes ascensions ; n=29086 prises, victoire 45.6 %, taux de prise 2.6 %"
+     }
+    ],
+    "consensus": {
+     "score": 43,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "PaelsClaw": {
+    "class": "PaelsClaw",
+    "id": "PAELS_CLAW",
+    "name_eng": "Pael's Claw",
+    "name_fra": "Griffe de Paël",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 11,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 15147,
+      "note": "toutes ascensions ; n=15147 prises, victoire 36.2 %, taux de prise 1.3 %"
+     }
+    ],
+    "consensus": {
+     "score": 11,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "PaelsEye": {
+    "class": "PaelsEye",
+    "id": "PAELS_EYE",
+    "name_eng": "Pael's Eye",
+    "name_fra": "Œil de Paël",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 15,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 7147,
+      "note": "toutes ascensions ; n=7147 prises, victoire 37.3 %, taux de prise 0.6 %"
+     }
+    ],
+    "consensus": {
+     "score": 15,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "PaelsFlesh": {
+    "class": "PaelsFlesh",
+    "id": "PAELS_FLESH",
+    "name_eng": "Pael's Flesh",
+    "name_fra": "Chair de Paël",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 16,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 48403,
+      "note": "toutes ascensions ; n=48403 prises, victoire 37.7 %, taux de prise 4.3 %"
+     }
+    ],
+    "consensus": {
+     "score": 16,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "PaelsGrowth": {
+    "class": "PaelsGrowth",
+    "id": "PAELS_GROWTH",
+    "name_eng": "Pael's Growth",
+    "name_fra": "Excroissance de Paël",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 16,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 16677,
+      "note": "toutes ascensions ; n=16677 prises, victoire 37.7 %, taux de prise 1.5 %"
+     }
+    ],
+    "consensus": {
+     "score": 16,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "PaelsHorn": {
+    "class": "PaelsHorn",
+    "id": "PAELS_HORN",
+    "name_eng": "Pael's Horn",
+    "name_fra": "Corne de Paël",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 3,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 18752,
+      "note": "toutes ascensions ; n=18752 prises, victoire 33.7 %, taux de prise 1.7 %"
+     }
+    ],
+    "consensus": {
+     "score": 3,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "PaelsLegion": {
+    "class": "PaelsLegion",
+    "id": "PAELS_LEGION",
+    "name_eng": "Pael's Legion",
+    "name_fra": "Légion de Paël",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 23,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 17688,
+      "note": "toutes ascensions ; n=17688 prises, victoire 39.8 %, taux de prise 1.6 %"
+     }
+    ],
+    "consensus": {
+     "score": 23,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "PaelsTears": {
+    "class": "PaelsTears",
+    "id": "PAELS_TEARS",
+    "name_eng": "Pael's Tears",
+    "name_fra": "Larmes de Paël",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 11,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 35966,
+      "note": "toutes ascensions ; n=35966 prises, victoire 36.1 %, taux de prise 3.2 %, Elo 1677.1 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 11,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "PaelsTooth": {
+    "class": "PaelsTooth",
+    "id": "PAELS_TOOTH",
+    "name_eng": "Pael's Tooth",
+    "name_fra": "Dent de Paël",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 22,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 20378,
+      "note": "toutes ascensions ; n=20378 prises, victoire 39.5 %, taux de prise 1.8 %"
+     }
+    ],
+    "consensus": {
+     "score": 22,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "PaelsWing": {
+    "class": "PaelsWing",
+    "id": "PAELS_WING",
+    "name_eng": "Pael's Wing",
+    "name_fra": "Aile de Paël",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 17,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 37954,
+      "note": "toutes ascensions ; n=37954 prises, victoire 37.9 %, taux de prise 3.4 %"
+     }
+    ],
+    "consensus": {
+     "score": 17,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "PandorasBox": {
+    "class": "PandorasBox",
+    "id": "PANDORAS_BOX",
+    "name_eng": "Pandora's Box",
+    "name_fra": "Boîte de Pandore",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 59,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 17095,
+      "note": "toutes ascensions ; n=17095 prises, victoire 50.5 %, taux de prise 1.5 %, Elo 1296.1 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 59,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "PhialHolster": {
+    "class": "PhialHolster",
+    "id": "PHIAL_HOLSTER",
+    "name_eng": "Phial Holster",
+    "name_fra": "Étui à fioles",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 0,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 28485,
+      "note": "toutes ascensions ; n=28485 prises, victoire 28.0 %, taux de prise 2.5 %"
+     }
+    ],
+    "consensus": {
+     "score": 0,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "PhilosophersStone": {
+    "class": "PhilosophersStone",
+    "id": "PHILOSOPHERS_STONE",
+    "name_eng": "Philosopher's Stone",
+    "name_fra": "Pierre philosophale",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 93,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 1647,
+      "note": "toutes ascensions ; n=1647 prises, victoire 61.0 %, taux de prise 0.1 %, Elo 1438.4 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 93,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "PhylacteryUnbound": {
+    "class": "PhylacteryUnbound",
+    "id": "PHYLACTERY_UNBOUND",
+    "name_eng": "Phylactery Unbound",
+    "name_fra": "Phylactère déchaîné",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 34,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 13361,
+      "note": "toutes ascensions ; n=13361 prises, victoire 43.1 %, taux de prise 1.2 %"
+     }
+    ],
+    "consensus": {
+     "score": 34,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "PollinousCore": {
+    "class": "PollinousCore",
+    "id": "POLLINOUS_CORE",
+    "name_eng": "Pollinous Core",
+    "name_fra": "Noyau pollinique",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 87,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 20279,
+      "note": "toutes ascensions ; n=20279 prises, victoire 59.0 %, taux de prise 1.8 %"
+     }
+    ],
+    "consensus": {
+     "score": 87,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "Pomander": {
+    "class": "Pomander",
+    "id": "POMANDER",
+    "name_eng": "Pomander",
+    "name_fra": "Pommandre",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 0,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 19863,
+      "note": "toutes ascensions ; n=19863 prises, victoire 26.5 %, taux de prise 1.8 %"
+     }
+    ],
+    "consensus": {
+     "score": 0,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "PrecariousShears": {
+    "class": "PrecariousShears",
+    "id": "PRECARIOUS_SHEARS",
+    "name_eng": "Precarious Shears",
+    "name_fra": "Forces précaires",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 0,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 45672,
+      "note": "toutes ascensions ; n=45672 prises, victoire 32.2 %, taux de prise 4.1 %, Elo 1643.9 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 0,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "PreciseScissors": {
+    "class": "PreciseScissors",
+    "id": "PRECISE_SCISSORS",
+    "name_eng": "Precise Scissors",
+    "name_fra": "Ciseaux précis",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 0,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 26357,
+      "note": "toutes ascensions ; n=26357 prises, victoire 29.9 %, taux de prise 2.3 %"
+     }
+    ],
+    "consensus": {
+     "score": 0,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "PreservedFog": {
+    "class": "PreservedFog",
+    "id": "PRESERVED_FOG",
+    "name_eng": "Preserved Fog",
+    "name_fra": "Brouillard en conserve",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 98,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 15014,
+      "note": "toutes ascensions ; n=15014 prises, victoire 62.2 %, taux de prise 1.3 %"
+     }
+    ],
+    "consensus": {
+     "score": 98,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "PrismaticGem": {
+    "class": "PrismaticGem",
+    "id": "PRISMATIC_GEM",
+    "name_eng": "Prismatic Gem",
+    "name_fra": "Joyau prismatique",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 40,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 7793,
+      "note": "toutes ascensions ; n=7793 prises, victoire 44.8 %, taux de prise 0.7 %"
+     }
+    ],
+    "consensus": {
+     "score": 40,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "PumpkinCandle": {
+    "class": "PumpkinCandle",
+    "id": "PUMPKIN_CANDLE",
+    "name_eng": "Pumpkin Candle",
+    "name_fra": "Lanterne-citrouille",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 42,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 14851,
+      "note": "toutes ascensions ; n=14851 prises, victoire 45.5 %, taux de prise 1.3 %"
+     }
+    ],
+    "consensus": {
+     "score": 42,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "RadiantPearl": {
+    "class": "RadiantPearl",
+    "id": "RADIANT_PEARL",
+    "name_eng": "Radiant Pearl",
+    "name_fra": "Perle radieuse",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 35,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 12624,
+      "note": "toutes ascensions ; n=12624 prises, victoire 43.2 %, taux de prise 1.1 %, Elo 1633.7 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 35,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "RazorTooth": {
+    "class": "RazorTooth",
+    "id": "RAZOR_TOOTH",
+    "name_eng": "Razor Tooth",
+    "name_fra": "Dent de rasoir",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 70,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 42797,
+      "note": "toutes ascensions ; n=42797 prises, victoire 53.8 %, taux de prise 3.8 %, Elo 1543.8 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 70,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "RingOfTheDrake": {
+    "class": "RingOfTheDrake",
+    "id": "RING_OF_THE_DRAKE",
+    "name_eng": "Ring of the Drake",
+    "name_fra": "Anneau du dragon",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 47,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 9809,
+      "note": "toutes ascensions ; n=9809 prises, victoire 46.9 %, taux de prise 0.9 %"
+     }
+    ],
+    "consensus": {
+     "score": 47,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "RoyalPoison": {
+    "class": "RoyalPoison",
+    "id": "ROYAL_POISON",
+    "name_eng": "Royal Poison",
+    "name_fra": "Poison royal",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 77,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 9702,
+      "note": "toutes ascensions ; n=9702 prises, victoire 55.9 %, taux de prise 0.9 %"
+     }
+    ],
+    "consensus": {
+     "score": 77,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "RunicPyramid": {
+    "class": "RunicPyramid",
+    "id": "RUNIC_PYRAMID",
+    "name_eng": "Runic Pyramid",
+    "name_fra": "Pyramide runique",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 73,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 13049,
+      "note": "toutes ascensions ; n=13049 prises, victoire 54.7 %, taux de prise 1.2 %, Elo 1561.4 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 73,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "Sai": {
+    "class": "Sai",
+    "id": "SAI",
+    "name_eng": "Sai",
+    "name_fra": "Saï",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 100,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 23110,
+      "note": "toutes ascensions ; n=23110 prises, victoire 70.2 %, taux de prise 2.1 %"
+     }
+    ],
+    "consensus": {
+     "score": 100,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "SandCastle": {
+    "class": "SandCastle",
+    "id": "SAND_CASTLE",
+    "name_eng": "Sand Castle",
+    "name_fra": "Château de sable",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 22,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 19673,
+      "note": "toutes ascensions ; n=19673 prises, victoire 39.3 %, taux de prise 1.7 %"
+     }
+    ],
+    "consensus": {
+     "score": 22,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "ScrollBoxes": {
+    "class": "ScrollBoxes",
+    "id": "SCROLL_BOXES",
+    "name_eng": "Scroll Boxes",
+    "name_fra": "Caisse de parchemins",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 0,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 53907,
+      "note": "toutes ascensions ; n=53907 prises, victoire 26.9 %, taux de prise 4.8 %"
+     }
+    ],
+    "consensus": {
+     "score": 0,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "SeaGlass": {
+    "class": "SeaGlass",
+    "id": "SEA_GLASS",
+    "name_eng": "Sea Glass",
+    "name_fra": "Verre marin",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 12,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 9311,
+      "note": "toutes ascensions ; n=9311 prises, victoire 36.4 %, taux de prise 0.8 %"
+     }
+    ],
+    "consensus": {
+     "score": 12,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "SealOfGold": {
+    "class": "SealOfGold",
+    "id": "SEAL_OF_GOLD",
+    "name_eng": "Seal of Gold",
+    "name_fra": "Sceau doré",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 36,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 10570,
+      "note": "toutes ascensions ; n=10570 prises, victoire 43.7 %, taux de prise 0.9 %"
+     }
+    ],
+    "consensus": {
+     "score": 36,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "SereTalon": {
+    "class": "SereTalon",
+    "id": "SERE_TALON",
+    "name_eng": "Sere Talon",
+    "name_fra": "Serre desséchée",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 88,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 7568,
+      "note": "toutes ascensions ; n=7568 prises, victoire 59.2 %, taux de prise 0.7 %"
+     }
+    ],
+    "consensus": {
+     "score": 88,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "SignetRing": {
+    "class": "SignetRing",
+    "id": "SIGNET_RING",
+    "name_eng": "Signet Ring",
+    "name_fra": "Anneau à signet",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 100,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 25545,
+      "note": "toutes ascensions ; n=25545 prises, victoire 68.2 %, taux de prise 2.3 %"
+     }
+    ],
+    "consensus": {
+     "score": 100,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "SilkenTress": {
+    "class": "SilkenTress",
+    "id": "SILKEN_TRESS",
+    "name_eng": "Silken Tress",
+    "name_fra": "Tresse soyeuse",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 0,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 78636,
+      "note": "toutes ascensions ; n=78636 prises, victoire 29.2 %, taux de prise 7.0 %"
+     }
+    ],
+    "consensus": {
+     "score": 0,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "SilverCrucible": {
+    "class": "SilverCrucible",
+    "id": "SILVER_CRUCIBLE",
+    "name_eng": "Silver Crucible",
+    "name_fra": "Creuset en argent",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 0,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 20105,
+      "note": "toutes ascensions ; n=20105 prises, victoire 15.3 %, taux de prise 1.8 %"
+     }
+    ],
+    "consensus": {
+     "score": 0,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "SmallCapsule": {
+    "class": "SmallCapsule",
+    "id": "SMALL_CAPSULE",
+    "name_eng": "Small Capsule",
+    "name_fra": "Petite capsule",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 0,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 31663,
+      "note": "toutes ascensions ; n=31663 prises, victoire 28.3 %, taux de prise 2.8 %, Elo 2021.0 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 0,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "SneckoEye": {
+    "class": "SneckoEye",
+    "id": "SNECKO_EYE",
+    "name_eng": "Snecko Eye",
+    "name_fra": "Œil de geckobra",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 70,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 2600,
+      "note": "toutes ascensions ; n=2600 prises, victoire 54.0 %, taux de prise 0.2 %, Elo 1235.3 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 70,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "Sozu": {
+    "class": "Sozu",
+    "id": "SOZU",
+    "name_eng": "Sozu",
+    "name_fra": "Sozu",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 28,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 4610,
+      "note": "toutes ascensions ; n=4610 prises, victoire 41.2 %, taux de prise 0.4 %, Elo 1510.7 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 28,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "SparklingRouge": {
+    "class": "SparklingRouge",
+    "id": "SPARKLING_ROUGE",
+    "name_eng": "Sparkling Rouge",
+    "name_fra": "Fard pétillant",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 66,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 88450,
+      "note": "toutes ascensions ; n=88450 prises, victoire 52.7 %, taux de prise 7.9 %, Elo 1432.9 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 66,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "SpikedGauntlets": {
+    "class": "SpikedGauntlets",
+    "id": "SPIKED_GAUNTLETS",
+    "name_eng": "Spiked Gauntlets",
+    "name_fra": "Gantelets à pointes",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 97,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 12249,
+      "note": "toutes ascensions ; n=12249 prises, victoire 62.0 %, taux de prise 1.1 %"
+     }
+    ],
+    "consensus": {
+     "score": 97,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "StoneHumidifier": {
+    "class": "StoneHumidifier",
+    "id": "STONE_HUMIDIFIER",
+    "name_eng": "Stone Humidifier",
+    "name_fra": "Humidificateur en pierre",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 0,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 25610,
+      "note": "toutes ascensions ; n=25610 prises, victoire 28.0 %, taux de prise 2.3 %"
+     }
+    ],
+    "consensus": {
+     "score": 0,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "Storybook": {
+    "class": "Storybook",
+    "id": "STORYBOOK",
+    "name_eng": "Storybook",
+    "name_fra": "Livre d'histoires",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 53,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 15715,
+      "note": "toutes ascensions ; n=15715 prises, victoire 48.9 %, taux de prise 1.4 %"
+     }
+    ],
+    "consensus": {
+     "score": 53,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "SwordOfJade": {
+    "class": "SwordOfJade",
+    "id": "SWORD_OF_JADE",
+    "name_eng": "Sword of Jade",
+    "name_fra": "Épée de jade",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 100,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 28926,
+      "note": "toutes ascensions ; n=28926 prises, victoire 79.2 %, taux de prise 2.6 %, Elo 1986.1 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 100,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "SwordOfStone": {
+    "class": "SwordOfStone",
+    "id": "SWORD_OF_STONE",
+    "name_eng": "Sword of Stone",
+    "name_fra": "Épée de pierre",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 0,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 84686,
+      "note": "toutes ascensions ; n=84686 prises, victoire 32.3 %, taux de prise 7.5 %"
+     }
+    ],
+    "consensus": {
+     "score": 0,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "TanxsWhistle": {
+    "class": "TanxsWhistle",
+    "id": "TANXS_WHISTLE",
+    "name_eng": "Tanx's Whistle",
+    "name_fra": "Sifflet de Tanx",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 100,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 11402,
+      "note": "toutes ascensions ; n=11402 prises, victoire 68.4 %, taux de prise 1.0 %"
+     }
+    ],
+    "consensus": {
+     "score": 100,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "TeaOfDiscourtesy": {
+    "class": "TeaOfDiscourtesy",
+    "id": "TEA_OF_DISCOURTESY",
+    "name_eng": "Tea of Discourtesy",
+    "name_fra": "Thé de l'incivilité",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 26,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 28298,
+      "note": "toutes ascensions ; n=28298 prises, victoire 40.6 %, taux de prise 2.5 %"
+     }
+    ],
+    "consensus": {
+     "score": 26,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "TheBoot": {
+    "class": "TheBoot",
+    "id": "THE_BOOT",
+    "name_eng": "The Boot",
+    "name_fra": "La botte",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 0,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 8880,
+      "note": "toutes ascensions ; n=8880 prises, victoire 30.5 %, taux de prise 0.8 %"
+     }
+    ],
+    "consensus": {
+     "score": 0,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "ThrowingAxe": {
+    "class": "ThrowingAxe",
+    "id": "THROWING_AXE",
+    "name_eng": "Throwing Axe",
+    "name_fra": "Hache de lancer",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 100,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 22258,
+      "note": "toutes ascensions ; n=22258 prises, victoire 64.5 %, taux de prise 2.0 %"
+     }
+    ],
+    "consensus": {
+     "score": 100,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "ToastyMittens": {
+    "class": "ToastyMittens",
+    "id": "TOASTY_MITTENS",
+    "name_eng": "Toasty Mittens",
+    "name_fra": "Mitaines réchauffantes",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 40,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 4280,
+      "note": "toutes ascensions ; n=4280 prises, victoire 44.8 %, taux de prise 0.4 %"
+     }
+    ],
+    "consensus": {
+     "score": 40,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "TouchOfOrobas": {
+    "class": "TouchOfOrobas",
+    "id": "TOUCH_OF_OROBAS",
+    "name_eng": "Touch of Orobas",
+    "name_fra": "Toucher d'Orobas",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 26,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 60481,
+      "note": "toutes ascensions ; n=60481 prises, victoire 40.7 %, taux de prise 5.4 %, Elo 1463.1 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 26,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "ToyBox": {
+    "class": "ToyBox",
+    "id": "TOY_BOX",
+    "name_eng": "Toy Box",
+    "name_fra": "Caisse à jouets",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 34,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 9045,
+      "note": "toutes ascensions ; n=9045 prises, victoire 43.1 %, taux de prise 0.8 %, Elo 2073.0 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 34,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "TriBoomerang": {
+    "class": "TriBoomerang",
+    "id": "TRI_BOOMERANG",
+    "name_eng": "Tri-Boomerang",
+    "name_fra": "Tri-boomerang",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 100,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 22990,
+      "note": "toutes ascensions ; n=22990 prises, victoire 65.1 %, taux de prise 2.0 %"
+     }
+    ],
+    "consensus": {
+     "score": 100,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "VelvetChoker": {
+    "class": "VelvetChoker",
+    "id": "VELVET_CHOKER",
+    "name_eng": "Velvet Choker",
+    "name_fra": "Ras du cou en velours",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 79,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 1146,
+      "note": "toutes ascensions ; n=1146 prises, victoire 56.8 %, taux de prise 0.1 %, Elo 1219.5 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 79,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "WarHammer": {
+    "class": "WarHammer",
+    "id": "WAR_HAMMER",
+    "name_eng": "War Hammer",
+    "name_fra": "Marteau de guerre",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 100,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 12559,
+      "note": "toutes ascensions ; n=12559 prises, victoire 65.9 %, taux de prise 1.1 %"
+     }
+    ],
+    "consensus": {
+     "score": 100,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "WhisperingEarring": {
+    "class": "WhisperingEarring",
+    "id": "WHISPERING_EARRING",
+    "name_eng": "Whispering Earring",
+    "name_fra": "Boucle d'oreille susurrante",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 84,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 18987,
+      "note": "toutes ascensions ; n=18987 prises, victoire 58.0 %, taux de prise 1.7 %"
+     }
+    ],
+    "consensus": {
+     "score": 84,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "WingedBoots": {
+    "class": "WingedBoots",
+    "id": "WINGED_BOOTS",
+    "name_eng": "Winged Boots",
+    "name_fra": "Bottes ailées",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 0,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 7819,
+      "note": "toutes ascensions ; n=7819 prises, victoire 16.1 %, taux de prise 0.7 %"
+     }
+    ],
+    "consensus": {
+     "score": 0,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "WongoCustomerAppreciationBadge": {
+    "class": "WongoCustomerAppreciationBadge",
+    "id": "WONGO_CUSTOMER_APPRECIATION_BADGE",
+    "name_eng": "Wongo Customer Appreciation Badge",
+    "name_fra": "Pin’s Exclusif de Fidélité Wongo",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 47,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 13,
+      "note": "toutes ascensions ; n=13 prises, victoire 46.2 %, taux de prise 0.0 %"
+     }
+    ],
+    "consensus": {
+     "score": 47,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "WongosMysteryTicket": {
+    "class": "WongosMysteryTicket",
+    "id": "WONGOS_MYSTERY_TICKET",
+    "name_eng": "Wongo's Mystery Ticket",
+    "name_fra": "Ticket mystère de Chez Wongo's",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 62,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 10258,
+      "note": "toutes ascensions ; n=10258 prises, victoire 51.3 %, taux de prise 0.9 %"
+     }
+    ],
+    "consensus": {
+     "score": 62,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "YummyCookie": {
+    "class": "YummyCookie",
+    "id": "YUMMY_COOKIE",
+    "name_eng": "Yummy Cookie",
+    "name_fra": "Délicieux biscuit",
+    "owner": "ancient_event",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 26,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 63643,
+      "note": "toutes ascensions ; n=63643 prises, victoire 40.5 %, taux de prise 5.7 %"
+     }
+    ],
+    "consensus": {
+     "score": 26,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   }
+  },
+  "defect": {
+   "CrackedCore": {
+    "class": "CrackedCore",
+    "id": "CRACKED_CORE",
+    "name_eng": "Cracked Core",
+    "name_fra": "Noyau fissuré",
+    "owner": "defect",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 0,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 200968,
+      "note": "toutes ascensions ; n=200968 prises, victoire 26.9 %, taux de prise 17.9 %"
+     }
+    ],
+    "consensus": {
+     "score": 0,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "DataDisk": {
+    "class": "DataDisk",
+    "id": "DATA_DISK",
+    "name_eng": "Data Disk",
+    "name_fra": "Disque dur",
+    "owner": "defect",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 72,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 24927,
+      "note": "toutes ascensions ; n=24927 prises, victoire 54.4 %, taux de prise 2.2 %, Elo 1752.1 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 72,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "EmotionChip": {
+    "class": "EmotionChip",
+    "id": "EMOTION_CHIP",
+    "name_eng": "Emotion Chip",
+    "name_fra": "Puce émotionnelle",
+    "owner": "defect",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 62,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 3828,
+      "note": "toutes ascensions ; n=3828 prises, victoire 51.5 %, taux de prise 0.3 %"
+     }
+    ],
+    "consensus": {
+     "score": 62,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "GoldPlatedCables": {
+    "class": "GoldPlatedCables",
+    "id": "GOLD_PLATED_CABLES",
+    "name_eng": "Gold-Plated Cables",
+    "name_fra": "Câble plaqué or",
+    "owner": "defect",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 66,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 9076,
+      "note": "toutes ascensions ; n=9076 prises, victoire 52.6 %, taux de prise 0.8 %, Elo 1633.5 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 66,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "Metronome": {
+    "class": "Metronome",
+    "id": "METRONOME",
+    "name_eng": "Metronome",
+    "name_fra": "Métronome",
+    "owner": "defect",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 68,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 4633,
+      "note": "toutes ascensions ; n=4633 prises, victoire 53.2 %, taux de prise 0.4 %, Elo 1490.2 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 68,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "PowerCell": {
+    "class": "PowerCell",
+    "id": "POWER_CELL",
+    "name_eng": "Power Cell",
+    "name_fra": "Pile d'énergie",
+    "owner": "defect",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 76,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 3802,
+      "note": "toutes ascensions ; n=3802 prises, victoire 55.7 %, taux de prise 0.3 %, Elo 1494.9 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 76,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "RunicCapacitor": {
+    "class": "RunicCapacitor",
+    "id": "RUNIC_CAPACITOR",
+    "name_eng": "Runic Capacitor",
+    "name_fra": "Condensateur runique",
+    "owner": "defect",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 64,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 6643,
+      "note": "toutes ascensions ; n=6643 prises, victoire 52.0 %, taux de prise 0.6 %"
+     }
+    ],
+    "consensus": {
+     "score": 64,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "SymbioticVirus": {
+    "class": "SymbioticVirus",
+    "id": "SYMBIOTIC_VIRUS",
+    "name_eng": "Symbiotic Virus",
+    "name_fra": "Virus symbiotique",
+    "owner": "defect",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 63,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 10536,
+      "note": "toutes ascensions ; n=10536 prises, victoire 51.6 %, taux de prise 0.9 %, Elo 1639.6 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 63,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   }
+  },
+  "ironclad": {
+   "Brimstone": {
+    "class": "Brimstone",
+    "id": "BRIMSTONE",
+    "name_eng": "Brimstone",
+    "name_fra": "Soufre",
+    "owner": "ironclad",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 54,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 2958,
+      "note": "toutes ascensions ; n=2958 prises, victoire 49.1 %, taux de prise 0.3 %"
+     }
+    ],
+    "consensus": {
+     "score": 54,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "BurningBlood": {
+    "class": "BurningBlood",
+    "id": "BURNING_BLOOD",
+    "name_eng": "Burning Blood",
+    "name_fra": "Sang ardent",
+    "owner": "ironclad",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 0,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 258124,
+      "note": "toutes ascensions ; n=258124 prises, victoire 30.1 %, taux de prise 22.9 %"
+     }
+    ],
+    "consensus": {
+     "score": 0,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "CharonsAshes": {
+    "class": "CharonsAshes",
+    "id": "CHARONS_ASHES",
+    "name_eng": "Charon's Ashes",
+    "name_fra": "Cendres de Charon",
+    "owner": "ironclad",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 69,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 4705,
+      "note": "toutes ascensions ; n=4705 prises, victoire 53.6 %, taux de prise 0.4 %, Elo 1627.5 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 69,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "DemonTongue": {
+    "class": "DemonTongue",
+    "id": "DEMON_TONGUE",
+    "name_eng": "Demon Tongue",
+    "name_fra": "Langue du Démon",
+    "owner": "ironclad",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 69,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 5268,
+      "note": "toutes ascensions ; n=5268 prises, victoire 53.6 %, taux de prise 0.5 %, Elo 1624.3 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 69,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "PaperPhrog": {
+    "class": "PaperPhrog",
+    "id": "PAPER_PHROG",
+    "name_eng": "Paper Phrog",
+    "name_fra": "Krapo en papier",
+    "owner": "ironclad",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 80,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 17155,
+      "note": "toutes ascensions ; n=17155 prises, victoire 56.8 %, taux de prise 1.5 %, Elo 1776.8 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 80,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "RedSkull": {
+    "class": "RedSkull",
+    "id": "RED_SKULL",
+    "name_eng": "Red Skull",
+    "name_fra": "Crâne rouge",
+    "owner": "ironclad",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 80,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 29907,
+      "note": "toutes ascensions ; n=29907 prises, victoire 56.7 %, taux de prise 2.7 %, Elo 1433.4 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 80,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "RuinedHelmet": {
+    "class": "RuinedHelmet",
+    "id": "RUINED_HELMET",
+    "name_eng": "Ruined Helmet",
+    "name_fra": "Casque délabré",
+    "owner": "ironclad",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 81,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 6551,
+      "note": "toutes ascensions ; n=6551 prises, victoire 57.3 %, taux de prise 0.6 %, Elo 1615.9 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 81,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "SelfFormingClay": {
+    "class": "SelfFormingClay",
+    "id": "SELF_FORMING_CLAY",
+    "name_eng": "Self-Forming Clay",
+    "name_fra": "Argile autoformante",
+    "owner": "ironclad",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 81,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 11677,
+      "note": "toutes ascensions ; n=11677 prises, victoire 57.1 %, taux de prise 1.0 %, Elo 1458.6 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 81,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   }
+  },
+  "necrobinder": {
+   "BigHat": {
+    "class": "BigHat",
+    "id": "BIG_HAT",
+    "name_eng": "Big Hat",
+    "name_fra": "Grand chapeau",
+    "owner": "necrobinder",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 91,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 3477,
+      "note": "toutes ascensions ; n=3477 prises, victoire 60.3 %, taux de prise 0.3 %, Elo 1507.6 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 91,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "BoneFlute": {
+    "class": "BoneFlute",
+    "id": "BONE_FLUTE",
+    "name_eng": "Bone Flute",
+    "name_fra": "Flûte d'os",
+    "owner": "necrobinder",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 83,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 22094,
+      "note": "toutes ascensions ; n=22094 prises, victoire 57.8 %, taux de prise 2.0 %, Elo 1436.1 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 83,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "BookRepairKnife": {
+    "class": "BookRepairKnife",
+    "id": "BOOK_REPAIR_KNIFE",
+    "name_eng": "Book Repair Knife",
+    "name_fra": "Couteau à reliure",
+    "owner": "necrobinder",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 73,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 9732,
+      "note": "toutes ascensions ; n=9732 prises, victoire 54.6 %, taux de prise 0.9 %, Elo 1332.9 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 73,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "Bookmark": {
+    "class": "Bookmark",
+    "id": "BOOKMARK",
+    "name_eng": "Bookmark",
+    "name_fra": "Marque-page",
+    "owner": "necrobinder",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 75,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 3541,
+      "note": "toutes ascensions ; n=3541 prises, victoire 55.4 %, taux de prise 0.3 %, Elo 1342.7 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 75,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "BoundPhylactery": {
+    "class": "BoundPhylactery",
+    "id": "BOUND_PHYLACTERY",
+    "name_eng": "Bound Phylactery",
+    "name_fra": "Phylactère enchaîné",
+    "owner": "necrobinder",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 0,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 210062,
+      "note": "toutes ascensions ; n=210062 prises, victoire 30.0 %, taux de prise 18.7 %"
+     }
+    ],
+    "consensus": {
+     "score": 0,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "FuneraryMask": {
+    "class": "FuneraryMask",
+    "id": "FUNERARY_MASK",
+    "name_eng": "Funerary Mask",
+    "name_fra": "Masque funéraire",
+    "owner": "necrobinder",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 85,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 11600,
+      "note": "toutes ascensions ; n=11600 prises, victoire 58.3 %, taux de prise 1.0 %, Elo 1546.0 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 85,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "IvoryTile": {
+    "class": "IvoryTile",
+    "id": "IVORY_TILE",
+    "name_eng": "Ivory Tile",
+    "name_fra": "Tuile en ivoire",
+    "owner": "necrobinder",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 82,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 3333,
+      "note": "toutes ascensions ; n=3333 prises, victoire 57.4 %, taux de prise 0.3 %, Elo 1659.4 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 82,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "UndyingSigil": {
+    "class": "UndyingSigil",
+    "id": "UNDYING_SIGIL",
+    "name_eng": "Undying Sigil",
+    "name_fra": "Sceau immortel",
+    "owner": "necrobinder",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 68,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 3444,
+      "note": "toutes ascensions ; n=3444 prises, victoire 53.2 %, taux de prise 0.3 %"
+     }
+    ],
+    "consensus": {
+     "score": 68,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   }
+  },
+  "other:FallbackRelicPool": {
+   "Circlet": {
+    "class": "Circlet",
+    "id": "CIRCLET",
+    "name_eng": "Circlet",
+    "name_fra": "Diadème",
+    "owner": "other:FallbackRelicPool",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 100,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 85,
+      "note": "toutes ascensions ; n=85 prises, victoire 71.8 %, taux de prise 0.0 %"
+     }
+    ],
+    "consensus": {
+     "score": 100,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   }
+  },
+  "regent": {
+   "DivineRight": {
+    "class": "DivineRight",
+    "id": "DIVINE_RIGHT",
+    "name_eng": "Divine Right",
+    "name_fra": "Droit divin",
+    "owner": "regent",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 0,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 193636,
+      "note": "toutes ascensions ; n=193636 prises, victoire 32.6 %, taux de prise 17.2 %"
+     }
+    ],
+    "consensus": {
+     "score": 0,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "FencingManual": {
+    "class": "FencingManual",
+    "id": "FENCING_MANUAL",
+    "name_eng": "Fencing Manual",
+    "name_fra": "Manuel d'escrime",
+    "owner": "regent",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 85,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 23859,
+      "note": "toutes ascensions ; n=23859 prises, victoire 58.2 %, taux de prise 2.1 %, Elo 1672.3 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 85,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "GalacticDust": {
+    "class": "GalacticDust",
+    "id": "GALACTIC_DUST",
+    "name_eng": "Galactic Dust",
+    "name_fra": "Poussière galactique",
+    "owner": "regent",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 84,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 10748,
+      "note": "toutes ascensions ; n=10748 prises, victoire 58.0 %, taux de prise 1.0 %, Elo 1709.9 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 84,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "LunarPastry": {
+    "class": "LunarPastry",
+    "id": "LUNAR_PASTRY",
+    "name_eng": "Lunar Pastry",
+    "name_fra": "Pâtisserie lunaire",
+    "owner": "regent",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 91,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 5241,
+      "note": "toutes ascensions ; n=5241 prises, victoire 60.3 %, taux de prise 0.5 %, Elo 1714.5 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 91,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "MiniRegent": {
+    "class": "MiniRegent",
+    "id": "MINI_REGENT",
+    "name_eng": "Mini Regent",
+    "name_fra": "Mini Régent",
+    "owner": "regent",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 82,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 4000,
+      "note": "toutes ascensions ; n=4000 prises, victoire 57.4 %, taux de prise 0.4 %, Elo 1889.0 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 82,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "OrangeDough": {
+    "class": "OrangeDough",
+    "id": "ORANGE_DOUGH",
+    "name_eng": "Orange Dough",
+    "name_fra": "Pâte orange",
+    "owner": "regent",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 86,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 3461,
+      "note": "toutes ascensions ; n=3461 prises, victoire 58.6 %, taux de prise 0.3 %, Elo 1268.7 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 86,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "Regalite": {
+    "class": "Regalite",
+    "id": "REGALITE",
+    "name_eng": "Regalite",
+    "name_fra": "Royalithe",
+    "owner": "regent",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 94,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 8373,
+      "note": "toutes ascensions ; n=8373 prises, victoire 61.0 %, taux de prise 0.7 %, Elo 1484.3 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 94,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "VitruvianMinion": {
+    "class": "VitruvianMinion",
+    "id": "VITRUVIAN_MINION",
+    "name_eng": "Vitruvian Minion",
+    "name_fra": "Sbire de Vitruve",
+    "owner": "regent",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 80,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 2118,
+      "note": "toutes ascensions ; n=2118 prises, victoire 56.8 %, taux de prise 0.2 %"
+     }
+    ],
+    "consensus": {
+     "score": 80,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   }
+  },
+  "shared": {
+   "Akabeko": {
+    "class": "Akabeko",
+    "id": "AKABEKO",
+    "name_eng": "Akabeko",
+    "name_fra": "Akabeko",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 63,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 87779,
+      "note": "toutes ascensions ; n=87779 prises, victoire 51.8 %, taux de prise 7.8 %, Elo 1369.9 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 63,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "AmethystAubergine": {
+    "class": "AmethystAubergine",
+    "id": "AMETHYST_AUBERGINE",
+    "name_eng": "Amethyst Aubergine",
+    "name_fra": "Aubergine d'améthyste",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 40,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 122982,
+      "note": "toutes ascensions ; n=122982 prises, victoire 45.0 %, taux de prise 10.9 %, Elo 1562.3 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 40,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "Anchor": {
+    "class": "Anchor",
+    "id": "ANCHOR",
+    "name_eng": "Anchor",
+    "name_fra": "Ancre",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 69,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 180961,
+      "note": "toutes ascensions ; n=180961 prises, victoire 53.5 %, taux de prise 16.1 %, Elo 1500.1 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 69,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "ArtOfWar": {
+    "class": "ArtOfWar",
+    "id": "ART_OF_WAR",
+    "name_eng": "Art of War",
+    "name_fra": "L'Art de la guerre",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 60,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 38571,
+      "note": "toutes ascensions ; n=38571 prises, victoire 51.0 %, taux de prise 3.4 %, Elo 1298.7 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 60,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "BagOfMarbles": {
+    "class": "BagOfMarbles",
+    "id": "BAG_OF_MARBLES",
+    "name_eng": "Bag of Marbles",
+    "name_fra": "Sac de billes",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 67,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 169814,
+      "note": "toutes ascensions ; n=169814 prises, victoire 53.0 %, taux de prise 15.1 %, Elo 1424.9 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 67,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "BagOfPreparation": {
+    "class": "BagOfPreparation",
+    "id": "BAG_OF_PREPARATION",
+    "name_eng": "Bag of Preparation",
+    "name_fra": "Sacoche de préparatifs",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 72,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 179099,
+      "note": "toutes ascensions ; n=179099 prises, victoire 54.4 %, taux de prise 15.9 %, Elo 1507.1 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 72,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "BeatingRemnant": {
+    "class": "BeatingRemnant",
+    "id": "BEATING_REMNANT",
+    "name_eng": "Beating Remnant",
+    "name_fra": "Vestige battant",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 68,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 35246,
+      "note": "toutes ascensions ; n=35246 prises, victoire 53.3 %, taux de prise 3.1 %, Elo 1509.5 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 68,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "Bellows": {
+    "class": "Bellows",
+    "id": "BELLOWS",
+    "name_eng": "Bellows",
+    "name_fra": "Soufflet",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 74,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 40510,
+      "note": "toutes ascensions ; n=40510 prises, victoire 54.9 %, taux de prise 3.6 %, Elo 1639.2 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 74,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "BeltBuckle": {
+    "class": "BeltBuckle",
+    "id": "BELT_BUCKLE",
+    "name_eng": "Belt Buckle",
+    "name_fra": "Boucle de ceinture",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 83,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 11671,
+      "note": "toutes ascensions ; n=11671 prises, victoire 57.6 %, taux de prise 1.0 %, Elo 1275.9 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 83,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "BloodVial": {
+    "class": "BloodVial",
+    "id": "BLOOD_VIAL",
+    "name_eng": "Blood Vial",
+    "name_fra": "Fiole de sang",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 60,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 168855,
+      "note": "toutes ascensions ; n=168855 prises, victoire 51.0 %, taux de prise 15.0 %, Elo 1445.2 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 60,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "BookOfFiveRings": {
+    "class": "BookOfFiveRings",
+    "id": "BOOK_OF_FIVE_RINGS",
+    "name_eng": "Book of Five Rings",
+    "name_fra": "Livre des cinq anneaux",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 43,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 120836,
+      "note": "toutes ascensions ; n=120836 prises, victoire 45.6 %, taux de prise 10.7 %, Elo 1468.0 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 43,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "BowlerHat": {
+    "class": "BowlerHat",
+    "id": "BOWLER_HAT",
+    "name_eng": "Bowler Hat",
+    "name_fra": "Chapeau melon",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 38,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 64773,
+      "note": "toutes ascensions ; n=64773 prises, victoire 44.3 %, taux de prise 5.8 %, Elo 1473.0 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 38,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "Bread": {
+    "class": "Bread",
+    "id": "BREAD",
+    "name_eng": "Bread",
+    "name_fra": "Pain",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 82,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 20163,
+      "note": "toutes ascensions ; n=20163 prises, victoire 57.5 %, taux de prise 1.8 %, Elo 1521.5 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 82,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "BronzeScales": {
+    "class": "BronzeScales",
+    "id": "BRONZE_SCALES",
+    "name_eng": "Bronze Scales",
+    "name_fra": "Écailles de bronze",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 65,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 166868,
+      "note": "toutes ascensions ; n=166868 prises, victoire 52.3 %, taux de prise 14.8 %, Elo 1416.5 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 65,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "BurningSticks": {
+    "class": "BurningSticks",
+    "id": "BURNING_STICKS",
+    "name_eng": "Burning Sticks",
+    "name_fra": "Bâtonnets enflammés",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 100,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 12497,
+      "note": "toutes ascensions ; n=12497 prises, victoire 63.4 %, taux de prise 1.1 %"
+     }
+    ],
+    "consensus": {
+     "score": 100,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "Candelabra": {
+    "class": "Candelabra",
+    "id": "CANDELABRA",
+    "name_eng": "Candelabra",
+    "name_fra": "Candélabre",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 70,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 96627,
+      "note": "toutes ascensions ; n=96627 prises, victoire 53.8 %, taux de prise 8.6 %, Elo 1614.7 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 70,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "CaptainsWheel": {
+    "class": "CaptainsWheel",
+    "id": "CAPTAINS_WHEEL",
+    "name_eng": "Captain's Wheel",
+    "name_fra": "Barre de capitaine",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 72,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 40828,
+      "note": "toutes ascensions ; n=40828 prises, victoire 54.3 %, taux de prise 3.6 %, Elo 1318.7 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 72,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "Cauldron": {
+    "class": "Cauldron",
+    "id": "CAULDRON",
+    "name_eng": "Cauldron",
+    "name_fra": "Chaudron",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 100,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 4503,
+      "note": "toutes ascensions ; n=4503 prises, victoire 63.8 %, taux de prise 0.4 %, Elo 1283.3 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 100,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "CentennialPuzzle": {
+    "class": "CentennialPuzzle",
+    "id": "CENTENNIAL_PUZZLE",
+    "name_eng": "Centennial Puzzle",
+    "name_fra": "Puzzle centenaire",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 69,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 159929,
+      "note": "toutes ascensions ; n=159929 prises, victoire 53.5 %, taux de prise 14.2 %, Elo 1327.0 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 69,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "Chandelier": {
+    "class": "Chandelier",
+    "id": "CHANDELIER",
+    "name_eng": "Chandelier",
+    "name_fra": "Chandelier",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 75,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 42218,
+      "note": "toutes ascensions ; n=42218 prises, victoire 55.5 %, taux de prise 3.8 %, Elo 1578.6 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 75,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "ChemicalX": {
+    "class": "ChemicalX",
+    "id": "CHEMICAL_X",
+    "name_eng": "Chemical X",
+    "name_fra": "Composé X",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 93,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 11199,
+      "note": "toutes ascensions ; n=11199 prises, victoire 60.8 %, taux de prise 1.0 %, Elo 1446.3 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 93,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "CloakClasp": {
+    "class": "CloakClasp",
+    "id": "CLOAK_CLASP",
+    "name_eng": "Cloak Clasp",
+    "name_fra": "Boucle de cape",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 82,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 40533,
+      "note": "toutes ascensions ; n=40533 prises, victoire 57.4 %, taux de prise 3.6 %, Elo 1305.1 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 82,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "DingyRug": {
+    "class": "DingyRug",
+    "id": "DINGY_RUG",
+    "name_eng": "Dingy Rug",
+    "name_fra": "Tapis miteux",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 75,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 9783,
+      "note": "toutes ascensions ; n=9783 prises, victoire 55.3 %, taux de prise 0.9 %, Elo 1268.7 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 75,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "DollysMirror": {
+    "class": "DollysMirror",
+    "id": "DOLLYS_MIRROR",
+    "name_eng": "Dolly's Mirror",
+    "name_fra": "Miroir de Dolly",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 90,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 27325,
+      "note": "toutes ascensions ; n=27325 prises, victoire 59.7 %, taux de prise 2.4 %"
+     }
+    ],
+    "consensus": {
+     "score": 90,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "DragonFruit": {
+    "class": "DragonFruit",
+    "id": "DRAGON_FRUIT",
+    "name_eng": "Dragon Fruit",
+    "name_fra": "Fruit du dragon",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 62,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 21267,
+      "note": "toutes ascensions ; n=21267 prises, victoire 51.5 %, taux de prise 1.9 %, Elo 1649.6 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 62,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "EternalFeather": {
+    "class": "EternalFeather",
+    "id": "ETERNAL_FEATHER",
+    "name_eng": "Eternal Feather",
+    "name_fra": "Plume éternelle",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 68,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 92542,
+      "note": "toutes ascensions ; n=92542 prises, victoire 53.2 %, taux de prise 8.2 %, Elo 1563.2 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 68,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "FestivePopper": {
+    "class": "FestivePopper",
+    "id": "FESTIVE_POPPER",
+    "name_eng": "Festive Popper",
+    "name_fra": "Pétard de fête",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 63,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 150252,
+      "note": "toutes ascensions ; n=150252 prises, victoire 51.8 %, taux de prise 13.4 %, Elo 1307.6 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 63,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "FresnelLens": {
+    "class": "FresnelLens",
+    "id": "FRESNEL_LENS",
+    "name_eng": "Fresnel Lens",
+    "name_fra": "Lentille de Fresnel",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 0,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 45252,
+      "note": "toutes ascensions ; n=45252 prises, victoire 27.7 %, taux de prise 4.0 %"
+     }
+    ],
+    "consensus": {
+     "score": 0,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "FrozenEgg": {
+    "class": "FrozenEgg",
+    "id": "FROZEN_EGG",
+    "name_eng": "Frozen Egg",
+    "name_fra": "Œuf gelé",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 49,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 32397,
+      "note": "toutes ascensions ; n=32397 prises, victoire 47.5 %, taux de prise 2.9 %, Elo 1619.2 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 49,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "GamblingChip": {
+    "class": "GamblingChip",
+    "id": "GAMBLING_CHIP",
+    "name_eng": "Gambling Chip",
+    "name_fra": "Jeton de casino",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 69,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 40771,
+      "note": "toutes ascensions ; n=40771 prises, victoire 53.6 %, taux de prise 3.6 %, Elo 1441.1 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 69,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "GamePiece": {
+    "class": "GamePiece",
+    "id": "GAME_PIECE",
+    "name_eng": "Game Piece",
+    "name_fra": "Pion",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 73,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 39000,
+      "note": "toutes ascensions ; n=39000 prises, victoire 54.8 %, taux de prise 3.5 %, Elo 1469.2 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 73,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "GhostSeed": {
+    "class": "GhostSeed",
+    "id": "GHOST_SEED",
+    "name_eng": "Ghost Seed",
+    "name_fra": "Graine fantôme",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 75,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 13399,
+      "note": "toutes ascensions ; n=13399 prises, victoire 55.5 %, taux de prise 1.2 %"
+     }
+    ],
+    "consensus": {
+     "score": 75,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "Girya": {
+    "class": "Girya",
+    "id": "GIRYA",
+    "name_eng": "Girya",
+    "name_fra": "Girya",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 45,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 30962,
+      "note": "toutes ascensions ; n=30962 prises, victoire 46.4 %, taux de prise 2.8 %, Elo 1470.1 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 45,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "GnarledHammer": {
+    "class": "GnarledHammer",
+    "id": "GNARLED_HAMMER",
+    "name_eng": "Gnarled Hammer",
+    "name_fra": "Marteau tordu",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 85,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 16727,
+      "note": "toutes ascensions ; n=16727 prises, victoire 58.3 %, taux de prise 1.5 %"
+     }
+    ],
+    "consensus": {
+     "score": 85,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "Gorget": {
+    "class": "Gorget",
+    "id": "GORGET",
+    "name_eng": "Gorget",
+    "name_fra": "Gorgerette",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 68,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 174905,
+      "note": "toutes ascensions ; n=174905 prises, victoire 53.2 %, taux de prise 15.5 %, Elo 1435.9 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 68,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "GremlinHorn": {
+    "class": "GremlinHorn",
+    "id": "GREMLIN_HORN",
+    "name_eng": "Gremlin Horn",
+    "name_fra": "Corne de diablotin",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 60,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 87202,
+      "note": "toutes ascensions ; n=87202 prises, victoire 50.9 %, taux de prise 7.8 %, Elo 1321.4 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 60,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "HappyFlower": {
+    "class": "HappyFlower",
+    "id": "HAPPY_FLOWER",
+    "name_eng": "Happy Flower",
+    "name_fra": "Fleur joyeuse",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 68,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 180693,
+      "note": "toutes ascensions ; n=180693 prises, victoire 53.2 %, taux de prise 16.1 %, Elo 1497.1 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 68,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "HornCleat": {
+    "class": "HornCleat",
+    "id": "HORN_CLEAT",
+    "name_eng": "Horn Cleat",
+    "name_fra": "Taquet d'amarrage",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 72,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 92908,
+      "note": "toutes ascensions ; n=92908 prises, victoire 54.4 %, taux de prise 8.3 %, Elo 1531.9 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 72,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "IceCream": {
+    "class": "IceCream",
+    "id": "ICE_CREAM",
+    "name_eng": "Ice Cream",
+    "name_fra": "Crème glacée",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 75,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 44364,
+      "note": "toutes ascensions ; n=44364 prises, victoire 55.4 %, taux de prise 3.9 %, Elo 1854.4 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 75,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "IntimidatingHelmet": {
+    "class": "IntimidatingHelmet",
+    "id": "INTIMIDATING_HELMET",
+    "name_eng": "Intimidating Helmet",
+    "name_fra": "Casque intimidant",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 72,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 38641,
+      "note": "toutes ascensions ; n=38641 prises, victoire 54.5 %, taux de prise 3.4 %, Elo 1555.1 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 72,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "JossPaper": {
+    "class": "JossPaper",
+    "id": "JOSS_PAPER",
+    "name_eng": "Joss Paper",
+    "name_fra": "Billet funéraire",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 65,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 72083,
+      "note": "toutes ascensions ; n=72083 prises, victoire 52.3 %, taux de prise 6.4 %, Elo 1337.9 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 65,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "JuzuBracelet": {
+    "class": "JuzuBracelet",
+    "id": "JUZU_BRACELET",
+    "name_eng": "Juzu Bracelet",
+    "name_fra": "Bracelet Juzu",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 37,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 129675,
+      "note": "toutes ascensions ; n=129675 prises, victoire 43.8 %, taux de prise 11.5 %, Elo 1540.7 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 37,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "Kifuda": {
+    "class": "Kifuda",
+    "id": "KIFUDA",
+    "name_eng": "Kifuda",
+    "name_fra": "Kifuda",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 84,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 19978,
+      "note": "toutes ascensions ; n=19978 prises, victoire 58.0 %, taux de prise 1.8 %, Elo 1215.1 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 84,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "Kunai": {
+    "class": "Kunai",
+    "id": "KUNAI",
+    "name_eng": "Kunai",
+    "name_fra": "Kunai",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 70,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 41087,
+      "note": "toutes ascensions ; n=41087 prises, victoire 54.0 %, taux de prise 3.7 %, Elo 1441.8 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 70,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "Kusarigama": {
+    "class": "Kusarigama",
+    "id": "KUSARIGAMA",
+    "name_eng": "Kusarigama",
+    "name_fra": "Kusarigama",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 63,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 84823,
+      "note": "toutes ascensions ; n=84823 prises, victoire 51.7 %, taux de prise 7.5 %, Elo 1433.9 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 63,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "Lantern": {
+    "class": "Lantern",
+    "id": "LANTERN",
+    "name_eng": "Lantern",
+    "name_fra": "Lanterne",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 65,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 189731,
+      "note": "toutes ascensions ; n=189731 prises, victoire 52.4 %, taux de prise 16.9 %, Elo 1607.3 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 65,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "LavaLamp": {
+    "class": "LavaLamp",
+    "id": "LAVA_LAMP",
+    "name_eng": "Lava Lamp",
+    "name_fra": "Lampe à lave",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 89,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 8629,
+      "note": "toutes ascensions ; n=8629 prises, victoire 59.7 %, taux de prise 0.8 %, Elo 1455.9 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 89,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "LeesWaffle": {
+    "class": "LeesWaffle",
+    "id": "LEES_WAFFLE",
+    "name_eng": "Lee's Waffle",
+    "name_fra": "Gaufre de Lee",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 69,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 26875,
+      "note": "toutes ascensions ; n=26875 prises, victoire 53.6 %, taux de prise 2.4 %, Elo 1435.5 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 69,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "LetterOpener": {
+    "class": "LetterOpener",
+    "id": "LETTER_OPENER",
+    "name_eng": "Letter Opener",
+    "name_fra": "Coupe-papier",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 63,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 87875,
+      "note": "toutes ascensions ; n=87875 prises, victoire 51.7 %, taux de prise 7.8 %, Elo 1483.2 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 63,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "LizardTail": {
+    "class": "LizardTail",
+    "id": "LIZARD_TAIL",
+    "name_eng": "Lizard Tail",
+    "name_fra": "Queue de lézard",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 80,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 42709,
+      "note": "toutes ascensions ; n=42709 prises, victoire 56.8 %, taux de prise 3.8 %, Elo 1549.6 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 80,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "LoomingFruit": {
+    "class": "LoomingFruit",
+    "id": "LOOMING_FRUIT",
+    "name_eng": "Looming Fruit",
+    "name_fra": "Fruits exotiques",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 100,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 18293,
+      "note": "toutes ascensions ; n=18293 prises, victoire 62.9 %, taux de prise 1.6 %"
+     }
+    ],
+    "consensus": {
+     "score": 100,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "LuckyFysh": {
+    "class": "LuckyFysh",
+    "id": "LUCKY_FYSH",
+    "name_eng": "Lucky Fysh",
+    "name_fra": "Poisson chanceux",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 40,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 64870,
+      "note": "toutes ascensions ; n=64870 prises, victoire 44.9 %, taux de prise 5.8 %, Elo 1410.9 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 40,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "Mango": {
+    "class": "Mango",
+    "id": "MANGO",
+    "name_eng": "Mango",
+    "name_fra": "Mangue",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 73,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 42233,
+      "note": "toutes ascensions ; n=42233 prises, victoire 54.8 %, taux de prise 3.8 %, Elo 1534.8 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 73,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "MealTicket": {
+    "class": "MealTicket",
+    "id": "MEAL_TICKET",
+    "name_eng": "Meal Ticket",
+    "name_fra": "Ticket restaurant",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 41,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 131999,
+      "note": "toutes ascensions ; n=131999 prises, victoire 45.3 %, taux de prise 11.7 %, Elo 1560.5 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 41,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "MeatOnTheBone": {
+    "class": "MeatOnTheBone",
+    "id": "MEAT_ON_THE_BONE",
+    "name_eng": "Meat on the Bone",
+    "name_fra": "Os à viande",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 66,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 40899,
+      "note": "toutes ascensions ; n=40899 prises, victoire 52.8 %, taux de prise 3.6 %, Elo 1399.4 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 66,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "MembershipCard": {
+    "class": "MembershipCard",
+    "id": "MEMBERSHIP_CARD",
+    "name_eng": "Membership Card",
+    "name_fra": "Carte de fidélité",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 70,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 46516,
+      "note": "toutes ascensions ; n=46516 prises, victoire 53.9 %, taux de prise 4.1 %, Elo 1505.3 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 70,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "MercuryHourglass": {
+    "class": "MercuryHourglass",
+    "id": "MERCURY_HOURGLASS",
+    "name_eng": "Mercury Hourglass",
+    "name_fra": "Sablier de mercure",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 65,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 87846,
+      "note": "toutes ascensions ; n=87846 prises, victoire 52.4 %, taux de prise 7.8 %, Elo 1318.1 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 65,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "MiniatureCannon": {
+    "class": "MiniatureCannon",
+    "id": "MINIATURE_CANNON",
+    "name_eng": "Miniature Cannon",
+    "name_fra": "Canon miniature",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 64,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 80115,
+      "note": "toutes ascensions ; n=80115 prises, victoire 52.1 %, taux de prise 7.1 %, Elo 1522.3 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 64,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "MiniatureTent": {
+    "class": "MiniatureTent",
+    "id": "MINIATURE_TENT",
+    "name_eng": "Miniature Tent",
+    "name_fra": "Tente miniature",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 79,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 52677,
+      "note": "toutes ascensions ; n=52677 prises, victoire 56.5 %, taux de prise 4.7 %, Elo 1632.9 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 79,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "MoltenEgg": {
+    "class": "MoltenEgg",
+    "id": "MOLTEN_EGG",
+    "name_eng": "Molten Egg",
+    "name_fra": "Œuf en fusion",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 45,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 32165,
+      "note": "toutes ascensions ; n=32165 prises, victoire 46.2 %, taux de prise 2.9 %, Elo 1470.1 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 45,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "MummifiedHand": {
+    "class": "MummifiedHand",
+    "id": "MUMMIFIED_HAND",
+    "name_eng": "Mummified Hand",
+    "name_fra": "Main momifiée",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 78,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 43302,
+      "note": "toutes ascensions ; n=43302 prises, victoire 56.2 %, taux de prise 3.8 %, Elo 1571.0 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 78,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "MysticLighter": {
+    "class": "MysticLighter",
+    "id": "MYSTIC_LIGHTER",
+    "name_eng": "Mystic Lighter",
+    "name_fra": "Briquet mystique",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 90,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 11752,
+      "note": "toutes ascensions ; n=11752 prises, victoire 60.0 %, taux de prise 1.0 %"
+     }
+    ],
+    "consensus": {
+     "score": 90,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "Nunchaku": {
+    "class": "Nunchaku",
+    "id": "NUNCHAKU",
+    "name_eng": "Nunchaku",
+    "name_fra": "Nunchaku",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 64,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 89606,
+      "note": "toutes ascensions ; n=89606 prises, victoire 52.2 %, taux de prise 8.0 %, Elo 1470.6 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 64,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "OddlySmoothStone": {
+    "class": "OddlySmoothStone",
+    "id": "ODDLY_SMOOTH_STONE",
+    "name_eng": "Oddly Smooth Stone",
+    "name_fra": "Pierre étrangement lisse",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 65,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 171778,
+      "note": "toutes ascensions ; n=171778 prises, victoire 52.5 %, taux de prise 15.3 %, Elo 1434.4 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 65,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "OldCoin": {
+    "class": "OldCoin",
+    "id": "OLD_COIN",
+    "name_eng": "Old Coin",
+    "name_fra": "Pièce antique",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 45,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 29590,
+      "note": "toutes ascensions ; n=29590 prises, victoire 46.4 %, taux de prise 2.6 %, Elo 1634.2 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 45,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "Orichalcum": {
+    "class": "Orichalcum",
+    "id": "ORICHALCUM",
+    "name_eng": "Orichalcum",
+    "name_fra": "Orichalque",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 63,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 87194,
+      "note": "toutes ascensions ; n=87194 prises, victoire 51.8 %, taux de prise 7.8 %, Elo 1323.9 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 63,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "OrnamentalFan": {
+    "class": "OrnamentalFan",
+    "id": "ORNAMENTAL_FAN",
+    "name_eng": "Ornamental Fan",
+    "name_fra": "Éventail décoratif",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 68,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 94702,
+      "note": "toutes ascensions ; n=94702 prises, victoire 53.1 %, taux de prise 8.4 %, Elo 1524.6 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 68,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "Orrery": {
+    "class": "Orrery",
+    "id": "ORRERY",
+    "name_eng": "Orrery",
+    "name_fra": "Planétaire",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 70,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 25298,
+      "note": "toutes ascensions ; n=25298 prises, victoire 53.8 %, taux de prise 2.2 %, Elo 1429.8 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 70,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "Pantograph": {
+    "class": "Pantograph",
+    "id": "PANTOGRAPH",
+    "name_eng": "Pantograph",
+    "name_fra": "Pantographe",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 66,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 94873,
+      "note": "toutes ascensions ; n=94873 prises, victoire 52.7 %, taux de prise 8.4 %, Elo 1461.2 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 66,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "ParryingShield": {
+    "class": "ParryingShield",
+    "id": "PARRYING_SHIELD",
+    "name_eng": "Parrying Shield",
+    "name_fra": "Bouclier de parade",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 66,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 87056,
+      "note": "toutes ascensions ; n=87056 prises, victoire 52.5 %, taux de prise 7.7 %, Elo 1239.2 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 66,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "Pear": {
+    "class": "Pear",
+    "id": "PEAR",
+    "name_eng": "Pear",
+    "name_fra": "Poire",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 68,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 93767,
+      "note": "toutes ascensions ; n=93767 prises, victoire 53.3 %, taux de prise 8.3 %, Elo 1483.5 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 68,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "PenNib": {
+    "class": "PenNib",
+    "id": "PEN_NIB",
+    "name_eng": "Pen Nib",
+    "name_fra": "Pointe de stylo",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 66,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 89408,
+      "note": "toutes ascensions ; n=89408 prises, victoire 52.6 %, taux de prise 7.9 %, Elo 1411.6 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 66,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "Pendulum": {
+    "class": "Pendulum",
+    "id": "PENDULUM",
+    "name_eng": "Pendulum",
+    "name_fra": "Pendule",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 68,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 162935,
+      "note": "toutes ascensions ; n=162935 prises, victoire 53.2 %, taux de prise 14.5 %, Elo 1490.4 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 68,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "Permafrost": {
+    "class": "Permafrost",
+    "id": "PERMAFROST",
+    "name_eng": "Permafrost",
+    "name_fra": "Pergélisol",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 66,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 88481,
+      "note": "toutes ascensions ; n=88481 prises, victoire 52.8 %, taux de prise 7.9 %, Elo 1401.0 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 66,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "PetrifiedToad": {
+    "class": "PetrifiedToad",
+    "id": "PETRIFIED_TOAD",
+    "name_eng": "Petrified Toad",
+    "name_fra": "Crapaud pétrifié",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 61,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 84446,
+      "note": "toutes ascensions ; n=84446 prises, victoire 51.3 %, taux de prise 7.5 %, Elo 1213.9 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 61,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "Planisphere": {
+    "class": "Planisphere",
+    "id": "PLANISPHERE",
+    "name_eng": "Planisphere",
+    "name_fra": "Planisphère",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 43,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 69965,
+      "note": "toutes ascensions ; n=69965 prises, victoire 45.7 %, taux de prise 6.2 %, Elo 1426.2 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 43,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "Pocketwatch": {
+    "class": "Pocketwatch",
+    "id": "POCKETWATCH",
+    "name_eng": "Pocketwatch",
+    "name_fra": "Montre à gousset",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 76,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 38061,
+      "note": "toutes ascensions ; n=38061 prises, victoire 55.6 %, taux de prise 3.4 %, Elo 1340.6 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 76,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "PotionBelt": {
+    "class": "PotionBelt",
+    "id": "POTION_BELT",
+    "name_eng": "Potion Belt",
+    "name_fra": "Ceinture à potions",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 64,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 166025,
+      "note": "toutes ascensions ; n=166025 prises, victoire 52.0 %, taux de prise 14.8 %, Elo 1430.2 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 64,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "PrayerWheel": {
+    "class": "PrayerWheel",
+    "id": "PRAYER_WHEEL",
+    "name_eng": "Prayer Wheel",
+    "name_fra": "Moulin à prières",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 65,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 40950,
+      "note": "toutes ascensions ; n=40950 prises, victoire 52.4 %, taux de prise 3.6 %, Elo 1554.8 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 65,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "PunchDagger": {
+    "class": "PunchDagger",
+    "id": "PUNCH_DAGGER",
+    "name_eng": "Punch Dagger",
+    "name_fra": "Poignard",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 73,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 19428,
+      "note": "toutes ascensions ; n=19428 prises, victoire 54.8 %, taux de prise 1.7 %"
+     }
+    ],
+    "consensus": {
+     "score": 73,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "RainbowRing": {
+    "class": "RainbowRing",
+    "id": "RAINBOW_RING",
+    "name_eng": "Rainbow Ring",
+    "name_fra": "Anneau arc-en-ciel",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 75,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 40181,
+      "note": "toutes ascensions ; n=40181 prises, victoire 55.5 %, taux de prise 3.6 %, Elo 1427.0 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 75,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "RedMask": {
+    "class": "RedMask",
+    "id": "RED_MASK",
+    "name_eng": "Red Mask",
+    "name_fra": "Masque rouge",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 68,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 164154,
+      "note": "toutes ascensions ; n=164154 prises, victoire 53.2 %, taux de prise 14.6 %, Elo 1411.1 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 68,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "RegalPillow": {
+    "class": "RegalPillow",
+    "id": "REGAL_PILLOW",
+    "name_eng": "Regal Pillow",
+    "name_fra": "Oreiller royal",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 59,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 171588,
+      "note": "toutes ascensions ; n=171588 prises, victoire 50.4 %, taux de prise 15.3 %, Elo 1475.3 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 59,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "ReptileTrinket": {
+    "class": "ReptileTrinket",
+    "id": "REPTILE_TRINKET",
+    "name_eng": "Reptile Trinket",
+    "name_fra": "Breloque reptile",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 59,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 83653,
+      "note": "toutes ascensions ; n=83653 prises, victoire 50.4 %, taux de prise 7.4 %, Elo 1332.8 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 59,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "RingingTriangle": {
+    "class": "RingingTriangle",
+    "id": "RINGING_TRIANGLE",
+    "name_eng": "Ringing Triangle",
+    "name_fra": "Triangle résonnant",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 100,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 9001,
+      "note": "toutes ascensions ; n=9001 prises, victoire 65.0 %, taux de prise 0.8 %"
+     }
+    ],
+    "consensus": {
+     "score": 100,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "RippleBasin": {
+    "class": "RippleBasin",
+    "id": "RIPPLE_BASIN",
+    "name_eng": "Ripple Basin",
+    "name_fra": "Bassinet à remous",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 62,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 76692,
+      "note": "toutes ascensions ; n=76692 prises, victoire 51.3 %, taux de prise 6.8 %, Elo 1107.1 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 62,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "RoyalStamp": {
+    "class": "RoyalStamp",
+    "id": "ROYAL_STAMP",
+    "name_eng": "Royal Stamp",
+    "name_fra": "Sceau royal",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 89,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 27372,
+      "note": "toutes ascensions ; n=27372 prises, victoire 59.4 %, taux de prise 2.4 %"
+     }
+    ],
+    "consensus": {
+     "score": 89,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "ScreamingFlagon": {
+    "class": "ScreamingFlagon",
+    "id": "SCREAMING_FLAGON",
+    "name_eng": "Screaming Flagon",
+    "name_fra": "Pichet hurlant",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 75,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 10081,
+      "note": "toutes ascensions ; n=10081 prises, victoire 55.4 %, taux de prise 0.9 %"
+     }
+    ],
+    "consensus": {
+     "score": 75,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "Shovel": {
+    "class": "Shovel",
+    "id": "SHOVEL",
+    "name_eng": "Shovel",
+    "name_fra": "Pelle",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 48,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 33202,
+      "note": "toutes ascensions ; n=33202 prises, victoire 47.2 %, taux de prise 3.0 %, Elo 1648.2 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 48,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "Shuriken": {
+    "class": "Shuriken",
+    "id": "SHURIKEN",
+    "name_eng": "Shuriken",
+    "name_fra": "Shuriken",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 72,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 41197,
+      "note": "toutes ascensions ; n=41197 prises, victoire 54.4 %, taux de prise 3.7 %, Elo 1635.1 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 72,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "SlingOfCourage": {
+    "class": "SlingOfCourage",
+    "id": "SLING_OF_COURAGE",
+    "name_eng": "Sling of Courage",
+    "name_fra": "Fronde du courage",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 84,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 9503,
+      "note": "toutes ascensions ; n=9503 prises, victoire 58.0 %, taux de prise 0.8 %"
+     }
+    ],
+    "consensus": {
+     "score": 84,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "StoneCalendar": {
+    "class": "StoneCalendar",
+    "id": "STONE_CALENDAR",
+    "name_eng": "Stone Calendar",
+    "name_fra": "Calendrier de pierre",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 62,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 40228,
+      "note": "toutes ascensions ; n=40228 prises, victoire 51.5 %, taux de prise 3.6 %, Elo 1313.7 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 62,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "StoneCracker": {
+    "class": "StoneCracker",
+    "id": "STONE_CRACKER",
+    "name_eng": "Stone Cracker",
+    "name_fra": "Marteau-piqueur",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 62,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 89534,
+      "note": "toutes ascensions ; n=89534 prises, victoire 51.5 %, taux de prise 8.0 %, Elo 1435.2 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 62,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "Strawberry": {
+    "class": "Strawberry",
+    "id": "STRAWBERRY",
+    "name_eng": "Strawberry",
+    "name_fra": "Fraise",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 64,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 170799,
+      "note": "toutes ascensions ; n=170799 prises, victoire 51.9 %, taux de prise 15.2 %, Elo 1396.4 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 64,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "StrikeDummy": {
+    "class": "StrikeDummy",
+    "id": "STRIKE_DUMMY",
+    "name_eng": "Strike Dummy",
+    "name_fra": "Mannequin d'entraînement",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 61,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 160403,
+      "note": "toutes ascensions ; n=160403 prises, victoire 51.1 %, taux de prise 14.3 %, Elo 1292.6 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 61,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "SturdyClamp": {
+    "class": "SturdyClamp",
+    "id": "STURDY_CLAMP",
+    "name_eng": "Sturdy Clamp",
+    "name_fra": "Pince robuste",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 79,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 43438,
+      "note": "toutes ascensions ; n=43438 prises, victoire 56.6 %, taux de prise 3.9 %, Elo 1435.2 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 79,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "TheAbacus": {
+    "class": "TheAbacus",
+    "id": "THE_ABACUS",
+    "name_eng": "The Abacus",
+    "name_fra": "L'Abaque",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 96,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 9393,
+      "note": "toutes ascensions ; n=9393 prises, victoire 61.7 %, taux de prise 0.8 %"
+     }
+    ],
+    "consensus": {
+     "score": 96,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "TheCourier": {
+    "class": "TheCourier",
+    "id": "THE_COURIER",
+    "name_eng": "The Courier",
+    "name_fra": "Le Coursier",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 63,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 38801,
+      "note": "toutes ascensions ; n=38801 prises, victoire 51.7 %, taux de prise 3.4 %, Elo 1587.3 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 63,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "TinyMailbox": {
+    "class": "TinyMailbox",
+    "id": "TINY_MAILBOX",
+    "name_eng": "Tiny Mailbox",
+    "name_fra": "Minuscule boîte aux lettres",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 64,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 71307,
+      "note": "toutes ascensions ; n=71307 prises, victoire 52.1 %, taux de prise 6.3 %, Elo 1339.6 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 64,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "Toolbox": {
+    "class": "Toolbox",
+    "id": "TOOLBOX",
+    "name_eng": "Toolbox",
+    "name_fra": "Boîte à outils",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 86,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 16283,
+      "note": "toutes ascensions ; n=16283 prises, victoire 58.7 %, taux de prise 1.4 %"
+     }
+    ],
+    "consensus": {
+     "score": 86,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "ToxicEgg": {
+    "class": "ToxicEgg",
+    "id": "TOXIC_EGG",
+    "name_eng": "Toxic Egg",
+    "name_fra": "Œuf toxique",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 53,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 32960,
+      "note": "toutes ascensions ; n=32960 prises, victoire 48.9 %, taux de prise 2.9 %, Elo 1461.3 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 53,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "TungstenRod": {
+    "class": "TungstenRod",
+    "id": "TUNGSTEN_ROD",
+    "name_eng": "Tungsten Rod",
+    "name_fra": "Tige de tungstène",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 72,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 36421,
+      "note": "toutes ascensions ; n=36421 prises, victoire 54.3 %, taux de prise 3.2 %, Elo 1410.4 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 72,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "TuningFork": {
+    "class": "TuningFork",
+    "id": "TUNING_FORK",
+    "name_eng": "Tuning Fork",
+    "name_fra": "Diapason",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 67,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 87750,
+      "note": "toutes ascensions ; n=87750 prises, victoire 52.8 %, taux de prise 7.8 %, Elo 1307.6 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 67,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "UnceasingTop": {
+    "class": "UnceasingTop",
+    "id": "UNCEASING_TOP",
+    "name_eng": "Unceasing Top",
+    "name_fra": "Toupie perpétuelle",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 67,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 39776,
+      "note": "toutes ascensions ; n=39776 prises, victoire 52.9 %, taux de prise 3.5 %, Elo 1409.5 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 67,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "UnsettlingLamp": {
+    "class": "UnsettlingLamp",
+    "id": "UNSETTLING_LAMP",
+    "name_eng": "Unsettling Lamp",
+    "name_fra": "Lampe inquiétante",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 65,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 39359,
+      "note": "toutes ascensions ; n=39359 prises, victoire 52.3 %, taux de prise 3.5 %, Elo 1338.9 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 65,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "Vajra": {
+    "class": "Vajra",
+    "id": "VAJRA",
+    "name_eng": "Vajra",
+    "name_fra": "Vajra",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 63,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 175369,
+      "note": "toutes ascensions ; n=175369 prises, victoire 51.8 %, taux de prise 15.6 %, Elo 1440.5 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 63,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "Vambrace": {
+    "class": "Vambrace",
+    "id": "VAMBRACE",
+    "name_eng": "Vambrace",
+    "name_fra": "Brassard",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 64,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 89365,
+      "note": "toutes ascensions ; n=89365 prises, victoire 52.2 %, taux de prise 7.9 %, Elo 1447.0 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 64,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "VenerableTeaSet": {
+    "class": "VenerableTeaSet",
+    "id": "VENERABLE_TEA_SET",
+    "name_eng": "Venerable Tea Set",
+    "name_fra": "Service à thé vénérable",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 64,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 169083,
+      "note": "toutes ascensions ; n=169083 prises, victoire 52.1 %, taux de prise 15.0 %, Elo 1421.4 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 64,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "VeryHotCocoa": {
+    "class": "VeryHotCocoa",
+    "id": "VERY_HOT_COCOA",
+    "name_eng": "Very Hot Cocoa",
+    "name_fra": "Chocolat très chaud",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 33,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 59034,
+      "note": "toutes ascensions ; n=59034 prises, victoire 42.8 %, taux de prise 5.2 %"
+     }
+    ],
+    "consensus": {
+     "score": 33,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "VexingPuzzlebox": {
+    "class": "VexingPuzzlebox",
+    "id": "VEXING_PUZZLEBOX",
+    "name_eng": "Vexing Puzzlebox",
+    "name_fra": "Casse-tête vexant",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 72,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 38877,
+      "note": "toutes ascensions ; n=38877 prises, victoire 54.6 %, taux de prise 3.5 %, Elo 1411.2 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 72,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "WarPaint": {
+    "class": "WarPaint",
+    "id": "WAR_PAINT",
+    "name_eng": "War Paint",
+    "name_fra": "Peinture de guerre",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 66,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 172840,
+      "note": "toutes ascensions ; n=172840 prises, victoire 52.7 %, taux de prise 15.4 %, Elo 1518.6 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 66,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "Whetstone": {
+    "class": "Whetstone",
+    "id": "WHETSTONE",
+    "name_eng": "Whetstone",
+    "name_fra": "Pierre à aiguiser",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 63,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 168655,
+      "note": "toutes ascensions ; n=168655 prises, victoire 51.9 %, taux de prise 15.0 %, Elo 1474.4 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 63,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "WhiteBeastStatue": {
+    "class": "WhiteBeastStatue",
+    "id": "WHITE_BEAST_STATUE",
+    "name_eng": "White Beast Statue",
+    "name_fra": "Statue de bête blanche",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 48,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 30462,
+      "note": "toutes ascensions ; n=30462 prises, victoire 47.2 %, taux de prise 2.7 %, Elo 1250.0 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 48,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "WhiteStar": {
+    "class": "WhiteStar",
+    "id": "WHITE_STAR",
+    "name_eng": "White Star",
+    "name_fra": "Étoile blanche",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 49,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 28450,
+      "note": "toutes ascensions ; n=28450 prises, victoire 47.6 %, taux de prise 2.5 %, Elo 1705.6 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 49,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "WingCharm": {
+    "class": "WingCharm",
+    "id": "WING_CHARM",
+    "name_eng": "Wing Charm",
+    "name_fra": "Aile fétiche",
+    "owner": "shared",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 85,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 9222,
+      "note": "toutes ascensions ; n=9222 prises, victoire 58.3 %, taux de prise 0.8 %, Elo 1261.1 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 85,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   }
+  },
+  "silent": {
+   "HelicalDart": {
+    "class": "HelicalDart",
+    "id": "HELICAL_DART",
+    "name_eng": "Helical Dart",
+    "name_fra": "Fléchette hélicoïdale",
+    "owner": "silent",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 81,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 5146,
+      "note": "toutes ascensions ; n=5146 prises, victoire 57.3 %, taux de prise 0.5 %, Elo 1560.7 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 81,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "NinjaScroll": {
+    "class": "NinjaScroll",
+    "id": "NINJA_SCROLL",
+    "name_eng": "Ninja Scroll",
+    "name_fra": "Parchemin de ninja",
+    "owner": "silent",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 78,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 6493,
+      "note": "toutes ascensions ; n=6493 prises, victoire 56.3 %, taux de prise 0.6 %"
+     }
+    ],
+    "consensus": {
+     "score": 78,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "PaperKrane": {
+    "class": "PaperKrane",
+    "id": "PAPER_KRANE",
+    "name_eng": "Paper Krane",
+    "name_fra": "Grû en papier",
+    "owner": "silent",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 93,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 6729,
+      "note": "toutes ascensions ; n=6729 prises, victoire 60.9 %, taux de prise 0.6 %, Elo 1931.4 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 93,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "RingOfTheSnake": {
+    "class": "RingOfTheSnake",
+    "id": "RING_OF_THE_SNAKE",
+    "name_eng": "Ring of the Snake",
+    "name_fra": "Anneau du serpent",
+    "owner": "silent",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 0,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 260318,
+      "note": "toutes ascensions ; n=260318 prises, victoire 31.7 %, taux de prise 23.1 %"
+     }
+    ],
+    "consensus": {
+     "score": 0,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "SneckoSkull": {
+    "class": "SneckoSkull",
+    "id": "SNECKO_SKULL",
+    "name_eng": "Snecko Skull",
+    "name_fra": "Crâne de geckobra",
+    "owner": "silent",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 78,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 25218,
+      "note": "toutes ascensions ; n=25218 prises, victoire 56.3 %, taux de prise 2.2 %, Elo 1620.2 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 78,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "Tingsha": {
+    "class": "Tingsha",
+    "id": "TINGSHA",
+    "name_eng": "Tingsha",
+    "name_fra": "Tingsha",
+    "owner": "silent",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 87,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 14327,
+      "note": "toutes ascensions ; n=14327 prises, victoire 58.9 %, taux de prise 1.3 %, Elo 1525.6 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 87,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "ToughBandages": {
+    "class": "ToughBandages",
+    "id": "TOUGH_BANDAGES",
+    "name_eng": "Tough Bandages",
+    "name_fra": "Bandages résistants",
+    "owner": "silent",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 93,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 6040,
+      "note": "toutes ascensions ; n=6040 prises, victoire 60.9 %, taux de prise 0.5 %, Elo 1521.0 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 93,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   },
+   "TwistedFunnel": {
+    "class": "TwistedFunnel",
+    "id": "TWISTED_FUNNEL",
+    "name_eng": "Twisted Funnel",
+    "name_fra": "Entonnoir torsadé",
+    "owner": "silent",
+    "ratings": [
+     {
+      "source_id": "spirecodex-scores",
+      "bracket": "v0.107.1",
+      "tier": null,
+      "score": 81,
+      "patch": "v0.107.1",
+      "date": "2026-10-28",
+      "n": 11822,
+      "note": "toutes ascensions ; n=11822 prises, victoire 57.2 %, taux de prise 1.1 %, Elo 1589.4 (toutes versions)"
+     }
+    ],
+    "consensus": {
+     "score": 81,
+     "n_sources": 1,
+     "spread": 0,
+     "sources": [
+      "spirecodex-scores"
+     ]
+    }
+   }
+  }
+ },
+ "uncertain_mappings": []
+}
