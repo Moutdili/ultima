@@ -1,0 +1,3481 @@
+{
+ "schema": "ultima.meta.archetypes/1",
+ "generated": "2026-10-28",
+ "patch_target": "v0.107.1",
+ "generator": "data/meta/src/build_meta.py",
+ "sources_file": "data/meta/sources.json",
+ "characters": {
+  "defect": [
+   {
+    "name": "Charge Battery + TURBO",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "ChargeBattery",
+      "id": "CHARGE_BATTERY",
+      "name_eng": "Charge Battery"
+     },
+     {
+      "class": "Turbo",
+      "id": "TURBO",
+      "name_eng": "TURBO"
+     },
+     {
+      "class": "Uproar",
+      "id": "UPROAR",
+      "name_eng": "Uproar"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "SwordOfStone",
+      "id": "SWORD_OF_STONE",
+      "name_eng": "Sword of Stone"
+     },
+     {
+      "class": "FresnelLens",
+      "id": "FRESNEL_LENS",
+      "name_eng": "Fresnel Lens"
+     }
+    ],
+    "runs": 23380,
+    "share_percent": 8.7,
+    "win_rate_percent": 0.8,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 8.1,
+     "win_rate_percent": 0.7
+    },
+    "is_playstyle": false,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées). Victoire < 5 % : profil de runs mortes tôt (cartes/reliques d’acte 1), pas une stratégie."
+   },
+   {
+    "name": "Claw + Feral",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "Claw",
+      "id": "CLAW",
+      "name_eng": "Claw"
+     },
+     {
+      "class": "Feral",
+      "id": "FERAL",
+      "name_eng": "Feral"
+     },
+     {
+      "class": "Scrape",
+      "id": "SCRAPE",
+      "name_eng": "Scrape"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "SwordOfStone",
+      "id": "SWORD_OF_STONE",
+      "name_eng": "Sword of Stone"
+     },
+     {
+      "class": "ScrollBoxes",
+      "id": "SCROLL_BOXES",
+      "name_eng": "Scroll Boxes"
+     }
+    ],
+    "runs": 22374,
+    "share_percent": 8.3,
+    "win_rate_percent": 0.3,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 9.1,
+     "win_rate_percent": 0.4
+    },
+    "is_playstyle": false,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées). Victoire < 5 % : profil de runs mortes tôt (cartes/reliques d’acte 1), pas une stratégie."
+   },
+   {
+    "name": "Hailstorm + Coolheaded",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "Hailstorm",
+      "id": "HAILSTORM",
+      "name_eng": "Hailstorm"
+     },
+     {
+      "class": "Coolheaded",
+      "id": "COOLHEADED",
+      "name_eng": "Coolheaded"
+     },
+     {
+      "class": "ColdSnap",
+      "id": "COLD_SNAP",
+      "name_eng": "Cold Snap"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "ArchaicTooth",
+      "id": "ARCHAIC_TOOTH",
+      "name_eng": "Archaic Tooth"
+     },
+     {
+      "class": "YummyCookie",
+      "id": "YUMMY_COOKIE",
+      "name_eng": "Yummy Cookie"
+     }
+    ],
+    "runs": 20215,
+    "share_percent": 7.5,
+    "win_rate_percent": 16.6,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 6.1,
+     "win_rate_percent": 13.4
+    },
+    "is_playstyle": true,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées)."
+   },
+   {
+    "name": "Rocket Punch + Smokestack",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "RocketPunch",
+      "id": "ROCKET_PUNCH",
+      "name_eng": "Rocket Punch"
+     },
+     {
+      "class": "Smokestack",
+      "id": "SMOKESTACK",
+      "name_eng": "Smokestack"
+     },
+     {
+      "class": "FlakCannon",
+      "id": "FLAK_CANNON",
+      "name_eng": "Flak Cannon"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "RippleBasin",
+      "id": "RIPPLE_BASIN",
+      "name_eng": "Ripple Basin"
+     },
+     {
+      "class": "FestivePopper",
+      "id": "FESTIVE_POPPER",
+      "name_eng": "Festive Popper"
+     }
+    ],
+    "runs": 19440,
+    "share_percent": 7.2,
+    "win_rate_percent": 39.5,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 6.3,
+     "win_rate_percent": 37.7
+    },
+    "is_playstyle": true,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées)."
+   },
+   {
+    "name": "Quadcast + Ball Lightning",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "Quadcast",
+      "id": "QUADCAST",
+      "name_eng": "Quadcast"
+     },
+     {
+      "class": "BallLightning",
+      "id": "BALL_LIGHTNING",
+      "name_eng": "Ball Lightning"
+     },
+     {
+      "class": "TeslaCoil",
+      "id": "TESLA_COIL",
+      "name_eng": "Tesla Coil"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "ArchaicTooth",
+      "id": "ARCHAIC_TOOTH",
+      "name_eng": "Archaic Tooth"
+     },
+     {
+      "class": "PaelsFlesh",
+      "id": "PAELS_FLESH",
+      "name_eng": "Pael's Flesh"
+     }
+    ],
+    "runs": 18738,
+    "share_percent": 7.0,
+    "win_rate_percent": 7.2,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 8.0,
+     "win_rate_percent": 7.3
+    },
+    "is_playstyle": true,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées)."
+   },
+   {
+    "name": "Lightning Rod + Tempest",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "LightningRod",
+      "id": "LIGHTNING_ROD",
+      "name_eng": "Lightning Rod"
+     },
+     {
+      "class": "Tempest",
+      "id": "TEMPEST",
+      "name_eng": "Tempest"
+     },
+     {
+      "class": "Storm",
+      "id": "STORM",
+      "name_eng": "Storm"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "FresnelLens",
+      "id": "FRESNEL_LENS",
+      "name_eng": "Fresnel Lens"
+     },
+     {
+      "class": "SwordOfStone",
+      "id": "SWORD_OF_STONE",
+      "name_eng": "Sword of Stone"
+     }
+    ],
+    "runs": 18390,
+    "share_percent": 6.8,
+    "win_rate_percent": 0.2,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 7.1,
+     "win_rate_percent": 0.1
+    },
+    "is_playstyle": false,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées). Victoire < 5 % : profil de runs mortes tôt (cartes/reliques d’acte 1), pas une stratégie."
+   },
+   {
+    "name": "Claw + Scrape",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "Claw",
+      "id": "CLAW",
+      "name_eng": "Claw"
+     },
+     {
+      "class": "Scrape",
+      "id": "SCRAPE",
+      "name_eng": "Scrape"
+     },
+     {
+      "class": "AllForOne",
+      "id": "ALL_FOR_ONE",
+      "name_eng": "All for One"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "FragrantMushroom",
+      "id": "FRAGRANT_MUSHROOM",
+      "name_eng": "Fragrant Mushroom"
+     },
+     {
+      "class": "Vajra",
+      "id": "VAJRA",
+      "name_eng": "Vajra"
+     }
+    ],
+    "runs": 17716,
+    "share_percent": 6.6,
+    "win_rate_percent": 45.0,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 6.3,
+     "win_rate_percent": 40.6
+    },
+    "is_playstyle": true,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées)."
+   },
+   {
+    "name": "Storm + Mad Science",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "Storm",
+      "id": "STORM",
+      "name_eng": "Storm"
+     },
+     {
+      "class": "MadScience",
+      "id": "MAD_SCIENCE",
+      "name_eng": "Mad Science"
+     },
+     {
+      "class": "Thunder",
+      "id": "THUNDER",
+      "name_eng": "Thunder"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "FragrantMushroom",
+      "id": "FRAGRANT_MUSHROOM",
+      "name_eng": "Fragrant Mushroom"
+     },
+     {
+      "class": "FakeHappyFlower",
+      "id": "FAKE_HAPPY_FLOWER",
+      "name_eng": "Happy Flower???"
+     }
+    ],
+    "runs": 17660,
+    "share_percent": 6.6,
+    "win_rate_percent": 58.6,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 6.4,
+     "win_rate_percent": 54.1
+    },
+    "is_playstyle": true,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées)."
+   },
+   {
+    "name": "Maul + Ultimate Strike",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "Maul",
+      "id": "MAUL",
+      "name_eng": "Maul"
+     },
+     {
+      "class": "UltimateStrike",
+      "id": "ULTIMATE_STRIKE",
+      "name_eng": "Ultimate Strike"
+     },
+     {
+      "class": "MadScience",
+      "id": "MAD_SCIENCE",
+      "name_eng": "Mad Science"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "BiiigHug",
+      "id": "BIIIG_HUG",
+      "name_eng": "Biiig Hug"
+     },
+     {
+      "class": "PreservedFog",
+      "id": "PRESERVED_FOG",
+      "name_eng": "Preserved Fog"
+     }
+    ],
+    "runs": 17196,
+    "share_percent": 6.4,
+    "win_rate_percent": 53.2,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 4.0,
+     "win_rate_percent": 45.3
+    },
+    "is_playstyle": true,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées)."
+   },
+   {
+    "name": "Voltaic + Tesla Coil",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "Voltaic",
+      "id": "VOLTAIC",
+      "name_eng": "Voltaic"
+     },
+     {
+      "class": "TeslaCoil",
+      "id": "TESLA_COIL",
+      "name_eng": "Tesla Coil"
+     },
+     {
+      "class": "Thunder",
+      "id": "THUNDER",
+      "name_eng": "Thunder"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "TouchOfOrobas",
+      "id": "TOUCH_OF_OROBAS",
+      "name_eng": "Touch of Orobas"
+     },
+     {
+      "class": "DataDisk",
+      "id": "DATA_DISK",
+      "name_eng": "Data Disk"
+     }
+    ],
+    "runs": 10923,
+    "share_percent": 4.1,
+    "win_rate_percent": 28.0,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 4.6,
+     "win_rate_percent": 28.1
+    },
+    "is_playstyle": true,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées)."
+   },
+   {
+    "name": "Meteor Strike + Trash to Treasure",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "MeteorStrike",
+      "id": "METEOR_STRIKE",
+      "name_eng": "Meteor Strike"
+     },
+     {
+      "class": "TrashToTreasure",
+      "id": "TRASH_TO_TREASURE",
+      "name_eng": "Trash to Treasure"
+     },
+     {
+      "class": "HelixDrill",
+      "id": "HELIX_DRILL",
+      "name_eng": "Helix Drill"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "PandorasBox",
+      "id": "PANDORAS_BOX",
+      "name_eng": "Pandora's Box"
+     },
+     {
+      "class": "MeatCleaver",
+      "id": "MEAT_CLEAVER",
+      "name_eng": "Meat Cleaver"
+     }
+    ],
+    "runs": 10596,
+    "share_percent": 3.9,
+    "win_rate_percent": 54.5,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 3.6,
+     "win_rate_percent": 49.7
+    },
+    "is_playstyle": true,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées)."
+   },
+   {
+    "name": "Gunk Up + Smokestack",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "GunkUp",
+      "id": "GUNK_UP",
+      "name_eng": "Gunk Up"
+     },
+     {
+      "class": "Smokestack",
+      "id": "SMOKESTACK",
+      "name_eng": "Smokestack"
+     },
+     {
+      "class": "Turbo",
+      "id": "TURBO",
+      "name_eng": "TURBO"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "CursedPearl",
+      "id": "CURSED_PEARL",
+      "name_eng": "Cursed Pearl"
+     },
+     {
+      "class": "NeowsBones",
+      "id": "NEOWS_BONES",
+      "name_eng": "Neow's Bones"
+     }
+    ],
+    "runs": 8297,
+    "share_percent": 3.1,
+    "win_rate_percent": 0.9,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 3.1,
+     "win_rate_percent": 0.9
+    },
+    "is_playstyle": false,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées). Victoire < 5 % : profil de runs mortes tôt (cartes/reliques d’acte 1), pas une stratégie."
+   },
+   {
+    "name": "Orbes de Foudre",
+    "source_id": "untapped-guide-orb-spam",
+    "kind": "guide",
+    "date": null,
+    "patch": "inconnu",
+    "stale": true,
+    "key_cards": [
+     {
+      "class": "BallLightning",
+      "name_eng": "Ball Lightning"
+     },
+     {
+      "class": "LightningRod",
+      "name_eng": "Lightning Rod"
+     },
+     {
+      "class": "Storm",
+      "name_eng": "Storm"
+     },
+     {
+      "class": "Tempest",
+      "name_eng": "Tempest"
+     },
+     {
+      "class": "TeslaCoil",
+      "name_eng": "Tesla Coil"
+     },
+     {
+      "class": "Thunder",
+      "name_eng": "Thunder"
+     },
+     {
+      "class": "Voltaic",
+      "name_eng": "Voltaic"
+     }
+    ],
+    "key_relics": [],
+    "conditions": "Remplir vite les emplacements d'orbes puis canaliser en continu ; ajouter du Block hors orbes (paraphrase)."
+   },
+   {
+    "name": "Orbes de Givre",
+    "source_id": "untapped-guide-orb-spam",
+    "kind": "guide",
+    "date": null,
+    "patch": "inconnu",
+    "stale": true,
+    "key_cards": [
+     {
+      "class": "Barrage",
+      "name_eng": "Barrage"
+     },
+     {
+      "class": "Capacitor",
+      "name_eng": "Capacitor"
+     },
+     {
+      "class": "Chill",
+      "name_eng": "Chill"
+     },
+     {
+      "class": "ColdSnap",
+      "name_eng": "Cold Snap"
+     },
+     {
+      "class": "Coolheaded",
+      "name_eng": "Coolheaded"
+     },
+     {
+      "class": "CreativeAi",
+      "name_eng": "Creative AI"
+     },
+     {
+      "class": "Defragment",
+      "name_eng": "Defragment"
+     },
+     {
+      "class": "EchoForm",
+      "name_eng": "Echo Form"
+     },
+     {
+      "class": "Glacier",
+      "name_eng": "Glacier"
+     },
+     {
+      "class": "Hailstorm",
+      "name_eng": "Hailstorm"
+     },
+     {
+      "class": "IceLance",
+      "name_eng": "Ice Lance"
+     },
+     {
+      "class": "Loop",
+      "name_eng": "Loop"
+     },
+     {
+      "class": "Modded",
+      "name_eng": "Modded"
+     },
+     {
+      "class": "Sunder",
+      "name_eng": "Sunder"
+     }
+    ],
+    "key_relics": [],
+    "conditions": "Mur de Block par le Givre ; souffre contre les gros dégâts rapides ; le plus simple à exécuter selon la source (paraphrase)."
+   },
+   {
+    "name": "Orbes de Ténèbres",
+    "source_id": "untapped-guide-orb-spam",
+    "kind": "guide",
+    "date": null,
+    "patch": "inconnu",
+    "stale": true,
+    "key_cards": [
+     {
+      "class": "ConsumingShadow",
+      "name_eng": "Consuming Shadow"
+     },
+     {
+      "class": "Darkness",
+      "name_eng": "Darkness"
+     },
+     {
+      "class": "Dualcast",
+      "name_eng": "Dualcast"
+     },
+     {
+      "class": "Hologram",
+      "name_eng": "Hologram"
+     },
+     {
+      "class": "Loop",
+      "name_eng": "Loop"
+     },
+     {
+      "class": "MultiCast",
+      "name_eng": "Multi-Cast"
+     },
+     {
+      "class": "Null",
+      "name_eng": "Null"
+     },
+     {
+      "class": "ShadowShield",
+      "name_eng": "Shadow Shield"
+     }
+    ],
+    "key_relics": [],
+    "conditions": "Gros dégâts mono-cible à l'Évocation ; faible contre petits sbires + grosse menace (cible le PV le plus bas) ; compléter avec de la zone (paraphrase)."
+   }
+  ],
+  "ironclad": [
+   {
+    "name": "Breakthrough + Armaments",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "Breakthrough",
+      "id": "BREAKTHROUGH",
+      "name_eng": "Breakthrough"
+     },
+     {
+      "class": "Armaments",
+      "id": "ARMAMENTS",
+      "name_eng": "Armaments"
+     },
+     {
+      "class": "Bloodletting",
+      "id": "BLOODLETTING",
+      "name_eng": "Bloodletting"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "SwordOfStone",
+      "id": "SWORD_OF_STONE",
+      "name_eng": "Sword of Stone"
+     },
+     {
+      "class": "CursedPearl",
+      "id": "CURSED_PEARL",
+      "name_eng": "Cursed Pearl"
+     }
+    ],
+    "runs": 50882,
+    "share_percent": 14.6,
+    "win_rate_percent": 0.1,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 14.6,
+     "win_rate_percent": 0.1
+    },
+    "is_playstyle": false,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées). Victoire < 5 % : profil de runs mortes tôt (cartes/reliques d’acte 1), pas une stratégie."
+   },
+   {
+    "name": "Mad Science + Feel No Pain",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "MadScience",
+      "id": "MAD_SCIENCE",
+      "name_eng": "Mad Science"
+     },
+     {
+      "class": "FeelNoPain",
+      "id": "FEEL_NO_PAIN",
+      "name_eng": "Feel No Pain"
+     },
+     {
+      "class": "Unmovable",
+      "id": "UNMOVABLE",
+      "name_eng": "Unmovable"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "SwordOfJade",
+      "id": "SWORD_OF_JADE",
+      "name_eng": "Sword of Jade"
+     },
+     {
+      "class": "FragrantMushroom",
+      "id": "FRAGRANT_MUSHROOM",
+      "name_eng": "Fragrant Mushroom"
+     }
+    ],
+    "runs": 32710,
+    "share_percent": 9.4,
+    "win_rate_percent": 58.8,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 7.9,
+     "win_rate_percent": 53.4
+    },
+    "is_playstyle": true,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées)."
+   },
+   {
+    "name": "Shrug It Off + Body Slam",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "ShrugItOff",
+      "id": "SHRUG_IT_OFF",
+      "name_eng": "Shrug It Off"
+     },
+     {
+      "class": "BodySlam",
+      "id": "BODY_SLAM",
+      "name_eng": "Body Slam"
+     },
+     {
+      "class": "IronWave",
+      "id": "IRON_WAVE",
+      "name_eng": "Iron Wave"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "SwordOfStone",
+      "id": "SWORD_OF_STONE",
+      "name_eng": "Sword of Stone"
+     },
+     {
+      "class": "HeftyTablet",
+      "id": "HEFTY_TABLET",
+      "name_eng": "Hefty Tablet"
+     }
+    ],
+    "runs": 32352,
+    "share_percent": 9.3,
+    "win_rate_percent": 0.5,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 9.2,
+     "win_rate_percent": 0.4
+    },
+    "is_playstyle": false,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées). Victoire < 5 % : profil de runs mortes tôt (cartes/reliques d’acte 1), pas une stratégie."
+   },
+   {
+    "name": "Perfected Strike + Hellraiser",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "PerfectedStrike",
+      "id": "PERFECTED_STRIKE",
+      "name_eng": "Perfected Strike"
+     },
+     {
+      "class": "Hellraiser",
+      "id": "HELLRAISER",
+      "name_eng": "Hellraiser"
+     },
+     {
+      "class": "TwinStrike",
+      "id": "TWIN_STRIKE",
+      "name_eng": "Twin Strike"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "NutritiousSoup",
+      "id": "NUTRITIOUS_SOUP",
+      "name_eng": "Nutritious Soup"
+     },
+     {
+      "class": "TouchOfOrobas",
+      "id": "TOUCH_OF_OROBAS",
+      "name_eng": "Touch of Orobas"
+     }
+    ],
+    "runs": 28306,
+    "share_percent": 8.1,
+    "win_rate_percent": 25.3,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 9.2,
+     "win_rate_percent": 23.3
+    },
+    "is_playstyle": true,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées)."
+   },
+   {
+    "name": "Molten Fist + Bully",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "MoltenFist",
+      "id": "MOLTEN_FIST",
+      "name_eng": "Molten Fist"
+     },
+     {
+      "class": "Bully",
+      "id": "BULLY",
+      "name_eng": "Bully"
+     },
+     {
+      "class": "Tremble",
+      "id": "TREMBLE",
+      "name_eng": "Tremble"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "SwordOfStone",
+      "id": "SWORD_OF_STONE",
+      "name_eng": "Sword of Stone"
+     },
+     {
+      "class": "ScrollBoxes",
+      "id": "SCROLL_BOXES",
+      "name_eng": "Scroll Boxes"
+     }
+    ],
+    "runs": 27050,
+    "share_percent": 7.8,
+    "win_rate_percent": 0.8,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 8.7,
+     "win_rate_percent": 0.8
+    },
+    "is_playstyle": false,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées). Victoire < 5 % : profil de runs mortes tôt (cartes/reliques d’acte 1), pas une stratégie."
+   },
+   {
+    "name": "Pommel Strike + Stoke",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "PommelStrike",
+      "id": "POMMEL_STRIKE",
+      "name_eng": "Pommel Strike"
+     },
+     {
+      "class": "Stoke",
+      "id": "STOKE",
+      "name_eng": "Stoke"
+     },
+     {
+      "class": "BurningPact",
+      "id": "BURNING_PACT",
+      "name_eng": "Burning Pact"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "NutritiousSoup",
+      "id": "NUTRITIOUS_SOUP",
+      "name_eng": "Nutritious Soup"
+     },
+     {
+      "class": "VeryHotCocoa",
+      "id": "VERY_HOT_COCOA",
+      "name_eng": "Very Hot Cocoa"
+     }
+    ],
+    "runs": 25329,
+    "share_percent": 7.3,
+    "win_rate_percent": 31.3,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 6.1,
+     "win_rate_percent": 25.6
+    },
+    "is_playstyle": true,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées)."
+   },
+   {
+    "name": "True Grit + Howl from Beyond",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "TrueGrit",
+      "id": "TRUE_GRIT",
+      "name_eng": "True Grit"
+     },
+     {
+      "class": "HowlFromBeyond",
+      "id": "HOWL_FROM_BEYOND",
+      "name_eng": "Howl from Beyond"
+     },
+     {
+      "class": "Cinder",
+      "id": "CINDER",
+      "name_eng": "Cinder"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "FresnelLens",
+      "id": "FRESNEL_LENS",
+      "name_eng": "Fresnel Lens"
+     },
+     {
+      "class": "SilverCrucible",
+      "id": "SILVER_CRUCIBLE",
+      "name_eng": "Silver Crucible"
+     }
+    ],
+    "runs": 24581,
+    "share_percent": 7.1,
+    "win_rate_percent": 0.7,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 6.0,
+     "win_rate_percent": 0.6
+    },
+    "is_playstyle": false,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées). Victoire < 5 % : profil de runs mortes tôt (cartes/reliques d’acte 1), pas une stratégie."
+   },
+   {
+    "name": "Inferno + Rupture",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "Inferno",
+      "id": "INFERNO",
+      "name_eng": "Inferno"
+     },
+     {
+      "class": "Rupture",
+      "id": "RUPTURE",
+      "name_eng": "Rupture"
+     },
+     {
+      "class": "TearAsunder",
+      "id": "TEAR_ASUNDER",
+      "name_eng": "Tear Asunder"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "TouchOfOrobas",
+      "id": "TOUCH_OF_OROBAS",
+      "name_eng": "Touch of Orobas"
+     },
+     {
+      "class": "SelfFormingClay",
+      "id": "SELF_FORMING_CLAY",
+      "name_eng": "Self-Forming Clay"
+     }
+    ],
+    "runs": 20455,
+    "share_percent": 5.9,
+    "win_rate_percent": 23.6,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 5.7,
+     "win_rate_percent": 20.4
+    },
+    "is_playstyle": true,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées)."
+   },
+   {
+    "name": "Break + Bully",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "Break",
+      "id": "BREAK",
+      "name_eng": "Break"
+     },
+     {
+      "class": "Bully",
+      "id": "BULLY",
+      "name_eng": "Bully"
+     },
+     {
+      "class": "Dominate",
+      "id": "DOMINATE",
+      "name_eng": "Dominate"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "ArchaicTooth",
+      "id": "ARCHAIC_TOOTH",
+      "name_eng": "Archaic Tooth"
+     },
+     {
+      "class": "FragrantMushroom",
+      "id": "FRAGRANT_MUSHROOM",
+      "name_eng": "Fragrant Mushroom"
+     }
+    ],
+    "runs": 19423,
+    "share_percent": 5.6,
+    "win_rate_percent": 34.9,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 5.9,
+     "win_rate_percent": 33.3
+    },
+    "is_playstyle": true,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées)."
+   },
+   {
+    "name": "Maul + Ultimate Strike",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "Maul",
+      "id": "MAUL",
+      "name_eng": "Maul"
+     },
+     {
+      "class": "UltimateStrike",
+      "id": "ULTIMATE_STRIKE",
+      "name_eng": "Ultimate Strike"
+     },
+     {
+      "class": "MadScience",
+      "id": "MAD_SCIENCE",
+      "name_eng": "Mad Science"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "Claws",
+      "id": "CLAWS",
+      "name_eng": "Claws"
+     },
+     {
+      "class": "BiiigHug",
+      "id": "BIIIG_HUG",
+      "name_eng": "Biiig Hug"
+     }
+    ],
+    "runs": 11943,
+    "share_percent": 3.4,
+    "win_rate_percent": 61.8,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 2.3,
+     "win_rate_percent": 56.4
+    },
+    "is_playstyle": true,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées)."
+   },
+   {
+    "name": "Maul + Not Yet",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "Maul",
+      "id": "MAUL",
+      "name_eng": "Maul"
+     },
+     {
+      "class": "NotYet",
+      "id": "NOT_YET",
+      "name_eng": "Not Yet"
+     },
+     {
+      "class": "DarkEmbrace",
+      "id": "DARK_EMBRACE",
+      "name_eng": "Dark Embrace"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "PandorasBox",
+      "id": "PANDORAS_BOX",
+      "name_eng": "Pandora's Box"
+     },
+     {
+      "class": "MeatCleaver",
+      "id": "MEAT_CLEAVER",
+      "name_eng": "Meat Cleaver"
+     }
+    ],
+    "runs": 9506,
+    "share_percent": 2.7,
+    "win_rate_percent": 55.4,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 2.7,
+     "win_rate_percent": 51.7
+    },
+    "is_playstyle": true,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées)."
+   },
+   {
+    "name": "Byrd Swoop + Pyre",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "ByrdSwoop",
+      "id": "BYRD_SWOOP",
+      "name_eng": "Byrd Swoop"
+     },
+     {
+      "class": "Pyre",
+      "id": "PYRE",
+      "name_eng": "Pyre"
+     },
+     {
+      "class": "Dismantle",
+      "id": "DISMANTLE",
+      "name_eng": "Dismantle"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "Byrdpip",
+      "id": "BYRDPIP",
+      "name_eng": "Byrdpip"
+     },
+     {
+      "class": "OrnamentalFan",
+      "id": "ORNAMENTAL_FAN",
+      "name_eng": "Ornamental Fan"
+     }
+    ],
+    "runs": 6839,
+    "share_percent": 2.0,
+    "win_rate_percent": 24.9,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 1.7,
+     "win_rate_percent": 20.7
+    },
+    "is_playstyle": true,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées)."
+   },
+   {
+    "name": "Body Slam",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "BodySlam",
+      "id": "BODY_SLAM",
+      "name_eng": "Body Slam"
+     }
+    ],
+    "key_relics": [],
+    "runs": 1436,
+    "share_percent": 0.4,
+    "win_rate_percent": 0.6,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 0.4,
+     "win_rate_percent": 0.4
+    },
+    "is_playstyle": false,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées). Victoire < 5 % : profil de runs mortes tôt (cartes/reliques d’acte 1), pas une stratégie."
+   }
+  ],
+  "necrobinder": [
+   {
+    "name": "Sow + Reap",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "Sow",
+      "id": "SOW",
+      "name_eng": "Sow"
+     },
+     {
+      "class": "Reap",
+      "id": "REAP",
+      "name_eng": "Reap"
+     },
+     {
+      "class": "Defile",
+      "id": "DEFILE",
+      "name_eng": "Defile"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "SwordOfStone",
+      "id": "SWORD_OF_STONE",
+      "name_eng": "Sword of Stone"
+     },
+     {
+      "class": "PrecariousShears",
+      "id": "PRECARIOUS_SHEARS",
+      "name_eng": "Precarious Shears"
+     }
+    ],
+    "runs": 29201,
+    "share_percent": 11.2,
+    "win_rate_percent": 0.1,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 11.2,
+     "win_rate_percent": 0.1
+    },
+    "is_playstyle": false,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées). Victoire < 5 % : profil de runs mortes tôt (cartes/reliques d’acte 1), pas une stratégie."
+   },
+   {
+    "name": "Negative Pulse + Blight Strike",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "NegativePulse",
+      "id": "NEGATIVE_PULSE",
+      "name_eng": "Negative Pulse"
+     },
+     {
+      "class": "BlightStrike",
+      "id": "BLIGHT_STRIKE",
+      "name_eng": "Blight Strike"
+     },
+     {
+      "class": "Scourge",
+      "id": "SCOURGE",
+      "name_eng": "Scourge"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "SwordOfStone",
+      "id": "SWORD_OF_STONE",
+      "name_eng": "Sword of Stone"
+     },
+     {
+      "class": "ScrollBoxes",
+      "id": "SCROLL_BOXES",
+      "name_eng": "Scroll Boxes"
+     }
+    ],
+    "runs": 23907,
+    "share_percent": 9.1,
+    "win_rate_percent": 0.2,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 9.9,
+     "win_rate_percent": 0.2
+    },
+    "is_playstyle": false,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées). Victoire < 5 % : profil de runs mortes tôt (cartes/reliques d’acte 1), pas une stratégie."
+   },
+   {
+    "name": "Defy + Sculpting Strike",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "Defy",
+      "id": "DEFY",
+      "name_eng": "Defy"
+     },
+     {
+      "class": "SculptingStrike",
+      "id": "SCULPTING_STRIKE",
+      "name_eng": "Sculpting Strike"
+     },
+     {
+      "class": "Defile",
+      "id": "DEFILE",
+      "name_eng": "Defile"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "HeftyTablet",
+      "id": "HEFTY_TABLET",
+      "name_eng": "Hefty Tablet"
+     },
+     {
+      "class": "CursedPearl",
+      "id": "CURSED_PEARL",
+      "name_eng": "Cursed Pearl"
+     }
+    ],
+    "runs": 23583,
+    "share_percent": 9.0,
+    "win_rate_percent": 0.1,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 8.7,
+     "win_rate_percent": 0.1
+    },
+    "is_playstyle": false,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées). Victoire < 5 % : profil de runs mortes tôt (cartes/reliques d’acte 1), pas une stratégie."
+   },
+   {
+    "name": "Shroud + Time's Up",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "Shroud",
+      "id": "SHROUD",
+      "name_eng": "Shroud"
+     },
+     {
+      "class": "TimesUp",
+      "id": "TIMES_UP",
+      "name_eng": "Time's Up"
+     },
+     {
+      "class": "DeathsDoor",
+      "id": "DEATHS_DOOR",
+      "name_eng": "Death's Door"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "FragrantMushroom",
+      "id": "FRAGRANT_MUSHROOM",
+      "name_eng": "Fragrant Mushroom"
+     },
+     {
+      "class": "YummyCookie",
+      "id": "YUMMY_COOKIE",
+      "name_eng": "Yummy Cookie"
+     }
+    ],
+    "runs": 22017,
+    "share_percent": 8.4,
+    "win_rate_percent": 38.2,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 8.3,
+     "win_rate_percent": 32.3
+    },
+    "is_playstyle": true,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées)."
+   },
+   {
+    "name": "Grave Warden + Reave",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "GraveWarden",
+      "id": "GRAVE_WARDEN",
+      "name_eng": "Grave Warden"
+     },
+     {
+      "class": "Reave",
+      "id": "REAVE",
+      "name_eng": "Reave"
+     },
+     {
+      "class": "Severance",
+      "id": "SEVERANCE",
+      "name_eng": "Severance"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "SwordOfStone",
+      "id": "SWORD_OF_STONE",
+      "name_eng": "Sword of Stone"
+     },
+     {
+      "class": "HeftyTablet",
+      "id": "HEFTY_TABLET",
+      "name_eng": "Hefty Tablet"
+     }
+    ],
+    "runs": 20469,
+    "share_percent": 7.8,
+    "win_rate_percent": 0.1,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 7.8,
+     "win_rate_percent": 0.1
+    },
+    "is_playstyle": false,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées). Victoire < 5 % : profil de runs mortes tôt (cartes/reliques d’acte 1), pas une stratégie."
+   },
+   {
+    "name": "Banshee's Cry + Pull from Below",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "BansheesCry",
+      "id": "BANSHEES_CRY",
+      "name_eng": "Banshee's Cry"
+     },
+     {
+      "class": "PullFromBelow",
+      "id": "PULL_FROM_BELOW",
+      "name_eng": "Pull from Below"
+     },
+     {
+      "class": "Veilpiercer",
+      "id": "VEILPIERCER",
+      "name_eng": "Veilpiercer"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "VeryHotCocoa",
+      "id": "VERY_HOT_COCOA",
+      "name_eng": "Very Hot Cocoa"
+     },
+     {
+      "class": "FestivePopper",
+      "id": "FESTIVE_POPPER",
+      "name_eng": "Festive Popper"
+     }
+    ],
+    "runs": 20206,
+    "share_percent": 7.7,
+    "win_rate_percent": 33.9,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 6.8,
+     "win_rate_percent": 30.3
+    },
+    "is_playstyle": true,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées)."
+   },
+   {
+    "name": "Flatten + Poke",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "Flatten",
+      "id": "FLATTEN",
+      "name_eng": "Flatten"
+     },
+     {
+      "class": "Poke",
+      "id": "POKE",
+      "name_eng": "Poke"
+     },
+     {
+      "class": "Protector",
+      "id": "PROTECTOR",
+      "name_eng": "Protector"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "ArchaicTooth",
+      "id": "ARCHAIC_TOOTH",
+      "name_eng": "Archaic Tooth"
+     },
+     {
+      "class": "YummyCookie",
+      "id": "YUMMY_COOKIE",
+      "name_eng": "Yummy Cookie"
+     }
+    ],
+    "runs": 18330,
+    "share_percent": 7.0,
+    "win_rate_percent": 2.6,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 7.6,
+     "win_rate_percent": 2.7
+    },
+    "is_playstyle": false,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées). Victoire < 5 % : profil de runs mortes tôt (cartes/reliques d’acte 1), pas une stratégie."
+   },
+   {
+    "name": "Ultimate Strike + Mad Science",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "UltimateStrike",
+      "id": "ULTIMATE_STRIKE",
+      "name_eng": "Ultimate Strike"
+     },
+     {
+      "class": "MadScience",
+      "id": "MAD_SCIENCE",
+      "name_eng": "Mad Science"
+     },
+     {
+      "class": "BansheesCry",
+      "id": "BANSHEES_CRY",
+      "name_eng": "Banshee's Cry"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "BiiigHug",
+      "id": "BIIIG_HUG",
+      "name_eng": "Biiig Hug"
+     },
+     {
+      "class": "Astrolabe",
+      "id": "ASTROLABE",
+      "name_eng": "Astrolabe"
+     }
+    ],
+    "runs": 15309,
+    "share_percent": 5.8,
+    "win_rate_percent": 60.0,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 3.7,
+     "win_rate_percent": 50.3
+    },
+    "is_playstyle": true,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées)."
+   },
+   {
+    "name": "Haunt + Soul Storm",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "Haunt",
+      "id": "HAUNT",
+      "name_eng": "Haunt"
+     },
+     {
+      "class": "SoulStorm",
+      "id": "SOUL_STORM",
+      "name_eng": "Soul Storm"
+     },
+     {
+      "class": "DeathMarch",
+      "id": "DEATH_MARCH",
+      "name_eng": "Death March"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "YummyCookie",
+      "id": "YUMMY_COOKIE",
+      "name_eng": "Yummy Cookie"
+     },
+     {
+      "class": "ArchaicTooth",
+      "id": "ARCHAIC_TOOTH",
+      "name_eng": "Archaic Tooth"
+     }
+    ],
+    "runs": 13517,
+    "share_percent": 5.2,
+    "win_rate_percent": 27.5,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 4.7,
+     "win_rate_percent": 22.4
+    },
+    "is_playstyle": true,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées)."
+   },
+   {
+    "name": "Squeeze + Rattle",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "Squeeze",
+      "id": "SQUEEZE",
+      "name_eng": "Squeeze"
+     },
+     {
+      "class": "Rattle",
+      "id": "RATTLE",
+      "name_eng": "Rattle"
+     },
+     {
+      "class": "Calcify",
+      "id": "CALCIFY",
+      "name_eng": "Calcify"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "BoneFlute",
+      "id": "BONE_FLUTE",
+      "name_eng": "Bone Flute"
+     },
+     {
+      "class": "FragrantMushroom",
+      "id": "FRAGRANT_MUSHROOM",
+      "name_eng": "Fragrant Mushroom"
+     }
+    ],
+    "runs": 13445,
+    "share_percent": 5.1,
+    "win_rate_percent": 51.1,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 4.7,
+     "win_rate_percent": 46.9
+    },
+    "is_playstyle": true,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées)."
+   },
+   {
+    "name": "Necro Mastery + Sentry Mode",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "NecroMastery",
+      "id": "NECRO_MASTERY",
+      "name_eng": "Necro Mastery"
+     },
+     {
+      "class": "SentryMode",
+      "id": "SENTRY_MODE",
+      "name_eng": "Sentry Mode"
+     },
+     {
+      "class": "Squeeze",
+      "id": "SQUEEZE",
+      "name_eng": "Squeeze"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "TouchOfOrobas",
+      "id": "TOUCH_OF_OROBAS",
+      "name_eng": "Touch of Orobas"
+     },
+     {
+      "class": "HornCleat",
+      "id": "HORN_CLEAT",
+      "name_eng": "Horn Cleat"
+     }
+    ],
+    "runs": 10850,
+    "share_percent": 4.1,
+    "win_rate_percent": 33.7,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 4.1,
+     "win_rate_percent": 27.5
+    },
+    "is_playstyle": true,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées)."
+   },
+   {
+    "name": "Forbidden Grimoire + Spirit of Ash",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "ForbiddenGrimoire",
+      "id": "FORBIDDEN_GRIMOIRE",
+      "name_eng": "Forbidden Grimoire"
+     },
+     {
+      "class": "SpiritOfAsh",
+      "id": "SPIRIT_OF_ASH",
+      "name_eng": "Spirit of Ash"
+     },
+     {
+      "class": "BansheesCry",
+      "id": "BANSHEES_CRY",
+      "name_eng": "Banshee's Cry"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "PandorasBox",
+      "id": "PANDORAS_BOX",
+      "name_eng": "Pandora's Box"
+     },
+     {
+      "class": "DustyTome",
+      "id": "DUSTY_TOME",
+      "name_eng": "Dusty Tome"
+     }
+    ],
+    "runs": 5970,
+    "share_percent": 2.3,
+    "win_rate_percent": 57.5,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 1.8,
+     "win_rate_percent": 51.8
+    },
+    "is_playstyle": true,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées)."
+   },
+   {
+    "name": "Forbidden Grimoire + Time's Up",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "ForbiddenGrimoire",
+      "id": "FORBIDDEN_GRIMOIRE",
+      "name_eng": "Forbidden Grimoire"
+     },
+     {
+      "class": "TimesUp",
+      "id": "TIMES_UP",
+      "name_eng": "Time's Up"
+     },
+     {
+      "class": "Oblivion",
+      "id": "OBLIVION",
+      "name_eng": "Oblivion"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "PandorasBox",
+      "id": "PANDORAS_BOX",
+      "name_eng": "Pandora's Box"
+     },
+     {
+      "class": "DustyTome",
+      "id": "DUSTY_TOME",
+      "name_eng": "Dusty Tome"
+     }
+    ],
+    "runs": 5118,
+    "share_percent": 2.0,
+    "win_rate_percent": 44.2,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 2.0,
+     "win_rate_percent": 40.7
+    },
+    "is_playstyle": true,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées)."
+   },
+   {
+    "name": "Souls",
+    "source_id": "pcgamesn-necrobinder",
+    "kind": "guide",
+    "date": "2026-04-07",
+    "patch": "non indiqué (antérieur à v0.107.1 par la date)",
+    "stale": true,
+    "key_cards": [
+     {
+      "class": "GraveWarden",
+      "name_eng": "Grave Warden"
+     },
+     {
+      "class": "Reave",
+      "name_eng": "Reave"
+     },
+     {
+      "class": "Graveblast",
+      "name_eng": "Graveblast"
+     },
+     {
+      "class": "CaptureSpirit",
+      "name_eng": "Capture Spirit"
+     },
+     {
+      "class": "Dirge",
+      "name_eng": "Dirge"
+     },
+     {
+      "class": "Haunt",
+      "name_eng": "Haunt"
+     },
+     {
+      "class": "Severance",
+      "name_eng": "Severance"
+     },
+     {
+      "class": "DeathMarch",
+      "name_eng": "Death March"
+     },
+     {
+      "class": "SoulStorm",
+      "name_eng": "Soul Storm"
+     },
+     {
+      "class": "SpiritOfAsh",
+      "name_eng": "Spirit of Ash"
+     },
+     {
+      "class": "DevourLife",
+      "name_eng": "Devour Life"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "FuneraryMask",
+      "name_eng": "Funerary Mask"
+     },
+     {
+      "class": "Anchor",
+      "name_eng": "Anchor"
+     },
+     {
+      "class": "Gorget",
+      "name_eng": "Gorget"
+     },
+     {
+      "class": "HornCleat",
+      "name_eng": "Horn Cleat"
+     }
+    ],
+    "conditions": "Quand le moteur de pioche tourne et cycle vers les cartes Âmes ; chercher des finisseurs avant la fin de l'acte 2 (paraphrase de la source)."
+   },
+   {
+    "name": "Osty",
+    "source_id": "pcgamesn-necrobinder",
+    "kind": "guide",
+    "date": "2026-04-07",
+    "patch": "non indiqué (antérieur à v0.107.1 par la date)",
+    "stale": true,
+    "key_cards": [
+     {
+      "class": "Bodyguard",
+      "name_eng": "Bodyguard"
+     },
+     {
+      "class": "Afterlife",
+      "name_eng": "Afterlife"
+     },
+     {
+      "class": "Spur",
+      "name_eng": "Spur"
+     },
+     {
+      "class": "NecroMastery",
+      "name_eng": "Necro Mastery"
+     },
+     {
+      "class": "Unleash",
+      "name_eng": "Unleash"
+     },
+     {
+      "class": "Fetch",
+      "name_eng": "Fetch"
+     },
+     {
+      "class": "Flatten",
+      "name_eng": "Flatten"
+     },
+     {
+      "class": "RightHandHand",
+      "name_eng": "Right Hand Hand"
+     },
+     {
+      "class": "Rattle",
+      "name_eng": "Rattle"
+     },
+     {
+      "class": "Squeeze",
+      "name_eng": "Squeeze"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "BoneFlute",
+      "name_eng": "Bone Flute"
+     },
+     {
+      "class": "Bookmark",
+      "name_eng": "Bookmark"
+     },
+     {
+      "class": "FuneraryMask",
+      "name_eng": "Funerary Mask"
+     }
+    ],
+    "conditions": "Archétype le plus simple selon la source ; à coupler avec les cartes Âmes pour cycler (paraphrase)."
+   },
+   {
+    "name": "Doom",
+    "source_id": "pcgamesn-necrobinder",
+    "kind": "guide",
+    "date": "2026-04-07",
+    "patch": "non indiqué (antérieur à v0.107.1 par la date)",
+    "stale": true,
+    "key_cards": [
+     {
+      "class": "NegativePulse",
+      "name_eng": "Negative Pulse"
+     },
+     {
+      "class": "Defy",
+      "name_eng": "Defy"
+     },
+     {
+      "class": "EnfeeblingTouch",
+      "name_eng": "Enfeebling Touch"
+     },
+     {
+      "class": "Invoke",
+      "name_eng": "Invoke"
+     },
+     {
+      "class": "BorrowedTime",
+      "name_eng": "Borrowed Time"
+     },
+     {
+      "class": "Delay",
+      "name_eng": "Delay"
+     },
+     {
+      "class": "Deathbringer",
+      "name_eng": "Deathbringer"
+     },
+     {
+      "class": "EndOfDays",
+      "name_eng": "End of Days"
+     },
+     {
+      "class": "Shroud",
+      "name_eng": "Shroud"
+     },
+     {
+      "class": "ReaperForm",
+      "name_eng": "Reaper Form"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "BookRepairKnife",
+      "name_eng": "Book Repair Knife"
+     },
+     {
+      "class": "UndyingSigil",
+      "name_eng": "Undying Sigil"
+     },
+     {
+      "class": "Lantern",
+      "name_eng": "Lantern"
+     },
+     {
+      "class": "Candelabra",
+      "name_eng": "Candelabra"
+     },
+     {
+      "class": "Chandelier",
+      "name_eng": "Chandelier"
+     }
+    ],
+    "conditions": "Demande un Osty solide ou des débuffs pour tenir ; viable en approchant l'acte 3 (paraphrase)."
+   }
+  ],
+  "regent": [
+   {
+    "name": "BEGONE! + Patter",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "Begone",
+      "id": "BEGONE",
+      "name_eng": "BEGONE!"
+     },
+     {
+      "class": "Patter",
+      "id": "PATTER",
+      "name_eng": "Patter"
+     },
+     {
+      "class": "AstralPulse",
+      "id": "ASTRAL_PULSE",
+      "name_eng": "Astral Pulse"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "SwordOfStone",
+      "id": "SWORD_OF_STONE",
+      "name_eng": "Sword of Stone"
+     },
+     {
+      "class": "SilverCrucible",
+      "id": "SILVER_CRUCIBLE",
+      "name_eng": "Silver Crucible"
+     }
+    ],
+    "runs": 45779,
+    "share_percent": 17.9,
+    "win_rate_percent": 0.1,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 15.7,
+     "win_rate_percent": 0.1
+    },
+    "is_playstyle": false,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées). Victoire < 5 % : profil de runs mortes tôt (cartes/reliques d’acte 1), pas une stratégie."
+   },
+   {
+    "name": "Knockout Blow + Solar Strike",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "KnockoutBlow",
+      "id": "KNOCKOUT_BLOW",
+      "name_eng": "Knockout Blow"
+     },
+     {
+      "class": "SolarStrike",
+      "id": "SOLAR_STRIKE",
+      "name_eng": "Solar Strike"
+     },
+     {
+      "class": "Devastate",
+      "id": "DEVASTATE",
+      "name_eng": "Devastate"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "SwordOfStone",
+      "id": "SWORD_OF_STONE",
+      "name_eng": "Sword of Stone"
+     },
+     {
+      "class": "PrecariousShears",
+      "id": "PRECARIOUS_SHEARS",
+      "name_eng": "Precarious Shears"
+     }
+    ],
+    "runs": 29685,
+    "share_percent": 11.6,
+    "win_rate_percent": 0.1,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 11.7,
+     "win_rate_percent": 0.1
+    },
+    "is_playstyle": false,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées). Victoire < 5 % : profil de runs mortes tôt (cartes/reliques d’acte 1), pas une stratégie."
+   },
+   {
+    "name": "Refine Blade + Wrought in War",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "RefineBlade",
+      "id": "REFINE_BLADE",
+      "name_eng": "Refine Blade"
+     },
+     {
+      "class": "WroughtInWar",
+      "id": "WROUGHT_IN_WAR",
+      "name_eng": "Wrought in War"
+     },
+     {
+      "class": "SpoilsOfBattle",
+      "id": "SPOILS_OF_BATTLE",
+      "name_eng": "Spoils of Battle"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "SwordOfStone",
+      "id": "SWORD_OF_STONE",
+      "name_eng": "Sword of Stone"
+     },
+     {
+      "class": "ScrollBoxes",
+      "id": "SCROLL_BOXES",
+      "name_eng": "Scroll Boxes"
+     }
+    ],
+    "runs": 21809,
+    "share_percent": 8.5,
+    "win_rate_percent": 0.7,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 9.7,
+     "win_rate_percent": 0.8
+    },
+    "is_playstyle": false,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées). Victoire < 5 % : profil de runs mortes tôt (cartes/reliques d’acte 1), pas une stratégie."
+   },
+   {
+    "name": "Mad Science + Big Bang",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "MadScience",
+      "id": "MAD_SCIENCE",
+      "name_eng": "Mad Science"
+     },
+     {
+      "class": "BigBang",
+      "id": "BIG_BANG",
+      "name_eng": "Big Bang"
+     },
+     {
+      "class": "HeavenlyDrill",
+      "id": "HEAVENLY_DRILL",
+      "name_eng": "Heavenly Drill"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "FragrantMushroom",
+      "id": "FRAGRANT_MUSHROOM",
+      "name_eng": "Fragrant Mushroom"
+     },
+     {
+      "class": "DustyTome",
+      "id": "DUSTY_TOME",
+      "name_eng": "Dusty Tome"
+     }
+    ],
+    "runs": 20892,
+    "share_percent": 8.1,
+    "win_rate_percent": 52.1,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 6.2,
+     "win_rate_percent": 47.4
+    },
+    "is_playstyle": true,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées)."
+   },
+   {
+    "name": "Crescent Spear + Black Hole",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "CrescentSpear",
+      "id": "CRESCENT_SPEAR",
+      "name_eng": "Crescent Spear"
+     },
+     {
+      "class": "BlackHole",
+      "id": "BLACK_HOLE",
+      "name_eng": "Black Hole"
+     },
+     {
+      "class": "SolarStrike",
+      "id": "SOLAR_STRIKE",
+      "name_eng": "Solar Strike"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "YummyCookie",
+      "id": "YUMMY_COOKIE",
+      "name_eng": "Yummy Cookie"
+     },
+     {
+      "class": "PaelsFlesh",
+      "id": "PAELS_FLESH",
+      "name_eng": "Pael's Flesh"
+     }
+    ],
+    "runs": 18716,
+    "share_percent": 7.3,
+    "win_rate_percent": 20.4,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 8.1,
+     "win_rate_percent": 18.9
+    },
+    "is_playstyle": true,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées)."
+   },
+   {
+    "name": "Sword Sage + Parry",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "SwordSage",
+      "id": "SWORD_SAGE",
+      "name_eng": "Sword Sage"
+     },
+     {
+      "class": "Parry",
+      "id": "PARRY",
+      "name_eng": "Parry"
+     },
+     {
+      "class": "SummonForth",
+      "id": "SUMMON_FORTH",
+      "name_eng": "Summon Forth"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "FencingManual",
+      "id": "FENCING_MANUAL",
+      "name_eng": "Fencing Manual"
+     },
+     {
+      "class": "FragrantMushroom",
+      "id": "FRAGRANT_MUSHROOM",
+      "name_eng": "Fragrant Mushroom"
+     }
+    ],
+    "runs": 15806,
+    "share_percent": 6.2,
+    "win_rate_percent": 47.1,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 6.6,
+     "win_rate_percent": 45.5
+    },
+    "is_playstyle": true,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées)."
+   },
+   {
+    "name": "Pillar of Creation + Supermassive",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "PillarOfCreation",
+      "id": "PILLAR_OF_CREATION",
+      "name_eng": "Pillar of Creation"
+     },
+     {
+      "class": "Supermassive",
+      "id": "SUPERMASSIVE",
+      "name_eng": "Supermassive"
+     },
+     {
+      "class": "Arsenal",
+      "id": "ARSENAL",
+      "name_eng": "Arsenal"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "Regalite",
+      "id": "REGALITE",
+      "name_eng": "Regalite"
+     },
+     {
+      "class": "JossPaper",
+      "id": "JOSS_PAPER",
+      "name_eng": "Joss Paper"
+     }
+    ],
+    "runs": 15783,
+    "share_percent": 6.2,
+    "win_rate_percent": 34.7,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 5.6,
+     "win_rate_percent": 33.4
+    },
+    "is_playstyle": true,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées)."
+   },
+   {
+    "name": "Maul + Ultimate Strike",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "Maul",
+      "id": "MAUL",
+      "name_eng": "Maul"
+     },
+     {
+      "class": "UltimateStrike",
+      "id": "ULTIMATE_STRIKE",
+      "name_eng": "Ultimate Strike"
+     },
+     {
+      "class": "MadScience",
+      "id": "MAD_SCIENCE",
+      "name_eng": "Mad Science"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "BiiigHug",
+      "id": "BIIIG_HUG",
+      "name_eng": "Biiig Hug"
+     },
+     {
+      "class": "Astrolabe",
+      "id": "ASTROLABE",
+      "name_eng": "Astrolabe"
+     }
+    ],
+    "runs": 12770,
+    "share_percent": 5.0,
+    "win_rate_percent": 56.1,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 3.2,
+     "win_rate_percent": 48.1
+    },
+    "is_playstyle": true,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées)."
+   },
+   {
+    "name": "Meteor Shower + Bombardment",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "MeteorShower",
+      "id": "METEOR_SHOWER",
+      "name_eng": "Meteor Shower"
+     },
+     {
+      "class": "Bombardment",
+      "id": "BOMBARDMENT",
+      "name_eng": "Bombardment"
+     },
+     {
+      "class": "BigBang",
+      "id": "BIG_BANG",
+      "name_eng": "Big Bang"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "ArchaicTooth",
+      "id": "ARCHAIC_TOOTH",
+      "name_eng": "Archaic Tooth"
+     },
+     {
+      "class": "FencingManual",
+      "id": "FENCING_MANUAL",
+      "name_eng": "Fencing Manual"
+     }
+    ],
+    "runs": 12109,
+    "share_percent": 4.7,
+    "win_rate_percent": 29.1,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 4.7,
+     "win_rate_percent": 24.5
+    },
+    "is_playstyle": true,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées)."
+   },
+   {
+    "name": "Kingly Kick + Celestial Might",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "KinglyKick",
+      "id": "KINGLY_KICK",
+      "name_eng": "Kingly Kick"
+     },
+     {
+      "class": "CelestialMight",
+      "id": "CELESTIAL_MIGHT",
+      "name_eng": "Celestial Might"
+     },
+     {
+      "class": "CrushUnder",
+      "id": "CRUSH_UNDER",
+      "name_eng": "Crush Under"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "Anchor",
+      "id": "ANCHOR",
+      "name_eng": "Anchor"
+     },
+     {
+      "class": "SwordOfStone",
+      "id": "SWORD_OF_STONE",
+      "name_eng": "Sword of Stone"
+     }
+    ],
+    "runs": 9169,
+    "share_percent": 3.6,
+    "win_rate_percent": 5.2,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 3.4,
+     "win_rate_percent": 4.2
+    },
+    "is_playstyle": true,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées)."
+   },
+   {
+    "name": "Seven Stars + Comet",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "SevenStars",
+      "id": "SEVEN_STARS",
+      "name_eng": "Seven Stars"
+     },
+     {
+      "class": "Comet",
+      "id": "COMET",
+      "name_eng": "Comet"
+     },
+     {
+      "class": "NeutronAegis",
+      "id": "NEUTRON_AEGIS",
+      "name_eng": "Neutron Aegis"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "TouchOfOrobas",
+      "id": "TOUCH_OF_OROBAS",
+      "name_eng": "Touch of Orobas"
+     },
+     {
+      "class": "PenNib",
+      "id": "PEN_NIB",
+      "name_eng": "Pen Nib"
+     }
+    ],
+    "runs": 8068,
+    "share_percent": 3.1,
+    "win_rate_percent": 27.3,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 3.2,
+     "win_rate_percent": 23.1
+    },
+    "is_playstyle": true,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées)."
+   },
+   {
+    "name": "Maul + Monarch's Gaze",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "Maul",
+      "id": "MAUL",
+      "name_eng": "Maul"
+     },
+     {
+      "class": "MonarchsGaze",
+      "id": "MONARCHS_GAZE",
+      "name_eng": "Monarch's Gaze"
+     },
+     {
+      "class": "MadScience",
+      "id": "MAD_SCIENCE",
+      "name_eng": "Mad Science"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "PandorasBox",
+      "id": "PANDORAS_BOX",
+      "name_eng": "Pandora's Box"
+     },
+     {
+      "class": "MeatCleaver",
+      "id": "MEAT_CLEAVER",
+      "name_eng": "Meat Cleaver"
+     }
+    ],
+    "runs": 6468,
+    "share_percent": 2.5,
+    "win_rate_percent": 70.1,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 2.9,
+     "win_rate_percent": 65.0
+    },
+    "is_playstyle": true,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées)."
+   },
+   {
+    "name": "Heirloom Hammer + Beat into Shape",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "HeirloomHammer",
+      "id": "HEIRLOOM_HAMMER",
+      "name_eng": "Heirloom Hammer"
+     },
+     {
+      "class": "BeatIntoShape",
+      "id": "BEAT_INTO_SHAPE",
+      "name_eng": "Beat into Shape"
+     },
+     {
+      "class": "Arsenal",
+      "id": "ARSENAL",
+      "name_eng": "Arsenal"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "PandorasBox",
+      "id": "PANDORAS_BOX",
+      "name_eng": "Pandora's Box"
+     },
+     {
+      "class": "ChosenCheese",
+      "id": "CHOSEN_CHEESE",
+      "name_eng": "The Chosen Cheese"
+     }
+    ],
+    "runs": 3369,
+    "share_percent": 1.3,
+    "win_rate_percent": 6.4,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 1.6,
+     "win_rate_percent": 5.1
+    },
+    "is_playstyle": true,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées)."
+   },
+   {
+    "name": "Stars",
+    "source_id": "intoindiegames-regent",
+    "kind": "guide",
+    "date": "2026-03-12",
+    "patch": "non indiqué (lancement de l'accès anticipé, antérieur à v0.107.1)",
+    "stale": true,
+    "key_cards": [
+     {
+      "class": "Radiate",
+      "name_eng": "Radiate"
+     },
+     {
+      "class": "Stardust",
+      "name_eng": "Stardust"
+     },
+     {
+      "class": "BlackHole",
+      "name_eng": "Black Hole"
+     },
+     {
+      "class": "Genesis",
+      "name_eng": "Genesis"
+     },
+     {
+      "class": "Glow",
+      "name_eng": "Glow"
+     },
+     {
+      "class": "HiddenCache",
+      "name_eng": "Hidden Cache"
+     },
+     {
+      "class": "GatherLight",
+      "name_eng": "Gather Light"
+     },
+     {
+      "class": "ShiningStrike",
+      "name_eng": "Shining Strike"
+     },
+     {
+      "class": "GammaBlast",
+      "name_eng": "Gamma Blast"
+     },
+     {
+      "class": "CrescentSpear",
+      "name_eng": "Crescent Spear"
+     },
+     {
+      "class": "Patter",
+      "name_eng": "Patter"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "DivineRight",
+      "name_eng": "Divine Right"
+     }
+    ],
+    "conditions": "Générer des Étoiles puis les dépenser sur de gros effets ; build le plus régulier selon la source (paraphrase)."
+   },
+   {
+    "name": "Forge / Sovereign Blade",
+    "source_id": "intoindiegames-regent",
+    "kind": "guide",
+    "date": "2026-03-12",
+    "patch": "non indiqué (lancement de l'accès anticipé, antérieur à v0.107.1)",
+    "stale": true,
+    "key_cards": [
+     {
+      "class": "Bulwark",
+      "name_eng": "Bulwark"
+     },
+     {
+      "class": "Furnace",
+      "name_eng": "Furnace"
+     },
+     {
+      "class": "BeatIntoShape",
+      "name_eng": "Beat into Shape"
+     },
+     {
+      "class": "WroughtInWar",
+      "name_eng": "Wrought in War"
+     },
+     {
+      "class": "SummonForth",
+      "name_eng": "Summon Forth"
+     },
+     {
+      "class": "CosmicIndifference",
+      "name_eng": "Cosmic Indifference"
+     },
+     {
+      "class": "SeekingEdge",
+      "name_eng": "Seeking Edge"
+     },
+     {
+      "class": "Conqueror",
+      "name_eng": "Conqueror"
+     }
+    ],
+    "key_relics": [],
+    "conditions": "Empiler la Forge sur la Lame souveraine (une seule copie par combat) ; la source déconseille Sword Sage, The Smith et Parry dans ce build (paraphrase)."
+   },
+   {
+    "name": "Colorless",
+    "source_id": "intoindiegames-regent",
+    "kind": "guide",
+    "date": "2026-03-12",
+    "patch": "non indiqué (lancement de l'accès anticipé, antérieur à v0.107.1)",
+    "stale": true,
+    "key_cards": [
+     {
+      "class": "Supermassive",
+      "name_eng": "Supermassive"
+     },
+     {
+      "class": "SpectrumShift",
+      "name_eng": "Spectrum Shift"
+     },
+     {
+      "class": "ManifestAuthority",
+      "name_eng": "Manifest Authority"
+     },
+     {
+      "class": "PillarOfCreation",
+      "name_eng": "Pillar of Creation"
+     },
+     {
+      "class": "Arsenal",
+      "name_eng": "Arsenal"
+     },
+     {
+      "class": "Tyranny",
+      "name_eng": "Tyranny"
+     }
+    ],
+    "key_relics": [],
+    "conditions": "Dégâts via cartes incolores générées ; dépend de l'aléa (paraphrase)."
+   },
+   {
+    "name": "Infinite Alignment / Deck Thinning",
+    "source_id": "intoindiegames-regent",
+    "kind": "guide",
+    "date": "2026-03-12",
+    "patch": "non indiqué (lancement de l'accès anticipé, antérieur à v0.107.1)",
+    "stale": true,
+    "key_cards": [
+     {
+      "class": "Alignment",
+      "name_eng": "Alignment"
+     },
+     {
+      "class": "Glow",
+      "name_eng": "Glow"
+     },
+     {
+      "class": "Radiate",
+      "name_eng": "Radiate"
+     },
+     {
+      "class": "Guards",
+      "name_eng": "GUARDS!!!"
+     },
+     {
+      "class": "Charge",
+      "name_eng": "CHARGE!!"
+     },
+     {
+      "class": "Begone",
+      "name_eng": "BEGONE!"
+     },
+     {
+      "class": "Tyranny",
+      "name_eng": "Tyranny"
+     },
+     {
+      "class": "Patter",
+      "name_eng": "Patter"
+     },
+     {
+      "class": "CloakOfStars",
+      "name_eng": "Cloak of Stars"
+     },
+     {
+      "class": "ParticleWall",
+      "name_eng": "Particle Wall"
+     },
+     {
+      "class": "Reflect",
+      "name_eng": "Reflect"
+     },
+     {
+      "class": "Bulwark",
+      "name_eng": "Bulwark"
+     }
+    ],
+    "key_relics": [],
+    "conditions": "Deck d'environ 10 cartes, Alignment+ et Glow+ requis, condition de victoire Radiate+ (paraphrase)."
+   }
+  ],
+  "silent": [
+   {
+    "name": "Prepared + Ricochet",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "Prepared",
+      "id": "PREPARED",
+      "name_eng": "Prepared"
+     },
+     {
+      "class": "Ricochet",
+      "id": "RICOCHET",
+      "name_eng": "Ricochet"
+     },
+     {
+      "class": "FlickFlack",
+      "id": "FLICK_FLACK",
+      "name_eng": "Flick-Flack"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "SwordOfStone",
+      "id": "SWORD_OF_STONE",
+      "name_eng": "Sword of Stone"
+     },
+     {
+      "class": "SilverCrucible",
+      "id": "SILVER_CRUCIBLE",
+      "name_eng": "Silver Crucible"
+     }
+    ],
+    "runs": 39177,
+    "share_percent": 11.8,
+    "win_rate_percent": 0.2,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 10.9,
+     "win_rate_percent": 0.1
+    },
+    "is_playstyle": false,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées). Victoire < 5 % : profil de runs mortes tôt (cartes/reliques d’acte 1), pas une stratégie."
+   },
+   {
+    "name": "Blade Dance + Leading Strike",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "BladeDance",
+      "id": "BLADE_DANCE",
+      "name_eng": "Blade Dance"
+     },
+     {
+      "class": "LeadingStrike",
+      "id": "LEADING_STRIKE",
+      "name_eng": "Leading Strike"
+     },
+     {
+      "class": "CloakAndDagger",
+      "id": "CLOAK_AND_DAGGER",
+      "name_eng": "Cloak and Dagger"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "SwordOfStone",
+      "id": "SWORD_OF_STONE",
+      "name_eng": "Sword of Stone"
+     },
+     {
+      "class": "HeftyTablet",
+      "id": "HEFTY_TABLET",
+      "name_eng": "Hefty Tablet"
+     }
+    ],
+    "runs": 37608,
+    "share_percent": 11.3,
+    "win_rate_percent": 0.2,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 12.9,
+     "win_rate_percent": 0.2
+    },
+    "is_playstyle": false,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées). Victoire < 5 % : profil de runs mortes tôt (cartes/reliques d’acte 1), pas une stratégie."
+   },
+   {
+    "name": "Deadly Poison + Poisoned Stab",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "DeadlyPoison",
+      "id": "DEADLY_POISON",
+      "name_eng": "Deadly Poison"
+     },
+     {
+      "class": "PoisonedStab",
+      "id": "POISONED_STAB",
+      "name_eng": "Poisoned Stab"
+     },
+     {
+      "class": "Outbreak",
+      "id": "OUTBREAK",
+      "name_eng": "Outbreak"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "ScrollBoxes",
+      "id": "SCROLL_BOXES",
+      "name_eng": "Scroll Boxes"
+     },
+     {
+      "class": "SwordOfStone",
+      "id": "SWORD_OF_STONE",
+      "name_eng": "Sword of Stone"
+     }
+    ],
+    "runs": 26033,
+    "share_percent": 7.9,
+    "win_rate_percent": 0.9,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 8.6,
+     "win_rate_percent": 0.9
+    },
+    "is_playstyle": false,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées). Victoire < 5 % : profil de runs mortes tôt (cartes/reliques d’acte 1), pas une stratégie."
+   },
+   {
+    "name": "Knife Trap + Accuracy",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "KnifeTrap",
+      "id": "KNIFE_TRAP",
+      "name_eng": "Knife Trap"
+     },
+     {
+      "class": "Accuracy",
+      "id": "ACCURACY",
+      "name_eng": "Accuracy"
+     },
+     {
+      "class": "FanOfKnives",
+      "id": "FAN_OF_KNIVES",
+      "name_eng": "Fan of Knives"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "ForgottenSoul",
+      "id": "FORGOTTEN_SOUL",
+      "name_eng": "Forgotten Soul"
+     },
+     {
+      "class": "FragrantMushroom",
+      "id": "FRAGRANT_MUSHROOM",
+      "name_eng": "Fragrant Mushroom"
+     }
+    ],
+    "runs": 24638,
+    "share_percent": 7.4,
+    "win_rate_percent": 52.8,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 8.5,
+     "win_rate_percent": 50.1
+    },
+    "is_playstyle": true,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées)."
+   },
+   {
+    "name": "Phantom Blades + Blade of Ink",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "PhantomBlades",
+      "id": "PHANTOM_BLADES",
+      "name_eng": "Phantom Blades"
+     },
+     {
+      "class": "BladeOfInk",
+      "id": "BLADE_OF_INK",
+      "name_eng": "Blade of Ink"
+     },
+     {
+      "class": "HiddenDaggers",
+      "id": "HIDDEN_DAGGERS",
+      "name_eng": "Hidden Daggers"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "NutritiousSoup",
+      "id": "NUTRITIOUS_SOUP",
+      "name_eng": "Nutritious Soup"
+     },
+     {
+      "class": "JossPaper",
+      "id": "JOSS_PAPER",
+      "name_eng": "Joss Paper"
+     }
+    ],
+    "runs": 22707,
+    "share_percent": 6.9,
+    "win_rate_percent": 41.0,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 5.9,
+     "win_rate_percent": 36.7
+    },
+    "is_playstyle": true,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées)."
+   },
+   {
+    "name": "Ricochet + Memento Mori",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "Ricochet",
+      "id": "RICOCHET",
+      "name_eng": "Ricochet"
+     },
+     {
+      "class": "MementoMori",
+      "id": "MEMENTO_MORI",
+      "name_eng": "Memento Mori"
+     },
+     {
+      "class": "Speedster",
+      "id": "SPEEDSTER",
+      "name_eng": "Speedster"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "NutritiousSoup",
+      "id": "NUTRITIOUS_SOUP",
+      "name_eng": "Nutritious Soup"
+     },
+     {
+      "class": "Bellows",
+      "id": "BELLOWS",
+      "name_eng": "Bellows"
+     }
+    ],
+    "runs": 21255,
+    "share_percent": 6.4,
+    "win_rate_percent": 42.3,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 4.5,
+     "win_rate_percent": 34.0
+    },
+    "is_playstyle": true,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées)."
+   },
+   {
+    "name": "Accelerant + Bubble Bubble",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "Accelerant",
+      "id": "ACCELERANT",
+      "name_eng": "Accelerant"
+     },
+     {
+      "class": "BubbleBubble",
+      "id": "BUBBLE_BUBBLE",
+      "name_eng": "Bubble Bubble"
+     },
+     {
+      "class": "Mirage",
+      "id": "MIRAGE",
+      "name_eng": "Mirage"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "SneckoSkull",
+      "id": "SNECKO_SKULL",
+      "name_eng": "Snecko Skull"
+     },
+     {
+      "class": "FragrantMushroom",
+      "id": "FRAGRANT_MUSHROOM",
+      "name_eng": "Fragrant Mushroom"
+     }
+    ],
+    "runs": 20551,
+    "share_percent": 6.2,
+    "win_rate_percent": 45.3,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 5.0,
+     "win_rate_percent": 39.6
+    },
+    "is_playstyle": true,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées)."
+   },
+   {
+    "name": "Maul + Ultimate Strike",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "Maul",
+      "id": "MAUL",
+      "name_eng": "Maul"
+     },
+     {
+      "class": "UltimateStrike",
+      "id": "ULTIMATE_STRIKE",
+      "name_eng": "Ultimate Strike"
+     },
+     {
+      "class": "MadScience",
+      "id": "MAD_SCIENCE",
+      "name_eng": "Mad Science"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "Claws",
+      "id": "CLAWS",
+      "name_eng": "Claws"
+     },
+     {
+      "class": "PreservedFog",
+      "id": "PRESERVED_FOG",
+      "name_eng": "Preserved Fog"
+     }
+    ],
+    "runs": 13071,
+    "share_percent": 3.9,
+    "win_rate_percent": 68.6,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 2.4,
+     "win_rate_percent": 60.0
+    },
+    "is_playstyle": true,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées)."
+   },
+   {
+    "name": "Suppress + Tracking",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "Suppress",
+      "id": "SUPPRESS",
+      "name_eng": "Suppress"
+     },
+     {
+      "class": "Tracking",
+      "id": "TRACKING",
+      "name_eng": "Tracking"
+     },
+     {
+      "class": "Assassinate",
+      "id": "ASSASSINATE",
+      "name_eng": "Assassinate"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "ArchaicTooth",
+      "id": "ARCHAIC_TOOTH",
+      "name_eng": "Archaic Tooth"
+     },
+     {
+      "class": "Kusarigama",
+      "id": "KUSARIGAMA",
+      "name_eng": "Kusarigama"
+     }
+    ],
+    "runs": 10822,
+    "share_percent": 3.3,
+    "win_rate_percent": 30.9,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 3.2,
+     "win_rate_percent": 25.2
+    },
+    "is_playstyle": true,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées)."
+   },
+   {
+    "name": "Tools of the Trade + Abrasive",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "ToolsOfTheTrade",
+      "id": "TOOLS_OF_THE_TRADE",
+      "name_eng": "Tools of the Trade"
+     },
+     {
+      "class": "Abrasive",
+      "id": "ABRASIVE",
+      "name_eng": "Abrasive"
+     },
+     {
+      "class": "Afterimage",
+      "id": "AFTERIMAGE",
+      "name_eng": "Afterimage"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "TouchOfOrobas",
+      "id": "TOUCH_OF_OROBAS",
+      "name_eng": "Touch of Orobas"
+     },
+     {
+      "class": "OrnamentalFan",
+      "id": "ORNAMENTAL_FAN",
+      "name_eng": "Ornamental Fan"
+     }
+    ],
+    "runs": 8044,
+    "share_percent": 2.4,
+    "win_rate_percent": 33.5,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 2.3,
+     "win_rate_percent": 26.5
+    },
+    "is_playstyle": true,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées)."
+   },
+   {
+    "name": "Grand Finale + Skewer",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "GrandFinale",
+      "id": "GRAND_FINALE",
+      "name_eng": "Grand Finale"
+     },
+     {
+      "class": "Skewer",
+      "id": "SKEWER",
+      "name_eng": "Skewer"
+     },
+     {
+      "class": "Nightmare",
+      "id": "NIGHTMARE",
+      "name_eng": "Nightmare"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "PandorasBox",
+      "id": "PANDORAS_BOX",
+      "name_eng": "Pandora's Box"
+     },
+     {
+      "class": "JossPaper",
+      "id": "JOSS_PAPER",
+      "name_eng": "Joss Paper"
+     }
+    ],
+    "runs": 6593,
+    "share_percent": 2.0,
+    "win_rate_percent": 31.5,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 1.9,
+     "win_rate_percent": 25.3
+    },
+    "is_playstyle": true,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées)."
+   },
+   {
+    "name": "Adrenaline + Afterimage",
+    "source_id": "spirecodex-archetypes",
+    "kind": "cluster_statistique",
+    "date": "2026-10-28",
+    "key_cards": [
+     {
+      "class": "Adrenaline",
+      "id": "ADRENALINE",
+      "name_eng": "Adrenaline"
+     },
+     {
+      "class": "Afterimage",
+      "id": "AFTERIMAGE",
+      "name_eng": "Afterimage"
+     },
+     {
+      "class": "BladeOfInk",
+      "id": "BLADE_OF_INK",
+      "name_eng": "Blade of Ink"
+     }
+    ],
+    "key_relics": [
+     {
+      "class": "TheCourier",
+      "id": "THE_COURIER",
+      "name_eng": "The Courier"
+     },
+     {
+      "class": "SwordOfJade",
+      "id": "SWORD_OF_JADE",
+      "name_eng": "Sword of Jade"
+     }
+    ],
+    "runs": 4581,
+    "share_percent": 1.4,
+    "win_rate_percent": 82.6,
+    "at_patch": {
+     "patch": "v0.107.1",
+     "share_percent": 1.4,
+     "win_rate_percent": 80.4
+    },
+    "is_playstyle": true,
+    "conditions": "Cluster de runs réelles (cartes + reliques possédées)."
+   },
+   {
+    "name": "Shivs",
+    "source_id": "untapped-guide-shiv",
+    "kind": "guide",
+    "date": null,
+    "patch": "v0.102.0 bêta (« latest at the time of writing »)",
+    "stale": true,
+    "key_cards": [
+     {
+      "class": "BladeDance",
+      "name_eng": "Blade Dance"
+     },
+     {
+      "class": "CloakAndDagger",
+      "name_eng": "Cloak and Dagger"
+     },
+     {
+      "class": "LeadingStrike",
+      "name_eng": "Leading Strike"
+     },
+     {
+      "class": "UpMySleeve",
+      "name_eng": "Up My Sleeve"
+     },
+     {
+      "class": "PhantomBlades",
+      "name_eng": "Phantom Blades"
+     },
+     {
+      "class": "Accuracy",
+      "name_eng": "Accuracy"
+     },
+     {
+      "class": "KnifeTrap",
+      "name_eng": "Knife Trap"
+     },
+     {
+      "class": "StormOfSteel",
+      "name_eng": "Storm of Steel"
+     },
+     {
+      "class": "FanOfKnives",
+      "name_eng": "Fan of Knives"
+     },
+     {
+      "class": "InfiniteBlades",
+      "name_eng": "Infinite Blades"
+     },
+     {
+      "class": "HiddenDaggers",
+      "name_eng": "Hidden Daggers"
+     }
+    ],
+    "key_relics": [],
+    "conditions": "Générer des Shivs puis augmenter leurs dégâts (Accuracy, Phantom Blades) ; Blade Dance s'épuise désormais (paraphrase)."
+   },
+   {
+    "name": "Sly / Défausse",
+    "source_id": "untapped-guide-shiv",
+    "kind": "guide",
+    "date": null,
+    "patch": "v0.102.0 bêta (« latest at the time of writing »)",
+    "stale": true,
+    "key_cards": [
+     {
+      "class": "HiddenDaggers",
+      "name_eng": "Hidden Daggers"
+     },
+     {
+      "class": "Reflex",
+      "name_eng": "Reflex"
+     },
+     {
+      "class": "Tactician",
+      "name_eng": "Tactician"
+     },
+     {
+      "class": "Untouchable",
+      "name_eng": "Untouchable"
+     }
+    ],
+    "key_relics": [],
+    "conditions": "Cité par la source comme l'option préférée au moment de l'écriture (patch v0.102 bêta, donc périmé) (paraphrase)."
+   }
+  ]
+ }
+}

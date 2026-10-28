@@ -1,0 +1,77 @@
+{
+  "_doc": "Archétypes nommés relevés à la main dans des guides publics. Les noms de cartes/reliques sont ceux de la source (anglais) ; build_meta.py les résout en classes C#. Aucune entrée sans source_id. Paraphrase courte, jamais de copie du texte des guides.",
+  "archetypes": [
+    {
+      "character": "necrobinder", "name": "Souls", "source_id": "pcgamesn-necrobinder",
+      "key_cards": ["Grave Warden", "Reave", "Graveblast", "Capture Spirit", "Dirge", "Haunt", "Severance", "Death March", "Soul Storm", "Spirit of Ash", "Devour Life"],
+      "key_relics": ["Funerary Mask", "Anchor", "Gorget", "Horn Cleat"],
+      "conditions": "Quand le moteur de pioche tourne et cycle vers les cartes Âmes ; chercher des finisseurs avant la fin de l'acte 2 (paraphrase de la source)."
+    },
+    {
+      "character": "necrobinder", "name": "Osty", "source_id": "pcgamesn-necrobinder",
+      "key_cards": ["Bodyguard", "Afterlife", "Spur", "Necro Mastery", "Unleash", "Fetch", "Flatten", "Right Hand Hand", "Rattle", "Squeeze"],
+      "key_relics": ["Bone Flute", "Bookmark", "Funerary Mask"],
+      "conditions": "Archétype le plus simple selon la source ; à coupler avec les cartes Âmes pour cycler (paraphrase)."
+    },
+    {
+      "character": "necrobinder", "name": "Doom", "source_id": "pcgamesn-necrobinder",
+      "key_cards": ["Negative Pulse", "Defy", "Enfeebling Touch", "Invoke", "Borrowed Time", "Delay", "Deathbringer", "End of Days", "Shroud", "Reaper Form"],
+      "key_relics": ["Book Repair Knife", "Undying Sigil", "Lantern", "Candelabra", "Chandelier"],
+      "conditions": "Demande un Osty solide ou des débuffs pour tenir ; viable en approchant l'acte 3 (paraphrase)."
+    },
+    {
+      "character": "regent", "name": "Stars", "source_id": "intoindiegames-regent",
+      "key_cards": ["Radiate", "Stardust", "Black Hole", "Genesis", "Glow", "Hidden Cache", "Gather Light", "Shining Strike", "Gamma Blast", "Crescent Spear", "Patter"],
+      "key_relics": ["Divine Right"],
+      "conditions": "Générer des Étoiles puis les dépenser sur de gros effets ; build le plus régulier selon la source (paraphrase)."
+    },
+    {
+      "character": "regent", "name": "Forge / Sovereign Blade", "source_id": "intoindiegames-regent",
+      "key_cards": ["Bulwark", "Furnace", "Beat into Shape", "Wrought in War", "Summon Forth", "Cosmic Indifference", "Seeking Edge", "Conqueror"],
+      "key_relics": [],
+      "conditions": "Empiler la Forge sur la Lame souveraine (une seule copie par combat) ; la source déconseille Sword Sage, The Smith et Parry dans ce build (paraphrase)."
+    },
+    {
+      "character": "regent", "name": "Colorless", "source_id": "intoindiegames-regent",
+      "key_cards": ["Supermassive", "Spectrum Shift", "Manifest Authority", "Pillar of Creation", "Arsenal", "Tyranny"],
+      "key_relics": [],
+      "conditions": "Dégâts via cartes incolores générées ; dépend de l'aléa (paraphrase)."
+    },
+    {
+      "character": "regent", "name": "Infinite Alignment / Deck Thinning", "source_id": "intoindiegames-regent",
+      "key_cards": ["Alignment", "Glow", "Radiate", "GUARDS!!!", "CHARGE!!", "BEGONE!", "Tyranny", "Patter", "Cloak of Stars", "Particle Wall", "Reflect", "Bulwark"],
+      "key_relics": [],
+      "conditions": "Deck d'environ 10 cartes, Alignment+ et Glow+ requis, condition de victoire Radiate+ (paraphrase)."
+    },
+    {
+      "character": "defect", "name": "Orbes de Foudre", "source_id": "untapped-guide-orb-spam",
+      "key_cards": ["Ball Lightning", "Lightning Rod", "Storm", "Tempest", "Tesla Coil", "Thunder", "Voltaic"],
+      "key_relics": [],
+      "conditions": "Remplir vite les emplacements d'orbes puis canaliser en continu ; ajouter du Block hors orbes (paraphrase)."
+    },
+    {
+      "character": "defect", "name": "Orbes de Givre", "source_id": "untapped-guide-orb-spam",
+      "key_cards": ["Barrage", "Capacitor", "Chill", "Cold Snap", "Coolheaded", "Creative AI", "Defragment", "Echo Form", "Glacier", "Hailstorm", "Ice Lance", "Loop", "Modded", "Sunder"],
+      "key_relics": [],
+      "conditions": "Mur de Block par le Givre ; souffre contre les gros dégâts rapides ; le plus simple à exécuter selon la source (paraphrase)."
+    },
+    {
+      "character": "defect", "name": "Orbes de Ténèbres", "source_id": "untapped-guide-orb-spam",
+      "key_cards": ["Consuming Shadow", "Darkness", "Dualcast", "Hologram", "Loop", "Multi-Cast", "Null", "Shadow Shield"],
+      "key_relics": [],
+      "conditions": "Gros dégâts mono-cible à l'Évocation ; faible contre petits sbires + grosse menace (cible le PV le plus bas) ; compléter avec de la zone (paraphrase)."
+    },
+    {
+      "character": "silent", "name": "Shivs", "source_id": "untapped-guide-shiv",
+      "key_cards": ["Blade Dance", "Cloak and Dagger", "Leading Strike", "Up My Sleeve", "Phantom Blades", "Accuracy", "Knife Trap", "Storm of Steel", "Fan of Knives", "Infinite Blades", "Hidden Daggers"],
+      "key_relics": [],
+      "conditions": "Générer des Shivs puis augmenter leurs dégâts (Accuracy, Phantom Blades) ; Blade Dance s'épuise désormais (paraphrase)."
+    },
+    {
+      "character": "silent", "name": "Sly / Défausse", "source_id": "untapped-guide-shiv",
+      "key_cards": ["Hidden Daggers", "Reflex", "Tactician", "Untouchable"],
+      "key_relics": [],
+      "conditions": "Cité par la source comme l'option préférée au moment de l'écriture (patch v0.102 bêta, donc périmé) (paraphrase)."
+    }
+  ]
+}

@@ -1,0 +1,303 @@
+{
+  "_doc": "Registre des sources de méta STS2. Toute entrée de data/meta/*.json référence un id d'ici. 'status' : retenue | retenue-perimee (antérieure à v0.107.1, utilisée avec marquage) | ecartee. Dates ISO ; 'accessed' = date de collecte par l'Éclaireur. 'redistribution' : public (agrégats/données ouvertes, commités) | public-paraphrase (noms + paraphrase courte, commités) | local-only (lettres de tier d'une liste protégée : générées par build_meta.py dans data/meta/local/, jamais commitées).",
+  "target_patch": "v0.107.1",
+  "target_patch_release": {
+    "date": "2026-06-19",
+    "evidence": "Commit de build 59260271 daté 2026-06-18T15:43:56-07:00 (docs/01-game-facts.md, release_info du jeu) ; date publique 2026-06-19 selon gamewatcher.com et sts2.gg/patch-notes. L'API Untapped résout game_version=public vers v0.107.1 le 2026-10-28 : v0.107.1 est toujours la branche principale ; la bêta est en v0.111.0 (Spire Codex /api/runs/versions, slaythetierlist.com)."
+  },
+  "sources": [
+    {
+      "id": "untapped-baalorlord",
+      "kind": "expert_tierlist",
+      "title": "Baalorlord Tier Lists (Ironclad, Silent, Regent, Necrobinder, Defect, Colorless) sur Untapped.gg",
+      "author": "Baalorlord (streamer, compte partenaire Untapped)",
+      "url": "https://sts2.untapped.gg/tier-list/004de170-026a-4dd4-a280-3b904be0b5d6",
+      "api": "https://api.sts2.untapped.gg/api/v1/tier-lists/{uuid}/resolve/?game_version=v0.107.1",
+      "lists": {
+        "ironclad": {
+          "uuid": "004de170-026a-4dd4-a280-3b904be0b5d6",
+          "updated": "2026-08-21"
+        },
+        "silent": {
+          "uuid": "6d61ea21-0552-4c49-8bb5-a5c15530fc00",
+          "updated": "2026-08-21"
+        },
+        "regent": {
+          "uuid": "0e6c1e23-bec6-4887-a9e0-dbf49ede974d",
+          "updated": "2026-09-04"
+        },
+        "necrobinder": {
+          "uuid": "43d0b41f-7d6d-4ce9-928e-c1310a413983",
+          "updated": "2026-08-21"
+        },
+        "defect": {
+          "uuid": "5a512e04-4583-4a16-9271-d46864c6cb4c",
+          "updated": "2026-08-21"
+        },
+        "colorless": {
+          "uuid": "0a626c22-dc49-433e-ac6e-76cc9abf5684",
+          "updated": "2026-10-13",
+          "note": "contient aussi les reliques communes/personnage (S..F) et les reliques d'Ancients (catégories)"
+        }
+      },
+      "created": "2026-05-21",
+      "patch": "v0.107.1",
+      "patch_evidence": "Champ tier_list.version = v0.107.1 et commentary_version = v0.107.1 sur 630/636 entrées (6 entrées Regent sans version) ; les versions antérieures renvoient 404.",
+      "accessed": "2026-10-28",
+      "covers": [
+        "cards",
+        "relics"
+      ],
+      "reliability": "haute",
+      "reliability_why": "Joueur expert reconnu (haute ascension), listes versionnées explicitement pour v0.107.1, identifiants = identifiants du jeu (correspondance exacte, 0 ambiguïté de nom). Limite : avis d'une seule personne, pas de chiffres.",
+      "terms": "Untapped.gg → CGU HearthSim (https://hearthsim.net/legal/terms-of-service.html, dernière mise à jour substantielle 2019-07-19) : usage personnel non commercial ; interdiction de copier/redistribuer/scraper. Nous ne stockons QUE la lettre de tier et deux drapeaux factuels (good_upgrade, max_copies), jamais les commentaires. Dépôt public : voir docs/meta/README.md §Licences (décision à prendre par Mio).",
+      "status": "retenue",
+      "redistribution": "local-only"
+    },
+    {
+      "id": "untapped-jorbs",
+      "kind": "expert_tierlist",
+      "title": "Jorbs Tier Lists (cartes seulement) sur Untapped.gg",
+      "author": "Jorbs (streamer)",
+      "url": "https://sts2.untapped.gg/tier-list/6b3390b7-bcbc-4ebc-ae78-ae9a400c66dc",
+      "api": "https://api.sts2.untapped.gg/api/v1/tier-lists/{uuid}/resolve/?game_version=v0.107.1",
+      "lists": {
+        "ironclad": {
+          "uuid": "6b3390b7-bcbc-4ebc-ae78-ae9a400c66dc",
+          "updated": "2026-08-05"
+        },
+        "silent": {
+          "uuid": "2cd72d4b-eeb4-42ab-89ca-4ac682137672",
+          "updated": "2026-08-05"
+        },
+        "regent": {
+          "uuid": "c47dbfda-4983-4107-8c9c-c33d5ae32b23",
+          "updated": "2026-08-05"
+        },
+        "necrobinder": {
+          "uuid": "3ae661e6-6190-4a45-b00e-63e8400fff94",
+          "updated": "2026-08-05"
+        },
+        "defect": {
+          "uuid": "5f8d3e04-1f50-4b56-b51a-d8650b000ce3",
+          "updated": "2026-08-05"
+        },
+        "colorless": {
+          "uuid": "81684acf-26a7-4e44-a649-84f4c2824ec0",
+          "updated": "2026-08-05"
+        }
+      },
+      "created": "2026-05-21",
+      "patch": "v0.107.1",
+      "patch_evidence": "tier_list.version = v0.107.1, commentary_version = v0.107.1 sur toutes les entrées.",
+      "accessed": "2026-10-28",
+      "covers": [
+        "cards"
+      ],
+      "reliability": "haute",
+      "reliability_why": "Second expert indépendant de Baalorlord (même plateforme, auteur différent), versionné v0.107.1, identifiants du jeu. Ne note pas les reliques.",
+      "terms": "Idem untapped-baalorlord (CGU HearthSim). Seules la lettre et les drapeaux factuels sont stockés.",
+      "status": "retenue",
+      "redistribution": "local-only"
+    },
+    {
+      "id": "spirecodex-scores",
+      "kind": "aggregate_stats",
+      "title": "Spire Codex — Codex Score par carte/relique, tranche v0.107.1 (et a10:v0.107.1)",
+      "author": "Spire Codex (spire-codex.com, ptrlrd ; runs soumises par la communauté via mod/overlay)",
+      "url": "https://spire-codex.com/tier-list/cards",
+      "api": "https://spire-codex.com/api/runs/scores/cards?bracket=v0.107.1&include_skip=true ; .../scores/relics?bracket=v0.107.1 ; documentation https://spire-codex.com/openapi.json",
+      "snapshot": "2026-10-28",
+      "patch": "v0.107.1",
+      "patch_evidence": "Paramètre bracket=v0.107.1 (filtre build_id des runs) ; v0.107.1 figure dans stat_versions de /api/runs/versions.",
+      "volume": "475 entrées cartes ; somme des 'picks' tous objets confondus ≈ 33,3 M sur v0.107.1 (21,1 M en a10:v0.107.1). Exemple : Stampede 51 427 picks sur v0.107.1.",
+      "accessed": "2026-10-28",
+      "covers": [
+        "cards",
+        "relics"
+      ],
+      "reliability": "haute pour le volume, moyenne pour l'interprétation",
+      "reliability_why": "Données réelles en grand nombre, filtrées sur le patch exact. Biais connus : taux de victoire des runs où la carte a été prise (biais de survie : une carte prise tard apparaît plus souvent dans des runs gagnées), population de joueurs du mod (pas tous les joueurs), formule exacte du Codex Score non publiée (0-100, 'Bayesian-shrunk' selon des tiers). L'Elo (Bradley-Terry sur les choix) est calculé sur toutes les versions, pas seulement v0.107.1.",
+      "terms": "Aucune condition d'utilisation publiée trouvée ; API publique documentée (OpenAPI) incluant un export massif destiné aux consommateurs ; robots.txt autorise /api sauf /api/images/. Nous stockons des agrégats chiffrés + lien.",
+      "status": "retenue",
+      "redistribution": "public"
+    },
+    {
+      "id": "spirecodex-archetypes",
+      "kind": "aggregate_clusters",
+      "title": "Spire Codex — archétypes communautaires (clustering nocturne des runs par cartes et reliques)",
+      "author": "Spire Codex",
+      "url": "https://spire-codex.com/archetypes",
+      "api": "https://spire-codex.com/api/runs/archetypes?lang=eng",
+      "snapshot": "2026-10-28T01:43:24Z",
+      "patch": "toutes versions, avec historique par version (v0.107.1 inclus)",
+      "accessed": "2026-10-28",
+      "covers": [
+        "archetypes"
+      ],
+      "reliability": "moyenne",
+      "reliability_why": "Clusters statistiques (≥ 50 runs) : décrivent ce que les joueurs jouent, pas ce qu'il faut jouer. Plusieurs clusters à ~0 % de victoire sont des runs mortes tôt (cartes et reliques d'acte 1), pas des stratégies : marqués is_playstyle=false.",
+      "terms": "Idem spirecodex-scores.",
+      "status": "retenue",
+      "redistribution": "public"
+    },
+    {
+      "id": "slaythetierlist",
+      "kind": "community_tierlist",
+      "title": "Slay the Spire 2 Tier List — Best Cards for Every Class",
+      "author": "anonyme (site slaythetierlist.com)",
+      "url": "https://slaythetierlist.com/",
+      "updated": "2026-08-18",
+      "patch": "v0.107.1",
+      "patch_evidence": "Bandeau « Main Branch v0.107.1 · Card Data Verified August 2026 » et « Card data verified 18 August 2026 ».",
+      "accessed": "2026-10-28",
+      "covers": [
+        "cards"
+      ],
+      "reliability": "basse à moyenne",
+      "reliability_why": "Couvre toutes les classes (390 entrées) et vise le bon patch, mais auteur anonyme et méthode non décrite (« puissance, synergie, constance, contribution aux victoires »). Sert de troisième avis, jamais seul.",
+      "terms": "« Copyright © Slay the Spire 2 Tier List 2026 », pas de licence. Seule la lettre est stockée, avec lien.",
+      "status": "retenue",
+      "redistribution": "local-only"
+    },
+    {
+      "id": "untapped-guide-orb-spam",
+      "kind": "guide",
+      "title": "Defect Build Guide: Orb Spam",
+      "author": "Baalorlord (via Untapped.gg)",
+      "url": "https://sts2.untapped.gg/en/guides/defect-build-orb-spam",
+      "updated": null,
+      "patch": "inconnu",
+      "accessed": "2026-10-28",
+      "covers": [
+        "archetypes"
+      ],
+      "reliability": "moyenne",
+      "reliability_why": "Auteur expert, mais aucune date ni patch visibles sur la page : impossible de prouver qu'il est à jour pour v0.107.1.",
+      "terms": "CGU HearthSim. Noms de cartes + paraphrase courte uniquement.",
+      "status": "retenue-perimee",
+      "redistribution": "public-paraphrase"
+    },
+    {
+      "id": "untapped-guide-shiv",
+      "kind": "guide",
+      "title": "The Silent's Shiv Mechanic: How to Make a Returning Favorite Work",
+      "author": "Untapped.gg (recherche créditée à Flare)",
+      "url": "https://sts2.untapped.gg/en/guides/silents-shiv-mechanic",
+      "updated": null,
+      "patch": "v0.102.0 bêta (« latest at the time of writing »)",
+      "accessed": "2026-10-28",
+      "covers": [
+        "archetypes"
+      ],
+      "reliability": "basse (périmée)",
+      "reliability_why": "Écrit à l'époque de v0.102.0 bêta, antérieur à v0.107.1 (38 cartes modifiées en v0.107.1 selon les notes de patch Untapped).",
+      "terms": "CGU HearthSim. Noms de cartes + paraphrase courte uniquement.",
+      "status": "retenue-perimee",
+      "redistribution": "public-paraphrase"
+    },
+    {
+      "id": "pcgamesn-necrobinder",
+      "kind": "guide",
+      "title": "Slay the Spire 2 Necrobinder guide",
+      "author": "Christian Vaz (PCGamesN)",
+      "url": "https://www.pcgamesn.com/slay-the-spire-2/necrobinder",
+      "updated": "2026-04-07",
+      "patch": "non indiqué (antérieur à v0.107.1 par la date)",
+      "accessed": "2026-10-28",
+      "covers": [
+        "archetypes"
+      ],
+      "reliability": "basse à moyenne (périmée)",
+      "reliability_why": "Média généraliste, structure claire (Souls / Osty / Doom), mais daté d'avant v0.107.1.",
+      "terms": "Copyright PCGamesN. Noms + paraphrase uniquement.",
+      "status": "retenue-perimee",
+      "redistribution": "public-paraphrase"
+    },
+    {
+      "id": "intoindiegames-regent",
+      "kind": "guide",
+      "title": "Slay the Spire 2: The Regent ultimate build guide",
+      "author": "Mahmud Munazil Rahman (Into Indie Games)",
+      "url": "https://intoindiegames.com/walkthroughs/tips-tricks/slay-the-spire-2-the-regent-ultimate-build-guide/",
+      "updated": "2026-03-12",
+      "patch": "non indiqué (lancement de l'accès anticipé, antérieur à v0.107.1)",
+      "accessed": "2026-10-28",
+      "covers": [
+        "archetypes"
+      ],
+      "reliability": "basse (périmée)",
+      "reliability_why": "Écrit au lancement de l'EA, aucune version citée ; utile pour les noms d'archétypes Regent (Stars, Forge) que confirment les clusters Spire Codex (Crescent Spear + Black Hole, Refine Blade + Wrought in War).",
+      "terms": "Copyright Into Indie Games. Noms + paraphrase uniquement.",
+      "status": "retenue-perimee",
+      "redistribution": "public-paraphrase"
+    },
+    {
+      "id": "mobalytics-tierlists",
+      "kind": "expert_tierlist",
+      "title": "Mobalytics — Slay the Spire 2 card tier lists",
+      "url": "https://mobalytics.gg/slay-the-spire-2/tier-lists/cards",
+      "updated": "2026-04-02",
+      "patch": "antérieur à v0.107.1",
+      "accessed": "2026-10-28",
+      "reliability": "n/a",
+      "status": "ecartee",
+      "why_excluded": "Dernière mise à jour 2026-04-02 (selon le résultat de recherche), antérieure à v0.107.1 ; la page indique ne pas tenir compte de la bêta ; accès automatisé refusé (HTTP 403)."
+    },
+    {
+      "id": "brokenbuilds-tierlists",
+      "kind": "community_tierlist",
+      "title": "BrokenBuilds — Slay the Spire 2 card tier lists (Major Update 2)",
+      "url": "https://brokenbuilds.gg/slay-the-spire-2/tier-lists",
+      "updated": "2026-06-22 (publiées le 2026-04-19)",
+      "patch": "annoncé 0.107.1",
+      "accessed": "2026-10-28",
+      "reliability": "basse",
+      "status": "ecartee",
+      "why_excluded": "Couverture minuscule (liste Silent : 19 cartes nommées, le tier C est une catégorie « Strike/Defend variants »), balises de remplissage visibles dans le texte, publication initiale (2026-04-19) antérieure au patch revendiqué (sortie 2026-06-19)."
+    },
+    {
+      "id": "metabot-gg",
+      "kind": "aggregate_stats",
+      "title": "metabot.gg — Slay the Spire 2 Card Tier List / win rates",
+      "url": "https://metabot.gg/en/slay-the-spire-2/cards/tier-list",
+      "updated": "« October 2026 »",
+      "patch": "non indiqué (« this patch »)",
+      "accessed": "2026-10-28",
+      "reliability": "très basse",
+      "status": "ecartee",
+      "why_excluded": "Aucun patch, aucune taille d'échantillon, mention de « ranked matches » (STS2 n'a pas de mode classé), des malédictions (Regret, Shame, Doubt, Debt) classées avec des taux de victoire : origine des données invérifiable."
+    },
+    {
+      "id": "finalboss-tierlist",
+      "kind": "character_tierlist",
+      "title": "Slay the Spire 2 Tier List 2026: 12 Best Characters and Cards (finalboss.io)",
+      "url": "https://finalboss.io/slay-the-spire-2-tier-list-2026-12-best-characters-and-cards",
+      "patch": "v0.110.0 bêta",
+      "accessed": "2026-10-28",
+      "reliability": "n/a",
+      "status": "ecartee",
+      "why_excluded": "Vise la bêta v0.110.0, pas le build joueur v0.107.1 ; niveau personnage, quelques cartes seulement."
+    },
+    {
+      "id": "character-tierlists-misc",
+      "kind": "character_tierlist",
+      "title": "Classements de personnages (Pocket Tactics, sts2front, DTG Reviews, AFK Journal)",
+      "url": "https://afkjournal.com/guides/slay-the-spire-2-character-tier-list",
+      "accessed": "2026-10-28",
+      "reliability": "n/a",
+      "status": "ecartee",
+      "why_excluded": "Niveau personnage uniquement (pas de tiers de cartes) et contradictoires entre eux ; hors du besoin (scoring de cartes)."
+    },
+    {
+      "id": "untapped-global-stats",
+      "kind": "aggregate_stats",
+      "title": "Untapped.gg — statistiques globales (taux de pick / victoire)",
+      "url": "https://sts2.untapped.gg/",
+      "accessed": "2026-10-28",
+      "reliability": "inconnue",
+      "status": "ecartee",
+      "why_excluded": "Exige un compte Untapped (OAuth, cf. research/repos/sts2-tierlist-overlay/Account.cs, Stats.cs) : non accédé."
+    }
+  ]
+}
