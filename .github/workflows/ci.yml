@@ -18,3 +18,5 @@ jobs:
         run: dotnet build Ultima.Core/Ultima.Core.csproj -c Release
       - name: Tests
         run: dotnet test Ultima.Tests/Ultima.Tests.csproj -c Release --logger "console;verbosity=normal"
+      - name: Tests saves (fixtures anonymisées ; tests de terrain ignorés sans le jeu)
+        run: dotnet test Ultima.Saves.Tests/Ultima.Saves.Tests.csproj -c Release
