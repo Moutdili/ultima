@@ -1,0 +1,204 @@
+# cible de test HÔTE (pas de bac à sable), sortie du processus cible :
+TESTTARGET pid=95144 runtime=v9.0.22 mutate=True
+EXPECT run: ascension=3 act=1 hp=61/70 gold>=99 deck=10 relics=2 potions=[FIRE_POTION_TEST,null,null]
+EXPECT reward: BACKFLIP_TEST, DAGGER_THROW_TEST, PREPARED_TEST+1
+EXPECT shop: ACROBATICS 76(→38), FOOTWORK 25 sale(→12), APOTHEOSIS 172(→86), VAJRA 147(→73), BLOCK_POTION 52(→26), removal 75(→37)
+EXPECT combat: round=2 energy=3 hand=[STRIKE_TEST,SURVIVOR_TEST] enemy JAW_WORM_TEST 30/44 block 6
+
+$ strace -f -e trace=ptrace,process_vm_writev,process_vm_readv,kill,tgkill,tkill,pidfd_open,pidfd_send_signal ultima-mirror probe --comm Sts2Shape.TestT --count MegaCrit.Sts2.Core.Models.TestCard
+pid            : 95144 (comm=Sts2Shape.TestT)
+libcoreclr.so  : /home/mio/.dotnet/shared/Microsoft.NETCore.App/9.0.22/libcoreclr.so
+DAC            : /proc/95144/root/home/mio/.dotnet/shared/Microsoft.NETCore.App/9.0.22/libmscordaccore.so  [à côté de libcoreclr.so via /proc/PID/root (espace de noms de la cible)]
+attache        : OK en 106 ms (suspend:false, lecture process_vm_readv)
+runtime        : Core Version 9.0.2226.52218 @Commit: faaecba82df8933d7af60972138ce25f9c776cbd (== DAC, vérifié)
+modules        : 10 ; tas : workstation, segments=8
+objets MegaCrit.Sts2.Core.Models.TestCard : 20 en 49 ms (inclut les objets morts non collectés)
+[run] stable après 3 lecture(s), 170 ms
+{
+  "InRun": true,
+  "LocalNetId": 1,
+  "AscensionLevel": 3,
+  "ActIndex": 1,
+  "CurrentRoomType": "MegaCrit.Sts2.Core.Rooms.MerchantRoom",
+  "Players": [
+    {
+      "NetId": 1,
+      "Character": "CHARACTER.SILENT_TEST",
+      "Hp": 61,
+      "MaxHp": 70,
+      "Block": 0,
+      "Gold": 1146,
+      "MaxEnergy": 3,
+      "Deck": [
+        {
+          "Id": "CARD.STRIKE_TEST",
+          "Upgrade": 0
+        },
+        {
+          "Id": "CARD.STRIKE_TEST",
+          "Upgrade": 0
+        },
+        {
+          "Id": "CARD.STRIKE_TEST",
+          "Upgrade": 0
+        },
+        {
+          "Id": "CARD.STRIKE_TEST",
+          "Upgrade": 0
+        },
+        {
+          "Id": "CARD.STRIKE_TEST",
+          "Upgrade": 0
+        },
+        {
+          "Id": "CARD.DEFEND_TEST",
+          "Upgrade": 0
+        },
+        {
+          "Id": "CARD.DEFEND_TEST",
+          "Upgrade": 0
+        },
+        {
+          "Id": "CARD.DEFEND_TEST",
+          "Upgrade": 0
+        },
+        {
+          "Id": "CARD.DEFEND_TEST",
+          "Upgrade": 0
+        },
+        {
+          "Id": "CARD.NEUTRALIZE_TEST",
+          "Upgrade": 1
+        }
+      ],
+      "Relics": [
+        "RELIC.RING_OF_THE_SNAKE_TEST",
+        "RELIC.MEMBERSHIP_CARD"
+      ],
+      "PotionSlots": [
+        "POTION.FIRE_POTION_TEST",
+        null,
+        null
+      ]
+    }
+  ]
+}
+[reward] stable après 2 lecture(s), 9 ms
+{
+  "OpenRewardSets": 1,
+  "CardRewards": [
+    {
+      "AlreadyTaken": false,
+      "Offered": [
+        {
+          "Id": "CARD.BACKFLIP_TEST",
+          "Upgrade": 0
+        },
+        {
+          "Id": "CARD.DAGGER_THROW_TEST",
+          "Upgrade": 0
+        },
+        {
+          "Id": "CARD.PREPARED_TEST",
+          "Upgrade": 1
+        }
+      ]
+    }
+  ]
+}
+[shop] stable après 2 lecture(s), 22 ms
+{
+  "InShop": true,
+  "Cards": [
+    {
+      "Card": {
+        "Id": "CARD.ACROBATICS_TEST",
+        "Upgrade": 0
+      },
+      "BaseCost": 76,
+      "EstimatedDisplayedCost": 38,
+      "OnSale": false,
+      "Colorless": false
+    },
+    {
+      "Card": {
+        "Id": "CARD.FOOTWORK_TEST",
+        "Upgrade": 0
+      },
+      "BaseCost": 25,
+      "EstimatedDisplayedCost": 12,
+      "OnSale": true,
+      "Colorless": false
+    },
+    {
+      "Card": {
+        "Id": "CARD.APOTHEOSIS_TEST",
+        "Upgrade": 0
+      },
+      "BaseCost": 172,
+      "EstimatedDisplayedCost": 86,
+      "OnSale": false,
+      "Colorless": true
+    }
+  ],
+  "Relics": [
+    {
+      "Id": "RELIC.VAJRA_TEST",
+      "BaseCost": 147,
+      "EstimatedDisplayedCost": 73
+    }
+  ],
+  "Potions": [
+    {
+      "Id": "POTION.BLOCK_POTION_TEST",
+      "BaseCost": 52,
+      "EstimatedDisplayedCost": 26
+    }
+  ],
+  "RemovalBaseCost": 75,
+  "RemovalEstimatedCost": 37,
+  "RemovalUsed": false,
+  "PriceModifiers": [
+    "RELIC.MEMBERSHIP_CARD ×0.5"
+  ]
+}
+[combat] stable après 2 lecture(s), 10 ms
+{
+  "InProgress": true,
+  "Round": 2,
+  "Energy": 3,
+  "Hand": [
+    {
+      "Id": "CARD.STRIKE_TEST",
+      "Upgrade": 0
+    },
+    {
+      "Id": "CARD.SURVIVOR_TEST",
+      "Upgrade": 0
+    }
+  ],
+  "Enemies": [
+    {
+      "Id": "MONSTER.JAW_WORM_TEST",
+      "Hp": 30,
+      "MaxHp": 44,
+      "Block": 6
+    }
+  ]
+}
+exit=0
+
+# strace : appels système par nom
+      1 kill(
+   7996 process_vm_readv(
+kill(95144, 0)                   = 0
+# occurrences de SECRET dans la sortie : 0
+
+# fichiers /proc/<cible> ouverts (strace -e openat, section run)
+      1 openat(AT_FDCWD, "/proc/95144/comm", O_RDONLY|O_CLOEXEC) = 43
+      1 openat(AT_FDCWD, "/proc/95144/comm", O_RDONLY|O_CLOEXEC) = 44
+      1 openat(AT_FDCWD, "/proc/95144/maps", O_RDONLY|O_CLOEXEC) = 43
+      1 openat(AT_FDCWD, "/proc/95144/maps", O_RDONLY|O_CLOEXEC) = 57
+      1 openat(AT_FDCWD, "/proc/95144/root/home/mio/.dotnet/shared/Microsoft.NETCore.App/9.0.22/libcoreclr.so", O_RDONLY|O_CLOEXEC) = 53
+      1 openat(AT_FDCWD, "/proc/95144/root/home/mio/.dotnet/shared/Microsoft.NETCore.App/9.0.22/libmscordaccore.so", O_RDONLY|O_CLOEXEC) = 53
+      1 openat(AT_FDCWD, "/proc/95144/root/home/mio/.dotnet/shared/Microsoft.NETCore.App/9.0.22/libmscordaccore.so", O_RDONLY|O_CLOEXEC) = 63

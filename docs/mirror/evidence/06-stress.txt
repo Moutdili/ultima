@@ -1,0 +1,7 @@
+# Stress : 30 sondes complètes, cible hôte (GC compactant forcé toutes les 20 ms + or modifié toutes les 250 ms)
+exit 0 : 30 ; sections INCONNU : 0 ; cible toujours vivante
+# Stress : 20 sondes, cible bubblewrap : exit 0 : 20 ; INCONNU : 0 ; or lu de 179 à 197 (valeur vivante)
+
+# AVANT correctif (Stable.Read appelait Runtime.FlushCachedData() entre deux lectures) : 12 sondes
+11 x 'Segmentation fault (core dumped)' DANS LA SONDE + 1 sonde bloquée (futex_do_wait, 2 min) ; cible intacte.
+Premier essai : [reward] INCONNU — champ absent : RewardsSetSynchronizer._localPlayerId (cache de types invalidé).

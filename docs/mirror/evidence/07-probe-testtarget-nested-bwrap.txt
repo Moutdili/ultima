@@ -1,0 +1,26 @@
+# Double bac à sable (approxime Flatpak → pressure-vessel) :
+# bwrap --unshare-user --unshare-pid --unshare-ipc --unshare-uts ... --ro-bind $HOME/.dotnet /tmp/outer-dotnet -- \
+#   bwrap --unshare-user --unshare-pid ... --ro-bind /tmp/outer-dotnet /tmp/inner-dotnet -- /tmp/inner-dotnet/dotnet Sts2Shape.TestTarget.dll
+TESTTARGET pid=2 runtime=v9.0.22 mutate=True
+# hôte : PID 127670 ; NSpid: 127670 4 2 (3 niveaux d'espace de noms PID) ; user ns 4026533307
+
+$ strace ... ultima-mirror probe --pid 127670 --compact
+pid            : 127670 (comm=dotnet)
+libcoreclr.so  : /tmp/inner-dotnet/shared/Microsoft.NETCore.App/9.0.22/libcoreclr.so
+DAC            : /proc/127670/root/tmp/inner-dotnet/shared/Microsoft.NETCore.App/9.0.22/libmscordaccore.so  [à côté de libcoreclr.so via /proc/PID/root (espace de noms de la cible)]
+attache        : OK en 117 ms (suspend:false, lecture process_vm_readv)
+runtime        : Core Version 9.0.2226.52218 @Commit: faaecba82df8933d7af60972138ce25f9c776cbd (== DAC, vérifié)
+modules        : 10 ; tas : workstation, segments=8
+[run] stable après 3 lecture(s), 196 ms
+{"InRun":true,"LocalNetId":1,"AscensionLevel":3,"ActIndex":1,"CurrentRoomType":"MegaCrit.Sts2.Core.Rooms.MerchantRoom","Players":[{"NetId":1,"Character":"CHARACTER.SILENT_TEST","Hp":61,"MaxHp":70,"Block":0,"Gold":130,"MaxEnergy":3,"Deck":[{"Id":"CARD.STRIKE_TEST","Upgrade":0},{"Id":"CARD.STRIKE_TEST","Upgrade":0},{"Id":"CARD.STRIKE_TEST","Upgrade":0},{"Id":"CARD.STRIKE_TEST","Upgrade":0},{"Id":"CARD.STRIKE_TEST","Upgrade":0},{"Id":"CARD.DEFEND_TEST","Upgrade":0},{"Id":"CARD.DEFEND_TEST","Upgrade":0},{"Id":"CARD.DEFEND_TEST","Upgrade":0},{"Id":"CARD.DEFEND_TEST","Upgrade":0},{"Id":"CARD.NEUTRALIZE_TEST","Upgrade":1}],"Relics":["RELIC.RING_OF_THE_SNAKE_TEST","RELIC.MEMBERSHIP_CARD"],"PotionSlots":["POTION.FIRE_POTION_TEST",null,null]}]}
+[reward] stable après 2 lecture(s), 12 ms
+{"OpenRewardSets":1,"CardRewards":[{"AlreadyTaken":false,"Offered":[{"Id":"CARD.BACKFLIP_TEST","Upgrade":0},{"Id":"CARD.DAGGER_THROW_TEST","Upgrade":0},{"Id":"CARD.PREPARED_TEST","Upgrade":1}]}]}
+[shop] stable après 2 lecture(s), 23 ms
+{"InShop":true,"Cards":[{"Card":{"Id":"CARD.ACROBATICS_TEST","Upgrade":0},"BaseCost":76,"EstimatedDisplayedCost":38,"OnSale":false,"Colorless":false},{"Card":{"Id":"CARD.FOOTWORK_TEST","Upgrade":0},"BaseCost":25,"EstimatedDisplayedCost":12,"OnSale":true,"Colorless":false},{"Card":{"Id":"CARD.APOTHEOSIS_TEST","Upgrade":0},"BaseCost":172,"EstimatedDisplayedCost":86,"OnSale":false,"Colorless":true}],"Relics":[{"Id":"RELIC.VAJRA_TEST","BaseCost":147,"EstimatedDisplayedCost":73}],"Potions":[{"Id":"POTION.BLOCK_POTION_TEST","BaseCost":52,"EstimatedDisplayedCost":26}],"RemovalBaseCost":75,"RemovalEstimatedCost":37,"RemovalUsed":false,"PriceModifiers":["RELIC.MEMBERSHIP_CARD ×0.5"]}
+[combat] stable après 2 lecture(s), 9 ms
+{"InProgress":true,"Round":2,"Energy":3,"Hand":[{"Id":"CARD.STRIKE_TEST","Upgrade":0},{"Id":"CARD.SURVIVOR_TEST","Upgrade":0}],"Enemies":[{"Id":"MONSTER.JAW_WORM_TEST","Hp":30,"MaxHp":44,"Block":6}]}
+exit=0
+# strace :
+      1 kill(
+   7255 process_vm_readv(
+# SECRET : 0

@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Ultima.Mirror.Probe/Ultima.Mirror.Probe.csproj" />
+    <Project Path="src/Ultima.Mirror/Ultima.Mirror.csproj" />
+  </Folder>
+  <Folder Name="/testtarget/">
+    <Project Path="testtarget/Sts2Shape.TestTarget/Sts2Shape.TestTarget.csproj" />
+  </Folder>
+</Solution>

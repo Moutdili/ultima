@@ -1,0 +1,10 @@
+$ ultima-mirror self-check
+champs en liste blanche : 56
+fragments interdits     : rng, odds, grabbag, encounterid, eventid, seed, drawpile, _piles, _runpiles
+OK : aucun champ de la liste blanche ne correspond à un fragment interdit
+refusé comme attendu : champ interdit (docs/20 §8.2) : <PlayerRng>k__BackingField
+refusé comme attendu : champ interdit (docs/20 §8.2) : <RelicGrabBag>k__BackingField
+refusé comme attendu : champ interdit (docs/20 §8.2) : <Odds>k__BackingField
+refusé comme attendu : champ interdit (docs/20 §8.2) : <DrawPile>k__BackingField
+refusé comme attendu : champ hors liste blanche ObjectPaths : _somethingElse
+exit=0
