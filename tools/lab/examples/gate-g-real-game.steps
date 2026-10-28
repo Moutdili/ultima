@@ -1,0 +1,11 @@
+# Porte G (docs/21 fiche G) : « une capture prise par l'outil, sans intervention, montrant le jeu ».
+# Pré-requis : Mio a lancé Slay the Spire 2 (plein écran) et autorisé le portail une fois.
+# Commande :  tools/lab/test-window.sh tools/lab/examples/gate-g-real-game.steps --auto 3
+capture: menu principal ou run en cours, jeu plein écran
+attendu: capture « écran » = le jeu tel que Mio le voit ; capture « fenêtre » = la fenêtre X11 du jeu, non unie
+cmd: "$ULTIMA_TOOLS/proof/capture-game-x11.sh" --list
+attendu: une seule fenêtre du jeu ; noter son WM_CLASS réel (à reporter dans capture-game-x11.sh si différent)
+cmd: ls -la "$HOME/.var/app/com.valvesoftware.Steam/.local/share/Steam/steamapps/common/Slay the Spire 2/mods" 2>&1; tail -n 5 "$HOME/.var/app/com.valvesoftware.Steam/.local/share/SlayTheSpire2/logs/godot.log"
+attendu: mods/ absent ou vide ; aucune mention de mod chargé dans godot.log
+attendre: 10
+attendu: le jeu est toujours vivant ; audit : EVENT possibles (le jeu écrit ses logs), 0 ALERTE, 0 VIOLATION

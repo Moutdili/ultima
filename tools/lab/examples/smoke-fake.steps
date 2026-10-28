@@ -1,0 +1,8 @@
+# Répétition à blanc sur le faux jeu (tools/lab/fake-fullscreen.py), sans Mio.
+# Lancer d'abord :  python3 tools/lab/fake-fullscreen.py --state ~/sts2-proofs/fake.json &
+capture: état initial du faux jeu
+attendu: mire plein écran visible sur la capture « écran », compteur de clics = 0
+cmd: cat ~/sts2-proofs/fake.json 2>/dev/null || echo "pas de fichier d'état"
+attendu: JSON avec "clicks": 0 et "focus": true
+attendre: 2
+attendu: le faux jeu est toujours vivant
