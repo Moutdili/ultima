@@ -2,11 +2,11 @@
 using Ultima.Mirror;
 
 // ultima-mirror — read-only memory mirror probe (spike S2). See docs/mirror/*.md.
-// Exit codes: 0 ok, 2 game not running, 3 attach failed, 4 layout drift, 5 watchdog, 1 usage.
+// Exit codes: 0 ok, 2 game not running, 3 attach failed, 4 layout drift, 5 watchdog, 6 save≠mémoire, 7 section INCONNUE, 1 usage.
 
 var cmd = args.Length > 0 ? args[0] : "help";
 string? Opt(string name) { int i = Array.IndexOf(args, name); return i >= 0 && i + 1 < args.Length ? args[i + 1] : null; }
-var json = new JsonSerializerOptions { WriteIndented = true, Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping };
+var json = new JsonSerializerOptions { WriteIndented = !args.Contains("--compact"), Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping };
 
 switch (cmd)
 {
@@ -17,6 +17,7 @@ switch (cmd)
         Console.WriteLine("""
             ultima-mirror layout [--dll PATH]            vérifie ObjectPaths contre la métadonnée de sts2.dll (sans le jeu)
             ultima-mirror probe [--pid N] [--dac PATH] [--comm NAME] [--count TYPE] [--sections run,reward,shop,combat] [--timeout S]
+                                       [--compact] [--compare-save [--save PATH]]
                                                          s'attache en LECTURE SEULE (suspend:false) et lit l'état
             ultima-mirror self-check                     liste blanche vs champs interdits
             """);
@@ -126,6 +127,21 @@ int Probe()
         Show("reward", reader.ReadRewards);
         Show("shop", reader.ReadShop);
         Show("combat", reader.ReadCombat);
-        return 0;
+
+        if (args.Contains("--compare-save"))
+        {
+            var savePath = Opt("--save") ?? SaveCompare.FindCurrentRunSave();
+            if (savePath is null) { Console.WriteLine("[save] pas de current_run.save (profil vanilla actif) : comparaison impossible"); return 6; }
+            var mem = Stable.Read(session, reader.ReadRun);
+            if (!mem.Stable) { Console.WriteLine($"[save] mémoire INCONNUE ({mem.Error}) : comparaison impossible"); return 6; }
+            Console.WriteLine($"[save] {savePath} (modifié {File.GetLastWriteTime(savePath):HH:mm:ss})");
+            var lines = SaveCompare.Compare(mem.Value!, SaveCompare.Load(savePath));
+            foreach (var l in lines)
+                Console.WriteLine($"  {(l.Match ? "ÉGAL " : "DIFF ")} {l.Field,-28} mémoire={l.Memory}  save={l.Save}");
+            var diff = lines.Count(l => !l.Match);
+            Console.WriteLine($"[save] {lines.Count - diff}/{lines.Count} égaux");
+            return diff == 0 ? 0 : 6;
+        }
+        return unstable == 0 ? 0 : 7;
     }
 }
