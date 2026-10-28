@@ -1,7 +1,11 @@
 ---
 name: sts2-mod-dev
-description: Use when building, deploying or debugging a Slay the Spire 2 C# mod on Fedora (dotnet build, manifest, mods folder, log). Covers the exact paths, the build/deploy loop, and the read-only rule.
+description: [ARCHIVÉE — ne pas utiliser, approche mod abandonnée] Use when building, deploying or debugging a Slay the Spire 2 C# mod on Fedora (dotnet build, manifest, mods folder, log). Covers the exact paths, the build/deploy loop, and the read-only rule.
 ---
+> ⚠️ **ARCHIVÉE — APPROCHE MOD ABANDONNÉE (2026-10-28).** Charger un mod fait basculer le jeu sur le
+> profil `modded/` (progression perdue). ULTIMA est désormais une application EXTERNE :
+> voir `docs/20-pivot-externe.md`, skills `sts2-save-format`, `sts2-external-overlay`. Ne pas suivre ce qui suit.
+
 
 # STS2 mod dev (Fedora, Flatpak)
 

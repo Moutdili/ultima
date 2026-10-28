@@ -147,8 +147,11 @@ Vague 2
 ## 6. Protocoles
 
 - **Git** : une branche par agent (`v2/<rôle>`), worktree dédié ; seul le chef merge dans `main`.
-  **Hermes** : soit membre du swarm sur une branche `hermes/<sujet>` (jamais `main`), soit en
-  pause pendant le run — décision de Mio.
+  **Hermes** (décision de Mio) : libre sur main. Le chef fait `git pull --ff-only` avant chaque
+  push, ne touche jamais aux fichiers que Hermes a en cours, et le signale dans `STATUS.md`.
+- **Les agents ne lancent JAMAIS le jeu.** Ils travaillent sur des substituts (fenêtre X11
+  plein écran factice, session GNOME imbriquée, `sts2.dll` statique via MCP `rea`) puis
+  demandent une fenêtre de test au chef.
 - **Fenêtres de test** : le chef regroupe les besoins « jeu lancé » ; Mio lance le jeu (ou
   autorise le chef à le lancer) ; chaque test a une commande unique et un résultat attendu écrit
   à l'avance ; preuve = capture + log.

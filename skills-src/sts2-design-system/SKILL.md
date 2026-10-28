@@ -5,6 +5,13 @@ description: Use when building or reviewing the ULTIMA overlay UI — Slay the S
 
 # ULTIMA design system (charte = contrat)
 
+> **v2 (2026-10-28) — ULTIMA est une APPLICATION EXTERNE** (`docs/20`). La palette, la hiérarchie,
+> le rail et les critères restent valides. Le §3 « shader du jeu » ne s'applique plus tel quel :
+> une fenêtre externe ne peut pas lire l'écran du jeu. Le verre vient du **flou du compositeur**
+> (extension GNOME Shell : `Shell.BlurEffect`) ou, pour une fenêtre X11, d'une teinte `#192930`
+> + capture XComposite floutée. Leçon du run v1 : un rail de 8 px à 0.30 est INVISIBLE en jeu ;
+> tout réglage visuel se valide sur capture réelle.
+
 Source normative : `docs/17-charte.md`. Skill = résumé actionnable, doc = détail.
 
 ## 1. Palette : jamais une couleur inventée

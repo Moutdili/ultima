@@ -153,17 +153,22 @@ jamais de touches lues dans le jeu.
 | ClrMD bloqué (bac à sable Flatpak, espace de noms) | tester l'attache depuis l'hôte puis via `flatpak-spawn` ; repli S3 vision |
 | Patch EA renomme les champs mémoire | couche Mirror isolée + vérification croisée avec la save à chaque salle (si divergence → mode dégradé « fichiers seulement », annoncé à l'écran) |
 | Données méta communautaires périmées | date de patch affichée ; pondération vers les 250 runs perso |
-| Spoil (séquences pré-tirées dans la save) | décision Mio (§8) |
+| Spoil (séquences pré-tirées dans la save) | interdit de lecture (§8.2), vérifié par grep dans le code du daemon |
 | Hermes et le swarm écrivent en même temps sur main | protocole docs/21 §6 |
 
 ---
 
-## 8. Décisions qui appartiennent à Mio
+## 8. Décisions de Mio (2026-10-28)
 
-1. **Lecture mémoire** (comme HearthMirror) : acceptable ? C'est la seule voie fiable vers le
-   scoring récompense/shop en temps réel.
-2. **Infos cachées** : la save contient les prochains élites/combats/événements et l'ordre
-   des reliques. Les montrer (spoil) ou rester probabiliste ?
-3. **Mode d'affichage du jeu** : rester en plein écran (contrainte forte pour S1) ou accepter
-   le fenêtré sans bordure si S1 l'exige ?
-4. **Rôle de Hermes** pendant le run (cf. docs/21 §6).
+1. **Lecture mémoire : OUI** (comme HearthMirror), lecture seule stricte. Voie principale du
+   temps réel. La vision n'est qu'un repli si S2 échoue.
+2. **Probabiliste seulement.** Le daemon **ne lit PAS** `normal_encounter_ids`,
+   `elite_encounter_ids`, `event_ids`, `relic_grab_bag`, `shared_relic_grab_bag`, `rng`, `odds`
+   joueur : ni affichés, ni utilisés dans un calcul (sinon fuite indirecte). Autorisé : ce que
+   le joueur voit en jeu — type des cases de la carte, boss de l'acte, deck, reliques, PV, or,
+   historique déjà joué, et les cotes PUBLIQUES des cases `?` décrites par le source du jeu.
+3. **Plein écran obligatoire.** Le moteur d'overlay doit passer au-dessus du jeu en plein
+   écran → avantage à l'extension GNOME Shell (C2) ; C1 reste en concurrence.
+4. **Hermes reste libre** sur main. Le swarm s'adapte : agents sur branches, `git pull
+   --ff-only` avant chaque push du chef, jamais de `--force`, on ne touche pas aux fichiers
+   en cours de modification par Hermes (`git status` avant chaque merge).

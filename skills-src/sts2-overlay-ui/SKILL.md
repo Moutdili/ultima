@@ -1,7 +1,11 @@
 ---
 name: sts2-overlay-ui
-description: Use when building the in-game overlay for a Slay the Spire 2 mod with Godot Control nodes (injection, click-through, scrolling, opacity, hotkeys, layout pitfalls).
+description: [ARCHIVÉE — ne pas utiliser, approche mod abandonnée] Use when building the in-game overlay for a Slay the Spire 2 mod with Godot Control nodes (injection, click-through, scrolling, opacity, hotkeys, layout pitfalls).
 ---
+> ⚠️ **ARCHIVÉE — APPROCHE MOD ABANDONNÉE (2026-10-28).** Charger un mod fait basculer le jeu sur le
+> profil `modded/` (progression perdue). ULTIMA est désormais une application EXTERNE :
+> voir `docs/20-pivot-externe.md`, skills `sts2-save-format`, `sts2-external-overlay`. Ne pas suivre ce qui suit.
+
 
 # STS2 overlay UI (Godot 4 + C#)
 
