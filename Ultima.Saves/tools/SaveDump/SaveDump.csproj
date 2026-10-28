@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Outil de preuve : affiche ce que Ultima.Saves lit. Lecture seule. -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>ultima-saves</AssemblyName>
+    <RootNamespace>Ultima.Saves.Tools</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../Ultima.Saves.csproj" />
+  </ItemGroup>
+</Project>
