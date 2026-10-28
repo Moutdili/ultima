@@ -55,8 +55,8 @@ public static class GameProcess
     }
 
     /// <summary>
-    /// DAC resolution order: explicit --dac; sibling of libcoreclr.so (host path); same file through
-    /// /proc/PID/root (the target's mount namespace — bubblewrap/Flatpak case); default game dir.
+    /// DAC resolution order: explicit --dac; sibling of libcoreclr.so through /proc/PID/root (the
+    /// target's own mount namespace — exact even under bubblewrap/Flatpak); same path on the host; default game dir.
     /// </summary>
     public static ProcessTarget Describe(int pid, string? explicitDac)
     {
@@ -67,9 +67,9 @@ public static class GameProcess
         if (coreclr is not null)
         {
             var sibling = Path.Combine(Path.GetDirectoryName(coreclr)!, "libmscordaccore.so");
-            if (File.Exists(sibling)) return new(pid, comm, coreclr, sibling, "à côté de libcoreclr.so (chemin hôte)");
             var viaRoot = $"/proc/{pid}/root{sibling}";
-            if (File.Exists(viaRoot)) return new(pid, comm, coreclr, viaRoot, "/proc/PID/root (espace de noms du bac à sable)");
+            if (File.Exists(viaRoot)) return new(pid, comm, coreclr, viaRoot, "à côté de libcoreclr.so via /proc/PID/root (espace de noms de la cible)");
+            if (File.Exists(sibling)) return new(pid, comm, coreclr, sibling, "à côté de libcoreclr.so (chemin hôte)");
         }
         if (File.Exists(DefaultDac)) return new(pid, comm, coreclr, DefaultDac, "dossier du jeu par défaut");
         return new(pid, comm, coreclr, null, "introuvable");

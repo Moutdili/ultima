@@ -24,14 +24,26 @@ public sealed class MirrorSession : IDisposable
     public ClrInfo Clr { get; }
     public ClrRuntime Runtime { get; }
     public string DacPath { get; }
+    /// <summary>"@(#)Version … @Commit: …" of the target's libcoreclr.so (== DAC's, checked at attach).</summary>
+    public string RuntimeBuild { get; }
 
-    MirrorSession(DataTarget target, ClrInfo clr, ClrRuntime runtime, string dacPath)
+    MirrorSession(DataTarget target, ClrInfo clr, ClrRuntime runtime, string dacPath, string build)
     {
-        Target = target; Clr = clr; Runtime = runtime; DacPath = dacPath;
+        Target = target; Clr = clr; Runtime = runtime; DacPath = dacPath; RuntimeBuild = build;
     }
 
-    public static MirrorSession Attach(int pid, string dacPath)
+    /// <param name="coreClrFile">libcoreclr.so of the target, readable from the host (host path or /proc/PID/root/...).</param>
+    public static MirrorSession Attach(int pid, string dacPath, string coreClrFile)
     {
+        // ClrMD 4.2 looks for the "@(#)Version" string only in the first WRITABLE PT_LOAD segment of
+        // libcoreclr; in .NET 9 it lives in .rodata, so ClrInfo.Version is 0.0 and its own DAC check
+        // always fails (observed 2026-10-28: "Mismatched dac … expected: 0.0"). We do a STRICTER check
+        // ourselves (version AND commit hash, both files) and only then skip ClrMD's.
+        var runtimeBuild = BuildString.Of(coreClrFile) ?? throw new InvalidOperationException($"version introuvable dans {coreClrFile}");
+        var dacBuild = BuildString.Of(dacPath) ?? throw new InvalidOperationException($"version introuvable dans {dacPath}");
+        if (runtimeBuild != dacBuild)
+            throw new InvalidOperationException($"DAC incompatible : runtime « {runtimeBuild} » ≠ DAC « {dacBuild} »");
+
         var options = new DataTargetOptions { SymbolPaths = Array.Empty<string>() };
         // suspend: false  ==> NO ptrace attach. This literal must never change (grep-audited).
         var dt = DataTarget.AttachToProcess(pid, suspend: false, options);
@@ -39,8 +51,8 @@ public sealed class MirrorSession : IDisposable
         {
             var clr = dt.ClrVersions.FirstOrDefault()
                       ?? throw new InvalidOperationException("aucun runtime CoreCLR trouvé dans le processus");
-            var rt = clr.CreateRuntime(dacPath, ignoreMismatch: false);
-            return new MirrorSession(dt, clr, rt, dacPath);
+            var rt = clr.CreateRuntime(dacPath, ignoreMismatch: true);
+            return new MirrorSession(dt, clr, rt, dacPath, runtimeBuild);
         }
         catch
         {
@@ -150,3 +162,19 @@ public sealed class MirrorSession : IDisposable
 
 /// <summary>A path step was not found: layout changed, object not there yet, or torn read.</summary>
 public sealed class MirrorMissException(string message) : Exception(message);
+
+/// <summary>Extracts the "@(#)Version x.y.z.w @Commit: sha" sccsid string from a CoreCLR ELF file.</summary>
+public static class BuildString
+{
+    static readonly byte[] Marker = "@(#)Version "u8.ToArray();
+
+    public static string? Of(string path)
+    {
+        var bytes = File.ReadAllBytes(path);
+        int i = bytes.AsSpan().IndexOf(Marker);
+        if (i < 0) return null;
+        int end = Array.IndexOf(bytes, (byte)0, i);
+        if (end < 0 || end - i > 200) return null;
+        return System.Text.Encoding.ASCII.GetString(bytes, i + 4, end - i - 4);
+    }
+}

@@ -2,7 +2,7 @@
 using Ultima.Mirror;
 
 // ultima-mirror — read-only memory mirror probe (spike S2). See docs/mirror/*.md.
-// Exit codes: 0 ok, 2 game not running, 3 attach failed, 4 layout drift, 1 usage.
+// Exit codes: 0 ok, 2 game not running, 3 attach failed, 4 layout drift, 5 watchdog, 1 usage.
 
 var cmd = args.Length > 0 ? args[0] : "help";
 string? Opt(string name) { int i = Array.IndexOf(args, name); return i >= 0 && i + 1 < args.Length ? args[i + 1] : null; }
@@ -16,7 +16,7 @@ switch (cmd)
     default:
         Console.WriteLine("""
             ultima-mirror layout [--dll PATH]            vérifie ObjectPaths contre la métadonnée de sts2.dll (sans le jeu)
-            ultima-mirror probe [--pid N] [--dac PATH] [--comm NAME] [--count TYPE] [--sections run,reward,shop,combat] [--json]
+            ultima-mirror probe [--pid N] [--dac PATH] [--comm NAME] [--count TYPE] [--sections run,reward,shop,combat] [--timeout S]
                                                          s'attache en LECTURE SEULE (suspend:false) et lit l'état
             ultima-mirror self-check                     liste blanche vs champs interdits
             """);
@@ -58,6 +58,10 @@ int Layout()
 
 int Probe()
 {
+    // Watchdog: a non-suspended read can hang inside the DAC (observed: futex wait, 2026-10-28).
+    // The probe must never linger; the daemon must run it as a child process (crash/hang isolation).
+    var timeout = int.Parse(Opt("--timeout") ?? "15");
+    new Thread(() => { Thread.Sleep(timeout * 1000); Console.WriteLine($"WATCHDOG : abandon après {timeout} s (lecture bloquée)"); Console.Out.Flush(); Environment.Exit(5); }) { IsBackground = true }.Start();
     int pid;
     var comm = Opt("--comm") ?? GameProcess.GameComm;
     if (Opt("--pid") is { } p) pid = int.Parse(p);
@@ -82,7 +86,10 @@ int Probe()
 
     MirrorSession session;
     var sw = System.Diagnostics.Stopwatch.StartNew();
-    try { session = MirrorSession.Attach(pid, target.DacPath); }
+    // Prefer /proc/PID/root: it is the file ACTUALLY mapped, even when the target lives in another mount namespace.
+    var coreFile = target.CoreClrPath is null ? null : File.Exists($"/proc/{pid}/root{target.CoreClrPath}") ? $"/proc/{pid}/root{target.CoreClrPath}" : target.CoreClrPath;
+    if (coreFile is null || !File.Exists(coreFile)) { Console.WriteLine("libcoreclr.so illisible depuis l'hôte"); return 3; }
+    try { session = MirrorSession.Attach(pid, target.DacPath, coreFile); }
     catch (Exception e)
     {
         Console.WriteLine($"ÉCHEC d'attache ({e.GetType().Name}) : {e.Message}");
@@ -91,7 +98,7 @@ int Probe()
     using (session)
     {
         Console.WriteLine($"attache        : OK en {sw.ElapsedMilliseconds} ms (suspend:false, lecture process_vm_readv)");
-        Console.WriteLine($"runtime        : {session.Clr.Flavor} {session.Clr.Version}");
+        Console.WriteLine($"runtime        : {session.Clr.Flavor} {session.RuntimeBuild} (== DAC, vérifié)");
         Console.WriteLine($"modules        : {session.Runtime.EnumerateModules().Count()} ; tas : {(session.Runtime.Heap.IsServer ? "server" : "workstation")}, segments={session.Runtime.Heap.Segments.Length}");
         var reader = new GameReader(session);
 

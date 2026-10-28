@@ -19,7 +19,9 @@ public static class Stable
         {
             try
             {
-                if (i > 1) session.Runtime.FlushCachedData();
+                // NO Runtime.FlushCachedData() here: observed 2026-10-28 that flushing between reads
+                // invalidates cached ClrType/fields and led to SIGSEGV inside the DAC. Values are
+                // re-read from target memory on every call anyway (LinuxLiveDataReader has no cache).
                 var v = read();
                 var json = JsonSerializer.Serialize(v);
                 if (json == prev) return new StableResult<T>(v, true, i, null);
