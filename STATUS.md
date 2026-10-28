@@ -438,3 +438,42 @@ capture, FPS ≥ 55, chevauchements 1080p/1440p/21:9, multi 2 instances, CSV F5)
 ### 5. Tag
 `v0.1.0` posé sur `fc795a4` : F1+F2 verts sur toutes les portes automatiques (build, 82 tests, read-only,
 CI, oracle intégré). Le message du tag précise que G4/G5 restent à valider en jeu.
+
+---
+
+# RUN v2 — tracker externe (démarré 2026-10-28 18:50)
+
+Contrat : `docs/20-pivot-externe.md` · Swarm : `docs/21-swarm-v2.md` · Post-mortem v1 : docs/20 §0 + docs/19 (Hermes).
+Décisions Mio : lecture mémoire OUI · probabiliste seulement · plein écran obligatoire · Hermes libre sur main.
+
+## Vague 0 (18:50) — 6 agents, branches `v2/*`, worktrees `/home/mio/v2-*`
+| Agent | Mission | Skills imposées |
+|---|---|---|
+| A Archiviste | parsers saves/history/log, fixtures anonymisées | sts2-save-format, sts2-game-api |
+| B Miroir | spike S2 ClrMD lecture seule (récompense, shop) | sts2-game-api, sts2-save-format |
+| C1 Verrier X11 | spike S1 moteur A (override-redirect) | sts2-design-system |
+| C2 Verrier GNOME | spike S1 moteur B (extension Shell 50) | sts2-design-system |
+| F Éclaireur | méta communautaire sourcée | sts2-meta-scoring |
+| G Forgeron | outils de preuve (capture composée, audit no-write, labo) | sts2-save-format |
+
+## Pré-mortem (pourquoi chacun pourrait échouer → parade préparée)
+- A : schémas anciens (`build_id` < v0.107) cassent le parser → parseur tolérant, stats par build.
+- B : attache ClrMD impossible sans suspendre, ou bloquée par l'espace de noms Flatpak → documenter, tester `bwrap`, repli vision (S3) déjà prévu.
+- C1 : Mutter place le plein écran au-dessus des fenêtres X11 → c'est précisément ce que la fenêtre de test tranche ; C2 en concurrence.
+- C2 : impossible de tester sans déconnexion (pas de `mutter-devkit`) → test dans la vraie session pendant la fenêtre de test, `disable` documenté.
+- F : méta EA maigre/périmée → couverture chiffrée, pondération vers les 250 runs perso.
+- G : portail Screenshot demande une autorisation interactive → une seule fois avec Mio.
+
+## Registre des risques ouverts
+1. Plein écran obligatoire × overlay sous GNOME Wayland (S1).
+2. Lecture mémoire cassée à chaque patch EA → vérification croisée save/mémoire à chaque salle, mode dégradé annoncé.
+3. Hermes libre sur main → pull --ff-only avant chaque push ; ne pas toucher `tools/*.sh` (modes modifiés par Hermes).
+4. Projet `Ultima/` (mod) toujours dans le dépôt et modifié par Hermes → ni compilé ni déployé par le swarm v2 ; `tools/deploy.sh` à neutraliser en accord avec Hermes/Mio.
+
+## Fenêtre de test n°1 (brouillon, après rendu de B, C1, C2, G)
+1. Autoriser une fois la capture via le portail (G).
+2. Lancer le jeu PLEIN ÉCRAN, entrer dans une run (carte), lancer l'audit no-write (G).
+3. Miroir : `probe` sur la carte, puis sur un écran de récompense, puis dans un shop (B) → valeurs == écran.
+4. C1 : lancer l'overlay X11, toggle, capture composée → visible au-dessus du plein écran ?
+5. C2 : installer l'extension, se reconnecter, activer, raccourci, capture → visible ? verre ?
+6. Fin : rapport d'audit (aucune écriture d'ULTIMA, `mods/` absent).
