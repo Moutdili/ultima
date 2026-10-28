@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+# Installe l'extension ULTIMA (ultima@mio) pour l'utilisateur courant — SANS l'activer.
+#
+#   overlay/gnome/install-dev.sh            # copie + compile le schéma
+#   overlay/gnome/install-dev.sh --check    # valide seulement (aucune écriture hors /tmp)
+#   overlay/gnome/install-dev.sh --uninstall
+#
+# Sous Wayland, GNOME Shell ne découvre une NOUVELLE extension qu'après une
+# déconnexion / reconnexion. Ensuite : gnome-extensions enable ultima@mio
+# (voir overlay/gnome/TEST-WINDOW.md). Ce script ne touche ni au jeu ni à ses saves.
+set -euo pipefail
+
+UUID="ultima@mio"
+HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SRC="$HERE/$UUID"
+DEST="${XDG_DATA_HOME:-$HOME/.local/share}/gnome-shell/extensions/$UUID"
+FILES=(metadata.json extension.js palette.js geometry.js state.js sample-state.json)
+
+die() { echo "ERREUR : $*" >&2; exit 1; }
+
+check() {
+    command -v glib-compile-schemas >/dev/null || die "glib-compile-schemas absent"
+    command -v gnome-extensions >/dev/null || die "gnome-extensions absent"
+    for f in "${FILES[@]}"; do [[ -f "$SRC/$f" ]] || die "fichier manquant : $f"; done
+    python3 - "$SRC/metadata.json" <<'PY'
+import json, sys
+m = json.load(open(sys.argv[1]))
+assert m["uuid"] == "ultima@mio", m["uuid"]
+assert "50" in m["shell-version"], m["shell-version"]
+assert m["settings-schema"] == "org.gnome.shell.extensions.ultima"
+print("metadata.json OK :", m["uuid"], m["shell-version"], m["settings-schema"])
+PY
+    local tmp; tmp="$(mktemp -d)"
+    glib-compile-schemas --strict --targetdir="$tmp" "$SRC/schemas"
+    echo "schéma OK : $(ls "$tmp")"
+    gnome-extensions pack --force --out-dir="$tmp" \
+        --extra-source=palette.js --extra-source=geometry.js --extra-source=state.js \
+        --extra-source=sample-state.json "$SRC" >/dev/null
+    echo "pack OK : $(ls "$tmp"/*.zip)"
+    rm -rf "$tmp"
+    local ver; ver="$(gnome-shell --version 2>/dev/null || true)"
+    echo "shell local : ${ver:-inconnu}"
+}
+
+case "${1:-}" in
+    --check)
+        check
+        ;;
+    --uninstall)
+        if command -v gnome-extensions >/dev/null; then
+            gnome-extensions disable "$UUID" 2>/dev/null || true
+        fi
+        rm -rf -- "$DEST"
+        echo "désinstallé : $DEST (se reconnecter pour décharger complètement)"
+        ;;
+    "")
+        check
+        mkdir -p "$DEST/schemas"
+        for f in "${FILES[@]}"; do install -m 0644 "$SRC/$f" "$DEST/$f"; done
+        install -m 0644 "$SRC/schemas/"*.gschema.xml "$DEST/schemas/"
+        glib-compile-schemas --strict "$DEST/schemas"
+        echo "installé dans $DEST (NON activé)"
+        echo "Étape suivante : se déconnecter / se reconnecter, puis : gnome-extensions enable $UUID"
+        ;;
+    *)
+        die "option inconnue : $1"
+        ;;
+esac

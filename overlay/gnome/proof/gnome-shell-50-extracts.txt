@@ -1,0 +1,118 @@
+# Extraits GNOME Shell 50.6 — gresource extract /usr/lib64/gnome-shell/libshell-18.so <chemin>
+GNOME Shell 50.6
+
+== /org/gnome/shell/ui/layout.js:245-250
+        // Using addChrome() to add actors to uiGroup will position actors
+        // underneath the top_window_group.
+        // To insert actors at the top of uiGroup, we use addTopChrome() or
+        // add the actor directly using uiGroup.add_child().
+        global.stage.remove_child(global.top_window_group);
+        this.uiGroup.add_child(global.top_window_group);
+
+== /org/gnome/shell/ui/layout.js:183-186
+const defaultParams = {
+    trackFullscreen: false,
+    affectsStruts: false,
+};
+
+== /org/gnome/shell/ui/layout.js:869-888
+    // If %trackFullscreen in @params is %true, the actor's visibility
+    // will be bound to the presence of fullscreen windows on the same
+    // monitor (it will be hidden whenever a fullscreen window is visible,
+    // and shown otherwise)
+    addChrome(actor, params) {
+        this.uiGroup.add_child(actor);
+        if (this.uiGroup.contains(global.top_window_group))
+            this.uiGroup.set_child_below_sibling(actor, global.top_window_group);
+        this._trackActor(actor, params);
+    }
+
+    // addTopChrome:
+    // @actor: an actor to add to the chrome
+    // @params: (optional) additional params
+    //
+    // Like addChrome(), but adds @actor above all windows, including popups.
+    addTopChrome(actor, params) {
+        this.uiGroup.add_child(actor);
+        this._trackActor(actor, params);
+    }
+
+== /org/gnome/shell/ui/layout.js:977-985
+    _updateActorVisibility(actorData) {
+        if (!actorData.trackFullscreen)
+            return;
+
+        const monitor = this.findMonitorForActor(actorData.actor);
+        actorData.actor.visible = !(global.window_group.visible &&
+                                    monitor &&
+                                    monitor.inFullscreen);
+    }
+
+== /org/gnome/shell/ui/layout.js:279-282 (le panneau du haut, lui, suit le plein écran)
+        this.addChrome(this.panelBox, {
+            affectsStruts: true,
+            trackFullscreen: true,
+        });
+
+== /org/gnome/shell/ui/osdWindow.js:93-97 et 125-131 (OSD affiché par-dessus le plein écran)
+
+        if (!this.visible) {
+            global.compositor.disable_unredirect();
+            super.show();
+            this.opacity = 0;
+            opacity: 0,
+            duration: FADE_TIME,
+            mode: Clutter.AnimationMode.EASE_OUT_QUAD,
+            onComplete: () => {
+                this._reset();
+                global.compositor.enable_unredirect();
+            },
+
+== /org/gnome/shell/ui/windowManager.js:1106-1116
+    addKeybinding(name, settings, flags, modes, handler) {
+        const action = global.display.add_keybinding(name, settings, flags, handler);
+        if (action !== Meta.KeyBindingAction.NONE)
+            this.allowKeybinding(name, modes);
+        return action;
+    }
+
+    removeKeybinding(name) {
+        if (global.display.remove_keybinding(name))
+            this.allowKeybinding(name, Shell.ActionMode.NONE);
+    }
+
+== /org/gnome/shell/extensions/sharedInternals.js:92-111 (getSettings exige schemas/gschemas.compiled)
+    getSettings(schema) {
+        schema ||= this.metadata['settings-schema'];
+
+        // Expect USER extensions to have a schemas/ subfolder, otherwise assume a
+        // SYSTEM extension that has been installed in the same prefix as the shell
+        const schemaDir = this.dir.get_child('schemas');
+        const defaultSource = Gio.SettingsSchemaSource.get_default();
+        let schemaSource;
+        if (schemaDir.query_exists(null)) {
+            schemaSource = Gio.SettingsSchemaSource.new_from_directory(
+                schemaDir.get_path(), defaultSource, false);
+        } else {
+            schemaSource = defaultSource;
+        }
+
+        const schemaObj = schemaSource.lookup(schema, true);
+        if (!schemaObj)
+            throw new Error(`Schema ${schema} could not be found for extension ${this.uuid}. Please check your installation`);
+
+        return new Gio.Settings({settings_schema: schemaObj});
+
+== Introspection (GIRepository sur Shell-18 / Meta-18)
+BlurEffect GIRepository_ObjectInfo
+  prop brightness
+  prop mode
+  prop radius
+BlurMode GIRepository_EnumInfo
+  val actor 0
+  val background 1
+Meta.KeyBindingFlags: none=0 per_window=1 builtin=2 is_reversed=4 non_maskable=8 ignore_autorepeat=16 no_auto_grab=32 custom_trigger=64 trigger_release=128
+Shell.ActionMode: none=0 normal=1 overview=2 lock_screen=4 unlock_screen=8 login_screen=16 system_modal=32 looking_glass=64 popup=128 all=-1
+Meta.Compositor methods: disable_unredirect enable_unredirect
+Shell.Global methods: get_pointer get_stage get_top_window_group get_window_group
+Meta.Display methods: add_keybinding get_keybinding_action remove_keybinding
