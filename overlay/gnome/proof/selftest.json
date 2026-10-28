@@ -1,0 +1,154 @@
+{
+  "checks": [
+    {
+      "name": "faux jeu présent et plein écran",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "faux jeu = client X11 (XWayland)",
+      "ok": true,
+      "detail": "client_type=1"
+    },
+    {
+      "name": "vue d'ensemble fermée",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "moniteur en plein écran (monitor.inFullscreen) hors vue d'ensemble",
+      "ok": true,
+      "detail": "1920x1080"
+    },
+    {
+      "name": "ultima-root présent",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "ultima-root au-dessus de window_group et top_window_group",
+      "ok": true,
+      "detail": "index root=35 window_group=0 top_window_group=13 / 38"
+    },
+    {
+      "name": "ultima-root visible malgré le plein écran",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "ultima-root non réactif",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Shell.BlurEffect mode BACKGROUND",
+      "ok": true,
+      "detail": "radius=24 brightness=1"
+    },
+    {
+      "name": "rail ≥ 14 px de large",
+      "ok": true,
+      "detail": "rail=(1902,238,14x389)"
+    },
+    {
+      "name": "panneau GNOME masqué par le plein écran (témoin trackFullscreen)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "focus resté au faux jeu",
+      "ok": true,
+      "detail": "focus=ULTIMA-FAKE-GAME"
+    },
+    {
+      "name": "survol -> panneau déployé à 260 px",
+      "ok": true,
+      "detail": "width=260"
+    },
+    {
+      "name": "pick Clutter au point du panneau ≠ ULTIMA",
+      "ok": true,
+      "detail": "acteur=unknown_MetaSurfaceActorWayland:"
+    },
+    {
+      "name": "le faux jeu reçoit le clic fait SUR le panneau",
+      "ok": true,
+      "detail": "point=(1766,318) log=\"3315.221 CLICK 1766 318\\n3315.410 FPS 94.8\""
+    },
+    {
+      "name": "panneau toujours déployé pendant le survol",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "encore déployé à 1,5 s (pas de repli prématuré)",
+      "ok": true,
+      "detail": "width=260"
+    },
+    {
+      "name": "replié en rail après 2,5 s",
+      "ok": true,
+      "detail": "width=14"
+    },
+    {
+      "name": "Super+F9 -> panneau épinglé déployé",
+      "ok": true,
+      "detail": "width=260"
+    },
+    {
+      "name": "épinglé : pas de repli après 3 s hors survol",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Super+F8 -> masqué",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Super+F8 -> réaffiché",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "le faux jeu ne reçoit PAS F9/F8",
+      "ok": true,
+      "detail": "log=\"3319.227 KEY Super_L\\n3319.458 FPS 90.9\\n3320.460 FPS 86.8\\n3321.465 FPS 90.6\\n3322.473 FPS 89.3\\n3323.427 KEY Super_L\\n3323.473 FPS 92.0\\n3324.293 KEY Super_L\\n3324.475 FPS 95.9\""
+    },
+    {
+      "name": "focus toujours au faux jeu",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "le faux jeu tourne (FPS mesurés)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "disable() : plus aucun acteur ultima-root",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "disable() : raccourcis retirés (allowKeybinding NONE)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "enable() à nouveau : ultima-root revient",
+      "ok": true,
+      "detail": ""
+    }
+  ],
+  "notes": [
+    "capture 01-rail-repos.png",
+    "diag survol : get_pointer=[1912,432] pollId=2288 expanded=true dwell=0 layout={\"right\":1916,\"y\":238,\"h\":389,\"railX\":1902,\"panelX\":1656,\"monitorRight\":1920}",
+    "capture 02-survol-deploye.png",
+    "capture 03-repli-apres-inactivite.png",
+    "capture 04-raccourci-super-f9.png",
+    "capture 05-masque-super-f8.png",
+    "FPS faux jeu (indicatif, headless) overlay visible=[91.7,94.4,93.1,92.5] masqué=[93.6,95.2,96.7,93.7]",
+    "capture 06-reactive-apres-cycle.png"
+  ]
+}

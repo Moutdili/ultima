@@ -1,0 +1,6 @@
+{
+  "uuid": "ultima-selftest@mio",
+  "name": "ULTIMA selftest (banc headless UNIQUEMENT)",
+  "description": "Pilote ultima@mio dans une instance gnome-shell --headless isolée (tools/headless-proof.sh). Inerte sans ULTIMA_SELFTEST_OUT. Ne jamais installer dans la vraie session.",
+  "shell-version": ["50"]
+}
