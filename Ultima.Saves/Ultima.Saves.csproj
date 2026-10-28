@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Ultima.Saves : couche « fichiers » du tracker externe. Bibliotheque pure, LECTURE SEULE.
+       Aucune dependance externe (System.Text.Json est dans le runtime). -->
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>Ultima.Saves</AssemblyName>
+    <RootNamespace>Ultima.Saves</RootNamespace>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- l'outil CLI a son propre projet -->
+    <Compile Remove="tools/**" />
+    <None Remove="tools/**" />
+  </ItemGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="Ultima.Saves.Tests" />
+  </ItemGroup>
+</Project>
