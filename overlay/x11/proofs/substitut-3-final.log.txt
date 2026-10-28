@@ -1,0 +1,13 @@
+/home/mio/v2-verrier-x11/overlay/x11/substitute/fake-fullscreen-game.py:95: DeprecationWarning: Gtk.Window.set_wmclass is deprecated
+  win.set_wmclass("ultima-substitut", "UltimaSubstitut")
+19:02:10 [substitut] xid=0x1400003 pid=111182 DISPLAY=:0
+19:02:10 [substitut] etat fenetre : fullscreen=True focused=True
+19:02:10 [substitut] etat fenetre : fullscreen=True focused=False
+19:02:10 [substitut] etat fenetre : fullscreen=True focused=False
+19:02:10 [substitut] focus GAGNE
+19:02:10 [substitut] etat fenetre : fullscreen=True focused=True
+19:02:10 [substitut] pointeur ENTREE x=1023 y=534 detail=virtual
+19:02:17 [substitut] pointeur SORTIE x=1023 y=534 detail=virtual
+19:02:18 [substitut] focus PERDU
+19:02:18 [substitut] etat fenetre : fullscreen=True focused=False
+19:02:55 [substitut] fin (0 clics)

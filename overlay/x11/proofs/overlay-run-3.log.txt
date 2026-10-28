@@ -1,0 +1,31 @@
+19:01:55.541 [ultima-x11] polices du jeu chargees depuis /home/mio/sts2/game/pck/fonts
+19:01:55.549 [ultima-x11] window=0x1200002 visual=0x79 depth=32 override_redirect=1 screen=3072x1920 scale=2 (Xft.dpi=192) geom=28x464+3044+240 xfixes=6.0
+19:01:55.550 [ultima-x11] input_region_rects=0 (0 = click-through total)
+19:01:55.555 [ultima-x11] pid=110482 socket=/run/user/1000/ultima-x11.sock
+19:02:06.645 [ultima-x11] cmd 'status' -> ok window=0x1200002 expanded=false visible=true width=14 height=232 scale=2 xgeom=28x464+3044+240 input_rects=0 area_pct=0.22
+19:02:06.692 [ultima-x11] cmd 'toggle' -> ok expanded
+19:02:06.872 [ultima-x11] transition 14->260px en 184 ms, 12 images
+19:02:07.035 [ultima-x11] cmd 'toggle' -> ok collapsed
+19:02:07.224 [ultima-x11] transition 260->14px en 190 ms, 13 images
+19:02:07.376 [ultima-x11] cmd 'toggle' -> ok expanded
+19:02:07.569 [ultima-x11] transition 14->260px en 193 ms, 13 images
+19:02:07.720 [ultima-x11] cmd 'toggle' -> ok collapsed
+19:02:07.909 [ultima-x11] transition 260->14px en 188 ms, 13 images
+19:02:08.061 [ultima-x11] cmd 'toggle' -> ok expanded
+19:02:08.255 [ultima-x11] transition 14->260px en 193 ms, 13 images
+19:02:08.409 [ultima-x11] cmd 'toggle' -> ok collapsed
+19:02:08.599 [ultima-x11] transition 260->14px en 190 ms, 13 images
+19:02:08.750 [ultima-x11] cmd 'toggle' -> ok expanded
+19:02:08.944 [ultima-x11] transition 14->260px en 194 ms, 13 images
+19:02:09.091 [ultima-x11] cmd 'toggle' -> ok collapsed
+19:02:09.280 [ultima-x11] transition 260->14px en 189 ms, 13 images
+19:02:09.429 [ultima-x11] cmd 'toggle' -> ok expanded
+19:02:09.622 [ultima-x11] transition 14->260px en 193 ms, 13 images
+19:02:09.773 [ultima-x11] cmd 'toggle' -> ok collapsed
+19:02:09.964 [ultima-x11] transition 260->14px en 191 ms, 13 images
+19:02:43.200 [ultima-x11] cmd 'expand' -> ok expanded
+19:02:43.397 [ultima-x11] transition 14->260px en 196 ms, 13 images
+19:02:44.162 [ultima-x11] cmd 'collapse' -> ok collapsed
+19:02:44.352 [ultima-x11] transition 260->14px en 191 ms, 13 images
+19:03:03.360 [ultima-x11] cmd 'quit' -> ok bye
+19:03:03.360 [ultima-x11] arret

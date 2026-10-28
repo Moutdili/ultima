@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# ULTIMA moteur A (X11 override-redirect). Lanceur + client de commande.
+#   ultima-x11 run [--expanded]   lance l'overlay
+#   ultima-x11 toggle             bascule rail <-> panneau (a brancher sur un raccourci GNOME)
+#   ultima-x11 visible            masque / affiche totalement (equivalent F8 v1)
+#   ultima-x11 status | stack | snapshot <png> | quit
+set -euo pipefail
+here="$(cd "$(dirname "$(readlink -f "$0")")" && pwd)"
+export PATH="$HOME/.dotnet:$PATH"
+dll="$here/build/ultima-x11.dll"
+
+# Le jeu tourne sous XWayland : l'overlay DOIT parler au meme serveur X.
+export DISPLAY="${DISPLAY:-:0}"
+
+if [[ ! -f "$dll" || -n "$(find "$here/src" -newer "$dll" -name '*.cs' -o -newer "$dll" -name '*.csproj' 2>/dev/null | head -1)" ]]; then
+  dotnet build "$here/src" -c Release -o "$here/build" -nologo -v q >&2
+fi
+exec dotnet "$dll" "$@"

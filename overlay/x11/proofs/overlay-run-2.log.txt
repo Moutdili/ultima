@@ -1,0 +1,33 @@
+19:01:32.821 [ultima-x11] polices du jeu chargees depuis /home/mio/sts2/game/pck/fonts
+19:01:32.830 [ultima-x11] window=0x1200002 visual=0x79 depth=32 override_redirect=1 screen=3072x1920 scale=2 (Xft.dpi=192) geom=28x464+3044+240 xfixes=6.0
+19:01:32.831 [ultima-x11] input_region_rects=0 (0 = click-through total)
+19:01:32.836 [ultima-x11] pid=108166 socket=/run/user/1000/ultima-x11.sock
+19:01:42.936 [ultima-x11] cmd 'status' -> ok window=0x1200002 expanded=false visible=true width=14 height=232 scale=2 xgeom=28x464+3044+240 input_rects=0 area_pct=0.22
+19:01:43.014 [ultima-x11] cmd 'toggle' -> ok expanded
+19:01:43.189 [ultima-x11] transition 14->260px en 183 ms, 20 images
+19:01:43.368 [ultima-x11] cmd 'toggle' -> ok collapsed
+19:01:43.550 [ultima-x11] transition 260->14px en 182 ms, 22 images
+19:01:43.715 [ultima-x11] cmd 'toggle' -> ok expanded
+19:01:43.895 [ultima-x11] transition 14->260px en 180 ms, 21 images
+19:01:44.059 [ultima-x11] cmd 'toggle' -> ok collapsed
+19:01:44.242 [ultima-x11] transition 260->14px en 184 ms, 22 images
+19:01:44.402 [ultima-x11] cmd 'toggle' -> ok expanded
+19:01:44.589 [ultima-x11] transition 14->260px en 187 ms, 22 images
+19:01:44.745 [ultima-x11] cmd 'toggle' -> ok collapsed
+19:01:44.932 [ultima-x11] transition 260->14px en 188 ms, 23 images
+19:01:45.089 [ultima-x11] cmd 'toggle' -> ok expanded
+19:01:45.274 [ultima-x11] transition 14->260px en 186 ms, 22 images
+19:01:45.432 [ultima-x11] cmd 'toggle' -> ok collapsed
+19:01:45.620 [ultima-x11] transition 260->14px en 188 ms, 23 images
+19:01:45.772 [ultima-x11] cmd 'toggle' -> ok expanded
+19:01:45.954 [ultima-x11] transition 14->260px en 181 ms, 21 images
+19:01:46.114 [ultima-x11] cmd 'toggle' -> ok collapsed
+19:01:46.301 [ultima-x11] transition 260->14px en 188 ms, 23 images
+19:01:46.462 [ultima-x11] cmd 'snapshot /home/mio/v2-verrier-x11/overlay/x11/proofs/render-rail.png' -> ok /home/mio/v2-verrier-x11/overlay/x11/proofs/render-rail.png
+19:01:46.506 [ultima-x11] cmd 'expand' -> ok expanded
+19:01:46.690 [ultima-x11] transition 14->260px en 185 ms, 21 images
+19:01:46.856 [ultima-x11] cmd 'snapshot /home/mio/v2-verrier-x11/overlay/x11/proofs/render-panel.png' -> ok /home/mio/v2-verrier-x11/overlay/x11/proofs/render-panel.png
+19:01:46.900 [ultima-x11] cmd 'collapse' -> ok collapsed
+19:01:47.081 [ultima-x11] transition 260->14px en 181 ms, 22 images
+19:01:55.146 [ultima-x11] cmd 'quit' -> ok bye
+19:01:55.146 [ultima-x11] arret

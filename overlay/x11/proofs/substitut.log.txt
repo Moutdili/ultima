@@ -1,0 +1,241 @@
+/home/mio/v2-verrier-x11/overlay/x11/substitute/fake-fullscreen-game.py:95: DeprecationWarning: Gtk.Window.set_wmclass is deprecated
+  win.set_wmclass("ultima-substitut", "UltimaSubstitut")
+18:57:03 [substitut] xid=0x1200003 pid=70944 DISPLAY=:0
+18:57:03 [substitut] etat fenetre : fullscreen=True focused=True
+18:57:03 [substitut] etat fenetre : fullscreen=True focused=False
+18:57:03 [substitut] etat fenetre : fullscreen=True focused=False
+18:57:03 [substitut] etat fenetre : fullscreen=True focused=True
+18:57:03 [substitut] focus GAGNE
+18:57:03 [substitut] pointeur ENTREE x=135 y=670 detail=virtual
+18:57:15 [substitut] CLIC bouton=1 x=154 y=556
+18:57:15 [substitut] pointeur SORTIE x=154 y=556 detail=inferior
+18:57:17 [substitut] CLIC bouton=1 x=872 y=431
+18:57:17 [substitut] pointeur SORTIE x=872 y=431 detail=inferior
+18:57:17 [substitut] CLIC bouton=1 x=1017 y=682
+18:57:18 [substitut] pointeur SORTIE x=1017 y=682 detail=inferior
+18:57:18 [substitut] CLIC bouton=1 x=494 y=721
+18:57:18 [substitut] pointeur SORTIE x=494 y=721 detail=inferior
+18:57:19 [substitut] CLIC bouton=1 x=1196 y=257
+18:57:19 [substitut] pointeur SORTIE x=1196 y=257 detail=inferior
+18:57:22 [substitut] CLIC bouton=1 x=1303 y=458
+18:57:22 [substitut] pointeur SORTIE x=1303 y=458 detail=inferior
+18:57:23 [substitut] CLIC bouton=1 x=148 y=401
+18:57:23 [substitut] pointeur SORTIE x=148 y=401 detail=inferior
+18:57:24 [substitut] CLIC bouton=1 x=1185 y=51
+18:57:24 [substitut] pointeur SORTIE x=1185 y=51 detail=inferior
+18:57:25 [substitut] CLIC bouton=1 x=297 y=368
+18:57:25 [substitut] pointeur SORTIE x=297 y=368 detail=inferior
+18:57:26 [substitut] CLIC bouton=1 x=301 y=692
+18:57:26 [substitut] pointeur SORTIE x=301 y=692 detail=inferior
+18:57:26 [substitut] CLIC bouton=1 x=935 y=849
+18:57:27 [substitut] pointeur SORTIE x=935 y=849 detail=inferior
+18:57:28 [substitut] CLIC bouton=1 x=466 y=344
+18:57:28 [substitut] pointeur SORTIE x=466 y=344 detail=inferior
+18:57:29 [substitut] CLIC bouton=1 x=1085 y=176
+18:57:29 [substitut] pointeur SORTIE x=1085 y=176 detail=inferior
+18:57:30 [substitut] CLIC bouton=1 x=888 y=157
+18:57:30 [substitut] pointeur SORTIE x=888 y=157 detail=inferior
+18:57:30 [substitut] CLIC bouton=1 x=825 y=278
+18:57:30 [substitut] pointeur SORTIE x=825 y=278 detail=inferior
+18:57:31 [substitut] CLIC bouton=1 x=1062 y=323
+18:57:31 [substitut] pointeur SORTIE x=1062 y=323 detail=inferior
+18:57:31 [substitut] CLIC bouton=1 x=1427 y=115
+18:57:32 [substitut] pointeur SORTIE x=1427 y=115 detail=inferior
+18:57:32 [substitut] CLIC bouton=1 x=1296 y=482
+18:57:32 [substitut] pointeur SORTIE x=1296 y=482 detail=inferior
+18:57:33 [substitut] CLIC bouton=1 x=1531 y=123
+18:57:33 [substitut] pointeur SORTIE x=1531 y=123 detail=inferior
+18:57:34 [substitut] CLIC bouton=1 x=1412 y=105
+18:57:34 [substitut] pointeur SORTIE x=1412 y=105 detail=inferior
+18:57:34 [substitut] CLIC bouton=1 x=1137 y=424
+18:57:34 [substitut] pointeur SORTIE x=1137 y=424 detail=inferior
+18:57:51 [substitut] pointeur SORTIE x=1029 y=496 detail=virtual
+18:57:52 [substitut] pointeur ENTREE x=1029 y=496 detail=virtual
+18:57:52 [substitut] CLIC bouton=1 x=802 y=497
+18:57:53 [substitut] pointeur SORTIE x=802 y=497 detail=inferior
+18:57:53 [substitut] CLIC bouton=1 x=354 y=810
+18:57:53 [substitut] pointeur SORTIE x=354 y=810 detail=inferior
+18:57:56 [substitut] CLIC bouton=1 x=250 y=726
+18:57:56 [substitut] pointeur SORTIE x=250 y=726 detail=inferior
+18:57:57 [substitut] CLIC bouton=1 x=251 y=654
+18:57:57 [substitut] pointeur SORTIE x=251 y=654 detail=inferior
+18:57:58 [substitut] CLIC bouton=1 x=95 y=671
+18:57:58 [substitut] pointeur SORTIE x=95 y=671 detail=inferior
+18:57:58 [substitut] CLIC bouton=1 x=97 y=764
+18:57:59 [substitut] pointeur SORTIE x=97 y=764 detail=inferior
+18:57:59 [substitut] CLIC bouton=1 x=32 y=682
+18:57:59 [substitut] pointeur SORTIE x=32 y=682 detail=inferior
+18:58:00 [substitut] CLIC bouton=1 x=2 y=611
+18:58:00 [substitut] pointeur SORTIE x=2 y=611 detail=inferior
+18:58:01 [substitut] CLIC bouton=1 x=0 y=556
+18:58:01 [substitut] pointeur SORTIE x=0 y=556 detail=inferior
+18:58:02 [substitut] CLIC bouton=1 x=0 y=505
+18:58:02 [substitut] pointeur SORTIE x=0 y=505 detail=inferior
+18:58:02 [substitut] CLIC bouton=1 x=5 y=451
+18:58:03 [substitut] pointeur SORTIE x=5 y=451 detail=inferior
+18:58:03 [substitut] CLIC bouton=1 x=5 y=473
+18:58:04 [substitut] pointeur SORTIE x=5 y=473 detail=inferior
+18:58:04 [substitut] CLIC bouton=1 x=25 y=473
+18:58:04 [substitut] pointeur SORTIE x=25 y=473 detail=inferior
+18:58:05 [substitut] CLIC bouton=1 x=3 y=486
+18:58:05 [substitut] pointeur SORTIE x=3 y=486 detail=inferior
+18:58:06 [substitut] CLIC bouton=1 x=0 y=516
+18:58:06 [substitut] pointeur SORTIE x=0 y=516 detail=inferior
+18:58:07 [substitut] CLIC bouton=1 x=0 y=536
+18:58:07 [substitut] pointeur SORTIE x=0 y=536 detail=inferior
+18:58:07 [substitut] CLIC bouton=1 x=4 y=567
+18:58:08 [substitut] pointeur SORTIE x=0 y=570 detail=inferior
+18:58:17 [substitut] CLIC bouton=1 x=1365 y=299
+18:58:17 [substitut] pointeur SORTIE x=1365 y=299 detail=inferior
+18:58:17 [substitut] CLIC bouton=1 x=1354 y=326
+18:58:18 [substitut] pointeur SORTIE x=1354 y=326 detail=inferior
+18:58:18 [substitut] CLIC bouton=1 x=1382 y=290
+18:58:18 [substitut] pointeur SORTIE x=1382 y=290 detail=inferior
+18:58:18 [substitut] CLIC bouton=1 x=1397 y=176
+18:58:19 [substitut] pointeur SORTIE x=1397 y=176 detail=inferior
+18:58:19 [substitut] CLIC bouton=1 x=1381 y=260
+18:58:19 [substitut] pointeur SORTIE x=1381 y=260 detail=inferior
+18:58:20 [substitut] CLIC bouton=1 x=1379 y=192
+18:58:20 [substitut] pointeur SORTIE x=1379 y=192 detail=inferior
+18:58:20 [substitut] CLIC bouton=1 x=1365 y=245
+18:58:20 [substitut] pointeur SORTIE x=1365 y=245 detail=inferior
+18:58:21 [substitut] CLIC bouton=1 x=1346 y=146
+18:58:21 [substitut] pointeur SORTIE x=1346 y=146 detail=inferior
+18:58:21 [substitut] CLIC bouton=1 x=1311 y=132
+18:58:21 [substitut] pointeur SORTIE x=1311 y=132 detail=inferior
+18:58:22 [substitut] CLIC bouton=1 x=1522 y=146
+18:58:22 [substitut] pointeur SORTIE x=1522 y=146 detail=inferior
+18:58:22 [substitut] CLIC bouton=1 x=1415 y=197
+18:58:22 [substitut] pointeur SORTIE x=1415 y=197 detail=inferior
+18:58:23 [substitut] CLIC bouton=1 x=1352 y=232
+18:58:23 [substitut] pointeur SORTIE x=1352 y=232 detail=inferior
+18:58:24 [substitut] CLIC bouton=1 x=1347 y=312
+18:58:24 [substitut] pointeur SORTIE x=1347 y=312 detail=inferior
+18:58:24 [substitut] CLIC bouton=1 x=1283 y=330
+18:58:25 [substitut] pointeur SORTIE x=1283 y=330 detail=inferior
+18:58:25 [substitut] CLIC bouton=1 x=1372 y=320
+18:58:25 [substitut] pointeur SORTIE x=1372 y=320 detail=inferior
+18:58:25 [substitut] CLIC bouton=1 x=1470 y=323
+18:58:25 [substitut] pointeur SORTIE x=1470 y=323 detail=inferior
+18:58:28 [substitut] CLIC bouton=1 x=631 y=561
+18:58:28 [substitut] pointeur SORTIE x=633 y=563 detail=inferior
+18:58:29 [substitut] CLIC bouton=1 x=459 y=553
+18:58:29 [substitut] pointeur SORTIE x=459 y=553 detail=inferior
+18:58:31 [substitut] CLIC bouton=1 x=0 y=698
+18:58:31 [substitut] pointeur SORTIE x=0 y=698 detail=inferior
+18:58:35 [substitut] CLIC bouton=1 x=0 y=562
+18:58:35 [substitut] pointeur SORTIE x=0 y=562 detail=inferior
+18:58:36 [substitut] CLIC bouton=1 x=0 y=600
+18:58:36 [substitut] pointeur SORTIE x=0 y=600 detail=inferior
+18:58:37 [substitut] CLIC bouton=1 x=0 y=520
+18:58:37 [substitut] pointeur SORTIE x=0 y=520 detail=inferior
+18:58:39 [substitut] CLIC bouton=1 x=0 y=521
+18:58:39 [substitut] pointeur SORTIE x=0 y=521 detail=inferior
+18:58:39 [substitut] CLIC bouton=1 x=0 y=481
+18:58:40 [substitut] pointeur SORTIE x=0 y=481 detail=inferior
+18:58:40 [substitut] CLIC bouton=1 x=0 y=460
+18:58:40 [substitut] pointeur SORTIE x=0 y=460 detail=inferior
+18:58:41 [substitut] CLIC bouton=1 x=0 y=437
+18:58:41 [substitut] pointeur SORTIE x=0 y=437 detail=inferior
+18:58:42 [substitut] CLIC bouton=1 x=0 y=414
+18:58:42 [substitut] pointeur SORTIE x=0 y=414 detail=inferior
+18:58:43 [substitut] CLIC bouton=1 x=0 y=382
+18:58:43 [substitut] pointeur SORTIE x=0 y=382 detail=inferior
+18:58:43 [substitut] CLIC bouton=1 x=0 y=351
+18:58:44 [substitut] pointeur SORTIE x=0 y=351 detail=inferior
+18:58:44 [substitut] pointeur SORTIE x=0 y=351 detail=virtual
+18:58:44 [substitut] pointeur ENTREE x=0 y=328 detail=virtual
+18:58:44 [substitut] CLIC bouton=1 x=0 y=319
+18:58:44 [substitut] pointeur SORTIE x=0 y=319 detail=inferior
+18:58:45 [substitut] CLIC bouton=1 x=0 y=273
+18:58:45 [substitut] pointeur SORTIE x=0 y=273 detail=inferior
+18:58:46 [substitut] CLIC bouton=1 x=0 y=242
+18:58:46 [substitut] pointeur SORTIE x=0 y=242 detail=inferior
+18:58:47 [substitut] CLIC bouton=1 x=0 y=211
+18:58:47 [substitut] pointeur SORTIE x=0 y=211 detail=inferior
+18:58:47 [substitut] CLIC bouton=1 x=0 y=170
+18:58:47 [substitut] pointeur SORTIE x=0 y=170 detail=inferior
+18:58:48 [substitut] CLIC bouton=1 x=0 y=136
+18:58:48 [substitut] pointeur SORTIE x=0 y=136 detail=inferior
+18:58:49 [substitut] CLIC bouton=1 x=0 y=100
+18:58:49 [substitut] pointeur SORTIE x=0 y=100 detail=inferior
+18:58:50 [substitut] CLIC bouton=1 x=0 y=52
+18:58:50 [substitut] pointeur SORTIE x=0 y=52 detail=inferior
+18:58:51 [substitut] CLIC bouton=1 x=0 y=14
+18:58:51 [substitut] pointeur SORTIE x=0 y=14 detail=inferior
+18:58:52 [substitut] CLIC bouton=1 x=0 y=0
+18:58:52 [substitut] pointeur SORTIE x=0 y=0 detail=inferior
+18:58:55 [substitut] CLIC bouton=1 x=1423 y=185
+18:58:55 [substitut] pointeur SORTIE x=1422 y=186 detail=inferior
+18:58:55 [substitut] CLIC bouton=1 x=1341 y=307
+18:58:55 [substitut] pointeur SORTIE x=1341 y=308 detail=inferior
+18:58:56 [substitut] CLIC bouton=1 x=1302 y=212
+18:58:56 [substitut] pointeur SORTIE x=1302 y=212 detail=inferior
+18:58:56 [substitut] CLIC bouton=1 x=1339 y=135
+18:58:56 [substitut] pointeur SORTIE x=1339 y=135 detail=inferior
+18:58:57 [substitut] CLIC bouton=1 x=1326 y=248
+18:58:57 [substitut] pointeur SORTIE x=1326 y=248 detail=inferior
+18:58:57 [substitut] CLIC bouton=1 x=1333 y=309
+18:58:57 [substitut] pointeur SORTIE x=1333 y=309 detail=inferior
+18:58:58 [substitut] CLIC bouton=1 x=1283 y=334
+18:58:58 [substitut] pointeur SORTIE x=1283 y=334 detail=inferior
+18:58:58 [substitut] CLIC bouton=1 x=1307 y=262
+18:58:58 [substitut] pointeur SORTIE x=1307 y=262 detail=inferior
+18:58:59 [substitut] CLIC bouton=1 x=1304 y=192
+18:58:59 [substitut] pointeur SORTIE x=1304 y=192 detail=inferior
+18:58:59 [substitut] CLIC bouton=1 x=1313 y=258
+18:58:59 [substitut] pointeur SORTIE x=1313 y=258 detail=inferior
+18:58:59 [substitut] CLIC bouton=1 x=1314 y=302
+18:59:00 [substitut] pointeur SORTIE x=1314 y=302 detail=inferior
+18:59:00 [substitut] CLIC bouton=1 x=1485 y=285
+18:59:00 [substitut] pointeur SORTIE x=1485 y=285 detail=inferior
+18:59:00 [substitut] pointeur SORTIE x=1469 y=186 detail=virtual
+18:59:01 [substitut] pointeur ENTREE x=1535 y=213 detail=virtual
+18:59:01 [substitut] CLIC bouton=1 x=1535 y=213
+18:59:01 [substitut] pointeur SORTIE x=1535 y=213 detail=inferior
+18:59:02 [substitut] CLIC bouton=1 x=1518 y=243
+18:59:02 [substitut] pointeur SORTIE x=1518 y=243 detail=inferior
+18:59:03 [substitut] CLIC bouton=1 x=1535 y=237
+18:59:03 [substitut] pointeur SORTIE x=1535 y=237 detail=ancestor
+18:59:03 [substitut] pointeur ENTREE x=1535 y=237 detail=virtual
+18:59:04 [substitut] CLIC bouton=1 x=1531 y=238
+18:59:04 [substitut] pointeur SORTIE x=1531 y=238 detail=inferior
+18:59:05 [substitut] CLIC bouton=1 x=1530 y=242
+18:59:05 [substitut] pointeur SORTIE x=1530 y=242 detail=inferior
+18:59:05 [substitut] CLIC bouton=1 x=1530 y=246
+18:59:05 [substitut] CLIC bouton=1 x=1530 y=246
+18:59:05 [substitut] pointeur SORTIE x=1530 y=246 detail=inferior
+18:59:05 [substitut] CLIC bouton=1 x=1530 y=246
+18:59:05 [substitut] CLIC bouton=1 x=1530 y=246
+18:59:05 [substitut] pointeur SORTIE x=1530 y=246 detail=inferior
+18:59:06 [substitut] CLIC bouton=1 x=1531 y=235
+18:59:06 [substitut] pointeur SORTIE x=1531 y=235 detail=inferior
+18:59:06 [substitut] CLIC bouton=1 x=1531 y=236
+18:59:06 [substitut] pointeur SORTIE x=1531 y=236 detail=inferior
+18:59:07 [substitut] CLIC bouton=1 x=1530 y=232
+18:59:07 [substitut] pointeur SORTIE x=1497 y=291 detail=inferior
+18:59:54 [substitut] focus PERDU
+18:59:54 [substitut] etat fenetre : fullscreen=True focused=False
+18:59:54 [substitut] pointeur SORTIE x=1451 y=421 detail=nonlinear-virtual
+19:00:04 [substitut] pointeur ENTREE x=972 y=959 detail=nonlinear-virtual
+19:00:04 [substitut] focus GAGNE
+19:00:04 [substitut] etat fenetre : fullscreen=True focused=True
+19:00:11 [substitut] CLIC bouton=1 x=1501 y=155
+19:00:11 [substitut] pointeur SORTIE x=1508 y=153 detail=inferior
+19:00:11 [substitut] CLIC bouton=1 x=1535 y=274
+19:00:11 [substitut] pointeur SORTIE x=1534 y=274 detail=inferior
+19:00:12 [substitut] CLIC bouton=1 x=1535 y=244
+19:00:12 [substitut] pointeur SORTIE x=1535 y=244 detail=ancestor
+19:00:12 [substitut] pointeur ENTREE x=1535 y=245 detail=virtual
+19:00:13 [substitut] pointeur SORTIE x=1530 y=245 detail=virtual
+19:00:15 [substitut] focus PERDU
+19:00:28 [substitut] focus GAGNE
+19:00:28 [substitut] pointeur ENTREE x=1018 y=634 detail=virtual
+19:00:28 [substitut] CLIC bouton=1 x=988 y=665
+19:00:28 [substitut] pointeur SORTIE x=988 y=665 detail=inferior
+19:00:29 [substitut] CLIC bouton=1 x=1535 y=229
+19:00:29 [substitut] pointeur SORTIE x=1535 y=229 detail=inferior
+19:00:44 [substitut] pointeur SORTIE x=1535 y=229 detail=virtual
+19:00:45 [substitut] focus PERDU
+19:00:45 [substitut] etat fenetre : fullscreen=True focused=False
+19:01:03 [substitut] fin (106 clics)

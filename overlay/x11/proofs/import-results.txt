@@ -1,0 +1,11 @@
+# Captures X11 avec ImageMagick `import` (7.1.2-34) sous Xwayland rootless (GNOME Shell 50.6 / Mutter, Wayland)
+$ import -window root import-root-expanded.png
+import: missing an image filename `import-root-expanded.png' @ error/import.c/ImportImageCommand/1291.   (rc=1)
+-> AUCUNE image : sous Xwayland rootless la racine X n'a pas de framebuffer ; la composition est faite par Mutter, hors X.
+
+$ import -window 0x1200003 import-window-substitut.png   -> 3072x1920, contenu de la SEULE fenetre substitut (rc=0)
+$ import -window 0x1400002 import-window-overlay.png     -> 520x464, contenu de la SEULE fenetre ULTIMA, alpha perdu (verre sur noir)
+-> `import -window <id>` lit le pixmap de redirection d'UNE fenetre : utile pour verifier nos pixels, PAS la superposition.
+
+# Capture composee (ce que voit l'oeil) : portail xdg-desktop-portal Screenshot, non interactif, accepte sans dialogue
+$ python3 -I ../tools/portal-screenshot.py composited-expanded.png  -> 1920x1200 (pixels PHYSIQUES, ecran eDP-1 a 125 %)

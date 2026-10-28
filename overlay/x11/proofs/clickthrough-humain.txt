@@ -1,0 +1,68 @@
+# Clics HUMAINS (non synthetiques : pas de xdotool, XTest passe par le portail ei) recus par le substitut plein ecran
+# coordonnees GTK logiques (x2 = px X). Zone ULTIMA en px logiques : rail x>=1522, panneau x>=1276, y 120..352
+# etat de l'overlay : deploye 18:58:07.3 -> 18:59:00.5 ; replie sinon (overlay-run.log.txt)
+substitut-2-apres-overlay.log.txt:19:00:49 [substitut] CLIC bouton=1 x=1429 y=193 [zone PANNEAU]
+substitut-2-apres-overlay.log.txt:19:00:50 [substitut] CLIC bouton=1 x=1382 y=331 [zone PANNEAU]
+substitut-2-apres-overlay.log.txt:19:00:51 [substitut] CLIC bouton=1 x=1535 y=237 [zone RAIL]
+substitut-2-apres-overlay.log.txt:19:00:52 [substitut] CLIC bouton=1 x=1440 y=207 [zone PANNEAU]
+substitut.log.txt:18:57:33 [substitut] CLIC bouton=1 x=1531 y=123 [zone RAIL]
+substitut.log.txt:18:58:17 [substitut] CLIC bouton=1 x=1365 y=299 [zone PANNEAU]
+substitut.log.txt:18:58:17 [substitut] CLIC bouton=1 x=1354 y=326 [zone PANNEAU]
+substitut.log.txt:18:58:18 [substitut] CLIC bouton=1 x=1382 y=290 [zone PANNEAU]
+substitut.log.txt:18:58:18 [substitut] CLIC bouton=1 x=1397 y=176 [zone PANNEAU]
+substitut.log.txt:18:58:19 [substitut] CLIC bouton=1 x=1381 y=260 [zone PANNEAU]
+substitut.log.txt:18:58:20 [substitut] CLIC bouton=1 x=1379 y=192 [zone PANNEAU]
+substitut.log.txt:18:58:20 [substitut] CLIC bouton=1 x=1365 y=245 [zone PANNEAU]
+substitut.log.txt:18:58:21 [substitut] CLIC bouton=1 x=1346 y=146 [zone PANNEAU]
+substitut.log.txt:18:58:21 [substitut] CLIC bouton=1 x=1311 y=132 [zone PANNEAU]
+substitut.log.txt:18:58:22 [substitut] CLIC bouton=1 x=1522 y=146 [zone RAIL]
+substitut.log.txt:18:58:22 [substitut] CLIC bouton=1 x=1415 y=197 [zone PANNEAU]
+substitut.log.txt:18:58:23 [substitut] CLIC bouton=1 x=1352 y=232 [zone PANNEAU]
+substitut.log.txt:18:58:24 [substitut] CLIC bouton=1 x=1347 y=312 [zone PANNEAU]
+substitut.log.txt:18:58:24 [substitut] CLIC bouton=1 x=1283 y=330 [zone PANNEAU]
+substitut.log.txt:18:58:25 [substitut] CLIC bouton=1 x=1372 y=320 [zone PANNEAU]
+substitut.log.txt:18:58:25 [substitut] CLIC bouton=1 x=1470 y=323 [zone PANNEAU]
+substitut.log.txt:18:58:55 [substitut] CLIC bouton=1 x=1423 y=185 [zone PANNEAU]
+substitut.log.txt:18:58:55 [substitut] CLIC bouton=1 x=1341 y=307 [zone PANNEAU]
+substitut.log.txt:18:58:56 [substitut] CLIC bouton=1 x=1302 y=212 [zone PANNEAU]
+substitut.log.txt:18:58:56 [substitut] CLIC bouton=1 x=1339 y=135 [zone PANNEAU]
+substitut.log.txt:18:58:57 [substitut] CLIC bouton=1 x=1326 y=248 [zone PANNEAU]
+substitut.log.txt:18:58:57 [substitut] CLIC bouton=1 x=1333 y=309 [zone PANNEAU]
+substitut.log.txt:18:58:58 [substitut] CLIC bouton=1 x=1283 y=334 [zone PANNEAU]
+substitut.log.txt:18:58:58 [substitut] CLIC bouton=1 x=1307 y=262 [zone PANNEAU]
+substitut.log.txt:18:58:59 [substitut] CLIC bouton=1 x=1304 y=192 [zone PANNEAU]
+substitut.log.txt:18:58:59 [substitut] CLIC bouton=1 x=1313 y=258 [zone PANNEAU]
+substitut.log.txt:18:58:59 [substitut] CLIC bouton=1 x=1314 y=302 [zone PANNEAU]
+substitut.log.txt:18:59:00 [substitut] CLIC bouton=1 x=1485 y=285 [zone PANNEAU]
+substitut.log.txt:18:59:01 [substitut] CLIC bouton=1 x=1535 y=213 [zone RAIL]
+substitut.log.txt:18:59:02 [substitut] CLIC bouton=1 x=1518 y=243 [zone PANNEAU]
+substitut.log.txt:18:59:03 [substitut] CLIC bouton=1 x=1535 y=237 [zone RAIL]
+substitut.log.txt:18:59:04 [substitut] CLIC bouton=1 x=1531 y=238 [zone RAIL]
+substitut.log.txt:18:59:05 [substitut] CLIC bouton=1 x=1530 y=242 [zone RAIL]
+substitut.log.txt:18:59:05 [substitut] CLIC bouton=1 x=1530 y=246 [zone RAIL]
+substitut.log.txt:18:59:05 [substitut] CLIC bouton=1 x=1530 y=246 [zone RAIL]
+substitut.log.txt:18:59:05 [substitut] CLIC bouton=1 x=1530 y=246 [zone RAIL]
+substitut.log.txt:18:59:05 [substitut] CLIC bouton=1 x=1530 y=246 [zone RAIL]
+substitut.log.txt:18:59:06 [substitut] CLIC bouton=1 x=1531 y=235 [zone RAIL]
+substitut.log.txt:18:59:06 [substitut] CLIC bouton=1 x=1531 y=236 [zone RAIL]
+substitut.log.txt:18:59:07 [substitut] CLIC bouton=1 x=1530 y=232 [zone RAIL]
+substitut.log.txt:19:00:11 [substitut] CLIC bouton=1 x=1501 y=155 [zone PANNEAU]
+substitut.log.txt:19:00:11 [substitut] CLIC bouton=1 x=1535 y=274 [zone RAIL]
+substitut.log.txt:19:00:12 [substitut] CLIC bouton=1 x=1535 y=244 [zone RAIL]
+substitut.log.txt:19:00:29 [substitut] CLIC bouton=1 x=1535 y=229 [zone RAIL]
+# total clics dans la zone ULTIMA livres au substitut :
+49
+# focus du substitut (aucune perte correlee a une commande overlay ; pertes 18:59:54, 19:00:15 = actions de Mio hors substitut [pointeur nonlinear-virtual], 19:00:45 = lancement du substitut 2) :
+18:57:03 [substitut] etat fenetre : fullscreen=True focused=True
+18:57:03 [substitut] etat fenetre : fullscreen=True focused=False
+18:57:03 [substitut] etat fenetre : fullscreen=True focused=False
+18:57:03 [substitut] etat fenetre : fullscreen=True focused=True
+18:57:03 [substitut] focus GAGNE
+18:59:54 [substitut] focus PERDU
+18:59:54 [substitut] etat fenetre : fullscreen=True focused=False
+19:00:04 [substitut] focus GAGNE
+19:00:04 [substitut] etat fenetre : fullscreen=True focused=True
+19:00:15 [substitut] focus PERDU
+19:00:28 [substitut] focus GAGNE
+19:00:45 [substitut] focus PERDU
+19:00:45 [substitut] etat fenetre : fullscreen=True focused=False
