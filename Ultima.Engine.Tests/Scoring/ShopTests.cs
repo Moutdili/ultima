@@ -55,23 +55,37 @@ public sealed class ShopTests
     // ------------------------------------------------- 1. prix vs or disponible
 
     [Fact]
-    public void Unaffordable_item_has_negative_term_and_lower_total()
+    public void Unaffordable_item_keeps_the_letter_and_says_why()
     {
+        // Décision du chef (docs/42, revue 18:10) : « trop cher » ≠ « mauvais ».
+        // L'abordabilité est déjà le booléen ShopItem.Affordable ; la note dit la valeur.
         var scorer = new Scorer();
         var ctx = Ctx(gold: 99);
 
         var affordable = scorer.ScoreShopItem("card", "CARD.ALCHEMIZE", 40, ctx);
         var tooDear = scorer.ScoreShopItem("card", "CARD.ALCHEMIZE", 250, ctx);
 
-        var blocked = tooDear.Terms.Where(t => t.Label.Contains("Non abordable", StringComparison.OrdinalIgnoreCase)).ToArray();
-        Assert.NotEmpty(blocked);
-        Assert.All(blocked, t => Assert.True(t.Points < 0, $"« {t.Label} » doit être négatif, vu {t.Points}"));
-        Assert.All(blocked, t => Assert.False(string.IsNullOrWhiteSpace(t.Source)));
+        Assert.Equal(affordable.Total, tooDear.Total);
+        Assert.Equal(affordable.Grade, tooDear.Grade);
 
-        Assert.True(tooDear.Total < affordable.Total,
-            $"non abordable {tooDear.Total} < abordable {affordable.Total}");
-        Assert.InRange(affordable.Total, 0, 100);
-        Assert.InRange(tooDear.Total, 0, 100);
+        var blocked = Assert.Single(tooDear.Terms, t => t.Label == "Non abordable");
+        Assert.Equal(0, blocked.Points);
+        Assert.Contains("250 or", blocked.Source);
+        Assert.DoesNotContain(affordable.Terms, t => t.Label == "Non abordable");
+    }
+
+    [Fact]
+    public void Shop_card_letter_is_the_reward_letter()
+    {
+        var scorer = new Scorer();
+        var ctx = Ctx(gold: 120);
+
+        var shop = scorer.ScoreShopItem("card", "CARD.ALCHEMIZE", 45, ctx);
+        var reward = scorer.ScoreCard(new CardInstance("CARD.ALCHEMIZE", 0, null, null), ctx);
+
+        Assert.Equal(reward.Total, shop.Total);
+        Assert.Equal(reward.Grade, shop.Grade);
+        Assert.Contains(shop.Terms, t => t.Label.StartsWith("Économie", StringComparison.Ordinal) && t.Points == 0);
     }
 
     [Fact]
@@ -83,12 +97,12 @@ public sealed class ShopTests
         var score = scorer.ScoreShopItem("card", "CARD.ALCHEMIZE", 50, ctx);
 
         Assert.InRange(score.Total, 0, 100);
-        Assert.Contains(score.Terms, t => t.Label == "Non abordable" && t.Points < 0);
-        Assert.Contains(score.Terms, t => t.Label.StartsWith("Économie", StringComparison.Ordinal) && t.Points == -15);
+        Assert.Contains(score.Terms, t => t.Label == "Non abordable" && t.Points == 0);
+        Assert.Contains(score.Terms, t => t.Label.StartsWith("Économie", StringComparison.Ordinal) && t.Points == 0);
     }
 
     [Fact]
-    public void Free_item_gets_max_economy_and_is_never_unaffordable()
+    public void Free_item_is_never_unaffordable()
     {
         var scorer = new Scorer();
         var ctx = Ctx(gold: 99);
@@ -97,7 +111,8 @@ public sealed class ShopTests
 
         Assert.InRange(score.Total, 0, 100);
         Assert.DoesNotContain(score.Terms, t => t.Label.Contains("Non abordable", StringComparison.OrdinalIgnoreCase));
-        Assert.Contains(score.Terms, t => t.Label.StartsWith("Économie", StringComparison.Ordinal) && t.Points == 15);
+        Assert.Contains(score.Terms, t =>
+            t.Label.StartsWith("Économie", StringComparison.Ordinal) && t.Source.Contains("gratuit"));
     }
 
     [Fact]
@@ -112,12 +127,15 @@ public sealed class ShopTests
         var full = scorer.ScoreShopItem("card", "CARD.ALCHEMIZE", 60, ctx);
         var onSale = scorer.ScoreShopItem("card", "CARD.ALCHEMIZE", 30, ctx);
 
-        static int Term(Score score, string prefix) =>
-            score.Terms.Single(t => t.Label.StartsWith(prefix, StringComparison.Ordinal)).Points;
+        static string EconomySource(Score score) =>
+            score.Terms.Single(t => t.Label.StartsWith("Économie", StringComparison.Ordinal)).Source;
 
-        Assert.Equal(Term(full, "Valeur ("), Term(onSale, "Valeur ("));
-        Assert.True(Term(onSale, "Économie") > Term(full, "Économie"));
-        Assert.True(onSale.Total > full.Total, $"soldé {onSale.Total} > plein tarif {full.Total}");
+        // La remise ne change pas la valeur de la carte : seule la ligne économie la mentionne.
+        Assert.Equal(full.Total, onSale.Total);
+        Assert.Equal(full.Grade, onSale.Grade);
+        Assert.NotEqual(EconomySource(full), EconomySource(onSale));
+        Assert.Contains("60 or", EconomySource(full));
+        Assert.Contains("30 or", EconomySource(onSale));
     }
 
     // ------------------------------------------------------- 2. retrait de carte
@@ -244,15 +262,18 @@ public sealed class ShopTests
     // -------------------------------------------------------------- 4. potions
 
     [Fact]
-    public void Potion_kind_scores_bounded_and_explained()
+    public void Potion_is_capped_and_marked_not_comparable()
     {
+        // Aucune source publique ne note les potions : un placeholder ne doit pas battre une carte
+        // mesurée. Note plafonnée + terme explicite + confiance inconnue.
         var scorer = new Scorer();
         var score = scorer.ScoreShopItem("potion", "POTION.FIRE_POTION", 50, Ctx(gold: 99));
 
-        Assert.InRange(score.Total, 0, 100);
-        Assert.NotEmpty(score.Terms);
+        Assert.InRange(score.Total, 0, ShopScorer.PotionCap);
+        Assert.Equal(Confidence.Unknown, score.Confidence);
         Assert.All(score.Terms, t => Assert.False(string.IsNullOrWhiteSpace(t.Source)));
-        Assert.Contains(score.Terms, t => t.Label == $"Valeur (potion)" && t.Points == (int)Math.Round(ShopScorer.PotionValue * 0.7));
+        Assert.Contains(score.Terms, t => t.Label == "Non comparable aux cartes" && t.Points == 0);
+        Assert.Contains(score.Terms, t => t.Label.StartsWith("Économie", StringComparison.Ordinal));
     }
 
     [Fact]
@@ -262,7 +283,8 @@ public sealed class ShopTests
         var score = scorer.ScoreShopItem("relic-bundle", "X", 30, Ctx(gold: 99));
 
         Assert.InRange(score.Total, 0, 100);
-        Assert.Contains(score.Terms, t => t.Source.Contains("inconnu"));
+        Assert.Equal(Confidence.Unknown, score.Confidence);
+        Assert.Contains(score.Terms, t => t.Label.Contains("inconnu", StringComparison.OrdinalIgnoreCase));
     }
 
     // ---------------------------------------------------------- 5. intégration

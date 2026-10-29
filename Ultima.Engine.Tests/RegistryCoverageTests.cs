@@ -32,6 +32,13 @@ public sealed class RegistryCoverageTests
 
         Assert.True(counts.GetProperty("cards").GetInt32() >= 570);
         Assert.True(counts.GetProperty("relics").GetInt32() >= 300);
+
+        // Décision du chef (docs/22) : une relique sans classe dans le code n'existe pas en jeu.
+        // Elle reste listée avec son drapeau et sort des totaux (297 = 304 − 7).
+        var withCode = counts.GetProperty("relics_with_code").GetInt32();
+        var localizationOnly = counts.GetProperty("relics_localization_only").GetInt32();
+        Assert.Equal(counts.GetProperty("relics").GetInt32(), withCode + localizationOnly);
+        Assert.Equal(7, localizationOnly);
         Assert.True(counts.GetProperty("potions").GetInt32() >= 60);
         Assert.True(counts.GetProperty("power_models").GetInt32() >= 250);
         Assert.True(counts.GetProperty("monsters").GetInt32() >= 110);

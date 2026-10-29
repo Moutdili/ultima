@@ -177,7 +177,9 @@ public sealed class SmokeTests
             File.Copy(Path.Combine(publicDir, "relic_tiers.json"), Path.Combine(localDir, "relic_tiers.json"));
             File.Copy(Path.Combine(publicDir, "archetypes.json"), Path.Combine(tmp, "archetypes.json"));
 
-            var meta = MetaTable.Load(tmp);
+            // includeLocal explicite : TestEnvironment neutralise local/ pour toute la suite,
+            // ce test-ci vérifie justement le repli fichier par fichier dans local/.
+            var meta = MetaTable.Load(tmp, includeLocal: true);
 
             Assert.NotEmpty(meta.Archetypes("CHARACTER.DEFECT"));   // repli sur le fichier commité
             Assert.True(meta.CardCount > 400);

@@ -181,7 +181,13 @@ public sealed class CardScorer
                 $"tes {stats.RunsWithCard + stats.RunsWithoutCard} runs");
         }
 
-        if (Fit(card, ctx) is { } fit) b.Add(fit);
+        // Fit : le terme affiché et le ΔG signé (contrat v1.2) viennent du même calcul.
+        double? fitDelta = null;
+        if (Fit(card, ctx) is { } fit)
+        {
+            if (fit.Term is { } fitTerm) b.Add(fitTerm);
+            fitDelta = fit.DeltaG;
+        }
 
         b.AddRange(_synergy.Terms(card, ctx));
 
@@ -190,7 +196,8 @@ public sealed class CardScorer
         if (includeNeed) b.AddRange(Need(card, ctx));
 
         var score = b.Build(Confidence.Of(meta?.SourceCount ?? 0, _personal.RunCount));
-        return curseDelta != 0 ? score with { DeltaG = curseDelta } : score;
+        var deltaG = curseDelta != 0 ? curseDelta : fitDelta;
+        return deltaG is { } signed && signed != 0 ? score with { DeltaG = signed } : score;
     }
 
     /// <summary>
@@ -293,7 +300,10 @@ public sealed class CardScorer
     /// Deck vide ou naissant (&lt; <see cref="MinDeckForFit"/>) ⇒ aucun fit : il n'y a pas encore de
     /// deck dont mesurer le manque, et le modèle de débit y est dominé par la dilution.
     /// </summary>
-    private ScoreTerm? Fit(CardInstance card, ScoringContext ctx)
+    /// <summary>Terme affiché (null si arrondi à 0) + ΔG signé non arrondi, pour <c>Score.DeltaG</c>.</summary>
+    private readonly record struct FitOutcome(ScoreTerm? Term, double DeltaG);
+
+    private FitOutcome? Fit(CardInstance card, ScoringContext ctx)
     {
         var deck = ctx.Deck ?? Array.Empty<CardInstance>();
         if (deck.Count < MinDeckForFit) return null;
@@ -303,9 +313,10 @@ public sealed class CardScorer
         var delta = memo.GetOrAdd(key, _ => _strength.DeltaForCardDetailed(ctx, card));
 
         var points = ScoreMath.Clamp(ScoreMath.Round(delta.Delta * FitScale), -MaxFit, MaxFit);
-        if (points == 0) return null;
+        var term = points == 0 ? null : new ScoreTerm("Fit au deck (ΔG)", points, delta.Describe());
 
-        return new ScoreTerm("Fit au deck (ΔG)", points, delta.Describe());
+        // Un ΔG non nul reste porté même si le terme s'arrondit à 0 : c'est lui que lit le contrat.
+        return delta.Delta == 0 ? null : new FitOutcome(term, delta.Delta);
     }
 
     /// <summary>
