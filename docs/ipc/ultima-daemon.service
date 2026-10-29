@@ -1,0 +1,45 @@
+# ULTIMA — daemon (unité systemd UTILISATEUR). NON installée : instructions dans docs/ipc/README.md §7.
+#
+#   mkdir -p ~/.config/systemd/user
+#   cp docs/ipc/ultima-daemon.service ~/.config/systemd/user/
+#   systemctl --user daemon-reload
+#   systemctl --user enable --now ultima-daemon.service
+#   journalctl --user -u ultima-daemon -f
+#
+# Lecture seule absolue sur le jeu : le daemon ne lance jamais le jeu, n'écrit jamais dans ses dossiers,
+# lit sa mémoire uniquement via le processus enfant ultima-mirror (process_vm_readv, jamais d'écriture).
+
+[Unit]
+Description=ULTIMA daemon (tracker Slay the Spire 2, lecture seule)
+Documentation=file:%h/sts2/docs/ipc/README.md
+After=graphical-session.target
+PartOf=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=%h/sts2/build/daemon/ultima-daemon run
+# Runtime .NET 9 de l'utilisateur (le daemon et ultima-mirror sont « framework-dependent »).
+Environment=DOTNET_ROOT=%h/.dotnet
+# Racine des données du calcul (meta/, catalog/, calibration/) — convention ULTIMA_DATA, README §6.
+Environment=ULTIMA_DATA=%h/sts2/data
+# Dossier IPC : $XDG_RUNTIME_DIR/ultima (0700), conservé à l'arrêt (le compagnon détecte l'arrêt par la socket).
+RuntimeDirectory=ultima
+RuntimeDirectoryMode=0700
+RuntimeDirectoryPreserve=yes
+
+# Sobriété (exigence Mio : FPS) — appliquée dès l'exec, à tous les fils et aux enfants du miroir.
+Nice=10
+IOSchedulingClass=idle
+MemoryHigh=256M
+# Pas de ProtectSystem/ProtectHome/PrivateUsers ici : en unité UTILISATEUR ils impliquent un espace de
+# noms utilisateur privé, et la lecture de la mémoire du jeu (process_vm_readv vers un processus de
+# l'espace de noms parent) n'a pas été testée dans ce cas. À durcir après la fenêtre de test n°2.
+NoNewPrivileges=yes
+
+Restart=on-failure
+RestartSec=5
+# Arrêt propre sur SIGTERM (< 500 ms mesuré) ; la socket est retirée, state.json reste (dernier état).
+TimeoutStopSec=5
+
+[Install]
+WantedBy=graphical-session.target
