@@ -115,7 +115,8 @@ def main():
             deck = []
             power_curve = []
             acts = [{"turns": 0, "exp_turns": 0.0, "dmg": 0, "exp_dmg": 0.0, "fights": 0} for _ in range(3)]
-            bosses: list[str | None] = [None, None, None]
+            # À A10 (DoubleBoss), l'acte 3 comporte DEUX boss : on garde la liste, pas le dernier.
+            bosses: list[list[str]] = [[], [], []]
             fights_detail: list[list] = []
             decisions: list[list] = []
             total_fights = 0
@@ -144,7 +145,7 @@ def main():
                     turns = room.get("turns_taken")
                     room_type = room.get("room_type") or entry.get("map_point_type")
                     if room_type == "boss" or "BOSS" in enc:
-                        bosses[min(act_i, 2)] = enc
+                        bosses[min(act_i, 2)].append(enc)
                     dmg = ps.get("damage_taken") or 0
                     exp = stats.get(enc) or {}
                     if room_type in ("monster", "elite", "boss") and turns:
