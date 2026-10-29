@@ -1,11 +1,34 @@
 using Ultima.Engine.Contracts;
 using Ultima.Engine.Scoring.Cards;
+using Ultima.Engine.Scoring.Curses;
+using Ultima.Engine.Scoring.Deck;
 using Ultima.Engine.Scoring.Model;
 using Ultima.Engine.Scoring.Personal;
 using Ultima.Engine.Scoring.Strength;
 using Ultima.Saves.Model;
 
 namespace Ultima.Engine.Scoring.Relics;
+
+/// <summary>
+/// Valeur nette d'une relique qui impose une malédiction :
+/// <c>note brute (consensus + fit + synergie + besoin) − pénalité mesurée de la malédiction</c>,
+/// moins le prix du retrait si l'on choisit de s'en débarrasser.
+/// <see cref="Curse"/> null ⇒ aucune malédiction imposée connue : <see cref="Net"/> = <see cref="Gross"/>.
+/// </summary>
+public sealed record RelicNetValue(
+    string RelicId,
+    Score Gross,
+    Score Net,
+    int CursePenalty,
+    int RemovalCost,
+    CurseVerdict? Curse,
+    string Source)
+{
+    public bool HasForcedCurse => Curse != null;
+
+    /// <summary>Perte totale en points de score (≤ 0).</summary>
+    public int Loss => CursePenalty + RemovalCost;
+}
 
 /// <summary>
 /// Score d'une relique (récompense, shop). Formule figée (docs/24-hermes-arch.md §2) :
@@ -48,13 +71,18 @@ public sealed class RelicScorer
     private readonly IPersonalStats _personal;
     private readonly RelicCatalog _catalog;
     private readonly PlayerStrengthCalculator _strength;
+    private readonly RelicCurseCatalog _curseRelics;
+    private readonly CurseScorer _curses;
 
     public RelicScorer(IMetaTable meta, IPersonalStats personal, RelicCatalog? catalog = null,
-        PlayerStrengthCalculator? strength = null)
+        PlayerStrengthCalculator? strength = null, RelicCurseCatalog? curseRelics = null,
+        CurseScorer? curses = null)
     {
         _meta = meta;
         _personal = personal;
         _catalog = catalog ?? RelicCatalog.Load();
+        _curseRelics = curseRelics ?? RelicCurseCatalog.Load();
+        _curses = curses ?? CurseScorer.Default;
 
         // Même catalogue de reliques que le scoring : les tags sont lus une seule fois.
         _strength = strength ?? new PlayerStrengthCalculator(relics: _catalog);
@@ -96,6 +124,74 @@ public sealed class RelicScorer
             : Confidence.Unknown;
 
         return AddNote(b.Build(confidence), note, noteSource);
+    }
+
+    /// <summary>
+    /// Valeur nette d'une relique qui impose une malédiction (docs/35 §4) :
+    /// <c>note brute − pénalité(toxicité de la malédiction imposée) [− coût du retrait]</c>.
+    ///
+    /// <para>
+    /// La correspondance relique → malédiction n'est <b>jamais</b> déduite d'un nom : elle vient de
+    /// <c>data/catalog/relic_curses.json</c>, où chaque entrée porte sa preuve (co-occurrence
+    /// mesurée sur le corpus). Une relique à malédictions aléatoires (Osselets de Neow, Serre
+    /// desséchée) n'est pas chiffrée : elle reçoit une ligne à 0 point qui dit pourquoi.
+    /// </para>
+    ///
+    /// <para>
+    /// <b>Choix assumé (pessimiste).</b> Le consensus communautaire d'une relique a été mesuré sur
+    /// des runs qui l'avaient prise — malédiction comprise. La valeur nette la soustrait donc deux
+    /// fois. Elle ne remplace pas la note de la relique : c'est la réponse à « et si je dois vivre
+    /// avec cette carte ? », étiquetée comme telle.
+    /// </para>
+    ///
+    /// <para>
+    /// <paramref name="includeRemovalCost"/> ajoute le prix du retrait (75 or, 100 à A6+ selon
+    /// docs/34) converti en points de score avec le barème du conseiller de retrait
+    /// (<see cref="RemovalAdvisor.PointsPerGold"/> = 12 or par point).
+    /// </para>
+    /// </summary>
+    public RelicNetValue NetValue(string relicId, ScoringContext ctx, bool includeRemovalCost = false)
+    {
+        var gross = Score(relicId, ctx);
+        var imposed = _curseRelics.Get(relicId);
+
+        if (imposed is null)
+            return new RelicNetValue(relicId, gross, gross, 0, 0, null,
+                "aucune malédiction imposée connue (data/catalog/relic_curses.json)");
+
+        // Malédictions aléatoires : on signale, on ne chiffre pas.
+        if (imposed.IsRandom)
+        {
+            var noted = AddNote(gross, "Malédiction aléatoire (nombre non mesuré)",
+                imposed.Evidence ?? "correspondance non prouvée");
+            return new RelicNetValue(relicId, gross, noted, 0, 0, null,
+                "malédictions aléatoires : nombre non prouvé → non chiffré " +
+                "(data/catalog/relic_curses.json, section rejected)");
+        }
+
+        var verdict = _curses.Classify(imposed.Curse!);
+        int penalty = verdict.Penalty * Math.Max(1, imposed.Count);
+        int price = RemovalAdvisor.PriceFor(ctx.Ascension);
+        int removal = includeRemovalCost
+            ? -ScoreMath.Round(price / RemovalAdvisor.PointsPerGold)
+            : 0;
+
+        // Termes du brut conservés tels quels (y compris les notes à 0 point : « Pas de note
+        // chiffrée » doit rester lisible), puis le coût de la malédiction, puis celui du retrait.
+        var terms = new List<ScoreTerm>(gross.Terms) { new(verdict.Label, penalty, verdict.Source) };
+
+        if (removal != 0)
+        {
+            terms.Add(new ScoreTerm($"Retrait de la malédiction ({price} or)",
+                removal,
+                $"prix du marchand à A{ctx.Ascension} (docs/34 : Inflation à A6 = 100 or) ; " +
+                $"barème {RemovalAdvisor.PointsPerGold:0} or par point de score"));
+        }
+
+        var net = new Score(ScoreMath.Clamp(terms.Sum(t => t.Points), 0, 100), terms, gross.Confidence);
+
+        return new RelicNetValue(relicId, gross, net, penalty, removal, verdict,
+            $"data/catalog/relic_curses.json — {verdict.Source}");
     }
 
     /// <summary>
