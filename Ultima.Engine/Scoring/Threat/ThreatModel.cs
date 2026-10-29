@@ -13,6 +13,13 @@ public static class ThreatRules
     /// 295/389 avec celle-ci.
     /// </summary>
     public const int AscensionDamageFrom = 10;
+
+    /// <summary>
+    /// Seuil d'inopérance du burst : un plafond ≤ 25 % du coup attendu rend un gros coup
+    /// unique (ou une salve) largement gaspillé. Lu dans le catalogue
+    /// (<c>burst_ineffective_ratio</c>) mais figé ici comme référence documentée.
+    /// </summary>
+    public const double BurstIneffectiveCapRatio = 0.25;
 }
 
 /// <summary>
@@ -114,6 +121,46 @@ public sealed record EncounterThreat(
 public sealed record WorstMoveThreat(string MonsterId, string MoveId, string MoveName, int Damage);
 
 /// <summary>
+/// Contrainte d'ennemi lue dans le code du jeu (docs/32 §4) et publiée par
+/// <c>tools/index_constraints.py</c> : plafond de dégâts subis, respawns, pouvoirs qui
+/// les portent.
+/// <para>
+/// <see cref="DamageCap"/> (Intangible : 1) et <see cref="HardToKill"/> (plafond = Amount)
+/// sont deux mécaniques distinctes dans le source ; <see cref="Cap"/> donne le plafond
+/// effectif, c'est-à-dire le plus contraignant des deux.
+/// </para>
+/// </summary>
+/// <param name="CapScope">
+/// Quand le plafond s'applique : <c>always</c> (dès l'entrée en salle), <c>periodic</c>
+/// (un move de la rotation, ex. Fade de SoulFysh), <c>late_phase</c> (après un respawn,
+/// ex. Nemesis de TestSubject). Chaîne vide si aucun plafond.
+/// </param>
+public sealed record ThreatConstraint(
+    string Id,
+    int? DamageCap,
+    int? HardToKill,
+    int Respawns,
+    string CapScope,
+    string? CapPower,
+    IReadOnlyList<string> Powers,
+    string? Source)
+{
+    /// <summary>Plafond effectif : minimum de <see cref="DamageCap"/> et <see cref="HardToKill"/>.</summary>
+    public int? Cap
+    {
+        get
+        {
+            if (DamageCap is null) return HardToKill;
+            if (HardToKill is null) return DamageCap;
+            return Math.Min(DamageCap.Value, HardToKill.Value);
+        }
+    }
+
+    /// <summary>Plafond actif dès l'entrée en salle (et non seulement sur un move).</summary>
+    public bool IsPermanent => string.Equals(CapScope, "always", StringComparison.OrdinalIgnoreCase);
+}
+
+/// <summary>
 /// Modèle de menace : dégâts entrants par rencontre et par ascension, PV effectifs.
 /// <para>
 /// Charge <c>data/catalog/monsters.json</c> et <c>data/catalog/encounters.json</c>
@@ -130,11 +177,18 @@ public sealed class ThreatModel
 {
     private readonly Dictionary<string, MonsterThreat> _monsters;
     private readonly Dictionary<string, EncounterThreat> _encounters;
+    private readonly Dictionary<string, ThreatConstraint> _constraints;
+    private readonly Dictionary<string, ThreatConstraint> _monsterConstraints;
 
-    private ThreatModel(Dictionary<string, MonsterThreat> monsters, Dictionary<string, EncounterThreat> encounters)
+    private ThreatModel(Dictionary<string, MonsterThreat> monsters,
+                        Dictionary<string, EncounterThreat> encounters,
+                        Dictionary<string, ThreatConstraint> constraints,
+                        Dictionary<string, ThreatConstraint> monsterConstraints)
     {
         _monsters = monsters;
         _encounters = encounters;
+        _constraints = constraints;
+        _monsterConstraints = monsterConstraints;
     }
 
     /// <summary>Nombre de monstres indexés.</summary>
@@ -143,13 +197,21 @@ public sealed class ThreatModel
     /// <summary>Nombre de rencontres indexées.</summary>
     public int EncounterCount => _encounters.Count;
 
+    /// <summary>Nombre de rencontres qui portent une contrainte (plafond ou respawn).</summary>
+    public int ConstraintCount => _constraints.Count;
+
+    /// <summary>Nombre de monstres qui portent une contrainte (plafond ou respawn).</summary>
+    public int MonsterConstraintCount => _monsterConstraints.Count;
+
     /// <summary>Toutes les rencontres du catalogue (lecture seule, ordre d'insertion).</summary>
     public IReadOnlyCollection<EncounterThreat> Encounters => _encounters.Values;
 
     /// <summary>Modèle vide (aucun fichier chargé) — jamais null, jamais d'exception.</summary>
     public static ThreatModel Empty { get; } = new(
         new Dictionary<string, MonsterThreat>(StringComparer.OrdinalIgnoreCase),
-        new Dictionary<string, EncounterThreat>(StringComparer.OrdinalIgnoreCase));
+        new Dictionary<string, EncounterThreat>(StringComparer.OrdinalIgnoreCase),
+        new Dictionary<string, ThreatConstraint>(StringComparer.OrdinalIgnoreCase),
+        new Dictionary<string, ThreatConstraint>(StringComparer.OrdinalIgnoreCase));
 
     private static readonly Lazy<ThreatModel> LazyDefault = new(
         () => LoadFrom(null), LazyThreadSafetyMode.ExecutionAndPublication);
@@ -176,7 +238,11 @@ public sealed class ThreatModel
 
         var monsters = LoadMonsters(Path.Combine(dir, "monsters.json"));
         var encounters = LoadEncounters(Path.Combine(dir, "encounters.json"));
-        return monsters.Count == 0 && encounters.Count == 0 ? Empty : new ThreatModel(monsters, encounters);
+        var constraintsPath = Path.Combine(dir, "constraints.json");
+        var monsterConstraints = LoadConstraints(constraintsPath, "monsters");
+        var constraints = LoadConstraints(constraintsPath, "encounters");
+        if (monsters.Count == 0 && encounters.Count == 0) return Empty;
+        return new ThreatModel(monsters, encounters, constraints, monsterConstraints);
     }
 
     /// <summary>
@@ -269,6 +335,113 @@ public sealed class ThreatModel
         var key = NormalizeId(encounterId);
         if (key.Length == 0) return null;
         return _encounters.TryGetValue(key, out var encounter) ? encounter : null;
+    }
+
+    /// <summary>
+    /// Contrainte agrégée d'une rencontre (source : <c>constraints.json</c>), null si la
+    /// rencontre est inconnue ou ne porte ni plafond ni respawn.
+    /// </summary>
+    public ThreatConstraint? Constraint(string? encounterId)
+    {
+        var key = NormalizeId(encounterId);
+        if (key.Length == 0) return null;
+        return _constraints.TryGetValue(key, out var constraint) ? constraint : null;
+    }
+
+    /// <summary>Contrainte d'un monstre (<c>SOUL_FYSH</c> ou <c>SoulFysh</c>) ; null sinon.</summary>
+    public ThreatConstraint? MonsterConstraint(string? monsterId)
+    {
+        var key = NormalizeId(monsterId);
+        if (key.Length == 0) return null;
+        return _monsterConstraints.TryGetValue(key, out var constraint) ? constraint : null;
+    }
+
+    /// <summary>
+    /// Plafond de dégâts subis de la rencontre, à l'ascension demandée ; null s'il n'y en a
+    /// pas ou si la rencontre est inconnue.
+    /// <para>
+    /// Un plafond est porté par une <b>créature</b> (<c>ModifyDamageCap</c> ne répond que si
+    /// <c>target == Owner</c>) : la valeur renvoyée est donc le plafond le plus contraignant
+    /// de ses monstres. Elle ne vaut que pour le monstre qui le porte — voir
+    /// <see cref="ThreatConstraint"/> et <c>cap_monsters</c> dans le catalogue.
+    /// </para>
+    /// <para>
+    /// Le paramètre <paramref name="ascension"/> est conservé par symétrie avec
+    /// <see cref="MaxHit"/> : les deux pouvoirs plafonneurs du source (Intangible = 1,
+    /// HardToKill = Amount) n'ont <b>aucune</b> variante d'ascension, donc la valeur ne
+    /// change pas avec elle.
+    /// </para>
+    /// </summary>
+    public int? DamageCap(string encounterId, int ascension)
+    {
+        _ = ascension; // vérifié dans le source : aucun AscensionHelper dans les deux pouvoirs
+        var encounter = Encounter(encounterId);
+        if (encounter is null) return null;
+
+        int? tightest = null;
+        foreach (var monsterId in encounter.MonsterIds)
+        {
+            if (!_monsterConstraints.TryGetValue(NormalizeId(monsterId), out var constraint)) continue;
+            if (constraint.Cap is not { } cap) continue;
+            tightest = tightest is null ? cap : Math.Min(tightest.Value, cap);
+        }
+
+        // Repli sur l'entrée agrégée si les monstres ne sont pas détaillés dans le catalogue.
+        if (tightest is null && Constraint(encounterId) is { } direct) return direct.Cap;
+        return tightest;
+    }
+
+    /// <summary>
+    /// Nombre de fois où un monstre de la rencontre revient après sa mort (0 si aucun ou si
+    /// la rencontre est inconnue). TestSubject : 2 (il meurt donc trois fois).
+    /// </summary>
+    public int Respawns(string encounterId)
+    {
+        var encounter = Encounter(encounterId);
+        if (encounter is null) return 0;
+
+        var respawns = 0;
+        foreach (var monsterId in encounter.MonsterIds)
+            if (_monsterConstraints.TryGetValue(NormalizeId(monsterId), out var constraint))
+                respawns = Math.Max(respawns, constraint.Respawns);
+
+        if (respawns == 0 && Constraint(encounterId) is { } direct) respawns = direct.Respawns;
+        return respawns;
+    }
+
+    /// <summary>
+    /// Le burst est-il inopérant contre cette rencontre ? Vrai quand <b>tous</b> ses monstres
+    /// plafonnent leurs dégâts subis et que ce plafond est ≤ 25 % du coup attendu.
+    /// <para>
+    /// Un plafonneur isolé dans une rencontre mixte ne suffit pas : le burst reste la bonne
+    /// réponse contre les autres monstres. Le coup attendu est ici le pire coup de la
+    /// rencontre (<see cref="MaxHit"/>) faute de profil de deck dans la signature ; les
+    /// appelants qui connaissent la puissance du joueur utilisent la surcharge explicite.
+    /// </para>
+    /// </summary>
+    public bool IsBurstIneffective(string encounterId, int ascension)
+        => IsBurstIneffective(encounterId, ascension, MaxHit(encounterId, ascension));
+
+    /// <summary>
+    /// Même règle avec un coup attendu explicite (le plus gros hit que le deck peut produire).
+    /// <paramref name="expectedHit"/> ≤ 0 ou rencontre inconnue ⇒ false (rien à conclure).
+    /// </summary>
+    public bool IsBurstIneffective(string encounterId, int ascension, int expectedHit)
+    {
+        _ = ascension; // aucun plafond ascensionnel dans le source
+        if (expectedHit <= 0) return false;
+
+        var encounter = Encounter(encounterId);
+        if (encounter is null || encounter.MonsterIds.Count == 0) return false;
+
+        var threshold = expectedHit * ThreatRules.BurstIneffectiveCapRatio;
+        foreach (var monsterId in encounter.MonsterIds)
+        {
+            if (!_monsterConstraints.TryGetValue(NormalizeId(monsterId), out var constraint))
+                return false; // un monstre sans contrainte connue : le burst garde une cible
+            if (constraint.Cap is not { } cap || cap > threshold) return false;
+        }
+        return true;
     }
 
     /// <summary>Monstre par id codex (<c>AEONGLASS</c>) ou nom de classe (<c>Aeonglass</c>) ; null sinon.</summary>
@@ -478,6 +651,67 @@ public sealed class ThreatModel
                     ParseStats(el));
 
                 map[NormalizeId(encounter.Id)] = encounter;
+            }
+        }
+        catch (JsonException)
+        {
+        }
+        catch (IOException)
+        {
+        }
+
+        return map;
+    }
+
+    /// <summary>
+    /// Charge une section de <c>constraints.json</c> (<c>monsters</c> ou <c>encounters</c>).
+    /// Fichier absent, corrompu ou de forme inattendue ⇒ dictionnaire vide : le modèle
+    /// continue de fonctionner, aucune exception (les contraintes sont un bonus, pas une
+    /// condition d'utilisation).
+    /// </summary>
+    private static Dictionary<string, ThreatConstraint> LoadConstraints(string path, string section)
+    {
+        var map = new Dictionary<string, ThreatConstraint>(StringComparer.OrdinalIgnoreCase);
+        if (!File.Exists(path)) return map;
+
+        try
+        {
+            using var doc = JsonDocument.Parse(File.ReadAllBytes(path));
+            if (doc.RootElement.ValueKind != JsonValueKind.Object) return map;
+            if (!doc.RootElement.TryGetProperty(section, out var sectionEl) ||
+                sectionEl.ValueKind != JsonValueKind.Object) return map;
+
+            foreach (var entry in sectionEl.EnumerateObject())
+            {
+                if (entry.Value.ValueKind != JsonValueKind.Object) continue;
+                var id = Str(entry.Value, "id") ?? entry.Name;
+                if (string.IsNullOrWhiteSpace(id)) continue;
+
+                var powers = new List<string>();
+                if (entry.Value.TryGetProperty("powers", out var powersEl) &&
+                    powersEl.ValueKind == JsonValueKind.Array)
+                {
+                    foreach (var item in powersEl.EnumerateArray())
+                    {
+                        if (item.ValueKind == JsonValueKind.String && item.GetString() is { Length: > 0 } pid)
+                            powers.Add(pid);
+                        else if (item.ValueKind == JsonValueKind.Object &&
+                                 Str(item, "id") is { Length: > 0 } oid)
+                            powers.Add(oid);
+                    }
+                }
+
+                var constraint = new ThreatConstraint(
+                    id!.ToUpperInvariant(),
+                    Int(entry.Value, "damage_cap"),
+                    Int(entry.Value, "hard_to_kill"),
+                    Int(entry.Value, "respawns") ?? 0,
+                    Str(entry.Value, "cap_scope") ?? string.Empty,
+                    Str(entry.Value, "cap_power"),
+                    powers,
+                    Str(entry.Value, "source"));
+
+                map[NormalizeId(constraint.Id)] = constraint;
             }
         }
         catch (JsonException)

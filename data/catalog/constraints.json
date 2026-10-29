@@ -1,0 +1,193 @@
+{
+ "generated_by": "tools/index_constraints.py",
+ "sources": [
+  "ssh mio@100.123.83.40:~/sts2/game/pck/src/Core",
+  "data/catalog/monsters.json",
+  "data/catalog/encounters.json",
+  "Models/Powers/IntangiblePower.cs",
+  "Models/Powers/HardToKillPower.cs",
+  "Models/Powers/NemesisPower.cs",
+  "Models/Monsters/SoulFysh.cs",
+  "Models/Monsters/Exoskeleton.cs",
+  "Models/Monsters/TestSubject.cs"
+ ],
+ "note": "contraintes d'ennemis lues dans le code du jeu (docs/32 §4). damage_cap = plafond de dégâts subis (Intangible = 1) ; hard_to_kill = plafond = Amount (HardToKill) ; respawns = nombre de fois où le monstre revient. cap_scope : always (dès l'entrée en salle) | periodic (un move de la rotation) | late_phase (après un respawn). Un plafond ne concerne que la créature qui le porte : les rencontres exposent cap_monsters. Toute entrée absente = aucune contrainte connue (jamais une valeur par défaut).",
+ "burst_ineffective_ratio": 0.25,
+ "extraction": {
+  "mode": "auto",
+  "source": "ssh mio@100.123.83.40:~/sts2/game/pck/src/Core",
+  "facts": 7,
+  "manual_cross_check": {
+   "mismatches": 0
+  },
+  "skipped": [
+   "MockArtifactMonster (Models/Monsters/Mocks/MockArtifactMonster.cs — monstre de test)",
+   "MockAttackAndSummonMinionMonster (Models/Monsters/Mocks/MockAttackAndSummonMinionMonster.cs — monstre de test)",
+   "MockIntangibleMonster (Models/Monsters/Mocks/MockIntangibleMonster.cs — monstre de test)",
+   "MockPlatingMonster (Models/Monsters/Mocks/MockPlatingMonster.cs — monstre de test)",
+   "MockReattachMonster (Models/Monsters/Mocks/MockReattachMonster.cs — monstre de test)"
+  ]
+ },
+ "counts": {
+  "monsters": 3,
+  "encounters": 4
+ },
+ "monsters": {
+  "EXOSKELETON": {
+   "id": "EXOSKELETON",
+   "class": "Exoskeleton",
+   "damage_cap": null,
+   "hard_to_kill": 9,
+   "respawns": 0,
+   "cap_scope": "always",
+   "cap_power": "HARD_TO_KILL",
+   "powers": [
+    {
+     "id": "HARD_TO_KILL",
+     "power": "HardToKillPower",
+     "amount": 9,
+     "scope": "room",
+     "move": null,
+     "source": "Models/Monsters/Exoskeleton.cs:49"
+    }
+   ],
+   "extraction": {
+    "hard_to_kill": "auto",
+    "powers": "auto"
+   },
+   "sources": {
+    "hard_to_kill": "Models/Monsters/Exoskeleton.cs:49; Models/Powers/HardToKillPower.cs:14-21",
+    "powers": "Models/Monsters/Exoskeleton.cs:49"
+   },
+   "source": "Models/Monsters/Exoskeleton.cs:49; Models/Powers/HardToKillPower.cs:14-21"
+  },
+  "SOUL_FYSH": {
+   "id": "SOUL_FYSH",
+   "class": "SoulFysh",
+   "damage_cap": 1,
+   "hard_to_kill": null,
+   "respawns": 0,
+   "cap_scope": "periodic",
+   "cap_power": "INTANGIBLE",
+   "powers": [
+    {
+     "id": "INTANGIBLE",
+     "power": "IntangiblePower",
+     "amount": 2,
+     "scope": "move",
+     "move": "FADE",
+     "source": "Models/Monsters/SoulFysh.cs:203"
+    }
+   ],
+   "extraction": {
+    "damage_cap": "auto",
+    "powers": "auto"
+   },
+   "sources": {
+    "damage_cap": "Models/Monsters/SoulFysh.cs:203; Models/Powers/IntangiblePower.cs:46-53",
+    "powers": "Models/Monsters/SoulFysh.cs:203"
+   },
+   "source": "Models/Monsters/SoulFysh.cs:203; Models/Powers/IntangiblePower.cs:46-53"
+  },
+  "TEST_SUBJECT": {
+   "id": "TEST_SUBJECT",
+   "class": "TestSubject",
+   "damage_cap": 1,
+   "hard_to_kill": null,
+   "respawns": 2,
+   "cap_scope": "late_phase",
+   "cap_power": "NEMESIS>INTANGIBLE",
+   "powers": [
+    {
+     "id": "NEMESIS",
+     "power": "NemesisPower",
+     "amount": 1,
+     "scope": "move",
+     "move": "RESPAWN",
+     "source": "Models/Monsters/TestSubject.cs:274"
+    }
+   ],
+   "extraction": {
+    "damage_cap": "auto+manual",
+    "respawns": "auto",
+    "powers": "auto"
+   },
+   "sources": {
+    "damage_cap": "Models/Monsters/TestSubject.cs:274; Models/Powers/NemesisPower.cs:20-33",
+    "powers": "Models/Monsters/TestSubject.cs:274",
+    "respawns": "Models/Monsters/TestSubject.cs:164"
+   },
+   "source": "Models/Monsters/TestSubject.cs:274; Models/Powers/NemesisPower.cs:20-33"
+  }
+ },
+ "encounters": {
+  "SOUL_FYSH_BOSS": {
+   "id": "SOUL_FYSH_BOSS",
+   "damage_cap": 1,
+   "hard_to_kill": null,
+   "respawns": 0,
+   "cap_scope": "periodic",
+   "cap_monsters": [
+    "SOUL_FYSH"
+   ],
+   "monsters": [
+    "SOUL_FYSH"
+   ],
+   "powers": [
+    "INTANGIBLE"
+   ],
+   "source": "SOUL_FYSH → Models/Monsters/SoulFysh.cs:203; Models/Powers/IntangiblePower.cs:46-53"
+  },
+  "EXOSKELETONS_NORMAL": {
+   "id": "EXOSKELETONS_NORMAL",
+   "damage_cap": null,
+   "hard_to_kill": 9,
+   "respawns": 0,
+   "cap_scope": "always",
+   "cap_monsters": [
+    "EXOSKELETON"
+   ],
+   "monsters": [
+    "EXOSKELETON"
+   ],
+   "powers": [
+    "HARD_TO_KILL"
+   ],
+   "source": "EXOSKELETON → Models/Monsters/Exoskeleton.cs:49; Models/Powers/HardToKillPower.cs:14-21"
+  },
+  "EXOSKELETONS_WEAK": {
+   "id": "EXOSKELETONS_WEAK",
+   "damage_cap": null,
+   "hard_to_kill": 9,
+   "respawns": 0,
+   "cap_scope": "always",
+   "cap_monsters": [
+    "EXOSKELETON"
+   ],
+   "monsters": [
+    "EXOSKELETON"
+   ],
+   "powers": [
+    "HARD_TO_KILL"
+   ],
+   "source": "EXOSKELETON → Models/Monsters/Exoskeleton.cs:49; Models/Powers/HardToKillPower.cs:14-21"
+  },
+  "TEST_SUBJECT_BOSS": {
+   "id": "TEST_SUBJECT_BOSS",
+   "damage_cap": 1,
+   "hard_to_kill": null,
+   "respawns": 2,
+   "cap_scope": "late_phase",
+   "cap_monsters": [
+    "TEST_SUBJECT"
+   ],
+   "monsters": [
+    "TEST_SUBJECT"
+   ],
+   "powers": [
+    "NEMESIS"
+   ],
+   "source": "TEST_SUBJECT → Models/Monsters/TestSubject.cs:274; Models/Powers/NemesisPower.cs:20-33"
+  }
+ }
+}
