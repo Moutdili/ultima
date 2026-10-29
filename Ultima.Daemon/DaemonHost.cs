@@ -25,6 +25,8 @@ public sealed record DaemonOptions
     public TimeSpan MirrorTimeout { get; init; } = TimeSpan.FromSeconds(3);
     public TimeSpan MirrorDebounce { get; init; } = MirrorScheduler.MinDebounce;
     public bool Scoring { get; init; } = true;
+    /// <summary>Racine des données (ULTIMA_DATA) ; null = variable puis remontée depuis l'exécutable.</summary>
+    public string? DataDir { get; init; }
 }
 
 /// <summary>
@@ -58,12 +60,13 @@ public sealed class DaemonHost : IDisposable
     }
 
     /// <summary>Construit connaissance + calcul. Toute erreur du calcul → null (scores « — »), jamais un arrêt.</summary>
-    public static (IKnowledge, IScorer?, IPathAnalyzer?) BuildEngine(ProfilePaths? paths, bool scoring)
+    public static (IKnowledge, IScorer?, IPathAnalyzer?) BuildEngine(ProfilePaths? paths, bool scoring, string? dataDir = null)
     {
         IKnowledge knowledge = NullKnowledge.Instance; // TODO(Encyclopédiste) : Ultima.Knowledge dès qu'elle est livrée
         if (!scoring) return (knowledge, null, null);
+        if (DataRoot.Apply(dataDir) is null) return (knowledge, null, null);
         IPersonalStats personal = PersonalStats.Empty();
-        try { if (paths is not null) personal = PersonalStats.Load(paths.HistoryDir); }
+        try { if (paths is not null) personal = PersonalStats.Load(paths.HistoryDir, steamId64: paths.SteamId64); }
         catch (Exception e) { Diag.Warn($"historique illisible : {e.Message}"); }
         IScorer? scorer = null;
         try { scorer = new Scorer(MetaTable.Load(), personal); }
@@ -85,7 +88,7 @@ public sealed class DaemonHost : IDisposable
     public void Start()
     {
         var paths = Locate(_o.Root, out var profileError);
-        var (knowledge, scorer, analyzer) = BuildEngine(paths, _o.Scoring);
+        var (knowledge, scorer, analyzer) = BuildEngine(paths, _o.Scoring, _o.DataDir);
         var assembler = new StateAssembler(knowledge, scorer, analyzer, paths?.SteamId64);
 
         Publisher = new StatePublisher(_o.RuntimeDir);

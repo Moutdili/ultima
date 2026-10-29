@@ -27,6 +27,7 @@ var options = new DaemonOptions
     MirrorPath = Opt("--mirror") ?? ProcessMirrorRunner.DefaultPath(),
     MirrorEnabled = !Flag("--no-mirror"),
     Scoring = !Flag("--no-scoring"),
+    DataDir = Opt("--data"),
 };
 
 return cmd switch
@@ -51,6 +52,7 @@ int Usage()
           --mirror FILE       exécutable ultima-mirror (défaut : $ULTIMA_MIRROR, ../mirror/, build/mirror/)
           --no-mirror         jamais de lecture mémoire (fichiers seulement)
           --no-scoring        pas de calcul (scores et chemins null)
+          --data DIR          racine des données (meta/, catalog/…) ; défaut $ULTIMA_DATA puis data/ du dépôt
           --game-comm NAME    nom du processus du jeu (/proc/PID/comm, défaut SlayTheSpire2)
           -v, --verbose       journal détaillé (stderr)
         """);
@@ -115,7 +117,7 @@ int Dump()
 {
     // Calcul ponctuel, entièrement sur ce fil, SANS lecture mémoire et sans rien publier.
     var paths = DaemonHost.Locate(options.Root, out var perr);
-    var (k, scorer, analyzer) = DaemonHost.BuildEngine(paths, options.Scoring);
+    var (k, scorer, analyzer) = DaemonHost.BuildEngine(paths, options.Scoring, options.DataDir);
     EngineState? last = null;
     var core = new DaemonCore(new StateAssembler(k, scorer, analyzer, paths?.SteamId64), mirror: null,
         timers: new LoopTimers(a => a()), post: a => a(), publish: s => last = s);

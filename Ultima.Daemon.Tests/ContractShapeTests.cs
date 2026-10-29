@@ -25,7 +25,7 @@ public class ContractShapeTests
                     SameShape(v, ao[k], $"{path}.{k}", errors, checkValues);
                 }
                 foreach (var (k, _) in ao)
-                    if (!eo.ContainsKey(k) && !V11Addition(path, k, ao)) errors.Add($"{path}.{k} en trop");
+                    if (!eo.ContainsKey(k) && !AdditiveField(path, k, ao)) errors.Add($"{path}.{k} en trop");
                 break;
             case JsonArray ea when actual is JsonArray aa:
                 if (checkValues && ea.Count != aa.Count) errors.Add($"{path} : {ea.Count}≠{aa.Count} éléments");
@@ -46,11 +46,21 @@ public class ContractShapeTests
     }
 
     /// <summary>
-    /// Ajouts v1.1 (commit 8abdeb1) que docs/22-state.sample.json ne montre pas encore : CardView.description,
-    /// PotionView.score. Seuls ces deux-là sont tolérés en plus (signalé au chef dans status/cableur.md).
+    /// Champs ADDITIFS des versions mineures que docs/22-state.sample.json ne montre pas encore. Seuls ceux-ci
+    /// sont tolérés en plus (signalé au chef dans status/cableur.md) :
+    /// v1.1 (8abdeb1) CardView.description, PotionView.score ;
+    /// v1.2 (89e376e) contractMinor, map, route, event, RunView.party, Score.deltaG, ScoreTerm.evidence.
     /// </summary>
-    private static bool V11Addition(string path, string key, JsonObject obj) =>
-        (key == "description" && obj.ContainsKey("isCurse")) || (key == "score" && path.Contains(".potions["));
+    private static bool AdditiveField(string path, string key, JsonObject obj) => key switch
+    {
+        "description" => obj.ContainsKey("isCurse"),
+        "score" => path.Contains(".potions["),
+        "contractMinor" or "map" or "route" or "event" => path == "$",
+        "party" => path == "$.run",
+        "deltaG" => obj.ContainsKey("confidence"),
+        "evidence" => obj.ContainsKey("points"),
+        _ => false,
+    };
 
     [Fact]
     public void Sample_round_trips_identically()

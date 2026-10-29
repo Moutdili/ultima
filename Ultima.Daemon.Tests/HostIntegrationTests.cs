@@ -68,7 +68,7 @@ public sealed class HostIntegrationTests : IDisposable
         await File.WriteAllTextAsync(settings + ".tmp", """{"modules":[{"id":"curses","enabled":true,"order":0}]}""");
         File.Move(settings + ".tmp", settings);
         var withSettings = await NextMatching(reader, s => s.Settings.Modules[0].Id == "curses");
-        Assert.Equal(9, withSettings.Settings.Modules.Count);
+        Assert.Equal(OverlaySettings.Default.Modules.Count, withSettings.Settings.Modules.Count);
 
         // save réécrite comme le fait le jeu (tmp puis rename) : l'or change
         var save = Directory.GetFiles(root, "current_run.save", SearchOption.AllDirectories)

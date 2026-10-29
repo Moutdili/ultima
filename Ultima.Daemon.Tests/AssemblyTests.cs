@@ -191,9 +191,11 @@ public class AssemblyTests
             File.WriteAllText(path, """{"modules":[{"id":"curses","enabled":true,"order":0},{"id":"bogus","enabled":true,"order":1},{"id":"deck","enabled":false,"order":2},{"id":"curses","enabled":false,"order":3}]}""");
             var s = SettingsStore.TryLoad(path, out var e2)!;
             Assert.Null(e2);
-            Assert.Equal(new[] { "curses", "deck", "enchanted", "relics", "potions", "reward", "shop", "paths", "deck_score" },
+            var defaults = OverlaySettings.Default.Modules.Select(m => m.Id).ToArray();
+            // curses, deck (dans l'ordre du fichier) puis les modules manquants dans l'ordre par défaut
+            Assert.Equal(new[] { "curses", "deck" }.Concat(defaults.Where(id => id is not "curses" and not "deck")),
                 s.Modules.Select(m => m.Id));
-            Assert.Equal(Enumerable.Range(0, 9), s.Modules.Select(m => m.Order));
+            Assert.Equal(Enumerable.Range(0, defaults.Length), s.Modules.Select(m => m.Order));
             Assert.False(s.Modules[1].Enabled);
             Assert.True(s.Modules[0].Enabled); // le doublon désactivé est ignoré
         }
