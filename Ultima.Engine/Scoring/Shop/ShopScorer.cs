@@ -7,12 +7,37 @@ using Ultima.Saves.Model;
 namespace Ultima.Engine.Scoring.Shop;
 
 /// <summary>
-/// Score d'un article de shop : valeur intrinsèque vs prix vs or disponible.
-/// Le retrait de carte est scoré séparément (<see cref="ScoreRemoval"/>).
-/// TODO agent S4 : courbe prix/valeur, réductions, comparaison au retrait, tests sur le shop réel.
+/// Score d'un article de shop et du retrait de carte. Formule figée (docs/24-hermes-arch.md §2) :
+/// <list type="bullet">
+/// <item>article : <c>valeur × 0.7 + clamp(1 − prix/or, −1, 1) × 15</c>, puis <c>−20</c> si non abordable ;</item>
+/// <item>retrait : <c>25 + 30 si le deck contient une malédiction − clamp(prix/or, 0, 1.5) × 20</c>.</item>
+/// </list>
+///
+/// <para>
+/// <b>Prix et remises.</b> <c>price</c> est le prix <i>affiché</i>, remises déjà comprises :
+/// le miroir applique MembershipCard, The Courier et le flag <c>IsOnSale</c> au coût de base
+/// (Ultima.Mirror/src/Ultima.Mirror/Readers.cs, <c>ReadShop</c>). Le scorer ne ré-applique donc
+/// jamais de réduction — ce serait un double comptage. Un prix à 0 est un article gratuit, pas
+/// une erreur : il reçoit le maximum d'économie (+15) et n'est jamais « non abordable ».
+/// </para>
+/// <para>
+/// <b>Potion.</b> Aucune source publique ne note les potions (data/meta n'en contient aucune) :
+/// la valeur par défaut est <see cref="PotionValue"/> (50/100, neutre), documentée comme telle et
+/// remplaçable dès qu'une source existe. Elle ne prétend pas classer deux potions entre elles.
+/// </para>
 /// </summary>
 public sealed class ShopScorer
 {
+    /// <summary>Valeur neutre documentée d'une potion (aucune méta potion publiée).</summary>
+    public const int PotionValue = 50;
+
+    private const int EconomyMax = 15;   // clamp(1 − prix/or, −1, 1) × 15
+    private const int Unaffordable = -20;
+    private const int RemovalBase = 25;
+    private const int RemovalCurseBonus = 30;
+    private const int RemovalCostMax = 20; // clamp(prix/or, 0, 1.5) × 20
+    private const string CurseTerm = "Malédiction"; // terme posé par CardScorer (source : IMetaTable.Card)
+
     private readonly CardScorer _cards;
     private readonly RelicScorer _relics;
 
@@ -24,43 +49,135 @@ public sealed class ShopScorer
 
     public Score Score(string kind, string id, int price, ScoringContext ctx)
     {
+        var k = Normalize(kind);
+        int p = Math.Max(0, price);
+        int gold = Math.Max(0, ctx.Gold);
+
+        var (value, source, confidence) = Value(k, id, ctx);
+
         var b = new ScoreBuilder();
+        b.Add($"Valeur ({k})", ScoreMath.Round(value * 0.7), source);
+        b.Add("Économie (prix / or)", Economy(p, gold), PriceBasis(p, gold));
 
-        int value = kind.ToLowerInvariant() switch
-        {
-            "card" => _cards.ScoreCard(new CardInstance(id, 0, null, null), ctx).Total,
-            "relic" => _relics.Score(id, ctx).Total,
-            _ => 50 // potion : neutre tant que l'agent S4 n'a pas posé de règle
-        };
-        b.Add($"Valeur ({kind})", (int)Math.Round(value * 0.7, MidpointRounding.AwayFromZero), "moteur de score");
+        if (p > gold) b.Add("Non abordable", Unaffordable, $"{p} or > {gold} or disponible");
 
-        // Économie : plus l'article mange l'or disponible, plus le terme est négatif.
-        if (price > 0)
-        {
-            double share = ctx.Gold <= 0 ? 2.0 : (double)price / ctx.Gold;
-            int economy = (int)Math.Round(ScoreMath.Clamp(1.0 - share, -1.0, 1.0) * 15, MidpointRounding.AwayFromZero);
-            b.Add("Économie (prix / or)", economy, $"{price} or sur {ctx.Gold}");
-        }
-
-        if (price > ctx.Gold) b.Add("Non abordable", -20, $"{price} > {ctx.Gold} or");
-
-        return b.Build(Confidence.Of(0, 0));
+        return b.Build(confidence);
     }
 
     public Score ScoreRemoval(int price, ScoringContext ctx)
     {
+        int p = Math.Max(0, price);
+        int gold = Math.Max(0, ctx.Gold);
+
         var b = new ScoreBuilder();
-        b.Add("Base retrait", 25, "décision de deck");
+        b.Add("Base retrait", RemovalBase, "une carte de moins dans le deck");
 
-        var curse = ctx.Deck.FirstOrDefault(c => IsCurse(c.Id));
-        if (curse != null) b.Add("Retirer une malédiction", 30, curse.Id);
+        var curses = CursesInDeck(ctx);
+        if (curses.Count > 0)
+            b.Add("Retirer une malédiction", RemovalCurseBonus, DescribeCurse(curses));
 
-        double share = ctx.Gold <= 0 ? 2.0 : (double)price / ctx.Gold;
-        b.Add("Coût", -(int)Math.Round(ScoreMath.Clamp(share, 0, 1.5) * 20, MidpointRounding.AwayFromZero),
-            $"{price} or sur {ctx.Gold}");
+        b.Add("Coût du retrait", RemovalCost(p, gold), PriceBasis(p, gold, removal: true));
 
-        return b.Build(Confidence.Low);
+        var score = b.Build(Confidence.Low);
+        if (p > gold)
+        {
+            var terms = new List<ScoreTerm>(score.Terms)
+            {
+                new("Retrait non abordable", 0, $"{p} or > {gold} or disponible")
+            };
+            score = score with { Terms = terms };
+        }
+
+        return score;
     }
 
-    private static bool IsCurse(string id) => id.Contains("CURSE", StringComparison.OrdinalIgnoreCase);
+    /// <summary>Valeur intrinsèque de l'article + provenance du chiffre + confiance associée.</summary>
+    private (int Value, string Source, string Confidence) Value(string kind, string id, ScoringContext ctx)
+    {
+        switch (kind)
+        {
+            case "card":
+            {
+                var score = _cards.ScoreCard(new CardInstance(id, 0, null, null), ctx);
+                return (score.Total, Attribution(score, $"carte {Ids.Bare(id)}"), score.Confidence);
+            }
+            case "relic":
+            {
+                var score = _relics.Score(id, ctx);
+                return (score.Total, Attribution(score, $"relique {Ids.Bare(id)}"), score.Confidence);
+            }
+            case "potion":
+                return (PotionValue, "valeur neutre documentée : aucune méta potion publiée", Confidence.Low);
+            default:
+                return (PotionValue, $"type « {kind} » inconnu → valeur neutre {PotionValue}", Confidence.Unknown);
+        }
+    }
+
+    /// <summary>
+    /// Hérite de la source du terme dominant du score de valeur (ex. « spirecodex-scores (n=1…) »)
+    /// pour que l'UI puisse répondre à « d'où vient ce chiffre ? ».
+    /// </summary>
+    private static string Attribution(Score score, string fallback)
+    {
+        var term = score.Terms
+            .Where(t => t.Points != 0 && !string.IsNullOrWhiteSpace(t.Source))
+            .OrderByDescending(t => Math.Abs(t.Points))
+            .FirstOrDefault();
+
+        return term == null ? $"{fallback} : aucune donnée" : $"{fallback} — {term.Source}";
+    }
+
+    private static string Normalize(string? kind) =>
+        string.IsNullOrWhiteSpace(kind) ? "potion" : kind.Trim().ToLowerInvariant();
+
+    /// <summary>clamp(1 − prix/or, −1, 1) × 15. Or nul : économie minimale (ou maximale si gratuit).</summary>
+    private static int Economy(int price, int gold)
+    {
+        if (gold <= 0) return price <= 0 ? EconomyMax : -EconomyMax;
+
+        double share = (double)price / gold;
+        return ScoreMath.Round(ScoreMath.Clamp(1.0 - share, -1.0, 1.0) * EconomyMax);
+    }
+
+    /// <summary>−clamp(prix/or, 0, 1.5) × 20. Or nul : coût maximal (−30) dès que le prix &gt; 0.</summary>
+    private static int RemovalCost(int price, int gold)
+    {
+        if (gold <= 0) return price <= 0 ? 0 : -ScoreMath.Round(1.5 * RemovalCostMax);
+
+        return -ScoreMath.Round(ScoreMath.Clamp((double)price / gold, 0, 1.5) * RemovalCostMax);
+    }
+
+    private static string PriceBasis(int price, int gold, bool removal = false)
+    {
+        string what = removal ? "retrait" : "prix affiché, remises comprises";
+        if (price == 0) return $"gratuit (0 or) — {what}";
+        if (gold <= 0) return $"{price} or — or disponible inconnu (0)";
+        return $"{price} or sur {gold} or — {what}";
+    }
+
+    /// <summary>
+    /// Malédictions du deck. Détection par la donnée, jamais par le nom de l'id :
+    /// le catalogue du jeu (<see cref="CurseIndex"/>, type « Curse ») puis, en repli, le terme
+    /// « Malédiction » du score de carte — lui-même calculé depuis <c>IMetaTable.Card</c>
+    /// (Type/Rarity « Curse », cf. CardScorer).
+    /// </summary>
+    private List<string> CursesInDeck(ScoringContext ctx)
+    {
+        var found = new List<string>();
+        foreach (var card in ctx.Deck ?? Array.Empty<CardInstance>())
+        {
+            if (CurseIndex.IsCurse(null, card.Id))
+            {
+                found.Add(CurseIndex.Display(null, card.Id));
+                continue;
+            }
+
+            var term = _cards.ScoreCard(card, ctx).Terms.FirstOrDefault(t => t.Label == CurseTerm);
+            if (term != null) found.Add(term.Source);
+        }
+        return found;
+    }
+
+    private static string DescribeCurse(List<string> curses) =>
+        curses.Count == 1 ? curses[0] : $"{curses[0]} (+{curses.Count - 1} autre(s))";
 }
