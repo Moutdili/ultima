@@ -124,7 +124,7 @@ contient les seeds — absentes de l'index :
 |---|---:|
 | doublons de contenu | 25,07 % (cohérent avec 25,6 % sur les 20 000 premières lignes de l'index) |
 | groupes multiples dont **toutes** les copies partagent la même seed | **96,72 %** (15 631 / 16 161) |
-| groupes multiples à seeds différentes (= convergence, fusion à tort) | 530 groupes · 3 164 runs (3,2 %) |
+| groupes multiples à seeds différentes (= convergence, fusion à tort) | 530 groupes · 3 164 runs, soit 3,2 % des runs lus |
 | signatures en plus si l'on ajoute le niveau d'amélioration des cartes | **+2 sur 74 926** (0,003 %) |
 | seeds produisant plusieurs runs distinctes | 585 sur 74 792 |
 
@@ -161,9 +161,11 @@ Defect/Necrobinder/Regent, deck ≤ 80) est **beaucoup moins touché** que le co
 | signatures distinctes | 421 864 |
 | doublons retirés | 27 961 (**6,22 %**) |
 
-Autrement dit, les 71 634 runs de fin de run utilisés par S17 sont gonflés d'environ **6 %**, pas de
-38 % : le 38 % de `docs/32` venait des victoires, et les victoires co-op. Deux options pour la
-recalibration :
+Autrement dit : dans le sous-corpus où S17 a puisé ses 71 634 lignes de fin de run, il y a **6,22 %
+de copies** — pas 38 %. Le 38 % de `docs/32` venait des victoires, et surtout des victoires co-op.
+La strate de fin de run (plus profonde, donc plus souvent gagnante) est probablement un peu plus
+dupliquée que la moyenne du sous-corpus, mais l'ordre de grandeur reste 5-10 %, pas 38 %. Deux
+options pour la recalibration :
 
 1. travailler sur `data/index/deduped-v0.107.1.jsonl.gz` (même filtre appliqué ensuite) ;
 2. garder l'index brut mais **pondérer chaque ligne par 1/taille du groupe** — équivalent, et cela
