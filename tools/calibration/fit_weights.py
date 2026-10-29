@@ -51,7 +51,7 @@ CHARACTERS = ("ironclad", "silent", "defect", "necrobinder", "regent")
 #: Colonnes conservées en mémoire (l'index de features est plus large que nécessaire).
 KEEP_KEYS = ("kind", "act", "act_reached", "asc", "char", "y",
              "s_survie", "s_offense", "s_consistance", "s_couverture",
-             "m_max_hp", "m_worst_hit", "m_boss_hp") + RAW_COLS
+             "m_max_hp", "m_worst_hit", "m_boss_hp", "m_damage_density") + RAW_COLS
 
 #: Modèles ajustés. `dims` = dimensions seules (+ contrôles) : c'est la spécification qui
 #: donne les poids. `raw` = mesures brutes : sert de borne haute (les dimensions résument-elles ?).
@@ -590,7 +590,7 @@ QUARTILE_COLUMNS = (
     ("s_consistance", "Consistance"),
     ("s_couverture", "Couverture"),
     ("m_block_per_turn", "bloc/tour (brut)"),
-    ("m_damage_per_turn", "dégâts/tour (brut)"),
+    ("m_damage_per_turn", "dégâts/tour (burst)"),
     ("m_hp", "PV au moment de la mesure"),
     ("m_draw_per_turn", "pioche/tour (brut)"),
     ("m_energy_per_turn", "énergie/tour (brut)"),
@@ -602,7 +602,8 @@ QUARTILE_COLUMNS = (
 #: Mesures brutes dont on publie aussi l'AUC univariée (au-delà des quatre dimensions).
 UNIVARIATE_RAW = (
     ("m_block_per_turn", "bloc/tour"),
-    ("m_damage_per_turn", "dégâts/tour"),
+    ("m_damage_per_turn", "dégâts/tour (burst)"),
+    ("m_damage_density", "densité de dégâts (ex-mesure S15)"),
     ("m_draw_per_turn", "pioche/tour"),
     ("m_energy_per_turn", "énergie/tour"),
     ("m_hp", "PV"),
@@ -646,6 +647,12 @@ def correlation(rows, left, right):
 
 
 def build_report(models, pools, args, generated_at, univariate, quartiles):
+    def pct_or_dash(share, position):
+        return "—" if not share else f"{100 * share[position]:.0f} %"
+
+    def auc_or_dash(value):
+        return "—" if value is None else f"{value:.2f}".replace(".", ",")
+
     lines = []
     add = lines.append
     add("# Calibration des poids de G sur les runs réels")
@@ -839,7 +846,8 @@ def build_report(models, pools, args, generated_at, univariate, quartiles):
         add(f"| {label} | " + " | ".join(cells) + " |")
     add("")
     add("C'est le point le plus utile du rapport : **bloc/tour, pioche/tour, énergie/tour et PV**")
-    add("séparent les gagnants, **dégâts/tour non** (et légèrement à l'envers à l'acte 2).")
+    add("séparent les gagnants. Les dégâts, eux, ne les séparent qu'à l'acte 1 et faiblement : c'est")
+    add("précisément ce qui a conduit à corriger la mesure d'Offense (S17, §3.8).")
     add("")
     add("### 3.7 Coefficients détaillés des modèles à dimensions")
     add("")
@@ -858,6 +866,33 @@ def build_report(models, pools, args, generated_at, univariate, quartiles):
     add("Un intervalle qui contient 0 = dimension non distinguable du bruit **à autres dimensions")
     add("égales**. Ce n'est pas « la dimension ne compte pas » : c'est « ces données ne séparent pas")
     add("son effet de celui des trois autres ».")
+    add("")
+    add("### 3.8 Ce que mesure Offense depuis S17 (et pourquoi)")
+    add("")
+    add("La mesure d'Offense a été corrigée avant cette calibration : la densité moyenne")
+    add("`Σdégâts / N × pioche × taux` a été remplacée par un **plafond** — la somme des *k* plus")
+    add("gros dégâts du deck, *k* = nombre de cartes réellement jouables par tour — plus le scaling")
+    add("(Force/Poison/Focus des cartes et des reliques), le tout sous **une seule** saturation")
+    add("`100·x/(x + PV_boss/8)`. Deux défauts mesurés de l'ancienne formule : elle divisait par la")
+    add("taille du deck (ajouter un pouvoir faisait *baisser* l'offense) et elle pondérait le scaling")
+    add("à part (20 %), ce qui inversait le signe de la dimension à l'acte 1.")
+    add("")
+    offense_dim = {act: univariate.get((f"act{act}", "offense")) for act in (1, 2)}
+    burst_auc = {act: univariate.get((f"act{act}", "dégâts/tour (burst)")) for act in (1, 2)}
+    density_auc = {act: univariate.get((f"act{act}", "densité de dégâts (ex-mesure S15)")) for act in (1, 2)}
+    add("| mesure | acte 1 | acte 2 |")
+    add("|---|---:|---:|")
+    add(f"| dimension Offense (burst + scaling) | {auc_or_dash(offense_dim[1])} | {auc_or_dash(offense_dim[2])} |")
+    add(f"| burst brut (k meilleures cartes) | {auc_or_dash(burst_auc[1])} | {auc_or_dash(burst_auc[2])} |")
+    add(f"| densité brute (ancienne mesure) | {auc_or_dash(density_auc[1])} | {auc_or_dash(density_auc[2])} |")
+    add("")
+    add("Comparaison complète de 24 définitions candidates (dégâts/énergie, upgrades, burst,")
+    add("scaling, burst+défense, contrôles de qualité de deck) : `tools/calibration/diagnose_offense.py`.")
+    add("Conclusion à retenir : la correction **améliore** la mesure (AUC univariée d'Offense de")
+    add("0,50 → 0,55 à l'acte 1, coefficient de −0,01 à +0,11) mais **ne crée pas** de signal à")
+    add("l'acte 2 (0,46 → 0,48, encore sous 0,5). Aucune définition de dégâts testée ne dépasse 0,55")
+    add("à l'acte 2, et les variables de **composition** du deck (nombre de Rares, de Pouvoirs)")
+    add("séparent bien mieux (0,61 / 0,59 à l'acte 1). Offense reste la dimension la plus faible.")
     add("")
 
     # --- contradictions
@@ -895,30 +930,25 @@ def build_report(models, pools, args, generated_at, univariate, quartiles):
               for act in (1, 2)}
     offense_auc = {act: univariate.get((f"act{act}", "offense")) for act in (1, 2)}
     block_auc = {act: univariate.get((f"act{act}", "bloc/tour")) for act in (1, 2)}
-    damage_auc = {act: univariate.get((f"act{act}", "dégâts/tour")) for act in (1, 2)}
+    burst_auc = {act: univariate.get((f"act{act}", "dégâts/tour (burst)")) for act in (1, 2)}
     draw_auc = {act: univariate.get((f"act{act}", "pioche/tour")) for act in (1, 2)}
     consistance_auc = {act: univariate.get((f"act{act}", "consistance")) for act in (1, 2)}
 
-    def pct_or_dash(share, position):
-        return "—" if not share else f"{100 * share[position]:.0f} %"
-
-    def auc_or_dash(value):
-        return "—" if value is None else f"{value:.2f}".replace(".", ",")
-
-    add("Les deux constats les plus solides, présents dans **les deux estimateurs** :")
+    add("Les constats les plus solides, présents dans **les deux estimateurs** :")
     add("")
     add(f"1. **Survie domine** ce que le code lui accorde : {pct_or_dash(shares[1], 0)} de la data")
     add(f"   à l'acte 1 (code : 40 %) et {pct_or_dash(shares[2], 0)} à l'acte 2 (code : 30 %).")
     add(f"   L'AUC univariée de Survie est {auc_or_dash(univariate.get(('act1', 'survie')))} à l'acte 1,")
     add(f"   celle du bloc/tour brut {auc_or_dash(block_auc[1])} : c'est bien la **défense**, pas la")
     add("   fortune des PV, qui sépare les runs.")
-    add(f"2. **Offense, telle que le code la mesure, ne sépare rien** : AUC univariée")
-    add(f"   {auc_or_dash(offense_auc[1])} à l'acte 1, {auc_or_dash(offense_auc[2])} à l'acte 2 ; dégâts/tour")
-    add(f"   brut {auc_or_dash(damage_auc[1])} et {auc_or_dash(damage_auc[2])}. Deux lectures possibles,")
-    add("   et ce corpus **ne permet pas de trancher** : soit la défense est réellement le facteur")
-    add("   dominant de ce patch, soit la dimension Offense mesure autre chose que la puissance de")
-    add("   mise à mort — elle divise par la taille du deck et suppose des cartes jouées au hasard,")
-    add("   ce qui pénalise les decks qui ajoutent des pouvoirs et de l'utilité.")
+    add(f"2. **Offense mesure enfin quelque chose à l'acte 1, et presque rien à l'acte 2.** Depuis la")
+    add("   correction S17 (burst + scaling, §3.8), l'AUC univariée d'Offense est")
+    add(f"   {auc_or_dash(offense_auc[1])} à l'acte 1 et {auc_or_dash(offense_auc[2])} à l'acte 2 ;")
+    add(f"   le burst brut donne {auc_or_dash(burst_auc[1])} et {auc_or_dash(burst_auc[2])}. La")
+    add("   correction a donc **sauvé le signal de l'acte 1** (0,50 → 0,55, coefficient négatif")
+    add("   devenu positif) sans en créer à l'acte 2 : aucune des 24 définitions testées ne dépasse")
+    add("   0,55 à l'acte 2 (`diagnose_offense.py`). Le poids proposé pour Offense à l'acte 2 est donc")
+    add("   **0** — la data ne soutient pas d'autre valeur. À l'acte 1, le poids reste faible.")
     add(f"3. **La Consistance rate son propre signal** : ses composantes valent mieux qu'elle")
     add(f"   (pioche/tour {auc_or_dash(draw_auc[1])} à l'acte 1 contre {auc_or_dash(consistance_auc[1])}")
     add(f"   pour la dimension ; {auc_or_dash(draw_auc[2])} contre {auc_or_dash(consistance_auc[2])} à")
@@ -944,6 +974,10 @@ def build_report(models, pools, args, generated_at, univariate, quartiles):
     add("  `BossId` est absent). Deux runs du même acte sont donc évaluées contre la même référence.")
     add("- **Améliorations ignorées** : l'index ne porte pas le niveau des cartes ; tout est chiffré")
     add("  non amélioré (biais de niveau, pas de classement, mais il déplace les saturations).")
+    add("- **Offense est un plafond optimiste.** Le burst suppose que le joueur joue ses k")
+    add("  meilleures cartes chaque tour ; un deck qui pioche mal ou qui doit bloquer ne le fait")
+    add("  pas. C'est un choix de mesure (l'ancienne densité supposait l'inverse : des cartes")
+    add("  jouées au hasard), et c'est celui qui sépare le mieux — mais ce n'est pas une simulation.")
     add("- **Reliques** : équivalents par tags (ordre de grandeur du C#), pas des valeurs mesurées.")
     add("- **Co-op exclu** (39 % du corpus) : ces poids ne valent que pour le solo.")
     add("- **Une seule version** (v0.107.1) ; le jeu public est déjà en v0.111.0.")
@@ -957,17 +991,24 @@ def build_report(models, pools, args, generated_at, univariate, quartiles):
     for deviation in DEVIATIONS:
         add(f"- {deviation}")
     add("")
-    add("**Validation croisée avec le moteur C#** : sur 60 decks réels (actes et ascensions")
-    add("variés), les quatre dimensions et les sept mesures intermédiaires calculées ici sont")
-    add("**identiques** à `PlayerStrength.G` du moteur (`dotnet run` sur le vrai `Ultima.Engine`,")
-    add("660 champs comparés, 0 écart). Les écarts listés ci-dessus sont donc ceux du modèle,")
-    add("pas des erreurs de réimplémentation.")
+    add("**Validation croisée avec le moteur C#** : `python3 -I tools/calibration/validate_csharp.py`")
+    add("tire 60 decks réels (actes et ascensions variés), appelle le **vrai**")
+    add("`PlayerStrengthCalculator` dans un harnais `dotnet run` et compare champ par champ avec")
+    add("`features.py` : **1020 champs comparés, 0 écart** (dont `damagePerTurn` = burst, `burstCards`,")
+    add("`damageDensityPerTurn`, `scaling`). Les écarts listés ci-dessus sont donc ceux du modèle,")
+    add("pas des erreurs de réimplémentation — et la formule d'Offense corrigée en S17 est bien")
+    add("la même des deux côtés.")
     add("")
     add("## 7. Reproduire")
     add("")
     add("```bash")
-    add("python3 -I tools/calibration/features.py --state both --stride 4 --out /tmp/features.jsonl")
-    add("python3 -I tools/calibration/fit_weights.py --features /tmp/features.jsonl")
+    add("python3 -I tools/calibration/diagnose_offense.py extract --stride 6 --out /tmp/cand.jsonl")
+    add("python3 -I tools/calibration/diagnose_offense.py analyze --features /tmp/cand.jsonl")
+    add("python3 -I tools/calibration/features.py --state both --stride 6 --out /tmp/features.jsonl")
+    add("python3 -I tools/calibration/fit_weights.py --features /tmp/features.jsonl \\")
+    add("    --scanned 130853 --max-train 40000 --max-test 20000 --max-index-train 12000")
+    add("python3 -I tools/calibration/validate_csharp.py --decks 60")
+    add("python3 -I tools/calibration/selftest.py")
     add("```")
     add("")
     add("`features.py` lit `data/index/runs-v0.107.1.jsonl.gz` (non commité) et `data/catalog/*.json`")
@@ -1073,13 +1114,26 @@ def main(argv=None) -> int:
             "la suite, sauf dans le modèle final_* (état de fin de run, indicatif)."
         ),
         "recommendation": (
-            "Ne pas appliquer les parts brutes telles quelles. Deux constats sont robustes aux deux "
-            "estimateurs : (a) Survie devrait peser plus que 30-40 % aux actes 1-2 ; (b) Offense, "
-            "mesurée comme aujourd'hui (densité de dégâts / taille de deck, cartes jouées au hasard, "
-            "sans améliorations), ne sépare pas les gagnants — corriger la dimension avant de changer "
-            "son poids. L'acte 3 n'est pas identifiable sur ce corpus : garder les constantes du code. "
-            "Arbitrage humain attendu ; aucun C# n'est modifié par cette tâche."
+            "Ne pas appliquer les parts brutes telles quelles. Trois constats robustes aux deux "
+            "estimateurs : (a) Survie devrait peser beaucoup plus que 30-40 % aux actes 1-2 ; "
+            "(b) Offense a été CORRIGÉE en S17 (burst top-k + scaling, une seule saturation) : la "
+            "mesure sépare désormais faiblement les gagnants à l'acte 1 (AUC 0,55) mais pas à "
+            "l'acte 2 (0,48) — le poids proposé pour Offense à l'acte 2 est 0, la data ne soutient "
+            "pas mieux ; (c) l'acte 3 n'est pas identifiable sur ce corpus : garder les constantes "
+            "du code. Arbitrage humain attendu pour appliquer les poids."
         ),
+        "offense_measure": {
+            "formula": "Offense = 100·(burst + scaling) / (burst + scaling + PV_boss/8), borné 0..100",
+            "burst": "somme des k plus gros dégâts du deck, k = ceil(playRate × pioche/tour), "
+                     "borné par le nombre de cartes de dégâts",
+            "scaling": "Force×1,5 + Poison×0,8 + Focus×1,0 par point (cartes) + Force des reliques",
+            "replaced_in_s17": "densité Σdégâts/N × pioche × taux, puis 0,8·sat(densité) + "
+                               "0,2·sat(scaling) — divisait par la taille du deck et inversait "
+                               "le signe de la dimension",
+            "measured": "AUC univariée 0,549 (acte 1) / 0,480 (acte 2) sur 24 définitions "
+                        "comparées — tools/calibration/diagnose_offense.py",
+            "code": "Ultima.Engine/Scoring/Strength/PlayerStrength.cs (BurstCardCount/BurstDamage)",
+        },
         "not_identifiable": {
             "act_3": (
                 "aucun run ne survit à l'acte 3 sans gagner : l'échantillon pré-outcome n'a qu'une "

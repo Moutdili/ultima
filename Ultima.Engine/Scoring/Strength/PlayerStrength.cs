@@ -171,14 +171,27 @@ public sealed record StrengthDelta(PlayerStrength Before, PlayerStrength After, 
 /// pioche/tour   D = 5 + cartes qui piochent (auto-cohérent) + équivalents reliques
 /// énergie/tour  E = 3 + énergie rendue par les cartes jouées + équivalents reliques
 /// cartes jouées par tour = D × taux,  taux = min(1, E / (D × coût moyen))
-/// dégâts/tour   = Σ dégâts du deck / N × D × taux
 /// bloc/tour     = Σ bloc du deck / N × D × taux + équivalents pouvoirs défensifs
+/// dégâts/tour   = somme des k plus gros dégâts du deck, k = cartes jouées par tour
 /// </code>
 /// <see cref="BaseDrawPerTurn"/> et <see cref="BaseEnergyPerTurn"/> sont les règles du jeu ;
 /// <see cref="XCostAssumedEnergy"/> est l'énergie supposée d'une carte X (la seule inconnue du
-/// modèle). Le débit suppose des cartes jouées au hasard : il <b>sous-estime</b> un deck qui
-/// priorise bien ses meilleures cartes, mais le biais est le même pour tous les decks, donc ΔG
-/// (la grandeur utilisée pour noter un choix) reste comparable.
+/// modèle).
+/// </para>
+///
+/// <para><b>Pourquoi l'offense est un plafond et non une moyenne (S17).</b>
+/// La densité moyenne <c>Σ dégâts / N × D × taux</c> suppose des cartes jouées au hasard : ajouter
+/// un pouvoir (0 dégât) fait <i>baisser</i> la mesure alors que c'est ainsi qu'on gagne. Sur
+/// 71 634 runs, la dimension bâtie dessus ne séparait pas les gagnants (AUC 0,50 à l'acte 1, 0,46
+/// à l'acte 2, coefficient négatif aux deux actes) ; la somme des k meilleures cartes, elle, garde
+/// le tempo (k monte avec la pioche et l'énergie), ne compte pas le remplissage, et donne le signal
+/// positif le plus fort des 24 définitions testées (AUC 0,55 à l'acte 1, β +0,16 ; aucune ne
+/// sépare à l'acte 2, où le poids proposé est 0).
+/// Le scaling (Force/Poison/Focus, cartes et reliques) s'ajoute à ce burst puis passe la même
+/// saturation : mesurer le scaling à part, avec son propre poids, diluait le signal.
+/// Le bloc reste une densité moyenne — il faut bloquer <i>chaque</i> tour — et c'est la mesure qui
+/// sépare le mieux dans la data (AUC 0,67 à l'acte 1).
+/// Détail et chiffres : <c>status/hermes-s17.md</c>, <c>tools/calibration/report.md</c>.
 /// </para>
 ///
 /// <para><b>Saturation.</b> Toute sous-mesure est convertie par <see cref="Saturate"/> :
@@ -228,11 +241,11 @@ public sealed class PlayerStrengthCalculator
     /// <summary>Soins par combat en « pire coup » : un demi-coup soigné = 50 points.</summary>
     public const double HealHitsAtHalf = 0.5;
 
-    /// <summary>Dégâts/tour visés pour tuer le boss en ce nombre de tours (boss acte 1 : 240 PV → 30/tour).</summary>
+    /// <summary>
+    /// Dégâts/tour visés pour tuer le boss en ce nombre de tours (boss acte 1 : 240 PV → 30/tour).
+    /// Point à 50 de la saturation d'Offense.
+    /// </summary>
     public const double OffenseKillTurns = 8.0;
-
-    /// <summary>Scaling (Force/Poison/Focus) en dégâts/tour équivalents : 4 = 50 points.</summary>
-    public const double ScalingAtHalf = 4.0;
 
     /// <summary>Couverture énergétique (énergie / coût moyen) : 2 = 50 points.</summary>
     public const double EnergyCoverageAtHalf = 2.0;
@@ -253,9 +266,6 @@ public sealed class PlayerStrengthCalculator
     public const double SurvivalBlockWeight = 0.55;
     public const double SurvivalHpWeight = 0.35;
     public const double SurvivalHealWeight = 0.10;
-
-    public const double OffenseDamageWeight = 0.80;
-    public const double OffenseScalingWeight = 0.20;
 
     public const double ConsistencyDrawWeight = 0.35;
     public const double ConsistencyEnergyWeight = 0.35;
@@ -366,11 +376,23 @@ public sealed class PlayerStrengthCalculator
             ? profile.Cost / profile.Playable
             : AvgCostFloor;
         var playRate = PlayRate(energyPerTurn, drawPerTurn, avgCost);
+        var cardsPerTurn = playRate * drawPerTurn;
 
-        var damagePerTurn = playRate * drawPerTurn * profile.Damage / deck.Count;
+        // Offense = plafond de dégâts par tour : on joue ses k meilleures cartes (k = cartes
+        // réellement jouables par tour), pas la moyenne du deck. Voir la note « Offense » de la
+        // classe et status/hermes-s17.md.
+        var burstCards = BurstCardCount(profile.Damages.Count, cardsPerTurn);
+        var damagePerTurn = BurstDamage(profile.Damages, burstCards);
+        // Densité moyenne (Σ dégâts / N × pioche × taux) : conservée comme mesure de diagnostic,
+        // plus utilisée par la dimension — elle diluait les decks à pouvoirs et ignorait le tempo.
+        var damageDensityPerTurn = playRate * drawPerTurn * profile.Damage / deck.Count;
         var cardBlockPerTurn = playRate * drawPerTurn * profile.Block / deck.Count;
         var blockPerTurn = cardBlockPerTurn + profile.DefenseScaling + relic.Block;
         var healPerCombat = playRate * drawPerTurn * profile.Heal / deck.Count * AssumedCombatTurns + relic.Heal;
+
+        // Le scaling (Force/Poison/Focus des cartes, Force des reliques) s'ajoute aux dégâts par
+        // tour : c'est la part récurrente du deck, plafonnée par la même saturation.
+        var scaling = profile.OffenseScaling + relic.Scaling;
 
         measures["act"] = act;
         measures["deck"] = deck.Count;
@@ -379,9 +401,12 @@ public sealed class PlayerStrengthCalculator
         measures["avgCost"] = avgCost;
         measures["playRate"] = playRate;
         measures["damagePerTurn"] = damagePerTurn;
+        measures["damageDensityPerTurn"] = damageDensityPerTurn;
+        measures["burstCards"] = burstCards;
         measures["blockPerTurn"] = blockPerTurn;
         measures["healPerCombat"] = healPerCombat;
-        measures["scaling"] = profile.OffenseScaling;
+        measures["scaling"] = scaling;
+        measures["scalingCards"] = profile.OffenseScaling;
         measures["aoeShare"] = profile.Damage > 0 ? (double)profile.AoeDamage / profile.Damage : 0;
         measures["debuffCards"] = profile.DebuffCards + relic.Debuff;
         measures["utility"] = profile.Utility.Count;
@@ -433,16 +458,15 @@ public sealed class PlayerStrengthCalculator
         else
         {
             var damageTarget = threat.BossHp / OffenseKillTurns;
-            var sDamage = Saturate(damagePerTurn, damageTarget);
-            var sScaling = Saturate(profile.OffenseScaling, ScalingAtHalf);
+            var sustained = damagePerTurn + scaling;
 
-            offense = ScoreMath.Clamp(ScoreMath.Round(
-                OffenseDamageWeight * sDamage + OffenseScalingWeight * sScaling), 0, 100);
+            offense = ScoreMath.Clamp(ScoreMath.Round(Saturate(sustained, damageTarget)), 0, 100);
 
             terms.Add(new ScoreTerm("Offense", offense,
-                $"dégâts {F(damagePerTurn)}/tour (cible {F(damageTarget)} = {threat.BossHp} PV / " +
-                $"{F(OffenseKillTurns)} tours) · scaling {F(profile.OffenseScaling)} dgt/tour équivalents " +
-                $"(réf. {F(ScalingAtHalf)}) · poids {F2(weights.Offense)}"));
+                $"burst {F(damagePerTurn)} dgt/tour sur les {burstCards} meilleure(s) carte(s) " +
+                $"+ scaling {F(scaling)} (cible {F(damageTarget)} = {threat.BossHp} PV / " +
+                $"{F(OffenseKillTurns)} tours ; densité moyenne {F(damageDensityPerTurn)} dgt/tour, " +
+                $"non utilisée) · poids {F2(weights.Offense)}"));
         }
 
         // --- Consistance --------------------------------------------------------------------
@@ -650,6 +674,35 @@ public sealed class PlayerStrengthCalculator
         return demand <= 0 ? 1 : Math.Clamp(energyPerTurn / demand, 0, 1);
     }
 
+    /// <summary>
+    /// Nombre de cartes dont on peut réellement jouer les dégâts en un tour : l'arrondi supérieur
+    /// des cartes jouées par tour, borné par le nombre de cartes de dégâts présentes.
+    /// </summary>
+    public static int BurstCardCount(int damageCards, double cardsPerTurn)
+    {
+        if (damageCards <= 0 || cardsPerTurn <= 0) return 0;
+        // -1e-9 : 3.0000000001 cartes/tour ne doit pas compter 4 cartes.
+        var k = (int)Math.Ceiling(cardsPerTurn - 1e-9);
+        return Math.Clamp(k, 1, damageCards);
+    }
+
+    /// <summary>
+    /// Somme des <paramref name="burstCards"/> plus gros dégâts du deck : ce qu'un tour peut
+    /// sortir si le joueur joue ses meilleures cartes, au lieu de la moyenne de toutes les cartes.
+    /// </summary>
+    public static double BurstDamage(IReadOnlyList<int> damages, int burstCards)
+    {
+        if (burstCards <= 0 || damages.Count == 0) return 0;
+        var sorted = new int[damages.Count];
+        for (var i = 0; i < damages.Count; i++) sorted[i] = damages[i];
+        Array.Sort(sorted);
+        double total = 0;
+        var taken = 0;
+        for (var i = sorted.Length - 1; i >= 0 && taken < burstCards; i--, taken++)
+            total += sorted[i];
+        return total;
+    }
+
     // --- Profil du deck -------------------------------------------------------------------------
 
     private DeckProfile Profile(IReadOnlyList<CardInstance> deck)
@@ -689,9 +742,11 @@ public sealed class PlayerStrengthCalculator
             var damage = effect.TotalDamage(upgrade) * repeats;
             if (damage > 0)
             {
-                p.Damage += (int)Math.Round(damage);
+                var rounded = (int)Math.Round(damage);
+                p.Damage += rounded;
+                p.Damages.Add(rounded);
                 if (string.Equals(effect.Target, "AllEnemies", StringComparison.OrdinalIgnoreCase))
-                    p.AoeDamage += (int)Math.Round(damage);
+                    p.AoeDamage += rounded;
                 p.Utility.Add("damage");
             }
 
@@ -838,6 +893,8 @@ public sealed class PlayerStrengthCalculator
         public int Statuses;
         public int Situational;
         public int Damage;
+        /// <summary>Dégâts arrondis de chaque carte qui en inflige (pour le burst top-k).</summary>
+        public List<int> Damages { get; } = new();
         public int Block;
         public double Cost;
         public int Draw;

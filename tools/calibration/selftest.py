@@ -87,6 +87,16 @@ def test_dimensions(catalogs):
     check("starter : consistance > offense", result["consistance"] > result["offense"])
     check("starter : confiance high", measures["confidence"] == "high")
 
+    # S17 — offense en burst : k = ceil(cartes jouées/tour), somme des k plus gros dégâts.
+    # Starter : 5 Strike (6) + Bash (8), 3 énergie/1 de coût moyen → 3 cartes jouées ⇒ 8+6+6.
+    check("starter : burst 3 cartes", measures["burst_cards"] == 3, str(measures["burst_cards"]))
+    check("starter : burst = 8+6+6", close(measures["damage_per_turn"], 20.0), str(measures["damage_per_turn"]))
+    check("burst_card_count bornée par les cartes de dégâts",
+          features.burst_card_count(2, 8) == 2)
+    check("burst_card_count ceil", features.burst_card_count(10, 3.2) == 4)
+    check("burst_card_count nulle sans dégâts", features.burst_card_count(0, 3) == 0)
+    check("burst_damage prend les plus grosses", close(features.burst_damage([6, 8, 6, 3], 2), 14.0))
+
     # Plus de bloc => plus de survie (à menace constante).
     more_block = strike + ["DEFEND_IRONCLAD"] * 6
     after = features.dimensions(more_block, [], 70, 70, 1, 0, catalogs)

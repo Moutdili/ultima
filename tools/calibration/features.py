@@ -39,6 +39,8 @@ __all__ = [
     "FEATURE_ORDER",
     "Saturate",
     "build_run_features",
+    "burst_card_count",
+    "burst_damage",
     "dimensions",
     "iter_index",
 ]
@@ -60,7 +62,6 @@ BLOCK_SHARE_AT_HALF = 0.40
 HP_BUFFER_HITS_AT_HALF = 2.5
 HEAL_HITS_AT_HALF = 0.5
 OFFENSE_KILL_TURNS = 8.0
-SCALING_AT_HALF = 4.0
 ENERGY_COVERAGE_AT_HALF = 2.0
 DRAW_RATIO_AT_HALF = 1.0
 AOE_SHARE_AT_HALF = 0.15
@@ -70,8 +71,6 @@ UTILITY_AT_HALF = 3.0
 SURVIVAL_BLOCK_WEIGHT = 0.55
 SURVIVAL_HP_WEIGHT = 0.35
 SURVIVAL_HEAL_WEIGHT = 0.10
-OFFENSE_DAMAGE_WEIGHT = 0.80
-OFFENSE_SCALING_WEIGHT = 0.20
 CONSISTENCY_DRAW_WEIGHT = 0.35
 CONSISTENCY_ENERGY_WEIGHT = 0.35
 CONSISTENCY_SIZE_WEIGHT = 0.30
@@ -120,7 +119,8 @@ DIMENSIONS = ("survie", "offense", "consistance", "couverture")
 #: les ajoute au design et ne standardise qu'eux.
 FEATURE_ORDER = (
     "s_survie", "s_offense", "s_consistance", "s_couverture",
-    "m_block_per_turn", "m_damage_per_turn", "m_draw_per_turn", "m_energy_per_turn",
+    "m_block_per_turn", "m_damage_per_turn", "m_damage_density", "m_burst_cards",
+    "m_draw_per_turn", "m_energy_per_turn",
     "m_play_rate", "m_avg_cost", "m_scaling", "m_aoe_share", "m_debuff_cards",
     "m_utility_categories", "m_penalties", "m_deck_size", "m_curses",
     "m_hp", "m_max_hp", "m_heal_per_combat", "m_worst_hit", "m_boss_hp",
@@ -130,6 +130,12 @@ DEVIATIONS = (
     "améliorations inconnues : l'index ne porte pas le niveau des cartes (aucun suffixe '+' dans "
     "les decks). Toutes les cartes sont chiffrées NON améliorées — dégâts/bloc réels ~15-25 % plus "
     "hauts sur les decks qui améliorent. Biais de niveau, pas de classement.",
+    "offense en burst : `damage_per_turn` est la somme des k meilleures cartes (k = ceil(cartes "
+    "jouées par tour)), comme le C# depuis S17. Les dégâts améliorés ne sont pas mesurables ici ; "
+    "la variante « tout amélioré » a été testée dans tools/calibration/diagnose_offense.py et "
+    "sépare MOINS bien, donc le biais d'amélioration ne crée pas le signal.",
+    "scaling : Force/Poison/Focus des cartes + Force des reliques, ajoutés au burst avant une "
+    "saturation unique (le C# excluait les reliques avant S17 : écart corrigé).",
     "PV : `pl[].hp` est null dans l'index ; on prend les PV du DERNIER enregistrement de décision "
     "du joueur (donc pas forcément les PV de fin de run, et jamais ceux d'un combat).",
     "menace : le boss réel n'est pas dans l'index ; on utilise la MÉDIANE des boss de l'acte "
@@ -334,8 +340,8 @@ class Catalogs:
 # Profil de deck (miroir de Profile() + DeckProfile)
 # --------------------------------------------------------------------------- #
 class Profile:
-    __slots__ = ("playable", "unknown", "curses", "statuses", "situational", "damage", "block",
-                 "cost", "draw", "energy_gain", "heal", "aoe_damage", "debuff_cards",
+    __slots__ = ("playable", "unknown", "curses", "statuses", "situational", "damage", "damages",
+                 "block", "cost", "draw", "energy_gain", "heal", "aoe_damage", "debuff_cards",
                  "offense_scaling", "defense_scaling", "utility")
 
     def __init__(self) -> None:
@@ -345,6 +351,7 @@ class Profile:
         self.statuses = 0
         self.situational = 0
         self.damage = 0
+        self.damages = []          # dégâts arrondis par carte (burst top-k), comme `DeckProfile.Damages`
         self.block = 0
         self.cost = 0.0
         self.draw = 0
@@ -417,6 +424,7 @@ def profile(deck, catalogs: Catalogs) -> tuple[Profile, int]:
             hits = hits if isinstance(hits, int) and hits > 0 else 1
             damage = float(damage_base) * hits * repeats
             result.damage += rnd(damage)
+            result.damages.append(rnd(damage))
             if str(effect.get("target") or "").lower() == "allenemies":
                 result.aoe_damage += rnd(damage)
             result.utility.add("damage")
@@ -492,6 +500,21 @@ def play_rate(energy: float, draw: float, avg_cost: float) -> float:
     return 1.0 if demand <= 0 else clamp(energy / demand, 0.0, 1.0)
 
 
+def burst_card_count(damage_cards: int, cards_per_turn: float) -> int:
+    """Nombre de cartes dont on peut sortir les dégâts en un tour (miroir de `BurstCardCount`)."""
+    if damage_cards <= 0 or cards_per_turn <= 0:
+        return 0
+    k = int(math.ceil(cards_per_turn - 1e-9))
+    return max(1, min(k, damage_cards))
+
+
+def burst_damage(damages, burst_cards: int) -> float:
+    """Somme des `burst_cards` plus gros dégâts (miroir de `BurstDamage`)."""
+    if burst_cards <= 0 or not damages:
+        return 0.0
+    return float(sum(sorted(damages, reverse=True)[:burst_cards]))
+
+
 def dimensions(deck, relics, hp, max_hp, act: int, ascension: int, catalogs: Catalogs) -> dict:
     """Les 4 dimensions 0..100 du C# + toutes les mesures intermédiaires (traçabilité)."""
     act = 1 if act is None else max(1, min(3, int(act)))
@@ -511,8 +534,14 @@ def dimensions(deck, relics, hp, max_hp, act: int, ascension: int, catalogs: Cat
     energy = energy_per_turn(prof.energy_gain, draw, size, relic["energy"])
     avg_cost = prof.cost / prof.playable if prof.playable > 0 else AVG_COST_FLOOR
     rate = play_rate(energy, draw, avg_cost)
+    cards_per_turn = rate * draw
 
-    damage_per_turn = rate * draw * prof.damage / size
+    # S17 : l'offense est un plafond (k meilleures cartes), plus une densité moyenne.
+    burst_cards = burst_card_count(len(prof.damages), cards_per_turn)
+    damage_per_turn = burst_damage(prof.damages, burst_cards)
+    damage_density = rate * draw * prof.damage / size
+    scaling = prof.offense_scaling + relic["scaling"]
+
     card_block_per_turn = rate * draw * prof.block / size
     block_per_turn = card_block_per_turn + prof.defense_scaling + relic["block"]
     heal_per_combat = rate * draw * prof.heal / size * ASSUMED_COMBAT_TURNS + relic["heal"]
@@ -539,9 +568,9 @@ def dimensions(deck, relics, hp, max_hp, act: int, ascension: int, catalogs: Cat
     if boss_hp <= 0:
         offense = 0
     else:
-        s_damage = saturate(damage_per_turn, boss_hp / OFFENSE_KILL_TURNS)
-        s_scaling = saturate(prof.offense_scaling, SCALING_AT_HALF)
-        offense = rnd(clamp(OFFENSE_DAMAGE_WEIGHT * s_damage + OFFENSE_SCALING_WEIGHT * s_scaling, 0, 100))
+        # Une seule saturation sur (burst + scaling) : mesurer le scaling à part, avec son propre
+        # poids, inversait le signe de la dimension (S17, tools/calibration/report.md §4).
+        offense = rnd(clamp(saturate(damage_per_turn + scaling, boss_hp / OFFENSE_KILL_TURNS), 0, 100))
 
     # --- Consistance
     s_draw = saturate(draw / BASE_DRAW_PER_TURN, DRAW_RATIO_AT_HALF)
@@ -573,11 +602,14 @@ def dimensions(deck, relics, hp, max_hp, act: int, ascension: int, catalogs: Cat
         "block_per_turn": round(block_per_turn, 4),
         "card_block_per_turn": round(card_block_per_turn, 4),
         "damage_per_turn": round(damage_per_turn, 4),
+        "damage_density": round(damage_density, 4),
+        "burst_cards": burst_cards,
         "draw_per_turn": round(draw, 4),
         "energy_per_turn": round(energy, 4),
         "avg_cost": round(avg_cost, 4),
         "play_rate": round(rate, 4),
-        "scaling": round(prof.offense_scaling, 4),
+        "scaling": round(scaling, 4),
+        "scaling_cards": round(prof.offense_scaling, 4),
         "defense_scaling": round(prof.defense_scaling, 4),
         "heal_per_combat": round(heal_per_combat, 4),
         "aoe_share": round(aoe_share, 4),
@@ -772,6 +804,8 @@ def _flat(result: dict, act: int) -> dict:
         "s_couverture": result["couverture"],
         "m_block_per_turn": measures.get("block_per_turn", 0.0),
         "m_damage_per_turn": measures.get("damage_per_turn", 0.0),
+        "m_damage_density": measures.get("damage_density", 0.0),
+        "m_burst_cards": measures.get("burst_cards", 0),
         "m_draw_per_turn": measures.get("draw_per_turn", 0.0),
         "m_energy_per_turn": measures.get("energy_per_turn", 0.0),
         "m_play_rate": measures.get("play_rate", 0.0),
