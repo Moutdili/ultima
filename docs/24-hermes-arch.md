@@ -150,7 +150,20 @@ Hermes : `Scoring/Model/**`, `Scoring/Meta/**`, `Scoring/ScoringData.cs`, `Scori
 - [ ] `status/hermes-<id>.md` écrit avec la sortie de test collée.
 - [ ] Branche poussée : `hermes/<id>`.
 
-## 11. Pièges connus
+## 11. Review Focus — ce que les tests prévus ne couvrent PAS (5 max, par ordre de risque)
+
+| # | Entrée / mode de défaillance | Comportement attendu | Qui ajoute le test |
+|---|---|---|---|
+| 1 | `data/meta/local/` absent (variante publique, 1 seule source) | scores bornés, `Confidence` jamais `high`, aucun `NaN` | S3/S5 |
+| 2 | Historique vide (0 run lisible) | `PersonalStats.Empty()`, aucun terme perso, pas d'exception, `Confidence.low` | S2 |
+| 3 | Map incohérente (cycle, enfant hors bornes, nœud manquant) | DFS borné, `TotalPaths` cohérent, aucune récursion infinie | S6 |
+| 4 | Enchantement inconnu ou `Amount` négatif | terme borné (0..5), jamais de total hors 0..100 | S3 |
+| 5 | `ctx.Gold == 0` au shop / retrait | aucun division par zéro, terme économie borné | S4 |
+
+Non-objectifs de cette vague : pas de fine-tuning de formule sur les 247 runs (S7 viendra après
+validation humaine), pas d'UI, pas d'IPC, pas de modification des contrats.
+
+## 12. Pièges connus
 
 - Les ids méta sont **sans préfixe** (`ALCHEMIZE`) alors que les instances sont `CARD.ALCHEMIZE` :
   passer par `Ids.Bare()`.
