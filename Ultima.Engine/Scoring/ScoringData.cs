@@ -33,6 +33,31 @@ public static class ScoringData
         return Path.Combine("data", "catalog");
     }
 
+    /// <summary>Même résolution que <see cref="ResolveCatalogDir"/>, pour <c>data/calibration/</c>.</summary>
+    public static string ResolveCalibrationDir(string? explicitDir = null)
+    {
+        if (!string.IsNullOrWhiteSpace(explicitDir)) return explicitDir!;
+
+        var env = Environment.GetEnvironmentVariable("ULTIMA_DATA");
+        if (!string.IsNullOrWhiteSpace(env))
+        {
+            var candidate = Path.Combine(env!, "data", "calibration");
+            if (Directory.Exists(candidate)) return candidate;
+            var shallow = Path.Combine(env!, "calibration");
+            if (Directory.Exists(shallow)) return shallow;
+        }
+
+        var dir = AppContext.BaseDirectory;
+        for (int i = 0; i < 8 && !string.IsNullOrEmpty(dir); i++)
+        {
+            var candidate = Path.Combine(dir, "data", "calibration");
+            if (Directory.Exists(candidate)) return candidate;
+            dir = Path.GetDirectoryName(dir.TrimEnd(Path.DirectorySeparatorChar));
+        }
+
+        return Path.Combine("data", "calibration");
+    }
+
     public static string ResolveMetaDir(string? explicitDir = null)
     {
         if (!string.IsNullOrWhiteSpace(explicitDir)) return explicitDir!;
