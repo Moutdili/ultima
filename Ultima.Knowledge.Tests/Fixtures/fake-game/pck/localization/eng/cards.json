@@ -1,0 +1,11 @@
+{
+  "EMBER_SLASH.description": "Burn for {Damage:diff()}.\nPick {Cards:diff()} {Cards:plural:token|tokens}.",
+  "EMBER_SLASH.title": "Ember Slash",
+  "HOLLOW_HEX.title": "Hollow Hex",
+  "QUICK_STUDY.description": "Obtain {Energy:energyIcons()}.\n[gold]Polish[/gold] {IfUpgraded:show:ALL pebbles|a pebble}.",
+  "QUICK_STUDY.title": "Quick Study",
+  "STAR_TOSS.description": "Obtain {Stars:starIcons()}.",
+  "STAR_TOSS.title": "Star Toss",
+  "ENGLISH_ONLY.description": "Raise {Block:diff()} [gold]Shield[/gold].",
+  "ENGLISH_ONLY.title": "English Only"
+}

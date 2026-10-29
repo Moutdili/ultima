@@ -1,0 +1,108 @@
+#!/usr/bin/env python3
+"""Vérifie qu'aucun texte du jeu (localisation MegaCrit) ne se trouve dans des fichiers à commiter.
+
+  tools/kb/check-no-game-text [--loc <dir>] [fichiers...]
+
+Sans fichier : contrôle les fichiers indexés (`git diff --cached --name-only`).
+Signale (code 1) :
+  - toute valeur de localisation (fra/eng) d'au moins 8 caractères contenant une espace, ou d'au
+    moins 12 caractères, présente telle quelle (BBCode retiré ou non) ;
+  - tout passage de prose commun de 32 caractères ou plus avec une valeur de localisation
+    (placeholders SmartFormat {…} et balises BBCode retirés des deux côtés : la SYNTAXE du format,
+    reproduite à dessein par les fixtures, n'est pas du texte).
+Lecture seule sur le jeu ; n'affiche que des identifiants de clé, jamais le texte trouvé en entier.
+"""
+import json
+import os
+import re
+import subprocess
+import sys
+
+SHINGLE = 32
+# Valeurs génériques de la localisation qui ne sont pas du texte de jeu (faux positifs connus).
+ALLOW = {"Localization", "Localisation", "Slay the Spire 2"}
+
+
+def prose(text):
+    t = re.sub(r"\[/?[a-zA-Z_][^\]]*\]", " ", text)
+    prev = None
+    while prev != t:
+        prev = t
+        t = re.sub(r"\{[^{}]*\}", " ", t)
+    return re.sub(r"\s+", " ", t)
+
+
+def load_values(loc_dir):
+    values = {}
+    for lang in ("fra", "eng"):
+        d = os.path.join(loc_dir, lang)
+        if not os.path.isdir(d):
+            continue
+        for name in sorted(os.listdir(d)):
+            if not name.endswith(".json"):
+                continue
+            with open(os.path.join(d, name), encoding="utf-8") as fh:
+                for k, v in json.load(fh).items():
+                    if isinstance(v, str):
+                        values.setdefault(v, f"{lang}/{name}:{k}")
+                        plain = re.sub(r"\[/?[a-zA-Z_][^\]]*\]", "", v)
+                        values.setdefault(plain, f"{lang}/{name}:{k}")
+    return values
+
+
+def main(argv):
+    loc = os.environ.get("ULTIMA_GAME_DIR", "/home/mio/sts2/game") + "/pck/localization"
+    files = []
+    i = 0
+    while i < len(argv):
+        if argv[i] == "--loc":
+            loc = argv[i + 1]
+            i += 2
+        else:
+            files.append(argv[i])
+            i += 1
+    if not os.path.isdir(loc):
+        print(f"check-no-game-text : localisation absente ({loc}), contrôle impossible", file=sys.stderr)
+        return 2
+    if not files:
+        out = subprocess.run(["git", "diff", "--cached", "--name-only", "--diff-filter=ACMR"],
+                             capture_output=True, text=True, check=True).stdout
+        files = [f for f in out.splitlines() if f]
+
+    values = load_values(loc)
+    whole = {v: k for v, k in values.items()
+             if ((len(v) >= 8 and " " in v) or len(v) >= 12) and v not in ALLOW}
+    shingles = {}
+    for v, k in values.items():
+        p = prose(v)
+        for j in range(0, max(0, len(p) - SHINGLE + 1)):
+            shingles.setdefault(p[j:j + SHINGLE], k)
+
+    problems = 0
+    for f in files:
+        try:
+            with open(f, encoding="utf-8") as fh:
+                text = fh.read()
+        except (UnicodeDecodeError, FileNotFoundError, IsADirectoryError):
+            continue
+        # Les fichiers C# / JSON échappent parfois l'espace insécable : on compare aussi la forme décodée.
+        variants = {text, text.replace("\\u00a0", " ").replace("\\n", "\n")}
+        hits = set()
+        for t in variants:
+            for v, k in whole.items():
+                if v in t:
+                    hits.add(f"valeur entière {k}")
+            p = prose(t)
+            for j in range(0, max(0, len(p) - SHINGLE + 1)):
+                k = shingles.get(p[j:j + SHINGLE])
+                if k:
+                    hits.add(f"passage ≥{SHINGLE} car. de {k}")
+        for h in sorted(hits):
+            print(f"{f} : {h}")
+            problems += 1
+    print(f"check-no-game-text : {len(files)} fichier(s), {problems} alerte(s)")
+    return 1 if problems else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv[1:]))

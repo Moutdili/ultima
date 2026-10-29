@@ -1,5 +1,11 @@
 # 42 — Passation à Claude : partie scoring/algo (reprise après coupure)
 
+> **NOTE POUR LE CHEF (18:05)** — ce que Hermes a livré depuis ce brief est dans
+> **`status/hermes-s29.md`** (branche `hermes/s29-wiring`, 247 tests) : `RoutePlanner`
+> (`IRoutePlanner`, `MapView` → route), `EventAdvisor` (`IEventAdvisor`), co-op via
+> `ScoringContext.Allies`, et `Score.DeltaG` signé pour les malédictions. À lire avant de coder
+> le daemon. Un écart reste à trancher : **297 reliques (Encyclopédiste) vs 304 (registre)**.
+
 > Ce document ne décrit **que la partie livrée par Hermes** (scoring + algo) et ce qu'elle attend
 > de toi. Tes propres tâches ne sont pas ici. À lire en 5 minutes avant de reprendre.
 > État au 2026-10-29 17:34 : `main` = **`9eb36c9`**, **238 tests** verts, `bash tools/hermes-verify.sh`
@@ -121,3 +127,46 @@ python3 -I tools/index_curse_impact.py      # régénère curse_impact.json
   Les tests doivent fixer leur méta (fixture) au lieu de lire la variante présente sur la machine — comme pour
   `ULTIMA_DATA`, ils doivent être insensibles à `local/`.
 - Tags de reliques (163 muettes) et pouvoirs comportementaux : restent dans ton périmètre (calcul).
+
+---
+## Revue du chef sur cas RÉELS (2026-10-29 18:10)
+Situations de la fenêtre de test n°1 notées par `new Scorer()` (sonde jetable hors dépôt) :
+récompense Defect A9 (Iteration / Hailstorm / Boot Sequence) et shop Necrobinder (116 or, 13 articles).
+**Ce qui est bon** : classement de la récompense cohérent (Boot Sequence B 67 > Iteration D 37 >
+Hailstorm F 20 = passer), termes chiffrés et sourcés, perf 0,01 ms/appel, méthode de calibration
+honnête (survivants d'acte, acte 3 déclaré non identifiable, 660 champs Python = C#).
+
+**À corriger, par priorité :**
+1. **[P0] Échec silencieux sans données** : lancé hors du dépôt sans `ULTIMA_DATA`, `MetaTable.Load()`
+   ne trouve rien et TOUT sort en **F 0** (aucun terme méta, aucune erreur). Viole ta règle n°1.
+   Attendu : `MetaTable`/`Scorer` exposent un état (`IsLoaded`, chemin, nb d'entrées) ou lèvent ; le
+   daemon le traduira en `SourceHealth.Degraded`. Test : répertoire vide → erreur explicite, pas des F.
+2. **[P1] Shop incohérent avec la récompense** : au shop une carte n'a que « Valeur + Économie » (pas de
+   Fit/ΔG ni de besoin immédiat) et une autre échelle (Putrefy consensus 75 → +37 au shop, alors qu'à la
+   récompense 60 → +40). Les lettres du shop sont tassées (cartes C/D/F) et incomparables à celles des
+   récompenses. Attendu : `ScoreShopItem(card)` = `ScoreCard` complet + terme économie séparé.
+3. **[P1] « Trop cher » ≠ « mauvais »** : Bread (consensus 78,5) sort F 21 parce que non abordable.
+   La lettre doit noter la valeur ; l'abordabilité est déjà un booléen du contrat (`ShopItem.Affordable`).
+   Garde le terme, mais hors de la note (ou terme informatif à 0 point).
+4. **[P1] Potions à valeur neutre au-dessus des cartes** : les 3 potions sortent C 44 grâce à une
+   « valeur neutre documentée » (+35), au-dessus de presque toutes les cartes mesurées. Un placeholder
+   ne doit pas battre une mesure : score `null` ou note plafonnée/marquée « non comparable ».
+5. **[P2] Note du deck peu informative** : un deck de départ à l'étage 2 sort F 17 (moyenne des notes
+   de Frappe/Défense). Note relative attendue : percentile de G parmi les runs au même acte/étage
+   (ton corpus le permet).
+6. **[P2] `Score.DeltaG` (v1.2) jamais rempli** alors que le terme Fit calcule déjà « ΔG = +4 pts ».
+7. **[P2] Retrait** : `ScoreRemoval` (+25 fixe − coût) ne passe pas par `RemovalAdvisor` (qui connaît
+   malédictions et Frappes) ; deux vérités pour la même décision.
+8. **[info] Pouvoir prédictif modeste** (AUC 0,66-0,69 d'après docs/31) : garde les termes ΔG bornés
+   (±20) comme aujourd'hui ; ne pas les laisser dominer la méta.
+9. **[info] Corpus Spire Codex** : conditions d'utilisation introuvables (docs/meta) — garder le brut hors
+   dépôt (c'est le cas), ne publier que des agrégats, et ménager l'API (cache, débit limité).
+
+---
+## Chef — S29 intégré (2026-10-29 18:20)
+`hermes/s29-wiring` (7189247) mergé dans main : 247/247 sur clone propre. Écart 297/304 tranché dans
+docs/22 (mêmes 304 identifiants ; 7 reliques « localisation seule » = sans classe dans le code :
+CURSED_KETTLE, ENDLESS_APPETITE, GLOWING_ORB, INK_BOTTLE, MYSTERIOUS_COCOON, RED_VINE_TEA, VINE_BRACELET
+— pas Circlet/Wongo Badge). Ajoute le drapeau `localization_only` dans le registre et exclus-les des totaux.
+Rappel : `hermes-verify` est en HOLD sur la machine de Mio — 5 tests dépendent de `data/meta/local/`
+(Context/Fit/Need) : à rendre indépendants (fixture de méta), cf. revue ci-dessus.

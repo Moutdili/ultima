@@ -1,0 +1,4 @@
+{
+  "FOG_TONIC.description": "Les brumes masquent [blue]{DamageDecrease}%[/blue] du paysage {Repeat:plural:jusqu'à demain|pendant [blue]{}[/blue] jours}. Opacité [blue]{Shrink:percentLess()}%[/blue], écart [blue]{Delta:abs()}[/blue].",
+  "FOG_TONIC.title": "Tonique de brume"
+}

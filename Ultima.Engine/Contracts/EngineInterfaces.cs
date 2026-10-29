@@ -13,6 +13,11 @@ public interface IKnowledge
     PotionInfo? Potion(string id);
     string? EncounterName(string id);   // "ENCOUNTER.X_BOSS"
     string? CharacterName(string id);   // "CHARACTER.DEFECT"
+
+    /// <summary>v1.2 : carte au niveau d'amélioration donné (nom « + », coût, texte). Défaut : carte de base.</summary>
+    CardInfo? Card(string id, int upgradeLevel) => Card(id);
+    /// <summary>v1.2 : enchantement avec le montant lu dans la save (texte rendu). Défaut : sans montant.</summary>
+    EnchantmentInfo? Enchantment(string id, int amount) => Enchantment(id);
 }
 
 public sealed record CardInfo(string Id, string ClassName, string Name, string Description, string Type,

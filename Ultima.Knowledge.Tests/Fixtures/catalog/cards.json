@@ -1,0 +1,7 @@
+[
+ {"class": "EmberSlash", "file": "Models/Cards/EmberSlash.cs", "base": "CardModel", "cost": 1, "type": "Attack", "rarity": "Common", "target": "AnyEnemy"},
+ {"class": "HollowHex", "file": "Models/Cards/HollowHex.cs", "base": "CardModel", "cost": 0, "type": "Curse", "rarity": "Curse", "target": "None"},
+ {"class": "QuickStudy", "file": "Models/Cards/QuickStudy.cs", "base": "CardModel", "cost": 1, "type": "Skill", "rarity": "Uncommon", "target": "Self"},
+ {"class": "StarToss", "file": "Models/Cards/StarToss.cs", "base": "CardModel", "cost": 0, "type": "Skill", "rarity": "Rare", "target": "Self"},
+ {"class": "EnglishOnly", "file": "Models/Cards/EnglishOnly.cs", "base": "CardModel", "cost": 0, "type": "Skill", "rarity": "Common", "target": "Self"}
+]

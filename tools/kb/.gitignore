@@ -1,0 +1,4 @@
+# Sorties locales de build-kb (textes du jeu) : jamais commitées.
+out/
+kb.json
+coverage.md
