@@ -48,7 +48,7 @@ public sealed record RunView(
 
 /// <summary>Carte (deck, récompense, shop). Enchantment = bonus spécial (Sown, Swift…). IsCurse = malédiction.</summary>
 public sealed record CardView(
-    string Id, string Name, string Type, string Rarity, int Cost, int Upgrade,
+    string Id, string Name, string Type, string Rarity, int? Cost, int Upgrade,
     EnchantmentView? Enchantment, bool IsCurse, Score? Score)
 {
     /// <summary>Description FR rendue (IKnowledge). Ajout v1.1, demande du compagnon.</summary>
@@ -104,7 +104,8 @@ public sealed record ScoreTerm(string Label, int Points, string Source)
     public string? Evidence { get; init; }
 }
 
-public sealed record RewardView(IReadOnlyList<CardView> Offered, Score SkipScore, bool AlreadyTaken);
+/// <summary>SkipScore null = « passer » non évaluable (v1.3). CardView.Cost null = coût X ou injouable (v1.3).</summary>
+public sealed record RewardView(IReadOnlyList<CardView> Offered, Score? SkipScore, bool AlreadyTaken);
 
 public sealed record ShopView(IReadOnlyList<ShopItem> Items, int RemovalPrice, bool RemovalUsed, Score? RemovalScore);
 

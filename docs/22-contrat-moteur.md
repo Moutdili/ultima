@@ -60,3 +60,10 @@ Les deux catalogues ont les **mêmes 304 identifiants** de reliques. 7 n'existen
 localisation seule restent dans les deux catalogues avec le drapeau `localizationOnly` / `localization_only`,
 sont exclues des totaux, des statistiques et de la calibration, et ne reçoivent jamais de score.
 Libellés affichés : `Ultima.Knowledge` fait foi. Données de calcul : registre de Hermes fait foi.
+
+## v1.3 — compléments (2026-10-29)
+- `RewardView.SkipScore` et `CardView.Cost` deviennent nullables (`null` = non évaluable / coût X ou injouable).
+  `DeckEvaluation.Score` reste obligatoire : si l'évaluation échoue, le daemon publie `deck = null`.
+- `AllyView.Name` = nom du personnage (la save ne contient pas les pseudos ; préférable pour la vie privée).
+- Échantillon d'état v1.3 produit par le daemon sur une vraie save (anonymisé) : `docs/ipc/state.v13.sample.json`.
+  `docs/22-state.sample.json` reste l'échantillon v1 des tests de rendu existants.
