@@ -42,10 +42,12 @@ public sealed class RelicScorer
 
         if (meta.Consensus is double consensus)
         {
-            // Même échelle que les cartes : consensus 100 ≈ 80 (A/S), la synergie fait le reste.
-            b.Add("Méta communautaire",
-                Math.Min(80, 10 + ScoreMath.Round(ScoreMath.Clamp(consensus, 0, 100) * 0.70)),
-                CardScorer.SourceLabel(meta));
+            // Même principe que les cartes : le rang décide, pas l'échelle du fichier.
+            int calibrated = meta.ConsensusPercentile is double p
+                ? 20 + ScoreMath.Round(p * 58)
+                : Math.Min(80, 10 + ScoreMath.Round(ScoreMath.Clamp(consensus, 0, 100) * 0.70));
+
+            b.Add("Méta communautaire", Math.Clamp(calibrated, 0, 80), CardScorer.SourceLabel(meta));
         }
         else
         {

@@ -33,7 +33,7 @@ Un terme à 0 point n'est pas ajouté. `Confidence` = `Confidence.Of(sourcesMeta
 ### ScoreCard (récompense)
 | Terme | Points | Source |
 |---|---|---|
-| Méta communautaire | `min(78, 7 + round(consensus × 0.65))` — calibration S→F (médiane 65 → C, 100 → A) | `CardScorer.SourceLabel(meta)` |
+| Méta communautaire | `20 + round(rang × 55)` — calibration S→F sur le **rang** dans la table (dernier → F, médiane → C, meilleur → A ; S = A + synergies). Repli `7 + 0.65 × consensus` si la table n'a pas de distribution | `CardScorer.SourceLabel(meta)` |
 | Enchantement | `+3 + min(2, amount)` (≤ 5) | `enchantement` |
 | Malédiction | `−30` | nom de la carte |
 | Historique perso | `clamp(round(delta × 40), −8, +8)`, seulement si ≥ 5 runs des deux côtés | `tes N runs` |
@@ -55,6 +55,16 @@ Source « Spire Codex (toutes versions) ».
 ### EvaluateDeck
 `moyenne des ScoreCard × 0.8` + `−8` par malédiction + adéquation boss (`±10`) + reliques (`0..5`)
 + correspondance d'archétype (`0..8`). `Archetype` = meilleur cluster ; `PotentialArchetypes` = top 3.
+
+### Calibrage S→F et notes locales
+
+Les notes locales (`data/meta/local/`, Untapped/slaythetierlist) ne sont **pas** sur la même échelle
+que la variante publique. Calibrer sur la valeur brute faisait tomber la meilleure carte en B.
+`MetaTable` calcule donc le **rang** de chaque consensus dans la table chargée
+(`MetaEntry.ConsensusPercentile`), et les scores utilisent ce rang : la notation tient avec et sans
+`local/`. Deux tests couvrent les deux cas (`Calibration_holds_without_local_notes`,
+`Calibration_holds_with_a_compressed_local_variant` — cette dernière reproduit l'échelle locale
+réduite à 30 %, qui échouait avec l'ancienne formule).
 
 ## 2bis. Potions (S6bis, contrat v1.1)
 

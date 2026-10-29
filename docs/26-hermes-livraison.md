@@ -82,11 +82,17 @@ Tout est reproductible : `bash tools/hermes-verify.sh`.
   numériques lues) — il ordonne les potions entre elles, il ne prédit pas un gain chiffré.
 - `data/catalog/potions.json` dépend de la localisation FR : une reformulation de traduction déplace un tag.
 
-## 6. Décisions à arbitrer par le chef (contrat)
+## 6. Décisions du chef (retour §7, 2026-10-29)
 
-1. `ShopItem` doit-il porter `OnSale`/`DiscountPercent` pour que le scoring distingue prix affiché et prix remisé ?
-2. `SourceHealth` doit-il exposer `AbandonedRuns`/`UnreadableRuns` pour que l'UI puisse dire « peu de données » ?
-3. `IKnowledge` doit-il exposer la description des cartes (pour remplacer les tags heuristiques) ?
+1. **Prix au shop** : `price` est le **prix affiché**, soldes et réductions déjà appliqués par le daemon.
+   Décision prise → plus de changement de contrat attendu ; `ShopScorer` garde cette hypothèse.
+2. **Tags des cartes** : restent heuristiques (nom anglais) jusqu'à la livraison de `Ultima.Knowledge`
+   (Encyclopédiste) ; bascule sur les descriptions FR à ce moment-là.
+3. **Chemins de données** : convention fixée par le daemon (`ULTIMA_DATA`) ; `DataPaths` et `ScoringData`
+   seront unifiés ensuite sur un seul résolveur.
+4. **S7** : les 10 situations réelles seront notées par Mio pendant la fenêtre de test n°2.
+
+Reste ouvert côté moteur : rien de bloquant. Les points 2 et 3 sont des suites à donner, pas des défauts.
 
 ## 7. Repro
 

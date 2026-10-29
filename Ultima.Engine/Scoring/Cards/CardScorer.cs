@@ -45,10 +45,15 @@ public sealed class CardScorer
 
         if (meta?.Consensus is double consensus)
         {
-            // Calibration (décision Mio : notation S→F) : consensus 65 (médiane réelle) ≈ 50 = C,
-            // 100 ≈ 72 = A ; seules synergies/reliques/boss peuvent porter à S (85+).
-            int calibrated = Math.Min(78, 7 + ScoreMath.Round(consensus * 0.65));
-            b.Add("Méta communautaire", calibrated, SourceLabel(meta));
+            // Calibration sur le RANG dans la table, pas sur la valeur brute : les notes locales
+            // (Untapped/slaythetierlist) n'ont pas les mêmes bornes que la variante publique.
+            // Dernier rang → 20 (F), médiane → 48 (C), meilleur rang → 75 (A) ; S (85+) reste rare
+            // et demande synergie/relique/boss en plus.
+            int calibrated = meta.ConsensusPercentile is double p
+                ? 20 + ScoreMath.Round(p * 55)
+                : Math.Min(78, 7 + ScoreMath.Round(consensus * 0.65));   // repli sans distribution
+
+            b.Add("Méta communautaire", Math.Clamp(calibrated, 0, 78), SourceLabel(meta));
         }
 
         if (card.Enchantment != null)

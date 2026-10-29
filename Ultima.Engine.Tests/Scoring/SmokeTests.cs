@@ -1,3 +1,5 @@
+using System.Text.Json;
+using System.Text.Json.Nodes;
 using Ultima.Engine.Contracts;
 using Ultima.Engine.Scoring;
 using Ultima.Engine.Scoring.Meta;
@@ -52,17 +54,108 @@ public sealed class SmokeTests
         Assert.NotEmpty(meta.Archetypes("CHARACTER.DEFECT"));
     }
 
+    // --- Calibrage S→F : doit tenir avec ET sans les notes locales (exigence du chef) ----------
+
+    private static int MetaPoints(Score score) =>
+        score.Terms.First(t => t.Label.StartsWith("Méta communautaire", StringComparison.Ordinal)).Points;
+
     /// <summary>
-    /// Calibration demandée par le chef (notation S→F) : une carte à consensus 100 doit être A ou S,
-    /// pas B. ALCHEMIZE a un consensus de 100 dans data/meta.
+    /// Construit une variante de data/meta dans un dossier temporaire.
+    /// <paramref name="rescale"/> réécrit les consensus (simule une échelle locale différente).
+    /// </summary>
+    private static string MakeVariant(bool withLocal, Func<double, double>? rescale = null)
+    {
+        var publicDir = ScoringData.ResolveMetaDir();
+        var tmp = Path.Combine(Path.GetTempPath(), "ultima-meta-" + Guid.NewGuid().ToString("N"));
+        Directory.CreateDirectory(tmp);
+
+        foreach (var name in new[] { "card_tiers.json", "relic_tiers.json", "archetypes.json", "sources.json" })
+        {
+            var src = Path.Combine(publicDir, name);
+            if (!File.Exists(src)) continue;
+            File.Copy(src, Path.Combine(tmp, name));
+        }
+
+        if (!withLocal) return tmp;
+
+        var localDir = Path.Combine(tmp, "local");
+        Directory.CreateDirectory(localDir);
+        foreach (var name in new[] { "card_tiers.json", "relic_tiers.json", "archetypes.json", "sources.json" })
+        {
+            var src = Path.Combine(tmp, name);
+            if (!File.Exists(src)) continue;
+            var dst = Path.Combine(localDir, name);
+            File.Copy(src, dst);
+            if (rescale is not null && name is "card_tiers.json" or "relic_tiers.json") RescaleConsensus(dst, rescale);
+        }
+
+        return tmp;
+    }
+
+    private static void RescaleConsensus(string path, Func<double, double> f)
+    {
+        var node = JsonNode.Parse(File.ReadAllText(path))!.AsObject();
+        foreach (var container in new[] { "characters", "groups" })
+        {
+            if (node[container] is not JsonObject groups) continue;
+            foreach (var group in groups)
+            {
+                if (group.Value is not JsonObject items) continue;
+                foreach (var item in items)
+                {
+                    if (item.Value is not JsonObject entry) continue;
+                    if (entry["consensus"] is JsonObject consensus &&
+                        consensus["score"] is JsonValue value &&
+                        value.TryGetValue<double>(out var score))
+                    {
+                        consensus["score"] = Math.Round(f(score), 2);
+                    }
+                }
+            }
+        }
+
+        File.WriteAllText(path, node.ToJsonString(new JsonSerializerOptions { WriteIndented = true }));
+    }
+
+    private static void AssertCalibrated(string metaDir, string label)
+    {
+        var meta = MetaTable.Load(metaDir);
+        Assert.True(meta.CardCount > 400, $"{label}: {meta.CardCount} cartes");
+
+        var scorer = new Scorer(meta);
+        var rated = meta.Cards.Where(c => c.Consensus is not null).OrderBy(c => c.Consensus).ToList();
+        Assert.True(rated.Count > 400);
+
+        var best = rated[^1];
+        var topScore = scorer.ScoreCard(new CardInstance(best.Id, 0, null, null), Ctx);
+        Assert.True(MetaPoints(topScore) >= 70,
+            $"{label}: meilleure carte ({best.Id}, consensus {best.Consensus}) = {MetaPoints(topScore)} pts");
+        Assert.Contains(topScore.Grade, new[] { "A", "S" });
+
+        var median = rated[rated.Count / 2];
+        var medianScore = scorer.ScoreCard(new CardInstance(median.Id, 0, null, null), Ctx);
+        Assert.InRange(MetaPoints(medianScore), 40, 55);
+    }
+
+    [Fact]
+    public void Calibration_holds_without_local_notes()
+    {
+        var dir = MakeVariant(withLocal: false);
+        try { AssertCalibrated(dir, "variante publique"); }
+        finally { try { Directory.Delete(dir, true); } catch { } }
+    }
+
+    /// <summary>
+    /// Le cas réel de Mio : ses notes locales sont sur une autre échelle. Réduites à 30 % autour de
+    /// 60, la meilleure carte passe de 100 à 72 — l'ancien calibrage la sortait en B. Le rang, lui,
+    /// ne bouge pas : elle doit rester A/S.
     /// </summary>
     [Fact]
-    public void Calibration_puts_the_best_card_in_A_or_S()
+    public void Calibration_holds_with_a_compressed_local_variant()
     {
-        var scorer = new Scorer();
-        var top = scorer.ScoreCard(new CardInstance("CARD.ALCHEMIZE", 0, null, null), Ctx);
-        Assert.InRange(top.Total, 70, 100);
-        Assert.Contains(top.Grade, new[] { "A", "S" });
+        var dir = MakeVariant(withLocal: true, rescale: c => 60 + (c - 60) * 0.3);
+        try { AssertCalibrated(dir, "variante locale compressée"); }
+        finally { try { Directory.Delete(dir, true); } catch { } }
     }
 
     /// <summary>

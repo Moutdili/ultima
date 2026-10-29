@@ -22,6 +22,13 @@ public sealed record MetaEntry(
     int SourceCount,
     double Spread)
 {
+    /// <summary>
+    /// Rang du consensus dans la table chargée (0 = dernier, 1 = meilleur). Sert à calibrer la
+    /// notation S→F indépendamment de l'échelle du fichier : les notes locales (Untapped) et la
+    /// variante publique n'utilisent pas les mêmes bornes.
+    /// </summary>
+    public double? ConsensusPercentile { get; init; }
+
     public string DisplayName => string.IsNullOrWhiteSpace(NameFra) ? NameEng : NameFra!;
 }
 
