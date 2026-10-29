@@ -50,3 +50,13 @@ Réponse aux demandes de Hermes (docs/28 §6, docs/29 §5.3, docs/42 §4). Versi
 | Modules | `event`, `route`, `party` ajoutés après l'ordre de Mio (deck, enchantées, malédictions, reliques, potions) |
 Côté daemon (chef) : remplir `Map` depuis la save, `Party` depuis la save + miroir, `Event` depuis le miroir
 (chemins d'objets d'événement à cartographier), op `review.open`.
+
+## Décision chef — entités « localisation seule » (écart 297/304 reliques, 2026-10-29)
+Les deux catalogues ont les **mêmes 304 identifiants** de reliques. 7 n'existent QUE dans la localisation
+(aucune classe C# dans le code du jeu v0.107.1, donc jamais instanciables dans une vraie save) :
+`CURSED_KETTLE, ENDLESS_APPETITE, GLOWING_ORB, INK_BOTTLE, MYSTERIOUS_COCOON, RED_VINE_TEA, VINE_BRACELET`
+(idem 22 cartes et 2 rencontres côté KB).
+**Source unique de l'existence d'une entité = une classe dans le code du jeu.** Les entrées
+localisation seule restent dans les deux catalogues avec le drapeau `localizationOnly` / `localization_only`,
+sont exclues des totaux, des statistiques et de la calibration, et ne reçoivent jamais de score.
+Libellés affichés : `Ultima.Knowledge` fait foi. Données de calcul : registre de Hermes fait foi.
