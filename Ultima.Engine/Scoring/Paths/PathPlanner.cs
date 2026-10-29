@@ -159,7 +159,9 @@ public sealed class PathPlanner
             RoomTypes.Boss => (BossGold * GoldValue - damage * hpWeight, after, "boss : obligatoire"),
             RoomTypes.Unknown => (2.0 - UnknownDamage * hpWeight, Math.Max(0, hp - (int)UnknownDamage),
                 "événement : valeur variable, petite dépense de PV"),
-            _ => (0.0, hp, type),
+            // Type absent de rooms.json (ex. « ancient ») : aucun chiffre inventé, mais la
+            // raison dit explicitement que la salle n'est pas mesurée.
+            _ => (0.0, hp, $"salle « {type} » : non mesurée (absente de rooms.json)"),
         };
     }
 
