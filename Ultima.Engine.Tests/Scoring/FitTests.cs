@@ -57,7 +57,15 @@ public sealed class FitTests
         Assert.Null(Fit(covered)); // idempotence : plus aucun fit à émettre
         Assert.True(bare.Total > covered.Total,
             $"Impervious dans un deck sans bloc = {bare.Total}, dans un deck couvert = {covered.Total}");
-        Assert.Equal("A", bare.Grade);
+
+        // S16 (L2) : à PV plein, le besoin « coup du boss » s'ajoute aux DEUX cas (+5) car même le deck
+        // couvert ne tient que 9 bloc/tour pour un pire coup de 15. L2 ne crée donc pas l'écart : c'est
+        // le fit (L1) qui sépare les deux notes. La lettre du cas dégarni passe de A à S (82 → 87) :
+        // total inchangé par ailleurs, seul le terme L2 s'ajoute.
+        Assert.NotNull(bare.Terms.SingleOrDefault(t => t.Label == "Besoin immédiat — coup du boss"));
+        Assert.NotNull(covered.Terms.SingleOrDefault(t => t.Label == "Besoin immédiat — coup du boss"));
+        Assert.DoesNotContain(bare.Terms, t => t.Label.Contains("PV bas", StringComparison.Ordinal));
+        Assert.Equal("S", bare.Grade);
         Assert.Equal("B", covered.Grade);
     }
 

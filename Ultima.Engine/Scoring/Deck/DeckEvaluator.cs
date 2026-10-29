@@ -81,7 +81,9 @@ public sealed class DeckEvaluator
 
         foreach (var card in deck)
         {
-            sum += _cards.ScoreCard(card, ctx).Total;
+            // Sans la couche L2 : la note de deck reste indépendante des PV (docs/27 §2), sinon elle
+            // chute quand le joueur prend un coup et il ne comprend plus la note.
+            sum += _cards.ScoreCard(card, ctx, includeNeed: false).Total;
 
             var meta = _meta.Card(card.Id);
             if (meta?.Consensus is not null)
