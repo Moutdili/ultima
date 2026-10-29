@@ -23,5 +23,34 @@
       <summary>Hauteur du rail et du panneau (fraction de la hauteur d'écran)</summary>
       <description>0.36 en 1080p : 389 px ; surface repliée 0,26 %, déployée 4,9 %.</description>
     </key>
+    <!-- Leviers de performance (mesures A/B du Chronométreur, voir overlay/gnome/PERF.md).
+         Appliqués à chaud, sans recharger l'extension ; chaque changement est journalisé
+         ([ULTIMA] réglages perf / [ULTIMA] plan) pour corréler avec les traces MangoHud. -->
+    <key name="blur-mode" type="s">
+      <choices>
+        <choice value="panel-only"/>
+        <choice value="always"/>
+        <choice value="never"/>
+      </choices>
+      <default>'panel-only'</default>
+      <summary>Flou du verre : panel-only (rail = aplat), always (spike S1), never</summary>
+      <description>Shell.BlurEffect recalcule le flou à chaque image où le décor derrière bouge (animations de pioche). panel-only : flou seulement panneau ouvert.</description>
+    </key>
+    <key name="unredirect-mode" type="s">
+      <choices>
+        <choice value="while-shown"/>
+        <choice value="while-expanded"/>
+        <choice value="never"/>
+      </choices>
+      <default>'while-shown'</default>
+      <summary>Inhibition de l'unredirect : while-shown (spike S1), while-expanded, never</summary>
+      <description>global.compositor.disable_unredirect() empêche le scanout direct du jeu plein écran (composition à chaque image) mais garantit que l'overlay est dessiné au-dessus. while-expanded / never : le rail peut ne plus être visible au-dessus du jeu plein écran (le survol de la zone reste actif).</description>
+    </key>
+    <key name="poll-interval-ms" type="i">
+      <range min="0" max="1000"/>
+      <default>80</default>
+      <summary>Intervalle du suivi du pointeur (ms) ; 0 = pas de survol (raccourcis seulement)</summary>
+      <description>Le suivi n'existe que si ULTIMA est visible et non épinglé : masqué (Super+Maj+O, vue d'ensemble) ou épinglé, aucune minuterie. Valeurs 1-19 ramenées à 20.</description>
+    </key>
   </schema>
 </schemalist>

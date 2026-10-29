@@ -1,53 +1,67 @@
-// ULTIMA — lecture de l'état publié par le daemon (module pur, testable avec `gjs -m`).
+// ULTIMA — lecture de l'état publié par le daemon (module pur : aucune dépendance GNOME Shell,
+// testable avec `gjs -m` et `node`).
 //
-// L'overlay ne lit JAMAIS le jeu (docs/20 §5) : il affiche un JSON versionné publié par
-// ultima-daemon. Spike : fichier $XDG_RUNTIME_DIR/ultima/overlay-state.json, repli sur
-// sample-state.json (contenu factice : 5 lignes de deck). La socket viendra avec le daemon.
+// L'overlay ne lit JAMAIS le jeu : il affiche l'EngineState (contrat moteur v1,
+// Ultima.Engine/Contracts/EngineContracts.cs, docs/22) publié par ultima-daemon dans
+// $XDG_RUNTIME_DIR/ultima/state.json (écriture atomique tmp + rename).
+//
+// Règles du contrat appliquées ici :
+//   - champs inconnus ignorés ; champs absents traités comme null (rendu défensif dans render.js) ;
+//   - contractVersion supérieure à SUPPORTED_CONTRACT -> refus annoncé (« mettre à jour ULTIMA ») ;
+//   - JSON invalide (écriture partielle, fichier tronqué…) -> on GARDE le dernier état valide.
 
-import {TONES} from './palette.js';
+export const SUPPORTED_CONTRACT = 1;
+export const MAX_STATE_BYTES = 4 * 1024 * 1024; // garde-fou : un état réel fait ~10 Ko
 
-export const STATE_VERSION = 1;
-export const MAX_LINES = 12;
-export const RAIL_DOTS = 3;
-
-// Retourne {ok: true, state} ou {ok: false, error}. Ne lève jamais.
-export function parseState(text) {
+// Résultat : {kind: 'state', state} | {kind: 'future', version} | {kind: 'invalid', error}.
+// Ne lève jamais.
+export function parseEngineState(text) {
+    if (typeof text !== 'string')
+        return {kind: 'invalid', error: 'contenu non textuel'};
+    if (text.length > MAX_STATE_BYTES)
+        return {kind: 'invalid', error: `état trop gros (${text.length} octets)`};
     let raw;
     try {
         raw = JSON.parse(text);
     } catch (e) {
-        return {ok: false, error: `JSON invalide : ${e.message}`};
+        return {kind: 'invalid', error: `JSON invalide : ${e.message}`};
     }
-    if (!raw || typeof raw !== 'object')
-        return {ok: false, error: 'racine non objet'};
-    if (raw.v !== STATE_VERSION)
-        return {ok: false, error: `version ${raw.v} non supportée (attendu ${STATE_VERSION})`};
-    if (!Array.isArray(raw.lines))
-        return {ok: false, error: 'champ lines manquant'};
+    if (!raw || typeof raw !== 'object' || Array.isArray(raw))
+        return {kind: 'invalid', error: 'racine non objet'};
+    const v = raw.contractVersion;
+    if (!Number.isInteger(v) || v < 1)
+        return {kind: 'invalid', error: `contractVersion absente ou invalide (${JSON.stringify(v)})`};
+    if (v > SUPPORTED_CONTRACT)
+        return {kind: 'future', version: v};
+    return {kind: 'state', state: raw};
+}
 
-    const tone = t => (TONES.includes(t) ? t : 'cream');
-    const str = (s, max) => String(s ?? '').slice(0, max);
+// Mémoire de l'overlay : dernier état VALIDE + dernière erreur (pour ne logguer qu'au changement).
+// current : {kind: 'none'} (aucun état publié) | {kind: 'state', state} | {kind: 'future', version}.
+export class StateStore {
+    constructor() {
+        this.current = {kind: 'none'};
+        this.lastError = null;
+    }
 
-    const lines = raw.lines.slice(0, MAX_LINES).map(l => ({
-        label: str(l?.label, 40),
-        value: str(l?.value, 12),
-        tone: tone(l?.tone),
-    }));
-    const rail = (Array.isArray(raw.rail) ? raw.rail : []).slice(0, RAIL_DOTS).map(d => ({
-        tone: tone(d?.tone),
-        label: str(d?.label, 16),
-    }));
-    while (rail.length < RAIL_DOTS)
-        rail.push({tone: 'lightGray', label: ''});
+    // Retourne {changed, error}. Un contenu invalide ne remplace jamais le dernier état valide.
+    acceptText(text) {
+        const r = parseEngineState(text);
+        if (r.kind === 'invalid') {
+            const fresh = r.error !== this.lastError;
+            this.lastError = r.error;
+            return {changed: false, error: r.error, newError: fresh};
+        }
+        this.lastError = null;
+        this.current = r;
+        return {changed: true, error: null, newError: false};
+    }
 
-    return {
-        ok: true,
-        state: {
-            title: str(raw.title, 40) || 'ULTIMA',
-            subtitle: str(raw.subtitle, 60),
-            source: str(raw.source, 20),
-            lines,
-            rail,
-        },
-    };
+    // Fichier absent (daemon arrêté / jamais démarré) : plus rien de publié.
+    acceptMissing() {
+        const changed = this.current.kind !== 'none';
+        this.current = {kind: 'none'};
+        this.lastError = null;
+        return {changed, error: null, newError: false};
+    }
 }
