@@ -1,0 +1,606 @@
+{
+  "genere_le": "2026-10-29T16:39:16+0100",
+  "source": "/home/mio/sts2/data/index/runs-v0.107.1.jsonl.gz",
+  "sortie": "/home/mio/sts2/data/index/deduped-v0.107.1.jsonl.gz",
+  "signature_defaut": "picks",
+  "duree_s": 311.7,
+  "runs_lues": 785121,
+  "runs_uniques": 574569,
+  "runs_retirees": 210552,
+  "pct_retirees": 26.82,
+  "groupes": 574569,
+  "groupes_avec_doublons": 131709,
+  "pct_groupes_avec_doublons": 22.92,
+  "runs_dans_un_groupe": 210552,
+  "taille_max_groupe": 802,
+  "taille_moyenne_groupe_multiple": 2.6,
+  "mediane_groupe_multiple": 2,
+  "p90_groupe_multiple": 3,
+  "p99_groupe_multiple": 6,
+  "distribution_tailles_doublons": {
+    "2": 90232,
+    "3": 28724,
+    "4": 10863,
+    "6": 525,
+    "5": 437,
+    "11-20": 286,
+    "21-50": 149,
+    "8": 138,
+    "7": 117,
+    "9": 80,
+    "10": 68,
+    ">100": 50,
+    "51-100": 40
+  },
+  "retraits_par_taille_groupe": {
+    "2": {
+      "groupes": 90232,
+      "runs_retirees": 90232
+    },
+    "3": {
+      "groupes": 28724,
+      "runs_retirees": 57448
+    },
+    "4": {
+      "groupes": 10863,
+      "runs_retirees": 32589
+    },
+    "5": {
+      "groupes": 437,
+      "runs_retirees": 1748
+    },
+    "6": {
+      "groupes": 525,
+      "runs_retirees": 2625
+    },
+    "7": {
+      "groupes": 117,
+      "runs_retirees": 702
+    },
+    "8": {
+      "groupes": 138,
+      "runs_retirees": 966
+    },
+    "9": {
+      "groupes": 80,
+      "runs_retirees": 640
+    },
+    "10": {
+      "groupes": 68,
+      "runs_retirees": 612
+    },
+    "11-20": {
+      "groupes": 286,
+      "runs_retirees": 3882
+    },
+    "21-50": {
+      "groupes": 149,
+      "runs_retirees": 4209
+    },
+    "51-100": {
+      "groupes": 40,
+      "runs_retirees": 2819
+    },
+    ">100": {
+      "groupes": 50,
+      "runs_retirees": 12080
+    }
+  },
+  "top_groupes": [
+    {
+      "taille": 802,
+      "hash": "79b54de320aa5834"
+    },
+    {
+      "taille": 702,
+      "hash": "c8d05422cc242fa0"
+    },
+    {
+      "taille": 678,
+      "hash": "560b6e72a4846dd2"
+    },
+    {
+      "taille": 594,
+      "hash": "1ea5deb7d20cc445"
+    },
+    {
+      "taille": 550,
+      "hash": "7a34ddb2898a4204"
+    },
+    {
+      "taille": 521,
+      "hash": "f25ed9806acc0056"
+    },
+    {
+      "taille": 506,
+      "hash": "9cb6c965bf5bb29f"
+    },
+    {
+      "taille": 469,
+      "hash": "7d63cd93e330a5d0"
+    },
+    {
+      "taille": 417,
+      "hash": "583436d32b299c3b"
+    },
+    {
+      "taille": 363,
+      "hash": "58320a6dd704e518"
+    },
+    {
+      "taille": 321,
+      "hash": "a53fa1e9c5b952f7"
+    },
+    {
+      "taille": 291,
+      "hash": "c18f9a89b2d96644"
+    },
+    {
+      "taille": 288,
+      "hash": "6b1d50a419f376fd"
+    },
+    {
+      "taille": 264,
+      "hash": "f9ec7ace288875c2"
+    },
+    {
+      "taille": 249,
+      "hash": "c8c28f4e71753624"
+    },
+    {
+      "taille": 244,
+      "hash": "d644a35f4d63b5a0"
+    },
+    {
+      "taille": 237,
+      "hash": "a8a9bae2917d4468"
+    },
+    {
+      "taille": 213,
+      "hash": "33e5e2c2f717a025"
+    },
+    {
+      "taille": 210,
+      "hash": "c775224f98834698"
+    },
+    {
+      "taille": 193,
+      "hash": "b8ca054f229cff95"
+    }
+  ],
+  "retraits_par_ascension": {
+    "-2147483648": 2,
+    "-917679796": 1,
+    "-15": 3,
+    "-14": 1,
+    "-10": 1,
+    "-5": 2,
+    "-2": 1,
+    "0": 33750,
+    "1": 23131,
+    "2": 13829,
+    "3": 12484,
+    "4": 11429,
+    "5": 12902,
+    "6": 10466,
+    "7": 10259,
+    "8": 10445,
+    "9": 18911,
+    "10": 52735,
+    "11": 90,
+    "12": 33,
+    "13": 18,
+    "14": 21,
+    "15": 16,
+    "16": 7,
+    "17": 4,
+    "18": 2,
+    "19": 2,
+    "20": 4,
+    "23": 1,
+    "24": 1,
+    "29": 1
+  },
+  "retraits_par_n_joueurs": {
+    "1": 29109,
+    "2": 93466,
+    "3": 57616,
+    "4": 28970,
+    "5": 949,
+    "6": 276,
+    "7": 144,
+    "8": 14,
+    "9": 8
+  },
+  "retraits_par_mode": {
+    "standard": 195583,
+    "daily": 10245,
+    "custom": 4724
+  },
+  "gagnees_retirees": 59957,
+  "dedup_par_issue": {
+    "gagnees": {
+      "avant": 164224,
+      "apres": 104267,
+      "retirees": 59957,
+      "pct_retirees": 36.51
+    },
+    "perdues": {
+      "avant": 620897,
+      "apres": 470302,
+      "retirees": 150595,
+      "pct_retirees": 24.25
+    }
+  },
+  "sous_corpus_calibration": {
+    "definition": "solo, mode standard, personnages canoniques (5), deck ≤ 80",
+    "runs": 449825,
+    "signatures": 421864,
+    "doublons_retires": 27961,
+    "pct_retires": 6.22
+  },
+  "variantes": {
+    "final": {
+      "runs_uniques": 570070,
+      "runs_retirees": 215051,
+      "pct_retirees": 27.39,
+      "taille_max_groupe": 802
+    },
+    "picks": {
+      "runs_uniques": 574569,
+      "runs_retirees": 210552,
+      "pct_retirees": 26.82,
+      "taille_max_groupe": 802
+    },
+    "strict": {
+      "runs_uniques": 575784,
+      "runs_retirees": 209337,
+      "pct_retirees": 26.66,
+      "taille_max_groupe": 802
+    }
+  },
+  "avant": {
+    "runs": 785121,
+    "joueurs": 1263321,
+    "decisions": 25486197,
+    "decisions_cartes": 19039107,
+    "skips": 5395203,
+    "pct_skip": 28.34,
+    "win_rate": 20.917,
+    "gagnees": 164224,
+    "perdues": 620897,
+    "abandons": 160003,
+    "coop": 309276,
+    "pct_coop": 39.39,
+    "runs_sans_decision": 19415,
+    "pct_runs_sans_decision": 2.47,
+    "decisions_par_run": 32.461,
+    "decisions_par_joueur": 20.174,
+    "deck_moyen": 26.49,
+    "reliques_moyennes": 10.82,
+    "modes": {
+      "standard": 745111,
+      "daily": 27505,
+      "custom": 12505
+    },
+    "ascension": {
+      "-2147483648": 4,
+      "-917679796": 2,
+      "-21": 4,
+      "-15": 33,
+      "-14": 2,
+      "-10": 2,
+      "-9": 1,
+      "-5": 4,
+      "-2": 2,
+      "0": 145590,
+      "1": 79358,
+      "2": 53510,
+      "3": 46961,
+      "4": 41529,
+      "5": 45661,
+      "6": 37969,
+      "7": 36617,
+      "8": 39829,
+      "9": 77361,
+      "10": 180107,
+      "11": 213,
+      "12": 70,
+      "13": 64,
+      "14": 36,
+      "15": 34,
+      "16": 29,
+      "17": 8,
+      "18": 7,
+      "19": 4,
+      "20": 41,
+      "22": 2,
+      "23": 45,
+      "24": 2,
+      "26": 1,
+      "29": 2,
+      "30": 12,
+      "40": 2,
+      "43": 3
+    },
+    "win_rate_par_ascension": {
+      "-2147483648": 100.0,
+      "-917679796": 0.0,
+      "-21": 75.0,
+      "-15": 57.58,
+      "-14": 100.0,
+      "-10": 100.0,
+      "-9": 100.0,
+      "-5": 50.0,
+      "-2": 100.0,
+      "0": 18.42,
+      "1": 31.8,
+      "2": 27.93,
+      "3": 29.09,
+      "4": 28.33,
+      "5": 27.63,
+      "6": 28.65,
+      "7": 26.79,
+      "8": 21.69,
+      "9": 9.24,
+      "10": 12.52,
+      "11": 17.84,
+      "12": 27.14,
+      "13": 4.69,
+      "14": 30.56,
+      "15": 5.88,
+      "16": 13.79,
+      "17": 25.0,
+      "18": 57.14,
+      "19": 50.0,
+      "20": 19.51,
+      "22": 50.0,
+      "23": 53.33,
+      "24": 100.0,
+      "26": 0.0,
+      "29": 100.0,
+      "30": 0.0,
+      "40": 0.0,
+      "43": 0.0
+    },
+    "personnages_distincts": 550,
+    "personnages_top25": {
+      "CHARACTER.SILENT": 286754,
+      "CHARACTER.IRONCLAD": 286000,
+      "CHARACTER.NECROBINDER": 232408,
+      "CHARACTER.DEFECT": 220689,
+      "CHARACTER.REGENT": 212546,
+      "CHARACTER.WATCHER-WATCHER": 1442,
+      "CHARACTER.HERMIT-HERMIT": 1441,
+      "CHARACTER.AWAKENED-AWAKENED": 1243,
+      "CHARACTER.WATCHER": 1142,
+      "CHARACTER.SLIMEBOSS-SLIME_BOSS": 1090,
+      "CHARACTER.HEXAGHOST-HEXAGHOST": 1043,
+      "CHARACTER.AUTOMATON-AUTOMATON": 1003,
+      "CHARACTER.SNECKO-SNECKO": 991,
+      "CHARACTER.GUARDIAN-GUARDIAN": 954,
+      "CHARACTER.CHAMP-CHAMP": 936,
+      "CHARACTER.KAKAROTMOD-KAKAROT": 500,
+      "CHARACTER.RUNESMITH2-RUNESMITH2": 459,
+      "CHARACTER.HORNET_MOD_CHARACTER_HORNET_CHARACTER": 447,
+      "CHARACTER.STEVE-STEVE": 411,
+      "CHARACTER.ACHERON-ACHERON_CHARACTER": 376,
+      "CHARACTER.KAFKA-KAFKA_CHARACTER": 344,
+      "CHARACTER.LITTLEWIZARD-LITTLE_WIZARD": 332,
+      "CHARACTER.MARISAMOD-MARISA_CHARACTER": 317,
+      "CHARACTER.INTOTHESPIREVERSE-SHADOW_REGENT": 294,
+      "CHARACTER.INTOTHESPIREVERSE-SHADOW_IRONCLAD": 265
+    },
+    "win_rate_par_personnage_top25": {
+      "CHARACTER.SILENT": 28.72,
+      "CHARACTER.IRONCLAD": 27.2,
+      "CHARACTER.NECROBINDER": 27.11,
+      "CHARACTER.DEFECT": 24.49,
+      "CHARACTER.REGENT": 29.67,
+      "CHARACTER.WATCHER-WATCHER": 26.01,
+      "CHARACTER.HERMIT-HERMIT": 20.89,
+      "CHARACTER.AWAKENED-AWAKENED": 24.86,
+      "CHARACTER.WATCHER": 28.55,
+      "CHARACTER.SLIMEBOSS-SLIME_BOSS": 33.39,
+      "CHARACTER.HEXAGHOST-HEXAGHOST": 18.41,
+      "CHARACTER.AUTOMATON-AUTOMATON": 26.12,
+      "CHARACTER.SNECKO-SNECKO": 30.98,
+      "CHARACTER.GUARDIAN-GUARDIAN": 30.08,
+      "CHARACTER.CHAMP-CHAMP": 21.69,
+      "CHARACTER.KAKAROTMOD-KAKAROT": 28.6,
+      "CHARACTER.RUNESMITH2-RUNESMITH2": 28.76,
+      "CHARACTER.HORNET_MOD_CHARACTER_HORNET_CHARACTER": 44.52,
+      "CHARACTER.STEVE-STEVE": 9.73,
+      "CHARACTER.ACHERON-ACHERON_CHARACTER": 33.78,
+      "CHARACTER.KAFKA-KAFKA_CHARACTER": 40.7,
+      "CHARACTER.LITTLEWIZARD-LITTLE_WIZARD": 56.63,
+      "CHARACTER.MARISAMOD-MARISA_CHARACTER": 41.32,
+      "CHARACTER.INTOTHESPIREVERSE-SHADOW_REGENT": 22.11,
+      "CHARACTER.INTOTHESPIREVERSE-SHADOW_IRONCLAD": 29.06
+    },
+    "tue_par_top10": {
+      "NONE.NONE": 249586,
+      "ENCOUNTER.KNOWLEDGE_DEMON_BOSS": 28825,
+      "ENCOUNTER.AEONGLASS_BOSS": 28285,
+      "ENCOUNTER.KAISER_CRAB_BOSS": 27551,
+      "ENCOUNTER.DECIMILLIPEDE_ELITE": 27186,
+      "ENCOUNTER.TEST_SUBJECT_BOSS": 26223,
+      "ENCOUNTER.THE_INSATIABLE_BOSS": 20927,
+      "ENCOUNTER.QUEEN_BOSS": 19958,
+      "ENCOUNTER.PHANTASMAL_GARDENERS_ELITE": 19231,
+      "ENCOUNTER.INFESTED_PRISMS_ELITE": 19216
+    }
+  },
+  "apres": {
+    "runs": 574569,
+    "joueurs": 750959,
+    "decisions": 14583745,
+    "decisions_cartes": 10977417,
+    "skips": 3237355,
+    "pct_skip": 29.49,
+    "win_rate": 18.147,
+    "gagnees": 104267,
+    "perdues": 470302,
+    "abandons": 108961,
+    "coop": 127833,
+    "pct_coop": 22.25,
+    "runs_sans_decision": 2089,
+    "pct_runs_sans_decision": 0.36,
+    "decisions_par_run": 25.382,
+    "decisions_par_joueur": 19.42,
+    "deck_moyen": 25.61,
+    "reliques_moyennes": 10.25,
+    "modes": {
+      "standard": 549528,
+      "daily": 17260,
+      "custom": 7781
+    },
+    "ascension": {
+      "-2147483648": 2,
+      "-917679796": 1,
+      "-21": 4,
+      "-15": 30,
+      "-14": 1,
+      "-10": 1,
+      "-9": 1,
+      "-5": 2,
+      "-2": 1,
+      "0": 111840,
+      "1": 56227,
+      "2": 39681,
+      "3": 34477,
+      "4": 30100,
+      "5": 32759,
+      "6": 27503,
+      "7": 26358,
+      "8": 29384,
+      "9": 58450,
+      "10": 127372,
+      "11": 123,
+      "12": 37,
+      "13": 46,
+      "14": 15,
+      "15": 18,
+      "16": 22,
+      "17": 4,
+      "18": 5,
+      "19": 2,
+      "20": 37,
+      "22": 2,
+      "23": 44,
+      "24": 1,
+      "26": 1,
+      "29": 1,
+      "30": 12,
+      "40": 2,
+      "43": 3
+    },
+    "win_rate_par_ascension": {
+      "-2147483648": 100.0,
+      "-917679796": 0.0,
+      "-21": 75.0,
+      "-15": 56.67,
+      "-14": 100.0,
+      "-10": 100.0,
+      "-9": 100.0,
+      "-5": 50.0,
+      "-2": 100.0,
+      "0": 15.93,
+      "1": 28.15,
+      "2": 24.61,
+      "3": 24.89,
+      "4": 24.65,
+      "5": 24.01,
+      "6": 24.66,
+      "7": 23.25,
+      "8": 18.5,
+      "9": 7.48,
+      "10": 11.12,
+      "11": 15.45,
+      "12": 21.62,
+      "13": 4.35,
+      "14": 33.33,
+      "15": 11.11,
+      "16": 9.09,
+      "17": 25.0,
+      "18": 60.0,
+      "19": 50.0,
+      "20": 18.92,
+      "22": 50.0,
+      "23": 54.55,
+      "24": 100.0,
+      "26": 0.0,
+      "29": 100.0,
+      "30": 0.0,
+      "40": 0.0,
+      "43": 0.0
+    },
+    "personnages_distincts": 550,
+    "personnages_top25": {
+      "CHARACTER.IRONCLAD": 172389,
+      "CHARACTER.SILENT": 171267,
+      "CHARACTER.NECROBINDER": 135710,
+      "CHARACTER.DEFECT": 132357,
+      "CHARACTER.REGENT": 124053,
+      "CHARACTER.WATCHER-WATCHER": 891,
+      "CHARACTER.HERMIT-HERMIT": 828,
+      "CHARACTER.WATCHER": 793,
+      "CHARACTER.AWAKENED-AWAKENED": 726,
+      "CHARACTER.AUTOMATON-AUTOMATON": 596,
+      "CHARACTER.HEXAGHOST-HEXAGHOST": 589,
+      "CHARACTER.SLIMEBOSS-SLIME_BOSS": 579,
+      "CHARACTER.GUARDIAN-GUARDIAN": 521,
+      "CHARACTER.SNECKO-SNECKO": 505,
+      "CHARACTER.CHAMP-CHAMP": 481,
+      "CHARACTER.KAKAROTMOD-KAKAROT": 287,
+      "CHARACTER.RUNESMITH2-RUNESMITH2": 281,
+      "CHARACTER.HORNET_MOD_CHARACTER_HORNET_CHARACTER": 276,
+      "CHARACTER.STEVE-STEVE": 242,
+      "CHARACTER.LITTLEWIZARD-LITTLE_WIZARD": 197,
+      "CHARACTER.MARISAMOD-MARISA_CHARACTER": 197,
+      "CHARACTER.ACHERON-ACHERON_CHARACTER": 183,
+      "CHARACTER.HORNETMOD-HORNET_CHARACTER": 167,
+      "CHARACTER.KAFKA-KAFKA_CHARACTER": 157,
+      "CHARACTER.RYOSHU": 150
+    },
+    "win_rate_par_personnage_top25": {
+      "CHARACTER.IRONCLAD": 21.57,
+      "CHARACTER.SILENT": 22.57,
+      "CHARACTER.NECROBINDER": 20.96,
+      "CHARACTER.DEFECT": 20.05,
+      "CHARACTER.REGENT": 23.3,
+      "CHARACTER.WATCHER-WATCHER": 27.16,
+      "CHARACTER.HERMIT-HERMIT": 17.63,
+      "CHARACTER.WATCHER": 26.48,
+      "CHARACTER.AWAKENED-AWAKENED": 21.9,
+      "CHARACTER.AUTOMATON-AUTOMATON": 24.83,
+      "CHARACTER.HEXAGHOST-HEXAGHOST": 18.0,
+      "CHARACTER.SLIMEBOSS-SLIME_BOSS": 32.99,
+      "CHARACTER.GUARDIAN-GUARDIAN": 30.13,
+      "CHARACTER.SNECKO-SNECKO": 28.71,
+      "CHARACTER.CHAMP-CHAMP": 20.37,
+      "CHARACTER.KAKAROTMOD-KAKAROT": 27.18,
+      "CHARACTER.RUNESMITH2-RUNESMITH2": 27.4,
+      "CHARACTER.HORNET_MOD_CHARACTER_HORNET_CHARACTER": 42.75,
+      "CHARACTER.STEVE-STEVE": 11.57,
+      "CHARACTER.LITTLEWIZARD-LITTLE_WIZARD": 48.73,
+      "CHARACTER.MARISAMOD-MARISA_CHARACTER": 44.16,
+      "CHARACTER.ACHERON-ACHERON_CHARACTER": 37.7,
+      "CHARACTER.HORNETMOD-HORNET_CHARACTER": 32.34,
+      "CHARACTER.KAFKA-KAFKA_CHARACTER": 42.04,
+      "CHARACTER.RYOSHU": 44.67
+    },
+    "tue_par_top10": {
+      "NONE.NONE": 148366,
+      "ENCOUNTER.KNOWLEDGE_DEMON_BOSS": 21689,
+      "ENCOUNTER.KAISER_CRAB_BOSS": 20978,
+      "ENCOUNTER.DECIMILLIPEDE_ELITE": 20397,
+      "ENCOUNTER.AEONGLASS_BOSS": 19083,
+      "ENCOUNTER.TEST_SUBJECT_BOSS": 17471,
+      "ENCOUNTER.THE_INSATIABLE_BOSS": 15826,
+      "ENCOUNTER.PHROG_PARASITE_ELITE": 15442,
+      "ENCOUNTER.INFESTED_PRISMS_ELITE": 15210,
+      "ENCOUNTER.PHANTASMAL_GARDENERS_ELITE": 14502
+    }
+  }
+}
