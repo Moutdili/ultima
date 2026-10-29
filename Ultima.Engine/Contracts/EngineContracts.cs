@@ -44,8 +44,33 @@ public sealed record RelicView(string Id, string Name, string Description, Score
 
 public sealed record PotionView(string Id, string Name, string Description);
 
-/// <summary>Score explicable : Total 0-100 = somme bornée des termes. Confidence : high|medium|low.</summary>
-public sealed record Score(int Total, IReadOnlyList<ScoreTerm> Terms, string Confidence);
+/// <summary>
+/// Score explicable : Total 0-100 = somme bornée des termes. Confidence : high|medium|low.
+/// Grade = lettre affichée au joueur (décision Mio : notation S à F), dérivée de Total.
+/// </summary>
+public sealed record Score(int Total, IReadOnlyList<ScoreTerm> Terms, string Confidence)
+{
+    public string Grade => Grades.FromTotal(Total);
+}
+
+/// <summary>
+/// Échelle S à F, alignée sur les conventions des tier lists de data/meta (S≈90, A≈75, B≈60, C≈45, D≈30).
+/// Le calcul (Hermes) doit produire des Total sur CETTE échelle.
+/// </summary>
+public static class Grades
+{
+    public static readonly IReadOnlyList<(string Grade, int Min)> Scale = new[]
+    {
+        ("S", 85), ("A", 70), ("B", 55), ("C", 40), ("D", 25), ("F", 0),
+    };
+
+    public static string FromTotal(int total)
+    {
+        foreach (var (grade, min) in Scale)
+            if (total >= min) return grade;
+        return "F";
+    }
+}
 
 /// <summary>Un terme nommé du score, avec sa source (« Spire Codex v0.107.1 », « tes 247 runs »…).</summary>
 public sealed record ScoreTerm(string Label, int Points, string Source);
