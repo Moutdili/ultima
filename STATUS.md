@@ -497,3 +497,18 @@ Mio utilisait son bureau (~4 min, une vidéo capturée puis supprimée, rien de 
 vérifiée intacte. Autorisation portail « screenshot » accordée (révocable).
 
 Prochaine étape : `tools/lab/TEST-WINDOW-1.md` (une déconnexion, ~35 min).
+
+## Fenêtre de test n°1 — partie A (2026-10-29 12:48-13:01) : PREUVES SUR LE VRAI JEU
+Preuves brutes : `/home/mio/sts2-proofs/tw1-20261029-1248/` (local, non commité : captures du jeu).
+- **S2 miroir VALIDÉ** : attache sur le vrai CoreCLR 9.0.725 (DAC == runtime) en 108-592 ms, strace :
+  0 ptrace, 0 écriture. Carte : 8/8 champs mémoire == save == écran (Defect 60/75, 99 or, 13 cartes, 4 reliques).
+  **Récompense : 3/3 cartes lues AVANT le clic** (Iteration, Hailstorm, Boot Sequence), ordre exact.
+  **Shop : 15/15 prix** (7 cartes dont solde, 3 reliques, 3 potions, retrait 75) ; achat suivi
+  (Scourge retirée du shop, or 116→92, deck 13→14).
+- **A (saves)** : `ultima-saves run` == écran ; profil actif = profile1 (vanilla).
+- **C1 X11 sur le vrai jeu plein écran** : rail visible au-dessus (capture), raccourci GNOME
+  Super+Maj+U opérationnel jeu focalisé, clic + touche « 1 » reçus par le jeu panneau ouvert.
+  FPS : ressenti > 55 par Mio, NON mesuré (compteur Steam absent).
+- **G audit** : 807 écritures (toutes du jeu), ALERTE=0, VIOLATION=0 ; modded/ identique (sha256) ; PASS.
+- Raccourci GNOME ajouté (accord Mio) : custom-keybindings/ultima-toggle.
+Reste : partie B (extension GNOME, vraie session), mesure FPS.
