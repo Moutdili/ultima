@@ -63,11 +63,19 @@ joueur**, `card_choices` (`was_picked`), `relic_choices`, `ancient_choice`, PV/o
 
 Régénération : `python3 -I tools/fetch_codex_static.py`.
 
-### 2.4 Ce qui n'existe pas
+### 2.4 Replays combat — correction (vérifiée)
 
-- **Replays combat** : `has_replay` vrai pour 1 run sur 273, `/api/runs/{hash}/replay` → 404 sinon.
-  Donc **aucune donnée tour par tour** (dégâts par tour, ordre des cartes jouées). Une « review »
-  sera une revue de **décisions et de trajectoire**, pas un replay de combat.
+⚠️ Première mesure fausse (script qui s'arrêtait au premier match) : **22 runs sur 273 (8,1 %) ont
+`has_replay`**, et `GET /api/runs/{hash}/replay` renvoie alors du **NDJSON** (~470-850 Ko) :
+`header` (replay_version 7, seed, build, personnage, ascension) puis des événements
+`play`, `hit`, `intent`, `shop` (avec prix), `decision` (avec toutes les options).
+
+- Les runs **sans** replay → 404.
+- L'export public ne contient **pas** les replays (0 occurrence sur 785 121 lignes) : il faut les
+  fetcher par hash, run par run. Extrapolation : 785 121 × 8,1 % ≈ 63 000 replays ≈ 30 Go.
+- Conséquence : la review a deux voies — **A** décisions/trajectoire (100 % des runs, livrable),
+  **B** combat tour par tour (8 % des runs, optionnelle). Et ces replays permettent de **valider les
+  dégâts calculés** (effets de cartes, menace) sur de vrais combats.
 - Les moves de boss sont connus **un par un**, pas leur rotation : le modèle de menace doit exposer
   « pire coup », « coup moyen », « nb de coups », pas une prédiction tour par tour inventée.
 
@@ -106,12 +114,14 @@ note(item, joueur) = L0 intrinsèque (rang Spire Codex, 20..78)
 
 ## 5. Chantier en cours (swarm Hermes)
 
-| Brique | Sortie attendue |
+**Livré et mergé (107 tests, porte PASS)** :
+
+| Brique | Sortie réelle |
 |---|---|
-| Effets des cartes | `data/catalog/cards_effects.json` + `CardEffects` (dégâts/bloc/pioche/énergie/hits, upgrade) |
-| Modèle de menace | `data/catalog/monsters.json` + `ThreatModel` (pire coup, coup moyen, PV effectifs) |
-| Harnais de backtest | `tools/backtest/` : politiques branchables, métriques d'accord et de win rate |
-| Spec review/replay | `docs/29-review-replay.md` : revue de décisions (pas de combat), vitesse, ralenti sur erreur |
+| Effets des cartes | `data/catalog/cards_effects.json` (577 cartes, 298 Ko) + `Ultima.Engine/Scoring/Cards/CardEffects.cs` — 212 cartes avec dégâts, 72 avec bloc, 18 multi-coups, 10 X-cost. Piège traité : `upgrade.damage/block/cards/energy` sont des **deltas texte** (`"+3"`), `upgrade.cost` est un **coût absolu** |
+| Modèle de menace | `data/catalog/monsters.json` (128 entrées, 15 boss) + `encounters.json` (87) + `Ultima.Engine/Scoring/Threat/ThreatModel.cs` — `MaxHit`, pire move, `AverageDamage` (stats observées), `EffectiveHp` (Vulnérable ×1,5, Faiblesse ×0,75). Aeonglass 26/32, EYE_LASERS 11×2 |
+| Harnais de backtest | `tools/backtest/` (loader/policies/metrics/run/selftest) — 100k runs en 23-26 s. Mesures : accord 28,8 %, +1,4 pp de win rate par décision, **−18,5 pp par run = effet de profondeur, pas causalité** (explicité dans la sortie) |
+| Spec review | `docs/29-review-replay.md` (1 295 lignes) — timeline, regret (`ΔG(best) − ΔG(choix)`, seuils 5/12/25), contrôles de vitesse, voie combat optionnelle, demande de contrat v1.2 |
 
 Puis : `G` et `ΔG` (dépendent des deux premiers), `TeamAdvisor` (L3), packaging des artefacts.
 
