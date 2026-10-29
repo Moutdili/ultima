@@ -115,11 +115,14 @@ def main():
             deck = []
             power_curve = []
             acts = [{"turns": 0, "exp_turns": 0.0, "dmg": 0, "exp_dmg": 0.0, "fights": 0} for _ in range(3)]
+            bosses: list[str | None] = [None, None, None]
+            fights_detail: list[list] = []
+            decisions: list[list] = []
             total_fights = 0
 
             for act_i, act in enumerate(d.get("map_point_history") or []):
                 floors = act if isinstance(act, list) else [act]
-                for entry in floors:
+                for fl_i, entry in enumerate(floors):
                     if not isinstance(entry, dict):
                         continue
                     ps_list = entry.get("player_stats") or []
@@ -130,6 +133,7 @@ def main():
                         cid = bare(gained.get("id"), "CARD")
                         if cid:
                             deck.append(cid)
+                            decisions.append([act_i, fl_i, cid])
                     # Puissance cumulée du deck (somme, pas moyenne) : la moyenne baisse
                     # mécaniquement quand on ajoute des cartes faibles, la somme non — c'est
                     # elle qui porte la croissance.
@@ -139,9 +143,12 @@ def main():
                     enc = bare(room.get("model_id"), "ENCOUNTER")
                     turns = room.get("turns_taken")
                     room_type = room.get("room_type") or entry.get("map_point_type")
+                    if room_type == "boss" or "BOSS" in enc:
+                        bosses[min(act_i, 2)] = enc
                     dmg = ps.get("damage_taken") or 0
                     exp = stats.get(enc) or {}
                     if room_type in ("monster", "elite", "boss") and turns:
+                        fights_detail.append([act_i, fl_i, enc, turns, dmg, len(deck)])
                         total_fights += 1
                         fights += 1
                         idx = min(act_i, 2)
@@ -178,6 +185,9 @@ def main():
                 "curv": round(curv, 5),
                 "turn_total": total_turns,
                 "acts": acts,
+                "bosses": bosses,
+                "fd": fights_detail,
+                "decs": decisions,
                 "final": {
                     "deck": [bare(c.get("id") if isinstance(c, dict) else c, "CARD") for c in (hero.get("deck") or [])],
                     "rel": [bare(c.get("id") if isinstance(c, dict) else c, "RELIC") for c in (hero.get("relics") or [])],

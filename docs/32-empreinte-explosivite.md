@@ -34,6 +34,57 @@ Agrégats par acte (tous combats confondus) :
 
 **Conséquence pour l'algo** : la récompense doit porter d'abord sur les **dégâts évités** (survie), la vitesse en second. Cela converge avec la calibration (S15 : Survie 80-92 % du poids) et contredit l'hypothèse « explosivité = tuer vite ».
 
+## 2bis. L'état final (définition retenue)
+
+Une run est identifiée par son état final complet :
+
+| Élément | Source |
+|---|---|
+| **cartes** (multiset, upgrades compris) | `players[0].deck` |
+| **reliques** (multiset) | `players[0].relics` |
+| **PV / PV max** | `players[0].current_hp` / `max_hp` |
+| **boss 1, 2, 3** (les trois rencontres d'acte) | `rooms[].model_id` où `room_type == "boss"` |
+
+Les boss sont extraits par acte et stockés dans `bosses[0..2]` — ils font partie de l'empreinte :
+deux runs au même deck mais contre des boss différents ne sont pas la même partie.
+
+## 2ter. Attribution : quel choix fait « exploser » l'indice
+
+Méthode (`tools/explosivity/attribute.py`) : chaque combat est noté
+`0,5 · (tours_moyens − tours)/tours_moyens + 0,5 · (dégâts_moyens − dégâts)/dégâts_moyens`
+(positif = combat plus court et moins coûteux que la moyenne de la rencontre). On compare ensuite
+les 3 combats qui suivent une carte prise aux 3 qui la précèdent, **dans le même acte**, et on
+retire la dérive moyenne de l'acte (les combats durcissent avec la progression).
+
+Résultat sur 50 000 runs gagnées (cartes avec ≥ 50 observations, malédictions exclues) :
+
+| Cartes suivies des combats les plus explosifs | Δ normalisé | n | % positifs |
+|---|---|---|---|
+| FLASH_OF_STEEL | +0,133 | 966 | 62 % |
+| INTERCEPT | +0,129 | 95 | 70 % |
+| FIEND_FIRE | +0,122 | 417 | 64 % |
+| DISMANTLE | +0,120 | 1 081 | 65 % |
+| POMMEL_STRIKE | +0,109 | 4 213 | 62 % |
+| MIND_BLAST | +0,108 | 399 | 62 % |
+| BATTLE_TRANCE | +0,105 | 1 888 | 61 % |
+
+| Cartes suivies des combats les moins explosifs | Δ normalisé | n |
+|---|---|---|
+| DUALCAST | −0,093 | 104 |
+| DEFEND_DEFECT | −0,110 | 398 |
+| STRIKE_DEFECT | −0,113 | 224 |
+| BASH | −0,118 | 112 |
+| WISH | −0,229 | 116 |
+| VAULT | −0,327 | 73 |
+
+Déclencheurs des plus gros sauts (dernière carte prise avant le combat où l'indice bondit) :
+SHRUG_IT_OFF (472 runs), POMMEL_STRIKE (467), MAD_SCIENCE (443), BLADE_DANCE (414),
+PREPARED (398), TREMBLE (392), BLOODLETTING (357).
+
+Lecture : ce sont des cartes de **pioche / énergie / attaques efficaces** — elles augmentent le
+débit (cartes jouées par tour), pas seulement les dégâts. Les cartes de bloc pur ressortent
+négativement, ce qui est cohérent avec un indice qui récompense la vitesse : le bloc ralentit.
+
 ## 3. Le corpus contient 38 % de doublons exacts
 
 - 10 000 runs gagnées → **6 212 empreintes distinctes** (62,1 %), plus gros groupe : **12 copies**.
@@ -61,7 +112,9 @@ C'est exactement l'argument de Mio : une stratégie « empiler du mana et frappe
 2. **Expression par run** : courbe de puissance cumulée par étage (pente, courbure, paliers d'acte) + profil d'explosivité (tours et dégâts par combat, comparés à la moyenne de la rencontre).
 3. **Clustering** des expressions → archétypes (explosif, tanky, scaling, hybride) et poids par acte.
 4. **Catalogue de contraintes** par rencontre (plafond de dégâts, respawn, représailles) issu du code source.
-5. **Test d'identification** : après dédup, vérifier que l'empreinte (deck + trajectoire) est unique, puis mesurer la reconnaissance à partir d'un état partiel.
+5. **Test d'identification** : après dédup, vérifier que l'empreinte (deck + reliques + PV + boss 1/2/3 + trajectoire) est unique, puis mesurer la reconnaissance à partir d'un état partiel.
+6. **Contrôler l'attribution** : croiser les déclencheurs avec le type de carte et l'étage, et
+   vérifier sur les 8 % de replays que le saut correspond bien à la carte jouée (pas à un événement).
 
 ## 6. Limites
 

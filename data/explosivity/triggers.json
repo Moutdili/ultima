@@ -1,0 +1,3761 @@
+{
+ "runs": 50000,
+ "cards": [
+  {
+   "card": "FAESORCERESS-TWINKLING",
+   "n": 93,
+   "delta": 0.3606,
+   "ci95": 0.0781,
+   "positive": 0.817
+  },
+  {
+   "card": "ACHERON-FOUR_PHASES_ACHERON",
+   "n": 62,
+   "delta": 0.1405,
+   "ci95": 0.0057,
+   "positive": 1.0
+  },
+  {
+   "card": "FLASH_OF_STEEL",
+   "n": 966,
+   "delta": 0.133,
+   "ci95": 0.0212,
+   "positive": 0.618
+  },
+  {
+   "card": "INTERCEPT",
+   "n": 95,
+   "delta": 0.1287,
+   "ci95": 0.0541,
+   "positive": 0.695
+  },
+  {
+   "card": "FIEND_FIRE",
+   "n": 417,
+   "delta": 0.1221,
+   "ci95": 0.0298,
+   "positive": 0.635
+  },
+  {
+   "card": "DISMANTLE",
+   "n": 1081,
+   "delta": 0.1204,
+   "ci95": 0.0183,
+   "positive": 0.647
+  },
+  {
+   "card": "POMMEL_STRIKE",
+   "n": 4213,
+   "delta": 0.1089,
+   "ci95": 0.0096,
+   "positive": 0.62
+  },
+  {
+   "card": "MIND_BLAST",
+   "n": 399,
+   "delta": 0.1085,
+   "ci95": 0.0302,
+   "positive": 0.617
+  },
+  {
+   "card": "BATTLE_TRANCE",
+   "n": 1888,
+   "delta": 0.1055,
+   "ci95": 0.0147,
+   "positive": 0.612
+  },
+  {
+   "card": "REND",
+   "n": 81,
+   "delta": 0.1054,
+   "ci95": 0.0597,
+   "positive": 0.568
+  },
+  {
+   "card": "MANGLE",
+   "n": 391,
+   "delta": 0.1044,
+   "ci95": 0.0286,
+   "positive": 0.647
+  },
+  {
+   "card": "BLUDGEON",
+   "n": 674,
+   "delta": 0.1041,
+   "ci95": 0.024,
+   "positive": 0.631
+  },
+  {
+   "card": "HAMMER_TIME",
+   "n": 177,
+   "delta": 0.1041,
+   "ci95": 0.0489,
+   "positive": 0.537
+  },
+  {
+   "card": "RALLY",
+   "n": 259,
+   "delta": 0.1,
+   "ci95": 0.0349,
+   "positive": 0.653
+  },
+  {
+   "card": "PACTS_END",
+   "n": 358,
+   "delta": 0.0983,
+   "ci95": 0.0299,
+   "positive": 0.612
+  },
+  {
+   "card": "TEAR_ASUNDER",
+   "n": 374,
+   "delta": 0.0972,
+   "ci95": 0.0324,
+   "positive": 0.602
+  },
+  {
+   "card": "DOMINATE",
+   "n": 2856,
+   "delta": 0.0944,
+   "ci95": 0.0118,
+   "positive": 0.599
+  },
+  {
+   "card": "HEMOKINESIS",
+   "n": 403,
+   "delta": 0.0939,
+   "ci95": 0.0311,
+   "positive": 0.625
+  },
+  {
+   "card": "TAUNT",
+   "n": 1842,
+   "delta": 0.0909,
+   "ci95": 0.014,
+   "positive": 0.601
+  },
+  {
+   "card": "BULLY",
+   "n": 1625,
+   "delta": 0.0899,
+   "ci95": 0.0165,
+   "positive": 0.601
+  },
+  {
+   "card": "HAND_OF_GREED",
+   "n": 129,
+   "delta": 0.0899,
+   "ci95": 0.062,
+   "positive": 0.581
+  },
+  {
+   "card": "CLASH",
+   "n": 50,
+   "delta": 0.0852,
+   "ci95": 0.1287,
+   "positive": 0.52
+  },
+  {
+   "card": "THUNDERCLAP",
+   "n": 1700,
+   "delta": 0.085,
+   "ci95": 0.0157,
+   "positive": 0.578
+  },
+  {
+   "card": "FEEDING_FRENZY",
+   "n": 325,
+   "delta": 0.0849,
+   "ci95": 0.0286,
+   "positive": 0.637
+  },
+  {
+   "card": "PERFECTED_STRIKE",
+   "n": 3004,
+   "delta": 0.0811,
+   "ci95": 0.0103,
+   "positive": 0.65
+  },
+  {
+   "card": "CINDER",
+   "n": 315,
+   "delta": 0.0811,
+   "ci95": 0.0332,
+   "positive": 0.606
+  },
+  {
+   "card": "PRIMAL_FORCE",
+   "n": 207,
+   "delta": 0.081,
+   "ci95": 0.0398,
+   "positive": 0.671
+  },
+  {
+   "card": "SPITE",
+   "n": 537,
+   "delta": 0.0788,
+   "ci95": 0.0272,
+   "positive": 0.6
+  },
+  {
+   "card": "FIGHT_ME",
+   "n": 713,
+   "delta": 0.0765,
+   "ci95": 0.0254,
+   "positive": 0.578
+  },
+  {
+   "card": "UNRELENTING",
+   "n": 729,
+   "delta": 0.0764,
+   "ci95": 0.0219,
+   "positive": 0.605
+  },
+  {
+   "card": "SETUP_STRIKE",
+   "n": 1582,
+   "delta": 0.0754,
+   "ci95": 0.0148,
+   "positive": 0.572
+  },
+  {
+   "card": "STOMP",
+   "n": 765,
+   "delta": 0.0749,
+   "ci95": 0.0248,
+   "positive": 0.552
+  },
+  {
+   "card": "IRON_WAVE",
+   "n": 1139,
+   "delta": 0.0742,
+   "ci95": 0.0193,
+   "positive": 0.586
+  },
+  {
+   "card": "TREMBLE",
+   "n": 3785,
+   "delta": 0.074,
+   "ci95": 0.0098,
+   "positive": 0.587
+  },
+  {
+   "card": "BIG_BANG",
+   "n": 2164,
+   "delta": 0.0735,
+   "ci95": 0.0105,
+   "positive": 0.624
+  },
+  {
+   "card": "TWIN_STRIKE",
+   "n": 1600,
+   "delta": 0.073,
+   "ci95": 0.0151,
+   "positive": 0.581
+  },
+  {
+   "card": "HAVOC",
+   "n": 739,
+   "delta": 0.0722,
+   "ci95": 0.0192,
+   "positive": 0.637
+  },
+  {
+   "card": "SWORD_BOOMERANG",
+   "n": 989,
+   "delta": 0.0707,
+   "ci95": 0.02,
+   "positive": 0.595
+  },
+  {
+   "card": "UNMOVABLE",
+   "n": 744,
+   "delta": 0.0696,
+   "ci95": 0.022,
+   "positive": 0.569
+  },
+  {
+   "card": "PILLAGE",
+   "n": 669,
+   "delta": 0.0693,
+   "ci95": 0.0227,
+   "positive": 0.619
+  },
+  {
+   "card": "ANGER",
+   "n": 1445,
+   "delta": 0.0693,
+   "ci95": 0.016,
+   "positive": 0.594
+  },
+  {
+   "card": "EVIL_EYE",
+   "n": 883,
+   "delta": 0.0689,
+   "ci95": 0.0213,
+   "positive": 0.583
+  },
+  {
+   "card": "BREAKTHROUGH",
+   "n": 1163,
+   "delta": 0.0686,
+   "ci95": 0.0179,
+   "positive": 0.588
+  },
+  {
+   "card": "AGGRESSION",
+   "n": 517,
+   "delta": 0.0685,
+   "ci95": 0.025,
+   "positive": 0.549
+  },
+  {
+   "card": "FLAME_BARRIER",
+   "n": 1429,
+   "delta": 0.0683,
+   "ci95": 0.0155,
+   "positive": 0.596
+  },
+  {
+   "card": "ARMAMENTS",
+   "n": 2334,
+   "delta": 0.0682,
+   "ci95": 0.0128,
+   "positive": 0.587
+  },
+  {
+   "card": "CONFLAGRATION",
+   "n": 717,
+   "delta": 0.0681,
+   "ci95": 0.0208,
+   "positive": 0.565
+  },
+  {
+   "card": "MONARCHS_GAZE",
+   "n": 558,
+   "delta": 0.068,
+   "ci95": 0.0228,
+   "positive": 0.62
+  },
+  {
+   "card": "SEEKER_STRIKE",
+   "n": 204,
+   "delta": 0.0671,
+   "ci95": 0.0412,
+   "positive": 0.544
+  },
+  {
+   "card": "REBOOT",
+   "n": 678,
+   "delta": 0.0669,
+   "ci95": 0.0182,
+   "positive": 0.58
+  },
+  {
+   "card": "STOKE",
+   "n": 429,
+   "delta": 0.0669,
+   "ci95": 0.0273,
+   "positive": 0.643
+  },
+  {
+   "card": "SHRUG_IT_OFF",
+   "n": 4098,
+   "delta": 0.0659,
+   "ci95": 0.0096,
+   "positive": 0.569
+  },
+  {
+   "card": "BODY_SLAM",
+   "n": 1531,
+   "delta": 0.0655,
+   "ci95": 0.015,
+   "positive": 0.548
+  },
+  {
+   "card": "COLOSSUS",
+   "n": 1973,
+   "delta": 0.064,
+   "ci95": 0.0135,
+   "positive": 0.561
+  },
+  {
+   "card": "INFLAME",
+   "n": 1627,
+   "delta": 0.0638,
+   "ci95": 0.0148,
+   "positive": 0.585
+  },
+  {
+   "card": "MOLTEN_FIST",
+   "n": 3261,
+   "delta": 0.0638,
+   "ci95": 0.0109,
+   "positive": 0.573
+  },
+  {
+   "card": "UPPERCUT",
+   "n": 1061,
+   "delta": 0.0637,
+   "ci95": 0.0175,
+   "positive": 0.582
+  },
+  {
+   "card": "DARK_EMBRACE",
+   "n": 326,
+   "delta": 0.0636,
+   "ci95": 0.0318,
+   "positive": 0.613
+  },
+  {
+   "card": "BURNING_PACT",
+   "n": 1319,
+   "delta": 0.0635,
+   "ci95": 0.0169,
+   "positive": 0.577
+  },
+  {
+   "card": "HEADBUTT",
+   "n": 1248,
+   "delta": 0.0631,
+   "ci95": 0.0182,
+   "positive": 0.56
+  },
+  {
+   "card": "INFERNAL_BLADE",
+   "n": 1120,
+   "delta": 0.0629,
+   "ci95": 0.018,
+   "positive": 0.586
+  },
+  {
+   "card": "KNOCKDOWN",
+   "n": 229,
+   "delta": 0.0624,
+   "ci95": 0.04,
+   "positive": 0.594
+  },
+  {
+   "card": "RAGE",
+   "n": 1260,
+   "delta": 0.0619,
+   "ci95": 0.0172,
+   "positive": 0.589
+  },
+  {
+   "card": "MASTER_OF_STRATEGY",
+   "n": 831,
+   "delta": 0.0619,
+   "ci95": 0.0193,
+   "positive": 0.57
+  },
+  {
+   "card": "CASCADE",
+   "n": 706,
+   "delta": 0.0615,
+   "ci95": 0.0212,
+   "positive": 0.537
+  },
+  {
+   "card": "JACKPOT",
+   "n": 515,
+   "delta": 0.0608,
+   "ci95": 0.0253,
+   "positive": 0.581
+  },
+  {
+   "card": "OFFERING",
+   "n": 1297,
+   "delta": 0.0606,
+   "ci95": 0.0154,
+   "positive": 0.577
+  },
+  {
+   "card": "THRASH",
+   "n": 435,
+   "delta": 0.059,
+   "ci95": 0.0302,
+   "positive": 0.531
+  },
+  {
+   "card": "THE_GAMBIT",
+   "n": 110,
+   "delta": 0.0585,
+   "ci95": 0.0436,
+   "positive": 0.627
+  },
+  {
+   "card": "INFERNO",
+   "n": 993,
+   "delta": 0.0583,
+   "ci95": 0.0188,
+   "positive": 0.616
+  },
+  {
+   "card": "ASHEN_STRIKE",
+   "n": 986,
+   "delta": 0.0582,
+   "ci95": 0.0186,
+   "positive": 0.559
+  },
+  {
+   "card": "STONE_ARMOR",
+   "n": 1477,
+   "delta": 0.0574,
+   "ci95": 0.016,
+   "positive": 0.542
+  },
+  {
+   "card": "TRUE_GRIT",
+   "n": 1762,
+   "delta": 0.0566,
+   "ci95": 0.0145,
+   "positive": 0.544
+  },
+  {
+   "card": "PYRE",
+   "n": 1009,
+   "delta": 0.0559,
+   "ci95": 0.0166,
+   "positive": 0.557
+  },
+  {
+   "card": "BRAND",
+   "n": 584,
+   "delta": 0.0547,
+   "ci95": 0.0238,
+   "positive": 0.572
+  },
+  {
+   "card": "ALCHEMIZE",
+   "n": 405,
+   "delta": 0.0542,
+   "ci95": 0.0289,
+   "positive": 0.607
+  },
+  {
+   "card": "HOWL_FROM_BEYOND",
+   "n": 488,
+   "delta": 0.0538,
+   "ci95": 0.0281,
+   "positive": 0.582
+  },
+  {
+   "card": "IMPERVIOUS",
+   "n": 592,
+   "delta": 0.0535,
+   "ci95": 0.023,
+   "positive": 0.537
+  },
+  {
+   "card": "GOLD_AXE",
+   "n": 547,
+   "delta": 0.0528,
+   "ci95": 0.0242,
+   "positive": 0.561
+  },
+  {
+   "card": "PANIC_BUTTON",
+   "n": 164,
+   "delta": 0.0528,
+   "ci95": 0.0424,
+   "positive": 0.518
+  },
+  {
+   "card": "NOSTALGIA",
+   "n": 303,
+   "delta": 0.0523,
+   "ci95": 0.0318,
+   "positive": 0.594
+  },
+  {
+   "card": "OMNISLICE",
+   "n": 358,
+   "delta": 0.0523,
+   "ci95": 0.0295,
+   "positive": 0.575
+  },
+  {
+   "card": "IMPATIENCE",
+   "n": 221,
+   "delta": 0.052,
+   "ci95": 0.0421,
+   "positive": 0.534
+  },
+  {
+   "card": "EQUILIBRIUM",
+   "n": 345,
+   "delta": 0.0513,
+   "ci95": 0.0321,
+   "positive": 0.583
+  },
+  {
+   "card": "BLOODLETTING",
+   "n": 4507,
+   "delta": 0.051,
+   "ci95": 0.009,
+   "positive": 0.534
+  },
+  {
+   "card": "STAMPEDE",
+   "n": 1501,
+   "delta": 0.0507,
+   "ci95": 0.0152,
+   "positive": 0.55
+  },
+  {
+   "card": "FORGOTTEN_RITUAL",
+   "n": 757,
+   "delta": 0.0506,
+   "ci95": 0.0225,
+   "positive": 0.54
+  },
+  {
+   "card": "WHIRLWIND",
+   "n": 781,
+   "delta": 0.0501,
+   "ci95": 0.0208,
+   "positive": 0.515
+  },
+  {
+   "card": "FEEL_NO_PAIN",
+   "n": 1326,
+   "delta": 0.0498,
+   "ci95": 0.0154,
+   "positive": 0.577
+  },
+  {
+   "card": "PANACHE",
+   "n": 860,
+   "delta": 0.0493,
+   "ci95": 0.0184,
+   "positive": 0.607
+  },
+  {
+   "card": "BLOOD_WALL",
+   "n": 1899,
+   "delta": 0.0491,
+   "ci95": 0.0135,
+   "positive": 0.532
+  },
+  {
+   "card": "GANG_UP",
+   "n": 266,
+   "delta": 0.049,
+   "ci95": 0.0387,
+   "positive": 0.508
+  },
+  {
+   "card": "SHOCKWAVE",
+   "n": 613,
+   "delta": 0.0488,
+   "ci95": 0.0232,
+   "positive": 0.542
+  },
+  {
+   "card": "BYRDONIS_EGG",
+   "n": 619,
+   "delta": 0.0478,
+   "ci95": 0.0252,
+   "positive": 0.511
+  },
+  {
+   "card": "VICIOUS",
+   "n": 1511,
+   "delta": 0.0476,
+   "ci95": 0.0149,
+   "positive": 0.57
+  },
+  {
+   "card": "ONE_TWO_PUNCH",
+   "n": 558,
+   "delta": 0.0469,
+   "ci95": 0.025,
+   "positive": 0.573
+  },
+  {
+   "card": "THINKING_AHEAD",
+   "n": 406,
+   "delta": 0.0468,
+   "ci95": 0.0273,
+   "positive": 0.562
+  },
+  {
+   "card": "DEMONIC_SHIELD",
+   "n": 504,
+   "delta": 0.0463,
+   "ci95": 0.0269,
+   "positive": 0.512
+  },
+  {
+   "card": "BARRICADE",
+   "n": 448,
+   "delta": 0.0459,
+   "ci95": 0.0244,
+   "positive": 0.587
+  },
+  {
+   "card": "SECRET_WEAPON",
+   "n": 266,
+   "delta": 0.0456,
+   "ci95": 0.0388,
+   "positive": 0.556
+  },
+  {
+   "card": "SECOND_WIND",
+   "n": 787,
+   "delta": 0.045,
+   "ci95": 0.0214,
+   "positive": 0.544
+  },
+  {
+   "card": "RUPTURE",
+   "n": 1588,
+   "delta": 0.0447,
+   "ci95": 0.015,
+   "positive": 0.513
+  },
+  {
+   "card": "BUFFER",
+   "n": 629,
+   "delta": 0.0446,
+   "ci95": 0.0181,
+   "positive": 0.568
+  },
+  {
+   "card": "GUARDS",
+   "n": 452,
+   "delta": 0.0434,
+   "ci95": 0.0245,
+   "positive": 0.575
+  },
+  {
+   "card": "HUDDLE_UP",
+   "n": 304,
+   "delta": 0.0432,
+   "ci95": 0.0277,
+   "positive": 0.589
+  },
+  {
+   "card": "SECRET_TECHNIQUE",
+   "n": 411,
+   "delta": 0.0423,
+   "ci95": 0.0257,
+   "positive": 0.572
+  },
+  {
+   "card": "HEIRLOOM_HAMMER",
+   "n": 287,
+   "delta": 0.0421,
+   "ci95": 0.04,
+   "positive": 0.484
+  },
+  {
+   "card": "TYRANNY",
+   "n": 337,
+   "delta": 0.0413,
+   "ci95": 0.0287,
+   "positive": 0.585
+  },
+  {
+   "card": "SPLASH",
+   "n": 677,
+   "delta": 0.0408,
+   "ci95": 0.022,
+   "positive": 0.552
+  },
+  {
+   "card": "HEAVENLY_DRILL",
+   "n": 280,
+   "delta": 0.0408,
+   "ci95": 0.0343,
+   "positive": 0.536
+  },
+  {
+   "card": "DRUM_OF_BATTLE",
+   "n": 660,
+   "delta": 0.0408,
+   "ci95": 0.0229,
+   "positive": 0.555
+  },
+  {
+   "card": "CALAMITY",
+   "n": 185,
+   "delta": 0.0407,
+   "ci95": 0.0471,
+   "positive": 0.568
+  },
+  {
+   "card": "SCRAWL",
+   "n": 247,
+   "delta": 0.0403,
+   "ci95": 0.0319,
+   "positive": 0.615
+  },
+  {
+   "card": "RAMPAGE",
+   "n": 443,
+   "delta": 0.0391,
+   "ci95": 0.0293,
+   "positive": 0.567
+  },
+  {
+   "card": "MIMIC",
+   "n": 219,
+   "delta": 0.0376,
+   "ci95": 0.0279,
+   "positive": 0.479
+  },
+  {
+   "card": "TIMES_UP",
+   "n": 434,
+   "delta": 0.0374,
+   "ci95": 0.0256,
+   "positive": 0.518
+  },
+  {
+   "card": "DYING_STAR",
+   "n": 563,
+   "delta": 0.0373,
+   "ci95": 0.023,
+   "positive": 0.561
+  },
+  {
+   "card": "NEUROSURGE",
+   "n": 780,
+   "delta": 0.0366,
+   "ci95": 0.0145,
+   "positive": 0.581
+  },
+  {
+   "card": "FINESSE",
+   "n": 1144,
+   "delta": 0.0365,
+   "ci95": 0.0142,
+   "positive": 0.544
+  },
+  {
+   "card": "WHITE_NOISE",
+   "n": 1981,
+   "delta": 0.0362,
+   "ci95": 0.0125,
+   "positive": 0.547
+  },
+  {
+   "card": "CRIMSON_MANTLE",
+   "n": 661,
+   "delta": 0.0361,
+   "ci95": 0.0214,
+   "positive": 0.545
+  },
+  {
+   "card": "SWORD_SAGE",
+   "n": 612,
+   "delta": 0.0352,
+   "ci95": 0.0245,
+   "positive": 0.525
+  },
+  {
+   "card": "JUGGLING",
+   "n": 738,
+   "delta": 0.0339,
+   "ci95": 0.0223,
+   "positive": 0.558
+  },
+  {
+   "card": "CRUELTY",
+   "n": 695,
+   "delta": 0.0338,
+   "ci95": 0.0201,
+   "positive": 0.551
+  },
+  {
+   "card": "ADRENALINE",
+   "n": 1978,
+   "delta": 0.0334,
+   "ci95": 0.0109,
+   "positive": 0.584
+  },
+  {
+   "card": "FISTICUFFS",
+   "n": 505,
+   "delta": 0.0331,
+   "ci95": 0.024,
+   "positive": 0.58
+  },
+  {
+   "card": "EXPECT_A_FIGHT",
+   "n": 797,
+   "delta": 0.0331,
+   "ci95": 0.0199,
+   "positive": 0.537
+  },
+  {
+   "card": "ENERGY_SURGE",
+   "n": 998,
+   "delta": 0.033,
+   "ci95": 0.0149,
+   "positive": 0.574
+  },
+  {
+   "card": "STARDUST",
+   "n": 900,
+   "delta": 0.0321,
+   "ci95": 0.02,
+   "positive": 0.481
+  },
+  {
+   "card": "DISCOVERY",
+   "n": 844,
+   "delta": 0.0307,
+   "ci95": 0.018,
+   "positive": 0.544
+  },
+  {
+   "card": "ENTROPY",
+   "n": 280,
+   "delta": 0.0303,
+   "ci95": 0.0343,
+   "positive": 0.532
+  },
+  {
+   "card": "COMET",
+   "n": 543,
+   "delta": 0.0298,
+   "ci95": 0.0251,
+   "positive": 0.545
+  },
+  {
+   "card": "CATASTROPHE",
+   "n": 256,
+   "delta": 0.0298,
+   "ci95": 0.0331,
+   "positive": 0.574
+  },
+  {
+   "card": "FEED",
+   "n": 387,
+   "delta": 0.0277,
+   "ci95": 0.029,
+   "positive": 0.571
+  },
+  {
+   "card": "CRASH_LANDING",
+   "n": 339,
+   "delta": 0.0276,
+   "ci95": 0.0295,
+   "positive": 0.51
+  },
+  {
+   "card": "BEACON_OF_HOPE",
+   "n": 704,
+   "delta": 0.0271,
+   "ci95": 0.0197,
+   "positive": 0.509
+  },
+  {
+   "card": "CRESCENT_SPEAR",
+   "n": 1437,
+   "delta": 0.0269,
+   "ci95": 0.0153,
+   "positive": 0.518
+  },
+  {
+   "card": "UNDEATH",
+   "n": 587,
+   "delta": 0.0267,
+   "ci95": 0.0209,
+   "positive": 0.578
+  },
+  {
+   "card": "BOOT_SEQUENCE",
+   "n": 1438,
+   "delta": 0.0267,
+   "ci95": 0.0135,
+   "positive": 0.517
+  },
+  {
+   "card": "SEVEN_STARS",
+   "n": 324,
+   "delta": 0.026,
+   "ci95": 0.0266,
+   "positive": 0.537
+  },
+  {
+   "card": "DRAMATIC_ENTRANCE",
+   "n": 706,
+   "delta": 0.0256,
+   "ci95": 0.022,
+   "positive": 0.523
+  },
+  {
+   "card": "EXTERMINATE",
+   "n": 1340,
+   "delta": 0.0251,
+   "ci95": 0.0146,
+   "positive": 0.497
+  },
+  {
+   "card": "OVERCLOCK",
+   "n": 1503,
+   "delta": 0.0247,
+   "ci95": 0.0128,
+   "positive": 0.509
+  },
+  {
+   "card": "JUGGERNAUT",
+   "n": 368,
+   "delta": 0.0245,
+   "ci95": 0.0277,
+   "positive": 0.568
+  },
+  {
+   "card": "SUPERCRITICAL",
+   "n": 818,
+   "delta": 0.0236,
+   "ci95": 0.0163,
+   "positive": 0.531
+  },
+  {
+   "card": "MAYHEM",
+   "n": 709,
+   "delta": 0.0227,
+   "ci95": 0.0213,
+   "positive": 0.537
+  },
+  {
+   "card": "ACCELERANT",
+   "n": 621,
+   "delta": 0.0226,
+   "ci95": 0.0182,
+   "positive": 0.565
+  },
+  {
+   "card": "ETERNAL_ARMOR",
+   "n": 400,
+   "delta": 0.0214,
+   "ci95": 0.0262,
+   "positive": 0.575
+  },
+  {
+   "card": "THE_BOMB",
+   "n": 179,
+   "delta": 0.021,
+   "ci95": 0.0426,
+   "positive": 0.38
+  },
+  {
+   "card": "FAN_OF_KNIVES",
+   "n": 882,
+   "delta": 0.02,
+   "ci95": 0.0154,
+   "positive": 0.554
+  },
+  {
+   "card": "BEAT_DOWN",
+   "n": 142,
+   "delta": 0.0199,
+   "ci95": 0.0503,
+   "positive": 0.521
+  },
+  {
+   "card": "HELLRAISER",
+   "n": 447,
+   "delta": 0.0197,
+   "ci95": 0.0276,
+   "positive": 0.541
+  },
+  {
+   "card": "PRODUCTION",
+   "n": 1122,
+   "delta": 0.0189,
+   "ci95": 0.0152,
+   "positive": 0.529
+  },
+  {
+   "card": "BOLAS",
+   "n": 211,
+   "delta": 0.0184,
+   "ci95": 0.0452,
+   "positive": 0.45
+  },
+  {
+   "card": "NEUTRON_AEGIS",
+   "n": 320,
+   "delta": 0.0184,
+   "ci95": 0.028,
+   "positive": 0.481
+  },
+  {
+   "card": "FOREGONE_CONCLUSION",
+   "n": 270,
+   "delta": 0.018,
+   "ci95": 0.0387,
+   "positive": 0.448
+  },
+  {
+   "card": "BELIEVE_IN_YOU",
+   "n": 599,
+   "delta": 0.0178,
+   "ci95": 0.0193,
+   "positive": 0.504
+  },
+  {
+   "card": "ANOINTED",
+   "n": 154,
+   "delta": 0.0176,
+   "ci95": 0.0406,
+   "positive": 0.526
+  },
+  {
+   "card": "ULTIMATE_DEFEND",
+   "n": 1552,
+   "delta": 0.0172,
+   "ci95": 0.0131,
+   "positive": 0.503
+  },
+  {
+   "card": "SQUEEZE",
+   "n": 590,
+   "delta": 0.0166,
+   "ci95": 0.0143,
+   "positive": 0.588
+  },
+  {
+   "card": "ASSASSINATE",
+   "n": 1155,
+   "delta": 0.0161,
+   "ci95": 0.0139,
+   "positive": 0.526
+  },
+  {
+   "card": "HANG",
+   "n": 1051,
+   "delta": 0.0158,
+   "ci95": 0.0128,
+   "positive": 0.534
+  },
+  {
+   "card": "SERPENT_FORM",
+   "n": 776,
+   "delta": 0.0156,
+   "ci95": 0.0182,
+   "positive": 0.512
+  },
+  {
+   "card": "DARK_SHACKLES",
+   "n": 758,
+   "delta": 0.015,
+   "ci95": 0.0202,
+   "positive": 0.541
+  },
+  {
+   "card": "TAG_TEAM",
+   "n": 196,
+   "delta": 0.0149,
+   "ci95": 0.0289,
+   "positive": 0.566
+  },
+  {
+   "card": "BANSHEES_CRY",
+   "n": 301,
+   "delta": 0.0148,
+   "ci95": 0.025,
+   "positive": 0.525
+  },
+  {
+   "card": "SPINNER",
+   "n": 570,
+   "delta": 0.0142,
+   "ci95": 0.0198,
+   "positive": 0.475
+  },
+  {
+   "card": "ROCKET_PUNCH",
+   "n": 916,
+   "delta": 0.0139,
+   "ci95": 0.0165,
+   "positive": 0.527
+  },
+  {
+   "card": "TURBO",
+   "n": 2334,
+   "delta": 0.0139,
+   "ci95": 0.0112,
+   "positive": 0.514
+  },
+  {
+   "card": "BLADE_WALTZ_CARD",
+   "n": 60,
+   "delta": 0.0133,
+   "ci95": 0.0069,
+   "positive": 0.983
+  },
+  {
+   "card": "PARRY",
+   "n": 1517,
+   "delta": 0.0132,
+   "ci95": 0.0142,
+   "positive": 0.477
+  },
+  {
+   "card": "FIGHT_THROUGH",
+   "n": 973,
+   "delta": 0.0129,
+   "ci95": 0.0169,
+   "positive": 0.467
+  },
+  {
+   "card": "VOLLEY",
+   "n": 171,
+   "delta": 0.0128,
+   "ci95": 0.0382,
+   "positive": 0.462
+  },
+  {
+   "card": "THRUMMING_HATCHET",
+   "n": 163,
+   "delta": 0.0125,
+   "ci95": 0.0416,
+   "positive": 0.497
+  },
+  {
+   "card": "APPARITION",
+   "n": 156,
+   "delta": 0.0121,
+   "ci95": 0.0327,
+   "positive": 0.429
+  },
+  {
+   "card": "SCRAPE",
+   "n": 682,
+   "delta": 0.0108,
+   "ci95": 0.018,
+   "positive": 0.528
+  },
+  {
+   "card": "VOLTAIC",
+   "n": 472,
+   "delta": 0.0108,
+   "ci95": 0.0266,
+   "positive": 0.513
+  },
+  {
+   "card": "MANIFEST_AUTHORITY",
+   "n": 1049,
+   "delta": 0.0108,
+   "ci95": 0.0172,
+   "positive": 0.486
+  },
+  {
+   "card": "ALL_FOR_ONE",
+   "n": 556,
+   "delta": 0.0097,
+   "ci95": 0.0225,
+   "positive": 0.491
+  },
+  {
+   "card": "BOMBARDMENT",
+   "n": 487,
+   "delta": 0.0094,
+   "ci95": 0.0219,
+   "positive": 0.528
+  },
+  {
+   "card": "ULTIMATE_STRIKE",
+   "n": 1774,
+   "delta": 0.0093,
+   "ci95": 0.0119,
+   "positive": 0.502
+  },
+  {
+   "card": "REFRACT",
+   "n": 479,
+   "delta": 0.0091,
+   "ci95": 0.0225,
+   "positive": 0.476
+  },
+  {
+   "card": "MAD_SCIENCE",
+   "n": 3273,
+   "delta": 0.0086,
+   "ci95": 0.0113,
+   "positive": 0.496
+  },
+  {
+   "card": "DECISIONS_DECISIONS",
+   "n": 647,
+   "delta": 0.008,
+   "ci95": 0.0219,
+   "positive": 0.51
+  },
+  {
+   "card": "BOOST_AWAY",
+   "n": 2299,
+   "delta": 0.0076,
+   "ci95": 0.0107,
+   "positive": 0.497
+  },
+  {
+   "card": "CHAOS",
+   "n": 538,
+   "delta": 0.0075,
+   "ci95": 0.022,
+   "positive": 0.511
+  },
+  {
+   "card": "BEAT_INTO_SHAPE",
+   "n": 348,
+   "delta": 0.0067,
+   "ci95": 0.0228,
+   "positive": 0.497
+  },
+  {
+   "card": "THUNDER",
+   "n": 1453,
+   "delta": 0.0066,
+   "ci95": 0.0131,
+   "positive": 0.501
+  },
+  {
+   "card": "TANK",
+   "n": 88,
+   "delta": 0.0045,
+   "ci95": 0.0561,
+   "positive": 0.727
+  },
+  {
+   "card": "BLADE_OF_INK",
+   "n": 978,
+   "delta": 0.0044,
+   "ci95": 0.0143,
+   "positive": 0.485
+  },
+  {
+   "card": "LUNAR_BLAST",
+   "n": 268,
+   "delta": 0.0044,
+   "ci95": 0.0291,
+   "positive": 0.515
+  },
+  {
+   "card": "CELESTIAL_MIGHT",
+   "n": 415,
+   "delta": 0.0043,
+   "ci95": 0.0263,
+   "positive": 0.482
+  },
+  {
+   "card": "UPROAR",
+   "n": 876,
+   "delta": 0.0038,
+   "ci95": 0.0157,
+   "positive": 0.442
+  },
+  {
+   "card": "TRASH_TO_TREASURE",
+   "n": 439,
+   "delta": 0.0037,
+   "ci95": 0.0229,
+   "positive": 0.444
+  },
+  {
+   "card": "FASTEN",
+   "n": 838,
+   "delta": 0.0033,
+   "ci95": 0.0183,
+   "positive": 0.532
+  },
+  {
+   "card": "HYPERBEAM",
+   "n": 194,
+   "delta": 0.0031,
+   "ci95": 0.0379,
+   "positive": 0.495
+  },
+  {
+   "card": "METAMORPHOSIS",
+   "n": 1490,
+   "delta": 0.0025,
+   "ci95": 0.0127,
+   "positive": 0.507
+  },
+  {
+   "card": "RIP_AND_TEAR",
+   "n": 101,
+   "delta": 0.0016,
+   "ci95": 0.056,
+   "positive": 0.465
+  },
+  {
+   "card": "SKIM",
+   "n": 900,
+   "delta": 0.0014,
+   "ci95": 0.0169,
+   "positive": 0.502
+  },
+  {
+   "card": "SEEKING_EDGE",
+   "n": 481,
+   "delta": 0.0013,
+   "ci95": 0.0223,
+   "positive": 0.476
+  },
+  {
+   "card": "STORM",
+   "n": 1485,
+   "delta": 0.0012,
+   "ci95": 0.0135,
+   "positive": 0.469
+  },
+  {
+   "card": "DEMON_FORM",
+   "n": 563,
+   "delta": 0.0009,
+   "ci95": 0.0219,
+   "positive": 0.51
+  },
+  {
+   "card": "FLANKING",
+   "n": 871,
+   "delta": 0.0006,
+   "ci95": 0.0154,
+   "positive": 0.48
+  },
+  {
+   "card": "BURY",
+   "n": 327,
+   "delta": 0.0006,
+   "ci95": 0.0253,
+   "positive": 0.489
+  },
+  {
+   "card": "HAILSTORM",
+   "n": 949,
+   "delta": 0.0005,
+   "ci95": 0.0161,
+   "positive": 0.482
+  },
+  {
+   "card": "LEAP",
+   "n": 1512,
+   "delta": 0.0002,
+   "ci95": 0.0131,
+   "positive": 0.462
+  },
+  {
+   "card": "BULLET_TIME",
+   "n": 566,
+   "delta": -0.0002,
+   "ci95": 0.0214,
+   "positive": 0.514
+  },
+  {
+   "card": "GAMMA_BLAST",
+   "n": 936,
+   "delta": -0.0007,
+   "ci95": 0.0178,
+   "positive": 0.467
+  },
+  {
+   "card": "IGNITION",
+   "n": 232,
+   "delta": -0.0013,
+   "ci95": 0.0253,
+   "positive": 0.534
+  },
+  {
+   "card": "GLIMMER",
+   "n": 534,
+   "delta": -0.0019,
+   "ci95": 0.0227,
+   "positive": 0.493
+  },
+  {
+   "card": "PROPHESIZE",
+   "n": 273,
+   "delta": -0.0021,
+   "ci95": 0.0305,
+   "positive": 0.505
+  },
+  {
+   "card": "NOT_YET",
+   "n": 574,
+   "delta": -0.0021,
+   "ci95": 0.0242,
+   "positive": 0.519
+  },
+  {
+   "card": "SQUASH",
+   "n": 1981,
+   "delta": -0.0026,
+   "ci95": 0.0109,
+   "positive": 0.483
+  },
+  {
+   "card": "SHATTER",
+   "n": 396,
+   "delta": -0.003,
+   "ci95": 0.0232,
+   "positive": 0.51
+  },
+  {
+   "card": "RESTLESSNESS",
+   "n": 296,
+   "delta": -0.0031,
+   "ci95": 0.0278,
+   "positive": 0.52
+  },
+  {
+   "card": "SUBROUTINE",
+   "n": 1947,
+   "delta": -0.0035,
+   "ci95": 0.0119,
+   "positive": 0.477
+  },
+  {
+   "card": "CHARGE",
+   "n": 972,
+   "delta": -0.0039,
+   "ci95": 0.0174,
+   "positive": 0.476
+  },
+  {
+   "card": "EIDOLON",
+   "n": 56,
+   "delta": -0.0041,
+   "ci95": 0.0818,
+   "positive": 0.661
+  },
+  {
+   "card": "SHADOW_STEP",
+   "n": 493,
+   "delta": -0.0043,
+   "ci95": 0.0225,
+   "positive": 0.525
+  },
+  {
+   "card": "MODDED",
+   "n": 688,
+   "delta": -0.0043,
+   "ci95": 0.0174,
+   "positive": 0.499
+  },
+  {
+   "card": "PREP_TIME",
+   "n": 319,
+   "delta": -0.0043,
+   "ci95": 0.0303,
+   "positive": 0.476
+  },
+  {
+   "card": "GRAND_FINALE",
+   "n": 143,
+   "delta": -0.0048,
+   "ci95": 0.0353,
+   "positive": 0.503
+  },
+  {
+   "card": "SALVO",
+   "n": 126,
+   "delta": -0.0054,
+   "ci95": 0.0575,
+   "positive": 0.373
+  },
+  {
+   "card": "HELIX_DRILL",
+   "n": 261,
+   "delta": -0.0061,
+   "ci95": 0.0274,
+   "positive": 0.391
+  },
+  {
+   "card": "HOLOGRAM",
+   "n": 2970,
+   "delta": -0.0066,
+   "ci95": 0.0092,
+   "positive": 0.476
+  },
+  {
+   "card": "TRACKING",
+   "n": 669,
+   "delta": -0.0067,
+   "ci95": 0.018,
+   "positive": 0.462
+  },
+  {
+   "card": "MULTI_CAST",
+   "n": 195,
+   "delta": -0.0067,
+   "ci95": 0.0342,
+   "positive": 0.477
+  },
+  {
+   "card": "CORROSIVE_WAVE",
+   "n": 400,
+   "delta": -0.007,
+   "ci95": 0.0218,
+   "positive": 0.502
+  },
+  {
+   "card": "KNOCKOUT_BLOW",
+   "n": 270,
+   "delta": -0.007,
+   "ci95": 0.0339,
+   "positive": 0.474
+  },
+  {
+   "card": "PROLONG",
+   "n": 597,
+   "delta": -0.0071,
+   "ci95": 0.0213,
+   "positive": 0.481
+  },
+  {
+   "card": "SNEAKY",
+   "n": 544,
+   "delta": -0.0073,
+   "ci95": 0.0162,
+   "positive": 0.485
+  },
+  {
+   "card": "GLITTERSTREAM",
+   "n": 1244,
+   "delta": -0.0076,
+   "ci95": 0.0159,
+   "positive": 0.474
+  },
+  {
+   "card": "COOLANT",
+   "n": 315,
+   "delta": -0.0076,
+   "ci95": 0.0288,
+   "positive": 0.483
+  },
+  {
+   "card": "ECHO_FORM",
+   "n": 843,
+   "delta": -0.008,
+   "ci95": 0.017,
+   "positive": 0.496
+  },
+  {
+   "card": "STRATAGEM",
+   "n": 389,
+   "delta": -0.0083,
+   "ci95": 0.027,
+   "positive": 0.442
+  },
+  {
+   "card": "KNIFE_TRAP",
+   "n": 1007,
+   "delta": -0.0085,
+   "ci95": 0.0136,
+   "positive": 0.439
+  },
+  {
+   "card": "HAZE",
+   "n": 893,
+   "delta": -0.0085,
+   "ci95": 0.0171,
+   "positive": 0.478
+  },
+  {
+   "card": "ICE_LANCE",
+   "n": 472,
+   "delta": -0.0085,
+   "ci95": 0.0197,
+   "positive": 0.504
+  },
+  {
+   "card": "DEBILITATE",
+   "n": 1271,
+   "delta": -0.0086,
+   "ci95": 0.012,
+   "positive": 0.452
+  },
+  {
+   "card": "CLEANSE",
+   "n": 593,
+   "delta": -0.0086,
+   "ci95": 0.0202,
+   "positive": 0.496
+  },
+  {
+   "card": "I_AM_INVINCIBLE",
+   "n": 381,
+   "delta": -0.0087,
+   "ci95": 0.0248,
+   "positive": 0.488
+  },
+  {
+   "card": "SUPERMASSIVE",
+   "n": 590,
+   "delta": -0.0091,
+   "ci95": 0.0213,
+   "positive": 0.436
+  },
+  {
+   "card": "LIGHTNING_ROD",
+   "n": 2203,
+   "delta": -0.0092,
+   "ci95": 0.0106,
+   "positive": 0.442
+  },
+  {
+   "card": "COSMIC_INDIFFERENCE",
+   "n": 2211,
+   "delta": -0.0092,
+   "ci95": 0.0117,
+   "positive": 0.456
+  },
+  {
+   "card": "DREDGE",
+   "n": 852,
+   "delta": -0.0093,
+   "ci95": 0.016,
+   "positive": 0.471
+  },
+  {
+   "card": "BARRAGE",
+   "n": 687,
+   "delta": -0.0095,
+   "ci95": 0.0207,
+   "positive": 0.483
+  },
+  {
+   "card": "STACK",
+   "n": 103,
+   "delta": -0.0095,
+   "ci95": 0.0521,
+   "positive": 0.408
+  },
+  {
+   "card": "FETCH",
+   "n": 1128,
+   "delta": -0.0097,
+   "ci95": 0.0134,
+   "positive": 0.504
+  },
+  {
+   "card": "SUMMON_FORTH",
+   "n": 1174,
+   "delta": -0.0101,
+   "ci95": 0.0163,
+   "positive": 0.44
+  },
+  {
+   "card": "HIDDEN_GEM",
+   "n": 1099,
+   "delta": -0.0101,
+   "ci95": 0.0156,
+   "positive": 0.463
+  },
+  {
+   "card": "SIGNAL_BOOST",
+   "n": 542,
+   "delta": -0.0102,
+   "ci95": 0.0181,
+   "positive": 0.487
+  },
+  {
+   "card": "PILLAR_OF_CREATION",
+   "n": 1296,
+   "delta": -0.0103,
+   "ci95": 0.0154,
+   "positive": 0.452
+  },
+  {
+   "card": "ORBIT",
+   "n": 1994,
+   "delta": -0.0107,
+   "ci95": 0.0117,
+   "positive": 0.452
+  },
+  {
+   "card": "COLD_SNAP",
+   "n": 1148,
+   "delta": -0.0111,
+   "ci95": 0.0154,
+   "positive": 0.491
+  },
+  {
+   "card": "HIDDEN_DAGGERS",
+   "n": 1750,
+   "delta": -0.0111,
+   "ci95": 0.0109,
+   "positive": 0.447
+  },
+  {
+   "card": "GATHER_LIGHT",
+   "n": 3142,
+   "delta": -0.0112,
+   "ci95": 0.0106,
+   "positive": 0.47
+  },
+  {
+   "card": "DEFRAGMENT",
+   "n": 724,
+   "delta": -0.0113,
+   "ci95": 0.0163,
+   "positive": 0.459
+  },
+  {
+   "card": "KNOW_THY_PLACE",
+   "n": 2343,
+   "delta": -0.0114,
+   "ci95": 0.0113,
+   "positive": 0.457
+  },
+  {
+   "card": "PATTER",
+   "n": 1214,
+   "delta": -0.0115,
+   "ci95": 0.0161,
+   "positive": 0.456
+  },
+  {
+   "card": "SPOILS_OF_BATTLE",
+   "n": 1414,
+   "delta": -0.0118,
+   "ci95": 0.0148,
+   "positive": 0.466
+  },
+  {
+   "card": "CAPTURE_SPIRIT",
+   "n": 965,
+   "delta": -0.0119,
+   "ci95": 0.0151,
+   "positive": 0.469
+  },
+  {
+   "card": "THE_SMITH",
+   "n": 488,
+   "delta": -0.012,
+   "ci95": 0.0213,
+   "positive": 0.465
+  },
+  {
+   "card": "BUNDLE_OF_JOY",
+   "n": 395,
+   "delta": -0.0123,
+   "ci95": 0.0258,
+   "positive": 0.451
+  },
+  {
+   "card": "GO_FOR_THE_EYES",
+   "n": 2111,
+   "delta": -0.0125,
+   "ci95": 0.0108,
+   "positive": 0.461
+  },
+  {
+   "card": "PROWESS",
+   "n": 725,
+   "delta": -0.0127,
+   "ci95": 0.0195,
+   "positive": 0.459
+  },
+  {
+   "card": "CALL_OF_THE_VOID",
+   "n": 528,
+   "delta": -0.0128,
+   "ci95": 0.0193,
+   "positive": 0.472
+  },
+  {
+   "card": "MAKE_IT_SO",
+   "n": 497,
+   "delta": -0.0129,
+   "ci95": 0.0207,
+   "positive": 0.479
+  },
+  {
+   "card": "MIRAGE",
+   "n": 505,
+   "delta": -0.013,
+   "ci95": 0.0214,
+   "positive": 0.475
+  },
+  {
+   "card": "GLIMPSE_BEYOND",
+   "n": 328,
+   "delta": -0.013,
+   "ci95": 0.0261,
+   "positive": 0.479
+  },
+  {
+   "card": "CLOAK_OF_STARS",
+   "n": 1730,
+   "delta": -0.0131,
+   "ci95": 0.0136,
+   "positive": 0.454
+  },
+  {
+   "card": "SOLAR_STRIKE",
+   "n": 998,
+   "delta": -0.0131,
+   "ci95": 0.0185,
+   "positive": 0.449
+  },
+  {
+   "card": "FTL",
+   "n": 1175,
+   "delta": -0.0134,
+   "ci95": 0.0144,
+   "positive": 0.477
+  },
+  {
+   "card": "TESLA_COIL",
+   "n": 942,
+   "delta": -0.0136,
+   "ci95": 0.0153,
+   "positive": 0.451
+  },
+  {
+   "card": "QUASAR",
+   "n": 780,
+   "delta": -0.014,
+   "ci95": 0.0184,
+   "positive": 0.455
+  },
+  {
+   "card": "DOUBLE_ENERGY",
+   "n": 1028,
+   "delta": -0.0144,
+   "ci95": 0.0148,
+   "positive": 0.441
+  },
+  {
+   "card": "GENESIS",
+   "n": 551,
+   "delta": -0.0145,
+   "ci95": 0.022,
+   "positive": 0.483
+  },
+  {
+   "card": "BULK_UP",
+   "n": 1169,
+   "delta": -0.015,
+   "ci95": 0.0142,
+   "positive": 0.442
+  },
+  {
+   "card": "PINPOINT",
+   "n": 412,
+   "delta": -0.0152,
+   "ci95": 0.0242,
+   "positive": 0.439
+  },
+  {
+   "card": "ENTRENCH",
+   "n": 71,
+   "delta": -0.0152,
+   "ci95": 0.0509,
+   "positive": 0.38
+  },
+  {
+   "card": "MONOLOGUE",
+   "n": 423,
+   "delta": -0.0154,
+   "ci95": 0.0249,
+   "positive": 0.482
+  },
+  {
+   "card": "REFLECT",
+   "n": 1487,
+   "delta": -0.0154,
+   "ci95": 0.0136,
+   "positive": 0.478
+  },
+  {
+   "card": "COLLISION_COURSE",
+   "n": 1079,
+   "delta": -0.0155,
+   "ci95": 0.0167,
+   "positive": 0.445
+  },
+  {
+   "card": "PUTREFY",
+   "n": 1271,
+   "delta": -0.0156,
+   "ci95": 0.0118,
+   "positive": 0.478
+  },
+  {
+   "card": "ITERATION",
+   "n": 967,
+   "delta": -0.0157,
+   "ci95": 0.0152,
+   "positive": 0.46
+  },
+  {
+   "card": "WROUGHT_IN_WAR",
+   "n": 1107,
+   "delta": -0.0159,
+   "ci95": 0.0163,
+   "positive": 0.431
+  },
+  {
+   "card": "REAPER_FORM",
+   "n": 626,
+   "delta": -0.016,
+   "ci95": 0.0178,
+   "positive": 0.494
+  },
+  {
+   "card": "CHILD_OF_THE_STARS",
+   "n": 1734,
+   "delta": -0.0161,
+   "ci95": 0.014,
+   "positive": 0.438
+  },
+  {
+   "card": "BOUNCING_FLASK",
+   "n": 824,
+   "delta": -0.0161,
+   "ci95": 0.0162,
+   "positive": 0.478
+  },
+  {
+   "card": "MISERY",
+   "n": 552,
+   "delta": -0.0162,
+   "ci95": 0.017,
+   "positive": 0.464
+  },
+  {
+   "card": "REFLEX",
+   "n": 972,
+   "delta": -0.0163,
+   "ci95": 0.0175,
+   "positive": 0.463
+  },
+  {
+   "card": "SMOKESTACK",
+   "n": 896,
+   "delta": -0.0163,
+   "ci95": 0.0169,
+   "positive": 0.433
+  },
+  {
+   "card": "DEATHS_DOOR",
+   "n": 836,
+   "delta": -0.0165,
+   "ci95": 0.016,
+   "positive": 0.504
+  },
+  {
+   "card": "DEATH_MARCH",
+   "n": 366,
+   "delta": -0.0165,
+   "ci95": 0.029,
+   "positive": 0.522
+  },
+  {
+   "card": "BLACK_HOLE",
+   "n": 1491,
+   "delta": -0.0168,
+   "ci95": 0.014,
+   "positive": 0.447
+  },
+  {
+   "card": "GLOW",
+   "n": 2552,
+   "delta": -0.0169,
+   "ci95": 0.0105,
+   "positive": 0.465
+  },
+  {
+   "card": "RADIATE",
+   "n": 720,
+   "delta": -0.0169,
+   "ci95": 0.0209,
+   "positive": 0.453
+  },
+  {
+   "card": "SEVERANCE",
+   "n": 581,
+   "delta": -0.0169,
+   "ci95": 0.019,
+   "positive": 0.478
+  },
+  {
+   "card": "BORROWED_TIME",
+   "n": 1208,
+   "delta": -0.0173,
+   "ci95": 0.0129,
+   "positive": 0.464
+  },
+  {
+   "card": "BUBBLE_BUBBLE",
+   "n": 923,
+   "delta": -0.0174,
+   "ci95": 0.0182,
+   "positive": 0.449
+  },
+  {
+   "card": "END_OF_DAYS",
+   "n": 571,
+   "delta": -0.0174,
+   "ci95": 0.0182,
+   "positive": 0.469
+  },
+  {
+   "card": "PURITY",
+   "n": 374,
+   "delta": -0.0175,
+   "ci95": 0.0276,
+   "positive": 0.441
+  },
+  {
+   "card": "NULL",
+   "n": 597,
+   "delta": -0.0176,
+   "ci95": 0.0227,
+   "positive": 0.459
+  },
+  {
+   "card": "BEGONE",
+   "n": 1402,
+   "delta": -0.0181,
+   "ci95": 0.0145,
+   "positive": 0.459
+  },
+  {
+   "card": "CHARGE_BATTERY",
+   "n": 2754,
+   "delta": -0.0182,
+   "ci95": 0.0096,
+   "positive": 0.456
+  },
+  {
+   "card": "CONQUEROR",
+   "n": 951,
+   "delta": -0.0182,
+   "ci95": 0.0162,
+   "positive": 0.454
+  },
+  {
+   "card": "SHADOWMELD",
+   "n": 469,
+   "delta": -0.0183,
+   "ci95": 0.0217,
+   "positive": 0.522
+  },
+  {
+   "card": "COOLHEADED",
+   "n": 2295,
+   "delta": -0.0183,
+   "ci95": 0.0109,
+   "positive": 0.448
+  },
+  {
+   "card": "GUNK_UP",
+   "n": 975,
+   "delta": -0.0184,
+   "ci95": 0.0169,
+   "positive": 0.439
+  },
+  {
+   "card": "CLAW",
+   "n": 3071,
+   "delta": -0.0187,
+   "ci95": 0.009,
+   "positive": 0.448
+  },
+  {
+   "card": "CALCULATED_GAMBLE",
+   "n": 1775,
+   "delta": -0.0187,
+   "ci95": 0.0112,
+   "positive": 0.434
+  },
+  {
+   "card": "NIGHTMARE",
+   "n": 354,
+   "delta": -0.0188,
+   "ci95": 0.0253,
+   "positive": 0.432
+  },
+  {
+   "card": "BONE_SHARDS",
+   "n": 508,
+   "delta": -0.0188,
+   "ci95": 0.0192,
+   "positive": 0.494
+  },
+  {
+   "card": "HEGEMONY",
+   "n": 524,
+   "delta": -0.0189,
+   "ci95": 0.0232,
+   "positive": 0.481
+  },
+  {
+   "card": "GRAVEBLAST",
+   "n": 1582,
+   "delta": -0.019,
+   "ci95": 0.0122,
+   "positive": 0.436
+  },
+  {
+   "card": "TRANSFIGURE",
+   "n": 513,
+   "delta": -0.0191,
+   "ci95": 0.0197,
+   "positive": 0.421
+  },
+  {
+   "card": "LARGESSE",
+   "n": 396,
+   "delta": -0.0192,
+   "ci95": 0.0286,
+   "positive": 0.457
+  },
+  {
+   "card": "CHILL",
+   "n": 1117,
+   "delta": -0.02,
+   "ci95": 0.0157,
+   "positive": 0.462
+  },
+  {
+   "card": "KINGLY_PUNCH",
+   "n": 377,
+   "delta": -0.0201,
+   "ci95": 0.0293,
+   "positive": 0.424
+  },
+  {
+   "card": "ROLLING_BOULDER",
+   "n": 367,
+   "delta": -0.0202,
+   "ci95": 0.0236,
+   "positive": 0.46
+  },
+  {
+   "card": "SCAVENGE",
+   "n": 509,
+   "delta": -0.0203,
+   "ci95": 0.0229,
+   "positive": 0.434
+  },
+  {
+   "card": "JACK_OF_ALL_TRADES",
+   "n": 319,
+   "delta": -0.0205,
+   "ci95": 0.028,
+   "positive": 0.423
+  },
+  {
+   "card": "CREATIVE_AI",
+   "n": 600,
+   "delta": -0.0211,
+   "ci95": 0.0196,
+   "positive": 0.41
+  },
+  {
+   "card": "BULWARK",
+   "n": 1466,
+   "delta": -0.0214,
+   "ci95": 0.0131,
+   "positive": 0.456
+  },
+  {
+   "card": "PALE_BLUE_DOT",
+   "n": 583,
+   "delta": -0.0215,
+   "ci95": 0.0218,
+   "positive": 0.425
+  },
+  {
+   "card": "MELANCHOLY",
+   "n": 383,
+   "delta": -0.0217,
+   "ci95": 0.0252,
+   "positive": 0.475
+  },
+  {
+   "card": "ALIGNMENT",
+   "n": 855,
+   "delta": -0.0218,
+   "ci95": 0.019,
+   "positive": 0.464
+  },
+  {
+   "card": "RAINBOW",
+   "n": 268,
+   "delta": -0.0219,
+   "ci95": 0.0257,
+   "positive": 0.422
+  },
+  {
+   "card": "GLASSWORK",
+   "n": 668,
+   "delta": -0.022,
+   "ci95": 0.0173,
+   "positive": 0.428
+  },
+  {
+   "card": "DEVOUR_LIFE",
+   "n": 303,
+   "delta": -0.0221,
+   "ci95": 0.0274,
+   "positive": 0.485
+  },
+  {
+   "card": "FLECHETTES",
+   "n": 437,
+   "delta": -0.0222,
+   "ci95": 0.0229,
+   "positive": 0.453
+  },
+  {
+   "card": "MACHINE_LEARNING",
+   "n": 786,
+   "delta": -0.0223,
+   "ci95": 0.0159,
+   "positive": 0.394
+  },
+  {
+   "card": "DEATHBRINGER",
+   "n": 1322,
+   "delta": -0.0224,
+   "ci95": 0.0114,
+   "positive": 0.437
+  },
+  {
+   "card": "ABRASIVE",
+   "n": 1013,
+   "delta": -0.0225,
+   "ci95": 0.0135,
+   "positive": 0.44
+  },
+  {
+   "card": "THE_SCYTHE",
+   "n": 443,
+   "delta": -0.0226,
+   "ci95": 0.018,
+   "positive": 0.585
+  },
+  {
+   "card": "VEILPIERCER",
+   "n": 456,
+   "delta": -0.0227,
+   "ci95": 0.0207,
+   "positive": 0.439
+  },
+  {
+   "card": "ENVENOM",
+   "n": 730,
+   "delta": -0.023,
+   "ci95": 0.0159,
+   "positive": 0.403
+  },
+  {
+   "card": "BURST",
+   "n": 773,
+   "delta": -0.023,
+   "ci95": 0.0151,
+   "positive": 0.453
+  },
+  {
+   "card": "ACCURACY",
+   "n": 3911,
+   "delta": -0.0234,
+   "ci95": 0.0077,
+   "positive": 0.433
+  },
+  {
+   "card": "NECRO_MASTERY",
+   "n": 456,
+   "delta": -0.0235,
+   "ci95": 0.0194,
+   "positive": 0.436
+  },
+  {
+   "card": "BACKSTAB",
+   "n": 1533,
+   "delta": -0.0238,
+   "ci95": 0.0124,
+   "positive": 0.418
+  },
+  {
+   "card": "DIRGE",
+   "n": 1253,
+   "delta": -0.0238,
+   "ci95": 0.0122,
+   "positive": 0.446
+  },
+  {
+   "card": "CLOAK_AND_DAGGER",
+   "n": 3755,
+   "delta": -0.0242,
+   "ci95": 0.0081,
+   "positive": 0.41
+  },
+  {
+   "card": "SUCKER_PUNCH",
+   "n": 932,
+   "delta": -0.0242,
+   "ci95": 0.017,
+   "positive": 0.464
+  },
+  {
+   "card": "KINGLY_KICK",
+   "n": 377,
+   "delta": -0.0243,
+   "ci95": 0.0256,
+   "positive": 0.424
+  },
+  {
+   "card": "ENFEEBLING_TOUCH",
+   "n": 1781,
+   "delta": -0.0244,
+   "ci95": 0.0107,
+   "positive": 0.462
+  },
+  {
+   "card": "SPECTRUM_SHIFT",
+   "n": 1503,
+   "delta": -0.0244,
+   "ci95": 0.0139,
+   "positive": 0.426
+  },
+  {
+   "card": "DEFEND_NECROBINDER",
+   "n": 354,
+   "delta": -0.0245,
+   "ci95": 0.0236,
+   "positive": 0.452
+  },
+  {
+   "card": "FEAR",
+   "n": 1160,
+   "delta": -0.0246,
+   "ci95": 0.013,
+   "positive": 0.454
+  },
+  {
+   "card": "LEADING_STRIKE",
+   "n": 3311,
+   "delta": -0.025,
+   "ci95": 0.0085,
+   "positive": 0.433
+  },
+  {
+   "card": "DEFLECT",
+   "n": 2261,
+   "delta": -0.0254,
+   "ci95": 0.0105,
+   "positive": 0.448
+  },
+  {
+   "card": "INFINITE_BLADES",
+   "n": 2584,
+   "delta": -0.0256,
+   "ci95": 0.0094,
+   "positive": 0.414
+  },
+  {
+   "card": "BLADE_DANCE",
+   "n": 4430,
+   "delta": -0.0258,
+   "ci95": 0.0072,
+   "positive": 0.437
+  },
+  {
+   "card": "SPIRIT_OF_ASH",
+   "n": 312,
+   "delta": -0.0258,
+   "ci95": 0.0228,
+   "positive": 0.429
+  },
+  {
+   "card": "TEMPEST",
+   "n": 651,
+   "delta": -0.026,
+   "ci95": 0.02,
+   "positive": 0.441
+  },
+  {
+   "card": "BEAM_CELL",
+   "n": 1785,
+   "delta": -0.0262,
+   "ci95": 0.0115,
+   "positive": 0.455
+  },
+  {
+   "card": "DEMESNE",
+   "n": 842,
+   "delta": -0.0265,
+   "ci95": 0.0154,
+   "positive": 0.419
+  },
+  {
+   "card": "SHADOW_SHIELD",
+   "n": 641,
+   "delta": -0.0266,
+   "ci95": 0.0184,
+   "positive": 0.406
+  },
+  {
+   "card": "PHANTOM_BLADES",
+   "n": 1895,
+   "delta": -0.0273,
+   "ci95": 0.0105,
+   "positive": 0.442
+  },
+  {
+   "card": "AUTOMATION",
+   "n": 734,
+   "delta": -0.0273,
+   "ci95": 0.0207,
+   "positive": 0.478
+  },
+  {
+   "card": "FUSION",
+   "n": 689,
+   "delta": -0.0273,
+   "ci95": 0.0188,
+   "positive": 0.472
+  },
+  {
+   "card": "LOOP",
+   "n": 1215,
+   "delta": -0.0274,
+   "ci95": 0.0154,
+   "positive": 0.425
+  },
+  {
+   "card": "DEVASTATE",
+   "n": 396,
+   "delta": -0.0275,
+   "ci95": 0.0263,
+   "positive": 0.449
+  },
+  {
+   "card": "HOTFIX",
+   "n": 1579,
+   "delta": -0.0276,
+   "ci95": 0.0123,
+   "positive": 0.429
+  },
+  {
+   "card": "STRIKE_NECROBINDER",
+   "n": 182,
+   "delta": -0.0276,
+   "ci95": 0.0332,
+   "positive": 0.429
+  },
+  {
+   "card": "PRECISE_CUT",
+   "n": 427,
+   "delta": -0.0278,
+   "ci95": 0.0241,
+   "positive": 0.473
+  },
+  {
+   "card": "SCARE",
+   "n": 887,
+   "delta": -0.0279,
+   "ci95": 0.016,
+   "positive": 0.449
+  },
+  {
+   "card": "GUIDING_STAR",
+   "n": 919,
+   "delta": -0.0279,
+   "ci95": 0.018,
+   "positive": 0.442
+  },
+  {
+   "card": "ARSENAL",
+   "n": 336,
+   "delta": -0.0287,
+   "ci95": 0.0276,
+   "positive": 0.473
+  },
+  {
+   "card": "METEOR_STRIKE",
+   "n": 226,
+   "delta": -0.0288,
+   "ci95": 0.0281,
+   "positive": 0.403
+  },
+  {
+   "card": "EXPERTISE",
+   "n": 456,
+   "delta": -0.0289,
+   "ci95": 0.0254,
+   "positive": 0.436
+  },
+  {
+   "card": "SYNTHESIS",
+   "n": 308,
+   "delta": -0.0293,
+   "ci95": 0.0287,
+   "positive": 0.468
+  },
+  {
+   "card": "SKEWER",
+   "n": 229,
+   "delta": -0.0294,
+   "ci95": 0.0312,
+   "positive": 0.424
+  },
+  {
+   "card": "CONSUMING_SHADOW",
+   "n": 199,
+   "delta": -0.0294,
+   "ci95": 0.0387,
+   "positive": 0.417
+  },
+  {
+   "card": "LETHALITY",
+   "n": 1995,
+   "delta": -0.0296,
+   "ci95": 0.0099,
+   "positive": 0.441
+  },
+  {
+   "card": "SIC_EM",
+   "n": 629,
+   "delta": -0.0299,
+   "ci95": 0.0174,
+   "positive": 0.423
+  },
+  {
+   "card": "ESCAPE_PLAN",
+   "n": 1941,
+   "delta": -0.0304,
+   "ci95": 0.0108,
+   "positive": 0.453
+  },
+  {
+   "card": "HAUNT",
+   "n": 931,
+   "delta": -0.0306,
+   "ci95": 0.0145,
+   "positive": 0.452
+  },
+  {
+   "card": "NOXIOUS_FUMES",
+   "n": 2405,
+   "delta": -0.0313,
+   "ci95": 0.01,
+   "positive": 0.425
+  },
+  {
+   "card": "GLACIER",
+   "n": 1127,
+   "delta": -0.0315,
+   "ci95": 0.0146,
+   "positive": 0.443
+  },
+  {
+   "card": "ACROBATICS",
+   "n": 2016,
+   "delta": -0.0318,
+   "ci95": 0.011,
+   "positive": 0.419
+  },
+  {
+   "card": "DASH",
+   "n": 629,
+   "delta": -0.0322,
+   "ci95": 0.0205,
+   "positive": 0.421
+  },
+  {
+   "card": "REANIMATE",
+   "n": 487,
+   "delta": -0.0324,
+   "ci95": 0.0181,
+   "positive": 0.345
+  },
+  {
+   "card": "SNAKEBITE",
+   "n": 1241,
+   "delta": -0.0326,
+   "ci95": 0.0145,
+   "positive": 0.409
+  },
+  {
+   "card": "TACTICIAN",
+   "n": 1293,
+   "delta": -0.0326,
+   "ci95": 0.0131,
+   "positive": 0.428
+  },
+  {
+   "card": "DEADLY_POISON",
+   "n": 1484,
+   "delta": -0.0332,
+   "ci95": 0.0126,
+   "positive": 0.443
+  },
+  {
+   "card": "FERAL",
+   "n": 1480,
+   "delta": -0.0333,
+   "ci95": 0.0137,
+   "positive": 0.455
+  },
+  {
+   "card": "REBOUND",
+   "n": 114,
+   "delta": -0.0333,
+   "ci95": 0.0488,
+   "positive": 0.447
+  },
+  {
+   "card": "NO_ESCAPE",
+   "n": 1370,
+   "delta": -0.0336,
+   "ci95": 0.0117,
+   "positive": 0.414
+  },
+  {
+   "card": "ENLIGHTENMENT",
+   "n": 1202,
+   "delta": -0.0337,
+   "ci95": 0.0154,
+   "positive": 0.431
+  },
+  {
+   "card": "ERADICATE",
+   "n": 442,
+   "delta": -0.0338,
+   "ci95": 0.0206,
+   "positive": 0.416
+  },
+  {
+   "card": "DODGE_AND_ROLL",
+   "n": 1418,
+   "delta": -0.0338,
+   "ci95": 0.0126,
+   "positive": 0.42
+  },
+  {
+   "card": "BALL_LIGHTNING",
+   "n": 1244,
+   "delta": -0.0339,
+   "ci95": 0.0152,
+   "positive": 0.405
+  },
+  {
+   "card": "FINISHER",
+   "n": 1122,
+   "delta": -0.034,
+   "ci95": 0.014,
+   "positive": 0.43
+  },
+  {
+   "card": "STORM_OF_STEEL",
+   "n": 595,
+   "delta": -0.0342,
+   "ci95": 0.0173,
+   "positive": 0.417
+  },
+  {
+   "card": "SHINING_STRIKE",
+   "n": 846,
+   "delta": -0.0344,
+   "ci95": 0.0182,
+   "positive": 0.441
+  },
+  {
+   "card": "VOID_FORM",
+   "n": 730,
+   "delta": -0.0346,
+   "ci95": 0.0188,
+   "positive": 0.436
+  },
+  {
+   "card": "AFTERIMAGE",
+   "n": 1552,
+   "delta": -0.0347,
+   "ci95": 0.0125,
+   "positive": 0.439
+  },
+  {
+   "card": "GRAVE_WARDEN",
+   "n": 2995,
+   "delta": -0.0349,
+   "ci95": 0.0083,
+   "positive": 0.412
+  },
+  {
+   "card": "COMPACT",
+   "n": 1110,
+   "delta": -0.035,
+   "ci95": 0.016,
+   "positive": 0.447
+  },
+  {
+   "card": "DANSE_MACABRE",
+   "n": 691,
+   "delta": -0.0351,
+   "ci95": 0.0181,
+   "positive": 0.423
+  },
+  {
+   "card": "FOOTWORK",
+   "n": 3035,
+   "delta": -0.0354,
+   "ci95": 0.0091,
+   "positive": 0.427
+  },
+  {
+   "card": "BACKFLIP",
+   "n": 3684,
+   "delta": -0.0355,
+   "ci95": 0.0081,
+   "positive": 0.421
+  },
+  {
+   "card": "FOCUSED_STRIKE",
+   "n": 830,
+   "delta": -0.0365,
+   "ci95": 0.019,
+   "positive": 0.453
+  },
+  {
+   "card": "SNAP",
+   "n": 1138,
+   "delta": -0.0365,
+   "ci95": 0.0134,
+   "positive": 0.441
+  },
+  {
+   "card": "SHARED_FATE",
+   "n": 398,
+   "delta": -0.0366,
+   "ci95": 0.0204,
+   "positive": 0.349
+  },
+  {
+   "card": "DAGGER_THROW",
+   "n": 2043,
+   "delta": -0.0367,
+   "ci95": 0.0111,
+   "positive": 0.427
+  },
+  {
+   "card": "INVOKE",
+   "n": 2475,
+   "delta": -0.0368,
+   "ci95": 0.0089,
+   "positive": 0.429
+  },
+  {
+   "card": "PAGESTORM",
+   "n": 760,
+   "delta": -0.0369,
+   "ci95": 0.0172,
+   "positive": 0.416
+  },
+  {
+   "card": "DELAY",
+   "n": 980,
+   "delta": -0.0369,
+   "ci95": 0.0145,
+   "positive": 0.403
+  },
+  {
+   "card": "PULL_FROM_BELOW",
+   "n": 533,
+   "delta": -0.0369,
+   "ci95": 0.019,
+   "positive": 0.443
+  },
+  {
+   "card": "OUTBREAK",
+   "n": 1159,
+   "delta": -0.0371,
+   "ci95": 0.0145,
+   "positive": 0.424
+  },
+  {
+   "card": "CAPACITOR",
+   "n": 1823,
+   "delta": -0.038,
+   "ci95": 0.0113,
+   "positive": 0.427
+  },
+  {
+   "card": "FLATTEN",
+   "n": 1498,
+   "delta": -0.0382,
+   "ci95": 0.0117,
+   "positive": 0.391
+  },
+  {
+   "card": "RICOCHET",
+   "n": 1553,
+   "delta": -0.0388,
+   "ci95": 0.0125,
+   "positive": 0.446
+  },
+  {
+   "card": "GENETIC_ALGORITHM",
+   "n": 401,
+   "delta": -0.0388,
+   "ci95": 0.0249,
+   "positive": 0.449
+  },
+  {
+   "card": "SCOURGE",
+   "n": 1663,
+   "delta": -0.0389,
+   "ci95": 0.0112,
+   "positive": 0.397
+  },
+  {
+   "card": "PREPARED",
+   "n": 5072,
+   "delta": -0.0391,
+   "ci95": 0.0068,
+   "positive": 0.416
+  },
+  {
+   "card": "MALAISE",
+   "n": 353,
+   "delta": -0.0391,
+   "ci95": 0.0261,
+   "positive": 0.399
+  },
+  {
+   "card": "FURNACE",
+   "n": 1431,
+   "delta": -0.0391,
+   "ci95": 0.0138,
+   "positive": 0.416
+  },
+  {
+   "card": "WISP",
+   "n": 3298,
+   "delta": -0.0399,
+   "ci95": 0.0081,
+   "positive": 0.425
+  },
+  {
+   "card": "HIDDEN_CACHE",
+   "n": 2501,
+   "delta": -0.0402,
+   "ci95": 0.0111,
+   "positive": 0.437
+  },
+  {
+   "card": "PIERCING_WAIL",
+   "n": 3998,
+   "delta": -0.0403,
+   "ci95": 0.0078,
+   "positive": 0.41
+  },
+  {
+   "card": "DUAL_WIELD",
+   "n": 78,
+   "delta": -0.0405,
+   "ci95": 0.0677,
+   "positive": 0.423
+  },
+  {
+   "card": "SLICE",
+   "n": 934,
+   "delta": -0.0407,
+   "ci95": 0.017,
+   "positive": 0.442
+  },
+  {
+   "card": "SENTRY_MODE",
+   "n": 436,
+   "delta": -0.0407,
+   "ci95": 0.019,
+   "positive": 0.431
+  },
+  {
+   "card": "FLAK_CANNON",
+   "n": 382,
+   "delta": -0.0409,
+   "ci95": 0.0242,
+   "positive": 0.395
+  },
+  {
+   "card": "LEGION_OF_BONE",
+   "n": 488,
+   "delta": -0.0409,
+   "ci95": 0.0183,
+   "positive": 0.402
+  },
+  {
+   "card": "PHOTON_CUT",
+   "n": 701,
+   "delta": -0.041,
+   "ci95": 0.0194,
+   "positive": 0.404
+  },
+  {
+   "card": "CRUSH_UNDER",
+   "n": 1049,
+   "delta": -0.0411,
+   "ci95": 0.0154,
+   "positive": 0.408
+  },
+  {
+   "card": "SOUL_STORM",
+   "n": 243,
+   "delta": -0.0412,
+   "ci95": 0.0322,
+   "positive": 0.473
+  },
+  {
+   "card": "ADAPTIVE_STRIKE",
+   "n": 339,
+   "delta": -0.0413,
+   "ci95": 0.0229,
+   "positive": 0.466
+  },
+  {
+   "card": "ASTRAL_PULSE",
+   "n": 1099,
+   "delta": -0.0416,
+   "ci95": 0.0186,
+   "positive": 0.418
+  },
+  {
+   "card": "TERRAFORMING",
+   "n": 351,
+   "delta": -0.0416,
+   "ci95": 0.0261,
+   "positive": 0.433
+  },
+  {
+   "card": "SEANCE",
+   "n": 295,
+   "delta": -0.0417,
+   "ci95": 0.0235,
+   "positive": 0.434
+  },
+  {
+   "card": "MURDER",
+   "n": 347,
+   "delta": -0.0418,
+   "ci95": 0.0241,
+   "positive": 0.473
+  },
+  {
+   "card": "COMPILE_DRIVER",
+   "n": 728,
+   "delta": -0.0419,
+   "ci95": 0.0176,
+   "positive": 0.419
+  },
+  {
+   "card": "BLUR",
+   "n": 1614,
+   "delta": -0.042,
+   "ci95": 0.0122,
+   "positive": 0.426
+  },
+  {
+   "card": "SUNDER",
+   "n": 314,
+   "delta": -0.042,
+   "ci95": 0.0298,
+   "positive": 0.392
+  },
+  {
+   "card": "DEFY",
+   "n": 3456,
+   "delta": -0.0424,
+   "ci95": 0.0076,
+   "positive": 0.418
+  },
+  {
+   "card": "SWEEPING_BEAM",
+   "n": 817,
+   "delta": -0.0429,
+   "ci95": 0.0157,
+   "positive": 0.435
+  },
+  {
+   "card": "POKE",
+   "n": 1588,
+   "delta": -0.0429,
+   "ci95": 0.0116,
+   "positive": 0.443
+  },
+  {
+   "card": "EXPOSE",
+   "n": 1879,
+   "delta": -0.0431,
+   "ci95": 0.011,
+   "positive": 0.416
+  },
+  {
+   "card": "CONVERGENCE",
+   "n": 1392,
+   "delta": -0.0431,
+   "ci95": 0.0152,
+   "positive": 0.425
+  },
+  {
+   "card": "DARKNESS",
+   "n": 549,
+   "delta": -0.0432,
+   "ci95": 0.0222,
+   "positive": 0.403
+  },
+  {
+   "card": "REFINE_BLADE",
+   "n": 1810,
+   "delta": -0.0433,
+   "ci95": 0.0131,
+   "positive": 0.43
+  },
+  {
+   "card": "HIGH_FIVE",
+   "n": 761,
+   "delta": -0.0433,
+   "ci95": 0.0143,
+   "positive": 0.376
+  },
+  {
+   "card": "SHROUD",
+   "n": 1061,
+   "delta": -0.0438,
+   "ci95": 0.0148,
+   "positive": 0.415
+  },
+  {
+   "card": "PARSE",
+   "n": 587,
+   "delta": -0.0439,
+   "ci95": 0.0191,
+   "positive": 0.436
+  },
+  {
+   "card": "BODYGUARD",
+   "n": 112,
+   "delta": -0.0439,
+   "ci95": 0.0521,
+   "positive": 0.491
+  },
+  {
+   "card": "OBLIVION",
+   "n": 615,
+   "delta": -0.0444,
+   "ci95": 0.0184,
+   "positive": 0.423
+  },
+  {
+   "card": "UP_MY_SLEEVE",
+   "n": 1639,
+   "delta": -0.0448,
+   "ci95": 0.0123,
+   "positive": 0.403
+  },
+  {
+   "card": "SLEIGHT_OF_FLESH",
+   "n": 1400,
+   "delta": -0.0455,
+   "ci95": 0.0125,
+   "positive": 0.409
+  },
+  {
+   "card": "DAGGER_SPRAY",
+   "n": 947,
+   "delta": -0.046,
+   "ci95": 0.0181,
+   "positive": 0.401
+  },
+  {
+   "card": "AFTERLIFE",
+   "n": 1452,
+   "delta": -0.0461,
+   "ci95": 0.0109,
+   "positive": 0.386
+  },
+  {
+   "card": "FRIENDSHIP",
+   "n": 1948,
+   "delta": -0.0461,
+   "ci95": 0.0103,
+   "positive": 0.419
+  },
+  {
+   "card": "COUNTDOWN",
+   "n": 1320,
+   "delta": -0.0468,
+   "ci95": 0.0118,
+   "positive": 0.405
+  },
+  {
+   "card": "POISONED_STAB",
+   "n": 1153,
+   "delta": -0.047,
+   "ci95": 0.0143,
+   "positive": 0.427
+  },
+  {
+   "card": "RIGHT_HAND_HAND",
+   "n": 736,
+   "delta": -0.047,
+   "ci95": 0.0164,
+   "positive": 0.421
+  },
+  {
+   "card": "ROYALTIES",
+   "n": 277,
+   "delta": -0.0471,
+   "ci95": 0.0309,
+   "positive": 0.415
+  },
+  {
+   "card": "SPUR",
+   "n": 927,
+   "delta": -0.0472,
+   "ci95": 0.0156,
+   "positive": 0.405
+  },
+  {
+   "card": "CALTROPS",
+   "n": 125,
+   "delta": -0.0472,
+   "ci95": 0.0469,
+   "positive": 0.344
+  },
+  {
+   "card": "REAVE",
+   "n": 638,
+   "delta": -0.0476,
+   "ci95": 0.0166,
+   "positive": 0.434
+  },
+  {
+   "card": "SYNCHRONIZE",
+   "n": 456,
+   "delta": -0.0483,
+   "ci95": 0.0208,
+   "positive": 0.447
+  },
+  {
+   "card": "REAP",
+   "n": 573,
+   "delta": -0.0484,
+   "ci95": 0.0188,
+   "positive": 0.403
+  },
+  {
+   "card": "STRANGLE",
+   "n": 745,
+   "delta": -0.049,
+   "ci95": 0.0168,
+   "positive": 0.409
+  },
+  {
+   "card": "NEGATIVE_PULSE",
+   "n": 2737,
+   "delta": -0.05,
+   "ci95": 0.0084,
+   "positive": 0.396
+  },
+  {
+   "card": "TOOLS_OF_THE_TRADE",
+   "n": 883,
+   "delta": -0.0507,
+   "ci95": 0.0131,
+   "positive": 0.361
+  },
+  {
+   "card": "UNTOUCHABLE",
+   "n": 1804,
+   "delta": -0.0509,
+   "ci95": 0.0115,
+   "positive": 0.411
+  },
+  {
+   "card": "RESONANCE",
+   "n": 430,
+   "delta": -0.0518,
+   "ci95": 0.0255,
+   "positive": 0.398
+  },
+  {
+   "card": "SCULPTING_STRIKE",
+   "n": 379,
+   "delta": -0.0519,
+   "ci95": 0.0229,
+   "positive": 0.385
+  },
+  {
+   "card": "OUTMANEUVER",
+   "n": 58,
+   "delta": -0.0522,
+   "ci95": 0.0945,
+   "positive": 0.517
+  },
+  {
+   "card": "RATTLE",
+   "n": 675,
+   "delta": -0.0523,
+   "ci95": 0.0155,
+   "positive": 0.39
+  },
+  {
+   "card": "CALCIFY",
+   "n": 771,
+   "delta": -0.0528,
+   "ci95": 0.0165,
+   "positive": 0.39
+  },
+  {
+   "card": "ECHOING_SLASH",
+   "n": 381,
+   "delta": -0.0533,
+   "ci95": 0.0218,
+   "positive": 0.386
+  },
+  {
+   "card": "DRAIN_POWER",
+   "n": 796,
+   "delta": -0.0548,
+   "ci95": 0.0142,
+   "positive": 0.362
+  },
+  {
+   "card": "LEG_SWEEP",
+   "n": 1135,
+   "delta": -0.055,
+   "ci95": 0.0152,
+   "positive": 0.407
+  },
+  {
+   "card": "PREDATOR",
+   "n": 529,
+   "delta": -0.0557,
+   "ci95": 0.0195,
+   "positive": 0.42
+  },
+  {
+   "card": "PARTICLE_WALL",
+   "n": 1052,
+   "delta": -0.0564,
+   "ci95": 0.0155,
+   "positive": 0.389
+  },
+  {
+   "card": "HAND_TRICK",
+   "n": 693,
+   "delta": -0.0573,
+   "ci95": 0.0186,
+   "positive": 0.407
+  },
+  {
+   "card": "SPEEDSTER",
+   "n": 740,
+   "delta": -0.0577,
+   "ci95": 0.0186,
+   "positive": 0.386
+  },
+  {
+   "card": "UNLEASH",
+   "n": 109,
+   "delta": -0.0591,
+   "ci95": 0.051,
+   "positive": 0.477
+  },
+  {
+   "card": "WELL_LAID_PLANS",
+   "n": 944,
+   "delta": -0.0597,
+   "ci95": 0.017,
+   "positive": 0.41
+  },
+  {
+   "card": "POUNCE",
+   "n": 368,
+   "delta": -0.06,
+   "ci95": 0.0229,
+   "positive": 0.383
+  },
+  {
+   "card": "STRIKE_IRONCLAD",
+   "n": 374,
+   "delta": -0.0612,
+   "ci95": 0.0266,
+   "positive": 0.316
+  },
+  {
+   "card": "DISTRACTION",
+   "n": 95,
+   "delta": -0.0623,
+   "ci95": 0.0438,
+   "positive": 0.326
+  },
+  {
+   "card": "HELLO_WORLD",
+   "n": 97,
+   "delta": -0.063,
+   "ci95": 0.0522,
+   "positive": 0.412
+  },
+  {
+   "card": "MOMENTUM_STRIKE",
+   "n": 895,
+   "delta": -0.0635,
+   "ci95": 0.0147,
+   "positive": 0.383
+  },
+  {
+   "card": "NEUTRALIZE",
+   "n": 138,
+   "delta": -0.0641,
+   "ci95": 0.0493,
+   "positive": 0.464
+  },
+  {
+   "card": "FLICK_FLACK",
+   "n": 1241,
+   "delta": -0.0644,
+   "ci95": 0.014,
+   "positive": 0.388
+  },
+  {
+   "card": "ZAP",
+   "n": 173,
+   "delta": -0.0653,
+   "ci95": 0.0483,
+   "positive": 0.439
+  },
+  {
+   "card": "LANTERN_KEY",
+   "n": 2083,
+   "delta": -0.0672,
+   "ci95": 0.01,
+   "positive": 0.362
+  },
+  {
+   "card": "SURVIVOR",
+   "n": 134,
+   "delta": -0.0675,
+   "ci95": 0.0478,
+   "positive": 0.463
+  },
+  {
+   "card": "BLIGHT_STRIKE",
+   "n": 862,
+   "delta": -0.0678,
+   "ci95": 0.0148,
+   "positive": 0.36
+  },
+  {
+   "card": "SACRIFICE",
+   "n": 135,
+   "delta": -0.0681,
+   "ci95": 0.0351,
+   "positive": 0.437
+  },
+  {
+   "card": "SOW",
+   "n": 536,
+   "delta": -0.0699,
+   "ci95": 0.0182,
+   "positive": 0.34
+  },
+  {
+   "card": "PULL_AGGRO",
+   "n": 1210,
+   "delta": -0.0719,
+   "ci95": 0.0132,
+   "positive": 0.379
+  },
+  {
+   "card": "DEFILE",
+   "n": 656,
+   "delta": -0.072,
+   "ci95": 0.0181,
+   "positive": 0.361
+  },
+  {
+   "card": "MEMENTO_MORI",
+   "n": 272,
+   "delta": -0.0723,
+   "ci95": 0.0305,
+   "positive": 0.364
+  },
+  {
+   "card": "ANTICIPATE",
+   "n": 1058,
+   "delta": -0.0731,
+   "ci95": 0.0144,
+   "positive": 0.325
+  },
+  {
+   "card": "DEFEND_IRONCLAD",
+   "n": 335,
+   "delta": -0.0734,
+   "ci95": 0.0265,
+   "positive": 0.346
+  },
+  {
+   "card": "THE_HUNT",
+   "n": 368,
+   "delta": -0.0739,
+   "ci95": 0.0268,
+   "positive": 0.386
+  },
+  {
+   "card": "ROYAL_GAMBLE",
+   "n": 1199,
+   "delta": -0.0741,
+   "ci95": 0.0148,
+   "positive": 0.386
+  },
+  {
+   "card": "MASTER_PLANNER",
+   "n": 315,
+   "delta": -0.0762,
+   "ci95": 0.0293,
+   "positive": 0.381
+  },
+  {
+   "card": "SPOILS_MAP",
+   "n": 4407,
+   "delta": -0.0774,
+   "ci95": 0.0085,
+   "positive": 0.355
+  },
+  {
+   "card": "FALLING_STAR",
+   "n": 112,
+   "delta": -0.079,
+   "ci95": 0.0642,
+   "positive": 0.464
+  },
+  {
+   "card": "COORDINATE",
+   "n": 144,
+   "delta": -0.0802,
+   "ci95": 0.0465,
+   "positive": 0.431
+  },
+  {
+   "card": "STRIKE_REGENT",
+   "n": 233,
+   "delta": -0.0822,
+   "ci95": 0.0413,
+   "positive": 0.464
+  },
+  {
+   "card": "LIFT",
+   "n": 170,
+   "delta": -0.0837,
+   "ci95": 0.0486,
+   "positive": 0.471
+  },
+  {
+   "card": "DEFEND_SILENT",
+   "n": 554,
+   "delta": -0.0845,
+   "ci95": 0.0239,
+   "positive": 0.439
+  },
+  {
+   "card": "STRIKE_SILENT",
+   "n": 436,
+   "delta": -0.0885,
+   "ci95": 0.0288,
+   "positive": 0.445
+  },
+  {
+   "card": "DUALCAST",
+   "n": 104,
+   "delta": -0.0935,
+   "ci95": 0.0492,
+   "positive": 0.346
+  },
+  {
+   "card": "VENERATE",
+   "n": 111,
+   "delta": -0.1062,
+   "ci95": 0.0626,
+   "positive": 0.423
+  },
+  {
+   "card": "DEFEND_DEFECT",
+   "n": 398,
+   "delta": -0.11,
+   "ci95": 0.0272,
+   "positive": 0.369
+  },
+  {
+   "card": "STRIKE_DEFECT",
+   "n": 224,
+   "delta": -0.113,
+   "ci95": 0.0352,
+   "positive": 0.308
+  },
+  {
+   "card": "BASH",
+   "n": 112,
+   "delta": -0.1177,
+   "ci95": 0.037,
+   "positive": 0.268
+  },
+  {
+   "card": "DEFEND_REGENT",
+   "n": 359,
+   "delta": -0.1203,
+   "ci95": 0.0341,
+   "positive": 0.401
+  },
+  {
+   "card": "WISH",
+   "n": 116,
+   "delta": -0.2293,
+   "ci95": 0.073,
+   "positive": 0.345
+  },
+  {
+   "card": "VAULT",
+   "n": 73,
+   "delta": -0.3268,
+   "ci95": 0.0656,
+   "positive": 0.192
+  }
+ ],
+ "triggers": [
+  [
+   "SHRUG_IT_OFF",
+   472
+  ],
+  [
+   "POMMEL_STRIKE",
+   467
+  ],
+  [
+   "MAD_SCIENCE",
+   443
+  ],
+  [
+   "BLADE_DANCE",
+   414
+  ],
+  [
+   "PREPARED",
+   398
+  ],
+  [
+   "TREMBLE",
+   392
+  ],
+  [
+   "BLOODLETTING",
+   357
+  ],
+  [
+   "LEADING_STRIKE",
+   340
+  ],
+  [
+   "CLOAK_AND_DAGGER",
+   325
+  ],
+  [
+   "GATHER_LIGHT",
+   324
+  ],
+  [
+   "PIERCING_WAIL",
+   318
+  ],
+  [
+   "DEFY",
+   305
+  ],
+  [
+   "MOLTEN_FIST",
+   298
+  ],
+  [
+   "WISP",
+   288
+  ],
+  [
+   "ACCURACY",
+   269
+  ],
+  [
+   "GRAVE_WARDEN",
+   269
+  ],
+  [
+   "SPOILS_MAP",
+   266
+  ],
+  [
+   "BACKFLIP",
+   255
+  ],
+  [
+   "CHARGE_BATTERY",
+   252
+  ],
+  [
+   "SQUASH",
+   249
+  ],
+  [
+   "HOLOGRAM",
+   248
+  ],
+  [
+   "CLAW",
+   247
+  ],
+  [
+   "PERFECTED_STRIKE",
+   246
+  ],
+  [
+   "HIDDEN_CACHE",
+   241
+  ],
+  [
+   "ARMAMENTS",
+   238
+  ],
+  [
+   "DOMINATE",
+   237
+  ],
+  [
+   "KNOW_THY_PLACE",
+   235
+  ],
+  [
+   "NOXIOUS_FUMES",
+   233
+  ],
+  [
+   "FOOTWORK",
+   226
+  ],
+  [
+   "BOOST_AWAY",
+   210
+  ]
+ ],
+ "baseline": {
+  "0": 0.0827,
+  "1": 0.0484,
+  "2": -0.0256,
+  "3": 0.2297,
+  "4": 0.0249
+ },
+ "note": "delta = (moyenne des combats après la carte − avant, 3 combats max de chaque côté, même acte) − dérive moyenne de l'acte. Corrélation, pas causalité."
+}
