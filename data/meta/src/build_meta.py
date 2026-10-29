@@ -17,12 +17,13 @@ from collections import Counter, defaultdict
 HERE = os.path.dirname(os.path.abspath(__file__))
 META = os.path.dirname(HERE)
 CACHE = os.path.join(META, 'cache')
-GAME = os.environ.get('STS2_GAME', '/home/mio/sts2/game')
+# Racine du dépôt, déduite de l'emplacement du script : aucun chemin utilisateur en dur,
+# le script fonctionne depuis n'importe quel clone.
+REPO = os.path.dirname(os.path.dirname(META))
+GAME = os.environ.get('STS2_GAME', os.path.join(REPO, 'game'))
 SRC = os.path.join(GAME, 'csharp/MegaCrit/Sts2/Core/Models')
 LOC = os.path.join(GAME, 'pck/localization')
-CATALOG = os.environ.get('STS2_CATALOG', os.path.join(os.path.dirname(os.path.dirname(META)), 'data/catalog/cards.json'))
-if not os.path.exists(CATALOG):
-    CATALOG = '/home/mio/sts2/data/catalog/cards.json'
+CATALOG = os.environ.get('STS2_CATALOG', os.path.join(REPO, 'data/catalog/cards.json'))
 
 PATCH = 'v0.107.1'
 ACCESSED = '2026-10-28'
@@ -79,6 +80,11 @@ def game_index():
             for c in re.findall(rf'ModelDb\.{kind}<(\w+)>\(\)', open(f, encoding='utf-8').read()):
                 m[c].append(p)
         return m
+    if not os.path.exists(CATALOG):
+        raise SystemExit(
+            f'cards.json introuvable ({CATALOG}) : lancer tools/index_source.py, '
+            'ou definir STS2_CATALOG.'
+        )
     cat = {c['class']: c for c in load(CATALOG)}
     out = {}
     for kind, dirn, locf, names in (

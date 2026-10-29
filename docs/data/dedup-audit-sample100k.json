@@ -1,0 +1,29 @@
+{
+  "audit_export": "/home/mio/sts2/data/exports/runs-v0.107.1.jsonl.gz",
+  "runs_lues": 100000,
+  "seeds_distinctes": 74792,
+  "seeds_multi_signatures": 585,
+  "avec_upgrades": {
+    "runs": 100000,
+    "signatures": 74926,
+    "pct_doublons": 25.07,
+    "groupes_multiples": 16161,
+    "groupes_meme_seed": 15631,
+    "groupes_seeds_differentes": 530,
+    "runs_dans_groupes_seeds_differentes": 3164,
+    "pct_groupes_multiples_meme_seed": 96.72,
+    "taille_max": 119
+  },
+  "sans_upgrades": {
+    "runs": 100000,
+    "signatures": 74924,
+    "pct_doublons": 25.08,
+    "groupes_multiples": 16162,
+    "groupes_meme_seed": 15631,
+    "groupes_seeds_differentes": 531,
+    "runs_dans_groupes_seeds_differentes": 3167,
+    "pct_groupes_multiples_meme_seed": 96.71,
+    "taille_max": 119
+  },
+  "duree_s": 93.6
+}

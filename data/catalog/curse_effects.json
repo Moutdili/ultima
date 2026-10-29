@@ -1,0 +1,429 @@
+{
+ "schema": "ultima.curse_effects/1",
+ "source": "pck/localization/fra/cards.json (description) + keywords de cards_effects.json",
+ "severity_scale": {
+  "play_limit": 95,
+  "draw_reduction": 85,
+  "energy_loss": 80,
+  "end_turn_damage": 75,
+  "hp_loss": 75,
+  "debuff": 55,
+  "forced_order": 50,
+  "gold_loss": 45,
+  "escape": 40,
+  "self_removing": 10,
+  "unplayable_only": 35,
+  "unclassified": 50
+ },
+ "entries": [
+  {
+   "id": "NORMALITY",
+   "type": "curse",
+   "family": "play_limit",
+   "severity": 95,
+   "value": 3,
+   "text_fr": "Vous ne pouvez pas jouer plus de 3 cartes ce tour.{InCombat:\n({CalculatedCards:plural:{} carte restante|{} cartes restantes})|}",
+   "keywords": [
+    "Unplayable"
+   ],
+   "has_text": true
+  },
+  {
+   "id": "SLOTH",
+   "type": "status",
+   "family": "play_limit",
+   "severity": 95,
+   "value": null,
+   "text_fr": "Vous ne pouvez pas jouer plus de {SlothPower:diff()} {SlothPower:plural:carte|cartes} chaque tour.",
+   "keywords": [],
+   "has_text": true
+  },
+  {
+   "id": "MIND_ROT",
+   "type": "status",
+   "family": "draw_reduction",
+   "severity": 85,
+   "value": null,
+   "text_fr": "Piochez {MindRotPower:diff()} {MindRotPower:plural:carte|cartes} en moins chaque tour.",
+   "keywords": [],
+   "has_text": true
+  },
+  {
+   "id": "VOID",
+   "type": "status",
+   "family": "energy_loss",
+   "severity": 80,
+   "value": null,
+   "text_fr": "Lorsque vous piochez cette carte, perdez {Energy:energyIcons()}.",
+   "keywords": [
+    "Ethereal",
+    "Unplayable"
+   ],
+   "has_text": true
+  },
+  {
+   "id": "WASTE_AWAY",
+   "type": "status",
+   "family": "energy_loss",
+   "severity": 80,
+   "value": null,
+   "text_fr": "Gagnez {WasteAwayPower:diff()} {energyPrefix:energyIcons(1)} en moins chaque tour.",
+   "keywords": [],
+   "has_text": true
+  },
+  {
+   "id": "BAD_LUCK",
+   "type": "curse",
+   "family": "hp_loss",
+   "severity": 75,
+   "value": null,
+   "text_fr": "À la fin de votre tour, si cette carte est dans votre Main, perdez {HpLoss:diff()} PV.",
+   "keywords": [
+    "Unplayable",
+    "Eternal"
+   ],
+   "has_text": true
+  },
+  {
+   "id": "BURN",
+   "type": "status",
+   "family": "end_turn_damage",
+   "severity": 75,
+   "value": null,
+   "text_fr": "À la fin de votre tour, si cette carte est dans votre [gold]Main[/gold], subissez {Damage:diff()} dégâts.",
+   "keywords": [
+    "Unplayable"
+   ],
+   "has_text": true
+  },
+  {
+   "id": "DECAY",
+   "type": "curse",
+   "family": "end_turn_damage",
+   "severity": 75,
+   "value": null,
+   "text_fr": "À la fin de votre tour, si cette carte est dans votre [gold]Main[/gold], subissez {Damage:diff()} dégâts.",
+   "keywords": [
+    "Unplayable"
+   ],
+   "has_text": true
+  },
+  {
+   "id": "DISINTEGRATION",
+   "type": "status",
+   "family": "end_turn_damage",
+   "severity": 75,
+   "value": null,
+   "text_fr": "À la fin de votre tour, subissez {DisintegrationPower:diff()} dégâts.",
+   "keywords": [],
+   "has_text": true
+  },
+  {
+   "id": "INFECTION",
+   "type": "status",
+   "family": "end_turn_damage",
+   "severity": 75,
+   "value": null,
+   "text_fr": "À la fin de votre tour, si cette carte est dans votre [gold]Main[/gold], subissez {Damage:diff()} dégâts.",
+   "keywords": [
+    "Unplayable"
+   ],
+   "has_text": true
+  },
+  {
+   "id": "REGRET",
+   "type": "curse",
+   "family": "hp_loss",
+   "severity": 75,
+   "value": null,
+   "text_fr": "À la fin de votre tour, si cette carte est dans votre [gold]Main[/gold], perdez 1 PV pour chaque carte dans votre [gold]Main[/gold].",
+   "keywords": [
+    "Unplayable"
+   ],
+   "has_text": true
+  },
+  {
+   "id": "TOXIC",
+   "type": "status",
+   "family": "end_turn_damage",
+   "severity": 75,
+   "value": null,
+   "text_fr": "À la fin de votre tour, si cette carte est dans votre [gold]Main[/gold], subissez {Damage:diff()} dégâts.",
+   "keywords": [
+    "Exhaust"
+   ],
+   "has_text": true
+  },
+  {
+   "id": "WITHER",
+   "type": "status",
+   "family": "end_turn_damage",
+   "severity": 75,
+   "value": null,
+   "text_fr": "À la fin de votre tour, si cette carte est dans votre [gold]Main[/gold], subissez {Damage:diff()} dégâts.",
+   "keywords": [
+    "Unplayable"
+   ],
+   "has_text": true
+  },
+  {
+   "id": "DOUBT",
+   "type": "curse",
+   "family": "debuff",
+   "severity": 55,
+   "value": null,
+   "text_fr": "À la fin de votre tour, si cette carte est dans votre [gold]Main[/gold], gagnez [gold]Affaibli[/gold] ({WeakPower:diff()}).",
+   "keywords": [
+    "Unplayable"
+   ],
+   "has_text": true
+  },
+  {
+   "id": "SHAME",
+   "type": "curse",
+   "family": "debuff",
+   "severity": 55,
+   "value": null,
+   "text_fr": "À la fin de votre tour, si cette carte est dans votre [gold]Main[/gold], gagnez [gold]Fragilisé[/gold] ({Frail:diff()}).",
+   "keywords": [
+    "Unplayable"
+   ],
+   "has_text": true
+  },
+  {
+   "id": "BECKON",
+   "type": "status",
+   "family": "unclassified",
+   "severity": 50,
+   "value": null,
+   "text_fr": "",
+   "keywords": [],
+   "has_text": false
+  },
+  {
+   "id": "DEBRIS",
+   "type": "status",
+   "family": "unclassified",
+   "severity": 50,
+   "value": null,
+   "text_fr": "",
+   "keywords": [
+    "Exhaust"
+   ],
+   "has_text": false
+  },
+  {
+   "id": "ENTHRALLED",
+   "type": "curse",
+   "family": "forced_order",
+   "severity": 50,
+   "value": null,
+   "text_fr": "Si cette carte est dans votre [gold]Main[/gold], elle doit être jouée avant les autres cartes.",
+   "keywords": [
+    "Eternal"
+   ],
+   "has_text": true
+  },
+  {
+   "id": "SLIMED",
+   "type": "status",
+   "family": "unclassified",
+   "severity": 50,
+   "value": null,
+   "text_fr": "Piochez 1 carte.",
+   "keywords": [
+    "Exhaust"
+   ],
+   "has_text": true
+  },
+  {
+   "id": "SPORE_MIND",
+   "type": "curse",
+   "family": "unclassified",
+   "severity": 50,
+   "value": null,
+   "text_fr": "",
+   "keywords": [
+    "Exhaust"
+   ],
+   "has_text": false
+  },
+  {
+   "id": "DEBT",
+   "type": "curse",
+   "family": "gold_loss",
+   "severity": 45,
+   "value": null,
+   "text_fr": "À la fin de votre tour, si cette carte est dans votre [gold]Main[/gold], perdez {Gold:diff()} [gold]Pièces d'or[/gold].",
+   "keywords": [
+    "Unplayable"
+   ],
+   "has_text": true
+  },
+  {
+   "id": "FRANTIC_ESCAPE",
+   "type": "status",
+   "family": "escape",
+   "severity": 40,
+   "value": null,
+   "text_fr": "Éloignez-vous.\nAugmentez [gold]Sables mouvants[/gold] de 1.\nAugmentez le coût de cette carte de 1.",
+   "keywords": [],
+   "has_text": true
+  },
+  {
+   "id": "ASCENDERS_BANE",
+   "type": "curse",
+   "family": "unplayable_only",
+   "severity": 35,
+   "value": null,
+   "text_fr": "",
+   "keywords": [
+    "Ethereal",
+    "Unplayable",
+    "Eternal"
+   ],
+   "has_text": false
+  },
+  {
+   "id": "CLUMSY",
+   "type": "curse",
+   "family": "unplayable_only",
+   "severity": 35,
+   "value": null,
+   "text_fr": "",
+   "keywords": [
+    "Ethereal",
+    "Unplayable"
+   ],
+   "has_text": false
+  },
+  {
+   "id": "CURSE_OF_THE_BELL",
+   "type": "curse",
+   "family": "unplayable_only",
+   "severity": 35,
+   "value": null,
+   "text_fr": "",
+   "keywords": [
+    "Unplayable",
+    "Eternal"
+   ],
+   "has_text": false
+  },
+  {
+   "id": "DAZED",
+   "type": "status",
+   "family": "unplayable_only",
+   "severity": 35,
+   "value": null,
+   "text_fr": "",
+   "keywords": [
+    "Ethereal",
+    "Unplayable"
+   ],
+   "has_text": false
+  },
+  {
+   "id": "FOLLY",
+   "type": "curse",
+   "family": "unplayable_only",
+   "severity": 35,
+   "value": null,
+   "text_fr": "",
+   "keywords": [
+    "Innate",
+    "Ethereal",
+    "Unplayable",
+    "Eternal"
+   ],
+   "has_text": false
+  },
+  {
+   "id": "GREED",
+   "type": "curse",
+   "family": "unplayable_only",
+   "severity": 35,
+   "value": null,
+   "text_fr": "",
+   "keywords": [
+    "Unplayable",
+    "Eternal"
+   ],
+   "has_text": false
+  },
+  {
+   "id": "INJURY",
+   "type": "curse",
+   "family": "unplayable_only",
+   "severity": 35,
+   "value": null,
+   "text_fr": "",
+   "keywords": [
+    "Unplayable"
+   ],
+   "has_text": false
+  },
+  {
+   "id": "POOR_SLEEP",
+   "type": "curse",
+   "family": "unplayable_only",
+   "severity": 35,
+   "value": null,
+   "text_fr": "",
+   "keywords": [
+    "Retain",
+    "Unplayable"
+   ],
+   "has_text": false
+  },
+  {
+   "id": "SOOT",
+   "type": "status",
+   "family": "unplayable_only",
+   "severity": 35,
+   "value": null,
+   "text_fr": "",
+   "keywords": [
+    "Unplayable"
+   ],
+   "has_text": false
+  },
+  {
+   "id": "WOUND",
+   "type": "status",
+   "family": "unplayable_only",
+   "severity": 35,
+   "value": null,
+   "text_fr": "",
+   "keywords": [
+    "Unplayable"
+   ],
+   "has_text": false
+  },
+  {
+   "id": "WRITHE",
+   "type": "curse",
+   "family": "unplayable_only",
+   "severity": 35,
+   "value": null,
+   "text_fr": "",
+   "keywords": [
+    "Innate",
+    "Unplayable"
+   ],
+   "has_text": false
+  },
+  {
+   "id": "GUILTY",
+   "type": "curse",
+   "family": "self_removing",
+   "severity": 10,
+   "value": null,
+   "text_fr": "Retiré de votre [gold]Deck[/gold] au bout de {Combats:diff()} {Combats:plural:combat|combats}.",
+   "keywords": [
+    "Unplayable"
+   ],
+   "has_text": true
+  }
+ ]
+}

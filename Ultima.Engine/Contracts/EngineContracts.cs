@@ -132,3 +132,11 @@ public static class ModuleIds
     public const string Curses = "curses", Deck = "deck", Relics = "relics", Enchanted = "enchanted", Potions = "potions",
         Reward = "reward", Shop = "shop", Paths = "paths", DeckScore = "deck_score";
 }
+
+/// <summary>Valeurs de PathChoice.RoomType / NodeFrequency.RoomType (= types bruts de la save). v1.1.</summary>
+public static class RoomTypes
+{
+    public const string Monster = "monster", Elite = "elite", Unknown = "unknown", RestSite = "rest_site",
+        Shop = "shop", Treasure = "treasure", Boss = "boss", Ancient = "ancient";
+    public static readonly IReadOnlyList<string> All = new[] { Monster, Elite, Unknown, RestSite, Shop, Treasure, Boss, Ancient };
+}

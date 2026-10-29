@@ -1,0 +1,1404 @@
+{
+ "schema": "ultima.rooms/1",
+ "source": "map_point_history de l'export v0.107.1, solo dédupliqué (seed, perso, ascension)",
+ "runs": 80000,
+ "buckets": [
+  "0-19",
+  "20-34",
+  "35-49",
+  "50-69",
+  "70+"
+ ],
+ "rooms": [
+  {
+   "act": 1,
+   "type": "ancient",
+   "hp_bucket": "0-19",
+   "n": 78584,
+   "win_rate": 14.94,
+   "avg_damage": 0.68,
+   "avg_gold_delta": 16.96,
+   "avg_hp_before": 0.0
+  },
+  {
+   "act": 1,
+   "type": "ancient",
+   "hp_bucket": "70+",
+   "n": 32,
+   "win_rate": 43.75,
+   "avg_damage": 0.0,
+   "avg_gold_delta": 111.53,
+   "avg_hp_before": 378.8
+  },
+  {
+   "act": 1,
+   "type": "boss",
+   "hp_bucket": "0-19",
+   "n": 476,
+   "win_rate": 11.76,
+   "avg_damage": 10.23,
+   "avg_gold_delta": 23.82,
+   "avg_hp_before": 7.2
+  },
+  {
+   "act": 1,
+   "type": "boss",
+   "hp_bucket": "20-34",
+   "n": 2120,
+   "win_rate": 20.66,
+   "avg_damage": 18.92,
+   "avg_gold_delta": 45.44,
+   "avg_hp_before": 22.4
+  },
+  {
+   "act": 1,
+   "type": "boss",
+   "hp_bucket": "35-49",
+   "n": 7393,
+   "win_rate": 21.44,
+   "avg_damage": 24.31,
+   "avg_gold_delta": 54.93,
+   "avg_hp_before": 32.3
+  },
+  {
+   "act": 1,
+   "type": "boss",
+   "hp_bucket": "50-69",
+   "n": 17186,
+   "win_rate": 23.82,
+   "avg_damage": 29.49,
+   "avg_gold_delta": 67.42,
+   "avg_hp_before": 45.0
+  },
+  {
+   "act": 1,
+   "type": "boss",
+   "hp_bucket": "70+",
+   "n": 24941,
+   "win_rate": 22.5,
+   "avg_damage": 34.72,
+   "avg_gold_delta": 80.57,
+   "avg_hp_before": 64.1
+  },
+  {
+   "act": 1,
+   "type": "elite",
+   "hp_bucket": "0-19",
+   "n": 2753,
+   "win_rate": 8.43,
+   "avg_damage": 6.64,
+   "avg_gold_delta": 11.8,
+   "avg_hp_before": 7.9
+  },
+  {
+   "act": 1,
+   "type": "elite",
+   "hp_bucket": "20-34",
+   "n": 6667,
+   "win_rate": 16.86,
+   "avg_damage": 13.45,
+   "avg_gold_delta": 24.06,
+   "avg_hp_before": 22.5
+  },
+  {
+   "act": 1,
+   "type": "elite",
+   "hp_bucket": "35-49",
+   "n": 15318,
+   "win_rate": 21.15,
+   "avg_damage": 16.47,
+   "avg_gold_delta": 29.47,
+   "avg_hp_before": 32.3
+  },
+  {
+   "act": 1,
+   "type": "elite",
+   "hp_bucket": "50-69",
+   "n": 36269,
+   "win_rate": 23.68,
+   "avg_damage": 18.97,
+   "avg_gold_delta": 32.41,
+   "avg_hp_before": 44.9
+  },
+  {
+   "act": 1,
+   "type": "elite",
+   "hp_bucket": "70+",
+   "n": 45541,
+   "win_rate": 25.44,
+   "avg_damage": 21.02,
+   "avg_gold_delta": 35.95,
+   "avg_hp_before": 62.1
+  },
+  {
+   "act": 1,
+   "type": "monster",
+   "hp_bucket": "0-19",
+   "n": 8620,
+   "win_rate": 5.68,
+   "avg_damage": 4.0,
+   "avg_gold_delta": 7.19,
+   "avg_hp_before": 7.1
+  },
+  {
+   "act": 1,
+   "type": "monster",
+   "hp_bucket": "20-34",
+   "n": 12071,
+   "win_rate": 13.33,
+   "avg_damage": 7.18,
+   "avg_gold_delta": 11.78,
+   "avg_hp_before": 21.1
+  },
+  {
+   "act": 1,
+   "type": "monster",
+   "hp_bucket": "35-49",
+   "n": 22786,
+   "win_rate": 15.43,
+   "avg_damage": 7.62,
+   "avg_gold_delta": 12.48,
+   "avg_hp_before": 32.1
+  },
+  {
+   "act": 1,
+   "type": "monster",
+   "hp_bucket": "50-69",
+   "n": 69899,
+   "win_rate": 16.15,
+   "avg_damage": 6.92,
+   "avg_gold_delta": 12.34,
+   "avg_hp_before": 45.0
+  },
+  {
+   "act": 1,
+   "type": "monster",
+   "hp_bucket": "70+",
+   "n": 215023,
+   "win_rate": 18.08,
+   "avg_damage": 5.36,
+   "avg_gold_delta": 13.2,
+   "avg_hp_before": 61.9
+  },
+  {
+   "act": 1,
+   "type": "rest_site",
+   "hp_bucket": "0-19",
+   "n": 16781,
+   "win_rate": 12.94,
+   "avg_damage": 0.0,
+   "avg_gold_delta": 0.09,
+   "avg_hp_before": 8.6
+  },
+  {
+   "act": 1,
+   "type": "rest_site",
+   "hp_bucket": "20-34",
+   "n": 25972,
+   "win_rate": 17.15,
+   "avg_damage": 0.0,
+   "avg_gold_delta": 0.06,
+   "avg_hp_before": 20.9
+  },
+  {
+   "act": 1,
+   "type": "rest_site",
+   "hp_bucket": "35-49",
+   "n": 33976,
+   "win_rate": 20.29,
+   "avg_damage": 0.0,
+   "avg_gold_delta": 0.09,
+   "avg_hp_before": 31.7
+  },
+  {
+   "act": 1,
+   "type": "rest_site",
+   "hp_bucket": "50-69",
+   "n": 53282,
+   "win_rate": 22.35,
+   "avg_damage": 0.0,
+   "avg_gold_delta": 0.05,
+   "avg_hp_before": 44.1
+  },
+  {
+   "act": 1,
+   "type": "rest_site",
+   "hp_bucket": "70+",
+   "n": 51255,
+   "win_rate": 24.2,
+   "avg_damage": 0.0,
+   "avg_gold_delta": 0.03,
+   "avg_hp_before": 61.2
+  },
+  {
+   "act": 1,
+   "type": "shop",
+   "hp_bucket": "0-19",
+   "n": 2304,
+   "win_rate": 11.5,
+   "avg_damage": 0.0,
+   "avg_gold_delta": -165.24,
+   "avg_hp_before": 7.8
+  },
+  {
+   "act": 1,
+   "type": "shop",
+   "hp_bucket": "20-34",
+   "n": 3670,
+   "win_rate": 15.45,
+   "avg_damage": 0.0,
+   "avg_gold_delta": -173.55,
+   "avg_hp_before": 21.8
+  },
+  {
+   "act": 1,
+   "type": "shop",
+   "hp_bucket": "35-49",
+   "n": 6344,
+   "win_rate": 17.5,
+   "avg_damage": 0.0,
+   "avg_gold_delta": -165.77,
+   "avg_hp_before": 31.9
+  },
+  {
+   "act": 1,
+   "type": "shop",
+   "hp_bucket": "50-69",
+   "n": 16255,
+   "win_rate": 17.23,
+   "avg_damage": 0.0,
+   "avg_gold_delta": -152.37,
+   "avg_hp_before": 44.9
+  },
+  {
+   "act": 1,
+   "type": "shop",
+   "hp_bucket": "70+",
+   "n": 28781,
+   "win_rate": 19.02,
+   "avg_damage": 0.0,
+   "avg_gold_delta": -129.78,
+   "avg_hp_before": 61.4
+  },
+  {
+   "act": 1,
+   "type": "treasure",
+   "hp_bucket": "0-19",
+   "n": 3977,
+   "win_rate": 10.66,
+   "avg_damage": 0.0,
+   "avg_gold_delta": 36.97,
+   "avg_hp_before": 8.7
+  },
+  {
+   "act": 1,
+   "type": "treasure",
+   "hp_bucket": "20-34",
+   "n": 6931,
+   "win_rate": 15.76,
+   "avg_damage": 0.0,
+   "avg_gold_delta": 37.44,
+   "avg_hp_before": 21.4
+  },
+  {
+   "act": 1,
+   "type": "treasure",
+   "hp_bucket": "35-49",
+   "n": 10983,
+   "win_rate": 18.4,
+   "avg_damage": 0.0,
+   "avg_gold_delta": 37.13,
+   "avg_hp_before": 31.7
+  },
+  {
+   "act": 1,
+   "type": "treasure",
+   "hp_bucket": "50-69",
+   "n": 18447,
+   "win_rate": 21.69,
+   "avg_damage": 0.0,
+   "avg_gold_delta": 38.37,
+   "avg_hp_before": 44.1
+  },
+  {
+   "act": 1,
+   "type": "treasure",
+   "hp_bucket": "70+",
+   "n": 19429,
+   "win_rate": 22.17,
+   "avg_damage": 0.0,
+   "avg_gold_delta": 40.62,
+   "avg_hp_before": 61.4
+  },
+  {
+   "act": 1,
+   "type": "unknown",
+   "hp_bucket": "0-19",
+   "n": 6294,
+   "win_rate": 9.58,
+   "avg_damage": 1.5,
+   "avg_gold_delta": -3.41,
+   "avg_hp_before": 8.4
+  },
+  {
+   "act": 1,
+   "type": "unknown",
+   "hp_bucket": "20-34",
+   "n": 10955,
+   "win_rate": 14.25,
+   "avg_damage": 2.43,
+   "avg_gold_delta": -0.4,
+   "avg_hp_before": 21.1
+  },
+  {
+   "act": 1,
+   "type": "unknown",
+   "hp_bucket": "35-49",
+   "n": 19745,
+   "win_rate": 16.64,
+   "avg_damage": 2.8,
+   "avg_gold_delta": 1.53,
+   "avg_hp_before": 32.0
+  },
+  {
+   "act": 1,
+   "type": "unknown",
+   "hp_bucket": "50-69",
+   "n": 55683,
+   "win_rate": 17.46,
+   "avg_damage": 3.07,
+   "avg_gold_delta": 5.83,
+   "avg_hp_before": 45.2
+  },
+  {
+   "act": 1,
+   "type": "unknown",
+   "hp_bucket": "70+",
+   "n": 113336,
+   "win_rate": 19.51,
+   "avg_damage": 2.97,
+   "avg_gold_delta": 10.13,
+   "avg_hp_before": 61.1
+  },
+  {
+   "act": 2,
+   "type": "ancient",
+   "hp_bucket": "0-19",
+   "n": 10066,
+   "win_rate": 22.54,
+   "avg_damage": 0.0,
+   "avg_gold_delta": 1.15,
+   "avg_hp_before": 8.4
+  },
+  {
+   "act": 2,
+   "type": "ancient",
+   "hp_bucket": "20-34",
+   "n": 10162,
+   "win_rate": 25.75,
+   "avg_damage": 0.0,
+   "avg_gold_delta": 0.69,
+   "avg_hp_before": 20.6
+  },
+  {
+   "act": 2,
+   "type": "ancient",
+   "hp_bucket": "35-49",
+   "n": 8810,
+   "win_rate": 29.06,
+   "avg_damage": 0.0,
+   "avg_gold_delta": 0.87,
+   "avg_hp_before": 31.8
+  },
+  {
+   "act": 2,
+   "type": "ancient",
+   "hp_bucket": "50-69",
+   "n": 8544,
+   "win_rate": 31.4,
+   "avg_damage": 0.01,
+   "avg_gold_delta": 0.89,
+   "avg_hp_before": 43.9
+  },
+  {
+   "act": 2,
+   "type": "ancient",
+   "hp_bucket": "70+",
+   "n": 4568,
+   "win_rate": 37.3,
+   "avg_damage": 0.04,
+   "avg_gold_delta": 1.2,
+   "avg_hp_before": 60.0
+  },
+  {
+   "act": 2,
+   "type": "boss",
+   "hp_bucket": "0-19",
+   "n": 314,
+   "win_rate": 7.96,
+   "avg_damage": 13.33,
+   "avg_gold_delta": 11.01,
+   "avg_hp_before": 6.7
+  },
+  {
+   "act": 2,
+   "type": "boss",
+   "hp_bucket": "20-34",
+   "n": 1024,
+   "win_rate": 21.97,
+   "avg_damage": 22.92,
+   "avg_gold_delta": 31.82,
+   "avg_hp_before": 23.4
+  },
+  {
+   "act": 2,
+   "type": "boss",
+   "hp_bucket": "35-49",
+   "n": 3443,
+   "win_rate": 32.04,
+   "avg_damage": 28.83,
+   "avg_gold_delta": 47.77,
+   "avg_hp_before": 33.8
+  },
+  {
+   "act": 2,
+   "type": "boss",
+   "hp_bucket": "50-69",
+   "n": 8501,
+   "win_rate": 40.16,
+   "avg_damage": 33.77,
+   "avg_gold_delta": 62.78,
+   "avg_hp_before": 47.3
+  },
+  {
+   "act": 2,
+   "type": "boss",
+   "hp_bucket": "70+",
+   "n": 14999,
+   "win_rate": 46.79,
+   "avg_damage": 39.12,
+   "avg_gold_delta": 78.45,
+   "avg_hp_before": 13171.5
+  },
+  {
+   "act": 2,
+   "type": "elite",
+   "hp_bucket": "0-19",
+   "n": 1384,
+   "win_rate": 8.09,
+   "avg_damage": 8.93,
+   "avg_gold_delta": 10.47,
+   "avg_hp_before": 8.5
+  },
+  {
+   "act": 2,
+   "type": "elite",
+   "hp_bucket": "20-34",
+   "n": 3195,
+   "win_rate": 21.63,
+   "avg_damage": 16.83,
+   "avg_gold_delta": 21.84,
+   "avg_hp_before": 22.3
+  },
+  {
+   "act": 2,
+   "type": "elite",
+   "hp_bucket": "35-49",
+   "n": 7000,
+   "win_rate": 31.01,
+   "avg_damage": 20.62,
+   "avg_gold_delta": 28.21,
+   "avg_hp_before": 33.5
+  },
+  {
+   "act": 2,
+   "type": "elite",
+   "hp_bucket": "50-69",
+   "n": 17331,
+   "win_rate": 38.79,
+   "avg_damage": 22.24,
+   "avg_gold_delta": 33.0,
+   "avg_hp_before": 46.7
+  },
+  {
+   "act": 2,
+   "type": "elite",
+   "hp_bucket": "70+",
+   "n": 27098,
+   "win_rate": 47.22,
+   "avg_damage": 22.69,
+   "avg_gold_delta": 37.7,
+   "avg_hp_before": 14571.7
+  },
+  {
+   "act": 2,
+   "type": "monster",
+   "hp_bucket": "0-19",
+   "n": 4541,
+   "win_rate": 9.16,
+   "avg_damage": 6.07,
+   "avg_gold_delta": 6.84,
+   "avg_hp_before": 8.4
+  },
+  {
+   "act": 2,
+   "type": "monster",
+   "hp_bucket": "20-34",
+   "n": 7242,
+   "win_rate": 16.47,
+   "avg_damage": 11.35,
+   "avg_gold_delta": 11.98,
+   "avg_hp_before": 21.5
+  },
+  {
+   "act": 2,
+   "type": "monster",
+   "hp_bucket": "35-49",
+   "n": 12306,
+   "win_rate": 20.71,
+   "avg_damage": 13.12,
+   "avg_gold_delta": 13.16,
+   "avg_hp_before": 32.9
+  },
+  {
+   "act": 2,
+   "type": "monster",
+   "hp_bucket": "50-69",
+   "n": 30612,
+   "win_rate": 25.94,
+   "avg_damage": 12.84,
+   "avg_gold_delta": 13.84,
+   "avg_hp_before": 46.3
+  },
+  {
+   "act": 2,
+   "type": "monster",
+   "hp_bucket": "70+",
+   "n": 109432,
+   "win_rate": 32.33,
+   "avg_damage": 9.97,
+   "avg_gold_delta": 14.49,
+   "avg_hp_before": 1862.2
+  },
+  {
+   "act": 2,
+   "type": "rest_site",
+   "hp_bucket": "0-19",
+   "n": 10989,
+   "win_rate": 20.51,
+   "avg_damage": 0.0,
+   "avg_gold_delta": 0.01,
+   "avg_hp_before": 8.8
+  },
+  {
+   "act": 2,
+   "type": "rest_site",
+   "hp_bucket": "20-34",
+   "n": 14577,
+   "win_rate": 27.3,
+   "avg_damage": 0.0,
+   "avg_gold_delta": 0.04,
+   "avg_hp_before": 21.5
+  },
+  {
+   "act": 2,
+   "type": "rest_site",
+   "hp_bucket": "35-49",
+   "n": 17558,
+   "win_rate": 33.61,
+   "avg_damage": 0.0,
+   "avg_gold_delta": 0.09,
+   "avg_hp_before": 32.9
+  },
+  {
+   "act": 2,
+   "type": "rest_site",
+   "hp_bucket": "50-69",
+   "n": 25927,
+   "win_rate": 39.65,
+   "avg_damage": 0.0,
+   "avg_gold_delta": 0.06,
+   "avg_hp_before": 46.0
+  },
+  {
+   "act": 2,
+   "type": "rest_site",
+   "hp_bucket": "70+",
+   "n": 26318,
+   "win_rate": 48.42,
+   "avg_damage": 0.01,
+   "avg_gold_delta": 0.23,
+   "avg_hp_before": 22468.2
+  },
+  {
+   "act": 2,
+   "type": "shop",
+   "hp_bucket": "0-19",
+   "n": 1957,
+   "win_rate": 17.73,
+   "avg_damage": 0.0,
+   "avg_gold_delta": -246.03,
+   "avg_hp_before": 8.7
+  },
+  {
+   "act": 2,
+   "type": "shop",
+   "hp_bucket": "20-34",
+   "n": 3188,
+   "win_rate": 22.8,
+   "avg_damage": 0.0,
+   "avg_gold_delta": -243.27,
+   "avg_hp_before": 21.6
+  },
+  {
+   "act": 2,
+   "type": "shop",
+   "hp_bucket": "35-49",
+   "n": 4928,
+   "win_rate": 27.15,
+   "avg_damage": 0.0,
+   "avg_gold_delta": -237.48,
+   "avg_hp_before": 33.0
+  },
+  {
+   "act": 2,
+   "type": "shop",
+   "hp_bucket": "50-69",
+   "n": 10985,
+   "win_rate": 31.49,
+   "avg_damage": 0.0,
+   "avg_gold_delta": -227.1,
+   "avg_hp_before": 46.2
+  },
+  {
+   "act": 2,
+   "type": "shop",
+   "hp_bucket": "70+",
+   "n": 20624,
+   "win_rate": 38.38,
+   "avg_damage": 0.0,
+   "avg_gold_delta": -216.67,
+   "avg_hp_before": 9594.3
+  },
+  {
+   "act": 2,
+   "type": "treasure",
+   "hp_bucket": "0-19",
+   "n": 2396,
+   "win_rate": 17.65,
+   "avg_damage": 0.0,
+   "avg_gold_delta": 128.67,
+   "avg_hp_before": 8.7
+  },
+  {
+   "act": 2,
+   "type": "treasure",
+   "hp_bucket": "20-34",
+   "n": 3738,
+   "win_rate": 24.42,
+   "avg_damage": 0.0,
+   "avg_gold_delta": 112.94,
+   "avg_hp_before": 21.7
+  },
+  {
+   "act": 2,
+   "type": "treasure",
+   "hp_bucket": "35-49",
+   "n": 6045,
+   "win_rate": 28.35,
+   "avg_damage": 0.0,
+   "avg_gold_delta": 108.41,
+   "avg_hp_before": 32.8
+  },
+  {
+   "act": 2,
+   "type": "treasure",
+   "hp_bucket": "50-69",
+   "n": 10470,
+   "win_rate": 35.82,
+   "avg_damage": 0.0,
+   "avg_gold_delta": 102.89,
+   "avg_hp_before": 46.0
+  },
+  {
+   "act": 2,
+   "type": "treasure",
+   "hp_bucket": "70+",
+   "n": 12335,
+   "win_rate": 43.12,
+   "avg_damage": 0.0,
+   "avg_gold_delta": 100.66,
+   "avg_hp_before": 15998.1
+  },
+  {
+   "act": 2,
+   "type": "unknown",
+   "hp_bucket": "0-19",
+   "n": 4773,
+   "win_rate": 13.7,
+   "avg_damage": 1.35,
+   "avg_gold_delta": -12.29,
+   "avg_hp_before": 8.7
+  },
+  {
+   "act": 2,
+   "type": "unknown",
+   "hp_bucket": "20-34",
+   "n": 7392,
+   "win_rate": 20.02,
+   "avg_damage": 2.56,
+   "avg_gold_delta": -10.44,
+   "avg_hp_before": 21.6
+  },
+  {
+   "act": 2,
+   "type": "unknown",
+   "hp_bucket": "35-49",
+   "n": 12579,
+   "win_rate": 23.48,
+   "avg_damage": 3.07,
+   "avg_gold_delta": -8.11,
+   "avg_hp_before": 32.9
+  },
+  {
+   "act": 2,
+   "type": "unknown",
+   "hp_bucket": "50-69",
+   "n": 29118,
+   "win_rate": 28.34,
+   "avg_damage": 3.26,
+   "avg_gold_delta": -7.22,
+   "avg_hp_before": 46.3
+  },
+  {
+   "act": 2,
+   "type": "unknown",
+   "hp_bucket": "70+",
+   "n": 58536,
+   "win_rate": 37.52,
+   "avg_damage": 3.38,
+   "avg_gold_delta": -6.37,
+   "avg_hp_before": 3422.6
+  },
+  {
+   "act": 3,
+   "type": "ancient",
+   "hp_bucket": "0-19",
+   "n": 4546,
+   "win_rate": 42.21,
+   "avg_damage": 0.05,
+   "avg_gold_delta": 50.46,
+   "avg_hp_before": 9.0
+  },
+  {
+   "act": 3,
+   "type": "ancient",
+   "hp_bucket": "20-34",
+   "n": 4693,
+   "win_rate": 49.31,
+   "avg_damage": 0.05,
+   "avg_gold_delta": 45.17,
+   "avg_hp_before": 21.8
+  },
+  {
+   "act": 3,
+   "type": "ancient",
+   "hp_bucket": "35-49",
+   "n": 4209,
+   "win_rate": 56.28,
+   "avg_damage": 0.13,
+   "avg_gold_delta": 44.7,
+   "avg_hp_before": 33.8
+  },
+  {
+   "act": 3,
+   "type": "ancient",
+   "hp_bucket": "50-69",
+   "n": 4500,
+   "win_rate": 62.78,
+   "avg_damage": 0.12,
+   "avg_gold_delta": 43.43,
+   "avg_hp_before": 46.5
+  },
+  {
+   "act": 3,
+   "type": "ancient",
+   "hp_bucket": "70+",
+   "n": 3285,
+   "win_rate": 73.18,
+   "avg_damage": 0.4,
+   "avg_gold_delta": 55.88,
+   "avg_hp_before": 59893.2
+  },
+  {
+   "act": 3,
+   "type": "boss",
+   "hp_bucket": "0-19",
+   "n": 363,
+   "win_rate": 23.14,
+   "avg_damage": 13.75,
+   "avg_gold_delta": -0.47,
+   "avg_hp_before": 8.9
+  },
+  {
+   "act": 3,
+   "type": "boss",
+   "hp_bucket": "20-34",
+   "n": 579,
+   "win_rate": 35.06,
+   "avg_damage": 26.87,
+   "avg_gold_delta": -0.33,
+   "avg_hp_before": 23.2
+  },
+  {
+   "act": 3,
+   "type": "boss",
+   "hp_bucket": "35-49",
+   "n": 1247,
+   "win_rate": 46.43,
+   "avg_damage": 33.06,
+   "avg_gold_delta": -0.46,
+   "avg_hp_before": 34.6
+  },
+  {
+   "act": 3,
+   "type": "boss",
+   "hp_bucket": "50-69",
+   "n": 3436,
+   "win_rate": 59.28,
+   "avg_damage": 39.54,
+   "avg_gold_delta": -0.24,
+   "avg_hp_before": 50.1
+  },
+  {
+   "act": 3,
+   "type": "boss",
+   "hp_bucket": "70+",
+   "n": 15436,
+   "win_rate": 73.82,
+   "avg_damage": 42.38,
+   "avg_gold_delta": -0.27,
+   "avg_hp_before": 12807.7
+  },
+  {
+   "act": 3,
+   "type": "elite",
+   "hp_bucket": "0-19",
+   "n": 394,
+   "win_rate": 17.51,
+   "avg_damage": 9.33,
+   "avg_gold_delta": 13.16,
+   "avg_hp_before": 9.3
+  },
+  {
+   "act": 3,
+   "type": "elite",
+   "hp_bucket": "20-34",
+   "n": 757,
+   "win_rate": 30.52,
+   "avg_damage": 16.69,
+   "avg_gold_delta": 21.33,
+   "avg_hp_before": 23.1
+  },
+  {
+   "act": 3,
+   "type": "elite",
+   "hp_bucket": "35-49",
+   "n": 1813,
+   "win_rate": 46.83,
+   "avg_damage": 19.13,
+   "avg_gold_delta": 29.28,
+   "avg_hp_before": 35.0
+  },
+  {
+   "act": 3,
+   "type": "elite",
+   "hp_bucket": "50-69",
+   "n": 5887,
+   "win_rate": 58.37,
+   "avg_damage": 20.37,
+   "avg_gold_delta": 33.99,
+   "avg_hp_before": 49.5
+  },
+  {
+   "act": 3,
+   "type": "elite",
+   "hp_bucket": "70+",
+   "n": 19457,
+   "win_rate": 71.89,
+   "avg_damage": 18.57,
+   "avg_gold_delta": 39.58,
+   "avg_hp_before": 30375.9
+  },
+  {
+   "act": 3,
+   "type": "monster",
+   "hp_bucket": "0-19",
+   "n": 1132,
+   "win_rate": 19.61,
+   "avg_damage": 6.39,
+   "avg_gold_delta": 9.18,
+   "avg_hp_before": 9.2
+  },
+  {
+   "act": 3,
+   "type": "monster",
+   "hp_bucket": "20-34",
+   "n": 1917,
+   "win_rate": 28.33,
+   "avg_damage": 10.5,
+   "avg_gold_delta": 12.15,
+   "avg_hp_before": 22.3
+  },
+  {
+   "act": 3,
+   "type": "monster",
+   "hp_bucket": "35-49",
+   "n": 3560,
+   "win_rate": 37.67,
+   "avg_damage": 12.12,
+   "avg_gold_delta": 14.0,
+   "avg_hp_before": 33.8
+  },
+  {
+   "act": 3,
+   "type": "monster",
+   "hp_bucket": "50-69",
+   "n": 10106,
+   "win_rate": 47.81,
+   "avg_damage": 11.62,
+   "avg_gold_delta": 14.58,
+   "avg_hp_before": 48.3
+  },
+  {
+   "act": 3,
+   "type": "monster",
+   "hp_bucket": "70+",
+   "n": 60675,
+   "win_rate": 60.6,
+   "avg_damage": 8.87,
+   "avg_gold_delta": 16.41,
+   "avg_hp_before": 22745.4
+  },
+  {
+   "act": 3,
+   "type": "rest_site",
+   "hp_bucket": "0-19",
+   "n": 2773,
+   "win_rate": 35.3,
+   "avg_damage": 0.0,
+   "avg_gold_delta": -0.09,
+   "avg_hp_before": 9.3
+  },
+  {
+   "act": 3,
+   "type": "rest_site",
+   "hp_bucket": "20-34",
+   "n": 4113,
+   "win_rate": 42.99,
+   "avg_damage": 0.0,
+   "avg_gold_delta": 0.07,
+   "avg_hp_before": 22.5
+  },
+  {
+   "act": 3,
+   "type": "rest_site",
+   "hp_bucket": "35-49",
+   "n": 6074,
+   "win_rate": 54.07,
+   "avg_damage": 0.01,
+   "avg_gold_delta": 0.15,
+   "avg_hp_before": 34.5
+  },
+  {
+   "act": 3,
+   "type": "rest_site",
+   "hp_bucket": "50-69",
+   "n": 12182,
+   "win_rate": 61.81,
+   "avg_damage": 0.01,
+   "avg_gold_delta": 0.04,
+   "avg_hp_before": 48.9
+  },
+  {
+   "act": 3,
+   "type": "rest_site",
+   "hp_bucket": "70+",
+   "n": 23960,
+   "win_rate": 72.96,
+   "avg_damage": 0.01,
+   "avg_gold_delta": 0.38,
+   "avg_hp_before": 32881.8
+  },
+  {
+   "act": 3,
+   "type": "shop",
+   "hp_bucket": "0-19",
+   "n": 646,
+   "win_rate": 34.67,
+   "avg_damage": 0.0,
+   "avg_gold_delta": -256.68,
+   "avg_hp_before": 9.4
+  },
+  {
+   "act": 3,
+   "type": "shop",
+   "hp_bucket": "20-34",
+   "n": 1120,
+   "win_rate": 39.64,
+   "avg_damage": 0.01,
+   "avg_gold_delta": -256.92,
+   "avg_hp_before": 22.5
+  },
+  {
+   "act": 3,
+   "type": "shop",
+   "hp_bucket": "35-49",
+   "n": 1808,
+   "win_rate": 48.51,
+   "avg_damage": 0.0,
+   "avg_gold_delta": -251.64,
+   "avg_hp_before": 34.2
+  },
+  {
+   "act": 3,
+   "type": "shop",
+   "hp_bucket": "50-69",
+   "n": 5053,
+   "win_rate": 56.38,
+   "avg_damage": 0.0,
+   "avg_gold_delta": -250.24,
+   "avg_hp_before": 48.4
+  },
+  {
+   "act": 3,
+   "type": "shop",
+   "hp_bucket": "70+",
+   "n": 15352,
+   "win_rate": 67.89,
+   "avg_damage": 0.0,
+   "avg_gold_delta": -247.33,
+   "avg_hp_before": 38476.2
+  },
+  {
+   "act": 3,
+   "type": "treasure",
+   "hp_bucket": "0-19",
+   "n": 669,
+   "win_rate": 32.88,
+   "avg_damage": 0.0,
+   "avg_gold_delta": 39.91,
+   "avg_hp_before": 9.2
+  },
+  {
+   "act": 3,
+   "type": "treasure",
+   "hp_bucket": "20-34",
+   "n": 1062,
+   "win_rate": 39.36,
+   "avg_damage": 0.0,
+   "avg_gold_delta": 39.69,
+   "avg_hp_before": 22.3
+  },
+  {
+   "act": 3,
+   "type": "treasure",
+   "hp_bucket": "35-49",
+   "n": 1795,
+   "win_rate": 48.75,
+   "avg_damage": 0.01,
+   "avg_gold_delta": 39.45,
+   "avg_hp_before": 34.1
+  },
+  {
+   "act": 3,
+   "type": "treasure",
+   "hp_bucket": "50-69",
+   "n": 4402,
+   "win_rate": 55.84,
+   "avg_damage": 0.0,
+   "avg_gold_delta": 39.29,
+   "avg_hp_before": 48.6
+  },
+  {
+   "act": 3,
+   "type": "treasure",
+   "hp_bucket": "70+",
+   "n": 11609,
+   "win_rate": 67.77,
+   "avg_damage": 0.0,
+   "avg_gold_delta": 40.55,
+   "avg_hp_before": 50859.5
+  },
+  {
+   "act": 3,
+   "type": "unknown",
+   "hp_bucket": "0-19",
+   "n": 1419,
+   "win_rate": 24.67,
+   "avg_damage": 1.13,
+   "avg_gold_delta": -12.99,
+   "avg_hp_before": 9.4
+  },
+  {
+   "act": 3,
+   "type": "unknown",
+   "hp_bucket": "20-34",
+   "n": 2292,
+   "win_rate": 34.6,
+   "avg_damage": 2.36,
+   "avg_gold_delta": -9.19,
+   "avg_hp_before": 22.3
+  },
+  {
+   "act": 3,
+   "type": "unknown",
+   "hp_bucket": "35-49",
+   "n": 4002,
+   "win_rate": 43.88,
+   "avg_damage": 2.72,
+   "avg_gold_delta": -7.54,
+   "avg_hp_before": 34.4
+  },
+  {
+   "act": 3,
+   "type": "unknown",
+   "hp_bucket": "50-69",
+   "n": 11347,
+   "win_rate": 51.47,
+   "avg_damage": 3.01,
+   "avg_gold_delta": -6.55,
+   "avg_hp_before": 48.7
+  },
+  {
+   "act": 3,
+   "type": "unknown",
+   "hp_bucket": "70+",
+   "n": 38962,
+   "win_rate": 64.71,
+   "avg_damage": 3.1,
+   "avg_gold_delta": -3.44,
+   "avg_hp_before": 35380.7
+  },
+  {
+   "act": 4,
+   "type": "boss",
+   "hp_bucket": "70+",
+   "n": 50,
+   "win_rate": 78.0,
+   "avg_damage": 73.86,
+   "avg_gold_delta": 2.24,
+   "avg_hp_before": 129.0
+  },
+  {
+   "act": 4,
+   "type": "elite",
+   "hp_bucket": "70+",
+   "n": 79,
+   "win_rate": 46.84,
+   "avg_damage": 24.52,
+   "avg_gold_delta": 78.11,
+   "avg_hp_before": 92.6
+  },
+  {
+   "act": 4,
+   "type": "rest_site",
+   "hp_bucket": "70+",
+   "n": 77,
+   "win_rate": 59.74,
+   "avg_damage": 0.16,
+   "avg_gold_delta": 2.27,
+   "avg_hp_before": 112.0
+  },
+  {
+   "act": 4,
+   "type": "shop",
+   "hp_bucket": "70+",
+   "n": 71,
+   "win_rate": 61.97,
+   "avg_damage": 0.04,
+   "avg_gold_delta": -378.8,
+   "avg_hp_before": 119.4
+  },
+  {
+   "act": 4,
+   "type": "unknown",
+   "hp_bucket": "70+",
+   "n": 64,
+   "win_rate": 87.5,
+   "avg_damage": 0.66,
+   "avg_gold_delta": 84.06,
+   "avg_hp_before": 122.0
+  }
+ ],
+ "rest": [
+  {
+   "act": 1,
+   "choice": "?",
+   "n": 45,
+   "win_rate": 2.22,
+   "avg_healed": 0.2
+  },
+  {
+   "act": 1,
+   "choice": "COOK",
+   "n": 43,
+   "win_rate": 25.58,
+   "avg_healed": 13.19
+  },
+  {
+   "act": 1,
+   "choice": "DIG",
+   "n": 699,
+   "win_rate": 28.04,
+   "avg_healed": 1.45
+  },
+  {
+   "act": 1,
+   "choice": "ENCHANT_CARD",
+   "n": 35,
+   "win_rate": 77.14,
+   "avg_healed": 0.0
+  },
+  {
+   "act": 1,
+   "choice": "ENHANCE_RELIC",
+   "n": 45,
+   "win_rate": 48.89,
+   "avg_healed": 1.42
+  },
+  {
+   "act": 1,
+   "choice": "HATCH",
+   "n": 1355,
+   "win_rate": 18.97,
+   "avg_healed": 0.18
+  },
+  {
+   "act": 1,
+   "choice": "HEAL",
+   "n": 85611,
+   "win_rate": 15.54,
+   "avg_healed": 22.39
+  },
+  {
+   "act": 1,
+   "choice": "LIFT",
+   "n": 559,
+   "win_rate": 27.37,
+   "avg_healed": 1.27
+  },
+  {
+   "act": 1,
+   "choice": "SMITH",
+   "n": 92764,
+   "win_rate": 25.67,
+   "avg_healed": 0.32
+  },
+  {
+   "act": 2,
+   "choice": "CLONE",
+   "n": 715,
+   "win_rate": 34.55,
+   "avg_healed": 1.89
+  },
+  {
+   "act": 2,
+   "choice": "DIG",
+   "n": 853,
+   "win_rate": 50.06,
+   "avg_healed": 3.26
+  },
+  {
+   "act": 2,
+   "choice": "ENHANCE_RELIC",
+   "n": 36,
+   "win_rate": 58.33,
+   "avg_healed": 5.67
+  },
+  {
+   "act": 2,
+   "choice": "HEAL",
+   "n": 51174,
+   "win_rate": 27.77,
+   "avg_healed": 24.55
+  },
+  {
+   "act": 2,
+   "choice": "KINDLE",
+   "n": 578,
+   "win_rate": 42.21,
+   "avg_healed": 2.36
+  },
+  {
+   "act": 2,
+   "choice": "LIFT",
+   "n": 645,
+   "win_rate": 51.47,
+   "avg_healed": 2.59
+  },
+  {
+   "act": 2,
+   "choice": "SMITH",
+   "n": 41197,
+   "win_rate": 47.5,
+   "avg_healed": 1.37
+  },
+  {
+   "act": 3,
+   "choice": "CLONE",
+   "n": 251,
+   "win_rate": 74.5,
+   "avg_healed": 4.56
+  },
+  {
+   "act": 3,
+   "choice": "COOK",
+   "n": 1060,
+   "win_rate": 74.25,
+   "avg_healed": 12.22
+  },
+  {
+   "act": 3,
+   "choice": "DIG",
+   "n": 752,
+   "win_rate": 73.54,
+   "avg_healed": 4.18
+  },
+  {
+   "act": 3,
+   "choice": "HEAL",
+   "n": 21703,
+   "win_rate": 53.3,
+   "avg_healed": 26.01
+  },
+  {
+   "act": 3,
+   "choice": "KINDLE",
+   "n": 324,
+   "win_rate": 69.14,
+   "avg_healed": 3.42
+  },
+  {
+   "act": 3,
+   "choice": "LIFT",
+   "n": 418,
+   "win_rate": 68.9,
+   "avg_healed": 4.48
+  },
+  {
+   "act": 3,
+   "choice": "SMITH",
+   "n": 24468,
+   "win_rate": 70.85,
+   "avg_healed": 2.23
+  },
+  {
+   "act": 4,
+   "choice": "SMITH",
+   "n": 54,
+   "win_rate": 53.7,
+   "avg_healed": 1.54
+  }
+ ]
+}

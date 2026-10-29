@@ -36,7 +36,12 @@ public sealed class ShopScorer
     private const int RemovalBase = 25;
     private const int RemovalCurseBonus = 30;
     private const int RemovalCostMax = 20; // clamp(prix/or, 0, 1.5) × 20
-    private const string CurseTerm = "Malédiction"; // terme posé par CardScorer (source : IMetaTable.Card)
+
+    /// <summary>
+    /// Préfixe des termes de malédiction posés par <c>CardScorer</c> via <c>CurseScorer</c> :
+    /// « Malédiction (impact mesuré) », « … (impact non classable) », « … (aucune donnée mesurée) ».
+    /// </summary>
+    private const string CurseTermPrefix = "Malédiction";
 
     private readonly CardScorer _cards;
     private readonly RelicScorer _relics;
@@ -158,8 +163,8 @@ public sealed class ShopScorer
     /// <summary>
     /// Malédictions du deck. Détection par la donnée, jamais par le nom de l'id :
     /// le catalogue du jeu (<see cref="CurseIndex"/>, type « Curse ») puis, en repli, le terme
-    /// « Malédiction » du score de carte — lui-même calculé depuis <c>IMetaTable.Card</c>
-    /// (Type/Rarity « Curse », cf. CardScorer).
+    /// « Malédiction … » du score de carte — posé par <c>CurseScorer</c> depuis le catalogue
+    /// du jeu et l'impact mesuré (docs/35).
     /// </summary>
     private List<string> CursesInDeck(ScoringContext ctx)
     {
@@ -172,7 +177,8 @@ public sealed class ShopScorer
                 continue;
             }
 
-            var term = _cards.ScoreCard(card, ctx).Terms.FirstOrDefault(t => t.Label == CurseTerm);
+            var term = _cards.ScoreCard(card, ctx).Terms
+                .FirstOrDefault(t => t.Label.StartsWith(CurseTermPrefix, StringComparison.Ordinal));
             if (term != null) found.Add(term.Source);
         }
         return found;

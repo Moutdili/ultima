@@ -12,6 +12,7 @@
 | Données méta (503 cartes, 263 reliques, 63 clusters, skip rate) | ✅ chargées | `MetaTable.Load()` |
 | Historique perso (runs v0.107.1) | ✅ agrégé | `PersonalStats.Load()` |
 | Calibration S→F (décision Mio) | ✅ | test `Calibration_puts_the_best_card_in_A_or_S` |
+| `ScorePotion` (contrat v1.1, S6bis) | ✅ | 7 tests `PotionTests` + catalogue 64 potions |
 
 ## 2. Matrice de vérification (commandes réellement exécutées)
 
@@ -64,6 +65,7 @@ Tout est reproductible : `bash tools/hermes-verify.sh`.
 | S3 `ScoreCard`/`ScoreSkip` | ✅ | tags heuristiques (P2-3) |
 | S4 shop / retrait / reliques | ✅ | pas de fixture de shop réel : tests structurels |
 | S5 `EvaluateDeck` | ✅ | archétypes issus de `data/meta`, malédictions via catalogue |
+| S6bis `ScorePotion` | ✅ | score dérivé des descriptions FR ; aucune méta potion publique |
 | S6 validation S7 (10 situations notées par Mio) | ⏳ | dépend de Mio |
 | P1-P3 chemins | ✅ | exact, cap 200 000 puis échantillonnage déterministe |
 | P4 risque | ⚠️ | moyenne par type de salle ; cotes des `?` absentes |
@@ -76,12 +78,21 @@ Tout est reproductible : `bash tools/hermes-verify.sh`.
 - Pas de comparaison avec les 10 situations de Mio (S7) : la corrélation reste à mesurer.
 - Pas de shop/récompense réels : les scores de shop sont vérifiés structurellement, pas sur un écran capturé.
 - Perf non mesurée en Release sur la machine cible.
+- Score des potions : heuristique sur les mots-clés des descriptions FR (pas de méta, pas de valeurs
+  numériques lues) — il ordonne les potions entre elles, il ne prédit pas un gain chiffré.
+- `data/catalog/potions.json` dépend de la localisation FR : une reformulation de traduction déplace un tag.
 
-## 6. Décisions à arbitrer par le chef (contrat)
+## 6. Décisions du chef (retour §7, 2026-10-29)
 
-1. `ShopItem` doit-il porter `OnSale`/`DiscountPercent` pour que le scoring distingue prix affiché et prix remisé ?
-2. `SourceHealth` doit-il exposer `AbandonedRuns`/`UnreadableRuns` pour que l'UI puisse dire « peu de données » ?
-3. `IKnowledge` doit-il exposer la description des cartes (pour remplacer les tags heuristiques) ?
+1. **Prix au shop** : `price` est le **prix affiché**, soldes et réductions déjà appliqués par le daemon.
+   Décision prise → plus de changement de contrat attendu ; `ShopScorer` garde cette hypothèse.
+2. **Tags des cartes** : restent heuristiques (nom anglais) jusqu'à la livraison de `Ultima.Knowledge`
+   (Encyclopédiste) ; bascule sur les descriptions FR à ce moment-là.
+3. **Chemins de données** : convention fixée par le daemon (`ULTIMA_DATA`) ; `DataPaths` et `ScoringData`
+   seront unifiés ensuite sur un seul résolveur.
+4. **S7** : les 10 situations réelles seront notées par Mio pendant la fenêtre de test n°2.
+
+Reste ouvert côté moteur : rien de bloquant. Les points 2 et 3 sont des suites à donner, pas des défauts.
 
 ## 7. Repro
 

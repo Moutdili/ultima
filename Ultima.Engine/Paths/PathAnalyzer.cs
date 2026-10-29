@@ -28,8 +28,16 @@ public sealed class PathAnalyzer : IPathAnalyzer
     /// </summary>
     public const int PathCap = 200_000;
 
-    /// <summary>Types de salle comptés, dans l'ordre de <see cref="RoomCounts"/> (identiques à la save).</summary>
-    internal static readonly string[] RoomTypes = { "monster", "elite", "unknown", "rest_site", "shop", "treasure" };
+    /// <summary>
+    /// Types de salle comptés, dans l'ordre des 6 champs de <see cref="RoomCounts"/>. Les chaînes
+    /// viennent des constantes du contrat (<c>RoomTypes</c>, v1.1) : un renommage côté contrat casse
+    /// la compilation ici au lieu de produire des libellés divergents dans l'overlay.
+    /// </summary>
+    public static IReadOnlyList<string> CountedTypes { get; } = new[]
+    {
+        Contracts.RoomTypes.Monster, Contracts.RoomTypes.Elite, Contracts.RoomTypes.Unknown,
+        Contracts.RoomTypes.RestSite, Contracts.RoomTypes.Shop, Contracts.RoomTypes.Treasure,
+    };
 
     private readonly IPersonalStats _personal;
 
@@ -196,7 +204,7 @@ public sealed class PathAnalyzer : IPathAnalyzer
             for (int t = 0; t < 6; t++)
             {
                 var m = meanC[c][t];
-                var risk = _personal.RoomRisk(actIndex, RoomTypes[t]);
+                var risk = _personal.RoomRisk(actIndex, CountedTypes[t]);
                 if (risk.Samples > 0)
                 {
                     damage += m * risk.AverageDamage;
@@ -398,16 +406,17 @@ public sealed class PathAnalyzer : IPathAnalyzer
         if (!string.IsNullOrWhiteSpace(node.RawType)) return node.RawType;
         return node.Kind switch
         {
-            MapPointKind.Monster => "monster",
-            MapPointKind.Elite => "elite",
-            MapPointKind.Unknown => "unknown",
-            MapPointKind.RestSite => "rest_site",
-            MapPointKind.Shop => "shop",
-            MapPointKind.Treasure => "treasure",
-            MapPointKind.Boss => "boss",
-            MapPointKind.Ancient => "ancient",
+            MapPointKind.Monster => Contracts.RoomTypes.Monster,
+            MapPointKind.Elite => Contracts.RoomTypes.Elite,
+            MapPointKind.Unknown => Contracts.RoomTypes.Unknown,
+            MapPointKind.RestSite => Contracts.RoomTypes.RestSite,
+            MapPointKind.Shop => Contracts.RoomTypes.Shop,
+            MapPointKind.Treasure => Contracts.RoomTypes.Treasure,
+            MapPointKind.Boss => Contracts.RoomTypes.Boss,
+            MapPointKind.Ancient => Contracts.RoomTypes.Ancient,
+            // "unassigned" n'est pas un type de salle jouable : la save n'a pas encore rempli la case.
             MapPointKind.Unassigned => "unassigned",
-            _ => "unknown"
+            _ => Contracts.RoomTypes.Unknown
         };
     }
 

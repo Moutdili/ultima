@@ -1,4 +1,10 @@
-// ULTIMA — extension GNOME Shell 50 (spike S1, moteur B).
+// ULTIMA — extension GNOME Shell 50 (moteur B retenu en S1), branchée sur le contrat moteur v1.
+//
+// Données : EngineState publié par ultima-daemon dans $XDG_RUNTIME_DIR/ultima/state.json, relu
+// SEULEMENT sur changement (Gio.FileMonitor + anti-rebond) ; JSON invalide -> dernier état valide
+// gardé (state.js) ; rendu texte brut (render.js, décision Mio « design en dernier »).
+// Coûts : un planificateur pur (plan.js) décide flou / inhibition de l'unredirect / sondage du
+// pointeur à partir des réglages A/B (blur-mode, unredirect-mode, poll-interval-ms ; voir PERF.md).
 //
 // Un acteur St/Clutter dessiné par le compositeur, AU-DESSUS du jeu plein écran,
 // non réactif (click-through), verre réel (Shell.BlurEffect BACKGROUND + teinte #192930),
@@ -12,8 +18,9 @@
 //   - addTopChrome() = « Like addChrome(), but adds @actor above all windows, including popups »
 //     -> retenu, SANS trackFullscreen.
 //   - Comme osdWindow.js / messageTray.js (affichés au-dessus du plein écran), on appelle
-//     global.compositor.disable_unredirect() tant que l'overlay est visible, sinon la fenêtre
-//     plein écran peut être affichée en scanout direct, sans composition de l'overlay.
+//     global.compositor.disable_unredirect() (par défaut tant que l'overlay est visible, réglage
+//     unredirect-mode), sinon la fenêtre plein écran peut être affichée en scanout direct, sans
+//     composition de l'overlay.
 //
 // Robustesse (non-négociables) : toute erreur de enable() est attrapée et logguée ; disable()
 // retire acteurs, raccourcis, timeouts, signaux, moniteur de fichier, et rend l'unredirect.
@@ -22,6 +29,7 @@ import Clutter from 'gi://Clutter';
 import Gio from 'gi://Gio';
 import GLib from 'gi://GLib';
 import Meta from 'gi://Meta';
+import Pango from 'gi://Pango';
 import Shell from 'gi://Shell';
 import St from 'gi://St';
 
@@ -30,20 +38,27 @@ import {Extension} from 'resource:///org/gnome/shell/extensions/extension.js';
 
 import {PALETTE, rgba, toneHex} from './palette.js';
 import * as Geo from './geometry.js';
-import {parseState} from './state.js';
+import {StateStore} from './state.js';
+import {blockLines, buildView, fitView, viewToText, WRAP_COLS} from './render.js';
+import {computePlan, Poller} from './plan.js';
 
 const TAG = '[ULTIMA]';
-const POLL_MS = 80;              // suivi du pointeur (12,5 Hz) — seulement quand le rail est visible
 const HOVER_DWELL_MS = 150;      // évite l'expansion sur un simple passage du curseur
 const EXPAND_MS = 180;           // docs/17 §4 : 150-220 ms, ease-out, sans overshoot
 const IDLE_COLLAPSE_MS = 2500;   // docs/17 §4 : retour au rail après 2,5 s sans survol
-const STATE_DEBOUNCE_MS = 100;
+const STATE_DEBOUNCE_MS = 100;   // rafales d'écriture du daemon -> une seule relecture
+const BLOCK_SPACING = 6;         // px entre blocs (valeur du spike)
+const FALLBACK_LINE_PX = 18;     // si la mesure de hauteur de ligne échoue
 
 const GLASS_TINT_ALPHA = 0.72;   // docs/17 §3 (≥ 0.6 : leçon v1 n°4)
 const RAIL_BORDER_ALPHA = 0.85;  // leçon v1 (commit fa00f8d) : liseré or lisible au repos
 const PANEL_BORDER_ALPHA = 0.18; // docs/17 §3
 const BLUR_RADIUS = 24;          // px, fixe (jamais animé — docs/17 §3)
 const RADIUS = 10;               // docs/17 §3 corner_radius
+
+// Styles du spike conservés tels quels (design en dernier) : titre or gras 16 px, texte 14 px.
+const titleStyle = tone => `color: ${toneHex(tone)}; font-weight: bold; font-size: 16px;`;
+const bodyStyle = tone => `color: ${toneHex(tone)}; font-size: 14px;`;
 
 const KEY_PANEL = 'toggle-panel';
 const KEY_VISIBLE = 'toggle-visible';
@@ -53,7 +68,6 @@ class UltimaOverlay {
         this._settings = settings;
         this._extPath = extPath;
         this._timeouts = new Set();
-        this._pollId = 0;
         this._idleId = 0;
         this._dwellSince = 0;
         this._expanded = false;
@@ -65,29 +79,67 @@ class UltimaOverlay {
         this._cancellable = new Gio.Cancellable();
         this._destroyed = false;
         this._layout = null;
+        this._store = new StateStore();
+        this._view = null;
+        this._viewDirty = true;
+        this._appliedKey = null;
+        this._labels = [];
+        this._railKey = null;
+        this._lineH = 0;
+        this._loadSeq = 0;
+        this._lastKind = null;
+        this._plan = null;
+        this._planKey = null;
+        this._perf = null;
+        this._poller = new Poller({
+            add: (ms, fn) => {
+                // PRIORITY_DEFAULT : en PRIORITY_LOW la source est affamée quand le compositeur
+                // redessine en continu (jeu à 60+ FPS) — observé sur le banc headless.
+                const id = GLib.timeout_add(GLib.PRIORITY_DEFAULT, ms, () => {
+                    fn();
+                    return GLib.SOURCE_CONTINUE;
+                });
+                GLib.Source.set_name_by_id(id, '[ultima] pointer poll');
+                return id;
+            },
+            remove: id => GLib.source_remove(id),
+        }, () => {
+            try {
+                this._tick();
+            } catch (e) {
+                console.error(`${TAG} tick : ${e}`);
+            }
+        });
     }
 
     start() {
         this._build();
         Main.layoutManager.addTopChrome(this._root); // PAS de trackFullscreen (cf. en-tête)
         this._relayout();
-        this._render(null);
+        this._setView(buildView(this._store.current));
 
-        Main.layoutManager.connectObject('monitors-changed', () => this._relayout(), this);
+        Main.layoutManager.connectObject('monitors-changed', () => {
+            this._lineH = 0; // l'échelle a pu changer
+            this._relayout();
+        }, this);
         Main.overview.connectObject(
             'showing', () => this._setOverviewHidden(true),
             'hidden', () => this._setOverviewHidden(false), this);
         this._settings.connectObject(
             'changed::top-fraction', () => this._relayout(),
-            'changed::height-fraction', () => this._relayout(), this);
+            'changed::height-fraction', () => this._relayout(),
+            'changed::blur-mode', () => this._readPerfSettings(),
+            'changed::unredirect-mode', () => this._readPerfSettings(),
+            'changed::poll-interval-ms', () => this._readPerfSettings(), this);
 
         this._overviewHidden = Main.overview.visible; // GNOME démarre dans la vue d'ensemble
         this._addKeybinding(KEY_PANEL, () => this._togglePinned());
         this._addKeybinding(KEY_VISIBLE, () => this._toggleVisible());
 
         this._watchState();
-        this._updateShown();
-        console.log(`${TAG} actif : couche=addTopChrome, rail=${Geo.RAIL_W}px, panneau=${Geo.PANEL_W}px`);
+        this._readPerfSettings(); // applique aussi le plan initial
+        console.log(`${TAG} actif : couche=addTopChrome, rail=${Geo.RAIL_W}px, panneau=${Geo.PANEL_W}px, ` +
+            `état=${this._statePath()}`);
     }
 
     // ---------- construction ----------
@@ -104,12 +156,15 @@ class UltimaOverlay {
 
         // Couche 1 : verre (flou de l'arrière-plan). Acteur SANS enfant : aucun blur sur le texte.
         // brightness 1.0 : l'assombrissement vient de la teinte (arrondie), pas du flou (rectangulaire).
+        // Activé/désactivé par le plan (blur-mode, défaut : panneau ouvert seulement ; rail = aplat).
         this._glass = new St.Widget({name: 'ultima-glass', reactive: false});
-        this._glass.add_effect_with_name('ultima-blur', new Shell.BlurEffect({
+        this._blurEffect = new Shell.BlurEffect({
             mode: Shell.BlurMode.BACKGROUND,
             radius: BLUR_RADIUS,
             brightness: 1.0,
-        }));
+        });
+        this._blurEffect.enabled = false;
+        this._glass.add_effect_with_name('ultima-blur', this._blurEffect);
 
         // Couche 2 : teinte #192930 + liseré or 1 px + coins 10.
         this._frame = new St.Widget({name: 'ultima-frame', reactive: false});
@@ -135,6 +190,8 @@ class UltimaOverlay {
         this._root.add_child(this._dots);
 
         // Couche 3b : contenu du panneau (niveau 1), largeur fixe, découpé par la racine.
+        // Un St.Label par bloc (titre, dégradé, module) : peu d'acteurs, mis à jour seulement si
+        // le texte change, et seulement panneau ouvert (rendu différé quand replié).
         this._content = new St.BoxLayout({
             orientation: Clutter.Orientation.VERTICAL,
             reactive: false,
@@ -143,7 +200,7 @@ class UltimaOverlay {
             width: Geo.PANEL_W - 2 * 14,
             x: 14,
             y: 12,
-            style: 'spacing: 6px;',
+            style: `spacing: ${BLOCK_SPACING}px;`,
         });
         this._root.add_child(this._content);
 
@@ -175,6 +232,10 @@ class UltimaOverlay {
         const dotsH = 3 * 8 + 2 * 10;
         this._dots.set_position(Math.round((Geo.RAIL_W - 8) / 2), Math.round((L.h - dotsH) / 2));
         this._content.height = L.h - 24;
+        this._appliedKey = null; // hauteur changée -> nouvel ajustement du texte
+        this._viewDirty = true;
+        if (this._expanded)
+            this._applyView();
         const cov = Geo.coverage(L, monitor);
         console.log(`${TAG} géométrie : moniteur=${monitor.width}x${monitor.height} ` +
             `rail=(${L.railX},${L.y},${Geo.RAIL_W}x${L.h}) panneau=(${L.panelX},${L.y},${Geo.PANEL_W}x${L.h}) ` +
@@ -184,14 +245,24 @@ class UltimaOverlay {
     // ---------- état publié par le daemon ----------
 
     _statePath() {
-        return GLib.build_filenamev([GLib.get_user_runtime_dir(), 'ultima', 'overlay-state.json']);
+        return GLib.build_filenamev([GLib.get_user_runtime_dir(), 'ultima', 'state.json']);
     }
 
+    // Relecture SEULEMENT sur changement : aucun minuteur périodique côté extension.
+    // Le daemon écrit par tmp + rename : l'événement arrive comme CREATED (ou CHANGES_DONE_HINT
+    // pour une écriture en place, DELETED si le daemon retire le fichier). Si le dossier
+    // $XDG_RUNTIME_DIR/ultima n'existe pas encore, GLib surveille son apparition (voir PERF.md).
     _watchState() {
         const file = Gio.File.new_for_path(this._statePath());
         try {
             this._monitor = file.monitor_file(Gio.FileMonitorFlags.NONE, this._cancellable);
-            this._monitor.connectObject('changed', () => this._queueStateLoad(), this);
+            this._monitor.connectObject('changed', (_m, _f, _o, event) => {
+                if (event === Gio.FileMonitorEvent.ATTRIBUTE_CHANGED ||
+                    event === Gio.FileMonitorEvent.PRE_UNMOUNT ||
+                    event === Gio.FileMonitorEvent.UNMOUNTED)
+                    return;
+                this._queueStateLoad();
+            }, this);
         } catch (e) {
             console.warn(`${TAG} pas de surveillance de ${file.get_path()} : ${e.message}`);
         }
@@ -208,128 +279,171 @@ class UltimaOverlay {
     }
 
     _loadState() {
-        const live = Gio.File.new_for_path(this._statePath());
-        const sample = Gio.File.new_for_path(GLib.build_filenamev([this._extPath, 'sample-state.json']));
-        this._readJson(live, (res) => {
-            if (res?.ok) {
-                this._render(res.state);
-                return;
-            }
-            if (res && !res.ok)
-                console.warn(`${TAG} état daemon rejeté : ${res.error}`);
-            this._readJson(sample, (r2) => this._render(r2?.ok ? r2.state : null));
-        });
-    }
-
-    _readJson(file, done) {
+        const seq = ++this._loadSeq;
+        const file = Gio.File.new_for_path(this._statePath());
         file.load_contents_async(this._cancellable, (f, result) => {
-            if (this._destroyed)
-                return;
+            if (this._destroyed || seq !== this._loadSeq)
+                return; // une relecture plus récente est en cours : elle fera foi
+            let res;
             try {
                 const [, bytes] = f.load_contents_finish(result);
-                done(parseState(new TextDecoder().decode(bytes)));
+                res = this._store.acceptText(new TextDecoder().decode(bytes));
             } catch (e) {
-                if (!e.matches?.(Gio.IOErrorEnum, Gio.IOErrorEnum.NOT_FOUND) &&
-                    !e.matches?.(Gio.IOErrorEnum, Gio.IOErrorEnum.CANCELLED))
+                if (e.matches?.(Gio.IOErrorEnum, Gio.IOErrorEnum.CANCELLED))
+                    return;
+                if (e.matches?.(Gio.IOErrorEnum, Gio.IOErrorEnum.NOT_FOUND)) {
+                    res = this._store.acceptMissing();
+                } else {
                     console.warn(`${TAG} lecture ${f.get_path()} : ${e.message}`);
-                done(null);
+                    return; // dernier état valide conservé
+                }
             }
+            if (res.newError)
+                console.warn(`${TAG} état rejeté (dernier état valide conservé) : ${res.error}`);
+            if (!res.changed)
+                return;
+            const cur = this._store.current;
+            const kind = cur.kind === 'future' ? `future v${cur.version}` : cur.kind;
+            if (kind !== this._lastKind) {
+                console.log(`${TAG} état : ${kind}`);
+                this._lastKind = kind;
+            }
+            this._setView(buildView(cur));
         });
     }
 
-    _render(state) {
-        const s = state ?? {
-            title: 'ULTIMA', subtitle: 'aucun état', source: '', lines: [],
-            rail: [{tone: 'lightGray'}, {tone: 'lightGray'}, {tone: 'lightGray'}],
+    // ---------- rendu texte ----------
+
+    _setView(view) {
+        this._view = view;
+        this._applyRail(view.rail);
+        this._viewDirty = true;
+        if (this._expanded)
+            this._applyView();
+    }
+
+    _applyRail(tones) {
+        const key = tones.join(',');
+        if (key === this._railKey)
+            return;
+        this._railKey = key;
+        tones.forEach((t, i) => this._dotActors[i]?.set_style(
+            `background-color: ${toneHex(t)}; border-radius: 4px;`));
+    }
+
+    _lineHeight() {
+        if (this._lineH > 0)
+            return this._lineH;
+        const probe = new St.Label({text: 'Ag', style: bodyStyle('cream')});
+        this._content.add_child(probe);
+        const [, nat] = probe.get_preferred_height(-1);
+        probe.destroy();
+        this._lineH = nat > 4 ? nat : FALLBACK_LINE_PX;
+        console.log(`${TAG} hauteur de ligne mesurée : ${this._lineH.toFixed(1)} px`);
+        return this._lineH;
+    }
+
+    // Applique la vue au panneau (seulement panneau ouvert ; replié, on note juste « à refaire »).
+    _applyView() {
+        if (!this._view || !this._viewDirty)
+            return;
+        this._viewDirty = false;
+        const n = this._view.blocks.length;
+        const avail = this._content.height - Math.max(0, n - 1) * BLOCK_SPACING;
+        // -1 : marge pour le titre (16 px gras) et l'arrondi de l'estimation de retour à la ligne.
+        const maxLines = Math.max(4, Math.floor(avail / this._lineHeight()) - 1);
+        const fitted = fitView(this._view, {maxLines, cols: WRAP_COLS});
+        const texts = fitted.blocks.map(b => blockLines(b).join('\n'));
+        const key = `${viewToText(fitted)}\u0000${fitted.blocks.map(b => `${b.key}:${b.tone}`).join(',')}`;
+        if (key === this._appliedKey)
+            return;
+        this._appliedKey = key;
+
+        const sameShape = this._labels.length === fitted.blocks.length &&
+            this._labels.every((l, i) => l._ultimaKey === fitted.blocks[i].key);
+        if (!sameShape) {
+            this._content.destroy_all_children();
+            this._labels = fitted.blocks.map(b => {
+                const l = new St.Label({reactive: false, x_expand: true});
+                l._ultimaKey = b.key;
+                const ct = l.clutter_text;
+                ct.line_wrap = true;
+                ct.line_wrap_mode = Pango.WrapMode.WORD_CHAR;
+                ct.ellipsize = Pango.EllipsizeMode.NONE;
+                this._content.add_child(l);
+                return l;
+            });
+        }
+        fitted.blocks.forEach((b, i) => {
+            const l = this._labels[i];
+            const style = b.key === 'title' ? titleStyle(b.tone) : bodyStyle(b.tone);
+            if (l._ultimaStyle !== style) {
+                l.set_style(style);
+                l._ultimaStyle = style;
+            }
+            if (l.text !== texts[i])
+                l.text = texts[i];
+        });
+    }
+
+    // ---------- visibilité, coûts (plan.js), suivi du pointeur ----------
+
+    _readPerfSettings() {
+        this._perf = {
+            blurMode: this._settings.get_string('blur-mode'),
+            unredirectMode: this._settings.get_string('unredirect-mode'),
+            pollMs: this._settings.get_int('poll-interval-ms'),
         };
-        s.rail.forEach((d, i) => this._dotActors[i]?.set_style(
-            `background-color: ${toneHex(d.tone)}; border-radius: 4px;`));
-
-        this._content.destroy_all_children();
-        const title = new St.Label({
-            text: s.source ? `${s.title}  ·  ${s.source}` : s.title,
-            style: `color: ${PALETTE.gold}; font-weight: bold; font-size: 16px;`,
-        });
-        this._content.add_child(title);
-        if (s.subtitle) {
-            this._content.add_child(new St.Label({
-                text: s.subtitle,
-                style: `color: ${rgba(PALETTE.cream, 0.5)}; font-size: 12px;`,
-            }));
-        }
-        for (const line of s.lines) {
-            const row = new St.BoxLayout({reactive: false, x_expand: true});
-            row.add_child(new St.Label({
-                text: line.label,
-                x_expand: true,
-                style: `color: ${PALETTE.cream}; font-size: 14px;`,
-            }));
-            row.add_child(new St.Label({
-                text: line.value,
-                style: `color: ${toneHex(line.tone)}; font-family: "Source Code Pro", monospace; ` +
-                       'font-weight: 600; font-size: 14px;',
-            }));
-            this._content.add_child(row);
-        }
-    }
-
-    // ---------- visibilité, unredirect, suivi du pointeur ----------
-
-    _isShown() {
-        return !this._userHidden && !this._overviewHidden;
+        console.log(`${TAG} réglages perf : blur-mode=${this._perf.blurMode} ` +
+            `unredirect-mode=${this._perf.unredirectMode} poll-interval-ms=${this._perf.pollMs}`);
+        this._applyPlan('réglage');
     }
 
     _setOverviewHidden(v) {
         this._overviewHidden = v;
-        this._updateShown();
+        this._applyPlan(v ? 'vue d\'ensemble' : 'retour');
     }
 
     _toggleVisible() {
         this._userHidden = !this._userHidden;
         console.log(`${TAG} raccourci ${KEY_VISIBLE} -> ${this._userHidden ? 'masqué' : 'visible'}`);
-        this._updateShown();
+        this._applyPlan('raccourci');
     }
 
-    _updateShown() {
-        const shown = this._isShown();
-        this._root.visible = shown;
-        if (shown && !this._unredirectDisabled) {
+    // Seul point qui allume/éteint flou, inhibition de l'unredirect et sondage du pointeur.
+    _applyPlan(reason) {
+        if (!this._root || !this._perf)
+            return;
+        const p = computePlan({
+            userHidden: this._userHidden,
+            overviewHidden: this._overviewHidden,
+            expanded: this._expanded,
+            pinned: this._pinned,
+            ...this._perf,
+        });
+        this._root.visible = p.shown;
+        if (this._blurEffect.enabled !== p.blur)
+            this._blurEffect.enabled = p.blur;
+        if (p.inhibitUnredirect && !this._unredirectDisabled) {
             global.compositor.disable_unredirect();
             this._unredirectDisabled = true;
-        } else if (!shown && this._unredirectDisabled) {
+        } else if (!p.inhibitUnredirect && this._unredirectDisabled) {
             global.compositor.enable_unredirect();
             this._unredirectDisabled = false;
         }
-        if (shown)
-            this._startPolling();
-        else
-            this._stopPolling();
-    }
-
-    // Choix « aucun clic avalé » : la racine reste reactive:false en permanence. Le survol est
-    // déduit de global.get_pointer() à 12,5 Hz, et seulement quand le rail est visible.
-    _startPolling() {
-        if (this._pollId)
-            return;
-        // PRIORITY_DEFAULT : en PRIORITY_LOW la source est affamée quand le compositeur
-        // redessine en continu (jeu à 60+ FPS) — observé sur le banc headless.
-        this._pollId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, POLL_MS, () => {
-            try {
-                this._tick();
-            } catch (e) {
-                console.error(`${TAG} tick : ${e}`);
-            }
-            return GLib.SOURCE_CONTINUE;
-        });
-        GLib.Source.set_name_by_id(this._pollId, '[ultima] pointer poll');
-    }
-
-    _stopPolling() {
-        if (this._pollId) {
-            GLib.source_remove(this._pollId);
-            this._pollId = 0;
+        this._poller.apply(p);
+        if (!p.poll)
+            this._dwellSince = 0;
+        if (!p.shown)
+            this._cancelIdle(); // masqué : plus aucun minuteur d'ULTIMA côté interface
+        this._plan = p;
+        // Journal horodaté (journalctl) pour corréler avec les traces MangoHud du Chronométreur.
+        const key = `visible=${+p.shown} flou=${+p.blur} unredirect-inhibé=${+p.inhibitUnredirect} ` +
+            `sondage=${p.poll ? `${p.pollMs}ms` : 'non'}`;
+        if (key !== this._planKey) {
+            console.log(`${TAG} plan : ${key} (${reason}, ${this._expanded ? 'panneau' : 'rail'})`);
+            this._planKey = key;
         }
-        this._dwellSince = 0;
     }
 
     _tick() {
@@ -368,12 +482,11 @@ class UltimaOverlay {
     _togglePinned() {
         this._pinned = !this._pinned;
         console.log(`${TAG} raccourci ${KEY_PANEL} -> ${this._pinned ? 'épinglé' : 'libre'}`);
-        if (this._pinned && this._userHidden) {
+        if (this._pinned && this._userHidden)
             this._userHidden = false;
-            this._updateShown();
-        }
         this._cancelIdle();
         this._setExpanded(this._pinned);
+        this._applyPlan('épinglage'); // épinglé : sondage inutile -> suspendu
     }
 
     // Une seule transition, jamais en boucle (docs/17 §6).
@@ -396,11 +509,13 @@ class UltimaOverlay {
         this._content.remove_all_transitions();
         if (expanded) {
             this._content.visible = true;
+            this._applyView(); // rendu différé pendant que le panneau était replié
             this._content.ease({opacity: 255, duration: EXPAND_MS, mode: Clutter.AnimationMode.EASE_OUT_QUAD});
         } else {
             this._content.opacity = 0;
             this._content.visible = false;
         }
+        this._applyPlan(expanded ? 'ouverture' : 'repli');
     }
 
     // ---------- raccourcis ----------
@@ -453,7 +568,7 @@ class UltimaOverlay {
             }
         };
         step('annulation E/S', () => this._cancellable.cancel());
-        step('suivi pointeur', () => this._stopPolling());
+        step('suivi pointeur', () => this._poller.stop());
         step('timeouts', () => {
             for (const id of this._timeouts)
                 GLib.source_remove(id);

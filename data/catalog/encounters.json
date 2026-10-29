@@ -1,0 +1,2968 @@
+{
+ "generated_by": "tools/index_threats.py",
+ "sources": [
+  "data/codex/encounters.json",
+  "data/codex/encounter_stats.json"
+ ],
+ "note": "stats = combats réellement observés (avg_damage / avg_turns), absentes pour les rencontres hors échantillon",
+ "count": 87,
+ "stats_covered": 50,
+ "stats_missing": 37,
+ "encounters": [
+  {
+   "id": "BYGONE_EFFIGY_ELITE",
+   "name": "Bygone Effigy",
+   "act": 1,
+   "act_name": "Act 1 - Overgrowth",
+   "room_type": "Elite",
+   "is_weak": false,
+   "monsters": [
+    "BYGONE_EFFIGY"
+   ],
+   "stats": {
+    "total": 621863,
+    "fatal": 39874,
+    "abandoned": 5788,
+    "avg_damage": 22.6,
+    "avg_turns": 4.7,
+    "characters": {
+     "IRONCLAD": {
+      "total": 149670,
+      "fatal": 8238,
+      "avg_damage": 24.9,
+      "avg_turns": 4.39
+     },
+     "SILENT": {
+      "total": 138850,
+      "fatal": 8937,
+      "avg_damage": 21.5,
+      "avg_turns": 4.96
+     },
+     "DEFECT": {
+      "total": 112927,
+      "fatal": 7610,
+      "avg_damage": 24.0,
+      "avg_turns": 4.76
+     },
+     "REGENT": {
+      "total": 111548,
+      "fatal": 5321,
+      "avg_damage": 18.7,
+      "avg_turns": 4.39
+     },
+     "NECROBINDER": {
+      "total": 108868,
+      "fatal": 9768,
+      "avg_damage": 23.0,
+      "avg_turns": 5.04
+     }
+    }
+   }
+  },
+  {
+   "id": "BYRDONIS_ELITE",
+   "name": "Byrdonis",
+   "act": 1,
+   "act_name": "Act 1 - Overgrowth",
+   "room_type": "Elite",
+   "is_weak": false,
+   "monsters": [
+    "BYRDONIS"
+   ],
+   "stats": {
+    "total": 621374,
+    "fatal": 28570,
+    "abandoned": 4419,
+    "avg_damage": 27.9,
+    "avg_turns": 4.49,
+    "characters": {
+     "IRONCLAD": {
+      "total": 153990,
+      "fatal": 6547,
+      "avg_damage": 33.1,
+      "avg_turns": 4.18
+     },
+     "SILENT": {
+      "total": 137266,
+      "fatal": 5246,
+      "avg_damage": 24.5,
+      "avg_turns": 4.85
+     },
+     "DEFECT": {
+      "total": 111375,
+      "fatal": 5027,
+      "avg_damage": 27.1,
+      "avg_turns": 4.33
+     },
+     "REGENT": {
+      "total": 110350,
+      "fatal": 3772,
+      "avg_damage": 25.1,
+      "avg_turns": 4.26
+     },
+     "NECROBINDER": {
+      "total": 108393,
+      "fatal": 7978,
+      "avg_damage": 28.3,
+      "avg_turns": 4.89
+     }
+    }
+   }
+  },
+  {
+   "id": "CEREMONIAL_BEAST_BOSS",
+   "name": "Ceremonial Beast",
+   "act": 1,
+   "act_name": "Act 1 - Overgrowth",
+   "room_type": "Boss",
+   "is_weak": false,
+   "monsters": [
+    "CEREMONIAL_BEAST"
+   ],
+   "stats": {
+    "total": 311849,
+    "fatal": 37868,
+    "abandoned": 3878,
+    "avg_damage": 43.9,
+    "avg_turns": 9.0,
+    "characters": {
+     "SILENT": {
+      "total": 72850,
+      "fatal": 9637,
+      "avg_damage": 42.5,
+      "avg_turns": 9.56
+     },
+     "IRONCLAD": {
+      "total": 72848,
+      "fatal": 7572,
+      "avg_damage": 49.6,
+      "avg_turns": 8.26
+     },
+     "DEFECT": {
+      "total": 56097,
+      "fatal": 5886,
+      "avg_damage": 42.5,
+      "avg_turns": 8.99
+     },
+     "REGENT": {
+      "total": 55681,
+      "fatal": 6348,
+      "avg_damage": 43.3,
+      "avg_turns": 8.81
+     },
+     "NECROBINDER": {
+      "total": 54373,
+      "fatal": 8425,
+      "avg_damage": 40.0,
+      "avg_turns": 9.43
+     }
+    }
+   }
+  },
+  {
+   "id": "CORPSE_SLUGS_NORMAL",
+   "name": "Many Corpse Slugs",
+   "act": 1,
+   "act_name": "Act 1 - Underdocks",
+   "room_type": "Monster",
+   "is_weak": false,
+   "monsters": [
+    "CORPSE_SLUG"
+   ]
+  },
+  {
+   "id": "CORPSE_SLUGS_WEAK",
+   "name": "Corpse Slugs",
+   "act": 1,
+   "act_name": "Act 1 - Underdocks",
+   "room_type": "Monster",
+   "is_weak": true,
+   "monsters": [
+    "CORPSE_SLUG"
+   ],
+   "stats": {
+    "total": 810429,
+    "fatal": 300,
+    "abandoned": 488,
+    "avg_damage": 8.4,
+    "avg_turns": 4.04,
+    "characters": {
+     "IRONCLAD": {
+      "total": 183061,
+      "fatal": 74,
+      "avg_damage": 11.3,
+      "avg_turns": 3.98
+     },
+     "SILENT": {
+      "total": 182466,
+      "fatal": 51,
+      "avg_damage": 7.3,
+      "avg_turns": 4.42
+     },
+     "NECROBINDER": {
+      "total": 150072,
+      "fatal": 40,
+      "avg_damage": 6.6,
+      "avg_turns": 4.26
+     },
+     "DEFECT": {
+      "total": 149850,
+      "fatal": 69,
+      "avg_damage": 8.7,
+      "avg_turns": 3.65
+     },
+     "REGENT": {
+      "total": 144980,
+      "fatal": 66,
+      "avg_damage": 7.7,
+      "avg_turns": 3.8
+     }
+    }
+   }
+  },
+  {
+   "id": "CUBEX_CONSTRUCT_NORMAL",
+   "name": "Cubex Construct",
+   "act": 1,
+   "act_name": "Act 1 - Overgrowth",
+   "room_type": "Monster",
+   "is_weak": false,
+   "monsters": [
+    "CUBEX_CONSTRUCT"
+   ]
+  },
+  {
+   "id": "CULTISTS_NORMAL",
+   "name": "Cultists",
+   "act": 1,
+   "act_name": "Act 1 - Underdocks",
+   "room_type": "Monster",
+   "is_weak": false,
+   "monsters": [
+    "CALCIFIED_CULTIST",
+    "DAMP_CULTIST"
+   ]
+  },
+  {
+   "id": "FLYCONID_NORMAL",
+   "name": "Shroom and Slime",
+   "act": 1,
+   "act_name": "Act 1 - Overgrowth",
+   "room_type": "Monster",
+   "is_weak": false,
+   "monsters": [
+    "FLYCONID",
+    "LEAF_SLIME_M",
+    "TWIG_SLIME_M"
+   ]
+  },
+  {
+   "id": "FOGMOG_NORMAL",
+   "name": "Fogmog",
+   "act": 1,
+   "act_name": "Act 1 - Overgrowth",
+   "room_type": "Monster",
+   "is_weak": false,
+   "monsters": [
+    "EYE_WITH_TEETH",
+    "FOGMOG"
+   ]
+  },
+  {
+   "id": "FOSSIL_STALKER_NORMAL",
+   "name": "Fossil Stalker",
+   "act": 1,
+   "act_name": "Act 1 - Underdocks",
+   "room_type": "Monster",
+   "is_weak": false,
+   "monsters": [
+    "FOSSIL_STALKER"
+   ],
+   "stats": {
+    "total": 228676,
+    "fatal": 4427,
+    "abandoned": 1325,
+    "avg_damage": 11.8,
+    "avg_turns": 3.4,
+    "characters": {
+     "IRONCLAD": {
+      "total": 51770,
+      "fatal": 892,
+      "avg_damage": 15.4,
+      "avg_turns": 3.26
+     },
+     "SILENT": {
+      "total": 51301,
+      "fatal": 555,
+      "avg_damage": 8.6,
+      "avg_turns": 3.67
+     },
+     "NECROBINDER": {
+      "total": 42482,
+      "fatal": 1518,
+      "avg_damage": 13.6,
+      "avg_turns": 3.68
+     },
+     "DEFECT": {
+      "total": 42130,
+      "fatal": 873,
+      "avg_damage": 11.3,
+      "avg_turns": 3.23
+     },
+     "REGENT": {
+      "total": 40993,
+      "fatal": 589,
+      "avg_damage": 9.8,
+      "avg_turns": 3.14
+     }
+    }
+   }
+  },
+  {
+   "id": "FUZZY_WURM_CRAWLER_WEAK",
+   "name": "Fuzzy Wurm Crawler",
+   "act": 1,
+   "act_name": "Act 1 - Overgrowth",
+   "room_type": "Monster",
+   "is_weak": true,
+   "monsters": [
+    "FUZZY_WURM_CRAWLER"
+   ],
+   "stats": {
+    "total": 838458,
+    "fatal": 211,
+    "abandoned": 365,
+    "avg_damage": 3.7,
+    "avg_turns": 4.04,
+    "characters": {
+     "SILENT": {
+      "total": 191680,
+      "fatal": 46,
+      "avg_damage": 3.3,
+      "avg_turns": 4.55
+     },
+     "IRONCLAD": {
+      "total": 191531,
+      "fatal": 46,
+      "avg_damage": 5.6,
+      "avg_turns": 3.88
+     },
+     "NECROBINDER": {
+      "total": 153816,
+      "fatal": 33,
+      "avg_damage": 2.3,
+      "avg_turns": 4.22
+     },
+     "DEFECT": {
+      "total": 151758,
+      "fatal": 44,
+      "avg_damage": 3.7,
+      "avg_turns": 3.68
+     },
+     "REGENT": {
+      "total": 149673,
+      "fatal": 42,
+      "avg_damage": 3.3,
+      "avg_turns": 3.8
+     }
+    }
+   }
+  },
+  {
+   "id": "GREMLIN_MERC_NORMAL",
+   "name": "Two Gremlins in a Trenchcoat",
+   "act": 1,
+   "act_name": "Act 1 - Underdocks",
+   "room_type": "Monster",
+   "is_weak": false,
+   "monsters": [
+    "FAT_GREMLIN",
+    "GREMLIN_MERC",
+    "SNEAKY_GREMLIN"
+   ]
+  },
+  {
+   "id": "HAUNTED_SHIP_NORMAL",
+   "name": "Haunted Ship",
+   "act": 1,
+   "act_name": "Act 1 - Underdocks",
+   "room_type": "Monster",
+   "is_weak": false,
+   "monsters": [
+    "HAUNTED_SHIP"
+   ],
+   "stats": {
+    "total": 228752,
+    "fatal": 2305,
+    "abandoned": 983,
+    "avg_damage": 9.8,
+    "avg_turns": 4.28,
+    "characters": {
+     "SILENT": {
+      "total": 51685,
+      "fatal": 452,
+      "avg_damage": 8.8,
+      "avg_turns": 4.57
+     },
+     "IRONCLAD": {
+      "total": 51483,
+      "fatal": 538,
+      "avg_damage": 13.6,
+      "avg_turns": 4.16
+     },
+     "NECROBINDER": {
+      "total": 42286,
+      "fatal": 311,
+      "avg_damage": 7.5,
+      "avg_turns": 4.52
+     },
+     "DEFECT": {
+      "total": 42130,
+      "fatal": 519,
+      "avg_damage": 9.2,
+      "avg_turns": 3.95
+     },
+     "REGENT": {
+      "total": 41168,
+      "fatal": 485,
+      "avg_damage": 9.3,
+      "avg_turns": 4.13
+     }
+    }
+   }
+  },
+  {
+   "id": "INKLETS_NORMAL",
+   "name": "Inklets",
+   "act": 1,
+   "act_name": "Act 1 - Overgrowth",
+   "room_type": "Monster",
+   "is_weak": false,
+   "monsters": [
+    "INKLET"
+   ]
+  },
+  {
+   "id": "LAGAVULIN_MATRIARCH_BOSS",
+   "name": "Lagavulin Matriarch",
+   "act": 1,
+   "act_name": "Act 1 - Underdocks",
+   "room_type": "Boss",
+   "is_weak": false,
+   "monsters": [
+    "LAGAVULIN_MATRIARCH"
+   ],
+   "stats": {
+    "total": 298627,
+    "fatal": 42918,
+    "abandoned": 6037,
+    "avg_damage": 39.9,
+    "avg_turns": 9.19,
+    "characters": {
+     "SILENT": {
+      "total": 67691,
+      "fatal": 12949,
+      "avg_damage": 42.3,
+      "avg_turns": 9.59
+     },
+     "IRONCLAD": {
+      "total": 67680,
+      "fatal": 10698,
+      "avg_damage": 48.7,
+      "avg_turns": 8.56
+     },
+     "NECROBINDER": {
+      "total": 55063,
+      "fatal": 5798,
+      "avg_damage": 29.5,
+      "avg_turns": 9.66
+     },
+     "REGENT": {
+      "total": 54317,
+      "fatal": 5994,
+      "avg_damage": 36.2,
+      "avg_turns": 8.95
+     },
+     "DEFECT": {
+      "total": 53876,
+      "fatal": 7479,
+      "avg_damage": 40.0,
+      "avg_turns": 9.24
+     }
+    }
+   }
+  },
+  {
+   "id": "LIVING_FOG_NORMAL",
+   "name": "Living Fog",
+   "act": 1,
+   "act_name": "Act 1 - Underdocks",
+   "room_type": "Monster",
+   "is_weak": false,
+   "monsters": [
+    "GAS_BOMB",
+    "LIVING_FOG"
+   ]
+  },
+  {
+   "id": "MAWLER_NORMAL",
+   "name": "Mawler",
+   "act": 1,
+   "act_name": "Act 1 - Overgrowth",
+   "room_type": "Monster",
+   "is_weak": false,
+   "monsters": [
+    "MAWLER"
+   ]
+  },
+  {
+   "id": "NIBBITS_NORMAL",
+   "name": "A Pair of Nibbits",
+   "act": 1,
+   "act_name": "Act 1 - Overgrowth",
+   "room_type": "Monster",
+   "is_weak": false,
+   "monsters": [
+    "NIBBIT"
+   ]
+  },
+  {
+   "id": "NIBBITS_WEAK",
+   "name": "A Lone Nibbit",
+   "act": 1,
+   "act_name": "Act 1 - Overgrowth",
+   "room_type": "Monster",
+   "is_weak": true,
+   "monsters": [
+    "NIBBIT"
+   ],
+   "stats": {
+    "total": 845887,
+    "fatal": 404,
+    "abandoned": 373,
+    "avg_damage": 6.3,
+    "avg_turns": 3.83,
+    "characters": {
+     "IRONCLAD": {
+      "total": 198887,
+      "fatal": 131,
+      "avg_damage": 9.1,
+      "avg_turns": 3.69
+     },
+     "SILENT": {
+      "total": 192391,
+      "fatal": 45,
+      "avg_damage": 4.3,
+      "avg_turns": 4.3
+     },
+     "NECROBINDER": {
+      "total": 154085,
+      "fatal": 73,
+      "avg_damage": 5.0,
+      "avg_turns": 4.07
+     },
+     "DEFECT": {
+      "total": 151558,
+      "fatal": 77,
+      "avg_damage": 7.1,
+      "avg_turns": 3.48
+     },
+     "REGENT": {
+      "total": 148966,
+      "fatal": 78,
+      "avg_damage": 5.9,
+      "avg_turns": 3.52
+     }
+    }
+   }
+  },
+  {
+   "id": "OVERGROWTH_CRAWLERS",
+   "name": "Overgrowth Crawlers",
+   "act": 1,
+   "act_name": "Act 1 - Overgrowth",
+   "room_type": "Monster",
+   "is_weak": false,
+   "monsters": [
+    "FUZZY_WURM_CRAWLER",
+    "SHRINKER_BEETLE"
+   ]
+  },
+  {
+   "id": "PHANTASMAL_GARDENERS_ELITE",
+   "name": "Phantasmal Gardeners",
+   "act": 1,
+   "act_name": "Act 1 - Underdocks",
+   "room_type": "Elite",
+   "is_weak": false,
+   "monsters": [
+    "PHANTASMAL_GARDENER"
+   ],
+   "stats": {
+    "total": 601667,
+    "fatal": 54674,
+    "abandoned": 10186,
+    "avg_damage": 34.6,
+    "avg_turns": 5.92,
+    "characters": {
+     "IRONCLAD": {
+      "total": 138728,
+      "fatal": 11871,
+      "avg_damage": 39.4,
+      "avg_turns": 5.77
+     },
+     "SILENT": {
+      "total": 135148,
+      "fatal": 12702,
+      "avg_damage": 33.1,
+      "avg_turns": 6.31
+     },
+     "NECROBINDER": {
+      "total": 109727,
+      "fatal": 9952,
+      "avg_damage": 31.9,
+      "avg_turns": 5.97
+     },
+     "DEFECT": {
+      "total": 109593,
+      "fatal": 12353,
+      "avg_damage": 35.4,
+      "avg_turns": 5.68
+     },
+     "REGENT": {
+      "total": 108471,
+      "fatal": 7796,
+      "avg_damage": 32.3,
+      "avg_turns": 5.84
+     }
+    }
+   }
+  },
+  {
+   "id": "PHROG_PARASITE_ELITE",
+   "name": "Phrog Parasite",
+   "act": 1,
+   "act_name": "Act 1 - Overgrowth",
+   "room_type": "Elite",
+   "is_weak": false,
+   "monsters": [
+    "PHROG_PARASITE",
+    "WRIGGLER"
+   ],
+   "stats": {
+    "total": 627272,
+    "fatal": 48602,
+    "abandoned": 11263,
+    "avg_damage": 28.1,
+    "avg_turns": 6.99,
+    "characters": {
+     "IRONCLAD": {
+      "total": 153175,
+      "fatal": 10288,
+      "avg_damage": 31.3,
+      "avg_turns": 6.67
+     },
+     "SILENT": {
+      "total": 140470,
+      "fatal": 12272,
+      "avg_damage": 27.5,
+      "avg_turns": 7.49
+     },
+     "REGENT": {
+      "total": 113227,
+      "fatal": 9501,
+      "avg_damage": 27.9,
+      "avg_turns": 6.86
+     },
+     "DEFECT": {
+      "total": 111146,
+      "fatal": 6440,
+      "avg_damage": 25.0,
+      "avg_turns": 6.46
+     },
+     "NECROBINDER": {
+      "total": 109254,
+      "fatal": 10101,
+      "avg_damage": 27.4,
+      "avg_turns": 7.49
+     }
+    }
+   }
+  },
+  {
+   "id": "PUNCH_CONSTRUCT_NORMAL",
+   "name": "Punch Construct",
+   "act": 1,
+   "act_name": "Act 1 - Underdocks",
+   "room_type": "Monster",
+   "is_weak": false,
+   "monsters": [
+    "PUNCH_CONSTRUCT"
+   ]
+  },
+  {
+   "id": "RUBY_RAIDERS_NORMAL",
+   "name": "Ruby Raiders",
+   "act": 1,
+   "act_name": "Act 1 - Overgrowth",
+   "room_type": "Monster",
+   "is_weak": false,
+   "monsters": [
+    "ASSASSIN_RUBY_RAIDER",
+    "AXE_RUBY_RAIDER",
+    "BRUTE_RUBY_RAIDER",
+    "CROSSBOW_RUBY_RAIDER",
+    "TRACKER_RUBY_RAIDER"
+   ]
+  },
+  {
+   "id": "SEAPUNK_NORMAL",
+   "name": "Underdocks Wildlife",
+   "act": 1,
+   "act_name": "Act 1 - Underdocks",
+   "room_type": "Monster",
+   "is_weak": false,
+   "monsters": [
+    "CALCIFIED_CULTIST",
+    "SEAPUNK"
+   ]
+  },
+  {
+   "id": "SEAPUNK_WEAK",
+   "name": "Seapunk",
+   "act": 1,
+   "act_name": "Act 1 - Underdocks",
+   "room_type": "Monster",
+   "is_weak": true,
+   "monsters": [
+    "SEAPUNK"
+   ],
+   "stats": {
+    "total": 811391,
+    "fatal": 266,
+    "abandoned": 353,
+    "avg_damage": 6.3,
+    "avg_turns": 3.83,
+    "characters": {
+     "IRONCLAD": {
+      "total": 183133,
+      "fatal": 64,
+      "avg_damage": 9.5,
+      "avg_turns": 3.7
+     },
+     "SILENT": {
+      "total": 182834,
+      "fatal": 24,
+      "avg_damage": 4.3,
+      "avg_turns": 4.31
+     },
+     "NECROBINDER": {
+      "total": 150249,
+      "fatal": 41,
+      "avg_damage": 4.8,
+      "avg_turns": 4.13
+     },
+     "DEFECT": {
+      "total": 150014,
+      "fatal": 76,
+      "avg_damage": 7.0,
+      "avg_turns": 3.44
+     },
+     "REGENT": {
+      "total": 145161,
+      "fatal": 61,
+      "avg_damage": 5.6,
+      "avg_turns": 3.46
+     }
+    }
+   }
+  },
+  {
+   "id": "SEWER_CLAM_NORMAL",
+   "name": "Sewer Clam",
+   "act": 1,
+   "act_name": "Act 1 - Underdocks",
+   "room_type": "Monster",
+   "is_weak": false,
+   "monsters": [
+    "SEWER_CLAM"
+   ]
+  },
+  {
+   "id": "SHRINKER_BEETLE_WEAK",
+   "name": "Shrinker Beetle",
+   "act": 1,
+   "act_name": "Act 1 - Overgrowth",
+   "room_type": "Monster",
+   "is_weak": true,
+   "monsters": [
+    "SHRINKER_BEETLE"
+   ],
+   "stats": {
+    "total": 845818,
+    "fatal": 149,
+    "abandoned": 296,
+    "avg_damage": 3.4,
+    "avg_turns": 3.5,
+    "characters": {
+     "IRONCLAD": {
+      "total": 198762,
+      "fatal": 28,
+      "avg_damage": 5.7,
+      "avg_turns": 3.52
+     },
+     "SILENT": {
+      "total": 192378,
+      "fatal": 39,
+      "avg_damage": 2.8,
+      "avg_turns": 3.91
+     },
+     "NECROBINDER": {
+      "total": 153677,
+      "fatal": 29,
+      "avg_damage": 2.0,
+      "avg_turns": 3.53
+     },
+     "DEFECT": {
+      "total": 152100,
+      "fatal": 25,
+      "avg_damage": 2.7,
+      "avg_turns": 3.01
+     },
+     "REGENT": {
+      "total": 148901,
+      "fatal": 28,
+      "avg_damage": 3.1,
+      "avg_turns": 3.39
+     }
+    }
+   }
+  },
+  {
+   "id": "SKULKING_COLONY_ELITE",
+   "name": "Skulking Colony",
+   "act": 1,
+   "act_name": "Act 1 - Underdocks",
+   "room_type": "Elite",
+   "is_weak": false,
+   "monsters": [
+    "SKULKING_COLONY"
+   ],
+   "stats": {
+    "total": 579984,
+    "fatal": 20876,
+    "abandoned": 3901,
+    "avg_damage": 24.3,
+    "avg_turns": 5.68,
+    "characters": {
+     "IRONCLAD": {
+      "total": 135379,
+      "fatal": 6407,
+      "avg_damage": 32.3,
+      "avg_turns": 5.59
+     },
+     "SILENT": {
+      "total": 128138,
+      "fatal": 2767,
+      "avg_damage": 19.5,
+      "avg_turns": 5.76
+     },
+     "REGENT": {
+      "total": 106125,
+      "fatal": 4353,
+      "avg_damage": 24.8,
+      "avg_turns": 5.82
+     },
+     "NECROBINDER": {
+      "total": 105644,
+      "fatal": 2978,
+      "avg_damage": 19.5,
+      "avg_turns": 5.81
+     },
+     "DEFECT": {
+      "total": 104698,
+      "fatal": 4371,
+      "avg_damage": 24.0,
+      "avg_turns": 5.45
+     }
+    }
+   }
+  },
+  {
+   "id": "SLIMES_NORMAL",
+   "name": "Swarm of Slimes",
+   "act": 1,
+   "act_name": "Act 1 - Overgrowth",
+   "room_type": "Monster",
+   "is_weak": false,
+   "monsters": [
+    "LEAF_SLIME_M",
+    "LEAF_SLIME_S",
+    "TWIG_SLIME_M",
+    "TWIG_SLIME_S"
+   ]
+  },
+  {
+   "id": "SLIMES_WEAK",
+   "name": "Group of Slimes",
+   "act": 1,
+   "act_name": "Act 1 - Overgrowth",
+   "room_type": "Monster",
+   "is_weak": true,
+   "monsters": [
+    "LEAF_SLIME_M",
+    "LEAF_SLIME_S",
+    "TWIG_SLIME_M",
+    "TWIG_SLIME_S"
+   ],
+   "stats": {
+    "total": 844887,
+    "fatal": 261,
+    "abandoned": 441,
+    "avg_damage": 6.1,
+    "avg_turns": 4.27,
+    "characters": {
+     "IRONCLAD": {
+      "total": 198281,
+      "fatal": 63,
+      "avg_damage": 8.5,
+      "avg_turns": 4.26
+     },
+     "SILENT": {
+      "total": 191824,
+      "fatal": 42,
+      "avg_damage": 4.8,
+      "avg_turns": 4.56
+     },
+     "NECROBINDER": {
+      "total": 153733,
+      "fatal": 47,
+      "avg_damage": 4.1,
+      "avg_turns": 4.47
+     },
+     "DEFECT": {
+      "total": 151796,
+      "fatal": 51,
+      "avg_damage": 6.6,
+      "avg_turns": 3.81
+     },
+     "REGENT": {
+      "total": 149253,
+      "fatal": 58,
+      "avg_damage": 5.9,
+      "avg_turns": 4.15
+     }
+    }
+   }
+  },
+  {
+   "id": "SLITHERING_STRANGLER_NORMAL",
+   "name": "Strangler and Friend",
+   "act": 1,
+   "act_name": "Act 1 - Overgrowth",
+   "room_type": "Monster",
+   "is_weak": false,
+   "monsters": [
+    "LEAF_SLIME_M",
+    "LEAF_SLIME_S",
+    "SLITHERING_STRANGLER",
+    "SNAPPING_JAXFRUIT",
+    "TWIG_SLIME_M",
+    "TWIG_SLIME_S"
+   ]
+  },
+  {
+   "id": "SLUDGE_SPINNER_WEAK",
+   "name": "Sludge Spinner",
+   "act": 1,
+   "act_name": "Act 1 - Underdocks",
+   "room_type": "Monster",
+   "is_weak": true,
+   "monsters": [
+    "SLUDGE_SPINNER"
+   ],
+   "stats": {
+    "total": 809999,
+    "fatal": 199,
+    "abandoned": 362,
+    "avg_damage": 5.8,
+    "avg_turns": 3.56,
+    "characters": {
+     "SILENT": {
+      "total": 182733,
+      "fatal": 28,
+      "avg_damage": 4.1,
+      "avg_turns": 3.88
+     },
+     "IRONCLAD": {
+      "total": 182541,
+      "fatal": 53,
+      "avg_damage": 9.2,
+      "avg_turns": 3.57
+     },
+     "NECROBINDER": {
+      "total": 150292,
+      "fatal": 30,
+      "avg_damage": 4.0,
+      "avg_turns": 3.76
+     },
+     "DEFECT": {
+      "total": 149616,
+      "fatal": 49,
+      "avg_damage": 6.1,
+      "avg_turns": 3.2
+     },
+     "REGENT": {
+      "total": 144817,
+      "fatal": 39,
+      "avg_damage": 5.1,
+      "avg_turns": 3.28
+     }
+    }
+   }
+  },
+  {
+   "id": "SNAPPING_JAXFRUIT_NORMAL",
+   "name": "Overgrowth Flora",
+   "act": 1,
+   "act_name": "Act 1 - Overgrowth",
+   "room_type": "Monster",
+   "is_weak": false,
+   "monsters": [
+    "FLYCONID",
+    "SNAPPING_JAXFRUIT"
+   ]
+  },
+  {
+   "id": "SOUL_FYSH_BOSS",
+   "name": "Soul Fysh",
+   "act": 1,
+   "act_name": "Act 1 - Underdocks",
+   "room_type": "Boss",
+   "is_weak": false,
+   "monsters": [
+    "SOUL_FYSH"
+   ],
+   "stats": {
+    "total": 298207,
+    "fatal": 34706,
+    "abandoned": 4296,
+    "avg_damage": 43.2,
+    "avg_turns": 9.82,
+    "characters": {
+     "SILENT": {
+      "total": 67724,
+      "fatal": 7983,
+      "avg_damage": 41.5,
+      "avg_turns": 10.19
+     },
+     "IRONCLAD": {
+      "total": 67024,
+      "fatal": 9066,
+      "avg_damage": 51.1,
+      "avg_turns": 9.17
+     },
+     "NECROBINDER": {
+      "total": 55294,
+      "fatal": 6318,
+      "avg_damage": 39.2,
+      "avg_turns": 10.73
+     },
+     "REGENT": {
+      "total": 54359,
+      "fatal": 5944,
+      "avg_damage": 42.1,
+      "avg_turns": 9.54
+     },
+     "DEFECT": {
+      "total": 53806,
+      "fatal": 5395,
+      "avg_damage": 41.1,
+      "avg_turns": 9.52
+     }
+    }
+   }
+  },
+  {
+   "id": "TERROR_EEL_ELITE",
+   "name": "Terror Eel",
+   "act": 1,
+   "act_name": "Act 1 - Underdocks",
+   "room_type": "Elite",
+   "is_weak": false,
+   "monsters": [
+    "TERROR_EEL"
+   ],
+   "stats": {
+    "total": 594921,
+    "fatal": 38938,
+    "abandoned": 5753,
+    "avg_damage": 28.5,
+    "avg_turns": 6.59,
+    "characters": {
+     "IRONCLAD": {
+      "total": 137552,
+      "fatal": 8748,
+      "avg_damage": 33.2,
+      "avg_turns": 6.08
+     },
+     "SILENT": {
+      "total": 133409,
+      "fatal": 9161,
+      "avg_damage": 27.3,
+      "avg_turns": 7.14
+     },
+     "NECROBINDER": {
+      "total": 108748,
+      "fatal": 7368,
+      "avg_damage": 26.3,
+      "avg_turns": 7.2
+     },
+     "REGENT": {
+      "total": 107963,
+      "fatal": 6233,
+      "avg_damage": 26.9,
+      "avg_turns": 6.28
+     },
+     "DEFECT": {
+      "total": 107249,
+      "fatal": 7428,
+      "avg_damage": 28.0,
+      "avg_turns": 6.26
+     }
+    }
+   }
+  },
+  {
+   "id": "THE_KIN_BOSS",
+   "name": "The Kin",
+   "act": 1,
+   "act_name": "Act 1 - Overgrowth",
+   "room_type": "Boss",
+   "is_weak": false,
+   "monsters": [
+    "KIN_FOLLOWER",
+    "KIN_PRIEST"
+   ],
+   "stats": {
+    "total": 311238,
+    "fatal": 45665,
+    "abandoned": 4281,
+    "avg_damage": 49.1,
+    "avg_turns": 9.3,
+    "characters": {
+     "IRONCLAD": {
+      "total": 72008,
+      "fatal": 11819,
+      "avg_damage": 58.8,
+      "avg_turns": 8.59
+     },
+     "SILENT": {
+      "total": 70432,
+      "fatal": 10647,
+      "avg_damage": 46.9,
+      "avg_turns": 9.79
+     },
+     "REGENT": {
+      "total": 57070,
+      "fatal": 7703,
+      "avg_damage": 48.1,
+      "avg_turns": 9.11
+     },
+     "DEFECT": {
+      "total": 56523,
+      "fatal": 8433,
+      "avg_damage": 47.5,
+      "avg_turns": 9.39
+     },
+     "NECROBINDER": {
+      "total": 55205,
+      "fatal": 7063,
+      "avg_damage": 42.1,
+      "avg_turns": 9.73
+     }
+    }
+   }
+  },
+  {
+   "id": "TOADPOLES_WEAK",
+   "name": "Toadpoles",
+   "act": 1,
+   "act_name": "Act 1 - Underdocks",
+   "room_type": "Monster",
+   "is_weak": true,
+   "monsters": [
+    "TOADPOLE"
+   ],
+   "stats": {
+    "total": 811146,
+    "fatal": 236,
+    "abandoned": 442,
+    "avg_damage": 7.9,
+    "avg_turns": 3.92,
+    "characters": {
+     "IRONCLAD": {
+      "total": 183210,
+      "fatal": 79,
+      "avg_damage": 11.0,
+      "avg_turns": 3.95
+     },
+     "SILENT": {
+      "total": 182870,
+      "fatal": 37,
+      "avg_damage": 6.6,
+      "avg_turns": 4.21
+     },
+     "NECROBINDER": {
+      "total": 150370,
+      "fatal": 32,
+      "avg_damage": 6.0,
+      "avg_turns": 4.12
+     },
+     "DEFECT": {
+      "total": 150049,
+      "fatal": 43,
+      "avg_damage": 8.3,
+      "avg_turns": 3.52
+     },
+     "REGENT": {
+      "total": 144647,
+      "fatal": 45,
+      "avg_damage": 7.2,
+      "avg_turns": 3.7
+     }
+    }
+   }
+  },
+  {
+   "id": "TWO_TAILED_RATS_NORMAL",
+   "name": "Two-Tailed Rats",
+   "act": 1,
+   "act_name": "Act 1 - Underdocks",
+   "room_type": "Monster",
+   "is_weak": false,
+   "monsters": [
+    "TWO_TAILED_RAT"
+   ]
+  },
+  {
+   "id": "VANTOM_BOSS",
+   "name": "Vantom",
+   "act": 1,
+   "act_name": "Act 1 - Overgrowth",
+   "room_type": "Boss",
+   "is_weak": false,
+   "monsters": [
+    "VANTOM"
+   ],
+   "stats": {
+    "total": 309153,
+    "fatal": 45409,
+    "abandoned": 3775,
+    "avg_damage": 48.6,
+    "avg_turns": 8.89,
+    "characters": {
+     "IRONCLAD": {
+      "total": 76725,
+      "fatal": 13326,
+      "avg_damage": 58.5,
+      "avg_turns": 8.51
+     },
+     "SILENT": {
+      "total": 68401,
+      "fatal": 7880,
+      "avg_damage": 43.8,
+      "avg_turns": 8.93
+     },
+     "DEFECT": {
+      "total": 55763,
+      "fatal": 5979,
+      "avg_damage": 44.0,
+      "avg_turns": 8.2
+     },
+     "REGENT": {
+      "total": 54481,
+      "fatal": 9018,
+      "avg_damage": 50.2,
+      "avg_turns": 9.0
+     },
+     "NECROBINDER": {
+      "total": 53783,
+      "fatal": 9206,
+      "avg_damage": 43.9,
+      "avg_turns": 9.96
+     }
+    }
+   }
+  },
+  {
+   "id": "VINE_SHAMBLER_NORMAL",
+   "name": "Vine Shambler",
+   "act": 1,
+   "act_name": "Act 1 - Overgrowth",
+   "room_type": "Monster",
+   "is_weak": false,
+   "monsters": [
+    "VINE_SHAMBLER"
+   ]
+  },
+  {
+   "id": "WATERFALL_GIANT_BOSS",
+   "name": "Waterfall Giant",
+   "act": 1,
+   "act_name": "Act 1 - Underdocks",
+   "room_type": "Boss",
+   "is_weak": false,
+   "monsters": [
+    "WATERFALL_GIANT"
+   ],
+   "stats": {
+    "total": 298564,
+    "fatal": 39688,
+    "abandoned": 4386,
+    "avg_damage": 47.2,
+    "avg_turns": 10.24,
+    "characters": {
+     "SILENT": {
+      "total": 67580,
+      "fatal": 8965,
+      "avg_damage": 46.0,
+      "avg_turns": 10.7
+     },
+     "IRONCLAD": {
+      "total": 67102,
+      "fatal": 11326,
+      "avg_damage": 58.6,
+      "avg_turns": 9.48
+     },
+     "NECROBINDER": {
+      "total": 55591,
+      "fatal": 4182,
+      "avg_damage": 34.1,
+      "avg_turns": 11.07
+     },
+     "REGENT": {
+      "total": 54327,
+      "fatal": 7451,
+      "avg_damage": 47.8,
+      "avg_turns": 9.96
+     },
+     "DEFECT": {
+      "total": 53964,
+      "fatal": 7764,
+      "avg_damage": 47.5,
+      "avg_turns": 10.01
+     }
+    }
+   }
+  },
+  {
+   "id": "BOWLBUGS_NORMAL",
+   "name": "Bowlbug Swarm",
+   "act": 2,
+   "act_name": "Act 2 - Hive",
+   "room_type": "Monster",
+   "is_weak": false,
+   "monsters": [
+    "BOWLBUG_EGG",
+    "BOWLBUG_NECTAR",
+    "BOWLBUG_ROCK",
+    "BOWLBUG_SILK"
+   ],
+   "stats": {
+    "total": 269378,
+    "fatal": 12770,
+    "abandoned": 1474,
+    "avg_damage": 18.7,
+    "avg_turns": 4.21,
+    "characters": {
+     "IRONCLAD": {
+      "total": 61756,
+      "fatal": 2512,
+      "avg_damage": 22.8,
+      "avg_turns": 4.15
+     },
+     "SILENT": {
+      "total": 60504,
+      "fatal": 2273,
+      "avg_damage": 15.5,
+      "avg_turns": 4.26
+     },
+     "DEFECT": {
+      "total": 50374,
+      "fatal": 3011,
+      "avg_damage": 18.6,
+      "avg_turns": 4.13
+     },
+     "NECROBINDER": {
+      "total": 48655,
+      "fatal": 2814,
+      "avg_damage": 18.4,
+      "avg_turns": 4.29
+     },
+     "REGENT": {
+      "total": 48089,
+      "fatal": 2160,
+      "avg_damage": 17.8,
+      "avg_turns": 4.22
+     }
+    }
+   }
+  },
+  {
+   "id": "BOWLBUGS_WEAK",
+   "name": "Bowlbugs",
+   "act": 2,
+   "act_name": "Act 2 - Hive",
+   "room_type": "Monster",
+   "is_weak": true,
+   "monsters": [
+    "BOWLBUG_EGG",
+    "BOWLBUG_NECTAR",
+    "BOWLBUG_ROCK"
+   ],
+   "stats": {
+    "total": 768101,
+    "fatal": 1300,
+    "abandoned": 1521,
+    "avg_damage": 15.8,
+    "avg_turns": 3.61,
+    "characters": {
+     "IRONCLAD": {
+      "total": 173982,
+      "fatal": 243,
+      "avg_damage": 18.8,
+      "avg_turns": 3.52
+     },
+     "SILENT": {
+      "total": 171948,
+      "fatal": 174,
+      "avg_damage": 12.9,
+      "avg_turns": 3.67
+     },
+     "DEFECT": {
+      "total": 141215,
+      "fatal": 249,
+      "avg_damage": 16.3,
+      "avg_turns": 3.55
+     },
+     "NECROBINDER": {
+      "total": 140837,
+      "fatal": 444,
+      "avg_damage": 16.0,
+      "avg_turns": 3.8
+     },
+     "REGENT": {
+      "total": 140119,
+      "fatal": 190,
+      "avg_damage": 15.0,
+      "avg_turns": 3.52
+     }
+    }
+   }
+  },
+  {
+   "id": "CHOMPERS_NORMAL",
+   "name": "An Automaton Pair",
+   "act": 2,
+   "act_name": "Act 2 - Hive",
+   "room_type": "Monster",
+   "is_weak": false,
+   "monsters": [
+    "CHOMPER"
+   ],
+   "stats": {
+    "total": 329686,
+    "fatal": 13146,
+    "abandoned": 1966,
+    "avg_damage": 23.8,
+    "avg_turns": 5.18,
+    "characters": {
+     "IRONCLAD": {
+      "total": 76058,
+      "fatal": 2843,
+      "avg_damage": 29.3,
+      "avg_turns": 5.14
+     },
+     "SILENT": {
+      "total": 74407,
+      "fatal": 2899,
+      "avg_damage": 22.4,
+      "avg_turns": 5.28
+     },
+     "DEFECT": {
+      "total": 60539,
+      "fatal": 2468,
+      "avg_damage": 21.0,
+      "avg_turns": 4.74
+     },
+     "REGENT": {
+      "total": 59344,
+      "fatal": 2465,
+      "avg_damage": 23.9,
+      "avg_turns": 5.0
+     },
+     "NECROBINDER": {
+      "total": 59338,
+      "fatal": 2471,
+      "avg_damage": 21.2,
+      "avg_turns": 5.74
+     }
+    }
+   }
+  },
+  {
+   "id": "DECIMILLIPEDE_ELITE",
+   "name": "The Decimillipede",
+   "act": 2,
+   "act_name": "Act 2 - Hive",
+   "room_type": "Elite",
+   "is_weak": false,
+   "monsters": [
+    "DECIMILLIPEDE_SEGMENT_BACK",
+    "DECIMILLIPEDE_SEGMENT_FRONT",
+    "DECIMILLIPEDE_SEGMENT_MIDDLE"
+   ],
+   "stats": {
+    "total": 739165,
+    "fatal": 81247,
+    "abandoned": 6201,
+    "avg_damage": 39.0,
+    "avg_turns": 4.44,
+    "characters": {
+     "IRONCLAD": {
+      "total": 173906,
+      "fatal": 19576,
+      "avg_damage": 45.1,
+      "avg_turns": 4.34
+     },
+     "SILENT": {
+      "total": 166509,
+      "fatal": 15239,
+      "avg_damage": 34.3,
+      "avg_turns": 4.39
+     },
+     "DEFECT": {
+      "total": 133202,
+      "fatal": 14385,
+      "avg_damage": 37.1,
+      "avg_turns": 4.29
+     },
+     "REGENT": {
+      "total": 133125,
+      "fatal": 15209,
+      "avg_damage": 38.9,
+      "avg_turns": 4.47
+     },
+     "NECROBINDER": {
+      "total": 132423,
+      "fatal": 16838,
+      "avg_damage": 38.7,
+      "avg_turns": 4.74
+     }
+    }
+   }
+  },
+  {
+   "id": "ENTOMANCER_ELITE",
+   "name": "Entomancer",
+   "act": 2,
+   "act_name": "Act 2 - Hive",
+   "room_type": "Elite",
+   "is_weak": false,
+   "monsters": [
+    "ENTOMANCER"
+   ],
+   "stats": {
+    "total": 727584,
+    "fatal": 48714,
+    "abandoned": 3047,
+    "avg_damage": 29.6,
+    "avg_turns": 5.16,
+    "characters": {
+     "IRONCLAD": {
+      "total": 171629,
+      "fatal": 11750,
+      "avg_damage": 35.4,
+      "avg_turns": 4.89
+     },
+     "SILENT": {
+      "total": 164490,
+      "fatal": 12071,
+      "avg_damage": 28.3,
+      "avg_turns": 5.32
+     },
+     "DEFECT": {
+      "total": 131372,
+      "fatal": 8786,
+      "avg_damage": 28.8,
+      "avg_turns": 5.07
+     },
+     "REGENT": {
+      "total": 131057,
+      "fatal": 8511,
+      "avg_damage": 28.8,
+      "avg_turns": 5.14
+     },
+     "NECROBINDER": {
+      "total": 129036,
+      "fatal": 7596,
+      "avg_damage": 24.9,
+      "avg_turns": 5.43
+     }
+    }
+   }
+  },
+  {
+   "id": "EXOSKELETONS_NORMAL",
+   "name": "Many Exoskeletons",
+   "act": 2,
+   "act_name": "Act 2 - Hive",
+   "room_type": "Monster",
+   "is_weak": false,
+   "monsters": [
+    "EXOSKELETON"
+   ],
+   "stats": {
+    "total": 295972,
+    "fatal": 11767,
+    "abandoned": 1449,
+    "avg_damage": 17.9,
+    "avg_turns": 4.16,
+    "characters": {
+     "IRONCLAD": {
+      "total": 68135,
+      "fatal": 2558,
+      "avg_damage": 23.1,
+      "avg_turns": 4.28
+     },
+     "SILENT": {
+      "total": 67220,
+      "fatal": 1736,
+      "avg_damage": 13.9,
+      "avg_turns": 3.95
+     },
+     "DEFECT": {
+      "total": 54689,
+      "fatal": 2253,
+      "avg_damage": 16.1,
+      "avg_turns": 3.93
+     },
+     "REGENT": {
+      "total": 53190,
+      "fatal": 2928,
+      "avg_damage": 19.3,
+      "avg_turns": 4.4
+     },
+     "NECROBINDER": {
+      "total": 52738,
+      "fatal": 2292,
+      "avg_damage": 16.7,
+      "avg_turns": 4.23
+     }
+    }
+   }
+  },
+  {
+   "id": "EXOSKELETONS_WEAK",
+   "name": "Exoskeletons",
+   "act": 2,
+   "act_name": "Act 2 - Hive",
+   "room_type": "Monster",
+   "is_weak": true,
+   "monsters": [
+    "EXOSKELETON"
+   ],
+   "stats": {
+    "total": 769172,
+    "fatal": 739,
+    "abandoned": 1267,
+    "avg_damage": 13.0,
+    "avg_turns": 4.03,
+    "characters": {
+     "IRONCLAD": {
+      "total": 174807,
+      "fatal": 141,
+      "avg_damage": 17.2,
+      "avg_turns": 4.13
+     },
+     "SILENT": {
+      "total": 172540,
+      "fatal": 87,
+      "avg_damage": 10.0,
+      "avg_turns": 3.84
+     },
+     "DEFECT": {
+      "total": 141629,
+      "fatal": 124,
+      "avg_damage": 12.0,
+      "avg_turns": 3.76
+     },
+     "NECROBINDER": {
+      "total": 140445,
+      "fatal": 176,
+      "avg_damage": 11.7,
+      "avg_turns": 4.17
+     },
+     "REGENT": {
+      "total": 139751,
+      "fatal": 211,
+      "avg_damage": 14.1,
+      "avg_turns": 4.29
+     }
+    }
+   }
+  },
+  {
+   "id": "HUNTER_KILLER_NORMAL",
+   "name": "Hunter Killer",
+   "act": 2,
+   "act_name": "Act 2 - Hive",
+   "room_type": "Monster",
+   "is_weak": false,
+   "monsters": [
+    "HUNTER_KILLER"
+   ],
+   "stats": {
+    "total": 328623,
+    "fatal": 17011,
+    "abandoned": 1852,
+    "avg_damage": 22.1,
+    "avg_turns": 4.73,
+    "characters": {
+     "IRONCLAD": {
+      "total": 75459,
+      "fatal": 3487,
+      "avg_damage": 26.9,
+      "avg_turns": 4.41
+     },
+     "SILENT": {
+      "total": 73940,
+      "fatal": 4157,
+      "avg_damage": 21.6,
+      "avg_turns": 5.02
+     },
+     "DEFECT": {
+      "total": 60988,
+      "fatal": 3684,
+      "avg_damage": 22.2,
+      "avg_turns": 4.65
+     },
+     "REGENT": {
+      "total": 59148,
+      "fatal": 2884,
+      "avg_damage": 20.9,
+      "avg_turns": 4.65
+     },
+     "NECROBINDER": {
+      "total": 59088,
+      "fatal": 2799,
+      "avg_damage": 17.8,
+      "avg_turns": 4.93
+     }
+    }
+   }
+  },
+  {
+   "id": "INFESTED_PRISMS_ELITE",
+   "name": "Infested Prism",
+   "act": 2,
+   "act_name": "Act 2 - Hive",
+   "room_type": "Elite",
+   "is_weak": false,
+   "monsters": [
+    "INFESTED_PRISM"
+   ],
+   "stats": {
+    "total": 728633,
+    "fatal": 53883,
+    "abandoned": 3845,
+    "avg_damage": 32.9,
+    "avg_turns": 5.48,
+    "characters": {
+     "IRONCLAD": {
+      "total": 170702,
+      "fatal": 10251,
+      "avg_damage": 37.3,
+      "avg_turns": 5.02
+     },
+     "SILENT": {
+      "total": 164100,
+      "fatal": 10970,
+      "avg_damage": 30.3,
+      "avg_turns": 5.56
+     },
+     "DEFECT": {
+      "total": 132605,
+      "fatal": 12208,
+      "avg_damage": 33.5,
+      "avg_turns": 5.66
+     },
+     "REGENT": {
+      "total": 131581,
+      "fatal": 9689,
+      "avg_damage": 32.8,
+      "avg_turns": 5.47
+     },
+     "NECROBINDER": {
+      "total": 129645,
+      "fatal": 10765,
+      "avg_damage": 29.8,
+      "avg_turns": 5.8
+     }
+    }
+   }
+  },
+  {
+   "id": "KAISER_CRAB_BOSS",
+   "name": "Kaiser Crab",
+   "act": 2,
+   "act_name": "Act 2 - Hive",
+   "room_type": "Boss",
+   "is_weak": false,
+   "monsters": [
+    "CRUSHER",
+    "ROCKET"
+   ],
+   "stats": {
+    "total": 389370,
+    "fatal": 76162,
+    "abandoned": 3646,
+    "avg_damage": 63.0,
+    "avg_turns": 8.23,
+    "characters": {
+     "SILENT": {
+      "total": 89154,
+      "fatal": 15622,
+      "avg_damage": 60.2,
+      "avg_turns": 8.35
+     },
+     "IRONCLAD": {
+      "total": 88121,
+      "fatal": 20019,
+      "avg_damage": 74.5,
+      "avg_turns": 7.7
+     },
+     "REGENT": {
+      "total": 71165,
+      "fatal": 13776,
+      "avg_damage": 63.9,
+      "avg_turns": 8.23
+     },
+     "NECROBINDER": {
+      "total": 70822,
+      "fatal": 11567,
+      "avg_damage": 53.4,
+      "avg_turns": 8.58
+     },
+     "DEFECT": {
+      "total": 70108,
+      "fatal": 15178,
+      "avg_damage": 60.7,
+      "avg_turns": 8.4
+     }
+    }
+   }
+  },
+  {
+   "id": "KNOWLEDGE_DEMON_BOSS",
+   "name": "Knowledge Demon",
+   "act": 2,
+   "act_name": "Act 2 - Hive",
+   "room_type": "Boss",
+   "is_weak": false,
+   "monsters": [
+    "KNOWLEDGE_DEMON"
+   ],
+   "stats": {
+    "total": 391895,
+    "fatal": 83171,
+    "abandoned": 2714,
+    "avg_damage": 57.0,
+    "avg_turns": 8.22,
+    "characters": {
+     "SILENT": {
+      "total": 91189,
+      "fatal": 18100,
+      "avg_damage": 54.7,
+      "avg_turns": 8.29
+     },
+     "IRONCLAD": {
+      "total": 88670,
+      "fatal": 16624,
+      "avg_damage": 63.4,
+      "avg_turns": 7.49
+     },
+     "REGENT": {
+      "total": 70926,
+      "fatal": 15447,
+      "avg_damage": 57.5,
+      "avg_turns": 8.27
+     },
+     "DEFECT": {
+      "total": 70769,
+      "fatal": 17804,
+      "avg_damage": 57.8,
+      "avg_turns": 8.53
+     },
+     "NECROBINDER": {
+      "total": 70341,
+      "fatal": 15196,
+      "avg_damage": 50.3,
+      "avg_turns": 8.69
+     }
+    }
+   }
+  },
+  {
+   "id": "LOUSE_PROGENITOR_NORMAL",
+   "name": "Louse Progenitor",
+   "act": 2,
+   "act_name": "Act 2 - Hive",
+   "room_type": "Monster",
+   "is_weak": false,
+   "monsters": [
+    "LOUSE_PROGENITOR"
+   ],
+   "stats": {
+    "total": 326954,
+    "fatal": 7911,
+    "abandoned": 1111,
+    "avg_damage": 14.5,
+    "avg_turns": 5.26,
+    "characters": {
+     "IRONCLAD": {
+      "total": 75322,
+      "fatal": 1588,
+      "avg_damage": 19.1,
+      "avg_turns": 4.93
+     },
+     "SILENT": {
+      "total": 73830,
+      "fatal": 1729,
+      "avg_damage": 13.4,
+      "avg_turns": 5.4
+     },
+     "DEFECT": {
+      "total": 60495,
+      "fatal": 1882,
+      "avg_damage": 14.3,
+      "avg_turns": 5.33
+     },
+     "REGENT": {
+      "total": 58867,
+      "fatal": 1656,
+      "avg_damage": 14.5,
+      "avg_turns": 5.2
+     },
+     "NECROBINDER": {
+      "total": 58440,
+      "fatal": 1056,
+      "avg_damage": 10.0,
+      "avg_turns": 5.5
+     }
+    }
+   }
+  },
+  {
+   "id": "MYTES_NORMAL",
+   "name": "Mass of Mytes",
+   "act": 2,
+   "act_name": "Act 2 - Hive",
+   "room_type": "Monster",
+   "is_weak": false,
+   "monsters": [
+    "MYTE"
+   ],
+   "stats": {
+    "total": 327322,
+    "fatal": 12734,
+    "abandoned": 1780,
+    "avg_damage": 19.9,
+    "avg_turns": 4.75,
+    "characters": {
+     "IRONCLAD": {
+      "total": 75392,
+      "fatal": 2328,
+      "avg_damage": 23.2,
+      "avg_turns": 4.53
+     },
+     "SILENT": {
+      "total": 73939,
+      "fatal": 2538,
+      "avg_damage": 17.8,
+      "avg_turns": 4.77
+     },
+     "DEFECT": {
+      "total": 60659,
+      "fatal": 2606,
+      "avg_damage": 18.5,
+      "avg_turns": 4.63
+     },
+     "REGENT": {
+      "total": 58780,
+      "fatal": 2410,
+      "avg_damage": 19.7,
+      "avg_turns": 4.73
+     },
+     "NECROBINDER": {
+      "total": 58552,
+      "fatal": 2852,
+      "avg_damage": 19.7,
+      "avg_turns": 5.12
+     }
+    }
+   }
+  },
+  {
+   "id": "OVICOPTER_NORMAL",
+   "name": "Ovicopter",
+   "act": 2,
+   "act_name": "Act 2 - Hive",
+   "room_type": "Monster",
+   "is_weak": false,
+   "monsters": [
+    "OVICOPTER",
+    "TOUGH_EGG"
+   ],
+   "stats": {
+    "total": 329840,
+    "fatal": 15952,
+    "abandoned": 1856,
+    "avg_damage": 18.8,
+    "avg_turns": 4.79,
+    "characters": {
+     "IRONCLAD": {
+      "total": 75755,
+      "fatal": 3039,
+      "avg_damage": 22.2,
+      "avg_turns": 4.39
+     },
+     "SILENT": {
+      "total": 74684,
+      "fatal": 3127,
+      "avg_damage": 17.0,
+      "avg_turns": 4.69
+     },
+     "DEFECT": {
+      "total": 61482,
+      "fatal": 4044,
+      "avg_damage": 20.0,
+      "avg_turns": 5.34
+     },
+     "REGENT": {
+      "total": 59005,
+      "fatal": 2656,
+      "avg_damage": 17.4,
+      "avg_turns": 4.64
+     },
+     "NECROBINDER": {
+      "total": 58914,
+      "fatal": 3086,
+      "avg_damage": 17.0,
+      "avg_turns": 5.02
+     }
+    }
+   }
+  },
+  {
+   "id": "SLUMBERING_BEETLE_NORMAL",
+   "name": "Slumber Party",
+   "act": 2,
+   "act_name": "Act 2 - Hive",
+   "room_type": "Monster",
+   "is_weak": false,
+   "monsters": [
+    "BOWLBUG_ROCK",
+    "BOWLBUG_SILK",
+    "SLUMBERING_BEETLE"
+   ],
+   "stats": {
+    "total": 270862,
+    "fatal": 21018,
+    "abandoned": 2202,
+    "avg_damage": 23.7,
+    "avg_turns": 5.92,
+    "characters": {
+     "IRONCLAD": {
+      "total": 62509,
+      "fatal": 4722,
+      "avg_damage": 29.5,
+      "avg_turns": 5.78
+     },
+     "SILENT": {
+      "total": 61015,
+      "fatal": 4465,
+      "avg_damage": 22.3,
+      "avg_turns": 6.04
+     },
+     "DEFECT": {
+      "total": 50169,
+      "fatal": 4284,
+      "avg_damage": 22.4,
+      "avg_turns": 5.9
+     },
+     "REGENT": {
+      "total": 48701,
+      "fatal": 3798,
+      "avg_damage": 23.2,
+      "avg_turns": 5.89
+     },
+     "NECROBINDER": {
+      "total": 48468,
+      "fatal": 3749,
+      "avg_damage": 20.2,
+      "avg_turns": 6.01
+     }
+    }
+   }
+  },
+  {
+   "id": "SPINY_TOAD_NORMAL",
+   "name": "Spiny Toad",
+   "act": 2,
+   "act_name": "Act 2 - Hive",
+   "room_type": "Monster",
+   "is_weak": false,
+   "monsters": [
+    "SPINY_TOAD"
+   ],
+   "stats": {
+    "total": 327554,
+    "fatal": 12628,
+    "abandoned": 1395,
+    "avg_damage": 21.4,
+    "avg_turns": 4.6,
+    "characters": {
+     "IRONCLAD": {
+      "total": 74960,
+      "fatal": 2907,
+      "avg_damage": 27.2,
+      "avg_turns": 4.34
+     },
+     "SILENT": {
+      "total": 74111,
+      "fatal": 2785,
+      "avg_damage": 19.9,
+      "avg_turns": 4.68
+     },
+     "DEFECT": {
+      "total": 60545,
+      "fatal": 2747,
+      "avg_damage": 20.7,
+      "avg_turns": 4.56
+     },
+     "REGENT": {
+      "total": 59252,
+      "fatal": 2335,
+      "avg_damage": 21.0,
+      "avg_turns": 4.56
+     },
+     "NECROBINDER": {
+      "total": 58686,
+      "fatal": 1854,
+      "avg_damage": 16.9,
+      "avg_turns": 4.92
+     }
+    }
+   }
+  },
+  {
+   "id": "THE_INSATIABLE_BOSS",
+   "name": "The Insatiable",
+   "act": 2,
+   "act_name": "Act 2 - Hive",
+   "room_type": "Boss",
+   "is_weak": false,
+   "monsters": [
+    "THE_INSATIABLE"
+   ],
+   "stats": {
+    "total": 390103,
+    "fatal": 60660,
+    "abandoned": 2137,
+    "avg_damage": 47.8,
+    "avg_turns": 7.82,
+    "characters": {
+     "IRONCLAD": {
+      "total": 92263,
+      "fatal": 13920,
+      "avg_damage": 56.0,
+      "avg_turns": 7.3
+     },
+     "SILENT": {
+      "total": 88379,
+      "fatal": 12555,
+      "avg_damage": 45.5,
+      "avg_turns": 7.88
+     },
+     "REGENT": {
+      "total": 70017,
+      "fatal": 11186,
+      "avg_damage": 48.7,
+      "avg_turns": 7.89
+     },
+     "NECROBINDER": {
+      "total": 69738,
+      "fatal": 12311,
+      "avg_damage": 40.2,
+      "avg_turns": 8.29
+     },
+     "DEFECT": {
+      "total": 69706,
+      "fatal": 10688,
+      "avg_damage": 46.2,
+      "avg_turns": 7.92
+     }
+    }
+   }
+  },
+  {
+   "id": "THE_OBSCURA_NORMAL",
+   "name": "The Obscura",
+   "act": 2,
+   "act_name": "Act 2 - Hive",
+   "room_type": "Monster",
+   "is_weak": false,
+   "monsters": [
+    "PARAFRIGHT",
+    "THE_OBSCURA"
+   ],
+   "stats": {
+    "total": 328374,
+    "fatal": 18457,
+    "abandoned": 1841,
+    "avg_damage": 20.3,
+    "avg_turns": 5.1,
+    "characters": {
+     "IRONCLAD": {
+      "total": 75362,
+      "fatal": 3738,
+      "avg_damage": 24.4,
+      "avg_turns": 4.7
+     },
+     "SILENT": {
+      "total": 74075,
+      "fatal": 3784,
+      "avg_damage": 19.0,
+      "avg_turns": 5.06
+     },
+     "DEFECT": {
+      "total": 60714,
+      "fatal": 3775,
+      "avg_damage": 19.4,
+      "avg_turns": 5.42
+     },
+     "NECROBINDER": {
+      "total": 59382,
+      "fatal": 3718,
+      "avg_damage": 18.6,
+      "avg_turns": 5.39
+     },
+     "REGENT": {
+      "total": 58841,
+      "fatal": 3442,
+      "avg_damage": 19.5,
+      "avg_turns": 5.05
+     }
+    }
+   }
+  },
+  {
+   "id": "THIEVING_HOPPER_WEAK",
+   "name": "Thieving Hopper",
+   "act": 2,
+   "act_name": "Act 2 - Hive",
+   "room_type": "Monster",
+   "is_weak": true,
+   "monsters": [
+    "THIEVING_HOPPER"
+   ],
+   "stats": {
+    "total": 768879,
+    "fatal": 689,
+    "abandoned": 2181,
+    "avg_damage": 16.7,
+    "avg_turns": 3.97,
+    "characters": {
+     "IRONCLAD": {
+      "total": 174646,
+      "fatal": 143,
+      "avg_damage": 21.3,
+      "avg_turns": 3.87
+     },
+     "SILENT": {
+      "total": 172456,
+      "fatal": 104,
+      "avg_damage": 13.6,
+      "avg_turns": 4.01
+     },
+     "DEFECT": {
+      "total": 141935,
+      "fatal": 127,
+      "avg_damage": 16.3,
+      "avg_turns": 3.84
+     },
+     "NECROBINDER": {
+      "total": 140024,
+      "fatal": 174,
+      "avg_damage": 15.0,
+      "avg_turns": 4.2
+     },
+     "REGENT": {
+      "total": 139818,
+      "fatal": 141,
+      "avg_damage": 16.9,
+      "avg_turns": 3.97
+     }
+    }
+   }
+  },
+  {
+   "id": "TUNNELER_WEAK",
+   "name": "Tunneler",
+   "act": 2,
+   "act_name": "Act 2 - Hive",
+   "room_type": "Monster",
+   "is_weak": true,
+   "monsters": [
+    "TUNNELER"
+   ],
+   "stats": {
+    "total": 769698,
+    "fatal": 1127,
+    "abandoned": 1386,
+    "avg_damage": 13.4,
+    "avg_turns": 4.67,
+    "characters": {
+     "IRONCLAD": {
+      "total": 174788,
+      "fatal": 184,
+      "avg_damage": 16.1,
+      "avg_turns": 4.39
+     },
+     "SILENT": {
+      "total": 172956,
+      "fatal": 247,
+      "avg_damage": 12.8,
+      "avg_turns": 4.81
+     },
+     "DEFECT": {
+      "total": 140987,
+      "fatal": 200,
+      "avg_damage": 13.1,
+      "avg_turns": 4.67
+     },
+     "REGENT": {
+      "total": 140818,
+      "fatal": 191,
+      "avg_damage": 12.7,
+      "avg_turns": 4.59
+     },
+     "NECROBINDER": {
+      "total": 140149,
+      "fatal": 305,
+      "avg_damage": 11.8,
+      "avg_turns": 4.94
+     }
+    }
+   }
+  },
+  {
+   "id": "AEONGLASS_BOSS",
+   "name": "Aeonglass",
+   "act": 3,
+   "act_name": "Act 3 - Glory",
+   "room_type": "Boss",
+   "is_weak": false,
+   "monsters": [
+    "AEONGLASS"
+   ]
+  },
+  {
+   "id": "AXEBOTS_NORMAL",
+   "name": "Axebot",
+   "act": 3,
+   "act_name": "Act 3 - Glory",
+   "room_type": "Monster",
+   "is_weak": false,
+   "monsters": [
+    "AXEBOT"
+   ]
+  },
+  {
+   "id": "CONSTRUCT_MENAGERIE_NORMAL",
+   "name": "Construct Menagerie",
+   "act": 3,
+   "act_name": "Act 3 - Glory",
+   "room_type": "Monster",
+   "is_weak": false,
+   "monsters": [
+    "CUBEX_CONSTRUCT",
+    "PUNCH_CONSTRUCT"
+   ]
+  },
+  {
+   "id": "DEVOTED_SCULPTOR_WEAK",
+   "name": "Devoted Sculptor",
+   "act": 3,
+   "act_name": "Act 3 - Glory",
+   "room_type": "Monster",
+   "is_weak": true,
+   "monsters": [
+    "DEVOTED_SCULPTOR"
+   ],
+   "stats": {
+    "total": 620002,
+    "fatal": 2794,
+    "abandoned": 559,
+    "avg_damage": 13.9,
+    "avg_turns": 4.0,
+    "characters": {
+     "SILENT": {
+      "total": 145333,
+      "fatal": 449,
+      "avg_damage": 12.3,
+      "avg_turns": 4.0
+     },
+     "IRONCLAD": {
+      "total": 142212,
+      "fatal": 425,
+      "avg_damage": 16.3,
+      "avg_turns": 3.78
+     },
+     "REGENT": {
+      "total": 111784,
+      "fatal": 471,
+      "avg_damage": 13.8,
+      "avg_turns": 3.99
+     },
+     "NECROBINDER": {
+      "total": 111696,
+      "fatal": 1016,
+      "avg_damage": 13.3,
+      "avg_turns": 4.18
+     },
+     "DEFECT": {
+      "total": 108977,
+      "fatal": 433,
+      "avg_damage": 13.5,
+      "avg_turns": 4.13
+     }
+    }
+   }
+  },
+  {
+   "id": "FABRICATOR_NORMAL",
+   "name": "Fabricator",
+   "act": 3,
+   "act_name": "Act 3 - Glory",
+   "room_type": "Monster",
+   "is_weak": false,
+   "monsters": [
+    "FABRICATOR"
+   ]
+  },
+  {
+   "id": "FROG_KNIGHT_NORMAL",
+   "name": "Frog Knight",
+   "act": 3,
+   "act_name": "Act 3 - Glory",
+   "room_type": "Monster",
+   "is_weak": false,
+   "monsters": [
+    "FROG_KNIGHT"
+   ]
+  },
+  {
+   "id": "GLOBE_HEAD_NORMAL",
+   "name": "A Lone Globe Head",
+   "act": 3,
+   "act_name": "Act 3 - Glory",
+   "room_type": "Monster",
+   "is_weak": false,
+   "monsters": [
+    "GLOBE_HEAD"
+   ]
+  },
+  {
+   "id": "KNIGHTS_ELITE",
+   "name": "Knight Gang",
+   "act": 3,
+   "act_name": "Act 3 - Glory",
+   "room_type": "Elite",
+   "is_weak": false,
+   "monsters": [
+    "FLAIL_KNIGHT",
+    "MAGI_KNIGHT",
+    "SPECTRAL_KNIGHT"
+   ],
+   "stats": {
+    "total": 433218,
+    "fatal": 17461,
+    "abandoned": 847,
+    "avg_damage": 29.2,
+    "avg_turns": 4.51,
+    "characters": {
+     "SILENT": {
+      "total": 103198,
+      "fatal": 3341,
+      "avg_damage": 25.5,
+      "avg_turns": 4.48
+     },
+     "IRONCLAD": {
+      "total": 100811,
+      "fatal": 3466,
+      "avg_damage": 33.6,
+      "avg_turns": 4.35
+     },
+     "NECROBINDER": {
+      "total": 77181,
+      "fatal": 3276,
+      "avg_damage": 27.6,
+      "avg_turns": 4.68
+     },
+     "REGENT": {
+      "total": 76374,
+      "fatal": 3288,
+      "avg_damage": 30.2,
+      "avg_turns": 4.54
+     },
+     "DEFECT": {
+      "total": 75654,
+      "fatal": 4090,
+      "avg_damage": 29.1,
+      "avg_turns": 4.56
+     }
+    }
+   }
+  },
+  {
+   "id": "MECHA_KNIGHT_ELITE",
+   "name": "Mecha Knight",
+   "act": 3,
+   "act_name": "Act 3 - Glory",
+   "room_type": "Elite",
+   "is_weak": false,
+   "monsters": [
+    "MECHA_KNIGHT"
+   ],
+   "stats": {
+    "total": 436522,
+    "fatal": 16338,
+    "abandoned": 646,
+    "avg_damage": 34.2,
+    "avg_turns": 5.79,
+    "characters": {
+     "SILENT": {
+      "total": 103930,
+      "fatal": 3482,
+      "avg_damage": 30.6,
+      "avg_turns": 5.76
+     },
+     "IRONCLAD": {
+      "total": 102449,
+      "fatal": 4054,
+      "avg_damage": 41.2,
+      "avg_turns": 5.67
+     },
+     "NECROBINDER": {
+      "total": 77453,
+      "fatal": 2900,
+      "avg_damage": 31.4,
+      "avg_turns": 6.1
+     },
+     "REGENT": {
+      "total": 76927,
+      "fatal": 3087,
+      "avg_damage": 35.6,
+      "avg_turns": 5.81
+     },
+     "DEFECT": {
+      "total": 75763,
+      "fatal": 2815,
+      "avg_damage": 30.8,
+      "avg_turns": 5.69
+     }
+    }
+   }
+  },
+  {
+   "id": "OWL_MAGISTRATE_NORMAL",
+   "name": "Owl Magistrate",
+   "act": 3,
+   "act_name": "Act 3 - Glory",
+   "room_type": "Monster",
+   "is_weak": false,
+   "monsters": [
+    "OWL_MAGISTRATE"
+   ]
+  },
+  {
+   "id": "QUEEN_BOSS",
+   "name": "Queen",
+   "act": 3,
+   "act_name": "Act 3 - Glory",
+   "room_type": "Boss",
+   "is_weak": false,
+   "monsters": [
+    "QUEEN",
+    "TORCH_HEAD_AMALGAM"
+   ],
+   "stats": {
+    "total": 335065,
+    "fatal": 62906,
+    "abandoned": 1751,
+    "avg_damage": 64.9,
+    "avg_turns": 8.55,
+    "characters": {
+     "IRONCLAD": {
+      "total": 80226,
+      "fatal": 17623,
+      "avg_damage": 76.0,
+      "avg_turns": 8.01
+     },
+     "SILENT": {
+      "total": 79410,
+      "fatal": 13196,
+      "avg_damage": 60.4,
+      "avg_turns": 8.57
+     },
+     "REGENT": {
+      "total": 60178,
+      "fatal": 11566,
+      "avg_damage": 66.6,
+      "avg_turns": 8.84
+     },
+     "NECROBINDER": {
+      "total": 58824,
+      "fatal": 8368,
+      "avg_damage": 53.6,
+      "avg_turns": 8.7
+     },
+     "DEFECT": {
+      "total": 56427,
+      "fatal": 12153,
+      "avg_damage": 65.4,
+      "avg_turns": 8.83
+     }
+    }
+   }
+  },
+  {
+   "id": "SCROLLS_OF_BITING_NORMAL",
+   "name": "Many Scrolls of Biting",
+   "act": 3,
+   "act_name": "Act 3 - Glory",
+   "room_type": "Monster",
+   "is_weak": false,
+   "monsters": [
+    "SCROLL_OF_BITING"
+   ]
+  },
+  {
+   "id": "SCROLLS_OF_BITING_WEAK",
+   "name": "Scrolls of Biting",
+   "act": 3,
+   "act_name": "Act 3 - Glory",
+   "room_type": "Monster",
+   "is_weak": true,
+   "monsters": [
+    "SCROLL_OF_BITING"
+   ],
+   "stats": {
+    "total": 618027,
+    "fatal": 988,
+    "abandoned": 540,
+    "avg_damage": 12.0,
+    "avg_turns": 2.87,
+    "characters": {
+     "SILENT": {
+      "total": 144359,
+      "fatal": 157,
+      "avg_damage": 9.5,
+      "avg_turns": 2.82
+     },
+     "IRONCLAD": {
+      "total": 142162,
+      "fatal": 146,
+      "avg_damage": 14.1,
+      "avg_turns": 2.8
+     },
+     "NECROBINDER": {
+      "total": 111694,
+      "fatal": 324,
+      "avg_damage": 12.8,
+      "avg_turns": 3.02
+     },
+     "REGENT": {
+      "total": 111520,
+      "fatal": 131,
+      "avg_damage": 11.7,
+      "avg_turns": 2.87
+     },
+     "DEFECT": {
+      "total": 108292,
+      "fatal": 230,
+      "avg_damage": 12.4,
+      "avg_turns": 2.89
+     }
+    }
+   }
+  },
+  {
+   "id": "SLIMED_BERSERKER_NORMAL",
+   "name": "Slimed Berserker",
+   "act": 3,
+   "act_name": "Act 3 - Glory",
+   "room_type": "Monster",
+   "is_weak": false,
+   "monsters": [
+    "SLIMED_BERSERKER"
+   ]
+  },
+  {
+   "id": "SOUL_NEXUS_ELITE",
+   "name": "Soul Nexus",
+   "act": 3,
+   "act_name": "Act 3 - Glory",
+   "room_type": "Elite",
+   "is_weak": false,
+   "monsters": [
+    "SOUL_NEXUS"
+   ],
+   "stats": {
+    "total": 434361,
+    "fatal": 13841,
+    "abandoned": 574,
+    "avg_damage": 28.3,
+    "avg_turns": 4.42,
+    "characters": {
+     "SILENT": {
+      "total": 103346,
+      "fatal": 2353,
+      "avg_damage": 24.3,
+      "avg_turns": 4.4
+     },
+     "IRONCLAD": {
+      "total": 101931,
+      "fatal": 3744,
+      "avg_damage": 35.1,
+      "avg_turns": 4.15
+     },
+     "NECROBINDER": {
+      "total": 77231,
+      "fatal": 2327,
+      "avg_damage": 24.7,
+      "avg_turns": 4.6
+     },
+     "REGENT": {
+      "total": 76315,
+      "fatal": 2518,
+      "avg_damage": 29.4,
+      "avg_turns": 4.52
+     },
+     "DEFECT": {
+      "total": 75538,
+      "fatal": 2899,
+      "avg_damage": 27.5,
+      "avg_turns": 4.5
+     }
+    }
+   }
+  },
+  {
+   "id": "TEST_SUBJECT_BOSS",
+   "name": "Test Subject",
+   "act": 3,
+   "act_name": "Act 3 - Glory",
+   "room_type": "Boss",
+   "is_weak": false,
+   "monsters": [
+    "TEST_SUBJECT"
+   ],
+   "stats": {
+    "total": 339365,
+    "fatal": 77302,
+    "abandoned": 2059,
+    "avg_damage": 75.4,
+    "avg_turns": 9.44,
+    "characters": {
+     "SILENT": {
+      "total": 82598,
+      "fatal": 19554,
+      "avg_damage": 73.2,
+      "avg_turns": 9.78
+     },
+     "IRONCLAD": {
+      "total": 78073,
+      "fatal": 18626,
+      "avg_damage": 84.4,
+      "avg_turns": 8.9
+     },
+     "REGENT": {
+      "total": 61241,
+      "fatal": 12444,
+      "avg_damage": 74.3,
+      "avg_turns": 9.28
+     },
+     "NECROBINDER": {
+      "total": 60427,
+      "fatal": 13197,
+      "avg_damage": 70.0,
+      "avg_turns": 9.81
+     },
+     "DEFECT": {
+      "total": 57026,
+      "fatal": 13481,
+      "avg_damage": 72.8,
+      "avg_turns": 9.48
+     }
+    }
+   }
+  },
+  {
+   "id": "THE_LOST_AND_FORGOTTEN_NORMAL",
+   "name": "Lost and Forgotten",
+   "act": 3,
+   "act_name": "Act 3 - Glory",
+   "room_type": "Monster",
+   "is_weak": false,
+   "monsters": [
+    "THE_FORGOTTEN",
+    "THE_LOST"
+   ]
+  },
+  {
+   "id": "TURRET_OPERATOR_WEAK",
+   "name": "Turret Operator",
+   "act": 3,
+   "act_name": "Act 3 - Glory",
+   "room_type": "Monster",
+   "is_weak": true,
+   "monsters": [
+    "LIVING_SHIELD",
+    "TURRET_OPERATOR"
+   ],
+   "stats": {
+    "total": 617488,
+    "fatal": 736,
+    "abandoned": 457,
+    "avg_damage": 13.5,
+    "avg_turns": 3.41,
+    "characters": {
+     "SILENT": {
+      "total": 144473,
+      "fatal": 106,
+      "avg_damage": 10.6,
+      "avg_turns": 3.32
+     },
+     "IRONCLAD": {
+      "total": 141734,
+      "fatal": 128,
+      "avg_damage": 17.3,
+      "avg_turns": 3.28
+     },
+     "NECROBINDER": {
+      "total": 111615,
+      "fatal": 182,
+      "avg_damage": 12.0,
+      "avg_turns": 3.5
+     },
+     "REGENT": {
+      "total": 111018,
+      "fatal": 144,
+      "avg_damage": 13.4,
+      "avg_turns": 3.45
+     },
+     "DEFECT": {
+      "total": 108648,
+      "fatal": 176,
+      "avg_damage": 13.8,
+      "avg_turns": 3.54
+     }
+    }
+   }
+  },
+  {
+   "id": "BATTLEWORN_DUMMY_EVENT_ENCOUNTER",
+   "name": "Battleworn Dummy",
+   "act": null,
+   "act_name": null,
+   "room_type": "Monster",
+   "is_weak": false,
+   "monsters": [
+    "BATTLE_FRIEND_V1",
+    "BATTLE_FRIEND_V2",
+    "BATTLE_FRIEND_V3"
+   ]
+  },
+  {
+   "id": "DENSE_VEGETATION_EVENT_ENCOUNTER",
+   "name": "Wrigglers",
+   "act": null,
+   "act_name": null,
+   "room_type": "Monster",
+   "is_weak": false,
+   "monsters": [
+    "WRIGGLER"
+   ]
+  },
+  {
+   "id": "FAKE_MERCHANT_EVENT_ENCOUNTER",
+   "name": "The Merchant???",
+   "act": null,
+   "act_name": null,
+   "room_type": "Monster",
+   "is_weak": false,
+   "monsters": [
+    "FAKE_MERCHANT_MONSTER"
+   ]
+  },
+  {
+   "id": "MYSTERIOUS_KNIGHT_EVENT_ENCOUNTER",
+   "name": "Mysterious Knight",
+   "act": null,
+   "act_name": null,
+   "room_type": "Monster",
+   "is_weak": false,
+   "monsters": [
+    "MYSTERIOUS_KNIGHT"
+   ]
+  },
+  {
+   "id": "PUNCH_OFF_EVENT_ENCOUNTER",
+   "name": "Punch Constructs",
+   "act": null,
+   "act_name": null,
+   "room_type": "Monster",
+   "is_weak": false,
+   "monsters": [
+    "PUNCH_CONSTRUCT"
+   ]
+  },
+  {
+   "id": "THE_ARCHITECT_EVENT_ENCOUNTER",
+   "name": "The Architect",
+   "act": null,
+   "act_name": null,
+   "room_type": "Monster",
+   "is_weak": false,
+   "monsters": [
+    "ARCHITECT"
+   ]
+  },
+  {
+   "id": "TUNNELER_NORMAL",
+   "name": "Tunneling Twosome",
+   "act": null,
+   "act_name": null,
+   "room_type": "Monster",
+   "is_weak": false,
+   "monsters": [
+    "CHOMPER",
+    "TUNNELER"
+   ]
+  }
+ ]
+}

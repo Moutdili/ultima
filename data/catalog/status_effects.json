@@ -1,0 +1,213 @@
+{
+ "schema": "ultima.status_effects/1",
+ "source": "curse_texts.json (texte FR, extrait de pck/localization/fra/cards.json) + cards_effects.json (valeurs) + registry.json (liste exhaustive) ; familles/sévérités alignées sur curse_effects.json",
+ "count": 17,
+ "bands": {
+  "severe": {
+   "min_severity": 70,
+   "penalty": -12
+  },
+  "moderate": {
+   "min_severity": 35,
+   "penalty": -6
+  },
+  "benign": {
+   "min_severity": 1,
+   "penalty": -3
+  },
+  "unclassified": {
+   "min_severity": null,
+   "penalty": -6,
+   "note": "aucune sévérité décrite → forfait modéré explicite, jamais 0"
+  }
+ },
+ "entries": [
+  {
+   "id": "BECKON",
+   "description_fr": null,
+   "family": "hp_loss",
+   "effect_family": "hp_loss",
+   "value": 6,
+   "severity": 75,
+   "band": "severe",
+   "penalty": -12,
+   "source": "aucune description FR ; cards_effects.json vars.HpLoss = 6"
+  },
+  {
+   "id": "BURN",
+   "description_fr": "À la fin de votre tour, si cette carte est dans votre [gold]Main[/gold], subissez {Damage:diff()} dégâts.",
+   "family": "damage_when_drawn",
+   "effect_family": "end_turn_damage",
+   "value": 2,
+   "severity": 75,
+   "band": "severe",
+   "penalty": -12,
+   "source": "curse_texts.json (texte FR) ; cards_effects.json vars.Damage = 2"
+  },
+  {
+   "id": "DAZED",
+   "description_fr": null,
+   "family": "unplayable",
+   "effect_family": "unplayable_only",
+   "value": null,
+   "severity": 35,
+   "band": "moderate",
+   "penalty": -6,
+   "source": "aucune description FR ; mot-clé Ethereal, Unplayable"
+  },
+  {
+   "id": "DEBRIS",
+   "description_fr": null,
+   "family": "other",
+   "effect_family": "self_removing",
+   "value": null,
+   "severity": 10,
+   "band": "benign",
+   "penalty": -3,
+   "source": "aucune description FR ; mot-clé Exhaust"
+  },
+  {
+   "id": "DEPRECATED_CARD",
+   "description_fr": null,
+   "family": "other",
+   "effect_family": "unclassified",
+   "value": null,
+   "severity": null,
+   "band": "unclassified",
+   "penalty": -6,
+   "source": "aucune description FR ; aucune donnée de carte (placeholder)"
+  },
+  {
+   "id": "DISINTEGRATION",
+   "description_fr": "À la fin de votre tour, subissez {DisintegrationPower:diff()} dégâts.",
+   "family": "damage_when_drawn",
+   "effect_family": "end_turn_damage",
+   "value": 6,
+   "severity": 75,
+   "band": "severe",
+   "penalty": -12,
+   "source": "curse_texts.json (texte FR) ; cards_effects.json vars.DisintegrationPower = 6"
+  },
+  {
+   "id": "FRANTIC_ESCAPE",
+   "description_fr": "Éloignez-vous.\nAugmentez [gold]Sables mouvants[/gold] de 1.\nAugmentez le coût de cette carte de 1.",
+   "family": "other",
+   "effect_family": "escape",
+   "value": null,
+   "severity": 40,
+   "band": "moderate",
+   "penalty": -6,
+   "source": "curse_texts.json (texte FR)"
+  },
+  {
+   "id": "INFECTION",
+   "description_fr": "À la fin de votre tour, si cette carte est dans votre [gold]Main[/gold], subissez {Damage:diff()} dégâts.",
+   "family": "damage_when_drawn",
+   "effect_family": "end_turn_damage",
+   "value": 3,
+   "severity": 75,
+   "band": "severe",
+   "penalty": -12,
+   "source": "curse_texts.json (texte FR) ; cards_effects.json vars.Damage = 3"
+  },
+  {
+   "id": "MIND_ROT",
+   "description_fr": "Piochez {MindRotPower:diff()} {MindRotPower:plural:carte|cartes} en moins chaque tour.",
+   "family": "draw_block",
+   "effect_family": "draw_reduction",
+   "value": 1,
+   "severity": 85,
+   "band": "severe",
+   "penalty": -12,
+   "source": "curse_texts.json (texte FR) ; cards_effects.json vars.MindRotPower = 1"
+  },
+  {
+   "id": "SLIMED",
+   "description_fr": "Piochez 1 carte.",
+   "family": "other",
+   "effect_family": "self_removing",
+   "value": 1,
+   "severity": 10,
+   "band": "benign",
+   "penalty": -3,
+   "source": "curse_texts.json (texte FR) ; cards_effects.json vars.Cards = 1 ; mot-clé Exhaust"
+  },
+  {
+   "id": "SLOTH",
+   "description_fr": "Vous ne pouvez pas jouer plus de {SlothPower:diff()} {SlothPower:plural:carte|cartes} chaque tour.",
+   "family": "other",
+   "effect_family": "play_limit",
+   "value": 3,
+   "severity": 95,
+   "band": "severe",
+   "penalty": -12,
+   "source": "curse_texts.json (texte FR) ; cards_effects.json vars.SlothPower = 3"
+  },
+  {
+   "id": "SOOT",
+   "description_fr": null,
+   "family": "unplayable",
+   "effect_family": "unplayable_only",
+   "value": null,
+   "severity": 35,
+   "band": "moderate",
+   "penalty": -6,
+   "source": "aucune description FR ; mot-clé Unplayable"
+  },
+  {
+   "id": "TOXIC",
+   "description_fr": "À la fin de votre tour, si cette carte est dans votre [gold]Main[/gold], subissez {Damage:diff()} dégâts.",
+   "family": "damage_when_drawn",
+   "effect_family": "end_turn_damage",
+   "value": 5,
+   "severity": 75,
+   "band": "severe",
+   "penalty": -12,
+   "source": "curse_texts.json (texte FR) ; cards_effects.json vars.Damage = 5"
+  },
+  {
+   "id": "VOID",
+   "description_fr": "Lorsque vous piochez cette carte, perdez {Energy:energyIcons()}.",
+   "family": "energy_loss",
+   "effect_family": "energy_loss",
+   "value": 1,
+   "severity": 80,
+   "band": "severe",
+   "penalty": -12,
+   "source": "curse_texts.json (texte FR) ; cards_effects.json vars.Energy = 1"
+  },
+  {
+   "id": "WASTE_AWAY",
+   "description_fr": "Gagnez {WasteAwayPower:diff()} {energyPrefix:energyIcons(1)} en moins chaque tour.",
+   "family": "energy_loss",
+   "effect_family": "energy_loss",
+   "value": 1,
+   "severity": 80,
+   "band": "severe",
+   "penalty": -12,
+   "source": "curse_texts.json (texte FR) ; cards_effects.json vars.WasteAwayPower = 1"
+  },
+  {
+   "id": "WITHER",
+   "description_fr": "À la fin de votre tour, si cette carte est dans votre [gold]Main[/gold], subissez {Damage:diff()} dégâts.",
+   "family": "damage_when_drawn",
+   "effect_family": "end_turn_damage",
+   "value": 3,
+   "severity": 75,
+   "band": "severe",
+   "penalty": -12,
+   "source": "curse_texts.json (texte FR) ; cards_effects.json vars.Damage = 3"
+  },
+  {
+   "id": "WOUND",
+   "description_fr": null,
+   "family": "unplayable",
+   "effect_family": "unplayable_only",
+   "value": null,
+   "severity": 35,
+   "band": "moderate",
+   "penalty": -6,
+   "source": "aucune description FR ; mot-clé Unplayable"
+  }
+ ]
+}

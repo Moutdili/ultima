@@ -14,7 +14,7 @@ UUID="ultima@mio"
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SRC="$HERE/$UUID"
 DEST="${XDG_DATA_HOME:-$HOME/.local/share}/gnome-shell/extensions/$UUID"
-FILES=(metadata.json extension.js palette.js geometry.js state.js sample-state.json)
+FILES=(metadata.json extension.js palette.js geometry.js state.js render.js plan.js)
 
 die() { echo "ERREUR : $*" >&2; exit 1; }
 
@@ -35,9 +35,19 @@ PY
     echo "schéma OK : $(ls "$tmp")"
     gnome-extensions pack --force --out-dir="$tmp" \
         --extra-source=palette.js --extra-source=geometry.js --extra-source=state.js \
-        --extra-source=sample-state.json "$SRC" >/dev/null
+        --extra-source=render.js --extra-source=plan.js "$SRC" >/dev/null
     echo "pack OK : $(ls "$tmp"/*.zip)"
     rm -rf "$tmp"
+    # Modules purs : tests sans session GNOME (rendu, lecture d'état, planificateur, géométrie).
+    command -v gjs >/dev/null || die "gjs absent"
+    gjs -m "$HERE/tests/test-pure.js" | tail -n 1
+    gjs -m "$HERE/tests/test-render.js" | tail -n 1
+    if command -v node >/dev/null; then
+        (cd "$HERE" && node tests/test-render.js | tail -n 1 &&
+            node --import ./tests/shell-harness/register.mjs tests/test-extension.mjs | tail -n 1)
+    else
+        echo "node absent : harnais extension (tests/test-extension.mjs) non exécuté"
+    fi
     local ver; ver="$(gnome-shell --version 2>/dev/null || true)"
     echo "shell local : ${ver:-inconnu}"
 }

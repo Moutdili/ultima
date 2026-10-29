@@ -2,6 +2,11 @@
 # Porte de vérification de la partie CALCUL (Hermes) — à lancer avant tout merge.
 # Usage : bash tools/hermes-verify.sh [--fast]
 set -uo pipefail
+
+# ULTIMA_DATA redirige les catalogues hors du dépôt. Sur une machine où plusieurs worktrees
+# tournent en parallèle, un agent peut l'exporter dans le shell partagé : la porte vérifierait
+# alors les données d'un autre worktree (9 tests en échec constatés). La porte teste CE dépôt.
+unset ULTIMA_DATA
 cd "$(dirname "$0")/.."
 export PATH="$HOME/.dotnet:$PATH"
 export DOTNET_CLI_TELEMETRY_OPTOUT=1 DOTNET_NOLOGO=1
