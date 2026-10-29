@@ -491,4 +491,23 @@ public sealed class PathAnalyzerTests
         Assert.Empty(view.NextChoices);
         Assert.Empty(view.Nodes);
     }
+
+    /// <summary>
+    /// Contrat v1.1 : `PathChoice.RoomType` / `NodeFrequency.RoomType` ne doivent contenir que les
+    /// valeurs fixées par <see cref="RoomTypes"/>. Un ancien libellé (« event », « rest »…) casserait
+    /// la correspondance côté overlay sans erreur visible.
+    /// </summary>
+    [Fact]
+    public void Room_types_are_the_fixed_contract_values()
+    {
+        var view = Analyze();
+
+        Assert.NotEmpty(view.NextChoices);
+        Assert.All(view.NextChoices, c => Assert.Contains(c.RoomType, RoomTypes.All));
+        Assert.All(view.Nodes, n => Assert.Contains(n.RoomType, RoomTypes.All));
+
+        // Les 6 types comptés dans RoomCounts viennent aussi du contrat.
+        foreach (var t in PathAnalyzer.CountedTypes)
+            Assert.Contains(t, RoomTypes.All);
+    }
 }
