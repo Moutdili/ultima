@@ -170,8 +170,14 @@ Oui, et largement :
   basse annoncée) et `/api/runs/shared/{hash}` qui renvoie le **JSON complet du jeu** (mêmes champs
   que `saves/history/*.run` : `map_point_history`, `player_stats` par joueur, `card_choices`,
   `relic_choices`, `was_picked`).
-- Outil ajouté : `tools/fetch_spire_codex.py` (listing + détails concurrents, reprise par hash).
-  Échantillon mesuré : **60 runs en 3,5 s**, ~32 Ko/run → 10 000 runs ≈ 320 Mo.
+- **Export complet** : `/api/exports/runs/manifest` → 2 466 928 runs au total, 8,54 Go, JSONL gzippé
+  par version. Pour v0.107.1 : **785 121 runs, 2,63 Go, sha256 vérifié** (téléchargé).
+- `tools/fetch_codex_static.py` → `data/codex/` : 577 cartes (498 avec valeurs numériques),
+  115 monstres (15 boss, dégâts par ascension), 87 rencontres, 50 combats avec `avg_damage`/`avg_turns`,
+  archétypes, stats communauté (2,24 M runs).
+- `tools/index_runs.py` → `data/index/runs-v0.107.1.jsonl.gz` : **785 121 runs, 19 039 107 décisions
+  de cartes** (28,3 % de skip), 516 Mo, 401 s. **309 276 runs co-op (39,4 %)**, win rate 20,9 %.
+- Replays combat : inexistants (1 run sur 273) → pas de données tour par tour.
 - Le corpus contient du **co-op** (échantillon : 5 runs à 2 joueurs, 3 à 3 joueurs) — indispensable
   pour calibrer L3.
 - ⚠️ Le jeu public est déjà en **v0.111.0** : sur l'échantillon, 29/60 runs sont sur ce patch, 31 sur
