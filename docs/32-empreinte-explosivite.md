@@ -109,6 +109,8 @@ C'est exactement l'argument de Mio : une stratégie « empiler du mana et frappe
 ## 5. Ce qui reste à construire
 
 1. **Déduplication** du corpus par signature de contenu (deck + reliques + trajectoire) → index propre.
+   **Fait (S18)** : `docs/33-dedup-corpus.md` — 574 569 runs uniques sur 785 121 (26,8 % de copies),
+   co-op = 86 % des retraits, calibration gonflée de 6,2 % seulement.
 2. **Expression par run** : courbe de puissance cumulée par étage (pente, courbure, paliers d'acte) + profil d'explosivité (tours et dégâts par combat, comparés à la moyenne de la rencontre).
 3. **Clustering** des expressions → archétypes (explosif, tanky, scaling, hybride) et poids par acte.
 4. **Catalogue de contraintes** par rencontre (plafond de dégâts, respawn, représailles) issu du code source.
