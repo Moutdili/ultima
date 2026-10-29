@@ -6,7 +6,9 @@ Zéro dépendance (python3 >= 3.9, stdlib seule). Lecture seule sur le source du
 Régénération (commande exacte, depuis la racine du dépôt — c'est ce qu'appelle le Makefile) :
     python3 tools/index_source.py --src game/pck/src/Core --out data/catalog --repo .
 Depuis un worktree dont game/ n'est pas extrait, pointer --src vers une copie extraite, ex. :
-    python3 tools/index_source.py --src /home/mio/sts2/game/pck/src/Core --out data/catalog --repo .
+    python3 tools/index_source.py --src ../autre-clone/game/pck/src/Core --out data/catalog --repo .
+(aucun chemin utilisateur n'est code en dur : --src est libre, stats.json n'enregistre qu'un
+chemin relatif au depot quand le source est sous --repo)
 
 Entrées (sous --src = .../src/Core) :
   - Models/Cards/*.cs      (classes dérivant de CardModel ; Models/Cards/Mocks/ ignoré)
@@ -53,6 +55,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 from collections import Counter
 from pathlib import Path
@@ -375,6 +378,14 @@ def main() -> None:
     outdir = Path(args.out).resolve()
     outdir.mkdir(parents=True, exist_ok=True)
 
+    # Chemin PORTABLE dans stats.json : jamais /home/<user>. Relatif au depot quand c'est
+    # possible, sinon relatif avec ../ (le champ reste lisible depuis n'importe quel clone).
+    repo_root = Path(args.repo).resolve()
+    try:
+        source_root = str(src.relative_to(repo_root))
+    except ValueError:
+        source_root = os.path.relpath(src, repo_root)
+
     cards = parse_cards(core)
     monsters = parse_monsters(core)
     powers = parse_powers(core)
@@ -383,7 +394,8 @@ def main() -> None:
     offensive = [row for rows in intents.values() for row in rows]
 
     stats = {
-        "source_root": str(src),
+        "source_root": source_root,
+        "source_root_note": "relatif a la racine du depot (jeu decompile, non commite)",
         "cards": len(cards),
         "cards_by_type": dict(Counter(c.get("type", "?") for c in cards)),
         "cards_by_rarity": dict(Counter(c.get("rarity", "?") for c in cards)),

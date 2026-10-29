@@ -228,20 +228,21 @@ public sealed class DeckTests
 
         Evaluator.Evaluate(ctx); // chauffe : chargement lazy des catalogues (data/catalog)
 
-        // Microbenchmark : on garde le meilleur lot, pas la moyenne. En suite complète, les autres
-        // classes de tests tournent en parallèle et gonflent la moyenne sans que le code évalué
-        // change ; le budget de 5 ms par appel, lui, n'est pas modifié.
-        const int batches = 5, perBatch = 5;
-        double perCall = double.MaxValue;
-        for (int batch = 0; batch < batches; batch++)
+        // Mesure ROBUSTE : le minimum par lot de 20 appels, sur 5 lots. Une moyenne unique est
+        // sensible à une pause GC / au scheduler (test instable en CI ou pendant un build
+        // parallèle) ; le minimum, non. Le seuil garde son sens : une régression O(n²) ralentit
+        // tous les lots, pas un seul.
+        const int iterations = 20, batches = 5;
+        double best = double.MaxValue;
+        for (int b = 0; b < batches; b++)
         {
             var sw = Stopwatch.StartNew();
-            for (int i = 0; i < perBatch; i++) Evaluator.Evaluate(ctx);
+            for (int i = 0; i < iterations; i++) Evaluator.Evaluate(ctx);
             sw.Stop();
-            perCall = Math.Min(perCall, sw.Elapsed.TotalMilliseconds / perBatch);
+            best = Math.Min(best, sw.Elapsed.TotalMilliseconds / iterations);
         }
 
-        Assert.True(perCall < 5.0, $"attendu < 5 ms par appel sur 60 cartes, mesuré {perCall:0.###} ms");
+        Assert.True(best < 5.0, $"attendu < 5 ms par appel sur 60 cartes, mesuré {best:0.###} ms");
         Assert.InRange(Evaluator.Evaluate(ctx).Score.Total, 0, 100);
     }
 

@@ -38,6 +38,18 @@ cat docs/11-api-catalog.md    # classes/hooks/API vérifiés
 bash tools/doctor.sh          # vérifie toolchain + jeu + mods
 ```
 
+## Clone hors ligne (aucun gros téléchargement)
+
+Un clone suffit pour compiler et tester le moteur : les catalogues utilisés à l'exécution sont
+**commités** dans `data/catalog/` et `data/meta/` (~1,6 Mo au total), les corpus de backtest
+(`data/exports/`, `data/index/`, `data/runs/`, `data/codex/`) sont gitignorés et facultatifs.
+
+```bash
+bash tools/check-offline.sh   # preuve : git archive → build + tests sur un clone propre, hors réseau
+```
+
+Détail des fichiers (rôle, poids, script de régénération) : [`data/README.md`](data/README.md).
+
 ## Arborescence
 
 ```
