@@ -1,0 +1,4 @@
+{
+  "FOG_TONIC.description": "Mists hide [blue]{DamageDecrease}%[/blue] of the view {Repeat:plural:until tomorrow|for [blue]{}[/blue] days}.",
+  "FOG_TONIC.title": "Fog Tonic"
+}

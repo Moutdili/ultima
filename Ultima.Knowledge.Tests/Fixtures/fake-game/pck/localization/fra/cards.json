@@ -1,0 +1,10 @@
+{
+  "EMBER_SLASH.description": "Brûlez pour {Damage:diff()}.\nTirez {Cards:diff()} {Cards:plural:jeton|jetons}.",
+  "EMBER_SLASH.title": "Taillade de braise",
+  "HOLLOW_HEX.title": "Maléfice creux",
+  "QUICK_STUDY.description": "Obtenez {Energy:energyIcons()}.\n[gold]Polissez[/gold] {IfUpgraded:show:TOUS les cailloux|un caillou}.{InCombat:\n(Vous tenez {CalculatedCards:diff()} cailloux)|}",
+  "QUICK_STUDY.title": "Étude rapide",
+  "STAR_TOSS.description": "Obtenez {Stars:starIcons()}.\nVaut 0 {energyPrefix:energyIcons(1)}.\n{Hits:cond:>1?Tapez {Hits:diff()} fois|Tapez une fois}.",
+  "STAR_TOSS.title": "Lancer d'étoiles",
+  "MOCK_THING.title": "Objet factice"
+}

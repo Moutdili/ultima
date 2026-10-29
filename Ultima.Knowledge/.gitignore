@@ -1,0 +1,4 @@
+# La base générée contient les textes du jeu (MegaCrit) : jamais commitée.
+kb.json
+*.kb.json
+coverage.md

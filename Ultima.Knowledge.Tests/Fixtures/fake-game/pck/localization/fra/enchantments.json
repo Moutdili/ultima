@@ -1,0 +1,8 @@
+{
+  "GLEAM.description": "Au premier usage de ce jeton, tirez [blue]{Amount}[/blue] {Amount:plural:jeton|jetons} et obtenez {Amount:energyIcons()}.",
+  "GLEAM.extraCardText": "Tirez {Amount} {Amount:plural:jeton|jetons}.",
+  "GLEAM.title": "Lueur",
+  "BRACED.description": "Dressez [blue]{Block:diff()}[/blue] [gold]Remparts[/gold].",
+  "BRACED.title": "Arc-bouté",
+  "MOCK_FREE_ENCHANTMENT.title": "Factice"
+}
