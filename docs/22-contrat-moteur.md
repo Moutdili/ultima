@@ -27,3 +27,10 @@ Ultima.Engine (scoring, ─┘        └── réglages : ~/.config/ultima/set
 | **Hermes** (calcul, ses sous-agents — docs/23) | `Ultima.Engine/Scoring/**`, `Ultima.Engine/Paths/**`, `Ultima.Engine.Tests/Scoring/**`, `Ultima.Engine.Tests/Paths/**` |
 | Câbleur | `Ultima.Daemon/**`, `Ultima.Daemon.Tests/**`, `docs/ipc/**` |
 | Verrier GNOME | `overlay/gnome/**` |
+
+## Exemple d'état (IPC)
+`docs/22-state.sample.json` : état réaliste (shop Necrobinder de la fenêtre de test), sérialisation
+camelCase de `EngineState`. Score `null` = calcul pas encore disponible (Hermes) → l'UI affiche « — ».
+Transport v1 : fichier `$XDG_RUNTIME_DIR/ultima/state.json` réécrit atomiquement (tmp + rename) à
+chaque changement, plus socket Unix `$XDG_RUNTIME_DIR/ultima/state.sock` (une ligne JSON par état).
+Réglages : `~/.config/ultima/settings.json` (écrit par le compagnon, surveillé par le daemon).
