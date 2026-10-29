@@ -161,3 +161,12 @@ honnête (survivants d'acte, acte 3 déclaré non identifiable, 660 champs Pytho
    (±20) comme aujourd'hui ; ne pas les laisser dominer la méta.
 9. **[info] Corpus Spire Codex** : conditions d'utilisation introuvables (docs/meta) — garder le brut hors
    dépôt (c'est le cas), ne publier que des agrégats, et ménager l'API (cache, débit limité).
+
+---
+## Chef — S29 intégré (2026-10-29 18:20)
+`hermes/s29-wiring` (7189247) mergé dans main : 247/247 sur clone propre. Écart 297/304 tranché dans
+docs/22 (mêmes 304 identifiants ; 7 reliques « localisation seule » = sans classe dans le code :
+CURSED_KETTLE, ENDLESS_APPETITE, GLOWING_ORB, INK_BOTTLE, MYSTERIOUS_COCOON, RED_VINE_TEA, VINE_BRACELET
+— pas Circlet/Wongo Badge). Ajoute le drapeau `localization_only` dans le registre et exclus-les des totaux.
+Rappel : `hermes-verify` est en HOLD sur la machine de Mio — 5 tests dépendent de `data/meta/local/`
+(Context/Fit/Need) : à rendre indépendants (fixture de méta), cf. revue ci-dessus.
