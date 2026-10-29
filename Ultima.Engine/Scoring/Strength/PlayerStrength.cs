@@ -111,6 +111,54 @@ public sealed record PlayerStrength(
 }
 
 /// <summary>
+/// ΔG d'un objet (carte ou relique) avec son état avant/après : <c>Delta = After.Total − Before.Total</c>.
+/// <see cref="Describe"/> explique le chiffre en nommant les dimensions qui bougent — c'est la source
+/// du terme « Fit au deck (ΔG) » (docs/27 §4 : pas de phrase sans chiffre derrière).
+/// </summary>
+public sealed record StrengthDelta(PlayerStrength Before, PlayerStrength After, string ItemId)
+{
+    /// <summary>Valeur de l'objet en points de G. Négative possible (dilution d'un deck saturé).</summary>
+    public int Delta => After.Total - Before.Total;
+
+    /// <summary>Libellé chiffré : dimensions déplacées + mesures qui les portent.</summary>
+    public string Describe()
+    {
+        var parts = new List<string>();
+        Dimension(parts, "survie", Before.Survie, After.Survie);
+        Dimension(parts, "offense", Before.Offense, After.Offense);
+        Dimension(parts, "consistance", Before.Consistance, After.Consistance);
+        Dimension(parts, "couverture", Before.Couverture, After.Couverture);
+
+        Measure(parts, "bloc/tour", "blockPerTurn");
+        Measure(parts, "dégâts/tour", "damagePerTurn");
+        Measure(parts, "pioche/tour", "drawPerTurn");
+        Measure(parts, "énergie/tour", "energyPerTurn");
+
+        var moved = parts.Count > 0 ? string.Join(", ", parts) : "aucune dimension ne bouge";
+        var sign = Delta >= 0 ? "+" : "−";
+        return $"ΔG = {sign}{Math.Abs(Delta)} pts (G {Before.Total} → {After.Total}, acte {Before.Act}) : " +
+               $"{moved} · docs/27 §7bis";
+    }
+
+    private void Dimension(List<string> parts, string name, int before, int after)
+    {
+        if (before == after) return;
+        var sign = after > before ? "+" : "−";
+        parts.Add($"{sign}{name} {before}→{after} ({sign}{Math.Abs(after - before)})");
+    }
+
+    private void Measure(List<string> parts, string name, string key)
+    {
+        if (!Before.Measures.TryGetValue(key, out var before) || !After.Measures.TryGetValue(key, out var after))
+            return;
+        if (Math.Abs(after - before) < 0.05) return;
+        parts.Add($"{name} {Num(before)}→{Num(after)}");
+    }
+
+    private static string Num(double value) => value.ToString("0.0", CultureInfo.InvariantCulture);
+}
+
+/// <summary>
 /// Calcule <see cref="PlayerStrength"/> depuis les <b>effets numériques</b> des cartes
 /// (<c>data/catalog/cards_effects.json</c>), les tags des reliques (<c>data/catalog/relics.json</c>),
 /// les PV du joueur et le modèle de menace (<c>data/catalog/monsters.json</c> +
@@ -474,12 +522,44 @@ public sealed class PlayerStrengthCalculator
     /// Valeur d'une carte en points de G (docs/27 §7bis) : <c>ΔG = G(deck + carte) − G(deck)</c>.
     /// Négatif possible (une carte qui dilue un deck saturé).
     /// </summary>
-    public int DeltaForCard(ScoringContext ctx, CardInstance card, ThreatStatuses? statuses = null)
+    public int DeltaForCard(ScoringContext ctx, CardInstance card, ThreatStatuses? statuses = null) =>
+        DeltaForCardDetailed(ctx, card, statuses).Delta;
+
+    /// <summary>
+    /// ΔG d'une relique : <c>G(reliques + relique) − G(reliques)</c>, à deck constant. Les reliques
+    /// passent par les <b>mêmes tags</b> que S11 (<see cref="RelicResources"/>) : une relique déjà
+    /// possédée vaut 0 (aucun double comptage).
+    /// </summary>
+    public int DeltaForRelic(ScoringContext ctx, string relicId, ThreatStatuses? statuses = null) =>
+        DeltaForRelicDetailed(ctx, relicId, statuses).Delta;
+
+    /// <summary>
+    /// ΔG d'une carte avec l'état avant/après : c'est ce que le terme « Fit au deck » affiche pour
+    /// nommer les dimensions qui bougent. Le score reste <c>After.Total − Before.Total</c>.
+    /// </summary>
+    public StrengthDelta DeltaForCardDetailed(ScoringContext ctx, CardInstance card, ThreatStatuses? statuses = null)
     {
         var before = Compute(ctx, statuses);
         var deck = new List<CardInstance>(ctx.Deck ?? Array.Empty<CardInstance>()) { card };
         var after = Compute(ctx with { Deck = deck }, statuses);
-        return after.Total - before.Total;
+        return new StrengthDelta(before, after, card.Id);
+    }
+
+    /// <summary>ΔG d'une relique avec l'état avant/après (relique déjà possédée ⇒ delta 0).</summary>
+    public StrengthDelta DeltaForRelicDetailed(ScoringContext ctx, string relicId, ThreatStatuses? statuses = null)
+    {
+        var before = Compute(ctx, statuses);
+        var owned = ctx.RelicIds ?? Array.Empty<string>();
+
+        foreach (var id in owned)
+        {
+            if (string.Equals(Ids.Bare(id), Ids.Bare(relicId), StringComparison.OrdinalIgnoreCase))
+                return new StrengthDelta(before, before, relicId);
+        }
+
+        var relics = new List<string>(owned) { relicId };
+        var after = Compute(ctx with { RelicIds = relics }, statuses);
+        return new StrengthDelta(before, after, relicId);
     }
 
     // --- Menace ---------------------------------------------------------------------------------
