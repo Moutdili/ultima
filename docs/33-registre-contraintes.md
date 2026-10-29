@@ -42,6 +42,7 @@
 | Ordre de mélange (`ModifyShuffleOrder`) | ❌ | absent (jeu supposé uniforme) |
 | Valeur X (`ModifyXValue`) | partiel | X supposé = 1 énergie |
 | Co-op (revive 1 PV, reliques perso, coffre 3, RPS) | ❌ | L3 non implémenté |
+| Cartes de soutien co-op (13 : 8 `AnyAlly`, 5 `AllAllies`) | partiel | `CoopScorer` : ΔG sur le deck de chaque allié, cession si écart ≥ +3 (seuil **non calibré**) — `status/hermes-s23.md`, index `data/catalog/coop_cards.json` |
 | Reliques (effets numériques) | partiel | converties en tags |
 | Potions | partiel | tags dérivés de la description FR |
 
