@@ -54,7 +54,12 @@ public sealed class FitTests
         Assert.NotNull(bareFit);
         Assert.Equal(CardScorer.MaxFit, bareFit!.Points);
 
-        Assert.Null(Fit(covered)); // idempotence : plus aucun fit à émettre
+        // Idempotence : le besoin est couvert, le fit résiduel est marginal — 2 points sur un
+        // plafond de 20, soit 10× moins que dans le deck sans bloc. ΔG mesuré = +1 pt
+        // (survie +3, consistance −2). Ce +1 existait déjà avant S17 : il était simplement masqué
+        // par la pénalité de dilution de l'ancienne Offense (Σdégâts/N, une carte à 0 dégât
+        // faisait baisser la densité) ; le burst top-k ne dilue plus, donc le +1 apparaît.
+        Assert.InRange(Fit(covered)?.Points ?? 0, 0, 2);
         Assert.True(bare.Total > covered.Total,
             $"Impervious dans un deck sans bloc = {bare.Total}, dans un deck couvert = {covered.Total}");
         Assert.Equal("A", bare.Grade);

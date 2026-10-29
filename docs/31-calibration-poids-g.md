@@ -173,3 +173,49 @@ python3 -I tools/calibration/selftest.py   # 63 vérifications, sans données
 
 Durées mesurées : ~11 min pour les features (541 Mo compressés à décompresser), 34 s pour
 l'ajustement complet, < 1 s pour l'autotest.
+
+## 7. S17 — suite : la formule d'Offense a été corrigée
+
+Le constat §4.2 (« l'Offense, telle que le code la mesure, ne sépare rien ») a été instruit par
+`tools/calibration/diagnose_offense.py`, qui compare **24 définitions candidates** sur le même
+corpus (même filtre, même reconstruction, mêmes 39 026 / 18 840 lignes d'acte) : densité de dégâts,
+dégâts par énergie, dégâts avec améliorations (borne haute), burst des k meilleures cartes,
+burst + scaling, dégâts soutenus, dégâts de zone, scaling seul, et deux contrôles de **composition**
+(nombre de cartes Rares, de Pouvoirs).
+
+Résultat mesuré (AUC univariée / β ajusté ascension + personnage) :
+
+| définition | acte 1 | acte 2 |
+|---|---|---|
+| densité actuelle (S15) | 0,511 / +0,078 | 0,471 / −0,097 |
+| densité avec améliorations | 0,503 / +0,032 | 0,469 / −0,110 |
+| dégâts par énergie | 0,511 / +0,088 | 0,470 / −0,092 |
+| burst top-k | 0,545 / +0,161 | 0,485 / −0,054 |
+| **burst + scaling** | **0,549 / +0,164** | **0,480 / −0,070** |
+| dégâts soutenus (densité + scaling) | 0,525 / +0,091 | 0,468 / −0,124 |
+| score du code (0,8·sat + 0,2·sat scaling) | 0,503 / −0,012 | 0,459 / −0,160 |
+| nombre de cartes Rares (contrôle) | 0,610 / +0,421 | 0,560 / +0,226 |
+
+Deux défauts de l'ancienne mesure sont donc établis, pas supposés :
+
+1. **la division par la taille du deck et les cartes jouées au hasard** : elle fait baisser la
+   mesure quand on ajoute un pouvoir, et c'est ce qui la rendait inutilisable ;
+2. **le poids séparé de 20 % sur le scaling** : il inversait le signe de la dimension à l'acte 1
+   (score 0,503 avec β −0,012 alors que la densité brute a β +0,078).
+
+Décision appliquée : `Offense = 100·(burst + scaling) / (burst + scaling + PV_boss/8)`, où
+`burst = Σ des k plus gros dégâts du deck`, `k = ceil(pioche × taux de jeu)`, et
+`scaling = Force/Poison/Focus des cartes + Force des reliques`. Le burst garde le tempo (plus de
+pioche ou d'énergie ⇒ plus de cartes comptées), ne compte pas le remplissage et reste borné par une
+saturation unique — les rendements décroissants et l'idempotence de docs/27 §7bis sont conservés.
+
+**Ce que ça ne prouve pas.** La correction améliore la mesure sans créer de signal à l'acte 2 :
+aucune des 24 définitions ne dépasse 0,55 sur cet acte, et `burst` contrôlé par bloc/tour et PV y
+tombe à −0,043 (≈ 2,5 SE). Offense reste la dimension la plus faible après correction ; le poids
+proposé à l'acte 2 est **0**, pas une valeur forcée. Les variables de *composition* du deck
+(Rares, Pouvoirs) séparent nettement mieux (0,61 / 0,59) : c'est un signal de qualité de deck, pas
+de puissance de mise à mort, et il n'est **pas** implémenté comme Offense.
+
+Détail complet, définitions et contrôles : `status/hermes-s17.md` ; parité C#/Python vérifiée par
+`tools/calibration/validate_csharp.py` (60 decks, 1020 champs, 0 écart).
+

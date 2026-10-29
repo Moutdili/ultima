@@ -4,22 +4,29 @@ Calibre les **poids des quatre dimensions du score global** (`docs/27` §7bis) s
 réels, au lieu de les choisir à la main. Python 3 **standard library uniquement**, hors ligne.
 
 ```bash
-# 1. features : une ligne par run (état de fin de run) ET une ligne par run × acte
+# 1. diagnostic d'une dimension (S17) : 24 définitions candidates d'Offense, AUC + β ajusté
+python3 -I tools/calibration/diagnose_offense.py extract --stride 6 --out /tmp/cand.jsonl
+python3 -I tools/calibration/diagnose_offense.py analyze --features /tmp/cand.jsonl
+
+# 2. features : une ligne par run (état de fin de run) ET une ligne par run × acte
 python3 -I tools/calibration/features.py --state both --stride 6 --out /tmp/features.jsonl
 
-# 2. ajustement : écrit data/calibration/weights.json + tools/calibration/report.md
+# 3. ajustement : écrit data/calibration/weights.json + tools/calibration/report.md
 python3 -I tools/calibration/fit_weights.py --features /tmp/features.jsonl
 
-# 3. vérifications (aucune donnée requise)
-python3 -I tools/calibration/selftest.py
+# 4. vérifications
+python3 -I tools/calibration/selftest.py                 # 69 vérifications, sans données
+python3 -I tools/calibration/validate_csharp.py --decks 60   # parité avec le moteur C#
 ```
 
 ```
 tools/calibration/
-├── features.py      # reconstruit les 4 dimensions (mêmes formules que PlayerStrength.cs)
-├── fit_weights.py   # régression logistique (IRLS) + modèle d'indice + rapport
-├── selftest.py      # 63 vérifications hors données
-├── report.md        # GÉNÉRÉ — ne pas éditer à la main
+├── features.py           # reconstruit les 4 dimensions (mêmes formules que PlayerStrength.cs)
+├── diagnose_offense.py   # S17 : compare 24 définitions d'Offense (AUC, β ajusté, contrôles)
+├── validate_csharp.py    # compare champ par champ features.py ↔ PlayerStrength.G (dotnet run)
+├── fit_weights.py        # régression logistique (IRLS) + modèle d'indice + rapport
+├── selftest.py           # 69 vérifications hors données
+├── report.md             # GÉNÉRÉ — ne pas éditer à la main
 └── README.md
 ```
 
@@ -32,8 +39,11 @@ tools/calibration/
 
 ## Ce que ça ne fait pas
 
-- **Aucune modification du C#.** Les poids de `StrengthWeights.Act1/Act2/Act3` restent la
+- **Aucune modification des poids du C#.** Les poids de `StrengthWeights.Act1/Act2/Act3` restent la
   référence à l'exécution ; ce dossier ne fait que proposer. L'arbitrage est une autre tâche.
+- **Mais la mesure d'une dimension peut changer ici.** S17 a corrigé la formule d'Offense dans
+  `PlayerStrength.cs` *et* dans `features.py` : les deux doivent rester identiques, ce que
+  `validate_csharp.py` vérifie champ par champ (60 decks, 1020 champs, 0 écart attendu).
 - Pas de causalité : les features décrivent l'état du joueur, qui est en partie la conséquence
   de ses choix et de la chance. Voir `report.md` §5.
 

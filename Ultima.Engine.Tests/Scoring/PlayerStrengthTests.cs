@@ -106,14 +106,60 @@ public sealed class PlayerStrengthTests
     }
 
     [Fact]
-    public void Adding_strikes_raises_offense()
+    public void Adding_a_stronger_damage_card_raises_offense()
     {
+        var before = PlayerStrength.G(Ctx(Starter()));
+        // Un 2e Bash (8 dégâts) entre dans les 3 cartes jouées par tour : le plafond passe de
+        // 8+6+6 à 8+8+6. C'est la grandeur que la dimension mesure depuis S17.
+        var after = PlayerStrength.G(Ctx(Starter().Append(Bash())));
+
+        Assert.True(after.Offense > before.Offense,
+            $"Offense {before.Offense} → {after.Offense} : un 2e Bash doit augmenter l'offense");
+        Assert.True(after.Measures["damagePerTurn"] > before.Measures["damagePerTurn"]);
+    }
+
+    [Fact]
+    public void Redundant_strikes_do_not_raise_offense()
+    {
+        // S17 : l'offense est la somme des k meilleures cartes (k = cartes jouées par tour), pas
+        // une moyenne du deck. 5 Strike de plus dans un deck de 11 cartes ne changent pas les 3
+        // cartes jouées : le plafond est identique, donc ΔG d'une carte redondante ≈ 0 — c'est
+        // l'idempotence de docs/27 §7bis. La densité moyenne, elle, bougeait (ancienne mesure).
         var before = PlayerStrength.G(Ctx(Starter()));
         var after = PlayerStrength.G(Ctx(Starter().Concat(Enumerable.Repeat(Strike(), 5))));
 
+        Assert.Equal(before.Measures["damagePerTurn"], after.Measures["damagePerTurn"], 2);
+        Assert.InRange(Math.Abs(after.Offense - before.Offense), 0, 1);
+        Assert.True(after.Measures["damageDensityPerTurn"] > before.Measures["damageDensityPerTurn"],
+            "la densité moyenne reste exposée comme mesure de diagnostic, et elle bouge");
+    }
+
+    [Fact]
+    public void Power_with_scaling_raises_offense_without_dealing_damage()
+    {
+        // Inflame : pouvoir, 0 dégât, +2 Force. L'ancienne densité moyenne le pénalisait (une
+        // carte à 0 dégât dilue Σdégâts/N) ; le burst top-k ne le compte pas comme dégât, mais le
+        // scaling s'ajoute aux dégâts/tour — un deck de pouvoirs n'est donc plus puni.
+        var before = PlayerStrength.G(Ctx(Starter()));
+        var after = PlayerStrength.G(Ctx(Starter().Append(Card("CARD.INFLAME"))));
+
+        Assert.Equal(before.Measures["damagePerTurn"], after.Measures["damagePerTurn"], 2);
+        Assert.True(after.Measures["scaling"] > before.Measures["scaling"]);
         Assert.True(after.Offense > before.Offense,
-            $"Offense {before.Offense} → {after.Offense} : 5 Strike doivent augmenter l'offense");
-        Assert.True(after.Measures["damagePerTurn"] > before.Measures["damagePerTurn"]);
+            $"Offense {before.Offense} → {after.Offense} : +2 Force doit augmenter l'offense");
+    }
+
+    [Fact]
+    public void Saturated_offense_plateaus_instead_of_growing()
+    {
+        // Le plafond de dégâts par tour est borné par les cartes réellement jouables : 40 Strike
+        // ne sortent pas plus de dégâts par tour que 20, seule la moyenne du deck monterait.
+        var twenty = PlayerStrength.G(Ctx(Enumerable.Repeat(Strike(), 20)));
+        var forty = PlayerStrength.G(Ctx(Enumerable.Repeat(Strike(), 40)));
+
+        Assert.True(twenty.Offense < 100, $"l'offense doit saturer sous 100, obtenu {twenty.Offense}");
+        Assert.Equal(twenty.Measures["damagePerTurn"], forty.Measures["damagePerTurn"], 2);
+        Assert.InRange(Math.Abs(forty.Offense - twenty.Offense), 0, 1);
     }
 
     [Fact]
