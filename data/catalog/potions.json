@@ -1,0 +1,526 @@
+{
+ "schema": "ultima.catalog.potions/1",
+ "source": "game/pck/localization/fra/potions.json",
+ "generated_by": "tools/index_potions.py",
+ "count": 64,
+ "potions": [
+  {
+   "id": "ASHWATER",
+   "name_fr": "Eau cendrée",
+   "description_fr": "[gold]Épuisez[/gold] autant de cartes de votre [gold]Main[/gold] que vous souhaitez.",
+   "tags": []
+  },
+  {
+   "id": "ATTACK_POTION",
+   "name_fr": "Potion d'attaque",
+   "description_fr": "Choisissez [blue]1[/blue] Attaque parmi [blue]3[/blue] aléatoires à ajouter à votre [gold]Main[/gold]. Elle coûte [blue]0[/blue] ce tour.",
+   "tags": [
+    "tempo",
+    "cards"
+   ]
+  },
+  {
+   "id": "BEETLE_JUICE",
+   "name_fr": "Jus de coléoptère",
+   "description_fr": "Les attaques de l'ennemi infligent [blue]{DamageDecrease}%[/blue] de dégâts en moins {Repeat:plural:le prochain tour|pendant les [blue]{}[/blue] prochains tours}.",
+   "tags": [
+    "damage"
+   ]
+  },
+  {
+   "id": "BLESSING_OF_THE_FORGE",
+   "name_fr": "Bénédiction de la forge",
+   "description_fr": "[gold]Améliorez[/gold] toutes les cartes de votre [gold]Main[/gold] pour le restant du combat.",
+   "tags": [
+    "cards"
+   ]
+  },
+  {
+   "id": "BLOCK_POTION",
+   "name_fr": "Potion d'armure",
+   "description_fr": "Gagnez [blue]{Block}[/blue] d'[gold]Armure[/gold].",
+   "tags": [
+    "block"
+   ]
+  },
+  {
+   "id": "BLOOD_POTION",
+   "name_fr": "Potion sanguine",
+   "description_fr": "Récupérez [green]{HealPercent}%[/green] de vos PV Max.",
+   "tags": [
+    "heal",
+    "maxhp"
+   ]
+  },
+  {
+   "id": "BONE_BREW",
+   "name_fr": "Infusion osseuse",
+   "description_fr": "[gold]Invoquez[/gold] pour [blue]{Summon}[/blue].",
+   "tags": [
+    "cards"
+   ]
+  },
+  {
+   "id": "BOTTLED_POTENTIAL",
+   "name_fr": "Potentiel en bouteille",
+   "description_fr": "Mélangez TOUTES vos cartes dans votre [gold]Pioche[/gold]. Piochez [blue]{Cards}[/blue] {Cards:plural:carte|cartes}.",
+   "tags": [
+    "draw",
+    "tempo"
+   ]
+  },
+  {
+   "id": "CLARITY",
+   "name_fr": "Extrait de lucidité",
+   "description_fr": "Piochez [blue]{Cards}[/blue] {Cards:plural:carte|cartes}. Au début de {ClarityPower:plural:votre prochain tour|vos [blue]{}[/blue] prochains tours}, piochez [blue]1[/blue] carte supplémentaire.",
+   "tags": [
+    "draw"
+   ]
+  },
+  {
+   "id": "COLORLESS_POTION",
+   "name_fr": "Potion incolore",
+   "description_fr": "Choisissez [blue]1[/blue] carte Incolore parmi [blue]3[/blue] aléatoires à ajouter à votre [gold]Main[/gold]. Elle coûte [blue]0[/blue] ce tour.",
+   "tags": [
+    "tempo",
+    "cards"
+   ]
+  },
+  {
+   "id": "COSMIC_CONCOCTION",
+   "name_fr": "Concoction cosmique",
+   "description_fr": "Ajoutez [blue]{Cards}[/blue] {Cards:plural:carte Incolore [gold]Améliorée[/gold]|cartes Incolores [gold]Améliorées[/gold]} à votre [gold]Main[/gold].",
+   "tags": [
+    "cards"
+   ]
+  },
+  {
+   "id": "CUNNING_POTION",
+   "name_fr": "Potion de ruse",
+   "description_fr": "Ajoutez [blue]{Cards}[/blue] [gold]{Cards:plural:Surin Amélioré|Surins Améliorés}[/gold] à votre [gold]Main[/gold].",
+   "tags": [
+    "cards"
+   ]
+  },
+  {
+   "id": "CURE_ALL",
+   "name_fr": "Remède universel",
+   "description_fr": "Gagnez {Energy:energyIcons()}. Piochez [blue]{Cards}[/blue] {Cards:plural:carte|cartes}.",
+   "tags": [
+    "energy",
+    "draw"
+   ]
+  },
+  {
+   "id": "DEPRECATED_POTION",
+   "name_fr": "Potion obsolète",
+   "description_fr": "Cette potion a été retirée du jeu.",
+   "tags": []
+  },
+  {
+   "id": "DEXTERITY_POTION",
+   "name_fr": "Potion de dextérité",
+   "description_fr": "Gagnez [blue]{DexterityPower}[/blue] de [gold]Dextérité[/gold].",
+   "tags": [
+    "buff"
+   ]
+  },
+  {
+   "id": "DISTILLED_CHAOS",
+   "name_fr": "Chaos distillé",
+   "description_fr": "Jouez les [blue]{Repeat}[/blue] cartes du dessus de votre [gold]Pioche[/gold].",
+   "tags": [
+    "draw",
+    "tempo"
+   ]
+  },
+  {
+   "id": "DROPLET_OF_PRECOGNITION",
+   "name_fr": "Goutte de prescience",
+   "description_fr": "Choisissez une carte de votre [gold]Pioche[/gold] et ajoutez-la à votre [gold]Main[/gold].",
+   "tags": [
+    "draw",
+    "cards"
+   ]
+  },
+  {
+   "id": "DUPLICATOR",
+   "name_fr": "Duplicateur",
+   "description_fr": "La prochaine carte que vous jouez ce tour est jouée une fois de plus.",
+   "tags": [
+    "tempo"
+   ]
+  },
+  {
+   "id": "ENERGY_POTION",
+   "name_fr": "Potion d'énergie",
+   "description_fr": "Gagnez {Energy:energyIcons()}.",
+   "tags": [
+    "energy"
+   ]
+  },
+  {
+   "id": "ENTROPIC_BREW",
+   "name_fr": "Décoction entropique",
+   "description_fr": "Remplissez vos emplacements de potion libres avec des potions aléatoires.",
+   "tags": []
+  },
+  {
+   "id": "ESSENCE_OF_DARKNESS",
+   "name_fr": "Essence ténébreuse",
+   "description_fr": "[gold]Canalisez[/gold] un [gold]Orbe obscur[/gold] pour chacun de vos [gold]emplacements d'Orbe[/gold].",
+   "tags": [
+    "cards"
+   ]
+  },
+  {
+   "id": "EXPLOSIVE_AMPOULE",
+   "name_fr": "Ampoule explosive",
+   "description_fr": "Infligez [blue]{Damage}[/blue] {Damage:plural:dégât|dégâts} à TOUS les ennemis.",
+   "tags": [
+    "damage"
+   ]
+  },
+  {
+   "id": "FAIRY_IN_A_BOTTLE",
+   "name_fr": "Fée en bouteille",
+   "description_fr": "Si vos PV atteignent 0, défaussez cette potion et récupérez [blue]30 %[/blue] de vos PV Max.",
+   "tags": [
+    "revive",
+    "heal",
+    "maxhp",
+    "tempo"
+   ]
+  },
+  {
+   "id": "FIRE_POTION",
+   "name_fr": "Potion incendiaire",
+   "description_fr": "Infligez [blue]{Damage}[/blue] {Damage:plural:dégât|dégâts}.",
+   "tags": [
+    "damage"
+   ]
+  },
+  {
+   "id": "FLEX_POTION",
+   "name_fr": "Potion de vantardise",
+   "description_fr": "Gagnez [blue]{StrengthPower}[/blue] de [gold]Force[/gold]. À la fin de votre tour, perdez [blue]{StrengthPower}[/blue] de [gold]Force[/gold].",
+   "tags": [
+    "buff"
+   ]
+  },
+  {
+   "id": "FOCUS_POTION",
+   "name_fr": "Potion de focalisation",
+   "description_fr": "Gagnez [blue]{FocusPower}[/blue] de [gold]Focalisation[/gold].",
+   "tags": [
+    "buff"
+   ]
+  },
+  {
+   "id": "FORTIFIER",
+   "name_fr": "Fortifiant",
+   "description_fr": "Triplez votre [gold]Armure[/gold].",
+   "tags": [
+    "block"
+   ]
+  },
+  {
+   "id": "FOUL_POTION",
+   "name_fr": "Potion infecte",
+   "description_fr": "Infligez [blue]{Damage}[/blue] {Damage:plural:dégât|dégâts} à TOUS les joueurs et les ennemis.\nPeut être jetée sur le [gold]Marchand[/gold] pour [blue]{Gold}[/blue] [gold]Pièces d'or[/gold].",
+   "tags": [
+    "damage",
+    "gold"
+   ]
+  },
+  {
+   "id": "FRUIT_JUICE",
+   "name_fr": "Jus de fruits",
+   "description_fr": "Gagnez [blue]{MaxHp}[/blue] PV Max.",
+   "tags": [
+    "maxhp"
+   ]
+  },
+  {
+   "id": "FYSH_OIL",
+   "name_fr": "Huile de poissâme",
+   "description_fr": "Gagnez [blue]{StrengthPower}[/blue] de [gold]Force[/gold] et [blue]{DexterityPower}[/blue] de [gold]Dextérité[/gold].",
+   "tags": [
+    "buff"
+   ]
+  },
+  {
+   "id": "GAMBLERS_BREW",
+   "name_fr": "Décoction du parieur",
+   "description_fr": "Défaussez autant de cartes que vous le souhaitez, puis piochez-en le même nombre.",
+   "tags": [
+    "draw",
+    "tempo"
+   ]
+  },
+  {
+   "id": "GHOST_IN_A_JAR",
+   "name_fr": "Fantôme dans un bocal",
+   "description_fr": "Gagnez [gold]Intangible[/gold] [blue](1)[/blue].",
+   "tags": [
+    "block"
+   ]
+  },
+  {
+   "id": "GIGANTIFICATION_POTION",
+   "name_fr": "Potion de géantification",
+   "description_fr": "La prochaine Attaque que vous jouez inflige le triple de dégâts.",
+   "tags": [
+    "damage",
+    "tempo"
+   ]
+  },
+  {
+   "id": "GLOWWATER_POTION",
+   "name_fr": "Potion luminescente",
+   "description_fr": "[gold]Épuisez[/gold] votre [gold]Main[/gold]. Piochez [blue]{Cards}[/blue] cartes.",
+   "tags": [
+    "draw"
+   ]
+  },
+  {
+   "id": "HEART_OF_IRON",
+   "name_fr": "Cœur de fer",
+   "description_fr": "Gagnez [blue]{PlatingPower}[/blue] de [gold]Blindage[/gold].",
+   "tags": [
+    "block"
+   ]
+  },
+  {
+   "id": "KINGS_COURAGE",
+   "name_fr": "Courage du roi",
+   "description_fr": "[gold]Forgez[/gold] pour [blue]{Forge}[/blue].",
+   "tags": [
+    "cards"
+   ]
+  },
+  {
+   "id": "LIQUID_BRONZE",
+   "name_fr": "Bronze liquide",
+   "description_fr": "Gagnez [blue]{ThornsPower}[/blue] [gold]Épines[/gold].",
+   "tags": [
+    "block"
+   ]
+  },
+  {
+   "id": "LIQUID_MEMORIES",
+   "name_fr": "Souvenirs liquides",
+   "description_fr": "Ajoutez une carte de votre [gold]Défausse[/gold] à votre [gold]Main[/gold]. Elle coûte [blue]0[/blue] ce tour.",
+   "tags": [
+    "tempo",
+    "cards"
+   ]
+  },
+  {
+   "id": "LUCKY_TONIC",
+   "name_fr": "Philtre chanceux",
+   "description_fr": "Gagnez [blue]{BufferPower}[/blue] [gold]Tampon[/gold].",
+   "tags": [
+    "buff"
+   ]
+  },
+  {
+   "id": "MAZALETHS_GIFT",
+   "name_fr": "Don de Mazaleth",
+   "description_fr": "Gagnez [blue]{RitualPower}[/blue] [gold]Rituel[/gold].",
+   "tags": [
+    "buff"
+   ]
+  },
+  {
+   "id": "OROBIC_ACID",
+   "name_fr": "Acide orobique",
+   "description_fr": "Ajoutez une Attaque, une Compétence et un Pouvoir aléatoires à votre [gold]Main[/gold]. Ils coûtent [blue]0[/blue] ce tour.",
+   "tags": [
+    "tempo",
+    "cards"
+   ]
+  },
+  {
+   "id": "POISON_POTION",
+   "name_fr": "Potion de poison",
+   "description_fr": "Appliquez [blue]{PoisonPower}[/blue] de [gold]Poison[/gold].",
+   "tags": [
+    "debuff"
+   ]
+  },
+  {
+   "id": "POTION_OF_BINDING",
+   "name_fr": "Potion paralysante",
+   "description_fr": "Appliquez [gold]Affaibli[/gold] ([blue]{WeakPower:diff()}[/blue]) et [gold]Vulnérable[/gold] ([blue]{VulnerablePower:diff()}[/blue]) à TOUS les ennemis.",
+   "tags": [
+    "debuff"
+   ]
+  },
+  {
+   "id": "POTION_OF_CAPACITY",
+   "name_fr": "Potion de stockage",
+   "description_fr": "Gagnez [blue]{Repeat}[/blue] [gold]{Repeat:plural:Emplacement|Emplacements} d'Orbe[/gold].",
+   "tags": []
+  },
+  {
+   "id": "POTION_OF_DOOM",
+   "name_fr": "Potion macabre",
+   "description_fr": "Appliquez [blue]{DoomPower}[/blue] de [gold]Fatalité[/gold].",
+   "tags": [
+    "debuff"
+   ]
+  },
+  {
+   "id": "POTION_SHAPED_ROCK",
+   "name_fr": "Pierre en forme de potion",
+   "description_fr": "Infligez [blue]{Damage}[/blue] {Damage:plural:dégât|dégâts}.",
+   "tags": [
+    "damage"
+   ]
+  },
+  {
+   "id": "POT_OF_GHOULS",
+   "name_fr": "Goules en bouteille",
+   "description_fr": "Ajoutez [blue]{Cards}[/blue] [gold]{Cards:plural:Âme|Âmes}[/gold] à votre [gold]Main[/gold].",
+   "tags": [
+    "cards"
+   ]
+  },
+  {
+   "id": "POWDERED_DEMISE",
+   "name_fr": "Poudre funeste",
+   "description_fr": "L'ennemi perd [blue]{Demise}[/blue] PV à la fin de chacun de ses tours.",
+   "tags": [
+    "damage"
+   ]
+  },
+  {
+   "id": "POWER_POTION",
+   "name_fr": "Potion de pouvoir",
+   "description_fr": "Choisissez [blue]1[/blue] Pouvoir parmi [blue]3[/blue] aléatoires à ajouter à votre [gold]Main[/gold]. Il coûte [blue]0[/blue] ce tour.",
+   "tags": [
+    "tempo",
+    "cards"
+   ]
+  },
+  {
+   "id": "RADIANT_TINCTURE",
+   "name_fr": "Lampée de radiance",
+   "description_fr": "Gagnez {Energy:energyIcons()}. Gagnez {energyPrefix:energyIcons(1)} au début de {RadiancePower:plural:votre prochain tour|vos [blue]{RadiancePower}[/blue] prochains tours}.",
+   "tags": [
+    "energy"
+   ]
+  },
+  {
+   "id": "REGEN_POTION",
+   "name_fr": "Potion de régénération",
+   "description_fr": "Gagnez [green]{RegenPower}[/green] de [gold]Régénération[/gold].",
+   "tags": [
+    "heal"
+   ]
+  },
+  {
+   "id": "SHACKLING_POTION",
+   "name_fr": "Potion d'entrave",
+   "description_fr": "TOUS les ennemis perdent [blue]{StrengthPower}[/blue] de [gold]Force[/gold] ce tour.",
+   "tags": [
+    "buff"
+   ]
+  },
+  {
+   "id": "SHIP_IN_A_BOTTLE",
+   "name_fr": "Navire en bouteille",
+   "description_fr": "Gagnez [blue]{Block:diff()}[/blue] d'[gold]Armure[/gold]. Au prochain tour, gagnez [blue]{Block:diff()}[/blue] d'[gold]Armure[/gold].",
+   "tags": [
+    "block"
+   ]
+  },
+  {
+   "id": "SKILL_POTION",
+   "name_fr": "Potion de compétence",
+   "description_fr": "Choisissez [blue]1[/blue] Compétence parmi [blue]3[/blue] aléatoires à ajouter à votre [gold]Main[/gold]. Elle coûte [blue]0[/blue] ce tour.",
+   "tags": [
+    "tempo",
+    "cards"
+   ]
+  },
+  {
+   "id": "SNECKO_OIL",
+   "name_fr": "Huile de geckobra",
+   "description_fr": "Piochez [blue]{Cards}[/blue] cartes. Les cartes dans votre [gold]Main[/gold] ont un coût aléatoire pendant ce tour.",
+   "tags": [
+    "draw"
+   ]
+  },
+  {
+   "id": "SOLDIERS_STEW",
+   "name_fr": "Ragoût militaire",
+   "description_fr": "Toutes les cartes dont le nom contient [gold]Frappe[/gold] gagnent [gold]Écho[/gold] [blue](1)[/blue] pendant ce combat.",
+   "tags": []
+  },
+  {
+   "id": "SPEED_POTION",
+   "name_fr": "Potion de vitesse",
+   "description_fr": "Gagnez [blue]{DexterityPower}[/blue] de [gold]Dextérité[/gold]. À la fin de votre tour, perdez [blue]{DexterityPower}[/blue] de [gold]Dextérité[/gold].",
+   "tags": [
+    "buff"
+   ]
+  },
+  {
+   "id": "STABLE_SERUM",
+   "name_fr": "Sérum de stabilité",
+   "description_fr": "[gold]Retenez[/gold] votre [gold]Main[/gold] {Repeat:plural:jusqu'au prochain tour|pendant les [blue]{}[/blue] prochains tours}.",
+   "tags": []
+  },
+  {
+   "id": "STAR_POTION",
+   "name_fr": "Potion d'étoiles",
+   "description_fr": "Gagnez {Stars:starIcons()}.",
+   "tags": [
+    "energy"
+   ]
+  },
+  {
+   "id": "STRENGTH_POTION",
+   "name_fr": "Potion de force",
+   "description_fr": "Gagnez [blue]{StrengthPower}[/blue] de [gold]Force[/gold].",
+   "tags": [
+    "buff"
+   ]
+  },
+  {
+   "id": "SWIFT_POTION",
+   "name_fr": "Potion de célérité",
+   "description_fr": "Piochez [blue]{Cards}[/blue] {Cards:plural:carte|cartes}.",
+   "tags": [
+    "draw"
+   ]
+  },
+  {
+   "id": "TOUCH_OF_INSANITY",
+   "name_fr": "Goutte de folie",
+   "description_fr": "Choisissez une carte de votre [gold]Main[/gold]. Elle coûte [blue]0[/blue] pour le restant du combat.",
+   "tags": [
+    "tempo",
+    "cards"
+   ]
+  },
+  {
+   "id": "VULNERABLE_POTION",
+   "name_fr": "Potion de vulnérabilité",
+   "description_fr": "Appliquez [gold]Vulnérable[/gold] [blue]({VulnerablePower})[/blue].",
+   "tags": [
+    "debuff"
+   ]
+  },
+  {
+   "id": "WEAK_POTION",
+   "name_fr": "Potion d'affaiblissement",
+   "description_fr": "Appliquez [gold]Affaibli[/gold] [blue]({WeakPower})[/blue].",
+   "tags": [
+    "debuff"
+   ]
+  }
+ ]
+}

@@ -4,6 +4,7 @@ using Ultima.Engine.Scoring.Deck;
 using Ultima.Engine.Scoring.Meta;
 using Ultima.Engine.Scoring.Model;
 using Ultima.Engine.Scoring.Personal;
+using Ultima.Engine.Scoring.Potions;
 using Ultima.Engine.Scoring.Relics;
 using Ultima.Engine.Scoring.Shop;
 using Ultima.Saves.Model;
@@ -20,6 +21,7 @@ public sealed class Scorer : IScorer
     private readonly RelicScorer _relics;
     private readonly ShopScorer _shop;
     private readonly DeckEvaluator _deck;
+    private readonly PotionScorer _potions;
 
     public IMetaTable Meta { get; }
     public IPersonalStats Personal { get; }
@@ -34,6 +36,7 @@ public sealed class Scorer : IScorer
         _relics = new RelicScorer(Meta, Personal);
         _shop = new ShopScorer(_cards, _relics);
         _deck = new DeckEvaluator(Meta, _cards);
+        _potions = new PotionScorer(PotionCatalog.Load());
     }
 
     public Score ScoreCard(CardInstance card, ScoringContext ctx) => _cards.ScoreCard(card, ctx);
@@ -49,4 +52,7 @@ public sealed class Scorer : IScorer
     public Score ScoreRemoval(int price, ScoringContext ctx) => _shop.ScoreRemoval(price, ctx);
 
     public DeckEvaluation EvaluateDeck(ScoringContext ctx) => _deck.Evaluate(ctx);
+
+    /// <summary>Contrat v1.1 (S6bis) : null si la potion est inconnue du catalogue.</summary>
+    public Score? ScorePotion(string potionId, ScoringContext ctx) => _potions.Score(potionId, ctx);
 }

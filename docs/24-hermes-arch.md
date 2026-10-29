@@ -56,6 +56,23 @@ Source « Spire Codex (toutes versions) ».
 `moyenne des ScoreCard × 0.8` + `−8` par malédiction + adéquation boss (`±10`) + reliques (`0..5`)
 + correspondance d'archétype (`0..8`). `Archetype` = meilleur cluster ; `PotentialArchetypes` = top 3.
 
+## 2bis. Potions (S6bis, contrat v1.1)
+
+Aucune méta publique ne note les potions. Le score vient donc de **l'effet décrit** (localisation FR,
+`data/catalog/potions.json` généré par `tools/index_potions.py`) contextualisé par la run :
+
+| Terme | Points | Condition |
+|---|---|---|
+| Base potion | 40 | toujours (valeur neutre assumée) |
+| Filet de sécurité (revive) | +25 si PV ≤ 50 %, sinon +10 | tag `revive` |
+| Soin proportionnel | `min(25, round(PV manquants × 40))` | tag `heal` |
+| Burst sur le boss / dégâts | +12 si boss connu, sinon +4 (+2 si acte ≥ 2) | tag `damage` |
+| Affaiblit un ennemi | +8 si boss connu, sinon +3 | tag `debuff` |
+| Défense / tempo / buff / PV max / or | +8 / +8 / +6 / +6 / +5 / +4 | tags `block`, `energy`, `draw`, `buff`, `maxhp`, `gold` |
+
+Potion inconnue du catalogue → **null** (jamais un score inventé). `Confidence` toujours `low`.
+Testé : soin > à PV bas qu'à PV pleins, dégâts > avec boss, fée > à PV bas, 10 potions bornées 0..100.
+
 ## 3. Chemins (`IPathAnalyzer`)
 
 Entrées : `ActMap` (DAG 7×16, `Start`, `Boss`, `Points`, `Children`), position = dernière

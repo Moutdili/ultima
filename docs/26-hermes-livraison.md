@@ -12,6 +12,7 @@
 | Données méta (503 cartes, 263 reliques, 63 clusters, skip rate) | ✅ chargées | `MetaTable.Load()` |
 | Historique perso (runs v0.107.1) | ✅ agrégé | `PersonalStats.Load()` |
 | Calibration S→F (décision Mio) | ✅ | test `Calibration_puts_the_best_card_in_A_or_S` |
+| `ScorePotion` (contrat v1.1, S6bis) | ✅ | 7 tests `PotionTests` + catalogue 64 potions |
 
 ## 2. Matrice de vérification (commandes réellement exécutées)
 
@@ -64,6 +65,7 @@ Tout est reproductible : `bash tools/hermes-verify.sh`.
 | S3 `ScoreCard`/`ScoreSkip` | ✅ | tags heuristiques (P2-3) |
 | S4 shop / retrait / reliques | ✅ | pas de fixture de shop réel : tests structurels |
 | S5 `EvaluateDeck` | ✅ | archétypes issus de `data/meta`, malédictions via catalogue |
+| S6bis `ScorePotion` | ✅ | score dérivé des descriptions FR ; aucune méta potion publique |
 | S6 validation S7 (10 situations notées par Mio) | ⏳ | dépend de Mio |
 | P1-P3 chemins | ✅ | exact, cap 200 000 puis échantillonnage déterministe |
 | P4 risque | ⚠️ | moyenne par type de salle ; cotes des `?` absentes |
@@ -76,6 +78,9 @@ Tout est reproductible : `bash tools/hermes-verify.sh`.
 - Pas de comparaison avec les 10 situations de Mio (S7) : la corrélation reste à mesurer.
 - Pas de shop/récompense réels : les scores de shop sont vérifiés structurellement, pas sur un écran capturé.
 - Perf non mesurée en Release sur la machine cible.
+- Score des potions : heuristique sur les mots-clés des descriptions FR (pas de méta, pas de valeurs
+  numériques lues) — il ordonne les potions entre elles, il ne prédit pas un gain chiffré.
+- `data/catalog/potions.json` dépend de la localisation FR : une reformulation de traduction déplace un tag.
 
 ## 6. Décisions à arbitrer par le chef (contrat)
 
