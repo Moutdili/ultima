@@ -66,6 +66,7 @@ def main():
         entries.append({
             "id": cid,
             "type": types.get(cid),
+            "measured": True,
             "description": desc.get(cid, "")[:200],
             "n": n,
             "win_rate": round(100 * p, 2),
@@ -74,7 +75,24 @@ def main():
             # toxicité 0..100 : 50 = neutre, 100 = delta -10 pp, 0 = delta +10 pp
             "toxicity": max(0, min(100, round(50 - 5 * (100 * (p - base))))),
         })
-    entries.sort(key=lambda x: x["delta_pp"])
+    # Exhaustivité : toute malédiction/statut du catalogue doit avoir une entrée, mesurée ou
+    # explicitement « aucune donnée ». Aucune carte ne peut être inconnue du moteur.
+    known = {e["id"] for e in entries}
+    for cid in sorted({c for c, t in types.items() if t in ("curse", "status")} - known):
+        entries.append({
+            "id": cid,
+            "type": types.get(cid),
+            "measured": False,
+            "description": desc.get(cid, "")[:200],
+            "n": 0,
+            "win_rate": None,
+            "delta_pp": None,
+            "reliable": False,
+            "toxicity": None,
+            "reason": "absent du corpus (jamais acquis avant l'acte 3) — pénalité par défaut explicite",
+        })
+
+    entries.sort(key=lambda x: (x["toxicity"] is None, x["toxicity"] if x["toxicity"] is not None else 0, -x["n"]))
 
     payload = {
         "schema": "ultima.curse_impact/1",

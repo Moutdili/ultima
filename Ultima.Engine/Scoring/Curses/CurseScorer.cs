@@ -146,7 +146,7 @@ public sealed class CurseScorer
 
         if (!impact.Reliable)
             return new CurseVerdict(cardId, CurseKind.Curse, UnmeasuredPenalty, UnmeasuredLabel,
-                $"n = {N(impact.N)} run(s) < {N(_catalog.MinSample)} : non classable — " +
+                $"{Ids.Bare(cardId)} : n = {N(impact.N)} run(s) < {N(_catalog.MinSample)} : non classable — " +
                 $"pénalité prudente −{Math.Abs(UnmeasuredPenalty)} (médiane des malédictions classées)", impact);
 
         // −round(toxicité × 0,26), borné à [1, 30] en magnitude : une malédiction mesurée n'est

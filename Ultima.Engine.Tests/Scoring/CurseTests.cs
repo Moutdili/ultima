@@ -188,8 +188,10 @@ public sealed class CurseTests
         Assert.Equal(CurseKind.Curse, verdict.Kind);
         Assert.Equal(CurseScorer.UnmeasuredPenalty, verdict.Penalty);
         Assert.NotEqual(0, verdict.Penalty);
-        Assert.Equal(CurseScorer.NoDataLabel, verdict.Label);
-        Assert.Contains("aucune donnée mesurée", verdict.Source);
+        // Depuis que le catalogue est exhaustif, BAD_LUCK existe avec n = 0 : elle n'est plus
+        // « inconnue » mais « non classable » — le libellé le dit, la pénalité reste explicite.
+        Assert.Equal(CurseScorer.UnmeasuredLabel, verdict.Label);
+        Assert.Contains("non classable", verdict.Label);
         Assert.Contains("BAD_LUCK", verdict.Source);
 
         // Et le terme arrive bien dans le score de carte.
