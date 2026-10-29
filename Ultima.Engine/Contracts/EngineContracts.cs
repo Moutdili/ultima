@@ -36,13 +36,21 @@ public sealed record RunView(
 /// <summary>Carte (deck, récompense, shop). Enchantment = bonus spécial (Sown, Swift…). IsCurse = malédiction.</summary>
 public sealed record CardView(
     string Id, string Name, string Type, string Rarity, int Cost, int Upgrade,
-    EnchantmentView? Enchantment, bool IsCurse, Score? Score);
+    EnchantmentView? Enchantment, bool IsCurse, Score? Score)
+{
+    /// <summary>Description FR rendue (IKnowledge). Ajout v1.1, demande du compagnon.</summary>
+    public string? Description { get; init; }
+}
 
 public sealed record EnchantmentView(string Id, string Name, int Amount, string Description);
 
 public sealed record RelicView(string Id, string Name, string Description, Score? Score);
 
-public sealed record PotionView(string Id, string Name, string Description);
+public sealed record PotionView(string Id, string Name, string Description)
+{
+    /// <summary>Score de la potion possédée (IScorer.ScorePotion). Ajout v1.1, null tant que non calculé.</summary>
+    public Score? Score { get; init; }
+}
 
 /// <summary>
 /// Score explicable : Total 0-100 = somme bornée des termes. Confidence : high|medium|low.

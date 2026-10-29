@@ -106,6 +106,8 @@ Le daemon (chef) appelle tes classes ; tant qu'elles n'existent pas, il publie d
 - [ ] **S5** `ScoreRelic` : méta + synergie deck/personnage.
 - [ ] **S6** `EvaluateDeck` : note du deck vs reliques et boss de l'acte, archétype probable,
       archétypes potentiels (`archetypes.json`), liste des malédictions.
+- [ ] **S6bis** `ScorePotion` (ajout contrat v1.1, implémentation par défaut `null`) : potions possédées,
+      quand les garder/utiliser (vs boss de l'acte).
 - [ ] **S7** Validation : 10 situations réelles tirées de l'historique, notées par Mio → corrélation.
 
 ### Chemins (`Ultima.Engine/Paths/`)
