@@ -44,8 +44,33 @@ public sealed record RelicView(string Id, string Name, string Description, Score
 
 public sealed record PotionView(string Id, string Name, string Description);
 
-/// <summary>Score explicable : Total 0-100 = somme bornée des termes. Confidence : high|medium|low.</summary>
-public sealed record Score(int Total, IReadOnlyList<ScoreTerm> Terms, string Confidence);
+/// <summary>
+/// Score explicable : Total 0-100 = somme bornée des termes. Confidence : high|medium|low.
+/// Grade = lettre affichée au joueur (décision Mio : notation S à F), dérivée de Total.
+/// </summary>
+public sealed record Score(int Total, IReadOnlyList<ScoreTerm> Terms, string Confidence)
+{
+    public string Grade => Grades.FromTotal(Total);
+}
+
+/// <summary>
+/// Échelle S à F, alignée sur les conventions des tier lists de data/meta (S≈90, A≈75, B≈60, C≈45, D≈30).
+/// Le calcul (Hermes) doit produire des Total sur CETTE échelle.
+/// </summary>
+public static class Grades
+{
+    public static readonly IReadOnlyList<(string Grade, int Min)> Scale = new[]
+    {
+        ("S", 85), ("A", 70), ("B", 55), ("C", 40), ("D", 25), ("F", 0),
+    };
+
+    public static string FromTotal(int total)
+    {
+        foreach (var (grade, min) in Scale)
+            if (total >= min) return grade;
+        return "F";
+    }
+}
 
 /// <summary>Un terme nommé du score, avec sa source (« Spire Codex v0.107.1 », « tes 247 runs »…).</summary>
 public sealed record ScoreTerm(string Label, int Points, string Source);
@@ -76,16 +101,19 @@ public sealed record DeckEvaluation(Score Score, string? Archetype, IReadOnlyLis
 /// <summary>Modules affichables, personnalisables (ordre + visibilité) via le compagnon.</summary>
 public sealed record OverlaySettings(IReadOnlyList<ModuleSetting> Modules)
 {
+    // Ordre voulu par Mio (2026-10-29) : deck, cartes enchantées, malédictions, reliques, potions ;
+    // les modules contextuels (récompense, shop, chemins, note du deck) s'affichent selon l'écran.
     public static OverlaySettings Default { get; } = new(new ModuleSetting[]
     {
-        new(ModuleIds.Curses, true, 0),
-        new(ModuleIds.Deck, true, 1),
-        new(ModuleIds.Relics, true, 2),
-        new(ModuleIds.Enchanted, true, 3),
-        new(ModuleIds.Reward, true, 4),
-        new(ModuleIds.Shop, true, 5),
-        new(ModuleIds.Paths, true, 6),
-        new(ModuleIds.DeckScore, true, 7),
+        new(ModuleIds.Deck, true, 0),
+        new(ModuleIds.Enchanted, true, 1),
+        new(ModuleIds.Curses, true, 2),
+        new(ModuleIds.Relics, true, 3),
+        new(ModuleIds.Potions, true, 4),
+        new(ModuleIds.Reward, true, 5),
+        new(ModuleIds.Shop, true, 6),
+        new(ModuleIds.Paths, true, 7),
+        new(ModuleIds.DeckScore, true, 8),
     });
 }
 
@@ -93,6 +121,6 @@ public sealed record ModuleSetting(string Id, bool Enabled, int Order);
 
 public static class ModuleIds
 {
-    public const string Curses = "curses", Deck = "deck", Relics = "relics", Enchanted = "enchanted",
+    public const string Curses = "curses", Deck = "deck", Relics = "relics", Enchanted = "enchanted", Potions = "potions",
         Reward = "reward", Shop = "shop", Paths = "paths", DeckScore = "deck_score";
 }
