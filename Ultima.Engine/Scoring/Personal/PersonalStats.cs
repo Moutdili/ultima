@@ -54,6 +54,9 @@ public sealed class PersonalStats : IPersonalStats
     public int Losses { get; private set; }
     public int AbandonedRuns { get; private set; }
 
+    /// <summary>Runs d'un mode non standard (daily…), exclues de l'agrégation.</summary>
+    public int NonStandardRuns { get; private set; }
+
     /// <summary>Fichiers/runs examinés, filtrage inclus (retenues + ignorées).</summary>
     public int SourcesScanned { get; private set; }
 
@@ -93,7 +96,7 @@ public sealed class PersonalStats : IPersonalStats
     /// <summary>Résumé lisible du périmètre et de tout ce qui a été écarté (jamais vide).</summary>
     public string Summary =>
         $"{RunCount} run(s) retenue(s) sur {SourcesScanned} source(s), build {BuildFilter ?? "tous"}"
-        + $" ; {Wins} victoire(s) / {Losses} défaite(s) dont {AbandonedRuns} abandon(s)"
+        + $" ; {Wins} victoire(s) / {Losses} défaite(s) ; {AbandonedRuns} abandon(s) écartée(s)"
         + IgnoredNote()
         + (FloorsWithoutPlayerStats > 0 ? $" ; {FloorsWithoutPlayerStats} étage(s) sans stats joueur" : "")
         + (FloorsWithoutRoomType > 0 ? $" ; {FloorsWithoutRoomType} étage(s) sans type de salle" : "")
@@ -219,9 +222,22 @@ public sealed class PersonalStats : IPersonalStats
             return;
         }
 
+        // Une run abandonnée ou journalière n'a pas d'issue comparable : elle fausserait le
+        // taux de victoire (et donc WinRateDelta). Elle est comptée, jamais agrégée.
+        if (run.WasAbandoned)
+        {
+            AbandonedRuns++;
+            return;
+        }
+        if (!string.IsNullOrEmpty(run.GameMode) &&
+            !run.GameMode.Equals("standard", StringComparison.OrdinalIgnoreCase))
+        {
+            NonStandardRuns++;
+            return;
+        }
+
         RunCount++;
         if (run.Win) Wins++; else Losses++;
-        if (run.WasAbandoned) AbandonedRuns++;
 
         var characterKey = Ids.Bare(run.Character(_steamId64));
         if (characterKey.Length == 0) UnknownCharacterRuns++;

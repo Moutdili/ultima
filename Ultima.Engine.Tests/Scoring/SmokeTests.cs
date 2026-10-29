@@ -51,4 +51,48 @@ public sealed class SmokeTests
         var meta = MetaTable.Load();
         Assert.NotEmpty(meta.Archetypes("CHARACTER.DEFECT"));
     }
+
+    /// <summary>
+    /// Calibration demandée par le chef (notation S→F) : une carte à consensus 100 doit être A ou S,
+    /// pas B. ALCHEMIZE a un consensus de 100 dans data/meta.
+    /// </summary>
+    [Fact]
+    public void Calibration_puts_the_best_card_in_A_or_S()
+    {
+        var scorer = new Scorer();
+        var top = scorer.ScoreCard(new CardInstance("CARD.ALCHEMIZE", 0, null, null), Ctx);
+        Assert.InRange(top.Total, 70, 100);
+        Assert.Contains(top.Grade, new[] { "A", "S" });
+    }
+
+    /// <summary>
+    /// Régression signalée par le chef : un data/meta/local/ PARTIEL (notes sous licence) ne doit
+    /// pas masquer archetypes.json, qui n'existe que dans la variante commitée.
+    /// </summary>
+    [Fact]
+    public void Partial_local_dir_falls_back_file_by_file()
+    {
+        var publicDir = ScoringData.ResolveMetaDir();
+        var tmp = Path.Combine(Path.GetTempPath(), "ultima-meta-" + Guid.NewGuid().ToString("N"));
+        var localDir = Path.Combine(tmp, "local");
+        Directory.CreateDirectory(localDir);
+
+        try
+        {
+            // local/ ne contient QUE les deux fichiers sous licence.
+            File.Copy(Path.Combine(publicDir, "card_tiers.json"), Path.Combine(localDir, "card_tiers.json"));
+            File.Copy(Path.Combine(publicDir, "relic_tiers.json"), Path.Combine(localDir, "relic_tiers.json"));
+            File.Copy(Path.Combine(publicDir, "archetypes.json"), Path.Combine(tmp, "archetypes.json"));
+
+            var meta = MetaTable.Load(tmp);
+
+            Assert.NotEmpty(meta.Archetypes("CHARACTER.DEFECT"));   // repli sur le fichier commité
+            Assert.True(meta.CardCount > 400);
+            Assert.NotEqual("empty", meta.Variant);                 // la variante est déclarée par le fichier
+        }
+        finally
+        {
+            try { Directory.Delete(tmp, recursive: true); } catch { /* nettoyage best effort */ }
+        }
+    }
 }

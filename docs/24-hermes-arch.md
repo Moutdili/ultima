@@ -33,7 +33,7 @@ Un terme à 0 point n'est pas ajouté. `Confidence` = `Confidence.Of(sourcesMeta
 ### ScoreCard (récompense)
 | Terme | Points | Source |
 |---|---|---|
-| Méta communautaire | `round(consensus × 0.55)` (≤ 55) | `CardScorer.SourceLabel(meta)` |
+| Méta communautaire | `min(78, 7 + round(consensus × 0.65))` — calibration S→F (médiane 65 → C, 100 → A) | `CardScorer.SourceLabel(meta)` |
 | Enchantement | `+3 + min(2, amount)` (≤ 5) | `enchantement` |
 | Malédiction | `−30` | nom de la carte |
 | Historique perso | `clamp(round(delta × 40), −8, +8)`, seulement si ≥ 5 runs des deux côtés | `tes N runs` |
@@ -171,3 +171,7 @@ validation humaine), pas d'UI, pas d'IPC, pas de modification des contrats.
 - `Data/meta/local/` est gitignoré : les tests doivent passer avec la variante **publique**.
 - Les fixtures ne contiennent qu'un `current_run.save` : ne pas coder en dur le nom du profil.
 - `PersonalStats` ignore les runs d'un autre `build_id` (`v0.107.1`) — c'est voulu.
+- `PersonalStats` n'agrège **pas** les runs abandonnées ni les modes non standard (daily) : elles
+  n'ont pas d'issue comparable et biaiseraient `WinRateDelta`. Elles sont comptées à part.
+- La note de deck ne dépend **pas** des PV courants : seule la part de garde face au plus gros coup
+  du boss (rapporté aux PV max) compte.

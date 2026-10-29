@@ -44,7 +44,12 @@ public sealed class CardScorer
         var meta = _meta.Card(card.Id);
 
         if (meta?.Consensus is double consensus)
-            b.Add("Méta communautaire", ScoreMath.Round(consensus * ConsensusWeight), SourceLabel(meta));
+        {
+            // Calibration (décision Mio : notation S→F) : consensus 65 (médiane réelle) ≈ 50 = C,
+            // 100 ≈ 72 = A ; seules synergies/reliques/boss peuvent porter à S (85+).
+            int calibrated = Math.Min(78, 7 + ScoreMath.Round(consensus * 0.65));
+            b.Add("Méta communautaire", calibrated, SourceLabel(meta));
+        }
 
         if (card.Enchantment != null)
             b.Add($"Enchantement {card.Enchantment.Id}", 3 + Math.Min(2, card.Enchantment.Amount), "enchantement");

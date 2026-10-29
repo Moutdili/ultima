@@ -115,7 +115,7 @@ public sealed class DeckEvaluator
             b.Add($"Adéquation boss ({boss.DisplayName})", fit,
                 $"data/catalog : plus gros coup {boss.BiggestHit} dgt" +
                 (boss.Hp is { } hp ? $", {hp} PV" : "") +
-                $", toi {ctx.Hp}/{ctx.MaxHp} PV, garde {Pct(guard, deck.Count)}, besoin {Pct(boss.BiggestHit, ctx.MaxHp)}");
+                $", garde {Pct(guard, deck.Count)}, besoin {Pct(boss.BiggestHit, ctx.MaxHp)} des PV max");
         }
 
         // 4) Reliques possédées (0..5) : moyenne de leur note communautaire.
@@ -142,24 +142,20 @@ public sealed class DeckEvaluator
     // --- Adéquation boss -----------------------------------------------------------------------
 
     /// <summary>
-    /// Adéquation du deck au boss de l'acte, bornée à ±10. Deux marges, chacune comparée au besoin
-    /// créé par le plus gros coup du boss (<c>dégâts / PV max</c>) : la marge de PV (état de la run)
-    /// et la marge de garde (part de cartes Skill/Power du deck). Null si le boss n'a pas de coup
-    /// connu ou si les PV de la run sont incohérents — aucune valeur inventée.
+    /// Adéquation du deck au boss de l'acte, bornée à ±10, **indépendante des PV courants** :
+    /// une note de deck qui bouge quand on prend des dégâts n'évalue plus le deck. On compare
+    /// seulement la part de garde (Skill/Power) au besoin créé par le plus gros coup du boss
+    /// rapporté aux PV max. Null si le boss n'a pas de coup connu — aucune valeur inventée.
     /// </summary>
     private static int? BossFit(BossProfile boss, int guard, int deckCount, ScoringContext ctx)
     {
         if (boss.BiggestHit <= 0 || ctx.MaxHp <= 0 || deckCount <= 0) return null;
 
         double need = Math.Min(1.0, (double)boss.BiggestHit / ctx.MaxHp);
-        double hpRatio = ScoreMath.Clamp((double)ctx.Hp / ctx.MaxHp, 0, 1);
         double guardShare = (double)guard / deckCount;
 
-        int hpMargin = ScoreMath.Clamp(ScoreMath.Round((hpRatio - need) * BossFitScale), BossFitMin, BossFitMax);
-        int guardMargin = ScoreMath.Clamp(ScoreMath.Round((guardShare - need) * BossFitScale), BossFitMin, BossFitMax);
-
         return ScoreMath.Clamp(
-            ScoreMath.Round(hpMargin * HpMarginWeight + guardMargin * GuardMarginWeight), BossFitMin, BossFitMax);
+            ScoreMath.Round((guardShare - need) * BossFitScale), BossFitMin, BossFitMax);
     }
 
     // --- Reliques ------------------------------------------------------------------------------

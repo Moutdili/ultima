@@ -28,13 +28,17 @@ public sealed class PersonalStatsTests
 
         var filtered = PersonalStats.Load(HistoryDir);
         Assert.Equal(7, filtered.SourcesScanned);
-        Assert.Equal(5, filtered.RunCount);
+        // 5 runs v0.107.1, dont 2 abandonnées (abandon_solo + daily) : seules 3 sont agrégées.
+        Assert.Equal(3, filtered.RunCount);
+        Assert.Equal(2, filtered.AbandonedRuns);
         Assert.Equal(2, filtered.SkippedOtherBuild);
         Assert.Equal(0, filtered.UnreadableRuns);
         Assert.Equal("v0.107.1", filtered.BuildFilter);
 
         var all = PersonalStats.Load(HistoryDir, buildId: null);
-        Assert.Equal(7, all.RunCount);
+        // 7 runs, dont 3 abandonnées : 4 agrégées (coop4, death_solo, killed_by_event, win_solo).
+        Assert.Equal(4, all.RunCount);
+        Assert.Equal(3, all.AbandonedRuns);
         Assert.Equal(0, all.SkippedOtherBuild);
         Assert.Null(all.BuildFilter);
 
@@ -45,7 +49,7 @@ public sealed class PersonalStatsTests
         Assert.Equal(2, builds.Count(b => b == "v0.103.3"));
 
         Assert.Contains("2 d'un autre build", filtered.Summary);
-        Assert.Contains("5 run(s) retenue(s) sur 7", filtered.Summary);
+        Assert.Contains("3 run(s) retenue(s) sur 7", filtered.Summary);
     }
 
     // ------------------------------------------------------------- cartes
@@ -94,7 +98,7 @@ public sealed class PersonalStatsTests
         Assert.False(string.IsNullOrWhiteSpace(risk.Basis));
         Assert.Contains("n=", risk.Basis);
         Assert.Contains("acte 0", risk.Basis);
-        Assert.Contains("5 run(s)", risk.Basis);
+        Assert.Contains("history perso", risk.Basis);
 
         // Normalisation : casse et espaces indifférents.
         Assert.Equal(risk.Samples, stats.RoomRisk(0, " MONSTER ").Samples);
@@ -139,9 +143,12 @@ public sealed class PersonalStatsTests
         var filtered = PersonalStats.Load(HistoryDir);
         var all = PersonalStats.Load(HistoryDir, buildId: null);
 
-        // CARD.DISMANTLE n'apparaît que dans old_build.run (v0.103.3).
+        // CARD.DISMANTLE n'apparaît que dans old_build.run : autre build ET run abandonnée.
+        // Elle ne doit donc contribuer à aucune des deux agrégations.
         Assert.Null(filtered.Card("CARD.DISMANTLE"));
-        Assert.NotNull(all.Card("CARD.DISMANTLE"));
+        Assert.Null(all.Card("CARD.DISMANTLE"));
+        Assert.Equal(3, all.AbandonedRuns);
+        Assert.True(all.RunCount >= filtered.RunCount);
 
         // Aucun compteur filtré ne dépasse son équivalent tous-builds.
         foreach (var card in filtered.Cards)
@@ -157,8 +164,12 @@ public sealed class PersonalStatsTests
         // Personnages : IRONCLAD n'existe que dans les runs écartées (old_build + coop4 v0.103.3).
         Assert.Equal(0, filtered.RunsForCharacter("CHARACTER.IRONCLAD"));
         Assert.True(all.RunsForCharacter("CHARACTER.IRONCLAD") >= 1);
-        Assert.Equal(4, filtered.RunsForCharacter("CHARACTER.SILENT"));
-        Assert.Equal(1, filtered.RunsForCharacter("CHARACTER.DEFECT"));
+        // Aucun double comptage : la somme par personnage égale les runs agrégées.
+        int perCharacter = filtered.RunsForCharacter("CHARACTER.SILENT")
+                         + filtered.RunsForCharacter("CHARACTER.DEFECT")
+                         + filtered.RunsForCharacter("CHARACTER.IRONCLAD");
+        Assert.Equal(filtered.RunCount, perCharacter);
+        Assert.True(filtered.RunsForCharacter("CHARACTER.SILENT") >= 1);
 
         // Retirer le filtre ajoute du volume (coop4 + old_build) et des cartes inconnues du build courant.
         Assert.True(all.Cards.Sum(c => c.Offered) > filtered.Cards.Sum(c => c.Offered));
@@ -377,6 +388,9 @@ public sealed class PersonalStatsTests
         {
             var run = reader.Read(file);
             if (run.BuildId != PersonalStats.DefaultBuildId) continue;
+            if (run.WasAbandoned) continue;                       // même règle que la production
+            if (!string.IsNullOrEmpty(run.GameMode) &&
+                !run.GameMode.Equals("standard", StringComparison.OrdinalIgnoreCase)) continue;
             ulong local = run.Players[0].Id;
             foreach (var floor in run.Floors)
             {
