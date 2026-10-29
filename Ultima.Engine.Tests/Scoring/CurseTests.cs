@@ -125,18 +125,24 @@ public sealed class CurseTests
     [Fact]
     public void Penalty_follows_the_published_toxicity_scale()
     {
-        // −round(toxicité × 0,26) : les trois ancres de docs/35.
-        Assert.Equal(-25, Curses.Penalty("CARD.POOR_SLEEP"));
+        // −round(toxicité × 0,26), puis modulation par les mots-clés (docs/37) :
+        // Poor Sleep = Retain + Unplayable (reste en main) → −25 × 1,4 = −35, borné à −30.
+        // Clumsy = Ethereal + Unplayable (transitoire) → −14 × 0,6 = −8,4 → −8.
+        Assert.Equal(-30, Curses.Penalty("CARD.POOR_SLEEP"));
         Assert.Equal(-17, Curses.Penalty("CARD.INJURY"));
-        Assert.Equal(-14, Curses.Penalty("CARD.CLUMSY"));
+        Assert.Equal(-8, Curses.Penalty("CARD.CLUMSY"));
 
-        // Monotonie : plus la toxicité mesurée est haute, plus la pénalité est lourde.
-        Assert.True(Curses.Penalty("POOR_SLEEP") < Curses.Penalty("INJURY"));
+        // Monotonie sur la toxicité retenue (mesure et effet confondus, le pire des deux) :
+        // Poor Sleep 97 < Normality 95 < Regret 75 < Injury 65 < Clumsy 53.
+        Assert.True(Curses.Penalty("POOR_SLEEP") <= Curses.Penalty("NORMALITY"));
+        Assert.True(Curses.Penalty("NORMALITY") < Curses.Penalty("REGRET"));
+        Assert.True(Curses.Penalty("REGRET") < Curses.Penalty("INJURY"));
         Assert.True(Curses.Penalty("INJURY") < Curses.Penalty("CLUMSY"));
-        Assert.True(Curses.Penalty("CLUMSY") <= Curses.Penalty("REGRET"));
 
-        // Plus de −30 forfaitaire : deux malédictions différentes ne valent plus pareil.
-        Assert.NotEqual(-30, Curses.Penalty("POOR_SLEEP"));
+        // Le plafond −30 est atteint par Poor Sleep parce qu'elle cumule Retain + Unplayable,
+        // et le terme doit le dire — pas par un −30 forfaitaire appliqué à toutes.
+        var poorSleep = Curses.Classify("CARD.POOR_SLEEP");
+        Assert.Contains("Retain+Unplayable", poorSleep.Source);
         Assert.NotEqual(Curses.Penalty("POOR_SLEEP"), Curses.Penalty("CLUMSY"));
     }
 
@@ -169,8 +175,8 @@ public sealed class CurseTests
         var poorSleepTerm = CurseTerm(poorSleep);
         var clumsyTerm = CurseTerm(clumsy);
 
-        Assert.Equal(-25, poorSleepTerm.Points);
-        Assert.Equal(-14, clumsyTerm.Points);
+        Assert.Equal(-30, poorSleepTerm.Points);
+        Assert.Equal(-8, clumsyTerm.Points);
         Assert.True(poorSleepTerm.Points < clumsyTerm.Points);
         Assert.True(poorSleep.Total < clumsy.Total, $"Poor Sleep {poorSleep.Total} < Clumsy {clumsy.Total}");
         Assert.Contains("63 634", poorSleepTerm.Source);
@@ -186,19 +192,20 @@ public sealed class CurseTests
         var verdict = Curses.Classify("CARD.BAD_LUCK");
 
         Assert.Equal(CurseKind.Curse, verdict.Kind);
-        Assert.Equal(CurseScorer.UnmeasuredPenalty, verdict.Penalty);
+        // BAD_LUCK : effet « perte de PV en fin de tour » (sévérité 75) prime sur l'absence de
+        // mesure → −round(75 × 0,26) = −20, puis × 1,2 (Eternal) = −24.
+        Assert.Equal(-24, verdict.Penalty);
         Assert.NotEqual(0, verdict.Penalty);
-        // Depuis que le catalogue est exhaustif, BAD_LUCK existe avec n = 0 : elle n'est plus
-        // « inconnue » mais « non classable » — le libellé le dit, la pénalité reste explicite.
-        Assert.Equal(CurseScorer.UnmeasuredLabel, verdict.Label);
-        Assert.Contains("non classable", verdict.Label);
+        // Le libellé dit que la pénalité vient de l'effet décrit, pas d'une mesure absente.
+        Assert.Equal(CurseScorer.EffectLabel, verdict.Label);
+        Assert.Contains("effet", verdict.Source);
         Assert.Contains("BAD_LUCK", verdict.Source);
 
         // Et le terme arrive bien dans le score de carte.
         var meta = new FakeMeta();
         var scorer = new CardScorer(meta, PersonalStats.Empty(), new SynergyEngine(meta), curses: Curses);
         var score = scorer.ScoreCard(Card("CARD.BAD_LUCK"), Ctx());
-        Assert.Equal(-12, CurseTerm(score).Points);
+        Assert.Equal(-24, CurseTerm(score).Points);
     }
 
     [Fact]
@@ -208,10 +215,25 @@ public sealed class CurseTests
         var verdict = Curses.Classify("CARD.ASCENDERS_BANE");
 
         Assert.Equal(CurseKind.Curse, verdict.Kind);
-        Assert.Equal(CurseScorer.UnmeasuredLabel, verdict.Label);
-        Assert.Equal(CurseScorer.UnmeasuredPenalty, verdict.Penalty);
+        Assert.Equal(CurseScorer.EffectLabel, verdict.Label);
+        // Effet « unplayable_only » (35/100) : −round(35 × 0,26) = −9, × 0,6 (Ethereal) × 1,2
+        // (Eternal) = −6,48 → −6.
+        Assert.Equal(-6, verdict.Penalty);
         Assert.Contains("n = 6", verdict.Source);
-        Assert.Contains("non classable", verdict.Source);
+        Assert.Contains("insuffisant", verdict.Source);
+    }
+
+    [Fact]
+    public void Normality_effect_outweighs_its_bundle_win_rate()
+    {
+        // Normality mesure +1,9 pp (événement + contrepartie) mais son effet est « pas plus de
+        // 3 cartes par tour » : la sévérité d'effet doit dominer, pas le delta observé.
+        var verdict = Curses.Classify("CARD.NORMALITY");
+
+        Assert.Equal(CurseKind.Curse, verdict.Kind);
+        Assert.Contains("play_limit", verdict.Source);
+        Assert.Contains("95/100", verdict.Source);
+        Assert.True(verdict.Penalty <= -20, $"Normality doit être lourdement pénalisée, obtenu {verdict.Penalty}");
     }
 
     [Fact]
@@ -253,7 +275,8 @@ public sealed class CurseTests
         var verdict = withoutData.Classify("CARD.POOR_SLEEP", meta);
 
         Assert.Equal(CurseKind.Curse, verdict.Kind);
-        Assert.Equal(CurseScorer.UnmeasuredPenalty, verdict.Penalty);
+        // Sans catalogue, la base prudente reste modulée par les mots-clés : −12 × 1,4 = −16,8 → −17.
+        Assert.Equal(-17, verdict.Penalty);
         Assert.NotEqual(0, verdict.Penalty);
         Assert.Contains("aucune donnée mesurée", verdict.Source);
     }
@@ -406,13 +429,13 @@ public sealed class CurseTests
         Assert.True(net.HasForcedCurse);
         Assert.NotNull(net.Curse!.Measured);
         Assert.Equal("CURSE_OF_THE_BELL", net.Curse!.Measured!.Id);
-        Assert.Equal(-14, net.CursePenalty);              // toxicité 53 × 0,26
+        Assert.Equal(-17, net.CursePenalty);              // toxicité 53 × 0,26 = 14, × 1,2 (Eternal) = 17
         Assert.Equal(0, net.RemovalCost);                 // pas de retrait supposé par défaut
 
         Assert.True(net.Net.Total < net.Gross.Total,
             $"net {net.Net.Total} < brut {net.Gross.Total}");
-        Assert.Equal(net.Gross.Total - 14, Math.Max(0, net.Net.Total));
-        Assert.Contains(net.Net.Terms, t => t.Label == CurseScorer.MeasuredLabel && t.Points == -14);
+        Assert.Equal(net.Gross.Total - 17, Math.Max(0, net.Net.Total));
+        Assert.Contains(net.Net.Terms, t => t.Label == CurseScorer.MeasuredLabel && t.Points == -17);
     }
 
     [Fact]

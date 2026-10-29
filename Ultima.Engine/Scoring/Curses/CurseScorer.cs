@@ -1,6 +1,8 @@
 using System.Globalization;
 using Ultima.Engine.Contracts;
+using Ultima.Engine.Scoring.Cards;
 using Ultima.Engine.Scoring.Deck;
+using Ultima.Engine.Scoring.Keywords;
 using Ultima.Engine.Scoring.Model;
 
 namespace Ultima.Engine.Scoring.Curses;
@@ -93,11 +95,65 @@ public sealed class CurseScorer
 
     private readonly CurseCatalog _catalog;
     private readonly CardCatalog _cards;
+    private readonly CardEffects _effects;
+    private readonly KeywordCatalog _keywords;
 
-    public CurseScorer(CurseCatalog? catalog = null, CardCatalog? cards = null)
+    public CurseScorer(CurseCatalog? catalog = null, CardCatalog? cards = null,
+        CardEffects? effects = null, KeywordCatalog? keywords = null)
     {
         _catalog = catalog ?? CurseCatalog.Load();
         _cards = cards ?? CardCatalog.Default;
+        _effects = effects ?? CardEffects.Default;
+        _keywords = keywords ?? KeywordCatalog.Default;
+    }
+
+    /// <summary>Catalogue des mots-clés utilisé (Exhaust, Ethereal, Retain, Eternal…).</summary>
+    public KeywordCatalog Keywords => _keywords;
+
+    /// <summary>
+    /// Modulation par les mots-clés : une carte <c>Retain</c> + <c>Unplayable</c> reste en main
+    /// chaque tour (pire qu'une carte qui disparaît), <c>Ethereal</c>/<c>Exhaust</c> est
+    /// transitoire (moins grave), <c>Eternal</c> ne peut pas être retirée du deck (plus grave).
+    /// Les facteurs sont documentés ici, pas cachés dans un coefficient anonyme.
+    /// </summary>
+    public const double RetainUnplayableFactor = 1.4;
+    public const double TransientFactor = 0.6;
+    public const double EternalFactor = 1.2;
+
+    private CurseVerdict Modulate(CurseVerdict verdict, string cardId)
+    {
+        if (verdict.Kind == CurseKind.None) return verdict;
+
+        var flags = _keywords.Flags(_effects.Get(cardId)?.Keywords);
+        if (!flags.Any) return verdict;
+
+        var factor = 1.0;
+        var notes = new List<string>();
+        if (flags.Retained && flags.Unplayable)
+        {
+            factor *= RetainUnplayableFactor;
+            notes.Add($"Retain+Unplayable : carte morte qui reste en main (×{Fr(RetainUnplayableFactor)})");
+        }
+        else if (flags.Transient)
+        {
+            factor *= TransientFactor;
+            notes.Add($"Ethereal/Exhaust : transitoire (×{Fr(TransientFactor)})");
+        }
+
+        if (flags.Unremovable)
+        {
+            factor *= EternalFactor;
+            notes.Add($"Eternal : non retirable du deck (×{Fr(EternalFactor)})");
+        }
+
+        if (notes.Count == 0) return verdict;
+
+        var points = Math.Clamp(ScoreMath.Round(verdict.Penalty * factor), MinPenalty, -1);
+        return verdict with
+        {
+            Penalty = points,
+            Source = $"{verdict.Source} · {string.Join(" ; ", notes)}",
+        };
     }
 
     /// <summary>Catalogue utilisé (utile pour afficher provenance et seuils dans l'UI).</summary>
@@ -122,12 +178,14 @@ public sealed class CurseScorer
         var impact = _catalog.Get(cardId);
         var kind = KindOf(cardId, meta, impact);
 
-        return kind switch
+        var verdict = kind switch
         {
             CurseKind.Status => new CurseVerdict(cardId, kind, StatusPenalty, StatusLabel, StatusSource(impact), impact),
             CurseKind.Curse => Curse(cardId, impact),
             _ => new CurseVerdict(cardId, CurseKind.None, 0, string.Empty, string.Empty, null),
         };
+
+        return Modulate(verdict, cardId);
     }
 
     private CurseVerdict Curse(string cardId, CurseImpact? impact)
@@ -144,6 +202,18 @@ public sealed class CurseScorer
                 $"(jamais acquise dans les {N(_catalog.SampleRuns)} runs d'acte 3) ; " +
                 $"pénalité prudente −{Math.Abs(UnmeasuredPenalty)} (médiane des malédictions classées)", null);
 
+        // Effet décrit (limite de cartes, perte d'énergie, pioche réduite…) : il prime sur
+        // l'absence de mesure. Normality mesure +1,9 pp parce que l'événement offre une
+        // contrepartie, mais « pas plus de 3 cartes par tour » reste dévastateur.
+        if (!impact.Reliable && impact.EffectSeverity > 0)
+        {
+            int effectPoints = Math.Clamp(ScoreMath.Round(impact.EffectSeverity * ToxicityScale), 1, -MinPenalty);
+            return new CurseVerdict(cardId, CurseKind.Curse, -effectPoints, EffectLabel,
+                $"{Ids.Bare(cardId)} : effet « {impact.EffectFamily} » (sévérité {impact.EffectSeverity}/100, " +
+                $"texte FR) — mesure {(impact.N == 0 ? "absente" : $"n = {N(impact.N)} insuffisant")} ; " +
+                $"−round({impact.EffectSeverity} × {Fr(ToxicityScale)}) = −{effectPoints}", impact);
+        }
+
         if (!impact.Reliable)
             return new CurseVerdict(cardId, CurseKind.Curse, UnmeasuredPenalty, UnmeasuredLabel,
                 $"{Ids.Bare(cardId)} : n = {N(impact.N)} run(s) < {N(_catalog.MinSample)} : non classable — " +
@@ -153,11 +223,14 @@ public sealed class CurseScorer
         // jamais gratuite, et aucune ne dépasse un quart de l'échelle.
         int points = Math.Clamp(ScoreMath.Round(impact.Toxicity * ToxicityScale), 1, -MinPenalty);
 
+        var effectNote = impact.EffectSeverity > (impact.MeasuredToxicity ?? 0)
+            ? $" ; effet « {impact.EffectFamily} » {impact.EffectSeverity}/100 (texte FR) prime sur la mesure"
+            : string.Empty;
         return new CurseVerdict(cardId, CurseKind.Curse, -points, MeasuredLabel,
             $"{CurseCatalog.FileName} — {N(_catalog.SampleRuns)} runs entrées en acte 3 " +
             $"(base {Fr(_catalog.BaselineWinRate)} %) : {impact.Id} " +
-            $"{Signed(impact.DeltaPp)} pp, toxicité {impact.Toxicity}/100 sur {N(impact.N)} runs ; " +
-            $"−round({impact.Toxicity} × {Fr(ToxicityScale)}) = −{points}",
+            $"{Signed(impact.DeltaPp)} pp, toxicité {impact.Toxicity}/100 sur {N(impact.N)} runs" +
+            $"{effectNote} ; −round({impact.Toxicity} × {Fr(ToxicityScale)}) = −{points}",
             impact);
     }
 
@@ -186,6 +259,9 @@ public sealed class CurseScorer
 
     /// <summary>Libellé du terme pour une malédiction effectivement mesurée.</summary>
     public const string MeasuredLabel = "Malédiction (impact mesuré)";
+
+    /// <summary>Pénalité fondée sur l'effet décrit, quand la mesure manque ou est masquée par un bundle.</summary>
+    public const string EffectLabel = "Malédiction (effet décrit)";
 
     /// <summary>Libellé du terme pour une malédiction présente au corpus mais non classable.</summary>
     public const string UnmeasuredLabel = "Malédiction (impact non classable)";

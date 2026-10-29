@@ -19,7 +19,10 @@ public sealed record CurseImpact(
     double WinRate,
     double DeltaPp,
     bool Reliable,
-    int Toxicity)
+    int Toxicity,
+    string? EffectFamily = null,
+    int EffectSeverity = 0,
+    int? MeasuredToxicity = null)
 {
     /// <summary>Statut de combat (Brûlure, Plaie…) : temporaire, jamais dans le deck final.</summary>
     public bool IsStatus => string.Equals(Type, "status", StringComparison.OrdinalIgnoreCase);
@@ -164,7 +167,10 @@ public sealed class CurseCatalog
                     Num(el, "win_rate") ?? 0,
                     Num(el, "delta_pp") ?? 0,
                     Bool(el, "reliable") ?? n >= minSample,
-                    Int(el, "toxicity") ?? 50);
+                    Int(el, "toxicity") ?? 50,
+                    Str(el, "effect_family"),
+                    Int(el, "effect_severity") ?? 0,
+                    Int(el, "measured_toxicity"));
             }
         }
 

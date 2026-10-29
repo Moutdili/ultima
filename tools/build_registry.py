@@ -43,6 +43,9 @@ def snake(name):
     return s.upper()
 
 
+KNOWN_KEYWORDS = {"Exhaust", "Ethereal", "Innate", "Unplayable", "Retain", "Sly", "Eternal"}
+
+
 def main():
     cards_src = load("cards.json")
     effects = {bare(c.get("id")): c for c in load("cards_effects.json", "cards")}
@@ -80,6 +83,7 @@ def main():
             "effects": bool(eff),
             "numeric": numeric,
             "coop": cid in coop,
+            "keywords": eff.get("keywords") if eff else [],
         }
         if ctype in ("curse", "status"):
             imp = impact.get(cid)
@@ -136,6 +140,8 @@ def main():
         "relics_without_tags": [e["id"] for e in relic_entries if not e["tags"]],
         "encounters_without_stats": [e["id"] for e in encounter_entries if not e["has_stats"]],
         "monsters_without_constraint": [e["id"] for e in monster_entries if not e["constrained"]],
+        "cards_with_unknown_keyword": sorted({k for e in card_entries for k in (e.get("keywords") or [])
+                                              if k not in KNOWN_KEYWORDS}),
     }
 
     payload = {

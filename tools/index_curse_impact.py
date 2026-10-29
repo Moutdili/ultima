@@ -34,11 +34,17 @@ def main():
     with open(CARDS, encoding="utf-8") as f:
         data = json.load(f)
     cards = data["cards"] if isinstance(data, dict) and "cards" in data else data
-    types, desc = {}, {}
+    types, desc, keywords = {}, {}, {}
     for c in cards:
         cid = bare(c.get("id"))
         types[cid] = (c.get("type") or "").lower()
         desc[cid] = c.get("description_fr") or c.get("description") or ""
+        keywords[cid] = c.get("keywords") or []
+
+    effects = {}
+    if os.path.exists("data/catalog/curse_effects.json"):
+        with open("data/catalog/curse_effects.json", encoding="utf-8") as f:
+            effects = {e["id"]: e for e in json.load(f)["entries"]}
 
     rows = []
     for path in (WINS, LOSSES):
@@ -63,6 +69,9 @@ def main():
     entries = []
     for cid, (n, wins) in stat.items():
         p = wins / n
+        measured_tox = max(0, min(100, round(50 - 5 * (100 * (p - base)))))
+        eff = effects.get(cid) or {}
+        effect_sev = int(eff.get("severity") or 0)
         entries.append({
             "id": cid,
             "type": types.get(cid),
@@ -72,13 +81,22 @@ def main():
             "win_rate": round(100 * p, 2),
             "delta_pp": round(100 * (p - base), 2),
             "reliable": n >= MIN_SAMPLE,
-            # toxicité 0..100 : 50 = neutre, 100 = delta -10 pp, 0 = delta +10 pp
-            "toxicity": max(0, min(100, round(50 - 5 * (100 * (p - base))))),
+            # Mesure = win rate ; effet = sévérité de l'effet décrit. La toxicité retenue est la
+            # plus grave des deux : une limite de cartes reste dévastatrice même si le bundle
+            # événementiel masque le coût dans le delta.
+            "measured_toxicity": measured_tox,
+            "effect_family": eff.get("family"),
+            "effect_severity": effect_sev,
+            "effect_value": eff.get("value"),
+            "toxicity": max(measured_tox, effect_sev),
+            "keywords": keywords.get(cid, []),
         })
     # Exhaustivité : toute malédiction/statut du catalogue doit avoir une entrée, mesurée ou
     # explicitement « aucune donnée ». Aucune carte ne peut être inconnue du moteur.
     known = {e["id"] for e in entries}
     for cid in sorted({c for c, t in types.items() if t in ("curse", "status")} - known):
+        eff = effects.get(cid) or {}
+        effect_sev = int(eff.get("severity") or 0)
         entries.append({
             "id": cid,
             "type": types.get(cid),
@@ -88,11 +106,16 @@ def main():
             "win_rate": None,
             "delta_pp": None,
             "reliable": False,
-            "toxicity": None,
-            "reason": "absent du corpus (jamais acquis avant l'acte 3) — pénalité par défaut explicite",
+            "measured_toxicity": None,
+            "effect_family": eff.get("family"),
+            "effect_severity": effect_sev,
+            "effect_value": eff.get("value"),
+            "toxicity": effect_sev if effect_sev else None,
+            "keywords": keywords.get(cid, []),
+            "reason": "absent du corpus (jamais acquis avant l'acte 3) — sévérité par effet décrit",
         })
 
-    entries.sort(key=lambda x: (x["toxicity"] is None, x["toxicity"] if x["toxicity"] is not None else 0, -x["n"]))
+    entries.sort(key=lambda x: (x["toxicity"] is None, -(x["toxicity"] if x["toxicity"] is not None else 0), -x["n"]))
 
     payload = {
         "schema": "ultima.curse_impact/1",
@@ -110,7 +133,9 @@ def main():
     print(f"{'carte':26s} {'type':7s} {'n':>6s} {'win%':>6s} {'delta':>7s} {'tox':>4s}")
     for e in entries[:16]:
         flag = "" if e["reliable"] else "  (n faible)"
-        print(f"{e['id'][:26]:26s} {e['type']:7s} {e['n']:6d} {e['win_rate']:6.1f} {e['delta_pp']:+7.1f} {e['toxicity']:4d}{flag}")
+        win = f"{e['win_rate']:6.1f}" if e["win_rate"] is not None else "     -"
+        delta = f"{e['delta_pp']:+7.1f}" if e["delta_pp"] is not None else "      -"
+        print(f"{e['id'][:26]:26s} {e['type']:7s} {e['n']:6d} {win} {delta} {e['toxicity']:4d}{flag}")
 
 
 if __name__ == "__main__":

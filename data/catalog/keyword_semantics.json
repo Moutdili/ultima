@@ -1,0 +1,13 @@
+{
+ "schema": "ultima.keywords/1",
+ "source": "Entities/Cards/CardKeyword.cs (enum) + pck/localization/fra/card_keywords.json (descriptions)",
+ "keywords": [
+  {"id": "Exhaust", "fr": "Épuisement", "semantics": "quitte le combat après avoir été jouée", "transient": true, "unplayable": false, "retained": false, "opening_hand": false, "returns_on_discard": false, "unremovable": false},
+  {"id": "Ethereal", "fr": "Éthéré", "semantics": "épuisée en fin de tour si encore en main", "transient": true, "unplayable": false, "retained": false, "opening_hand": false, "returns_on_discard": false, "unremovable": false},
+  {"id": "Innate", "fr": "Inné", "semantics": "commence dans la main de départ", "transient": false, "unplayable": false, "retained": false, "opening_hand": true, "returns_on_discard": false, "unremovable": false},
+  {"id": "Unplayable", "fr": "Injouable", "semantics": "ne peut pas être jouée", "transient": false, "unplayable": true, "retained": false, "opening_hand": false, "returns_on_discard": false, "unremovable": false},
+  {"id": "Retain", "fr": "Retenue", "semantics": "reste en main en fin de tour", "transient": false, "unplayable": false, "retained": true, "opening_hand": false, "returns_on_discard": false, "unremovable": false},
+  {"id": "Sly", "fr": "Rusée", "semantics": "si défaussée, revient au-dessus de la pioche", "transient": false, "unplayable": false, "retained": false, "opening_hand": false, "returns_on_discard": true, "unremovable": false},
+  {"id": "Eternal", "fr": "Éternel", "semantics": "ne peut être retirée du deck ni transformée (CardModel.IsRemovable)", "transient": false, "unplayable": false, "retained": false, "opening_hand": false, "returns_on_discard": false, "unremovable": true}
+ ]
+}

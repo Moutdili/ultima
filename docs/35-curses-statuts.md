@@ -2,6 +2,9 @@
 
 > Source : 50 000 runs gagnées + 50 000 perdues (extraction `tools/explosivity/extract.py`).
 > Générateur : `tools/index_curse_impact.py` → `data/catalog/curse_impact.json`.
+> ⚠️ **Correction (docs/37)** : le delta de win rate seul est trompeur (bundle événementiel).
+> La toxicité retenue est désormais `max(mesure, sévérité d'effet)` — Normality passe de 41 à 95
+> grâce à son effet « pas plus de 3 cartes par tour ». Lire docs/37 avant ce classement.
 
 ## Méthode
 

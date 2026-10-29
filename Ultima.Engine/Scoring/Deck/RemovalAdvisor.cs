@@ -1,5 +1,7 @@
 using Ultima.Engine.Contracts;
+using Ultima.Engine.Scoring.Cards;
 using Ultima.Engine.Scoring.Curses;
+using Ultima.Engine.Scoring.Keywords;
 using Ultima.Engine.Scoring.Model;
 using Ultima.Engine.Scoring.Strength;
 using Ultima.Saves.Model;
@@ -95,14 +97,19 @@ public sealed class RemovalAdvisor
     private readonly CurseScorer _curses;
     private readonly CardCatalog _cards;
     private readonly IMetaTable? _meta;
+    private readonly CardEffects _effects;
+    private readonly KeywordCatalog _keywords;
 
     public RemovalAdvisor(PlayerStrengthCalculator? strength = null, CurseScorer? curses = null,
-        CardCatalog? cards = null, IMetaTable? meta = null)
+        CardCatalog? cards = null, IMetaTable? meta = null, CardEffects? effects = null,
+        KeywordCatalog? keywords = null)
     {
         _strength = strength ?? LazyStrength.Value;
         _curses = curses ?? CurseScorer.Default;
         _cards = cards ?? CardCatalog.Default;
         _meta = meta;
+        _effects = effects ?? CardEffects.Default;
+        _keywords = keywords ?? KeywordCatalog.Default;
     }
 
     /// <summary>
@@ -147,6 +154,10 @@ public sealed class RemovalAdvisor
             int bonus = curse ? ScoreMath.Round(toxicity / ToxicityScale) : 0;
             int score = gain + bonus;
 
+            // Eternal : le jeu refuse le retrait (CardModel.IsRemovable). On le dit, et on ne
+            // recommande pas une action impossible.
+            bool eternal = _keywords.Flags(_effects.Get(group.Card.Id)?.Keywords).Unremovable;
+
             candidates.Add(new RemovalCandidate(
                 group.Card.Id,
                 Name(group.Card),
@@ -159,8 +170,9 @@ public sealed class RemovalAdvisor
                 score,
                 p,
                 p <= purse,
-                score >= breakEven,
-                Reason(group.Card, group.Count, gain, bonus, toxicity, p, breakEven)));
+                score >= breakEven && !eternal,
+                Reason(group.Card, group.Count, gain, bonus, toxicity, p, breakEven) +
+                    (eternal ? " · Éternel : ne peut pas être retirée du deck (CardModel.IsRemovable)" : "")));
         }
 
         return candidates
