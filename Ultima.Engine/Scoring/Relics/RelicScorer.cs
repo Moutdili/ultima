@@ -22,11 +22,13 @@ public sealed class RelicScorer
 
     private readonly IMetaTable _meta;
     private readonly IPersonalStats _personal;
+    private readonly RelicCatalog _catalog;
 
-    public RelicScorer(IMetaTable meta, IPersonalStats personal)
+    public RelicScorer(IMetaTable meta, IPersonalStats personal, RelicCatalog? catalog = null)
     {
         _meta = meta;
         _personal = personal;
+        _catalog = catalog ?? RelicCatalog.Load();
     }
 
     public Score Score(string relicId, ScoringContext ctx)
@@ -56,12 +58,42 @@ public sealed class RelicScorer
         }
 
         foreach (var term in Synergy(meta, ctx)) b.Add(term);
+        foreach (var term in Needs(meta, ctx)) b.Add(term);
 
         var confidence = meta.Consensus.HasValue
             ? Confidence.Of(meta.SourceCount, _personal.RunCount)
             : Confidence.Unknown;
 
         return AddNote(b.Build(confidence), note, noteSource);
+    }
+
+    /// <summary>
+    /// Besoin du joueur : une relique qui donne des PV max (ou soigne) ne vaut pas la même chose
+    /// à 70/70 PV qu'à 15/70. C'est le seul endroit où les PV entrent dans un score — la note de
+    /// deck reste, elle, indépendante des PV (stabilité de l'évaluation du deck).
+    /// Barème : ≥ 80 % des PV → 0 ; 60-80 % → 5 ; 40-60 % → 10 ; &lt; 40 % → 15.
+    /// </summary>
+    private IEnumerable<ScoreTerm> Needs(MetaEntry meta, ScoringContext ctx)
+    {
+        var entry = _catalog.Get(meta.Id);
+        if (entry is null || ctx.MaxHp <= 0) yield break;
+
+        double ratio = ScoreMath.Clamp((double)ctx.Hp / ctx.MaxHp, 0, 1);
+
+        if (entry.Has("revive"))
+        {
+            int pts = ratio <= 0.5 ? 15 : 5;
+            yield return new ScoreTerm("Filet de sécurité (survie)", pts,
+                $"{entry.NameFr} — PV {ctx.Hp}/{ctx.MaxHp}");
+        }
+
+        if (entry.Has("maxhp") || entry.Has("heal"))
+        {
+            int pts = ratio switch { < 0.40 => 15, < 0.60 => 10, < 0.80 => 5, _ => 0 };
+            if (pts > 0)
+                yield return new ScoreTerm("Répond à ton besoin de PV", pts,
+                    $"{entry.NameFr} — {ctx.Hp}/{ctx.MaxHp} PV, {ScoreMath.Round((1 - ratio) * 100)} % manquants");
+        }
     }
 
     /// <summary>

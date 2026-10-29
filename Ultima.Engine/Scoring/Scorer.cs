@@ -33,7 +33,7 @@ public sealed class Scorer : IScorer
 
         var synergy = new SynergyEngine(Meta);
         _cards = new CardScorer(Meta, Personal, synergy);
-        _relics = new RelicScorer(Meta, Personal);
+        _relics = new RelicScorer(Meta, Personal, RelicCatalog.Load());
         _shop = new ShopScorer(_cards, _relics);
         _deck = new DeckEvaluator(Meta, _cards);
         _potions = new PotionScorer(PotionCatalog.Load());

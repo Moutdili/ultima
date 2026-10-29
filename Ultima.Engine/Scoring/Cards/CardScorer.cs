@@ -225,10 +225,24 @@ public sealed class CardScorer
         meta != null && ((meta.Type ?? "").Contains("Curse", StringComparison.OrdinalIgnoreCase)
                          || (meta.Rarity ?? "").Contains("Curse", StringComparison.OrdinalIgnoreCase));
 
+    /// <summary>
+    /// Libellé de source lisible pour le joueur : « Spire Codex — consensus 78/100 (1 source, écart 0) ».
+    /// L'explication doit nommer la source, pas seulement un identifiant technique.
+    /// </summary>
     internal static string SourceLabel(MetaEntry meta)
     {
-        var parts = meta.Ratings.Select(r => r.SourceId).Distinct().Take(2).ToArray();
+        var parts = meta.Ratings.Select(r => FriendlySource(r.SourceId)).Distinct().Take(2).ToArray();
         var who = parts.Length > 0 ? string.Join(" + ", parts) : "méta";
-        return $"{who} (n={meta.SourceCount} source(s), écart {meta.Spread:0.#})";
+
+        var consensus = meta.Consensus is double c ? $"{c:0.#}/100" : "—";
+        return $"{who} — consensus {consensus} ({meta.SourceCount} source(s), écart {meta.Spread:0.#})";
     }
+
+    private static string FriendlySource(string sourceId) => sourceId switch
+    {
+        "spirecodex-scores" => "Spire Codex",
+        "slaythetierlist" => "Slay the Tier List",
+        "untapped" or "untapped-gg" => "Untapped.gg",
+        _ => sourceId
+    };
 }

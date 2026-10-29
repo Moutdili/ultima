@@ -1,0 +1,2185 @@
+{
+ "schema": "ultima.catalog.relics/1",
+ "source": "game/pck/localization/fra/relics.json",
+ "generated_by": "tools/index_relics.py",
+ "count": 304,
+ "relics": [
+  {
+   "id": "AKABEKO",
+   "name_fr": "Akabeko",
+   "description_fr": "Au début de chaque combat, gagnez [blue]{VigorPower}[/blue] de [gold]Vigueur[/gold].",
+   "tags": []
+  },
+  {
+   "id": "ALCHEMICAL_COFFER",
+   "name_fr": "Caisse d'alchimie",
+   "description_fr": "Lorsque vous obtenez cette relique, gagnez [blue]{PotionSlots}[/blue] nouveaux emplacements de potion avec des potions aléatoires.",
+   "tags": [
+    "potion"
+   ]
+  },
+  {
+   "id": "AMETHYST_AUBERGINE",
+   "name_fr": "Aubergine d'améthyste",
+   "description_fr": "Les ennemis donnent [blue]{Gold}[/blue] [gold]Pièces d'or[/gold] supplémentaires.",
+   "tags": [
+    "gold"
+   ]
+  },
+  {
+   "id": "ANCHOR",
+   "name_fr": "Ancre",
+   "description_fr": "Démarrez chaque combat avec [blue]{Block}[/blue] d'[gold]Armure[/gold].",
+   "tags": [
+    "block"
+   ]
+  },
+  {
+   "id": "ARCANE_SCROLL",
+   "name_fr": "Parchemin arcanique",
+   "description_fr": "Lorsque vous obtenez cette relique, ajoutez une [gold]Carte Rare[/gold] aléatoire à votre [gold]Deck[/gold].",
+   "tags": []
+  },
+  {
+   "id": "ARCHAIC_TOOTH",
+   "name_fr": "Dent archaïque",
+   "description_fr": "Lorsque vous obtenez cette relique, [gold]Transformez[/gold] {StarterCard.StringValue:cond:[gold]{StarterCard}[/gold] en [gold]{AncientCard}[/gold]|une carte de base en sa version d'Ancien}.",
+   "tags": []
+  },
+  {
+   "id": "ART_OF_WAR",
+   "name_fr": "L'Art de la guerre",
+   "description_fr": "Si vous ne jouez aucune Attaque pendant votre tour, gagnez {Energy:energyIcons()} supplémentaire au tour suivant.",
+   "tags": [
+    "energy"
+   ]
+  },
+  {
+   "id": "ASTROLABE",
+   "name_fr": "Astrolabe",
+   "description_fr": "Lorsque vous obtenez cette relique, [gold]Transformez[/gold] [blue]{Cards}[/blue] {Cards:plural:carte|cartes}, puis [gold]Améliorez[/gold]-les.",
+   "tags": []
+  },
+  {
+   "id": "BAG_OF_MARBLES",
+   "name_fr": "Sac de billes",
+   "description_fr": "Au début de chaque combat, appliquez [gold]Vulnérable[/gold] ([blue]{VulnerablePower}[/blue]) sur TOUS les ennemis.",
+   "tags": [
+    "debuff"
+   ]
+  },
+  {
+   "id": "BAG_OF_PREPARATION",
+   "name_fr": "Sacoche de préparatifs",
+   "description_fr": "Au début de chaque combat, piochez [blue]{Cards}[/blue] {Cards:plural:carte supplémentaire|cartes supplémentaires}.",
+   "tags": [
+    "draw"
+   ]
+  },
+  {
+   "id": "BEATING_REMNANT",
+   "name_fr": "Vestige battant",
+   "description_fr": "Vous ne pouvez perdre plus de [blue]20[/blue] PV en un seul tour.",
+   "tags": []
+  },
+  {
+   "id": "BEAUTIFUL_BRACELET",
+   "name_fr": "Bracelet brillant",
+   "description_fr": "Lorsque vous obtenez cette relique, choisissez [blue]{Cards}[/blue] {Cards:plural:carte|cartes} dans votre [gold]Deck[/gold]. [gold]Envoûtez[/gold]-les avec [purple]Célérité[/purple] [blue]3[/blue].",
+   "tags": []
+  },
+  {
+   "id": "BELLOWS",
+   "name_fr": "Soufflet",
+   "description_fr": "La première [gold]Main[/gold] que vous piochez chaque combat est [gold]Améliorée[/gold].",
+   "tags": [
+    "draw"
+   ]
+  },
+  {
+   "id": "BELT_BUCKLE",
+   "name_fr": "Boucle de ceinture",
+   "description_fr": "Si vous n'avez pas de potions, vous avez [blue]{DexterityPower}[/blue] de [gold]Dextérité[/gold] supplémentaire.",
+   "tags": [
+    "dexterity",
+    "potion"
+   ]
+  },
+  {
+   "id": "BIG_HAT",
+   "name_fr": "Grand chapeau",
+   "description_fr": "Au début de chaque combat, ajoutez [blue]{Cards}[/blue] {Cards:plural:carte [gold]Éthérée[/gold] aléatoire|cartes [gold]Éthérées[/gold] aléatoires} à votre [gold]Main[/gold].",
+   "tags": []
+  },
+  {
+   "id": "BIG_MUSHROOM",
+   "name_fr": "Gros champi",
+   "description_fr": "Lorsque vous obtenez cette relique, augmentez vos PV Max de [blue]{MaxHp}[/blue]. Au début de chaque combat, vous piochez [blue]{Cards}[/blue] {Cards:plural:carte|cartes} en moins.",
+   "tags": [
+    "maxhp",
+    "draw"
+   ]
+  },
+  {
+   "id": "BIIIG_HUG",
+   "name_fr": "Grooos câlin",
+   "description_fr": "Lorsque vous obtenez cette relique, retirez [blue]{Cards}[/blue] cartes de votre [gold]Deck[/gold]. Lorsque vous mélangez votre [gold]Pioche[/gold], ajoutez une [gold]Suie[/gold] à votre [gold]Pioche[/gold].",
+   "tags": [
+    "draw"
+   ]
+  },
+  {
+   "id": "BING_BONG",
+   "name_fr": "Bing bong",
+   "description_fr": "Chaque fois que vous ajoutez une carte à votre [gold]Deck[/gold], ajoutez-en une copie supplémentaire.",
+   "tags": []
+  },
+  {
+   "id": "BLACK_BLOOD",
+   "name_fr": "Sang noir",
+   "description_fr": "À la fin de chaque combat, récupérez [green]{Heal}[/green] PV.",
+   "tags": [
+    "heal"
+   ]
+  },
+  {
+   "id": "BLACK_STAR",
+   "name_fr": "Étoile noire",
+   "description_fr": "Les [gold]Élites[/gold] donnent une Relique supplémentaire lorsqu'ils sont vaincus.",
+   "tags": []
+  },
+  {
+   "id": "BLESSED_ANTLER",
+   "name_fr": "Bois bénis",
+   "description_fr": "Gagnez {Energy:energyIcons()} au début de chaque tour. Au début de chaque combat, ajoutez [blue]{Cards}[/blue] [gold]Hébété[/gold] à votre [gold]Pioche[/gold].",
+   "tags": [
+    "energy",
+    "draw"
+   ]
+  },
+  {
+   "id": "BLOOD_SOAKED_ROSE",
+   "name_fr": "Rose sanguinolente",
+   "description_fr": "Lorsque vous obtenez cette relique, ajoutez [blue]1[/blue] [red]Assuétude[/red] à votre [gold]Deck[/gold]. Gagnez {Energy:energyIcons()} au début de chaque tour.",
+   "tags": [
+    "energy"
+   ]
+  },
+  {
+   "id": "BLOOD_VIAL",
+   "name_fr": "Fiole de sang",
+   "description_fr": "Au début de chaque combat, récupérez [green]{Heal}[/green] PV.",
+   "tags": [
+    "heal"
+   ]
+  },
+  {
+   "id": "BONE_FLUTE",
+   "name_fr": "Flûte d'os",
+   "description_fr": "Chaque fois que [gold]Titos[/gold] attaque, gagnez [blue]{Block}[/blue] d'[gold]Armure[/gold].",
+   "tags": [
+    "block"
+   ]
+  },
+  {
+   "id": "BONE_TEA",
+   "name_fr": "Thé d'os",
+   "description_fr": "Au début {Combats:plural:du prochain combat|des [blue]{}[/blue] prochains combats}, [gold]Améliorez[/gold] votre main de départ.",
+   "tags": []
+  },
+  {
+   "id": "BOOKMARK",
+   "name_fr": "Marque-page",
+   "description_fr": "À la fin de chaque tour, réduisez le coût d'une carte [gold]Retenue[/gold] aléatoire de [blue]1[/blue] jusqu'à ce qu'elle soit jouée.",
+   "tags": []
+  },
+  {
+   "id": "BOOK_OF_FIVE_RINGS",
+   "name_fr": "Livre des cinq anneaux",
+   "description_fr": "Chaque fois que vous ajoutez [blue]{Cards}[/blue] {Cards:plural:carte|cartes} à votre [gold]Deck[/gold], récupérez [green]{Heal}[/green] PV.",
+   "tags": [
+    "heal"
+   ]
+  },
+  {
+   "id": "BOOK_REPAIR_KNIFE",
+   "name_fr": "Couteau à reliure",
+   "description_fr": "Chaque fois qu'un ennemi non-Serviteur succombe à [gold]Fatalité[/gold], récupérez [green]{Heal}[/green] PV.",
+   "tags": [
+    "heal",
+    "debuff"
+   ]
+  },
+  {
+   "id": "BOOMING_CONCH",
+   "name_fr": "Conque retentissante",
+   "description_fr": "Au début des combats d'[gold]Élite[/gold], piochez [blue]{Cards}[/blue] {Cards:plural:carte supplémentaire|cartes supplémentaires} et gagnez {Energy:energyIcons()}.",
+   "tags": [
+    "energy",
+    "draw"
+   ]
+  },
+  {
+   "id": "BOUND_PHYLACTERY",
+   "name_fr": "Phylactère enchaîné",
+   "description_fr": "Au début de votre tour, [gold]Invoquez[/gold] pour [blue]{Summon}[/blue].",
+   "tags": []
+  },
+  {
+   "id": "BOWLER_HAT",
+   "name_fr": "Chapeau melon",
+   "description_fr": "Recevez [blue]{GoldIncrease:percentMore()} %[/blue] de [gold]Pièces d'or[/gold] supplémentaires.",
+   "tags": [
+    "gold"
+   ]
+  },
+  {
+   "id": "BREAD",
+   "name_fr": "Pain",
+   "description_fr": "Au début de votre premier tour, perdez {LoseEnergy:energyIcons()}. Au début de chaque tour suivant, gagnez {GainEnergy:energyIcons()}.",
+   "tags": [
+    "energy"
+   ]
+  },
+  {
+   "id": "BRILLIANT_SCARF",
+   "name_fr": "Écharpe étincelante",
+   "description_fr": "La [blue]5ème[/blue] carte jouée depuis votre main chaque tour peut être jouée sans coût.",
+   "tags": []
+  },
+  {
+   "id": "BRIMSTONE",
+   "name_fr": "Soufre",
+   "description_fr": "Au début de votre tour, vous gagnez [blue]{SelfStrength}[/blue] de [gold]Force[/gold] et TOUS les ennemis gagnent [blue]{EnemyStrength}[/blue] de [gold]Force[/gold].",
+   "tags": [
+    "strength"
+   ]
+  },
+  {
+   "id": "BRONZE_SCALES",
+   "name_fr": "Écailles de bronze",
+   "description_fr": "Démarrez chaque combat avec [blue]{ThornsPower}[/blue] d'[gold]Épines[/gold].",
+   "tags": [
+    "block"
+   ]
+  },
+  {
+   "id": "BURNING_BLOOD",
+   "name_fr": "Sang ardent",
+   "description_fr": "À la fin de chaque combat, récupérez [green]{Heal}[/green] PV.",
+   "tags": [
+    "heal"
+   ]
+  },
+  {
+   "id": "BURNING_STICKS",
+   "name_fr": "Bâtonnets enflammés",
+   "description_fr": "La première fois que vous [gold]Épuisez[/gold] une Compétence chaque combat, ajoutez-en une copie à votre [gold]Main[/gold].",
+   "tags": []
+  },
+  {
+   "id": "BYRDPIP",
+   "name_fr": "Oizillon",
+   "description_fr": "Lorsque vous obtenez cette relique, obtenez la carte [gold]Piqué d'oizo[/gold]. Un [gold]Oizillon[/gold] vous accompagnera en combat.",
+   "tags": []
+  },
+  {
+   "id": "CALLING_BELL",
+   "name_fr": "Cloche d'appel",
+   "description_fr": "Lorsque vous obtenez cette relique, obtenez une [red]Malédiction[/red] spéciale et [blue]{Relics}[/blue] [gold]Reliques[/gold].",
+   "tags": [
+    "curse"
+   ]
+  },
+  {
+   "id": "CANDELABRA",
+   "name_fr": "Candélabre",
+   "description_fr": "Au début de votre [blue]2ème[/blue] tour, gagnez {Energy:energyIcons()}.",
+   "tags": [
+    "energy"
+   ]
+  },
+  {
+   "id": "CAPTAINS_WHEEL",
+   "name_fr": "Barre de capitaine",
+   "description_fr": "Au début de votre [blue]3ème[/blue] tour, gagnez [blue]{Block}[/blue] d'[gold]Armure[/gold].",
+   "tags": [
+    "block"
+   ]
+  },
+  {
+   "id": "CAULDRON",
+   "name_fr": "Chaudron",
+   "description_fr": "Lorsque vous obtenez cette relique, concoctez [blue]{Potions}[/blue] {Potions:plural:potion aléatoire|potions aléatoires}.",
+   "tags": [
+    "potion"
+   ]
+  },
+  {
+   "id": "CENTENNIAL_PUZZLE",
+   "name_fr": "Puzzle centenaire",
+   "description_fr": "La première fois que vous perdez des PV chaque combat, piochez [blue]{Cards}[/blue] {Cards:plural:carte|cartes}.",
+   "tags": [
+    "draw"
+   ]
+  },
+  {
+   "id": "CHANDELIER",
+   "name_fr": "Chandelier",
+   "description_fr": "Au début de votre [blue]3ème[/blue] tour, gagnez {Energy:energyIcons()}.",
+   "tags": [
+    "energy"
+   ]
+  },
+  {
+   "id": "CHARONS_ASHES",
+   "name_fr": "Cendres de Charon",
+   "description_fr": "Chaque fois que vous [gold]Épuisez[/gold] une carte, infligez [blue]{Damage}[/blue] dégâts à TOUS les ennemis.",
+   "tags": []
+  },
+  {
+   "id": "CHEMICAL_X",
+   "name_fr": "Composé X",
+   "description_fr": "Les effets de vos cartes de coût [blue]X[/blue] sont augmentés de [blue]{Increase}[/blue].",
+   "tags": []
+  },
+  {
+   "id": "CHOICES_PARADOX",
+   "name_fr": "Embarras du choix",
+   "description_fr": "Au début de chaque combat, ajoutez [blue]1[/blue] carte parmi [blue]{Cards}[/blue] cartes aléatoires à votre [gold]Main[/gold]. Ajoutez [gold]Retenue[/gold] à la carte choisie.",
+   "tags": []
+  },
+  {
+   "id": "CHOSEN_CHEESE",
+   "name_fr": "Fromage d'élection",
+   "description_fr": "À la fin de chaque combat, gagnez [blue]{MaxHp}[/blue] PV Max.",
+   "tags": [
+    "maxhp"
+   ]
+  },
+  {
+   "id": "CIRCLET",
+   "name_fr": "Diadème",
+   "description_fr": "C'est un diadème.",
+   "tags": []
+  },
+  {
+   "id": "CLAWS",
+   "name_fr": "Griffes",
+   "description_fr": "Lorsque vous obtenez cette relique, [gold]Transformez[/gold] jusqu'à [blue]{Cards}[/blue] {Cards:plural:carte|cartes} en [gold]Mutilation[/gold].",
+   "tags": []
+  },
+  {
+   "id": "CLOAK_CLASP",
+   "name_fr": "Boucle de cape",
+   "description_fr": "À la fin de votre tour, gagnez [blue]{Block}[/blue] d'[gold]Armure[/gold] pour chaque carte dans votre [gold]Main[/gold].",
+   "tags": [
+    "block"
+   ]
+  },
+  {
+   "id": "CRACKED_CORE",
+   "name_fr": "Noyau fissuré",
+   "description_fr": "Au début de chaque combat, [gold]Canalisez[/gold] [blue]{Lightning}[/blue] [gold]Orbe kéraunique[/gold].",
+   "tags": []
+  },
+  {
+   "id": "CROSSBOW",
+   "name_fr": "Arbalète",
+   "description_fr": "Au début de votre tour, ajoutez une [gold]Attaque[/gold] aléatoire à votre [gold]Main[/gold]. Elle coûte [blue]0[/blue] ce tour.",
+   "tags": []
+  },
+  {
+   "id": "CURSED_KETTLE",
+   "name_fr": "Bouilloire maudite",
+   "description_fr": "Chaque fois que vous tuez un [gold]Élite[/gold], les autres [gold]Élites[/gold] de cet acte commenceront le combat avec [blue]{StrengthPower}[/blue] de [gold]Force[/gold].",
+   "tags": [
+    "strength"
+   ]
+  },
+  {
+   "id": "CURSED_PEARL",
+   "name_fr": "Perle maudite",
+   "description_fr": "Lorsque vous obtenez cette relique, recevez [red]Cupidité[/red]. Obtenez [blue]{Gold}[/blue] [gold]Pièces d'or[/gold].",
+   "tags": [
+    "gold"
+   ]
+  },
+  {
+   "id": "DARKSTONE_PERIAPT",
+   "name_fr": "Amulette sombrepierre",
+   "description_fr": "Chaque fois que vous obtenez une [red]Malédiction[/red], augmentez vos PV Max de [blue]{MaxHp}[/blue].",
+   "tags": [
+    "maxhp",
+    "curse"
+   ]
+  },
+  {
+   "id": "DATA_DISK",
+   "name_fr": "Disque dur",
+   "description_fr": "Commencez chaque combat avec [blue]{FocusPower}[/blue] de [gold]Focalisation[/gold].",
+   "tags": []
+  },
+  {
+   "id": "DAUGHTER_OF_THE_WIND",
+   "name_fr": "Fille des vents",
+   "description_fr": "Chaque fois que vous jouez une Attaque, gagnez [blue]{Block}[/blue] d'[gold]Armure[/gold].",
+   "tags": [
+    "block"
+   ]
+  },
+  {
+   "id": "DELICATE_FROND",
+   "name_fr": "Fougère délicate",
+   "description_fr": "Au début de chaque combat, remplissez vos emplacements de potion vides avec des potions aléatoires.",
+   "tags": [
+    "potion"
+   ]
+  },
+  {
+   "id": "DEMON_TONGUE",
+   "name_fr": "Langue du Démon",
+   "description_fr": "La première fois que vous perdez des PV pendant votre tour, vous récupérez autant de PV.",
+   "tags": [
+    "heal"
+   ]
+  },
+  {
+   "id": "DEPRECATED_RELIC",
+   "name_fr": "Relique obsolète",
+   "description_fr": "Cette relique a été retirée du jeu.",
+   "tags": []
+  },
+  {
+   "id": "DIAMOND_DIADEM",
+   "name_fr": "Diadème de diamant",
+   "description_fr": "Si vous jouez [blue]{CardThreshold}[/blue] cartes ou moins pendant votre tour, les dégâts des ennemis sont réduits de moitié.",
+   "tags": []
+  },
+  {
+   "id": "DINGY_RUG",
+   "name_fr": "Tapis miteux",
+   "description_fr": "Les récompenses de carte peuvent désormais proposer des cartes Incolores.",
+   "tags": []
+  },
+  {
+   "id": "DISTINGUISHED_CAPE",
+   "name_fr": "Cape distinguée",
+   "description_fr": "Lorsque vous obtenez cette relique, perdez [blue]9[/blue] PV Max. Ajoutez [blue]{Cards}[/blue] [gold]{Cards:plural:Apparition|Apparitions}[/gold] à votre [gold]Deck[/gold].",
+   "tags": [
+    "maxhp"
+   ]
+  },
+  {
+   "id": "DIVINE_DESTINY",
+   "name_fr": "Destin divin",
+   "description_fr": "Au début de chaque combat, gagnez {Stars:starIcons()}.",
+   "tags": []
+  },
+  {
+   "id": "DIVINE_RIGHT",
+   "name_fr": "Droit divin",
+   "description_fr": "Au début de chaque combat, gagnez {Stars:starIcons()}.",
+   "tags": []
+  },
+  {
+   "id": "DOLLYS_MIRROR",
+   "name_fr": "Miroir de Dolly",
+   "description_fr": "Lorsque vous obtenez cette relique, obtenez une copie supplémentaire d'une carte dans votre [gold]Deck[/gold].",
+   "tags": []
+  },
+  {
+   "id": "DRAGON_FRUIT",
+   "name_fr": "Fruit du dragon",
+   "description_fr": "Chaque fois que vous gagnez des [gold]Pièces d'or[/gold], augmentez vos PV Max de [blue]{MaxHp}[/blue].",
+   "tags": [
+    "maxhp",
+    "gold"
+   ]
+  },
+  {
+   "id": "DREAM_CATCHER",
+   "name_fr": "Attrape-rêves",
+   "description_fr": "Lorsque vous vous [gold]Reposez[/gold], vous pouvez ajouter une carte à votre [gold]Deck[/gold].",
+   "tags": []
+  },
+  {
+   "id": "DRIFTWOOD",
+   "name_fr": "Bois flotté",
+   "description_fr": "Vous disposez d'une relance gratuite pour chaque récompense de carte.",
+   "tags": []
+  },
+  {
+   "id": "DUSTY_TOME",
+   "name_fr": "Grimoire poussiéreux",
+   "description_fr": "Lorsque vous obtenez cette relique, obtenez {AncientCard.StringValue:cond:[gold]{}[/gold]|une [gold]Carte d'Ancien[/gold]}.",
+   "tags": []
+  },
+  {
+   "id": "ECTOPLASM",
+   "name_fr": "Ectoplasme",
+   "description_fr": "Vous ne pouvez plus obtenir de [gold]Pièces d'or[/gold]. Gagnez {Energy:energyIcons()} au début de chaque tour.",
+   "tags": [
+    "energy",
+    "gold"
+   ]
+  },
+  {
+   "id": "ELECTRIC_SHRYMP",
+   "name_fr": "Crevaite électrique",
+   "description_fr": "Lorsque vous obtenez cette relique, [gold]Envoûtez[/gold] une Compétence avec [purple]Imprégné[/purple].",
+   "tags": []
+  },
+  {
+   "id": "EMBER_TEA",
+   "name_fr": "Thé de braises",
+   "description_fr": "Au début {Combats:plural:du prochain combat|des [blue]{}[/blue] prochains combats}, gagnez [blue]{StrengthPower}[/blue] de [gold]Force[/gold].",
+   "tags": [
+    "strength"
+   ]
+  },
+  {
+   "id": "EMOTION_CHIP",
+   "name_fr": "Puce émotionnelle",
+   "description_fr": "Si vous avez perdu des PV lors du tour précédent, déclenchez la capacité passive de chacun de vos Orbes au début de votre tour.",
+   "tags": []
+  },
+  {
+   "id": "EMPTY_CAGE",
+   "name_fr": "Cage vide",
+   "description_fr": "Lorsque vous obtenez cette relique, retirez [blue]{Cards}[/blue] {Cards:plural:carte|cartes} de votre [gold]Deck[/gold].",
+   "tags": []
+  },
+  {
+   "id": "ENDLESS_APPETITE",
+   "name_fr": "Appétit sans fin",
+   "description_fr": "Chaque fois que vous [gold]Épuisez[/gold] une carte, gagnez [blue]{StrengthPower}[/blue] de [gold]Force[/gold].",
+   "tags": [
+    "strength"
+   ]
+  },
+  {
+   "id": "ETERNAL_FEATHER",
+   "name_fr": "Plume éternelle",
+   "description_fr": "Pour toutes les {Cards:plural:card|[blue]{}[/blue] cartes} dans votre [gold]Deck[/gold], récupérez [green]{Heal}[/green] PV lorsque vous entrez dans un [gold]Site de repos[/gold].",
+   "tags": [
+    "heal"
+   ]
+  },
+  {
+   "id": "FAKE_ANCHOR",
+   "name_fr": "Ancre ???",
+   "description_fr": "Démarrez chaque combat avec [blue]{Block}[/blue] d'[gold]Armure[/gold].",
+   "tags": [
+    "block"
+   ]
+  },
+  {
+   "id": "FAKE_BLOOD_VIAL",
+   "name_fr": "Fiole de sang ???",
+   "description_fr": "Au début de chaque combat, récupérez [green]{Heal}[/green] PV.",
+   "tags": [
+    "heal"
+   ]
+  },
+  {
+   "id": "FAKE_HAPPY_FLOWER",
+   "name_fr": "Fleur joyeuse ???",
+   "description_fr": "Tous les {Turns:plural:tours|[blue]{Turns}[/blue] tours}, gagnez {Energy:energyIcons()}.",
+   "tags": [
+    "energy"
+   ]
+  },
+  {
+   "id": "FAKE_LEES_WAFFLE",
+   "name_fr": "Gaufre de Lee ???",
+   "description_fr": "Lorsque vous obtenez cette relique, récupérez [green]{Heal}%[/green] de vos PV.",
+   "tags": [
+    "heal"
+   ]
+  },
+  {
+   "id": "FAKE_MANGO",
+   "name_fr": "Mangue ???",
+   "description_fr": "Lorsque vous obtenez cette relique, augmentez vos PV Max de [blue]{MaxHp}[/blue].",
+   "tags": [
+    "maxhp"
+   ]
+  },
+  {
+   "id": "FAKE_MERCHANTS_RUG",
+   "name_fr": "Le tapis du Marchand ???",
+   "description_fr": "Une piètre imitation. Sans effet.",
+   "tags": []
+  },
+  {
+   "id": "FAKE_ORICHALCUM",
+   "name_fr": "Orichalque ???",
+   "description_fr": "Si vous terminez votre tour sans [gold]Armure[/gold], gagnez [blue]{Block}[/blue] d'[gold]Armure[/gold].",
+   "tags": [
+    "block"
+   ]
+  },
+  {
+   "id": "FAKE_SNECKO_EYE",
+   "name_fr": "Œil de geckobra ???",
+   "description_fr": "Démarrez chaque combat [red]Désorienté[/red].",
+   "tags": []
+  },
+  {
+   "id": "FAKE_STRIKE_DUMMY",
+   "name_fr": "Mannequin d'entraînement ???",
+   "description_fr": "Les cartes contenant « Frappe » infligent [blue]{ExtraDamage}[/blue] {ExtraDamage:plural:dégât supplémentaire|dégâts supplémentaires}.",
+   "tags": []
+  },
+  {
+   "id": "FAKE_VENERABLE_TEA_SET",
+   "name_fr": "Service à thé vénérable ???",
+   "description_fr": "Chaque fois que vous entrez dans un [gold]Site de repos[/gold], vous démarrez le combat suivant avec {Energy:energyIcons()} supplémentaires.",
+   "tags": [
+    "energy"
+   ]
+  },
+  {
+   "id": "FENCING_MANUAL",
+   "name_fr": "Manuel d'escrime",
+   "description_fr": "Au début de chaque combat, [gold]Forgez[/gold] [blue]{Forge}[/blue].",
+   "tags": []
+  },
+  {
+   "id": "FESTIVE_POPPER",
+   "name_fr": "Pétard de fête",
+   "description_fr": "Au début de chaque combat, infligez [blue]{Damage}[/blue] dégâts à TOUS les ennemis.",
+   "tags": []
+  },
+  {
+   "id": "FIDDLE",
+   "name_fr": "Violon",
+   "description_fr": "Au début de chaque tour, piochez [blue]{Cards}[/blue] {Cards:plural:carte supplémentaire|cartes supplémentaires}. Vous ne pouvez plus piocher de cartes pendant votre tour.",
+   "tags": [
+    "draw"
+   ]
+  },
+  {
+   "id": "FISHING_ROD",
+   "name_fr": "Canne à pêche",
+   "description_fr": "{Combats:plural:Après chaque combat normal|Tous les [blue]{}[/blue] combats normaux}, [gold]Améliorez[/gold] une carte aléatoire de votre [gold]Deck[/gold].",
+   "tags": []
+  },
+  {
+   "id": "FORGOTTEN_SOUL",
+   "name_fr": "Âme oubliée",
+   "description_fr": "Lorsque vous [gold]Épuisez[/gold] une carte, infligez [blue]{Damage}[/blue] dégât à un ennemi aléatoire.",
+   "tags": []
+  },
+  {
+   "id": "FRAGRANT_MUSHROOM",
+   "name_fr": "Champi aromatique",
+   "description_fr": "Lorsque vous obtenez cette relique, perdez [blue]{HpLoss}[/blue] PV et [gold]Améliorez[/gold] [blue]{Cards}[/blue] {Cards:plural:carte aléatoire|cartes aléatoires}.",
+   "tags": []
+  },
+  {
+   "id": "FRESNEL_LENS",
+   "name_fr": "Lentille de Fresnel",
+   "description_fr": "Lorsque vous ajoutez une carte qui donne de l'[gold]Armure[/gold] à votre [gold]Deck[/gold], [gold]Envoûtez[/gold]-la avec [purple]Agile[/purple] [blue]{NimbleAmount}[/blue].",
+   "tags": [
+    "block"
+   ]
+  },
+  {
+   "id": "FROZEN_EGG",
+   "name_fr": "Œuf gelé",
+   "description_fr": "Lorsque vous ajoutez un Pouvoir à votre [gold]Deck[/gold], [gold]Améliorez[/gold]-le.",
+   "tags": []
+  },
+  {
+   "id": "FUNERARY_MASK",
+   "name_fr": "Masque funéraire",
+   "description_fr": "Au début de chaque combat, ajoutez [blue]{Cards}[/blue] [gold]{Cards:plural:Âme|Âmes}[/gold] à votre [gold]Pioche[/gold].",
+   "tags": [
+    "draw"
+   ]
+  },
+  {
+   "id": "FUR_COAT",
+   "name_fr": "Manteau de fourrure",
+   "description_fr": "Lorsque vous obtenez cette relique, marquez [blue]{Combats}[/blue] combats aléatoires sur le Plan. Les ennemis dans ces salles ont [blue]1[/blue] PV.",
+   "tags": []
+  },
+  {
+   "id": "GALACTIC_DUST",
+   "name_fr": "Poussière galactique",
+   "description_fr": "Chaque fois que vous dépensez [blue]{Stars}[/blue] {singleStarIcon}, gagnez [blue]{Block}[/blue] d'[gold]Armure[/gold].",
+   "tags": [
+    "block"
+   ]
+  },
+  {
+   "id": "GAMBLING_CHIP",
+   "name_fr": "Jeton de casino",
+   "description_fr": "Au début de chaque combat, défaussez autant de cartes que vous souhaitez, puis piochez-en le même nombre.",
+   "tags": [
+    "draw"
+   ]
+  },
+  {
+   "id": "GAME_PIECE",
+   "name_fr": "Pion",
+   "description_fr": "Chaque fois que vous jouez un Pouvoir, piochez [blue]{Cards}[/blue] {Cards:plural:carte|cartes}.",
+   "tags": [
+    "draw"
+   ]
+  },
+  {
+   "id": "GHOST_SEED",
+   "name_fr": "Graine fantôme",
+   "description_fr": "Les [gold]Frappes[/gold] et les [gold]Défenses[/gold] deviennent [gold]Éthérées[/gold].",
+   "tags": []
+  },
+  {
+   "id": "GIRYA",
+   "name_fr": "Girya",
+   "description_fr": "Vous pouvez augmenter votre [gold]Force[/gold] aux [gold]Sites de repos[/gold]. ([blue]3[/blue] fois maximum)",
+   "tags": [
+    "strength"
+   ]
+  },
+  {
+   "id": "GLASS_EYE",
+   "name_fr": "Œil de verre",
+   "description_fr": "Lorsque vous obtenez cette relique, obtenez [blue]2[/blue] cartes [gold]Communes[/gold], [blue]2[/blue] cartes [gold]Inhabituelles[/gold], et [blue]1[/blue] carte [gold]Rare[/gold].",
+   "tags": []
+  },
+  {
+   "id": "GLITTER",
+   "name_fr": "Paillettes",
+   "description_fr": "[gold]Envoûtez[/gold] toutes les récompenses de carte avec [purple]Glamour[/purple].",
+   "tags": []
+  },
+  {
+   "id": "GLOWING_ORB",
+   "name_fr": "Orbe lumineux",
+   "description_fr": "Démarrez les combats d'[gold]Élite[/gold] avec {Energy:energyIcons()} supplémentaires.",
+   "tags": [
+    "energy"
+   ]
+  },
+  {
+   "id": "GNARLED_HAMMER",
+   "name_fr": "Marteau tordu",
+   "description_fr": "Lorsque vous obtenez cette relique, [gold]Envoûtez[/gold] jusqu'à [blue]{Cards}[/blue] {Cards:plural:Attaque|Attaques} avec [purple]Tranchant[/purple] [blue]{SharpAmount:diff()}[/blue].",
+   "tags": []
+  },
+  {
+   "id": "GOLDEN_COMPASS",
+   "name_fr": "Boussole dorée",
+   "description_fr": "Lorsque vous obtenez cette relique, remplacez la carte de l'[gold]Acte[/gold] [blue]2[/blue] par un chemin unique.",
+   "tags": []
+  },
+  {
+   "id": "GOLDEN_PEARL",
+   "name_fr": "Perle dorée",
+   "description_fr": "Lorsque vous obtenez cette relique, gagnez [blue]{Gold}[/blue] [gold]Pièces d'or[/gold].",
+   "tags": [
+    "gold"
+   ]
+  },
+  {
+   "id": "GOLD_PLATED_CABLES",
+   "name_fr": "Câble plaqué or",
+   "description_fr": "Votre orbe le plus à droite déclenche sa capacité passive une fois de plus.",
+   "tags": []
+  },
+  {
+   "id": "GORGET",
+   "name_fr": "Gorgerette",
+   "description_fr": "Au début de chaque combat, gagnez [blue]{PlatingPower}[/blue] de [gold]Blindage[/gold].",
+   "tags": [
+    "block"
+   ]
+  },
+  {
+   "id": "GREMLIN_HORN",
+   "name_fr": "Corne de diablotin",
+   "description_fr": "Chaque fois qu'un ennemi est tué, gagnez {Energy:energyIcons()} et piochez [blue]{Cards}[/blue] {Cards:plural:carte|cartes}.",
+   "tags": [
+    "energy",
+    "draw"
+   ]
+  },
+  {
+   "id": "HAND_DRILL",
+   "name_fr": "Perceuse",
+   "description_fr": "Lorsque vous venez à bout de l'[gold]Armure[/gold] d'un ennemi, appliquez-lui [blue]{VulnerablePower}[/blue] [gold]Vulnérable[/gold].",
+   "tags": [
+    "block",
+    "debuff"
+   ]
+  },
+  {
+   "id": "HAPPY_FLOWER",
+   "name_fr": "Fleur joyeuse",
+   "description_fr": "Tous les {Turns:plural:tours|[blue]{Turns}[/blue] tours}, gagnez {Energy:energyIcons()}.",
+   "tags": [
+    "energy"
+   ]
+  },
+  {
+   "id": "HEFTY_TABLET",
+   "name_fr": "Tablette lourde",
+   "description_fr": "Lorsque vous obtenez cette relique, choisissez [blue]1[/blue] carte Rare parmi [blue]{Cards}[/blue] à ajouter à votre [gold]Deck[/gold], et ajoutez [blue]1[/blue] [red]Blessure[/red] à votre [gold]Deck[/gold].",
+   "tags": []
+  },
+  {
+   "id": "HELICAL_DART",
+   "name_fr": "Fléchette hélicoïdale",
+   "description_fr": "Chaque fois que vous jouez un [gold]Surin[/gold], gagnez [blue]{DexterityPower}[/blue] de [gold]Dextérité[/gold] jusqu'à la fin du tour.",
+   "tags": [
+    "dexterity"
+   ]
+  },
+  {
+   "id": "HISTORY_COURSE",
+   "name_fr": "Manuel d'Histoire",
+   "description_fr": "Au début de votre tour, jouez une copie de la dernière Compétence ou Attaque que vous avez jouée.",
+   "tags": []
+  },
+  {
+   "id": "HORN_CLEAT",
+   "name_fr": "Taquet d'amarrage",
+   "description_fr": "Au début de votre [blue]2ème[/blue] tour, gagnez [blue]{Block}[/blue] d'[gold]Armure[/gold].",
+   "tags": [
+    "block"
+   ]
+  },
+  {
+   "id": "ICE_CREAM",
+   "name_fr": "Crème glacée",
+   "description_fr": "Vous conservez votre Énergie entre chaque tour.",
+   "tags": [
+    "energy"
+   ]
+  },
+  {
+   "id": "INFUSED_CORE",
+   "name_fr": "Noyau infusé",
+   "description_fr": "Au début de chaque combat, [gold]Canalisez[/gold] [blue]{Lightning}[/blue] [gold]Orbes kérauniques[/gold]. Les [gold]Orbes kérauniques[/gold] infligent [blue]{ExtraDamage}[/blue] supplémentaires.",
+   "tags": []
+  },
+  {
+   "id": "INK_BOTTLE",
+   "name_fr": "Encrier",
+   "description_fr": "Toutes les [blue]{CardThreshold}[/blue] {CardThreshold:plural:carte jouée|cartes jouées}, vous piochez [blue]{Cards}[/blue] {Cards:plural:carte|cartes}.",
+   "tags": [
+    "draw"
+   ]
+  },
+  {
+   "id": "INTIMIDATING_HELMET",
+   "name_fr": "Casque intimidant",
+   "description_fr": "Lorsque vous jouez une carte qui coûte {Energy:energyIcons()} ou plus, gagnez [blue]{Block}[/blue] d'[gold]Armure[/gold].",
+   "tags": [
+    "block",
+    "energy"
+   ]
+  },
+  {
+   "id": "IRON_CLUB",
+   "name_fr": "Gourdin de fer",
+   "description_fr": "Toutes les [blue]{Cards}[/blue] {Cards:plural:carte jouée|cartes jouées}, vous piochez [blue]1[/blue] carte.",
+   "tags": [
+    "draw"
+   ]
+  },
+  {
+   "id": "IVORY_TILE",
+   "name_fr": "Tuile en ivoire",
+   "description_fr": "Lorsque vous jouez une carte qui coûte {EnergyThreshold:energyIcons()} ou plus, gagnez {Energy:energyIcons()}.",
+   "tags": [
+    "energy"
+   ]
+  },
+  {
+   "id": "JEWELED_MASK",
+   "name_fr": "Masque serti",
+   "description_fr": "Au début de chaque combat, placez un Pouvoir aléatoire de votre [gold]Pioche[/gold] dans votre [gold]Main[/gold]. Il coûte [blue]0[/blue] ce combat.",
+   "tags": [
+    "draw"
+   ]
+  },
+  {
+   "id": "JEWELRY_BOX",
+   "name_fr": "Coffre à bijoux",
+   "description_fr": "Lorsque vous obtenez cette relique, ajoutez [blue]1[/blue] [gold]Apothéose[/gold] à votre [gold]Deck[/gold].",
+   "tags": []
+  },
+  {
+   "id": "JOSS_PAPER",
+   "name_fr": "Billet funéraire",
+   "description_fr": "Chaque fois que vous avez [gold]Épuisé[/gold] [blue]{ExhaustAmount}[/blue] cartes, piochez [blue]{Cards}[/blue] {Cards:plural:carte|cartes}.",
+   "tags": [
+    "draw"
+   ]
+  },
+  {
+   "id": "JUZU_BRACELET",
+   "name_fr": "Bracelet Juzu",
+   "description_fr": "Les salles [gold]?[/gold] ne contiennent plus d'ennemis normaux.",
+   "tags": []
+  },
+  {
+   "id": "KALEIDOSCOPE",
+   "name_fr": "Kaléidoscope",
+   "description_fr": "Lorsque vous obtenez cette relique, recevez [blue]{Cards}[/blue] {Cards:plural:récompense|récompenses} de cartes d'autres personnages.",
+   "tags": []
+  },
+  {
+   "id": "KIFUDA",
+   "name_fr": "Kifuda",
+   "description_fr": "Lorsque vous obtenez cette relique, [gold]Envoûtez[/gold] jusqu'à [blue]{Cards}[/blue] {Cards:plural:carte|cartes} avec [purple]Adroit[/purple].",
+   "tags": []
+  },
+  {
+   "id": "KUNAI",
+   "name_fr": "Kunai",
+   "description_fr": "Chaque fois que vous jouez [blue]{Cards}[/blue] Attaques en un seul tour, gagnez [blue]{DexterityPower}[/blue] de [gold]Dextérité[/gold].",
+   "tags": [
+    "dexterity"
+   ]
+  },
+  {
+   "id": "KUSARIGAMA",
+   "name_fr": "Kusarigama",
+   "description_fr": "Chaque fois que vous jouez [blue]{Cards}[/blue] {Cards:plural:Attaque|Attaques} en un seul tour, infligez [blue]{Damage}[/blue] dégâts à un ennemi aléatoire.",
+   "tags": []
+  },
+  {
+   "id": "LANTERN",
+   "name_fr": "Lanterne",
+   "description_fr": "Démarrez chaque combat avec {Energy:energyIcons()} supplémentaire.",
+   "tags": [
+    "energy"
+   ]
+  },
+  {
+   "id": "LARGE_CAPSULE",
+   "name_fr": "Grande capsule",
+   "description_fr": "Lorsque vous obtenez cette relique, obtenez [blue]{Relics}[/blue] [gold]{Relics:plural:Relique aléatoire|Reliques aléatoires}[/gold]. Ajoutez une [gold]Frappe[/gold] et une [gold]Défense[/gold] à votre [gold]Deck[/gold].",
+   "tags": []
+  },
+  {
+   "id": "LASTING_CANDY",
+   "name_fr": "Bonbon durable",
+   "description_fr": "Tous les deux combats, vos récompenses de carte contiennent un Pouvoir supplémentaire.",
+   "tags": []
+  },
+  {
+   "id": "LAVA_LAMP",
+   "name_fr": "Lampe à lave",
+   "description_fr": "À la fin de chaque combat, si vous n'avez subi aucun dégât, [gold]Améliorez[/gold] toutes les récompenses de carte.",
+   "tags": []
+  },
+  {
+   "id": "LAVA_ROCK",
+   "name_fr": "Pierre volcanique",
+   "description_fr": "Le Boss de l'Acte 1 octroie [blue]{Relics}[/blue] [gold]Reliques[/gold] lorsqu'il est vaincu.",
+   "tags": []
+  },
+  {
+   "id": "LEAD_PAPERWEIGHT",
+   "name_fr": "Presse-papier en plomb",
+   "description_fr": "Lorsque vous obtenez cette relique, choisissez [blue]1[/blue] carte Incolore parmi [blue]2[/blue] à ajouter à votre [gold]Deck[/gold].",
+   "tags": []
+  },
+  {
+   "id": "LEAFY_POULTICE",
+   "name_fr": "Cataplasme",
+   "description_fr": "Lorsque vous obtenez cette relique, [gold]Transformez[/gold] [blue]1[/blue] [gold]Frappe[/gold] et [blue]1[/blue] [gold]Défense[/gold] et perdez [blue]{MaxHp}[/blue] PV Max.",
+   "tags": [
+    "maxhp"
+   ]
+  },
+  {
+   "id": "LEES_WAFFLE",
+   "name_fr": "Gaufre de Lee",
+   "description_fr": "Lorsque vous obtenez cette relique, augmentez vos PV Max de [blue]{MaxHp}[/blue] et récupérez tous vos PV.",
+   "tags": [
+    "maxhp",
+    "heal"
+   ]
+  },
+  {
+   "id": "LETTER_OPENER",
+   "name_fr": "Coupe-papier",
+   "description_fr": "Chaque fois que vous jouez [blue]{Cards}[/blue] {Cards:plural:Compétence|Compétences} en un seul tour, infligez [blue]{Damage}[/blue] dégâts à TOUS les ennemis.",
+   "tags": []
+  },
+  {
+   "id": "LIZARD_TAIL",
+   "name_fr": "Queue de lézard",
+   "description_fr": "Lorsque vos PV sont réduits à [blue]0[/blue], récupérez [green]{Heal} %[/green] de vos PV max (ne fonctionne qu'une fois).",
+   "tags": [
+    "maxhp",
+    "heal"
+   ]
+  },
+  {
+   "id": "LOOMING_FRUIT",
+   "name_fr": "Fruits exotiques",
+   "description_fr": "Lorsque vous obtenez cette relique, augmentez vos PV Max de [blue]{MaxHp}[/blue].",
+   "tags": [
+    "maxhp"
+   ]
+  },
+  {
+   "id": "LORDS_PARASOL",
+   "name_fr": "Parasol seigneurial",
+   "description_fr": "Lorsque vous passez chez le [gold]Marchand[/gold], vous obtenez immédiatement TOUT ce qu'il propose.",
+   "tags": [
+    "shop"
+   ]
+  },
+  {
+   "id": "LOST_COFFER",
+   "name_fr": "Coffret perdu",
+   "description_fr": "Lorsque vous obtenez cette relique, gagnez [blue]1[/blue] récompense de carte et obtenez [blue]1[/blue] potion aléatoire.",
+   "tags": [
+    "potion"
+   ]
+  },
+  {
+   "id": "LOST_WISP",
+   "name_fr": "Feu follet perdu",
+   "description_fr": "Chaque fois que vous jouez un Pouvoir, infligez [blue]{Damage}[/blue] dégâts à TOUS les ennemis.",
+   "tags": []
+  },
+  {
+   "id": "LUCKY_FYSH",
+   "name_fr": "Poisson chanceux",
+   "description_fr": "Chaque fois que vous ajoutez une carte à votre [gold]Deck[/gold], gagnez [blue]{Gold}[/blue] [gold]Pièces d'or[/gold].",
+   "tags": [
+    "gold"
+   ]
+  },
+  {
+   "id": "LUNAR_PASTRY",
+   "name_fr": "Pâtisserie lunaire",
+   "description_fr": "À la fin de votre tour, gagnez {Stars:starIcons()}.",
+   "tags": []
+  },
+  {
+   "id": "MANGO",
+   "name_fr": "Mangue",
+   "description_fr": "Lorsque vous obtenez cette relique, augmentez vos PV Max de [blue]{MaxHp}[/blue].",
+   "tags": [
+    "maxhp"
+   ]
+  },
+  {
+   "id": "MASSIVE_SCROLL",
+   "name_fr": "Parchemin énorme",
+   "description_fr": "Lorsque vous obtenez cette relique, choisissez [blue]1[/blue] [gold]Carte Multijoueur[/gold] parmi [blue]3[/blue] à ajouter à votre [gold]Deck[/gold].",
+   "tags": []
+  },
+  {
+   "id": "MAW_BANK",
+   "name_fr": "Tirelire-gueule",
+   "description_fr": "Chaque fois que vous gravissez un étage, obtenez [blue]{Gold}[/blue] [gold]Pièces d'or[/gold]. Cesse de fonctionner dès que vous dépensez des [gold]Pièces d'or[/gold] chez le Marchand.",
+   "tags": [
+    "gold",
+    "shop"
+   ]
+  },
+  {
+   "id": "MEAL_TICKET",
+   "name_fr": "Ticket restaurant",
+   "description_fr": "Lorsque vous entrez dans une boutique, récupérez [green]{Heal}[/green] PV.",
+   "tags": [
+    "heal",
+    "shop"
+   ]
+  },
+  {
+   "id": "MEAT_CLEAVER",
+   "name_fr": "Couperet à viande",
+   "description_fr": "Vous pouvez [gold]Cuisiner[/gold] aux Sites de Repos.",
+   "tags": []
+  },
+  {
+   "id": "MEAT_ON_THE_BONE",
+   "name_fr": "Os à viande",
+   "description_fr": "Si vous avez [blue]{HpThreshold}%[/blue] ou moins de vos PV Max à la fin d'un combat, récupérez [green]{Heal}[/green] PV.",
+   "tags": [
+    "maxhp",
+    "heal"
+   ]
+  },
+  {
+   "id": "MEMBERSHIP_CARD",
+   "name_fr": "Carte de fidélité",
+   "description_fr": "[blue]{Discount}%[/blue] de remise sur tous les produits !",
+   "tags": []
+  },
+  {
+   "id": "MERCURY_HOURGLASS",
+   "name_fr": "Sablier de mercure",
+   "description_fr": "Au début de votre tour, infligez [blue]{Damage}[/blue] dégâts à TOUS les ennemis.",
+   "tags": []
+  },
+  {
+   "id": "METRONOME",
+   "name_fr": "Métronome",
+   "description_fr": "La première fois que vous [gold]Canalisez[/gold] [blue]{OrbCount}[/blue] [gold]Orbes[/gold] dans un combat, infligez [blue]{Damage}[/blue] dégâts à TOUS les ennemis.",
+   "tags": []
+  },
+  {
+   "id": "MINIATURE_CANNON",
+   "name_fr": "Canon miniature",
+   "description_fr": "Les Attaques [gold]Améliorées[/gold] infligent [blue]{ExtraDamage}[/blue] dégâts supplémentaires.",
+   "tags": []
+  },
+  {
+   "id": "MINIATURE_TENT",
+   "name_fr": "Tente miniature",
+   "description_fr": "Vous pouvez effectuer autant d'actions différentes que vous souhaitez aux [gold]Sites de repos[/gold].",
+   "tags": []
+  },
+  {
+   "id": "MINI_REGENT",
+   "name_fr": "Mini Régent",
+   "description_fr": "La première fois que vous dépensez des {singleStarIcon} chaque tour, gagnez [blue]{StrengthPower}[/blue] de [gold]Force[/gold].",
+   "tags": [
+    "strength"
+   ]
+  },
+  {
+   "id": "MOLTEN_EGG",
+   "name_fr": "Œuf en fusion",
+   "description_fr": "Lorsque vous ajoutez une Attaque à votre [gold]Deck[/gold], [gold]Améliorez[/gold]-la.",
+   "tags": []
+  },
+  {
+   "id": "MR_STRUGGLES",
+   "name_fr": "Monsieur Carnage",
+   "description_fr": "Au début de votre tour, infligez un nombre de dégâts égal au numéro du tour à TOUS les ennemis.",
+   "tags": []
+  },
+  {
+   "id": "MUMMIFIED_HAND",
+   "name_fr": "Main momifiée",
+   "description_fr": "Chaque fois que vous jouez un Pouvoir, le coût d'une carte aléatoire de votre [gold]Main[/gold] est réduit à [blue]0[/blue] jusqu'à la fin du tour.",
+   "tags": []
+  },
+  {
+   "id": "MUSIC_BOX",
+   "name_fr": "Boîte à musique",
+   "description_fr": "Vous créez une copie [gold]Éthérée[/gold] de la première Attaque que vous jouez chaque tour.",
+   "tags": []
+  },
+  {
+   "id": "MYSTERIOUS_COCOON",
+   "name_fr": "Cocon mystérieux",
+   "description_fr": "Lorsque vous avez gagné [blue]{Experience}[/blue] d'expérience, transformez [gold]Frappe d'entraînement[/gold] en [gold]Empaler[/gold].",
+   "tags": []
+  },
+  {
+   "id": "MYSTIC_LIGHTER",
+   "name_fr": "Briquet mystique",
+   "description_fr": "Les Attaques [gold]Envoûtées[/gold] infligent [blue]{Damage}[/blue] dégâts supplémentaires.",
+   "tags": []
+  },
+  {
+   "id": "NEOWS_BONES",
+   "name_fr": "Osselets de Neow",
+   "description_fr": "Lorsque vous obtenez cette relique, gagnez [blue]{Relics}[/blue] {Relics:plural:[gold]Relique[/gold] de Neow aléatoire|[gold]Reliques[/gold] de Neow aléatoires}. Ajoutez [blue]{Curses}[/blue] {Curses:plural:[red]Malédiction[/red] aléatoire|[red]Malédictions[/red] aléatoires} à votre [gold]Deck[/gold].",
+   "tags": [
+    "curse"
+   ]
+  },
+  {
+   "id": "NEOWS_TALISMAN",
+   "name_fr": "Talisman de Neow",
+   "description_fr": "Lorsque vous obtenez cette relique, [gold]Améliorez[/gold] [blue]1[/blue] de vos [gold]Frappes[/gold] et [blue]1[/blue] de vos [gold]Défenses[/gold].",
+   "tags": []
+  },
+  {
+   "id": "NEOWS_TORMENT",
+   "name_fr": "Tourment de Neow",
+   "description_fr": "Lorsque vous obtenez cette relique, ajoutez [blue]1[/blue] [gold]Fureur de Neow[/gold] à votre [gold]Deck[/gold].",
+   "tags": []
+  },
+  {
+   "id": "NEW_LEAF",
+   "name_fr": "Nouvelle page",
+   "description_fr": "Lorsque vous obtenez cette relique, [gold]Transformez[/gold] [blue]{Cards}[/blue] {Cards:plural:carte|cartes}.",
+   "tags": []
+  },
+  {
+   "id": "NINJA_SCROLL",
+   "name_fr": "Parchemin de ninja",
+   "description_fr": "Au début de chaque combat, ajoutez [blue]{Shivs}[/blue] [gold]{Shivs:plural:Surin|Surins}[/gold] à votre [gold]Main[/gold].",
+   "tags": []
+  },
+  {
+   "id": "NUNCHAKU",
+   "name_fr": "Nunchaku",
+   "description_fr": "Toutes les [blue]{Cards}[/blue] Attaques jouées, vous gagnez {Energy:energyIcons()}.",
+   "tags": [
+    "energy"
+   ]
+  },
+  {
+   "id": "NUTRITIOUS_OYSTER",
+   "name_fr": "Huître nourrissante",
+   "description_fr": "Lorsque vous obtenez cette relique, augmentez vos PV Max de [blue]{MaxHp}[/blue].",
+   "tags": [
+    "maxhp"
+   ]
+  },
+  {
+   "id": "NUTRITIOUS_SOUP",
+   "name_fr": "Soupe nourrissante",
+   "description_fr": "Lorsque vous obtenez cette relique, [gold]Envoûtez[/gold] toutes les [gold]Frappes[/gold] dans votre [gold]Deck[/gold] avec [purple]Braise de Tezcatara[/purple].",
+   "tags": []
+  },
+  {
+   "id": "ODDLY_SMOOTH_STONE",
+   "name_fr": "Pierre étrangement lisse",
+   "description_fr": "Démarrez chaque combat avec [blue]{DexterityPower}[/blue] de [gold]Dextérité[/gold].",
+   "tags": [
+    "dexterity"
+   ]
+  },
+  {
+   "id": "OLD_COIN",
+   "name_fr": "Pièce antique",
+   "description_fr": "Lorsque vous obtenez cette relique, obtenez [blue]{Gold}[/blue] [gold]Pièces d'or[/gold].",
+   "tags": [
+    "gold"
+   ]
+  },
+  {
+   "id": "ORANGE_DOUGH",
+   "name_fr": "Pâte orange",
+   "description_fr": "Au début de chaque combat, ajoutez [blue]{Cards}[/blue] {Cards:plural:carte Incolore aléatoire|cartes Incolores aléatoires} à votre [gold]Main[/gold].",
+   "tags": []
+  },
+  {
+   "id": "ORICHALCUM",
+   "name_fr": "Orichalque",
+   "description_fr": "Si vous terminez votre tour sans [gold]Armure[/gold], gagnez [blue]{Block}[/blue] d'[gold]Armure[/gold].",
+   "tags": [
+    "block"
+   ]
+  },
+  {
+   "id": "ORNAMENTAL_FAN",
+   "name_fr": "Éventail décoratif",
+   "description_fr": "Chaque fois que vous jouez [blue]{Cards}[/blue] Attaques en un seul tour, gagnez [blue]{Block}[/blue] d'[gold]Armure[/gold].",
+   "tags": [
+    "block"
+   ]
+  },
+  {
+   "id": "ORRERY",
+   "name_fr": "Planétaire",
+   "description_fr": "Lorsque vous obtenez cette relique, obtenez [blue]{Cards}[/blue] {Cards:plural:récompense|récompenses} de carte.",
+   "tags": []
+  },
+  {
+   "id": "PAELS_BLOOD",
+   "name_fr": "Sang de Paël",
+   "description_fr": "Au début de votre tour, piochez [blue]{Cards}[/blue] {Cards:plural:carte supplémentaire|cartes supplémentaires}.",
+   "tags": [
+    "draw"
+   ]
+  },
+  {
+   "id": "PAELS_CLAW",
+   "name_fr": "Griffe de Paël",
+   "description_fr": "Lorsque vous obtenez cette relique, [gold]Envoûtez[/gold] toutes vos [gold]Défenses[/gold] avec [purple]{EnchantmentName}[/purple].",
+   "tags": []
+  },
+  {
+   "id": "PAELS_EYE",
+   "name_fr": "Œil de Paël",
+   "description_fr": "Lorsque vous terminez votre tour sans avoir joué de cartes pour la première fois dans un combat, [gold]Épuisez[/gold] votre [gold]Main[/gold], et jouez un tour supplémentaire.",
+   "tags": []
+  },
+  {
+   "id": "PAELS_FLESH",
+   "name_fr": "Chair de Paël",
+   "description_fr": "Gagnez {Energy:energyIcons()} supplémentaire au début de votre [blue]3ème[/blue] tour et au début de chaque tour suivant.",
+   "tags": [
+    "energy"
+   ]
+  },
+  {
+   "id": "PAELS_GROWTH",
+   "name_fr": "Excroissance de Paël",
+   "description_fr": "Lorsque vous obtenez cette relique, [gold]Envoûtez[/gold] une carte avec [purple]{EnchantmentName}[/purple].",
+   "tags": []
+  },
+  {
+   "id": "PAELS_HORN",
+   "name_fr": "Corne de Paël",
+   "description_fr": "Lorsque vous obtenez cette relique, ajoutez [blue]2[/blue] [gold]Relaxations[/gold] à votre [gold]Deck[/gold].",
+   "tags": []
+  },
+  {
+   "id": "PAELS_LEGION",
+   "name_fr": "Légion de Paël",
+   "description_fr": "Double l'[gold]Armure[/gold] reçue d'une carte, puis s'endort pendant [blue]{Turns}[/blue] {Turns:plural:tour|tours}.",
+   "tags": [
+    "block"
+   ]
+  },
+  {
+   "id": "PAELS_TEARS",
+   "name_fr": "Larmes de Paël",
+   "description_fr": "Si vous terminez votre tour sans avoir dépensé toute votre {energyPrefix:energyIcons(1)}, gagnez {Energy:energyIcons()} supplémentaires au prochain tour.",
+   "tags": [
+    "energy"
+   ]
+  },
+  {
+   "id": "PAELS_TOOTH",
+   "name_fr": "Dent de Paël",
+   "description_fr": "Lorsque vous obtenez cette relique, retirez [blue]{Cards}[/blue] {Cards:plural:carte|cartes} de votre [gold]Deck[/gold]. Après chaque combat, rajoutez-en [blue]1[/blue] aléatoirement ; elle est [gold]Améliorée[/gold].{CardTitles.StringValue:cond:\n\nCartes dévorées :\n{}|}",
+   "tags": []
+  },
+  {
+   "id": "PAELS_WING",
+   "name_fr": "Aile de Paël",
+   "description_fr": "Vous pouvez offrir des récompenses de carte en sacrifice à Paël. {Sacrifices:plural:À chaque sacrifice|Tous les [blue]{}[/blue] sacrifices}, vous obtenez une [gold]Relique[/gold].",
+   "tags": []
+  },
+  {
+   "id": "PANDORAS_BOX",
+   "name_fr": "Boîte de Pandore",
+   "description_fr": "[gold]Transformez[/gold] TOUTES vos [gold]Frappes[/gold] et vos [gold]Défenses[/gold].",
+   "tags": []
+  },
+  {
+   "id": "PANTOGRAPH",
+   "name_fr": "Pantographe",
+   "description_fr": "Au début de chaque combat de [gold]Boss[/gold], récupérez [green]{Heal}[/green] PV.",
+   "tags": [
+    "heal"
+   ]
+  },
+  {
+   "id": "PAPER_KRANE",
+   "name_fr": "Grû en papier",
+   "description_fr": "Les ennemis [gold]Affaiblis[/gold] vous infligent [blue]40%[/blue] de dégâts en moins plutôt que [blue]25%[/blue].",
+   "tags": [
+    "debuff"
+   ]
+  },
+  {
+   "id": "PAPER_PHROG",
+   "name_fr": "Krapo en papier",
+   "description_fr": "Les ennemis [gold]Vulnérables[/gold] reçoivent [blue]75%[/blue] de dégâts supplémentaires plutôt que [blue]50%[/blue].",
+   "tags": [
+    "debuff"
+   ]
+  },
+  {
+   "id": "PARRYING_SHIELD",
+   "name_fr": "Bouclier de parade",
+   "description_fr": "Si vous terminez votre tour avec au moins [blue]{Block}[/blue] d'[gold]Armure[/gold], infligez [blue]{Damage}[/blue] dégâts à un ennemi aléatoire.",
+   "tags": [
+    "block"
+   ]
+  },
+  {
+   "id": "PEAR",
+   "name_fr": "Poire",
+   "description_fr": "Lorsque vous obtenez cette relique, augmentez vos PV Max de [blue]{MaxHp}[/blue].",
+   "tags": [
+    "maxhp"
+   ]
+  },
+  {
+   "id": "PENDULUM",
+   "name_fr": "Pendule",
+   "description_fr": "Tous les [blue]{Turns}[/blue] {Turns:plural:tour|tours}, piochez [blue]{Cards}[/blue] {Cards:plural:carte|cartes}.",
+   "tags": [
+    "draw"
+   ]
+  },
+  {
+   "id": "PEN_NIB",
+   "name_fr": "Pointe de stylo",
+   "description_fr": "Toutes les [blue]10èmes[/blue] Attaques jouées infligent le double de dégâts.",
+   "tags": []
+  },
+  {
+   "id": "PERMAFROST",
+   "name_fr": "Pergélisol",
+   "description_fr": "La première fois que vous jouez un Pouvoir chaque combat, gagnez [blue]{Block}[/blue] d'[gold]Armure[/gold].",
+   "tags": [
+    "block"
+   ]
+  },
+  {
+   "id": "PETRIFIED_TOAD",
+   "name_fr": "Crapaud pétrifié",
+   "description_fr": "Au début de chaque combat, obtenez une [gold]Pierre en forme de potion[/gold].",
+   "tags": [
+    "potion"
+   ]
+  },
+  {
+   "id": "PHIAL_HOLSTER",
+   "name_fr": "Étui à fioles",
+   "description_fr": "Lorsque vous obtenez cette relique, gagnez [blue]{PotionSlots}[/blue] {PotionSlots:plural:nouvel emplacement de potion|nouveaux emplacements de potion} et obtenez [blue]{Potions}[/blue] {Potions:plural:potion aléatoire|potions aléatoires}.",
+   "tags": [
+    "potion"
+   ]
+  },
+  {
+   "id": "PHILOSOPHERS_STONE",
+   "name_fr": "Pierre philosophale",
+   "description_fr": "Gagnez {Energy:energyIcons()} au début de chaque tour. TOUS les ennemis démarrent le combat avec [blue]{StrengthPower}[/blue] de [gold]Force[/gold].",
+   "tags": [
+    "energy",
+    "strength"
+   ]
+  },
+  {
+   "id": "PHYLACTERY_UNBOUND",
+   "name_fr": "Phylactère déchaîné",
+   "description_fr": "Au début de chaque combat, [gold]Invoquez[/gold] pour [blue]{StartOfCombat}[/blue]. Au début de votre tour, [gold]Invoquez[/gold] pour [blue]{StartOfTurn}[/blue].",
+   "tags": []
+  },
+  {
+   "id": "PLANISPHERE",
+   "name_fr": "Planisphère",
+   "description_fr": "Lorsque vous entrez dans une salle [gold]?[/gold], récupérez [green]{Heal}[/green] PV.",
+   "tags": [
+    "heal"
+   ]
+  },
+  {
+   "id": "POCKETWATCH",
+   "name_fr": "Montre à gousset",
+   "description_fr": "Si vous avez joué [blue]{CardThreshold}[/blue] {CardThreshold:plural:carte|cartes} ou moins durant votre tour, piochez [blue]{Cards}[/blue] {Cards:plural:carte supplémentaire|cartes supplémentaires} au début du tour suivant.",
+   "tags": [
+    "draw"
+   ]
+  },
+  {
+   "id": "POLLINOUS_CORE",
+   "name_fr": "Noyau pollinique",
+   "description_fr": "Tous les {Turns:plural:tours|[blue]{Turns}[/blue] tours}, piochez [blue]{Cards}[/blue] {Cards:plural:carte supplémentaire|cartes supplémentaires}.",
+   "tags": [
+    "draw"
+   ]
+  },
+  {
+   "id": "POMANDER",
+   "name_fr": "Pommandre",
+   "description_fr": "Lorsque vous obtenez cette relique, [gold]Améliorez[/gold] une carte.",
+   "tags": []
+  },
+  {
+   "id": "POTION_BELT",
+   "name_fr": "Ceinture à potions",
+   "description_fr": "Lorsque vous obtenez cette relique, gagnez [blue]{PotionSlots}[/blue] {PotionSlots:plural:emplacement de potion|emplacements de potion}.",
+   "tags": [
+    "potion"
+   ]
+  },
+  {
+   "id": "POWER_CELL",
+   "name_fr": "Pile d'énergie",
+   "description_fr": "Au début de chaque combat, ajoutez [blue]{Cards}[/blue] cartes de coût 0 de votre [gold]Pioche[/gold] à votre [gold]Main[/gold].",
+   "tags": [
+    "draw"
+   ]
+  },
+  {
+   "id": "PRAYER_WHEEL",
+   "name_fr": "Moulin à prières",
+   "description_fr": "Les ennemis normaux donnent une récompense de carte supplémentaire.",
+   "tags": [
+    "draw"
+   ]
+  },
+  {
+   "id": "PRECARIOUS_SHEARS",
+   "name_fr": "Forces précaires",
+   "description_fr": "Lorsque vous obtenez cette relique, retirez [blue]{Cards}[/blue] {Cards:plural:carte|cartes} de votre [gold]Deck[/gold] et perdez[blue]{Damage}[/blue] PV.",
+   "tags": []
+  },
+  {
+   "id": "PRECISE_SCISSORS",
+   "name_fr": "Ciseaux précis",
+   "description_fr": "Lorsque vous obtenez cette relique, retirez [blue]{Cards}[/blue] {Cards:plural:carte|cartes} de votre [gold]Deck[/gold].",
+   "tags": []
+  },
+  {
+   "id": "PRESERVED_FOG",
+   "name_fr": "Brouillard en conserve",
+   "description_fr": "Lorsque vous obtenez cette relique, retirez [blue]{Cards}[/blue] {Cards:plural:carte|cartes} de votre [gold]Deck[/gold]. Ajoutez [red]Hubris[/red] à votre [gold]Deck[/gold].",
+   "tags": []
+  },
+  {
+   "id": "PRISMATIC_GEM",
+   "name_fr": "Joyau prismatique",
+   "description_fr": "Gagnez {Energy:energyIcons()} au début de chaque tour. Les récompenses de carte contiennent désormais des cartes d'autres couleurs.",
+   "tags": [
+    "energy"
+   ]
+  },
+  {
+   "id": "PUMPKIN_CANDLE",
+   "name_fr": "Lanterne-citrouille",
+   "description_fr": "Gagnez {Energy:energyIcons()} au début de chaque tour. S'éteint après [blue]{CombatCount}[/blue] combats. Peut être [gold]Ravivée[/gold] aux [gold]Sites de repos[/gold].",
+   "tags": [
+    "energy"
+   ]
+  },
+  {
+   "id": "PUNCH_DAGGER",
+   "name_fr": "Poignard",
+   "description_fr": "Lorsque vous obtenez cette relique, [gold]Envoûtez[/gold] une Attaque avec [purple]Élan[/purple] [blue]{Momentum}[/blue].",
+   "tags": []
+  },
+  {
+   "id": "RADIANT_PEARL",
+   "name_fr": "Perle radieuse",
+   "description_fr": "Au début de chaque combat, ajoutez [blue]{Cards}[/blue] [gold]{Cards:plural:Luminescence|Luminescences}[/gold] à votre [gold]Main[/gold].",
+   "tags": []
+  },
+  {
+   "id": "RAINBOW_RING",
+   "name_fr": "Anneau arc-en-ciel",
+   "description_fr": "La première fois de chaque tour que vous jouez une Attaque, une Compétence et un Pouvoir, gagnez [blue]{StrengthPower}[/blue] de [gold]Force[/gold] et [blue]{DexterityPower}[/blue] de [gold]Dextérité[/gold].",
+   "tags": [
+    "strength",
+    "dexterity"
+   ]
+  },
+  {
+   "id": "RAZOR_TOOTH",
+   "name_fr": "Dent de rasoir",
+   "description_fr": "Chaque fois que vous jouez une Attaque ou une Compétence, [gold]Améliorez[/gold]-la pour le restant du combat.",
+   "tags": []
+  },
+  {
+   "id": "RED_MASK",
+   "name_fr": "Masque rouge",
+   "description_fr": "Au début de chaque combat, appliquez [gold]Affaibli[/gold] ([blue]{WeakPower}[/blue]) à TOUS les ennemis.",
+   "tags": [
+    "debuff"
+   ]
+  },
+  {
+   "id": "RED_SKULL",
+   "name_fr": "Crâne rouge",
+   "description_fr": "Si vous êtes à [blue]{HpThreshold}%[/blue] de PV ou moins, vous avez [blue]{StrengthPower}[/blue] de [gold]Force[/gold] supplémentaire.",
+   "tags": [
+    "strength"
+   ]
+  },
+  {
+   "id": "RED_VINE_TEA",
+   "name_fr": "Thé de vigne rouge",
+   "description_fr": "Au début {Combats:plural:du prochain combat|des [blue]{}[/blue] prochains combats}, piochez [blue]{Cards}[/blue] {Cards:plural:carte supplémentaire|cartes supplémentaires}.",
+   "tags": [
+    "draw"
+   ]
+  },
+  {
+   "id": "REGALITE",
+   "name_fr": "Royalithe",
+   "description_fr": "Lorsque vous créez une carte, gagnez [blue]{Block}[/blue] d'[gold]Armure[/gold].",
+   "tags": [
+    "block"
+   ]
+  },
+  {
+   "id": "REGAL_PILLOW",
+   "name_fr": "Oreiller royal",
+   "description_fr": "Lorsque vous vous [gold]Reposez[/gold], récupérez [blue]{Heal}[/blue] PV supplémentaires.",
+   "tags": [
+    "heal"
+   ]
+  },
+  {
+   "id": "REPTILE_TRINKET",
+   "name_fr": "Breloque reptile",
+   "description_fr": "Lorsque vous utilisez une potion, gagnez [blue]{StrengthPower}[/blue] de [gold]Force[/gold] jusqu'à la fin du tour.",
+   "tags": [
+    "strength",
+    "potion"
+   ]
+  },
+  {
+   "id": "RINGING_TRIANGLE",
+   "name_fr": "Triangle résonnant",
+   "description_fr": "[gold]Retenez[/gold] votre [gold]Main[/gold] le premier tour de chaque combat.",
+   "tags": []
+  },
+  {
+   "id": "RING_OF_THE_DRAKE",
+   "name_fr": "Anneau du dragon",
+   "description_fr": "Au début de {Turns:plural:votre premier tour|vos premiers [blue]{}[/blue] tours}, piochez [blue]{Cards}[/blue] {Cards:plural:carte supplémentaire|cartes supplémentaires}.",
+   "tags": [
+    "draw"
+   ]
+  },
+  {
+   "id": "RING_OF_THE_SNAKE",
+   "name_fr": "Anneau du serpent",
+   "description_fr": "Au début de chaque combat, piochez [blue]{Cards}[/blue] {Cards:plural:carte supplémentaire|cartes supplémentaires}.",
+   "tags": [
+    "draw"
+   ]
+  },
+  {
+   "id": "RIPPLE_BASIN",
+   "name_fr": "Bassinet à remous",
+   "description_fr": "Si vous n'avez pas joué d'Attaques pendant votre tour, gagnez [blue]{Block}[/blue] d'[gold]Armure[/gold].",
+   "tags": [
+    "block"
+   ]
+  },
+  {
+   "id": "ROYAL_POISON",
+   "name_fr": "Poison royal",
+   "description_fr": "Au début de chaque combat, perdez [blue]{Damage}[/blue] PV.",
+   "tags": []
+  },
+  {
+   "id": "ROYAL_STAMP",
+   "name_fr": "Sceau royal",
+   "description_fr": "Lorsque vous obtenez cette relique, choisissez une Attaque ou une Compétence dans votre [gold]Deck[/gold] à [gold]Envoûter[/gold] avec [purple]{Enchantment}[/purple].",
+   "tags": []
+  },
+  {
+   "id": "RUINED_HELMET",
+   "name_fr": "Casque délabré",
+   "description_fr": "La première fois que vous gagnez de la [gold]Force[/gold] chaque combat, doublez-en la quantité.",
+   "tags": [
+    "strength"
+   ]
+  },
+  {
+   "id": "RUNIC_CAPACITOR",
+   "name_fr": "Condensateur runique",
+   "description_fr": "Démarrez chaque combat avec [blue]{Repeat}[/blue] [gold]Emplacements d'Orbe[/gold] supplémentaires.",
+   "tags": []
+  },
+  {
+   "id": "RUNIC_PYRAMID",
+   "name_fr": "Pyramide runique",
+   "description_fr": "À la fin de votre tour, vous ne défaussez pas votre [gold]Main[/gold].",
+   "tags": []
+  },
+  {
+   "id": "SAI",
+   "name_fr": "Saï",
+   "description_fr": "Au début de votre tour, gagnez [blue]{Block}[/blue] d'[gold]Armure[/gold].",
+   "tags": [
+    "block"
+   ]
+  },
+  {
+   "id": "SAND_CASTLE",
+   "name_fr": "Château de sable",
+   "description_fr": "Lorsque vous obtenez cette relique, [gold]Améliorez[/gold] [blue]{Cards}[/blue] {Cards:plural:carte aléatoire|cartes aléatoires}.",
+   "tags": []
+  },
+  {
+   "id": "SCREAMING_FLAGON",
+   "name_fr": "Pichet hurlant",
+   "description_fr": "Si votre [gold]Main[/gold] est vide à la fin de votre tour, infligez [blue]{Damage}[/blue] dégâts à TOUS les ennemis.",
+   "tags": []
+  },
+  {
+   "id": "SCROLL_BOXES",
+   "name_fr": "Caisse de parchemins",
+   "description_fr": "Lorsque vous obtenez cette relique, choisissez [blue]1[/blue] pack de cartes parmi [blue]2[/blue] à ajouter à votre [gold]Deck[/gold].",
+   "tags": []
+  },
+  {
+   "id": "SEAL_OF_GOLD",
+   "name_fr": "Sceau doré",
+   "description_fr": "Au début de votre tour, dépensez [blue]{Gold}[/blue] [gold]Pièces d'or[/gold] pour gagner {Energy:energyIcons()}.",
+   "tags": [
+    "energy",
+    "gold"
+   ]
+  },
+  {
+   "id": "SEA_GLASS",
+   "name_fr": "Verre marin",
+   "description_fr": "Consultez une sélection de [blue]{Cards}[/blue] cartes {Character.StringValue:cond:de [gold]{}[/gold]|d'un autre personnage}. Ajoutez-en autant que vous souhaitez à votre [gold]Deck[/gold].",
+   "tags": []
+  },
+  {
+   "id": "SELF_FORMING_CLAY",
+   "name_fr": "Argile autoformante",
+   "description_fr": "Chaque fois que vous perdez des PV en combat, gagnez [blue]{BlockNextTurn}[/blue] d'[gold]Armure[/gold] au tour suivant.",
+   "tags": [
+    "block"
+   ]
+  },
+  {
+   "id": "SERE_TALON",
+   "name_fr": "Serre desséchée",
+   "description_fr": "Lorsque vous obtenez cette relique, ajoutez [blue]{Curses}[/blue] [red]Malédictions[/red] aléatoires et [blue]{Wishes}[/blue] [purple]Vœux[/purple] à votre [gold]Deck[/gold].",
+   "tags": [
+    "curse"
+   ]
+  },
+  {
+   "id": "SHOVEL",
+   "name_fr": "Pelle",
+   "description_fr": "Vous pouvez Fouiller les [gold]Sites de repos[/gold] pour obtenir une [gold]Relique[/gold] aléatoire.",
+   "tags": []
+  },
+  {
+   "id": "SHURIKEN",
+   "name_fr": "Shuriken",
+   "description_fr": "Chaque fois que vous jouez [blue]{Cards}[/blue] Attaques en un seul tour, gagnez [blue]{StrengthPower}[/blue] de [gold]Force[/gold].",
+   "tags": [
+    "strength"
+   ]
+  },
+  {
+   "id": "SIGNET_RING",
+   "name_fr": "Anneau à signet",
+   "description_fr": "Lorsque vous obtenez cette relique, obtenez [blue]{Gold}[/blue] [gold]Pièces d'or[/gold].",
+   "tags": [
+    "gold"
+   ]
+  },
+  {
+   "id": "SILKEN_TRESS",
+   "name_fr": "Tresse soyeuse",
+   "description_fr": "Lorsque vous obtenez cette relique, perdez toutes vos [gold]Pièces d'or[/gold]. [gold]Envoûtez[/gold] toutes les cartes de la première récompense de cartes avec [purple]Glamour[/purple].",
+   "tags": [
+    "gold"
+   ]
+  },
+  {
+   "id": "SILVER_CRUCIBLE",
+   "name_fr": "Creuset en argent",
+   "description_fr": "Vos [blue]{Cards}[/blue] premières récompenses de carte sont [gold]Améliorées[/gold]. Le premier Coffre trésor que vous ouvrez est [red]vide[/red].",
+   "tags": []
+  },
+  {
+   "id": "SLING_OF_COURAGE",
+   "name_fr": "Fronde du courage",
+   "description_fr": "Démarrez chaque combat d'[gold]Élite[/gold] avec [blue]{StrengthPower}[/blue] de [gold]Force[/gold].",
+   "tags": [
+    "strength"
+   ]
+  },
+  {
+   "id": "SMALL_CAPSULE",
+   "name_fr": "Petite capsule",
+   "description_fr": "Lorsque vous obtenez cette relique, obtenez une [gold]Relique[/gold] aléatoire.",
+   "tags": []
+  },
+  {
+   "id": "SNECKO_EYE",
+   "name_fr": "Œil de geckobra",
+   "description_fr": "Au début de votre tour, piochez [blue]{Cards}[/blue] {Cards:plural:carte supplémentaire|cartes supplémentaires}. Démarrez chaque combat [red]Désorienté[/red].",
+   "tags": [
+    "draw"
+   ]
+  },
+  {
+   "id": "SNECKO_SKULL",
+   "name_fr": "Crâne de geckobra",
+   "description_fr": "Vous appliquez [blue]{PoisonPower}[/blue] de [gold]Poison[/gold] en plus à chaque fois que vous appliquez du [gold]Poison[/gold].",
+   "tags": [
+    "debuff"
+   ]
+  },
+  {
+   "id": "SOZU",
+   "name_fr": "Sozu",
+   "description_fr": "Gagnez {Energy:energyIcons()} au début de chaque tour. Vous ne pouvez plus obtenir de potions.",
+   "tags": [
+    "energy",
+    "potion"
+   ]
+  },
+  {
+   "id": "SPARKLING_ROUGE",
+   "name_fr": "Fard pétillant",
+   "description_fr": "Au début de votre [blue]3ème[/blue] tour, gagnez [blue]{StrengthPower}[/blue] de [gold]Force[/gold] et [blue]{DexterityPower}[/blue] de [gold]Dextérité[/gold].",
+   "tags": [
+    "strength",
+    "dexterity"
+   ]
+  },
+  {
+   "id": "SPIKED_GAUNTLETS",
+   "name_fr": "Gantelets à pointes",
+   "description_fr": "Gagnez {Energy:energyIcons()} au début de chaque tour. Les Pouvoirs coûtent [blue]1[/blue] {energyPrefix:energyIcons(1)} supplémentaire.",
+   "tags": [
+    "energy"
+   ]
+  },
+  {
+   "id": "STONE_CALENDAR",
+   "name_fr": "Calendrier de pierre",
+   "description_fr": "À la fin du tour [blue]{DamageTurn}[/blue], infligez [blue]{Damage}[/blue] dégâts à TOUS les ennemis.",
+   "tags": []
+  },
+  {
+   "id": "STONE_CRACKER",
+   "name_fr": "Marteau-piqueur",
+   "description_fr": "Au début de chaque combat, [gold]Améliorez[/gold] [blue]{Cards}[/blue] {Cards:plural:carte aléatoire|cartes aléatoires} de votre [gold]Pioche[/gold] pour le restant du combat.",
+   "tags": [
+    "draw"
+   ]
+  },
+  {
+   "id": "STONE_HUMIDIFIER",
+   "name_fr": "Humidificateur en pierre",
+   "description_fr": "Lorsque vous vous [gold]Reposez[/gold] à un [gold]Site de repos[/gold], augmentez vos PV Max de [blue]{MaxHp}[/blue].",
+   "tags": [
+    "maxhp"
+   ]
+  },
+  {
+   "id": "STORYBOOK",
+   "name_fr": "Livre d'histoires",
+   "description_fr": "Lorsque vous obtenez cette relique, ajoutez [blue]1[/blue] [gold]Flamme éclatante[/gold] à votre [gold]Deck[/gold].",
+   "tags": []
+  },
+  {
+   "id": "STRAWBERRY",
+   "name_fr": "Fraise",
+   "description_fr": "Lorsque vous obtenez cette relique, augmentez vos PV Max de [blue]{MaxHp}[/blue].",
+   "tags": [
+    "maxhp"
+   ]
+  },
+  {
+   "id": "STRIKE_DUMMY",
+   "name_fr": "Mannequin d'entraînement",
+   "description_fr": "Les cartes contenant « Frappe » infligent [blue]{ExtraDamage}[/blue] dégâts supplémentaires.",
+   "tags": []
+  },
+  {
+   "id": "STURDY_CLAMP",
+   "name_fr": "Pince robuste",
+   "description_fr": "Vous conservez jusqu'à [blue]{Block}[/blue] d'[gold]Armure[/gold] entre chaque tour.",
+   "tags": [
+    "block"
+   ]
+  },
+  {
+   "id": "SWORD_OF_JADE",
+   "name_fr": "Épée de jade",
+   "description_fr": "Démarrez chaque combat avec [blue]{StrengthPower}[/blue] de [gold]Force[/gold].",
+   "tags": [
+    "strength"
+   ]
+  },
+  {
+   "id": "SWORD_OF_STONE",
+   "name_fr": "Épée de pierre",
+   "description_fr": "Se transforme en une puissante [gold]Relique[/gold] après avoir vaincu [blue]{Elites}[/blue] [gold]{Elites:plural:Élite|Élites}[/gold].",
+   "tags": []
+  },
+  {
+   "id": "SYMBIOTIC_VIRUS",
+   "name_fr": "Virus symbiotique",
+   "description_fr": "Au début de chaque combat, [gold]Canalisez[/gold] [blue]{Dark}[/blue] [gold]Orbes ténébreux[/gold].",
+   "tags": []
+  },
+  {
+   "id": "TANXS_WHISTLE",
+   "name_fr": "Sifflet de Tanx",
+   "description_fr": "Lorsque vous obtenez cette relique, ajoutez [blue]1[/blue] [gold]Sifflet[/gold] à votre [gold]Deck[/gold].",
+   "tags": []
+  },
+  {
+   "id": "TEA_OF_DISCOURTESY",
+   "name_fr": "Thé de l'incivilité",
+   "description_fr": "Au début du prochain combat, mélangez [blue]{DazedCount}[/blue] [gold]Hébétement[/gold] à votre [gold]Pioche[/gold].",
+   "tags": [
+    "draw"
+   ]
+  },
+  {
+   "id": "THE_ABACUS",
+   "name_fr": "L'Abaque",
+   "description_fr": "Chaque fois que la [gold]Pioche[/gold] est mélangée, gagnez [blue]{Block}[/blue] d'[gold]Armure[/gold].",
+   "tags": [
+    "block",
+    "draw"
+   ]
+  },
+  {
+   "id": "THE_BOOT",
+   "name_fr": "La botte",
+   "description_fr": "Chaque fois que vous auriez infligé [blue]{DamageThreshold}[/blue] dégâts d'attaque ou moins (sans armure), vous infligez [blue]{DamageMinimum}[/blue] dégâts à la place.",
+   "tags": [
+    "block"
+   ]
+  },
+  {
+   "id": "THE_COURIER",
+   "name_fr": "Le Coursier",
+   "description_fr": "Le Marchand renouvelle immédiatement les cartes, reliques et potions que vous achetez, et ses prix sont réduits de [blue]{Discount}%[/blue].",
+   "tags": [
+    "shop",
+    "potion"
+   ]
+  },
+  {
+   "id": "THROWING_AXE",
+   "name_fr": "Hache de lancer",
+   "description_fr": "La première carte que vous jouez chaque combat est jouée une fois de plus.",
+   "tags": []
+  },
+  {
+   "id": "TINGSHA",
+   "name_fr": "Tingsha",
+   "description_fr": "Pour chaque carte que vous défaussez pendant votre tour, infligez [blue]{Damage}[/blue] dégâts à un ennemi aléatoire.",
+   "tags": []
+  },
+  {
+   "id": "TINY_MAILBOX",
+   "name_fr": "Minuscule boîte aux lettres",
+   "description_fr": "Lorsque vous vous [gold]Reposez[/gold], obtenez [blue]2[/blue] potions aléatoires.",
+   "tags": [
+    "potion"
+   ]
+  },
+  {
+   "id": "TOASTY_MITTENS",
+   "name_fr": "Mitaines réchauffantes",
+   "description_fr": "Au début de votre tour, [gold]Épuisez[/gold] la carte du dessus de votre [gold]Pioche[/gold] et gagnez [blue]{StrengthPower}[/blue] de [gold]Force[/gold].",
+   "tags": [
+    "draw",
+    "strength"
+   ]
+  },
+  {
+   "id": "TOOLBOX",
+   "name_fr": "Boîte à outils",
+   "description_fr": "Au début de chaque combat, choisissez [blue]1[/blue] carte Incolore aléatoire parmi [blue]{Cards}[/blue] et ajoutez-la à votre [gold]Main[/gold].",
+   "tags": []
+  },
+  {
+   "id": "TOUCH_OF_OROBAS",
+   "name_fr": "Toucher d'Orobas",
+   "description_fr": "Lorsque vous obtenez cette relique, remplacez {StarterRelic.StringValue:cond:[gold]{StarterRelic}[/gold] par [gold]{UpgradedRelic}[/gold]|votre [gold]Relique[/gold] de départ par une version [gold]Améliorée[/gold]}.",
+   "tags": []
+  },
+  {
+   "id": "TOUGH_BANDAGES",
+   "name_fr": "Bandages résistants",
+   "description_fr": "Chaque fois que vous défaussez une carte pendant votre tour, gagnez [blue]{Block}[/blue] d'[gold]Armure[/gold].",
+   "tags": [
+    "block"
+   ]
+  },
+  {
+   "id": "TOXIC_EGG",
+   "name_fr": "Œuf toxique",
+   "description_fr": "Lorsque vous ajoutez une Compétence à votre [gold]Deck[/gold], [gold]Améliorez[/gold]-la.",
+   "tags": []
+  },
+  {
+   "id": "TOY_BOX",
+   "name_fr": "Caisse à jouets",
+   "description_fr": "Lorsque vous obtenez cette relique, obtenez [blue]{Relics}[/blue] [gold]{Relics:plural:Relique|Reliques} de cire[/gold]. Tous les {Combats:plural:combats|[blue]{Combats}[/blue] combats}, la [gold]Relique de cire[/gold] la plus à gauche fondra.",
+   "tags": []
+  },
+  {
+   "id": "TRI_BOOMERANG",
+   "name_fr": "Tri-boomerang",
+   "description_fr": "Choisissez [blue]{Cards}[/blue] {Cards:plural:Attaque|Attaques} de votre [gold]Deck[/gold]. [gold]Envoûtez[/gold]-les avec [purple]Instinct[/purple].",
+   "tags": []
+  },
+  {
+   "id": "TUNGSTEN_ROD",
+   "name_fr": "Tige de tungstène",
+   "description_fr": "Vous perdez [blue]{HpLossReduction}[/blue] PV de moins chaque fois que vous perdriez des PV.",
+   "tags": []
+  },
+  {
+   "id": "TUNING_FORK",
+   "name_fr": "Diapason",
+   "description_fr": "Toutes les [blue]{Cards}[/blue] Compétences que vous jouez, vous gagnez [blue]{Block}[/blue] d'[gold]Armure[/gold].",
+   "tags": [
+    "block"
+   ]
+  },
+  {
+   "id": "TWISTED_FUNNEL",
+   "name_fr": "Entonnoir torsadé",
+   "description_fr": "Au début de chaque combat, appliquez [blue]{PoisonPower}[/blue] de [gold]Poison[/gold] à TOUS les ennemis.",
+   "tags": [
+    "debuff"
+   ]
+  },
+  {
+   "id": "UNCEASING_TOP",
+   "name_fr": "Toupie perpétuelle",
+   "description_fr": "Chaque fois que votre [gold]Main[/gold] est vide pendant votre tour, piochez une carte.",
+   "tags": [
+    "draw"
+   ]
+  },
+  {
+   "id": "UNDYING_SIGIL",
+   "name_fr": "Sceau immortel",
+   "description_fr": "Les ennemis affligés d'au moins autant de [gold]Fatalité[/gold] que de PV infligent [blue]50%[/blue] de dégâts en moins.",
+   "tags": [
+    "debuff"
+   ]
+  },
+  {
+   "id": "UNSETTLING_LAMP",
+   "name_fr": "Lampe inquiétante",
+   "description_fr": "Chaque combat, la première fois que vous jouez une carte qui inflige des [gold]Effets négatifs[/gold] à un ennemi, doublez-en l'effet.",
+   "tags": []
+  },
+  {
+   "id": "VAJRA",
+   "name_fr": "Vajra",
+   "description_fr": "Démarrez chaque combat avec [blue]{StrengthPower}[/blue] de [gold]Force[/gold].",
+   "tags": [
+    "strength"
+   ]
+  },
+  {
+   "id": "VAMBRACE",
+   "name_fr": "Brassard",
+   "description_fr": "La première fois qu'une carte vous confère de l'[gold]Armure[/gold] chaque combat, doublez-en la quantité.",
+   "tags": [
+    "block"
+   ]
+  },
+  {
+   "id": "VELVET_CHOKER",
+   "name_fr": "Ras du cou en velours",
+   "description_fr": "Gagnez {Energy:energyIcons()} au début de chaque tour. Vous ne pouvez pas jouer plus de [blue]{Cards}[/blue] {Cards:plural:carte|cartes} par tour.",
+   "tags": [
+    "energy"
+   ]
+  },
+  {
+   "id": "VENERABLE_TEA_SET",
+   "name_fr": "Service à thé vénérable",
+   "description_fr": "Chaque fois que vous entrez dans un [gold]Site de repos[/gold], vous démarrez le combat suivant avec {Energy:energyIcons()} supplémentaires.",
+   "tags": [
+    "energy"
+   ]
+  },
+  {
+   "id": "VERY_HOT_COCOA",
+   "name_fr": "Chocolat très chaud",
+   "description_fr": "Démarrez chaque combat avec [blue]{Energy:energyIcons()}[/blue] supplémentaires.",
+   "tags": [
+    "energy"
+   ]
+  },
+  {
+   "id": "VEXING_PUZZLEBOX",
+   "name_fr": "Casse-tête vexant",
+   "description_fr": "Au début de chaque combat, ajoutez une carte aléatoire à votre [gold]Main[/gold]. Elle coûte [blue]0[/blue] ce tour.",
+   "tags": []
+  },
+  {
+   "id": "VINE_BRACELET",
+   "name_fr": "Bracelet de lianes",
+   "description_fr": "Lorsque vous obtenez cette relique, augmentez vos PV Max de [blue]{MaxHp}[/blue].",
+   "tags": [
+    "maxhp"
+   ]
+  },
+  {
+   "id": "VITRUVIAN_MINION",
+   "name_fr": "Sbire de Vitruve",
+   "description_fr": "Les cartes contenant « Sbire » infligent le double de dégâts et confèrent le double d'[gold]Armure[/gold].",
+   "tags": [
+    "block"
+   ]
+  },
+  {
+   "id": "WAR_HAMMER",
+   "name_fr": "Marteau de guerre",
+   "description_fr": "Lorsque vous tuez un [gold]Élite[/gold], [gold]Améliorez[/gold] [blue]{Cards}[/blue] {Cards:plural:carte aléatoire|cartes aléatoires}.",
+   "tags": []
+  },
+  {
+   "id": "WAR_PAINT",
+   "name_fr": "Peinture de guerre",
+   "description_fr": "Lorsque vous obtenez cette relique, [gold]Améliorez[/gold] [blue]{Cards}[/blue] {Cards:plural:Compétence aléatoire|Compétences aléatoires}.",
+   "tags": []
+  },
+  {
+   "id": "WHETSTONE",
+   "name_fr": "Pierre à aiguiser",
+   "description_fr": "Lorsque vous obtenez cette relique, [gold]Améliorez[/gold] [blue]{Cards}[/blue] {Cards:plural:Attaque aléatoire|Attaques aléatoires}.",
+   "tags": []
+  },
+  {
+   "id": "WHISPERING_EARRING",
+   "name_fr": "Boucle d'oreille susurrante",
+   "description_fr": "Gagnez {Energy:energyIcons()} au début de chaque tour. [red]Vakuu joue votre premier tour à votre place.[/red]",
+   "tags": [
+    "energy"
+   ]
+  },
+  {
+   "id": "WHITE_BEAST_STATUE",
+   "name_fr": "Statue de bête blanche",
+   "description_fr": "Vous obtenez toujours une potion dans les récompenses de combat.",
+   "tags": [
+    "potion"
+   ]
+  },
+  {
+   "id": "WHITE_STAR",
+   "name_fr": "Étoile blanche",
+   "description_fr": "Les [gold]Élites[/gold] donnent une récompense de carte [gold]Rare[/gold] supplémentaire.",
+   "tags": []
+  },
+  {
+   "id": "WINGED_BOOTS",
+   "name_fr": "Bottes ailées",
+   "description_fr": "Vous pouvez ignorer les trajets indiqués sur la carte lorsque vous choisissez la prochaine salle [blue]{Rooms}[/blue] fois.",
+   "tags": []
+  },
+  {
+   "id": "WING_CHARM",
+   "name_fr": "Aile fétiche",
+   "description_fr": "Une carte aléatoire de chaque récompense de carte est [gold]Envoûtée[/gold] avec [purple]Célérité[/purple] [blue]{SwiftAmount}[/blue].",
+   "tags": []
+  },
+  {
+   "id": "WONGOS_MYSTERY_TICKET",
+   "name_fr": "Ticket mystère de Chez Wongo's",
+   "description_fr": "Recevez [blue]{Repeat}[/blue] [gold]{Repeat:plural:Relique aléatoire|Reliques aléatoires}[/gold] après [blue]{RemainingCombats}[/blue] {RemainingCombats:plural:combat|combats}.",
+   "tags": []
+  },
+  {
+   "id": "WONGO_CUSTOMER_APPRECIATION_BADGE",
+   "name_fr": "Pin’s Exclusif de Fidélité Wongo",
+   "description_fr": "Sans effet.",
+   "tags": []
+  },
+  {
+   "id": "YUMMY_COOKIE",
+   "name_fr": "Délicieux biscuit",
+   "description_fr": "Lorsque vous obtenez cette relique, [gold]Améliorez[/gold] [blue]{Cards}[/blue] {Cards:plural:carte|cartes}.",
+   "tags": []
+  }
+ ]
+}
