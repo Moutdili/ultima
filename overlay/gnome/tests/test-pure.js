@@ -3,7 +3,6 @@
 import System from 'system';
 import * as Geo from '../ultima@mio/geometry.js';
 import {PALETTE, TONES, rgba, toneHex} from '../ultima@mio/palette.js';
-import {parseState} from '../ultima@mio/state.js';
 import Gio from 'gi://Gio';
 
 let failures = 0;
@@ -43,24 +42,14 @@ check('tons connus', TONES.every(t => toneHex(t) === PALETTE[t]));
 
 // grep : aucun hex hors palette.js dans le code de l'extension
 const dir = Gio.File.new_for_uri(import.meta.url).get_parent().get_parent().get_child('ultima@mio');
-for (const f of ['extension.js', 'geometry.js', 'state.js']) {
+for (const f of ['extension.js', 'geometry.js', 'state.js', 'render.js', 'plan.js']) {
     const [, bytes] = dir.get_child(f).load_contents(null);
     const hits = new TextDecoder().decode(bytes).match(/#[0-9a-fA-F]{6}\b/g) ?? [];
     const bad = hits.filter(h => !ALLOWED.includes(h.toUpperCase()));
     check(`${f} : aucun hex hors charte`, bad.length === 0, bad.join(' '));
 }
 
-// --- état : parsing défensif ---
-const [, sampleBytes] = dir.get_child('sample-state.json').load_contents(null);
-const sample = parseState(new TextDecoder().decode(sampleBytes));
-check('sample-state.json valide', sample.ok, sample.error ?? '');
-check('sample : 5 lignes de deck', sample.ok && sample.state.lines.length === 5);
-check('sample : 3 pastilles', sample.ok && sample.state.rail.length === 3);
-check('JSON cassé rejeté', !parseState('{').ok);
-check('version inconnue rejetée', !parseState('{"v":2,"lines":[]}').ok);
-const weird = parseState('{"v":1,"lines":[{"label":"x","value":"1","tone":"#ff00ff"}]}');
-check('ton brut neutralisé', weird.ok && weird.state.lines[0].tone === 'cream');
-check('pastilles complétées', weird.ok && weird.state.rail.length === 3);
+// (lecture d'état, rendu et planificateur : tests/test-render.js)
 
 print(failures ? `\n${failures} échec(s)` : '\ntous les tests passent');
 System.exit(failures ? 1 : 0);
