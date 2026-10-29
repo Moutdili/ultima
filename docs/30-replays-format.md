@@ -47,9 +47,10 @@ Chaque ligne est un objet JSON avec :
 | `floor` | étage courant (0 avant le premier étage ; 1..49 ensuite) |
 | `act` | acte courant (1..3 ; 1 avant le premier étage) |
 
-Un run peut contenir **plusieurs `header`** : 35 en-têtes pour 22 runs (13 runs reprises au moins
-une fois). Chaque en-tête ouvre un nouveau segment : `s` continue d'incrémenter, `ms` repart à 0 et
-le champ `reloads` du header donne le nombre de rechargements déjà vus.
+Un run peut contenir **plusieurs `header`** : 35 en-têtes pour 22 runs — 4 runs ont été reprises,
+l'une d'elles jusqu'à 7 segments. Chaque en-tête ouvre un nouveau segment : `s` continue
+d'incrémenter, `ms` repart à 0 et le champ `reloads` du header donne le nombre de rechargements
+déjà vus.
 
 ---
 
