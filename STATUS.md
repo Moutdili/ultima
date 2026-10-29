@@ -528,3 +528,10 @@ Reste : partie B (extension GNOME, vraie session), mesure FPS.
 → Jusqu'à nouvel ordre, l'overlay n'est qu'un AFFICHAGE FONCTIONNEL (texte brut, lisible) :
 aucun agent ne travaille la charte/le verre/le style. Priorité : moteur complet (données → daemon →
 intelligence → affichage brut), prouvé sur le vrai jeu.
+
+## Pour Hermes (13:30) — bug à corriger dans le calcul
+`Ultima.Engine.Tests.Scoring.SmokeTests.Archetypes_are_indexed_by_character` : VERT sur un clone propre,
+ROUGE sur la machine de Mio. Cause : `data/meta/local/` existe (notes Untapped/slaythetierlist, licence,
+non commitées) mais ne contient que `card_tiers.json` et `relic_tiers.json` ; le chargeur, quand `local/`
+existe, ne se rabat pas sur `data/meta/archetypes.json` → archétypes vides. Correctif attendu : repli fichier
+par fichier (local s'il existe, sinon commité) + un test avec un `local/` partiel.
