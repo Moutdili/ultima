@@ -129,9 +129,11 @@ public class ScreenReplayTests
         }
         timers.Advance(TimeSpan.FromSeconds(10));
 
-        // 2 écrans de récompense (2×3 tirages → 2 lectures grâce à l'anti-rebond) + 1 marchand
-        Assert.Equal(new[] { MirrorNeed.Reward, MirrorNeed.Reward, MirrorNeed.Shop }, mirror.Probes);
-        Assert.Equal(3, core.MirrorProbes);
+        // 5 entrées d'événement (l. 283, 473, 492, 532, 577), 2 écrans de récompense (2×3 tirages → 2 lectures
+        // grâce à l'anti-rebond), 1 marchand — dans l'ordre du log
+        Assert.Equal(new[] { MirrorNeed.Event, MirrorNeed.Reward, MirrorNeed.Event, MirrorNeed.Event, MirrorNeed.Event,
+            MirrorNeed.Event, MirrorNeed.Reward, MirrorNeed.Shop }, mirror.Probes);
+        Assert.Equal(8, core.MirrorProbes);
         Assert.DoesNotContain(core.ProbeLog, p => p.Screen == Screen.Combat);
         Assert.Equal(Screen.Shop, core.Screen);
         Assert.NotNull(core.LastState!.Shop);
@@ -142,6 +144,39 @@ public class ScreenReplayTests
         timers.Advance(TimeSpan.FromHours(1));
         Assert.Equal(before, mirror.Probes.Count);
         Assert.Equal(0, timers.Armed);
+    }
+
+    /// <summary>Miroir sans section « event » (avant Miroir 2) : une seule tentative, puis plus aucun enfant pour rien.</summary>
+    [Fact]
+    public void Unsupported_event_section_is_tried_once_per_game_session()
+    {
+        var timers = new ManualTimers();
+        var mirror = new FakeMirror();
+        mirror.Respond = n => FakeMirror.Default(n) with
+        {
+            Unsupported = n.HasFlag(MirrorNeed.Event) ? new[] { "event" } : Array.Empty<string>(),
+        };
+        var core = new DaemonCore(new StateAssembler(NullKnowledge.Instance, null, null, null), mirror, timers, a => a(), _ => { });
+        core.OnGame(true);
+        var t = TimeSpan.Zero;
+        GodotLogEvent? prev = null;
+        foreach (var (_, e) in Fixtures.Events(Solo))
+        {
+            t += e is CardRewardRolled && prev is CardRewardRolled ? TimeSpan.FromMilliseconds(1) : TimeSpan.FromSeconds(1);
+            timers.AdvanceTo(t);
+            core.OnLog(e);
+            prev = e;
+        }
+        timers.Advance(TimeSpan.FromSeconds(10));
+        Assert.Equal(new[] { MirrorNeed.Event, MirrorNeed.Reward, MirrorNeed.Reward, MirrorNeed.Shop }, mirror.Probes);
+        Assert.Null(core.LastState!.Event);
+        Assert.Null(core.LastState.Health.Degraded); // non pris en charge ≠ dégradé
+        // nouveau lancement du jeu : on retente (le miroir a pu être mis à jour)
+        core.OnGame(false); core.OnGame(true);
+        core.OnLog(new RoomEntered(default, "", RoomKind.Event, "Event Room"));
+        timers.Advance(TimeSpan.FromSeconds(1));
+        Assert.Equal(MirrorNeed.Event, mirror.Probes[^1]);
+        Assert.Equal(5, mirror.Probes.Count);
     }
 
     [Fact]

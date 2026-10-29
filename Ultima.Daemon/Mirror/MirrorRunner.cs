@@ -41,6 +41,7 @@ public sealed class ProcessMirrorRunner : IMirrorRunner
         if (need.HasFlag(MirrorNeed.Shop)) s.Add("run"); // or + vérification croisée save↔mémoire
         if (need.HasFlag(MirrorNeed.Reward)) s.Add("reward");
         if (need.HasFlag(MirrorNeed.Shop)) s.Add("shop");
+        if (need.HasFlag(MirrorNeed.Event)) s.Add("event");
         return string.Join(',', s);
     }
 
@@ -119,12 +120,14 @@ public sealed class ProcessMirrorRunner : IMirrorRunner
         return File.Exists(Path.Combine(root, "dotnet")) || Directory.Exists(Path.Combine(root, "shared")) ? root : null;
     }
 
-    /// <summary>Emplacement par défaut : $ULTIMA_MIRROR, sinon ../mirror/ultima-mirror à côté du daemon, sinon build/mirror du dépôt.</summary>
+    /// <summary>Emplacement par défaut : $ULTIMA_MIRROR, sinon même dossier que le daemon, sinon ../mirror/, sinon build/mirror du dépôt.</summary>
     public static string DefaultPath()
     {
         var env = Environment.GetEnvironmentVariable("ULTIMA_MIRROR");
         if (!string.IsNullOrWhiteSpace(env)) return env;
         var dir = AppContext.BaseDirectory;
+        var same = Path.Combine(dir, "ultima-mirror"); // installation : ~/.local/share/ultima/bin/
+        if (File.Exists(same)) return same;
         var sibling = Path.GetFullPath(Path.Combine(dir, "..", "mirror", "ultima-mirror"));
         if (File.Exists(sibling)) return sibling;
         for (int i = 0; i < 8 && !string.IsNullOrEmpty(dir); i++)

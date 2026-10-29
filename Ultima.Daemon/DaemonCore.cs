@@ -40,6 +40,11 @@ public sealed class DaemonCore
     private bool _patchDrift;
     private string? _divergence;
     private OverlaySettings _settings = OverlaySettings.Default;
+    private MEvent? _event;
+    private bool _eventUnsupported;
+    private MRun? _memRun;
+    private DateTimeOffset _memRunAt, _runAt;
+    private (MEvent? Mem, RunPart? Run, EventView? View) _eventKey;
     private bool _replaying;
     // vues contextuelles mises en cache : les scores ne sont recalculés que si leurs entrées changent
     private (MRewards? Mem, RunPart? Run, RewardView? View) _rewardKey;
@@ -87,8 +92,9 @@ public sealed class DaemonCore
         _gameRunning = running;
         Tracker.OnGameRunning(running);
         Scheduler.CancelPending();
-        _reward = null; _shop = null; _memGold = null; _memDeckCount = null;
+        _reward = null; _shop = null; _memGold = null; _memDeckCount = null; _event = null; _memRun = null;
         _mirrorOk = false; _mirrorDegraded = null; _divergence = null; _patchDrift = false;
+        _eventUnsupported = false; // le miroir a pu être mis à jour entre deux sessions
         if (running && _mirror is not null) CheckLayout();
         Tracker.OnRun(_run, _gameRunning);
         Publish();
@@ -107,6 +113,7 @@ public sealed class DaemonCore
     private void ApplyRun(RunState? run)
     {
         _run = run;
+        _runAt = _clock();
         _saveOk = true;
         _saveError = null;
         try { _runPart = _assembler.BuildRun(run); }
@@ -149,6 +156,7 @@ public sealed class DaemonCore
         // Transition « démarrage du daemon » : si l'on tombe sur un écran de récompense/marchand, une lecture.
         if (Screen == Screen.Reward) Scheduler.Request(MirrorNeed.Reward);
         else if (Screen == Screen.Shop) Scheduler.Request(MirrorNeed.Shop);
+        else if (Screen == Screen.Event) Scheduler.Request(MirrorNeed.Event);
         Publish();
     }
 
@@ -158,6 +166,7 @@ public sealed class DaemonCore
         if (now == before) return;
         if (now == Screen.Combat) Scheduler.CancelPending(); // aucune lecture mémoire en combat (v1)
         if (before == Screen.Reward) _reward = null;
+        if (before == Screen.Event) _event = null;
         if (before == Screen.Shop) { _shop = null; _memGold = null; _memDeckCount = null; _divergence = null; }
         Diag.Debug($"écran {before} → {now}");
     }
@@ -171,15 +180,18 @@ public sealed class DaemonCore
         if (!_gameRunning) return "jeu non lancé";
         if (_patchDrift) return "patch du jeu";
         if (Screen == Screen.Combat) return "combat en cours";
+        if (Screen == Screen.Event && need.HasFlag(MirrorNeed.Event) && _eventUnsupported)
+            return "section « event » non prise en charge par ce miroir";
         bool relevant = (need.HasFlag(MirrorNeed.Reward) && Screen == Screen.Reward)
-                        || (need.HasFlag(MirrorNeed.Shop) && Screen == Screen.Shop);
+                        || (need.HasFlag(MirrorNeed.Shop) && Screen == Screen.Shop)
+                        || (need.HasFlag(MirrorNeed.Event) && Screen == Screen.Event);
         return relevant ? null : $"transition périmée (écran {Screen})";
     }
 
     private void StartMirror(MirrorNeed need)
     {
         // ne lire que ce que l'écran courant affiche
-        need = Screen == Screen.Shop ? MirrorNeed.Shop : MirrorNeed.Reward;
+        need = Screen switch { Screen.Shop => MirrorNeed.Shop, Screen.Event => MirrorNeed.Event, _ => MirrorNeed.Reward };
         MirrorProbes++;
         ProbeLog.Add((Screen, need));
         Task<MirrorResult> task;
@@ -258,6 +270,17 @@ public sealed class DaemonCore
                 }
                 _shop = shop;
                 if (_divergence is not null) _mirrorOk = false;
+                else if (shop is not null && r.Run is { } mr) { _memRun = mr; _memRunAt = _clock(); }
+            }
+            if (need.HasFlag(MirrorNeed.Event) && Screen == Screen.Event)
+            {
+                if (r.Unsupported.Contains("event"))
+                {
+                    if (!_eventUnsupported) Diag.Info("miroir : section « event » non prise en charge (Miroir 2 à venir) ; événements non lus jusqu'au prochain lancement du jeu");
+                    _eventUnsupported = true;
+                    _event = null;
+                }
+                else _event = r.Event;
             }
         }
         finally
@@ -329,7 +352,18 @@ public sealed class DaemonCore
                 _shopKey = (_shop, _runPart, _memGold, _assembler.BuildShop(_shop, _runPart, _memGold));
             shop = _shopKey.View;
         }
-        return StateAssembler.Compose(_clock(), health, Screen, _runPart, reward, shop, _settings);
+        EventView? ev = null;
+        if (Screen == Screen.Event && _event is not null)
+        {
+            if (!ReferenceEquals(_eventKey.Mem, _event) || !ReferenceEquals(_eventKey.Run, _runPart))
+                _eventKey = (_event, _runPart, _assembler.BuildEvent(_event, _runPart));
+            ev = _eventKey.View;
+        }
+        // v1.2 : PV de l'équipe pris en mémoire si la dernière lecture (vérifiée) est plus récente que la save
+        var runView = _runPart?.View;
+        if (runView is not null && _memRun is not null && _memRunAt > _runAt)
+            runView = runView with { Party = StateAssembler.OverlayParty(runView.Party, _memRun) };
+        return StateAssembler.Compose(_clock(), health, Screen, _runPart, reward, shop, _settings, ev, runView);
     }
 
     public void Publish()

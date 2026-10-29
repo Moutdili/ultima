@@ -30,13 +30,21 @@ public sealed record MShop(bool InShop, IReadOnlyList<MShopCard> Cards, IReadOnl
     IReadOnlyList<MShopItem> Potions, int? RemovalBaseCost, int? RemovalEstimatedCost, bool? RemovalUsed,
     IReadOnlyList<string> PriceModifiers);
 
+/// <summary>
+/// Section « event » attendue de l'agent Miroir 2 (forme proposée, tolérante : champs manquants = null).
+/// <c>{"eventId":"EVENT.ABYSSAL_BATHS","name":?,"options":[{"id":"ABSTAIN"|"….options.ABSTAIN","label":?,"description":?,"available":?}]}</c>
+/// </summary>
+public sealed record MEvent(string? EventId, string? Name, IReadOnlyList<MEventOption>? Options);
+
+public sealed record MEventOption(string? Id, string? Label, string? Description, bool? Available);
+
 public sealed record ProbeHealth(bool GameRunning, bool Attached, int? PtraceScope, int? Pid, long? AttachMs, string? Runtime);
 
 public sealed record ProbeSection(bool Stable, int Attempts, long Ms, string? Error, JsonElement? Value);
 
 /// <summary>Ligne unique de `ultima-mirror … --json`.</summary>
 public sealed record ProbeOutput(int V, string? Cmd, int Exit, long Ms, string? Error, ProbeHealth? Health,
-    Dictionary<string, ProbeSection>? Sections, int? Ok, int? Total);
+    Dictionary<string, ProbeSection>? Sections, int? Ok, int? Total, IReadOnlyList<string>? Unsupported = null);
 
 /// <summary>Codes de sortie du probe (Ultima.Mirror.Probe/Program.cs).</summary>
 public static class ProbeExit
@@ -59,6 +67,12 @@ public sealed record MirrorResult(
     MShop? Shop,
     IReadOnlyList<string> UnstableSections)
 {
+    /// <summary>v1.2 : section « event » (null si absente, instable ou non prise en charge).</summary>
+    public MEvent? Event { get; init; }
+
+    /// <summary>Sections demandées que ce miroir ne sait pas lire (ex. « event » avant Miroir 2).</summary>
+    public IReadOnlyList<string> Unsupported { get; init; } = Array.Empty<string>();
+
     public bool Ok => Exit == ProbeExit.Ok;
 
     private static readonly JsonSerializerOptions Json = new(JsonSerializerDefaults.Web)
@@ -90,6 +104,10 @@ public sealed record MirrorResult(
         var unstable = o.Sections?.Where(kv => !kv.Value.Stable).Select(kv => kv.Key).ToArray() ?? Array.Empty<string>();
         // le code du processus fait foi ; celui de la ligne JSON sert si le processus a été tué après l'émission
         return new MirrorResult(exitCode, elapsedMs, o.Error, o.Health,
-            Section<MRun>("run"), Section<MRewards>("reward"), Section<MShop>("shop"), unstable);
+            Section<MRun>("run"), Section<MRewards>("reward"), Section<MShop>("shop"), unstable)
+        {
+            Event = Section<MEvent>("event"),
+            Unsupported = o.Unsupported ?? Array.Empty<string>(),
+        };
     }
 }

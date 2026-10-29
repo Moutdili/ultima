@@ -59,22 +59,33 @@ public sealed class DaemonHost : IDisposable
         catch (Exception e) { Diag.Warn($"boucle : {e.GetType().Name}: {e.Message}"); }
     }
 
+/// <summary>Connaissance + calcul (Hermes). Chaque pièce absente ou en panne → null (« — »), jamais un arrêt.</summary>
+    public sealed record EngineParts(IKnowledge Knowledge, IScorer? Scorer, IPathAnalyzer? Paths,
+        IRoutePlanner? Route, IEventAdvisor? Events, IReviewBuilder? Review)
+    {
+        public StateAssembler Assembler(ulong? steamId64) => new(Knowledge, Scorer, Paths, steamId64, Route, Events);
+    }
+
     /// <summary>Construit connaissance + calcul. Toute erreur du calcul → null (scores « — »), jamais un arrêt.</summary>
-    public static (IKnowledge, IScorer?, IPathAnalyzer?) BuildEngine(ProfilePaths? paths, bool scoring, string? dataDir = null)
+    public static EngineParts BuildEngine(ProfilePaths? paths, bool scoring, string? dataDir = null)
     {
         var knowledge = LoadKnowledge();
-        if (!scoring) return (knowledge, null, null);
-        if (DataRoot.Apply(dataDir) is null) return (knowledge, null, null);
+        if (!scoring) return new(knowledge, null, null, null, null, null);
+        if (DataRoot.Apply(dataDir) is null) return new(knowledge, null, null, null, null, null);
         IPersonalStats personal = PersonalStats.Empty();
         try { if (paths is not null) personal = PersonalStats.Load(paths.HistoryDir, steamId64: paths.SteamId64); }
         catch (Exception e) { Diag.Warn($"historique illisible : {e.Message}"); }
-        IScorer? scorer = null;
-        try { scorer = new Scorer(MetaTable.Load(), personal); }
-        catch (Exception e) { Diag.Warn($"calcul des scores indisponible : {e.GetType().Name}: {e.Message}"); }
-        IPathAnalyzer? analyzer = null;
-        try { analyzer = new PathAnalyzer(personal); }
-        catch (Exception e) { Diag.Warn($"calcul des chemins indisponible : {e.Message}"); }
-        return (knowledge, scorer, analyzer);
+        T? Try<T>(string what, Func<T> make) where T : class
+        {
+            try { return make(); }
+            catch (Exception e) { Diag.Warn($"{what} indisponible : {e.GetType().Name}: {e.Message}"); return null; }
+        }
+        return new EngineParts(knowledge,
+            Try<IScorer>("calcul des scores", () => new Scorer(MetaTable.Load(), personal)),
+            Try<IPathAnalyzer>("calcul des chemins", () => new PathAnalyzer(personal)),
+            Try<IRoutePlanner>("planificateur de route", () => new Ultima.Engine.Scoring.Paths.RoutePlanner()),
+            Try<IEventAdvisor>("conseil d'événement", () => new Ultima.Engine.Scoring.Events.EventAdvisor()),
+            Review: null); // aucune implémentation d'IReviewBuilder chez Hermes à ce jour → « review indisponible »
     }
 
     /// <summary>
@@ -104,12 +115,15 @@ public sealed class DaemonHost : IDisposable
     public void Start()
     {
         var paths = Locate(_o.Root, out var profileError);
-        var (knowledge, scorer, analyzer) = BuildEngine(paths, _o.Scoring, _o.DataDir);
-        var assembler = new StateAssembler(knowledge, scorer, analyzer, paths?.SteamId64);
+        var engine = BuildEngine(paths, _o.Scoring, _o.DataDir);
+        var assembler = engine.Assembler(paths?.SteamId64);
 
         Publisher = new StatePublisher(_o.RuntimeDir);
         var socket = new SocketServer(Path.Combine(_o.RuntimeDir, "state.sock"));
         Publisher.AddSink(socket);
+        var review = new ReviewService(Path.Combine(_o.RuntimeDir, "review"), () => paths?.HistoryDir, engine.Review,
+            () => Core?.GameRunning ?? false);
+        socket.OnRequest = review.HandleAsync;
         _owned.Add(Publisher);
 
         IMirrorRunner? mirror = _o.MirrorEnabled && _o.MirrorPath is not null
