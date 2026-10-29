@@ -1,15 +1,17 @@
 using Ultima.Engine.Contracts;
 using Ultima.Engine.Scoring.Cards;
 using Ultima.Engine.Scoring.Model;
+using Ultima.Engine.Scoring.Potions;
 using Ultima.Engine.Scoring.Relics;
 using Ultima.Saves.Model;
 
 namespace Ultima.Engine.Scoring.Shop;
 
 /// <summary>
-/// Score d'un article de shop et du retrait de carte. Formule figée (docs/24-hermes-arch.md §2) :
+/// Score d'un article de shop et du retrait de carte.
 /// <list type="bullet">
-/// <item>article : <c>valeur × 0.7 + clamp(1 − prix/or, −1, 1) × 15</c>, puis <c>−20</c> si non abordable ;</item>
+/// <item>article : la note de la récompense (carte, relique) — <b>le prix ne change pas la lettre</b> ;</item>
+/// <item>potion : note plafonnée à <see cref="PotionCap"/>, marquée non comparable ;</item>
 /// <item>retrait : <c>25 + 30 si le deck contient une malédiction − clamp(prix/or, 0, 1.5) × 20</c>.</item>
 /// </list>
 ///
@@ -28,11 +30,12 @@ namespace Ultima.Engine.Scoring.Shop;
 /// </summary>
 public sealed class ShopScorer
 {
-    /// <summary>Valeur neutre documentée d'une potion (aucune méta potion publiée).</summary>
+    /// <summary>Ancienne valeur neutre : conservée pour compatibilité, plus utilisée pour noter.</summary>
     public const int PotionValue = 50;
 
-    private const int EconomyMax = 15;   // clamp(1 − prix/or, −1, 1) × 15
-    private const int Unaffordable = -20;
+    /// <summary>Plafond d'une potion : aucune source publique ne la compare aux cartes.</summary>
+    public const int PotionCap = 45;
+
     private const int RemovalBase = 25;
     private const int RemovalCurseBonus = 30;
     private const int RemovalCostMax = 20; // clamp(prix/or, 0, 1.5) × 20
@@ -45,28 +48,68 @@ public sealed class ShopScorer
 
     private readonly CardScorer _cards;
     private readonly RelicScorer _relics;
+    private readonly PotionScorer? _potions;
 
-    public ShopScorer(CardScorer cards, RelicScorer relics)
+    public ShopScorer(CardScorer cards, RelicScorer relics, PotionScorer? potions = null)
     {
         _cards = cards;
         _relics = relics;
+        _potions = potions;
     }
 
+    /// <summary>
+    /// Score d'un article. La <b>lettre est celle de la récompense</b> : une carte vaut au shop
+    /// exactement ce qu'elle vaut à la récompense, une relique ce qu'elle vaut en butin. Le prix
+    /// n'entre plus dans la note — l'abordabilité est déjà un booléen du contrat
+    /// (<c>ShopItem.Affordable</c>) et l'économie reste un terme informatif à 0 point.
+    /// </summary>
     public Score Score(string kind, string id, int price, ScoringContext ctx)
     {
         var k = Normalize(kind);
         int p = Math.Max(0, price);
         int gold = Math.Max(0, ctx.Gold);
 
-        var (value, source, confidence) = Value(k, id, ctx);
+        var basis = k switch
+        {
+            "card" => _cards.ScoreCard(new CardInstance(id, 0, null, null), ctx),
+            "relic" => _relics.Score(id, ctx),
+            "potion" => PotionScore(id, ctx),
+            _ => new Score(0, Array.Empty<ScoreTerm>(), Confidence.Unknown),
+        };
 
-        var b = new ScoreBuilder();
-        b.Add($"Valeur ({k})", ScoreMath.Round(value * 0.7), source);
-        b.Add("Économie (prix / or)", Economy(p, gold), PriceBasis(p, gold));
+        var terms = new List<ScoreTerm>(basis.Terms)
+        {
+            new("Économie (prix / or)", 0, PriceBasis(p, gold)),
+        };
 
-        if (p > gold) b.Add("Non abordable", Unaffordable, $"{p} or > {gold} or disponible");
+        if (k is not ("card" or "relic" or "potion"))
+            terms.Add(new ScoreTerm($"Type « {kind} » inconnu", 0, "type non reconnu : aucune valeur"));
 
-        return b.Build(confidence);
+        if (p > gold)
+            terms.Add(new ScoreTerm("Non abordable", 0, $"{p} or > {gold} or — la lettre ne change pas"));
+
+        return basis with { Terms = terms };
+    }
+
+    /// <summary>
+    /// Note d'une potion, volontairement <b>plafonnée</b> : aucune source publique ne la compare
+    /// aux cartes. Un placeholder ne doit jamais battre une mesure.
+    /// </summary>
+    private Score PotionScore(string id, ScoringContext ctx)
+    {
+        var measured = _potions?.Score(id, ctx);
+        if (measured is null)
+            return new Score(0,
+                new[] { new ScoreTerm($"Potion {Ids.Bare(id)} inconnue", 0, "aucune description au catalogue") },
+                Confidence.Unknown);
+
+        var terms = new List<ScoreTerm>(measured.Terms)
+        {
+            new("Non comparable aux cartes", 0,
+                $"aucune méta publique de potions — note plafonnée à {PotionCap}"),
+        };
+
+        return new Score(Math.Min(measured.Total, PotionCap), terms, Confidence.Unknown);
     }
 
     public Score ScoreRemoval(int price, ScoringContext ctx)
@@ -96,28 +139,6 @@ public sealed class ShopScorer
         return score;
     }
 
-    /// <summary>Valeur intrinsèque de l'article + provenance du chiffre + confiance associée.</summary>
-    private (int Value, string Source, string Confidence) Value(string kind, string id, ScoringContext ctx)
-    {
-        switch (kind)
-        {
-            case "card":
-            {
-                var score = _cards.ScoreCard(new CardInstance(id, 0, null, null), ctx);
-                return (score.Total, Attribution(score, $"carte {Ids.Bare(id)}"), score.Confidence);
-            }
-            case "relic":
-            {
-                var score = _relics.Score(id, ctx);
-                return (score.Total, Attribution(score, $"relique {Ids.Bare(id)}"), score.Confidence);
-            }
-            case "potion":
-                return (PotionValue, "valeur neutre documentée : aucune méta potion publiée", Confidence.Low);
-            default:
-                return (PotionValue, $"type « {kind} » inconnu → valeur neutre {PotionValue}", Confidence.Unknown);
-        }
-    }
-
     /// <summary>
     /// Hérite de la source du terme dominant du score de valeur (ex. « spirecodex-scores (n=1…) »)
     /// pour que l'UI puisse répondre à « d'où vient ce chiffre ? ».
@@ -134,15 +155,6 @@ public sealed class ShopScorer
 
     private static string Normalize(string? kind) =>
         string.IsNullOrWhiteSpace(kind) ? "potion" : kind.Trim().ToLowerInvariant();
-
-    /// <summary>clamp(1 − prix/or, −1, 1) × 15. Or nul : économie minimale (ou maximale si gratuit).</summary>
-    private static int Economy(int price, int gold)
-    {
-        if (gold <= 0) return price <= 0 ? EconomyMax : -EconomyMax;
-
-        double share = (double)price / gold;
-        return ScoreMath.Round(ScoreMath.Clamp(1.0 - share, -1.0, 1.0) * EconomyMax);
-    }
 
     /// <summary>−clamp(prix/or, 0, 1.5) × 20. Or nul : coût maximal (−30) dès que le prix &gt; 0.</summary>
     private static int RemovalCost(int price, int gold)

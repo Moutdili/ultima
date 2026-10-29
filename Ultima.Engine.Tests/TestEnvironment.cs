@@ -14,5 +14,9 @@ internal static class TestEnvironment
     internal static void Initialize()
     {
         Environment.SetEnvironmentVariable("ULTIMA_DATA", null);
+
+        // Même règle pour la méta : data/meta/local/ (notes Untapped de la machine) ne doit pas
+        // décider si un test passe. Les tests lisent la variante commitée, toujours.
+        Environment.SetEnvironmentVariable("ULTIMA_META_NO_LOCAL", "1");
     }
 }

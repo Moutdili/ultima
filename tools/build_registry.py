@@ -98,12 +98,21 @@ def main():
             entry["toxicity"] = imp.get("toxicity") if imp else None
         card_entries.append(entry)
 
+    # Reliques présentes dans les fichiers de traduction mais SANS classe dans le code du jeu :
+    # elles ne peuvent jamais apparaître dans une partie. Décision du chef (docs/22) : une entité
+    # existe si le jeu a du code pour elle. On les garde, drapeau à l'appui, hors des totaux.
+    LOCALIZATION_ONLY = {
+        "CURSED_KETTLE", "ENDLESS_APPETITE", "GLOWING_ORB", "INK_BOTTLE",
+        "MYSTERIOUS_COCOON", "RED_VINE_TEA", "VINE_BRACELET",
+    }
+
     relic_entries = []
     for rid, r in relics.items():
         relic_entries.append({
             "id": rid,
             "tagged": bool(r.get("tags")),
             "imposes_curse": rid in relic_curses,
+            "localization_only": rid in LOCALIZATION_ONLY,
         })
 
     potion_entries = [{"id": pid, "tagged": bool(p.get("tags"))} for pid, p in pots.items()]
@@ -137,7 +146,8 @@ def main():
         "curses_without_impact": [e["id"] for e in curses if e["impact"] == "no_data"],
         "statuses_without_impact": [e["id"] for e in statuses if e["impact"] == "no_data"],
         "powers_without_evaluable_hook": [e["id"] for e in power_entries if not e["evaluable"]],
-        "relics_without_tags": [e["id"] for e in relic_entries if not e["tagged"]],
+        "relics_without_tags": [e["id"] for e in relic_entries
+                                if not e["tagged"] and not e["localization_only"]],
         "encounters_without_stats": [e["id"] for e in encounter_entries if not e["has_stats"]],
         "monsters_without_constraint": [e["id"] for e in monster_entries if not e["constrained"]],
         "cards_with_unknown_keyword": sorted({k for e in card_entries for k in (e.get("keywords") or [])
@@ -155,6 +165,8 @@ def main():
             "statuses": len(statuses),
             "quests": sum(1 for e in card_entries if e["type"] == "quest"),
             "relics": len(relic_entries),
+            "relics_with_code": sum(1 for e in relic_entries if not e["localization_only"]),
+            "relics_localization_only": sum(1 for e in relic_entries if e["localization_only"]),
             "potions": len(potion_entries),
             "power_models": len(power_entries),
             "monsters": len(monster_entries),
@@ -166,6 +178,8 @@ def main():
             "classified_statuses": sum(1 for e in statuses if e["impact"] != "no_data"),
             "numeric_cards": sum(1 for e in card_entries if e["numeric"]),
             "evaluable_powers": sum(1 for e in power_entries if e["evaluable"]),
+            "tagged_relics_with_code": sum(1 for e in relic_entries
+                                           if e["tagged"] and not e["localization_only"]),
             "constrained_monsters": sum(1 for e in monster_entries if e["constrained"]),
             "encounters_with_stats": sum(1 for e in encounter_entries if e["has_stats"]),
         },

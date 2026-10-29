@@ -31,7 +31,8 @@ public sealed class MetaTable : IMetaTable
         Dictionary<string, MetaEntry> cards,
         Dictionary<string, MetaEntry> relics,
         Dictionary<string, List<MetaArchetype>> archetypes,
-        string variant, string? generated, string? patchTarget, double? skipRate, double? skipElo)
+        string variant, string? generated, string? patchTarget, double? skipRate, double? skipElo,
+        string dataPath = "", string? problem = null)
     {
         _cards = cards;
         _relics = relics;
@@ -41,11 +42,26 @@ public sealed class MetaTable : IMetaTable
         PatchTarget = patchTarget;
         SkipRate = skipRate;
         SkipElo = skipElo;
+        DataPath = dataPath;
+        Problem = problem;
     }
+
+    /// <summary>Vrai si au moins une carte a été chargée. Faux = les scores n'ont aucune base.</summary>
+    public bool IsLoaded => _cards.Count > 0;
+
+    /// <summary>Répertoire effectivement lu (utile dans un rapport d'erreur).</summary>
+    public string DataPath { get; }
+
+    /// <summary>
+    /// Raison explicite quand la table est vide (fichier absent ou illisible).
+    /// Le daemon la traduit en <c>SourceHealth.Degraded</c> : jamais des F 0 silencieux.
+    /// </summary>
+    public string? Problem { get; }
 
     public static MetaTable Empty { get; } = new(
         new(StringComparer.OrdinalIgnoreCase), new(StringComparer.OrdinalIgnoreCase),
-        new(StringComparer.OrdinalIgnoreCase), "empty", null, null, null, null);
+        new(StringComparer.OrdinalIgnoreCase), "empty", null, null, null, null,
+        "", "table vide : aucune donnée méta chargée");
 
     public MetaEntry? Card(string id) =>
         _cards.TryGetValue(Ids.Bare(id), out var e) ? e : null;
@@ -62,20 +78,27 @@ public sealed class MetaTable : IMetaTable
     /// Charge la méta. Préfère &lt;metaDir&gt;/local/ (variante complète, non commitée) puis &lt;metaDir&gt;.
     /// Les fichiers absents sont tolérés : la table reste utilisable (scores sans base).
     /// </summary>
-    public static MetaTable Load(string? metaDir = null)
+    /// <param name="includeLocal">
+    /// false = ignore &lt;metaDir&gt;/local/ et ne lit que la variante commitée. Les tests passent false
+    /// (ou posent <c>ULTIMA_META_NO_LOCAL=1</c>) : la variante locale de la machine ne doit jamais
+    /// décider si un test passe.
+    /// </param>
+    public static MetaTable Load(string? metaDir = null, bool? includeLocal = null)
     {
         var dir = ScoringData.ResolveMetaDir(metaDir);
         var localDir = Path.Combine(dir, "local");
+        var useLocal = includeLocal
+            ?? Environment.GetEnvironmentVariable("ULTIMA_META_NO_LOCAL") != "1";
 
         // Repli FICHIER PAR FICHIER : Mio a un local/ partiel (card_tiers + relic_tiers seulement,
         // notes sous licence). Choisir local/ en bloc laissait archetypes.json introuvable.
         string Pick(string name)
         {
             var local = Path.Combine(localDir, name);
-            return File.Exists(local) ? local : Path.Combine(dir, name);
+            return useLocal && File.Exists(local) ? local : Path.Combine(dir, name);
         }
 
-        string source = File.Exists(Path.Combine(localDir, "card_tiers.json")) ? localDir : dir;
+        string source = useLocal && File.Exists(Path.Combine(localDir, "card_tiers.json")) ? localDir : dir;
 
         var cards = new Dictionary<string, MetaEntry>(StringComparer.OrdinalIgnoreCase);
         var relics = new Dictionary<string, MetaEntry>(StringComparer.OrdinalIgnoreCase);
@@ -84,8 +107,11 @@ public sealed class MetaTable : IMetaTable
         string variant = "empty";
         string? generated = null, patch = null;
         double? skipRate = null, skipElo = null;
+        string? problem = null;
 
         var cardPath = Pick("card_tiers.json");
+        if (!File.Exists(cardPath))
+            problem = $"aucune méta de cartes : {cardPath} introuvable";
         if (File.Exists(cardPath))
         {
             using var doc = JsonDocument.Parse(File.ReadAllBytes(cardPath));
@@ -144,7 +170,11 @@ public sealed class MetaTable : IMetaTable
         ApplyPercentiles(cards);
         ApplyPercentiles(relics);
 
-        return new MetaTable(cards, relics, archetypes, variant, generated, patch, skipRate, skipElo);
+        if (problem is null && cards.Count == 0)
+            problem = $"aucune carte lue dans {cardPath}";
+
+        return new MetaTable(cards, relics, archetypes, variant, generated, patch, skipRate, skipElo,
+            dir, problem);
     }
 
     /// <summary>
