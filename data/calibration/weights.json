@@ -1,0 +1,608 @@
+{
+ "schema": "ultima.calibration.weights/1",
+ "generated_at": "2026-10-29T14:36:05Z",
+ "generated_by": "tools/calibration/fit_weights.py",
+ "source": {
+  "index": "data/index/runs-v0.107.1.jsonl.gz",
+  "build": "v0.107.1",
+  "catalog": "data/catalog/cards_effects.json + relics.json + monsters.json + encounters.json",
+  "filter": "solo, mode standard, personnages canoniques, deck <= 80 cartes",
+  "runs_final": 71634,
+  "rows_act": 57885,
+  "dropped_missing_hp": 6510
+ },
+ "sampling": {
+  "n_train_max": 40000,
+  "n_test_max": 20000,
+  "test_fraction": 0.2,
+  "seed": 20261029,
+  "stratification": "aucune (échantillon systématique sur l'index, split aléatoire)"
+ },
+ "method": "régression logistique P(win)=sigmoid(beta·x), Newton/IRLS, L2 = 1.0, features standardisées sur le train ; parts = beta positif normalisé (par point de dimension) ; IC 95 % par Monte-Carlo gaussien sur la covariance (2000 tirages)",
+ "caveat": "Corrélation, pas causalité. Les features décrivent l'état du joueur (deck, reliques, PV) ; elles sont en partie la CONSÉQUENCE des choix passés et de la chance (butin, événements). Un coefficient positif dit « les runs qui finissent avec cette qualité gagnent plus souvent », jamais « ajouter cette qualité fait gagner ». Aucun contrefactuel n'est observé : on ne voit jamais le même run avec et sans la carte.",
+ "design": "état reconstruit à la fin de l'acte (deck final moins les cartes prises après l'acte) ; échantillon = runs ayant survécu à l'acte, cible = win (postérieure). Aucun regard sur la suite, sauf dans le modèle final_* (état de fin de run, indicatif).",
+ "recommendation": "Ne pas appliquer les parts brutes telles quelles. Deux constats sont robustes aux deux estimateurs : (a) Survie devrait peser plus que 30-40 % aux actes 1-2 ; (b) Offense, mesurée comme aujourd'hui (densité de dégâts / taille de deck, cartes jouées au hasard, sans améliorations), ne sépare pas les gagnants — corriger la dimension avant de changer son poids. L'acte 3 n'est pas identifiable sur ce corpus : garder les constantes du code. Arbitrage humain attendu ; aucun C# n'est modifié par cette tâche.",
+ "not_identifiable": {
+  "act_3": "aucun run ne survit à l'acte 3 sans gagner : l'échantillon pré-outcome n'a qu'une seule issue, les poids ne sont pas estimables. Le code garde ses constantes."
+ },
+ "models": {
+  "final_dims": {
+   "kind": "final",
+   "act": null,
+   "n_train": 40000,
+   "n_test": 14326,
+   "base_rate_train": 0.1394,
+   "auc_test": 0.7816,
+   "accuracy_test": 0.8611,
+   "brier_test": 0.1045,
+   "mcfadden_r2": 0.1592,
+   "coefficients": [
+    {
+     "name": "intercept",
+     "beta": -2.2323,
+     "se": 0.0195,
+     "beta_raw": -2.232251
+    },
+    {
+     "name": "s_survie",
+     "beta": 0.2621,
+     "se": 0.0174,
+     "beta_raw": 0.032075
+    },
+    {
+     "name": "s_offense",
+     "beta": -0.7511,
+     "se": 0.0178,
+     "beta_raw": -0.110005
+    },
+    {
+     "name": "s_consistance",
+     "beta": -0.3309,
+     "se": 0.0151,
+     "beta_raw": -0.044955
+    },
+    {
+     "name": "s_couverture",
+     "beta": 0.8033,
+     "se": 0.0181,
+     "beta_raw": 0.049241
+    },
+    {
+     "name": "asc",
+     "beta": -0.4075,
+     "se": 0.0172,
+     "beta_raw": -0.104306
+    },
+    {
+     "name": "char_silent",
+     "beta": -0.0888,
+     "se": 0.0199,
+     "beta_raw": -0.209274
+    },
+    {
+     "name": "char_defect",
+     "beta": 0.155,
+     "se": 0.0205,
+     "beta_raw": 0.404358
+    },
+    {
+     "name": "char_necrobinder",
+     "beta": -0.1456,
+     "se": 0.0204,
+     "beta_raw": -0.377488
+    },
+    {
+     "name": "char_regent",
+     "beta": -0.0829,
+     "se": 0.0187,
+     "beta_raw": -0.224877
+    }
+   ],
+   "index_model": {
+    "weights": {
+     "survie": 0.0742,
+     "offense": 0.0197,
+     "consistance": 0.0269,
+     "couverture": 0.8791
+    },
+    "scale": 0.3869,
+    "auc_test": 0.6871,
+    "n_train": 12000
+   }
+  },
+  "final_dims_depth": {
+   "kind": "final",
+   "act": null,
+   "n_train": 40000,
+   "n_test": 14326,
+   "base_rate_train": 0.1409,
+   "auc_test": 0.9565,
+   "accuracy_test": 0.9077,
+   "brier_test": 0.0577,
+   "mcfadden_r2": 0.5964,
+   "coefficients": [
+    {
+     "name": "intercept",
+     "beta": -8.3187,
+     "se": 0.3363,
+     "beta_raw": -8.318739
+    },
+    {
+     "name": "s_survie",
+     "beta": 1.0213,
+     "se": 0.0311,
+     "beta_raw": 0.124729
+    },
+    {
+     "name": "s_offense",
+     "beta": -0.1353,
+     "se": 0.023,
+     "beta_raw": -0.019805
+    },
+    {
+     "name": "s_consistance",
+     "beta": 0.0636,
+     "se": 0.0175,
+     "beta_raw": 0.00864
+    },
+    {
+     "name": "s_couverture",
+     "beta": 0.0337,
+     "se": 0.0266,
+     "beta_raw": 0.002075
+    },
+    {
+     "name": "asc",
+     "beta": -0.0394,
+     "se": 0.0233,
+     "beta_raw": -0.01005
+    },
+    {
+     "name": "act_reached",
+     "beta": 5.9512,
+     "se": 0.2333,
+     "beta_raw": 7.21321
+    },
+    {
+     "name": "char_silent",
+     "beta": 0.166,
+     "se": 0.0278,
+     "beta_raw": 0.390926
+    },
+    {
+     "name": "char_defect",
+     "beta": 0.1092,
+     "se": 0.027,
+     "beta_raw": 0.284429
+    },
+    {
+     "name": "char_necrobinder",
+     "beta": 0.1136,
+     "se": 0.027,
+     "beta_raw": 0.295286
+    },
+    {
+     "name": "char_regent",
+     "beta": 0.0516,
+     "se": 0.0257,
+     "beta_raw": 0.140377
+    }
+   ],
+   "index_model": {
+    "weights": {
+     "survie": 0.821,
+     "offense": 0.0503,
+     "consistance": 0.0722,
+     "couverture": 0.0565
+    },
+    "scale": 0.3724,
+    "auc_test": 0.955,
+    "n_train": 12000
+   }
+  },
+  "final_raw": {
+   "kind": "final",
+   "act": null,
+   "n_train": 15000,
+   "n_test": 14326,
+   "base_rate_train": 0.1407,
+   "auc_test": 0.9624,
+   "accuracy_test": 0.9159,
+   "brier_test": 0.0546,
+   "mcfadden_r2": 0.6083,
+   "coefficients": [],
+   "index_model": null
+  },
+  "act1_dims": {
+   "kind": "act",
+   "act": 1,
+   "n_train": 31221,
+   "n_test": 7805,
+   "base_rate_train": 0.2584,
+   "auc_test": 0.6876,
+   "accuracy_test": 0.7485,
+   "brier_test": 0.1745,
+   "mcfadden_r2": 0.0771,
+   "coefficients": [
+    {
+     "name": "intercept",
+     "beta": -1.1809,
+     "se": 0.0144,
+     "beta_raw": -1.180893
+    },
+    {
+     "name": "s_survie",
+     "beta": 0.7391,
+     "se": 0.0157,
+     "beta_raw": 0.089804
+    },
+    {
+     "name": "s_offense",
+     "beta": -0.0243,
+     "se": 0.0149,
+     "beta_raw": -0.002968
+    },
+    {
+     "name": "s_consistance",
+     "beta": -0.0348,
+     "se": 0.0146,
+     "beta_raw": -0.004663
+    },
+    {
+     "name": "s_couverture",
+     "beta": 0.1106,
+     "se": 0.0152,
+     "beta_raw": 0.007335
+    },
+    {
+     "name": "asc",
+     "beta": -0.0274,
+     "se": 0.0152,
+     "beta_raw": -0.007147
+    },
+    {
+     "name": "char_silent",
+     "beta": 0.146,
+     "se": 0.0172,
+     "beta_raw": 0.350177
+    },
+    {
+     "name": "char_defect",
+     "beta": 0.1345,
+     "se": 0.018,
+     "beta_raw": 0.340006
+    },
+    {
+     "name": "char_necrobinder",
+     "beta": 0.0264,
+     "se": 0.0172,
+     "beta_raw": 0.069062
+    },
+    {
+     "name": "char_regent",
+     "beta": 0.0814,
+     "se": 0.0165,
+     "beta_raw": 0.216217
+    }
+   ],
+   "index_model": {
+    "weights": {
+     "survie": 0.8101,
+     "offense": 0.0455,
+     "consistance": 0.046,
+     "couverture": 0.0984
+    },
+    "scale": 0.6511,
+    "auc_test": 0.6875,
+    "n_train": 12000
+   }
+  },
+  "act2_dims": {
+   "kind": "act",
+   "act": 2,
+   "n_train": 15072,
+   "n_test": 3768,
+   "base_rate_train": 0.5334,
+   "auc_test": 0.6564,
+   "accuracy_test": 0.6176,
+   "brier_test": 0.2303,
+   "mcfadden_r2": 0.0537,
+   "coefficients": [
+    {
+     "name": "intercept",
+     "beta": 0.1429,
+     "se": 0.017,
+     "beta_raw": 0.142941
+    },
+    {
+     "name": "s_survie",
+     "beta": 0.5103,
+     "se": 0.0183,
+     "beta_raw": 0.073205
+    },
+    {
+     "name": "s_offense",
+     "beta": -0.1309,
+     "se": 0.0191,
+     "beta_raw": -0.017137
+    },
+    {
+     "name": "s_consistance",
+     "beta": 0.161,
+     "se": 0.0186,
+     "beta_raw": 0.017138
+    },
+    {
+     "name": "s_couverture",
+     "beta": 0.0165,
+     "se": 0.019,
+     "beta_raw": 0.001123
+    },
+    {
+     "name": "asc",
+     "beta": -0.0304,
+     "se": 0.0181,
+     "beta_raw": -0.008135
+    },
+    {
+     "name": "char_silent",
+     "beta": 0.1381,
+     "se": 0.0222,
+     "beta_raw": 0.330509
+    },
+    {
+     "name": "char_defect",
+     "beta": 0.0698,
+     "se": 0.0223,
+     "beta_raw": 0.177007
+    },
+    {
+     "name": "char_necrobinder",
+     "beta": 0.0653,
+     "se": 0.0209,
+     "beta_raw": 0.176656
+    },
+    {
+     "name": "char_regent",
+     "beta": 0.0657,
+     "se": 0.0211,
+     "beta_raw": 0.173827
+    }
+   ],
+   "index_model": {
+    "weights": {
+     "survie": 0.7057,
+     "offense": 0.0267,
+     "consistance": 0.2225,
+     "couverture": 0.0451
+    },
+    "scale": 0.7279,
+    "auc_test": 0.652,
+    "n_train": 12000
+   }
+  },
+  "act1_raw": {
+   "kind": "act",
+   "act": 1,
+   "n_train": 15000,
+   "n_test": 7805,
+   "base_rate_train": 0.2569,
+   "auc_test": 0.7366,
+   "accuracy_test": 0.7582,
+   "brier_test": 0.1665,
+   "mcfadden_r2": 0.1208,
+   "coefficients": [],
+   "index_model": null
+  },
+  "act2_raw": {
+   "kind": "act",
+   "act": 2,
+   "n_train": 15000,
+   "n_test": 3768,
+   "base_rate_train": 0.5332,
+   "auc_test": 0.6747,
+   "accuracy_test": 0.6338,
+   "brier_test": 0.2259,
+   "mcfadden_r2": 0.0714,
+   "coefficients": [],
+   "index_model": null
+  }
+ },
+ "proposed_weights": {
+  "act_1": {
+   "weights": {
+    "survie": 0.9245,
+    "offense": 0.0,
+    "consistance": 0.0,
+    "couverture": 0.0755
+   },
+   "ci95": {
+    "survie": [
+     0.9056,
+     0.9444
+    ],
+    "offense": [
+     0.0,
+     0.0045
+    ],
+    "consistance": [
+     0.0,
+     0.0
+    ],
+    "couverture": [
+     0.0551,
+     0.0937
+    ]
+   },
+   "beta_per_point": {
+    "survie": 0.089804,
+    "offense": -0.002968,
+    "consistance": -0.004663,
+    "couverture": 0.007335
+   },
+   "share_of_variation": {
+    "survie": 0.8699,
+    "offense": 0.0,
+    "consistance": 0.0,
+    "couverture": 0.1301
+   },
+   "auc_test": 0.6876,
+   "n_train": 31221,
+   "n_test": 7805,
+   "all_betas_positive": false,
+   "index_model": {
+    "weights": {
+     "survie": 0.8101,
+     "offense": 0.0455,
+     "consistance": 0.046,
+     "couverture": 0.0984
+    },
+    "scale": 0.6511,
+    "auc_test": 0.6875,
+    "n_train": 12000
+   }
+  },
+  "act_2": {
+   "weights": {
+    "survie": 0.8004,
+    "offense": 0.0,
+    "consistance": 0.1874,
+    "couverture": 0.0123
+   },
+   "ci95": {
+    "survie": [
+     0.7557,
+     0.8451
+    ],
+    "offense": [
+     0.0,
+     0.0
+    ],
+    "consistance": [
+     0.1499,
+     0.2231
+    ],
+    "couverture": [
+     0.0,
+     0.0397
+    ]
+   },
+   "beta_per_point": {
+    "survie": 0.073205,
+    "offense": -0.017137,
+    "consistance": 0.017138,
+    "couverture": 0.001123
+   },
+   "share_of_variation": {
+    "survie": 0.7419,
+    "offense": 0.0,
+    "consistance": 0.2341,
+    "couverture": 0.024
+   },
+   "auc_test": 0.6564,
+   "n_train": 15072,
+   "n_test": 3768,
+   "all_betas_positive": false,
+   "index_model": {
+    "weights": {
+     "survie": 0.7057,
+     "offense": 0.0267,
+     "consistance": 0.2225,
+     "couverture": 0.0451
+    },
+    "scale": 0.7279,
+    "auc_test": 0.652,
+    "n_train": 12000
+   }
+  }
+ },
+ "current_code_weights": {
+  "act_1": {
+   "survie": 0.4,
+   "offense": 0.3,
+   "consistance": 0.2,
+   "couverture": 0.1
+  },
+  "act_2": {
+   "survie": 0.3,
+   "offense": 0.35,
+   "consistance": 0.2,
+   "couverture": 0.15
+  },
+  "act_3": {
+   "survie": 0.3,
+   "offense": 0.4,
+   "consistance": 0.15,
+   "couverture": 0.15
+  }
+ },
+ "univariate_auc": {
+  "act1_survie": 0.6838,
+  "act1_offense": 0.5001,
+  "act1_consistance": 0.5313,
+  "act1_couverture": 0.5233,
+  "act1_bloc/tour": 0.6734,
+  "act1_dégâts/tour": 0.5145,
+  "act1_pioche/tour": 0.6242,
+  "act1_énergie/tour": 0.6323,
+  "act1_PV": 0.5692,
+  "act1_PV max": 0.528,
+  "act1_taille de deck": 0.5261,
+  "act1_malédictions": 0.515,
+  "act1_scaling": 0.4852,
+  "act2_survie": 0.6394,
+  "act2_offense": 0.459,
+  "act2_consistance": 0.5609,
+  "act2_couverture": 0.4915,
+  "act2_bloc/tour": 0.5765,
+  "act2_dégâts/tour": 0.4715,
+  "act2_pioche/tour": 0.5896,
+  "act2_énergie/tour": 0.5579,
+  "act2_PV": 0.6181,
+  "act2_PV max": 0.5167,
+  "act2_taille de deck": 0.4738,
+  "act2_malédictions": 0.4625,
+  "act2_scaling": 0.4751,
+  "act3_survie": 0.6136,
+  "act3_offense": 0.6136,
+  "act3_consistance": 0.5341,
+  "act3_couverture": 0.5568,
+  "act3_bloc/tour": 0.4091,
+  "act3_dégâts/tour": 0.6591,
+  "act3_pioche/tour": 0.5568,
+  "act3_énergie/tour": 0.7727,
+  "act3_PV": 0.7273,
+  "act3_PV max": 0.6364,
+  "act3_taille de deck": 0.4716,
+  "act3_malédictions": 0.5,
+  "act3_scaling": 0.5511,
+  "final_survie": 0.5408,
+  "final_offense": 0.3599,
+  "final_consistance": 0.4073,
+  "final_couverture": 0.6841,
+  "final_bloc/tour": 0.794,
+  "final_dégâts/tour": 0.5603,
+  "final_pioche/tour": 0.7747,
+  "final_énergie/tour": 0.7935,
+  "final_PV": 0.8137,
+  "final_PV max": 0.6553,
+  "final_taille de deck": 0.8439,
+  "final_malédictions": 0.5122,
+  "final_scaling": 0.5909
+ },
+ "reference_full_run": {
+  "weights": {
+   "survie": 0.3945,
+   "offense": 0.0,
+   "consistance": 0.0,
+   "couverture": 0.6055
+  },
+  "beta_per_point": {
+   "survie": 0.032075,
+   "offense": -0.110005,
+   "consistance": -0.044955,
+   "couverture": 0.049241
+  },
+  "auc_test": 0.7816
+ }
+}
