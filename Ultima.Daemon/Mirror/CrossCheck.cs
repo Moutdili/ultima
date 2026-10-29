@@ -22,7 +22,7 @@ public static class CrossCheck
         var mDeck = mem.Deck.Select(c => Key(c.Id, c.Upgrade)).OrderBy(x => x, StringComparer.Ordinal);
         if (!sDeck.SequenceEqual(mDeck)) diffs.Add($"deck {mem.Deck.Count}≠{save.Deck.Count} cartes");
         if (!save.Relics.Select(r => r.Id).SequenceEqual(mem.Relics.Select(r => r ?? "")))
-            diffs.Add($"reliques {mem.Relics.Count}≠{save.Relics.Count}");
+            diffs.Add(mem.Relics.Count == save.Relics.Count ? "reliques différentes" : $"reliques {mem.Relics.Count}≠{save.Relics.Count}");
         return diffs;
     }
 }

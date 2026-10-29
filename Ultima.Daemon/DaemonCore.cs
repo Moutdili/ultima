@@ -38,7 +38,6 @@ public sealed class DaemonCore
     private int? _mirrorMs;
     private string? _mirrorDegraded;
     private bool _patchDrift;
-    private bool _crossCheckNext;
     private string? _divergence;
     private OverlaySettings _settings = OverlaySettings.Default;
     private bool _replaying;
@@ -97,6 +96,16 @@ public sealed class DaemonCore
 
     public void OnRun(RunState? run)
     {
+        ApplyRun(run);
+        // Relire le marchand après un achat : la save a changé APRÈS notre lecture (or/deck différents).
+        if (!_replaying && Screen == Screen.Shop && _shop is not null && _runPart is { } rp
+            && (rp.Player.Gold != _memGold || rp.Player.Deck.Count != _memDeckCount))
+            Scheduler.Request(MirrorNeed.Shop);
+        Publish();
+    }
+
+    private void ApplyRun(RunState? run)
+    {
         _run = run;
         _saveOk = true;
         _saveError = null;
@@ -104,11 +113,6 @@ public sealed class DaemonCore
         catch (Exception e) { Diag.Warn($"assemblage run : {e.Message}"); _runPart = null; }
         Tracker.LocalNetId = _runPart?.Player.NetId;
         Tracker.OnRun(run, _gameRunning);
-        // Relire le marchand après un achat : la save a changé APRÈS notre lecture (or/deck différents).
-        if (!_replaying && Screen == Screen.Shop && _shop is not null && _runPart is { } rp
-            && (rp.Player.Gold != _memGold || rp.Player.Deck.Count != _memDeckCount))
-            Scheduler.Request(MirrorNeed.Shop);
-        Publish();
     }
 
     public void OnSaveError(Exception e)
@@ -131,7 +135,6 @@ public sealed class DaemonCore
     {
         var before = Tracker.Screen;
         var need = Tracker.OnLog(e);
-        if (e is RoomEntered { Kind: RoomKind.Merchant }) _crossCheckNext = true;
         AfterScreenChange(before);
         if (!_replaying && need != MirrorNeed.None) Scheduler.Request(need);
         Publish();
@@ -145,7 +148,7 @@ public sealed class DaemonCore
         _replaying = false;
         // Transition « démarrage du daemon » : si l'on tombe sur un écran de récompense/marchand, une lecture.
         if (Screen == Screen.Reward) Scheduler.Request(MirrorNeed.Reward);
-        else if (Screen == Screen.Shop) { _crossCheckNext = true; Scheduler.Request(MirrorNeed.Shop); }
+        else if (Screen == Screen.Shop) Scheduler.Request(MirrorNeed.Shop);
         Publish();
     }
 
@@ -238,15 +241,23 @@ public sealed class DaemonCore
             }
             if (need.HasFlag(MirrorNeed.Shop) && Screen == Screen.Shop)
             {
+                // Vérification croisée à CHAQUE lecture du marchand (entrée ou relecture après achat — cette
+                // dernière n'a lieu que sur save réécrite, donc fraîche), AVANT de retenir l'inventaire.
                 var local = r.Run?.Local;
-                _shop = r.Shop is { InShop: true } ? r.Shop : null;
+                var shop = r.Shop is { InShop: true } ? r.Shop : null;
                 _memGold = local?.Gold;
                 _memDeckCount = local?.Deck.Count;
-                if (_crossCheckNext && local is not null && _shop is not null)
+                if (shop is not null && _runPart is not null)
                 {
-                    _crossCheckNext = false;
-                    RunCrossCheck(local);
+                    if (local is null)
+                    {
+                        _divergence = "vérification croisée impossible (joueur local illisible en mémoire)";
+                        shop = null;
+                    }
+                    else if (!CrossCheckAgrees(local)) shop = null;
                 }
+                _shop = shop;
+                if (_divergence is not null) _mirrorOk = false;
             }
         }
         finally
@@ -256,22 +267,25 @@ public sealed class DaemonCore
         }
     }
 
-    private void RunCrossCheck(MPlayer mem)
+    /// <returns>true si la mémoire et la save concordent (sinon <c>_divergence</c> est renseigné).</returns>
+    private bool CrossCheckAgrees(MPlayer mem)
     {
-        var save = _runPart?.Player;
-        if (save is null) return;
-        var diffs = CrossCheck.Compare(save, mem);
+        var diffs = CrossCheck.Compare(_runPart!.Player, mem);
         if (diffs.Count > 0 && _rereadSave?.Invoke() is { } fresh)
         {
-            // la save a pu être réécrite pendant la lecture : relire avant de conclure
-            OnRun(fresh);
+            // la save a pu être réécrite pendant la lecture : relire avant de conclure (sans relancer le miroir)
+            ApplyRun(fresh);
             if (_runPart?.Player is { } p2) diffs = CrossCheck.Compare(p2, mem);
         }
-        if (diffs.Count == 0) { _divergence = null; Diag.Info("vérification croisée save↔mémoire : accord"); return; }
+        if (diffs.Count == 0)
+        {
+            if (_divergence is not null) Diag.Info("vérification croisée save↔mémoire : accord rétabli");
+            _divergence = null;
+            return true;
+        }
         _divergence = "divergence save↔mémoire : " + string.Join(", ", diffs);
-        _shop = null; // jamais de faux chiffre : on ne publie pas un inventaire lu dans un état incohérent
-        _mirrorOk = false;
         Diag.Warn(_divergence);
+        return false; // jamais de faux chiffre : l'inventaire lu dans un état incohérent n'est pas publié
     }
 
     private string? Degradation(MirrorResult r) => r.Exit switch

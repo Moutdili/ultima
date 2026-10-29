@@ -175,6 +175,42 @@ public class AssemblyTests
         Assert.True(st.Health.MirrorOk);
     }
 
+    /// <summary>
+    /// Non-régression (trouvé par la preuve de bout en bout sur la cible de test, 2026-10-29) : la relecture
+    /// de la save pendant la vérification croisée ne doit PAS relancer une lecture du marchand qui publierait
+    /// l'inventaire sans vérification.
+    /// </summary>
+    [Fact]
+    public void Divergence_with_save_reread_publishes_no_shop_and_does_not_reread_memory()
+    {
+        var run = FixtureRun();
+        var me = run.Players[0];
+        var timers = new ManualTimers();
+        var mirror = new FakeMirror
+        {
+            Respond = n => FakeMirror.Default(n) with
+            {
+                Run = new MRun(true, 1, 0, 0, "MerchantRoom", new[]
+                {
+                    new MPlayer(me.NetId, me.CharacterId, 61, 70, 0, 200, 3, new[] { new MCard("CARD.X", 0) },
+                        me.Relics.Select(_ => (string?)"RELIC.Y").ToArray(), Array.Empty<string?>()),
+                }),
+            },
+        };
+        var core = new DaemonCore(new StateAssembler(NullKnowledge.Instance, null, null, null), mirror, timers, a => a(), _ => { },
+            rereadSave: () => run with { SaveTime = run.SaveTime + 1 });
+        core.OnGame(true);
+        core.OnRun(run);
+        core.OnLog(new RoomEntered(default, "", RoomKind.Merchant, "Merchant Room"));
+        timers.Advance(TimeSpan.FromSeconds(10));
+        var st = core.LastState!;
+        Assert.Single(mirror.Probes);
+        Assert.Null(st.Shop);
+        Assert.False(st.Health.MirrorOk);
+        Assert.Contains("divergence save↔mémoire", st.Health.Degraded);
+        Assert.Contains("reliques différentes", st.Health.Degraded);
+    }
+
     [Fact]
     public void Settings_missing_invalid_and_normalized()
     {
