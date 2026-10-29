@@ -4,6 +4,10 @@
 Sortie : id, name_fr, description_fr, tags mécaniques déduits des mots-clés.
 Sert au scoring contextuel : une relique de PV max ne vaut pas la même chose à 70/70 PV
 qu'à 20/70. Aucune donnée cachée, uniquement le texte que lit le joueur.
+
+ATTENTION : cette passe ne produit que les tags « bruts ». `tools/index_relic_tags.py` les
+COMPLÈTE (jamais ne les écrase) et ajoute `tags_source` + `relic_tags.json` ; le relancer
+après toute régénération, sinon 140 reliques reviennent sans tag.
 Usage : python3 -I tools/index_relics.py [chemin/vers/relics.json]
 """
 import json
