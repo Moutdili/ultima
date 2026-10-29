@@ -88,6 +88,23 @@ public class FieldTests
         Assert.DoesNotContain("X", kb.Enchantment("ENCHANTMENT.SWIFT", 2)!.Description);
     }
 
+    /// <summary>Chaque identifiant des catalogues du calcul (data/catalog/relics.json, potions.json) est résolu.</summary>
+    [GameFact]
+    public void Every_catalog_relic_and_potion_id_resolves()
+    {
+        var kb = Real.Value.Kb;
+        foreach (var (file, prop, cat) in new[] { ("relics.json", "relics", "RELIC"), ("potions.json", "potions", "POTION") })
+        {
+            var path = Path.Combine(RepoRoot(), "data", "catalog", file);
+            if (!File.Exists(path)) continue;
+            using var json = JsonDocument.Parse(File.ReadAllBytes(path));
+            var missing = json.RootElement.GetProperty(prop).EnumerateArray()
+                .Select(e => $"{cat}.{e.GetProperty("id").GetString()}")
+                .Where(id => cat == "RELIC" ? kb.Relic(id) == null : kb.Potion(id) == null).ToList();
+            Assert.True(missing.Count == 0, $"{file} : {string.Join(", ", missing)}");
+        }
+    }
+
     [GameFact]
     public void Load_under_300_ms() =>
         Assert.True(Real.Value.LoadMs < 300, $"chargement {Real.Value.LoadMs} ms");

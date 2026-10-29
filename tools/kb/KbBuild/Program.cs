@@ -34,7 +34,7 @@ try
 
     Console.WriteLine($"kb.json : {kbPath} ({new FileInfo(kbPath).Length / 1024} Kio, génération {build} ms, chargement {load} ms)");
     foreach (var (name, c) in doc.Coverage.Categories)
-        Console.WriteLine($"  {name,-13} {c.NameFr,4}/{c.Total,-4} noms FR  (repli EN {c.NameEnFallback}, id {c.NameIdFallback}) ; desc. FR {c.DescriptionFr}, EN {c.DescriptionEnFallback}, aucune {c.DescriptionNone} ; var. non résolues {c.WithUnresolvedVars}");
+        Console.WriteLine($"  {name,-13} {c.NameFr,4}/{c.Total,-4} noms FR  (repli EN {c.NameEnFallback}, id {c.NameIdFallback}) ; desc. FR {c.DescriptionFr}, EN {c.DescriptionEnFallback}, aucune {c.DescriptionNone} ; var. non résolues {c.WithUnresolvedVars} ; loc. seule {c.LocalizationOnly}");
     Console.WriteLine($"  notes : {doc.Coverage.Notes.Count} (voir coverage.md)");
     _ = kb;
     return 0;

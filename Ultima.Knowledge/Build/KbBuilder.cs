@@ -195,6 +195,14 @@ public static partial class KbBuilder
             doc.Characters.Add(c);
         }
 
+        // ---- Entrées de localisation sans modèle (retirées ou à venir, ex. reliques présentes dans les
+        // titres mais sans classe en v0.107.1) : nom + texte brut rendu sans valeurs, signalées.
+        AddLocalizationOnly(doc.Cards, fr, en, "cards", GameIds.Card, () => new KbCard { Owner = "None" }, renderer);
+        AddLocalizationOnly(doc.Relics, fr, en, "relics", GameIds.Relic, () => new KbRelic { Rarity = "None", Owner = "None" }, renderer);
+        AddLocalizationOnly(doc.Potions, fr, en, "potions", GameIds.Potion, () => new KbPotion { Rarity = "None", Owner = "None" }, renderer);
+        AddLocalizationOnly(doc.Enchantments, fr, en, "enchantments", GameIds.Enchantment, () => new KbEnchantment(), renderer);
+        AddLocalizationOnly(doc.Encounters, fr, en, "encounters", GameIds.Encounter, () => new KbNamed(), renderer);
+
         ComputeCoverage(doc);
         return doc;
 
@@ -233,6 +241,41 @@ public static partial class KbBuilder
             foreach (var k in KeywordsBefore) if (kws.Contains(k)) lines.Insert(0, Kw(k));
             foreach (var k in KeywordsAfter) if (kws.Contains(k)) lines.Add(Kw(k));
             return GameTextRenderer.StripBbCode(string.Join('\n', lines.Where(l => l.Length > 0)));
+        }
+    }
+
+    private static void AddLocalizationOnly<T>(List<T> target, Dictionary<string, Dictionary<string, string>> fr,
+        Dictionary<string, Dictionary<string, string>> en, string file, string category, Func<T> make, GameTextRenderer r)
+        where T : KbNamed
+    {
+        var known = target.Select(e => GameIds.Entry(e.Id)).ToHashSet(StringComparer.Ordinal);
+        var entries = new SortedSet<string>(StringComparer.Ordinal);
+        foreach (var table in new[] { fr.GetValueOrDefault(file), en.GetValueOrDefault(file) })
+            foreach (var key in table?.Keys ?? Enumerable.Empty<string>())
+                if (key.EndsWith(".title", StringComparison.Ordinal))
+                {
+                    var entry = key[..^".title".Length];
+                    // Sous-clés (SEA_GLASS.DEFECT…) et modèles factices (MOCK_*) exclus.
+                    if (!entry.Contains('.') && !entry.StartsWith("MOCK_", StringComparison.Ordinal) && !known.Contains(entry))
+                        entries.Add(entry);
+                }
+        var loc = new Loc(fr, en);
+        foreach (var entry in entries)
+        {
+            var e = make();
+            e.Id = category + "." + entry;
+            e.ClassName = "";
+            e.LocalizationOnly = true;
+            e.NameFr = loc.Fr(file, entry + ".title") is { } nf ? GameTextRenderer.StripBbCode(nf) : null;
+            e.NameEn = loc.En(file, entry + ".title") is { } ne ? GameTextRenderer.StripBbCode(ne) : null;
+            (e.Name, e.NameSource) = e.NameFr != null ? (e.NameFr, "fra") : e.NameEn != null ? (e.NameEn, "eng") : (entry, "id");
+            if (e is KbEntry k)
+            {
+                k.TemplateFr = loc.Fr(file, entry + ".description");
+                k.TemplateEn = loc.En(file, entry + ".description");
+                RenderSimple(k, r, [], [], extra: null);
+            }
+            target.Add(e);
         }
     }
 
@@ -429,10 +472,12 @@ public static partial class KbBuilder
     {
         void Cat(string name, IEnumerable<KbNamed> items)
         {
-            var list = items.ToList();
+            var all = items.ToList();
+            var list = all.Where(i => i.LocalizationOnly != true).ToList();
             var c = new KbCategoryCoverage
             {
                 Total = list.Count,
+                LocalizationOnly = all.Count - list.Count,
                 NameFr = list.Count(i => i.NameSource == "fra"),
                 NameEnFallback = list.Count(i => i.NameSource == "eng"),
                 NameIdFallback = list.Count(i => i.NameSource == "id"),
@@ -447,6 +492,7 @@ public static partial class KbBuilder
             }
             doc.Coverage.Categories[name] = c;
             doc.Coverage.UnresolvedFr[name] = list.Where(i => i.NameSource != "fra").Select(i => $"{i.Id} ({i.NameSource})").ToList();
+            doc.Coverage.LocalizationOnly[name] = all.Where(i => i.LocalizationOnly == true).Select(i => $"{i.Id} ({i.NameSource})").ToList();
         }
         Cat("cards", doc.Cards);
         Cat("relics", doc.Relics);

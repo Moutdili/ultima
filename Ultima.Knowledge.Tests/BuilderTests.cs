@@ -31,7 +31,9 @@ public class BuilderTests
     {
         Assert.Equal(["CARD.EMBER_SLASH", "CARD.ENGLISH_ONLY", "CARD.HOLLOW_HEX", "CARD.NO_TEXT", "CARD.QUICK_STUDY", "CARD.STAR_TOSS"],
             Doc.Cards.Select(c => c.Id).Order(StringComparer.Ordinal));
-        Assert.Equal(["RELIC.COPPER_BELL", "RELIC.MIRROR_SHARD"], Doc.Relics.Select(c => c.Id).Order(StringComparer.Ordinal));
+        Assert.Equal(["RELIC.COPPER_BELL", "RELIC.MIRROR_SHARD"],
+            Doc.Relics.Where(r => r.LocalizationOnly != true).Select(c => c.Id).Order(StringComparer.Ordinal));
+        Assert.DoesNotContain(Doc.Cards, c => c.Id.Contains("MOCK"));
         Assert.Equal(["ENCHANTMENT.BRACED", "ENCHANTMENT.GLEAM"], Doc.Enchantments.Select(c => c.Id).Order(StringComparer.Ordinal));
     }
 
@@ -90,6 +92,21 @@ public class BuilderTests
         Assert.Equal(("NO_TEXT", "id", "", "none"), (id.Name, id.NameSource, id.Description, id.DescriptionSource));
         Assert.Contains(Doc.Coverage.Notes, n => n.StartsWith("CARD.NO_TEXT : absent du catalogue"));
         Assert.Equal(["CARD.ENGLISH_ONLY (eng)", "CARD.NO_TEXT (id)"], Doc.Coverage.UnresolvedFr["cards"]);
+        Assert.Equal(["ENCOUNTER.MOSS_RATS_WEAK (eng)"], Doc.Coverage.UnresolvedFr["encounters"]);
+    }
+
+    [Fact]
+    public void Localization_only_titles_are_added_and_flagged()
+    {
+        var l = Doc.Relics.Single(r => r.Id == "RELIC.LOST_LANTERN");
+        Assert.True(l.LocalizationOnly);
+        Assert.Equal(("Lanterne égarée", "fra", "Ramassez X Écus.", "None"), (l.Name, l.NameSource, l.Description, l.Rarity));
+        Assert.Equal(["Gold"], l.UnresolvedVars);
+        Assert.Contains(Doc.Relics, r => r.Id == "RELIC.SEA_GLASS_LIKE");
+        Assert.DoesNotContain(Doc.Relics, r => r.Id.Contains("WANDERER"));
+        Assert.Equal(2, Doc.Coverage.Categories["relics"].Total); // modèles seulement
+        Assert.Equal(2, Doc.Coverage.Categories["relics"].LocalizationOnly);
+        Assert.Equal(["RELIC.LOST_LANTERN (fra)", "RELIC.SEA_GLASS_LIKE (fra)"], Doc.Coverage.LocalizationOnly["relics"]);
         Assert.Equal(["ENCOUNTER.MOSS_RATS_WEAK (eng)"], Doc.Coverage.UnresolvedFr["encounters"]);
     }
 

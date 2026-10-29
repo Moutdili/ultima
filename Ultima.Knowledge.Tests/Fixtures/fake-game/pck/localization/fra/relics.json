@@ -3,5 +3,9 @@
   "COPPER_BELL.flavor": "[red]Elle tinte.[/red]",
   "COPPER_BELL.title": "Cloche de cuivre",
   "MIRROR_SHARD.description": "Reflétez {StarterCard.StringValue:cond:[gold]{StarterCard}[/gold]|un jeton de départ}. Ornez de [purple]{Enchantment}[/purple]. Touchez [blue]{GoldIncrease:percentMore()} %[/blue] d'écus en plus.",
-  "MIRROR_SHARD.title": "Éclat de miroir"
+  "MIRROR_SHARD.title": "Éclat de miroir",
+  "LOST_LANTERN.title": "Lanterne égarée",
+  "LOST_LANTERN.description": "Ramassez [blue]{Gold}[/blue] [gold]Écus[/gold].",
+  "SEA_GLASS_LIKE.title": "Verre",
+  "SEA_GLASS_LIKE.WANDERER.title": "Sous-clé"
 }

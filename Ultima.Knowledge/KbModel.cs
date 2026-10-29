@@ -68,6 +68,9 @@ public class KbNamed
     public string NameSource { get; set; } = "id";
     public string? NameFr { get; set; }
     public string? NameEn { get; set; }
+    /// <summary>true : titre présent dans la localisation mais aucune classe modèle dans la source du jeu
+    /// (contenu retiré ou à venir) ; type/rareté/valeurs inconnus.</summary>
+    public bool? LocalizationOnly { get; set; }
 }
 
 public class KbEntry : KbNamed
@@ -126,13 +129,17 @@ public sealed class KbCoverage
     public Dictionary<string, KbCategoryCoverage> Categories { get; set; } = [];
     /// <summary>Entrées sans nom FR (repli EN ou identifiant), par catégorie.</summary>
     public Dictionary<string, List<string>> UnresolvedFr { get; set; } = [];
+    /// <summary>Entrées de localisation sans modèle, par catégorie (hors du total couvert).</summary>
+    public Dictionary<string, List<string>> LocalizationOnly { get; set; } = [];
     /// <summary>Divergences relevées (catalogue vs source, variables inconnues…).</summary>
     public List<string> Notes { get; set; } = [];
 }
 
 public sealed class KbCategoryCoverage
 {
+    /// <summary>Modèles du jeu (classes C#) ; les entrées de localisation seule sont comptées à part.</summary>
     public int Total { get; set; }
+    public int LocalizationOnly { get; set; }
     public int NameFr { get; set; }
     public int NameEnFallback { get; set; }
     public int NameIdFallback { get; set; }
