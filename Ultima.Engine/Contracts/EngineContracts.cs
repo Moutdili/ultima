@@ -21,6 +21,15 @@ public sealed record EngineState(
     OverlaySettings Settings)
 {
     public const int CurrentVersion = 1;
+
+    /// <summary>v1.2 : version mineure (ajouts compatibles). Voir ContractInfo.CurrentMinor.</summary>
+    public int ContractMinor { get; init; } = ContractInfo.CurrentMinor;
+    /// <summary>v1.2 : carte visible de l'acte courant (écran carte).</summary>
+    public MapView? Map { get; init; }
+    /// <summary>v1.2 : route conseillée (IRoutePlanner).</summary>
+    public RouteView? Route { get; init; }
+    /// <summary>v1.2 : événement courant et ses options (Screen.Event).</summary>
+    public EventView? Event { get; init; }
 }
 
 /// <summary>Santé des sources. Degraded != null → l'UI l'annonce (jamais de faux chiffre).</summary>
@@ -31,7 +40,11 @@ public sealed record RunView(
     int Ascension, int Hp, int MaxHp, int Gold, int Floor,
     IReadOnlyList<CardView> Deck,
     IReadOnlyList<RelicView> Relics,
-    IReadOnlyList<PotionView> Potions);
+    IReadOnlyList<PotionView> Potions)
+{
+    /// <summary>v1.2 : tous les joueurs (co-op) ; solo = le joueur local seul.</summary>
+    public IReadOnlyList<AllyView> Party { get; init; } = Array.Empty<AllyView>();
+}
 
 /// <summary>Carte (deck, récompense, shop). Enchantment = bonus spécial (Sown, Swift…). IsCurse = malédiction.</summary>
 public sealed record CardView(
@@ -59,6 +72,10 @@ public sealed record PotionView(string Id, string Name, string Description)
 public sealed record Score(int Total, IReadOnlyList<ScoreTerm> Terms, string Confidence)
 {
     public string Grade => Grades.FromTotal(Total);
+
+    /// <summary>v1.2 : effet SIGNÉ sur la force du joueur (ΔG). Une malédiction a un DeltaG négatif
+    /// alors que Total reste borné 0..100 (lettre). null = non calculé.</summary>
+    public double? DeltaG { get; init; }
 }
 
 /// <summary>
@@ -81,7 +98,11 @@ public static class Grades
 }
 
 /// <summary>Un terme nommé du score, avec sa source (« Spire Codex v0.107.1 », « tes 247 runs »…).</summary>
-public sealed record ScoreTerm(string Label, int Points, string Source);
+public sealed record ScoreTerm(string Label, int Points, string Source)
+{
+    /// <summary>v1.2 : preuve chiffrée du terme (« 0 carte d'énergie dans le deck »).</summary>
+    public string? Evidence { get; init; }
+}
 
 public sealed record RewardView(IReadOnlyList<CardView> Offered, Score SkipScore, bool AlreadyTaken);
 
@@ -120,8 +141,11 @@ public sealed record OverlaySettings(IReadOnlyList<ModuleSetting> Modules)
         new(ModuleIds.Potions, true, 4),
         new(ModuleIds.Reward, true, 5),
         new(ModuleIds.Shop, true, 6),
-        new(ModuleIds.Paths, true, 7),
-        new(ModuleIds.DeckScore, true, 8),
+        new(ModuleIds.Event, true, 7),
+        new(ModuleIds.Paths, true, 8),
+        new(ModuleIds.Route, true, 9),
+        new(ModuleIds.Party, true, 10),
+        new(ModuleIds.DeckScore, true, 11),
     });
 }
 
@@ -130,7 +154,8 @@ public sealed record ModuleSetting(string Id, bool Enabled, int Order);
 public static class ModuleIds
 {
     public const string Curses = "curses", Deck = "deck", Relics = "relics", Enchanted = "enchanted", Potions = "potions",
-        Reward = "reward", Shop = "shop", Paths = "paths", DeckScore = "deck_score";
+        Reward = "reward", Shop = "shop", Paths = "paths", DeckScore = "deck_score",
+        Event = "event", Route = "route", Party = "party";   // v1.2
 }
 
 /// <summary>Valeurs de PathChoice.RoomType / NodeFrequency.RoomType (= types bruts de la save). v1.1.</summary>

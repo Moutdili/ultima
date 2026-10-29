@@ -12,7 +12,7 @@ public class ContractTests
         Assert.Equal(new[] { ModuleIds.Deck, ModuleIds.Enchanted, ModuleIds.Curses, ModuleIds.Relics, ModuleIds.Potions },
             m.OrderBy(x => x.Order).Take(5).Select(x => x.Id).ToArray());
         Assert.All(m, x => Assert.True(x.Enabled));
-        Assert.Equal(9, m.Select(x => x.Id).Distinct().Count());
+        Assert.Equal(12, m.Select(x => x.Id).Distinct().Count());
     }
 
     [Theory]
