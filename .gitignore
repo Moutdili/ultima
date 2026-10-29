@@ -24,3 +24,6 @@ status/
 
 # corpus de backtest (téléchargé, non versionné)
 data/runs/
+data/exports/
+data/codex/
+data/index/
