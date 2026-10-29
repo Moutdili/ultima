@@ -121,11 +121,61 @@ Sans mesure, on ne fait que déplacer des chiffres. Trois niveaux :
 4. Co-op : `PartyView` (contrat v1.2) + `TeamAdvisor` (L3).
 5. Modules `ultima` (`hud`, `logs --grep`) — cosmétique, en dernier.
 
-## 7. Questions ouvertes (décisions de Mio)
+## 7. Décisions de Mio (2026-10-29)
 
-1. Co-op : que se passe-t-il quand un joueur meurt (fin de run ? réanimation ?) — et les reliques
-   sont-elles partagées ou par joueur ? Le L3 en dépend.
-2. Amplitude : une relique de PV max peut-elle passer de B à **S** à PV très bas, ou A est-il le
-   plafond contextuel (S réservé à la force intrinsèque) ?
-3. Affichage : deux notes (tier + contexte) ou une seule avec le détail au survol ?
-4. Le mode ombre doit-il tourner dès maintenant pendant tes runs, pour accumuler des données ?
+1. **Co-op** : un allié mort pendant un combat est **réanimé à 1 PV** si le groupe passe le combat.
+   Les reliques sont **personnelles**. Coffre : 3 reliques pour 3 joueurs ; si 2-3 joueurs veulent la
+   même, **feuille-pierre-ciseaux** tranche.
+   → Conséquence : L3 ne peut pas être une somme ni un partage. Il produit un **classement d'envie**
+   (« qui la veut le plus ») et un conseil de tie-break : si l'écart de ΔG est < 3, c'est un vrai
+   match nul → RPS ; au-delà, le tracker dit à qui la donner.
+2. **Amplitude** : le fit parfait peut aller jusqu'à **S**. Une relique situationnelle C-tier qui
+   s'imbrique exactement dans le gameplan doit pouvoir sortir S. L'intrinsèque reste affiché à part.
+3. **Affichage** : la charte sera faite avec Claude (emplacements). Base = le score seul ; le
+   raisonnement complet (texte) est disponible pour qui veut creuser.
+4. **Data** : le mode ombre sur ses runs est trop maigre → on prend la data publique (voir §8).
+
+## 7bis. Le score global du joueur (G) — l'idée centrale
+
+Mio : « un scoring général du player pour que chaque choix soit récompensé par l'idempotence des
+autres facteurs ». Formulation retenue :
+
+```
+G(joueur) = w_s·Survie + w_o·Offense + w_c·Consistance + w_v·Couverture
+            (chaque dimension normalisée 0..100, poids par acte)
+valeur d'un item = ΔG = G(état + item) − G(état)
+note affichée = clamp(50 + 2·ΔG + prior_intrinsèque_faible)
+```
+
+Pourquoi c'est la bonne forme :
+- **Idempotence** : les dimensions saturent (rendements décroissants). Une 2e relique de bloc quand le
+  bloc est déjà couvert vaut ≈ 0 ; la 1re qui comble un trou vaut beaucoup.
+- **Cohérence** : cartes, reliques, potions, retrait, choix de chemin parlent tous la même langue (ΔG).
+- **Co-op** : chaque joueur a son G ; la relique vaut max_p(ΔG_p) → « qui la veut le plus ».
+- **PV au début du combat** : la survie utilise les **PV effectifs** (PV × mitigation des statuts que
+  le boss applique au tour 1), pas les PV bruts. Un boss qui applique Faiblesse/Vulnérabilité change
+  la valeur d'un point de PV.
+- **S atteignable** : un ΔG énorme (item qui double une dimension) porte la note à 85+, donc S.
+  L'intrinsèque n'est qu'un prior ; c'est le fit qui décide.
+
+Prérequis data : les **valeurs numériques** des cartes (dégâts, bloc, montants) ne sont pas dans les
+descriptions. Il faut les extraire du code du jeu (`src/Core`, modèles de cartes) vers
+`data/catalog/cards.json` — sinon G ne peut pas calculer dégâts/tour ni bloc/tour.
+
+## 8. Data publique (réponse à « il y a quelqu'un sur le net ? »)
+
+Oui, et largement :
+
+- **spire-codex.com** expose une API publique : `/api/runs/list` (50/page, **~10 000 runs**, borne
+  basse annoncée) et `/api/runs/shared/{hash}` qui renvoie le **JSON complet du jeu** (mêmes champs
+  que `saves/history/*.run` : `map_point_history`, `player_stats` par joueur, `card_choices`,
+  `relic_choices`, `was_picked`).
+- Outil ajouté : `tools/fetch_spire_codex.py` (listing + détails concurrents, reprise par hash).
+  Échantillon mesuré : **60 runs en 3,5 s**, ~32 Ko/run → 10 000 runs ≈ 320 Mo.
+- Le corpus contient du **co-op** (échantillon : 5 runs à 2 joueurs, 3 à 3 joueurs) — indispensable
+  pour calibrer L3.
+- ⚠️ Le jeu public est déjà en **v0.111.0** : sur l'échantillon, 29/60 runs sont sur ce patch, 31 sur
+  v0.107.1. Il faut filtrer par `build_id` (ou assumer le mélange et le documenter).
+
+Ce corpus remplace le mode ombre comme source de vérité pour le backtest ; les 10 situations
+annotées de Mio restent la mesure d'utilité subjective.

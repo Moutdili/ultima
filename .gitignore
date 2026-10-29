@@ -21,3 +21,6 @@ status/
 
 # Godot.NET.Sdk (intermediaires)
 .godot/
+
+# corpus de backtest (téléchargé, non versionné)
+data/runs/
