@@ -59,10 +59,13 @@ public sealed record CurseVerdict(
 ///   <item><b>Carte absente du corpus</b> (ex. Bad Luck, jamais acquise en acte 3) : même −12 avec
 ///         un libellé explicite « aucune donnée mesurée » — jamais 0, jamais un chiffre déguisé
 ///         en mesure.</item>
-///   <item><b>Statut</b> (Burn, Beckon, Sloth…) : <see cref="StatusPenalty"/> (−6), forfait
-///         <b>faible et documenté</b>. Les statuts sont temporaires et quasi absents du corpus
-///         (n = 0 à 3) : la data ne les classe pas, et leurs toxicités (100 pour Sloth sur 1 run)
-///         sont du bruit. Ils coûtent une carte en main, pas un emplacement de deck.</item>
+///   <item><b>Statut</b> (Burn, Sloth, Void…) : pénalité **tirée de l'effet décrit** par
+///         <c>data/catalog/status_effects.json</c> (docs/35, section statuts). Les statuts sont
+///         temporaires et quasi absents du corpus (n = 0 à 3) : la mesure ne les classe pas,
+///         mais leur texte si — « subissez 5 dégâts » n'est pas « injouable, rien d'autre ».
+///         Barème : sévérité ≥ 70 → <see cref="StatusSeverePenalty"/> (−12), 35..69 →
+///         <see cref="StatusPenalty"/> (−6), 1..34 → <see cref="StatusBenignPenalty"/> (−3),
+///         famille <c>unclassified</c> → −6 <b>explicite</b> (jamais 0).</item>
 /// </list>
 /// </summary>
 public sealed class CurseScorer
@@ -74,8 +77,18 @@ public sealed class CurseScorer
     /// </summary>
     public const double ToxicityScale = 0.26;
 
-    /// <summary>Pénalité d'un statut : faible et forfaitaire, la data ne permettant aucun classement.</summary>
+    /// <summary>
+    /// Pénalité d'un statut modéré (famille de sévérité 35..69) — et forfait <b>explicite</b>
+    /// des statuts non classables. La bande est fixée par l'effet décrit, pas par une mesure
+    /// absente.
+    /// </summary>
     public const int StatusPenalty = -6;
+
+    /// <summary>Pénalité d'un statut sévère (sévérité ≥ 70 : limite de cartes, dégâts, énergie…).</summary>
+    public const int StatusSeverePenalty = -12;
+
+    /// <summary>Pénalité d'un statut bénin (sévérité 1..34 : carte qui s'épuise d'elle-même…).</summary>
+    public const int StatusBenignPenalty = -3;
 
     /// <summary>
     /// Pénalité d'une malédiction sans mesure exploitable (n &lt; 300 ou absente du corpus) :
@@ -97,18 +110,24 @@ public sealed class CurseScorer
     private readonly CardCatalog _cards;
     private readonly CardEffects _effects;
     private readonly KeywordCatalog _keywords;
+    private readonly StatusCatalog _statuses;
 
     public CurseScorer(CurseCatalog? catalog = null, CardCatalog? cards = null,
-        CardEffects? effects = null, KeywordCatalog? keywords = null)
+        CardEffects? effects = null, KeywordCatalog? keywords = null,
+        StatusCatalog? statuses = null)
     {
         _catalog = catalog ?? CurseCatalog.Load();
         _cards = cards ?? CardCatalog.Default;
         _effects = effects ?? CardEffects.Default;
         _keywords = keywords ?? KeywordCatalog.Default;
+        _statuses = statuses ?? StatusCatalog.Default;
     }
 
     /// <summary>Catalogue des mots-clés utilisé (Exhaust, Ethereal, Retain, Eternal…).</summary>
     public KeywordCatalog Keywords => _keywords;
+
+    /// <summary>Catalogue des statuts classés par effet décrit (17 entrées, docs/35).</summary>
+    public StatusCatalog Statuses => _statuses;
 
     /// <summary>
     /// Modulation par les mots-clés : une carte <c>Retain</c> + <c>Unplayable</c> reste en main
@@ -180,13 +199,64 @@ public sealed class CurseScorer
 
         var verdict = kind switch
         {
-            CurseKind.Status => new CurseVerdict(cardId, kind, StatusPenalty, StatusLabel, StatusSource(impact), impact),
+            CurseKind.Status => Status(cardId, impact),
             CurseKind.Curse => Curse(cardId, impact),
             _ => new CurseVerdict(cardId, CurseKind.None, 0, string.Empty, string.Empty, null),
         };
 
         return Modulate(verdict, cardId);
     }
+
+    /// <summary>
+    /// Statut : la pénalité vient de la <b>famille d'effet décrite</b> dans
+    /// <c>status_effects.json</c>, jamais de la mesure (les statuts sont temporaires, n = 0 à 3).
+    /// Une entrée absente ou <c>unclassified</c> garde le forfait modéré <see cref="StatusPenalty"/>,
+    /// avec un libellé qui dit explicitement « non classé » — jamais 0.
+    /// </summary>
+    private CurseVerdict Status(string cardId, CurseImpact? impact)
+    {
+        var effect = _statuses.Get(cardId);
+        var name = Ids.Bare(cardId);
+
+        if (effect is null || !effect.IsClassified || effect.Severity is null)
+        {
+            var why = effect is null
+                ? $"{StatusCatalog.FileName} sans entrée pour {name}"
+                : $"famille « {effect.Family}/{effect.EffectFamily} » sans sévérité décrite";
+            return new CurseVerdict(cardId, CurseKind.Status, StatusPenalty, StatusUnclassifiedLabel,
+                $"{why} ; forfait modéré −{Math.Abs(StatusPenalty)} explicite (statut temporaire, " +
+                "aucune mesure de corpus) — jamais 0", impact);
+        }
+
+        int severity = effect.Severity.Value;
+        int points = severity >= 70 ? StatusSeverePenalty
+            : severity >= 35 ? StatusPenalty
+            : StatusBenignPenalty;
+        var label = severity >= 70 ? StatusSevereLabel
+            : severity >= 35 ? StatusLabel
+            : StatusBenignLabel;
+
+        var text = string.IsNullOrWhiteSpace(effect.DescriptionFr)
+            ? "texte FR absent — classé par les données de la carte"
+            : $"« {Shorten(effect.DescriptionFr!, 140)} »";
+        var value = effect.Value is int v ? $", valeur {v}" : string.Empty;
+
+        return new CurseVerdict(cardId, CurseKind.Status, points, label,
+            $"{StatusCatalog.FileName} — {text} ; famille {effect.Family} " +
+            $"({effect.EffectFamily}){value}, sévérité {severity}/100 → {BandFr(effect.Band)} " +
+            $"{points} ; {effect.Source}", impact);
+    }
+
+    private static string Shorten(string text, int max) =>
+        text.Length <= max ? text : text[..(max - 1)].TrimEnd() + "…";
+
+    private static string BandFr(string band) => band switch
+    {
+        StatusCatalog.SevereBand => "sévère",
+        StatusCatalog.ModerateBand => "modéré",
+        StatusCatalog.BenignBand => "bénin",
+        _ => "non classé",
+    };
 
     private CurseVerdict Curse(string cardId, CurseImpact? impact)
     {
@@ -269,15 +339,17 @@ public sealed class CurseScorer
     /// <summary>Libellé du terme pour une malédiction absente de toute mesure.</summary>
     public const string NoDataLabel = "Malédiction (aucune donnée mesurée)";
 
-    /// <summary>Libellé du terme pour un statut de combat.</summary>
-    public const string StatusLabel = "Statut (hors deck final)";
+    /// <summary>Libellé du terme pour un statut modéré (sévérité 35..69).</summary>
+    public const string StatusLabel = "Statut (effet modéré)";
 
-    private string StatusSource(CurseImpact? impact)
-    {
-        var n = impact is null ? "aucune entrée" : $"n = {N(impact.N)} run(s)";
-        return $"{n} : la data ne classe pas les statuts (temporaires, absents du deck final) ; " +
-               $"forfait faible −{Math.Abs(StatusPenalty)} — un statut coûte une carte en main, pas un emplacement";
-    }
+    /// <summary>Libellé du terme pour un statut sévère (sévérité ≥ 70).</summary>
+    public const string StatusSevereLabel = "Statut (effet sévère)";
+
+    /// <summary>Libellé du terme pour un statut bénin (sévérité 1..34).</summary>
+    public const string StatusBenignLabel = "Statut (effet bénin)";
+
+    /// <summary>Libellé du terme pour un statut non classable : forfait modéré explicite.</summary>
+    public const string StatusUnclassifiedLabel = "Statut (effet non classé)";
 
     private static string N(int value) => value.ToString("N0", CultureInfo.InvariantCulture).Replace(',', ' ');
 

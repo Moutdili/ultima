@@ -3,6 +3,7 @@ using Ultima.Engine.Scoring;
 using Ultima.Engine.Scoring.Cards;
 using Ultima.Engine.Scoring.Curses;
 using Ultima.Engine.Scoring.Deck;
+using Ultima.Engine.Scoring.Keywords;
 using Ultima.Engine.Scoring.Model;
 using Ultima.Engine.Scoring.Personal;
 using Ultima.Engine.Scoring.Relics;
@@ -42,7 +43,8 @@ public sealed class CurseTests
 
     private static readonly CurseCatalog Catalog = CurseCatalog.Load(CatalogDir);
     private static readonly CardCatalog Cards = CardCatalog.LoadFrom(CatalogDir);
-    private static readonly CurseScorer Curses = new(Catalog, Cards);
+    private static readonly CurseScorer Curses = new(Catalog, Cards,
+        CardEffects.Load(CatalogDir), KeywordCatalog.Load(CatalogDir), StatusCatalog.Load(CatalogDir));
 
     private static MetaEntry Entry(string id, double? consensus, string? type, string? rarity,
         int sources = 1) => new(
@@ -237,22 +239,21 @@ public sealed class CurseTests
     }
 
     [Fact]
-    public void Status_is_scored_apart_with_a_weak_documented_penalty()
+    public void Status_is_scored_apart_by_its_described_effect()
     {
         var burn = Curses.Classify("CARD.BURN");
-        var sloth = Curses.Classify("CARD.SLOTH");
+        var wound = Curses.Classify("CARD.WOUND");
 
         Assert.Equal(CurseKind.Status, burn.Kind);
-        Assert.Equal(CurseScorer.StatusPenalty, burn.Penalty);
-        Assert.Equal(CurseScorer.StatusPenalty, sloth.Penalty);
-        Assert.Equal(CurseScorer.StatusLabel, burn.Label);
-        Assert.Contains("la data ne classe pas les statuts", burn.Source);
-
-        // Un statut pèse la moitié d'une malédiction générique (−6 vs −12), exactement le rapport
-        // de G entre StatusPenalty (3) et CursePenalty (6) : deux fois moins qu'un emplacement mort.
-        Assert.Equal(CurseScorer.UnmeasuredPenalty / 2, CurseScorer.StatusPenalty);
-        Assert.True(Math.Abs(burn.Penalty) < Math.Abs(Curses.Penalty("CARD.CLUMSY")));
-        Assert.True(Math.Abs(burn.Penalty) < Math.Abs(Curses.Penalty("CARD.INJURY")));
+        Assert.Equal(CurseKind.Status, wound.Kind);
+        // Burn : « subissez 2 dégâts » → end_turn_damage 75/100 → sévère −12.
+        Assert.Equal(CurseScorer.StatusSeverePenalty, burn.Penalty);
+        Assert.Equal(CurseScorer.StatusSevereLabel, burn.Label);
+        Assert.Contains("subissez", burn.Source);
+        // Wound : injouable sans autre effet → unplayable_only 35/100 → modéré −6.
+        Assert.Equal(CurseScorer.StatusPenalty, wound.Penalty);
+        Assert.Equal(CurseScorer.StatusLabel, wound.Label);
+        Assert.True(burn.Penalty < wound.Penalty, "un dégât chiffré pèse plus qu'une carte morte");
     }
 
     [Fact]
