@@ -129,3 +129,20 @@ Le daemon (chef) appelle tes classes ; tant qu'elles n'existent pas, il publie d
 - Rendu : `status/hermes.md` — ce qui est fait, preuves (sorties de tests), **ce qui n'est pas prouvé**,
   demandes de changement de contrat.
 - Le chef branche tes classes dans le daemon dès qu'elles compilent ; rien à câbler de ton côté.
+
+---
+
+## 7. Retour du chef sur la livraison (docs/26, 2026-10-29)
+Livraison acceptée : 80/80 sur clone propre, revue P0-P3 sérieuse, périmètre respecté. À reprendre :
+1. **[bloquant] Calibrage avec la méta locale réelle** : sur la machine de Mio (`data/meta/local/` =
+   notes Untapped/slaythetierlist présentes), `Calibration_puts_the_best_card_in_A_or_S` échoue
+   (meilleure carte = 66 → B). C'est la configuration de jeu réelle de Mio : la notation S→F doit tenir
+   avec ET sans `local/`. Teste les deux variantes (fixture `local/` complète synthétique) et calibre
+   sur la distribution réelle (cible : S rare, A pour les meilleures cartes du consensus, médiane ≈ C).
+2. **P2-2 prix soldé** : décision chef — `price` passé à `ScoreShopItem` est le **prix affiché**
+   (soldes et réductions de reliques déjà appliquées par le daemon) ; aucun changement de contrat.
+3. **P2-3 tags** : `CardView.Description` (contrat v1.1) et `IKnowledge` arrivent (Encyclopédiste) ;
+   bascule les tags sur les descriptions dès que `Ultima.Knowledge` est mergé.
+4. **P2-6 chemins de données** : la convention sera fixée par le daemon (`ULTIMA_DATA`) ; unifie ensuite
+   `DataPaths` et `ScoringData` sur un seul résolveur.
+5. **S7** : les 10 situations notées par Mio se feront pendant la fenêtre de test n°2.
