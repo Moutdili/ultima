@@ -1,5 +1,11 @@
 # 42 — Passation à Claude : partie scoring/algo (reprise après coupure)
 
+> **NOTE POUR LE CHEF (18:05)** — ce que Hermes a livré depuis ce brief est dans
+> **`status/hermes-s29.md`** (branche `hermes/s29-wiring`, 247 tests) : `RoutePlanner`
+> (`IRoutePlanner`, `MapView` → route), `EventAdvisor` (`IEventAdvisor`), co-op via
+> `ScoringContext.Allies`, et `Score.DeltaG` signé pour les malédictions. À lire avant de coder
+> le daemon. Un écart reste à trancher : **297 reliques (Encyclopédiste) vs 304 (registre)**.
+
 > Ce document ne décrit **que la partie livrée par Hermes** (scoring + algo) et ce qu'elle attend
 > de toi. Tes propres tâches ne sont pas ici. À lire en 5 minutes avant de reprendre.
 > État au 2026-10-29 17:34 : `main` = **`9eb36c9`**, **238 tests** verts, `bash tools/hermes-verify.sh`
