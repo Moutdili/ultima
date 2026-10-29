@@ -17,7 +17,9 @@ settings.json (inotify, compagnon → daemon)
 | Élément | Chemin | Détail |
 |---|---|---|
 | État courant | `$XDG_RUNTIME_DIR/ultima/state.json` | un objet JSON (UTF-8, une ligne + `\n`), réécrit **atomiquement** : fichier temporaire `.state.json.tmp` dans le même dossier, `fsync`, puis `rename(2)`. Un lecteur voit l'ancien OU le nouveau fichier entier, jamais un fichier partiel. Droits `0600`, dossier `0700`. |
-| Flux | `$XDG_RUNTIME_DIR/ultima/state.sock` | socket Unix **flux**. À la connexion, le client reçoit le **dernier** état, puis **une ligne JSON par nouvel état** (terminée par `\n`). Plusieurs clients. Canal descendant : ce qu'envoie le client est ignoré. |
+| Flux | `$XDG_RUNTIME_DIR/ultima/state.sock` | socket Unix **flux**. À la connexion, le client reçoit le **dernier** état, puis **une ligne JSON par nouvel état** (terminée par `\n`). Plusieurs clients. Requêtes montantes : §4.1 (`review.open`). |
+| Revues | `$XDG_RUNTIME_DIR/ultima/review/<hash>.json` | `ReviewTimeline` (v1.2) écrite à la demande (§4.1), tmp + rename. |
+| Journal | `~/.local/state/ultima/daemon.log` (`$XDG_STATE_HOME`) | `AAAA-MM-JJ HH:MM:SS.mmm NIVEAU message`, niveau ∈ `INFO` `WARN` `ERROR` `DEBUG` (aligné sur 5) ; copie sur stderr ; rotation > 5 Mio → `daemon.log.1`. Jamais à la racine de `~`. |
 | Verrou | `$XDG_RUNTIME_DIR/ultima/daemon.lock` | une seule instance par utilisateur (verrou exclusif, contient le PID). |
 | Réglages | `~/.config/ultima/settings.json` (`$XDG_CONFIG_HOME`) | écrits par le compagnon, **lus** par le daemon (jamais écrits). |
 
@@ -27,10 +29,20 @@ Sans `$XDG_RUNTIME_DIR` : repli `/tmp/ultima-<utilisateur>`. Option `--runtime-d
 Aucun message « je suis vivant » : un état identique n'est jamais republié.
 
 **Sérialisation** : System.Text.Json, camelCase, enums en chaîne (`"Shop"`), `null` explicite —
-même forme que `docs/22-state.sample.json` (prouvé par `ContractShapeTests`). Champs additifs des
-versions mineures publiés même s'ils ne sont pas encore remplis (`null`) : v1.1 `card.description`,
-`potion.score`, `score.grade` ; v1.2 `contractMinor`, `map`, `route`, `event`, `run.party`,
-`score.deltaG`, `term.evidence` (v1.2 **non remplie** par le daemon à ce jour : `null`).
+même forme que `docs/22-state.sample.json` (prouvé par `ContractShapeTests`). Contrat publié : **v1.3**
+(`contractVersion` 1, `contractMinor` 3). État réel généré par le daemon (save réelle, jeu fermé) :
+[`state.v13.sample.json`](state.v13.sample.json).
+
+| Champ (version) | Source | Rempli quand |
+|---|---|---|
+| `run.party[]` (v1.2, `AllyView`) | save (tous les joueurs, `isLocal`) ; PV pris en mémoire si la dernière lecture vérifiée est plus récente que la save | run en cours ; solo = 1 entrée |
+| `map` (v1.2, `MapView`) | save : carte de l'acte COURANT (types de case = `RoomTypes`, liens, cases visitées, position, boss) | run en cours ; actes futurs jamais publiés |
+| `route` (v1.2, `RouteView`) | `IRoutePlanner` (Hermes `RoutePlanner`) sur `map` + contexte | à chaque save ; panne → `null` |
+| `event` (v1.2, `EventView`) | miroir section `event` (Miroir 2) + `IEventAdvisor` (Hermes) | écran `Event` ; **`null` tant que le miroir ne lit pas cette section** |
+| `settings.hud` (v1.3, `HudSettings`) | `settings.json` | toujours (défaut `verre, 0.55, 0.62, right`) |
+| `card.description`, `potion.score` (v1.1), `score.grade`, `score.deltaG`, `term.evidence` | connaissance / calcul | selon le calcul (`null` sinon) |
+
+`ScoringContext.Allies` (v1.2) : alliés de la save, joueur local exclu (vide en solo), passé à tout le calcul.
 
 ### Sémantique (rappel du contrat)
 - `score == null` : calcul indisponible → l'UI affiche « — », jamais 0. Le daemon met `null` quand le
@@ -48,7 +60,7 @@ versions mineures publiés même s'ils ne sont pas encore remplis (`null`) : v1.
 | Jeu lancé | détecté sur activité inotify du dossier des logs (le jeu fait tourner `godot.log` au démarrage) puis `/proc/PID/comm == SlayTheSpire2` ; écran `Menu` ; **un** `ultima-mirror layout --json` (lecture du fichier `sts2.dll`, pas de la mémoire). |
 | Jeu arrêté | `pidfd_open` + `poll` bloquant : notification immédiate, 0 % CPU ; écran `Unknown`, `gameRunning=false`, vues mémoire effacées, état fichiers seulement. |
 | Save réécrite | (le jeu écrit `X.tmp` puis renomme) relecture → deck, reliques, potions, scores, chemins recalculés **une fois par save**. Plus de run → écran `Menu`. |
-| Réglages modifiés | rechargés (minuteur ponctuel 150 ms pour regrouper tmp + rename) ; JSON invalide → réglage précédent conservé. |
+| Réglages modifiés | rechargés (minuteur ponctuel 150 ms pour regrouper tmp + rename) ; JSON invalide → réglage précédent conservé. `hud` validé champ par champ (valeur invalide → défaut de CE champ). |
 | SIGTERM / SIGINT | arrêt propre (< 500 ms mesuré), socket retirée, `state.json` conservé (dernier état). |
 
 ### Écrans (machine à états `Screens/ScreenTracker.cs`, rejouée sur les logs réels du 2026-10-29)
@@ -56,7 +68,8 @@ versions mineures publiés même s'ils ne sont pas encore remplis (`null`) : v1.
 | Signal (`godot.log`) | Écran | Lecture mémoire |
 |---|---|---|
 | `Preloading 'Combat Room'` / `Creating NCombatRoom` | `Combat` | **aucune** (en attente annulée) |
-| `Preloading 'Event Room'` / `'RestSite Room'` / `'Treasure Room'` | `Event` / `RestSite` / `Treasure` | — |
+| `Preloading 'Event Room'` | `Event` | `event` (une fois par salle ; plus du tout si non prise en charge) |
+| `Preloading 'RestSite Room'` / `'Treasure Room'` | `RestSite` / `Treasure` | — |
 | `Preloading 'Merchant Room'` | `Shop` | `run,shop` + vérification croisée |
 | `Card rarity: Rolled` après combat/événement/feu/trésor | `Reward` | `reward` (1 lecture par rafale) |
 | `Card rarity: Rolled` depuis la carte | inchangé (génération du marchand) | — |
@@ -73,7 +86,8 @@ votes des autres joueurs ne changent pas l'écran.
 - Appelé **uniquement** sur les transitions ci-dessus ; anti-rebond 250 ms ; **un seul en vol** ;
   garde au départ (jeu lancé, écran toujours pertinent, jamais `Combat`, pas de patch) ; tué (arbre
   entier) après 3 s. Chaque lecture est journalisée : `mirror Shop exit=0 mirror ms=498`.
-- Exécutable : `--mirror`, sinon `$ULTIMA_MIRROR`, sinon `../mirror/ultima-mirror` à côté du daemon,
+- Exécutable : `--mirror`, sinon `$ULTIMA_MIRROR`, sinon `ultima-mirror` dans le dossier du daemon (installation
+  `~/.local/share/ultima/bin/`), sinon `../mirror/ultima-mirror`,
   sinon `build/mirror/ultima-mirror` du dépôt. `DOTNET_ROOT` transmis s'il manque.
 
 ## 3. Santé et modes dégradés (`health`)
@@ -124,6 +138,33 @@ l'annonçant ; afficher `degraded` en tête ; `null` → « — ». Une connexio
 (sonde de vie du compagnon toutes les ~4 s) est acceptée sans bruit ni fuite (EOF détecté).
 Un client lent ne bloque jamais le daemon (file bornée à 8 états par client, les plus récents gardés).
 
+### 4.1 Requêtes : revue de run (`review.open`, v1.2)
+Envoyer UNE ligne JSON sur la socket ; la réponse (une ligne, reconnaissable à son champ `op`) n'est
+envoyée qu'à ce client, entre deux lignes d'état :
+```
+→ {"op":"review.open","runId":"1780696537"}          (runId = nom du fichier history/<runId>.run, « .run » facultatif)
+← {"op":"review.open","runId":"1780696537","ok":true,"path":"/run/user/1000/ultima/review/3fa2…e1.json"}
+← {"op":"review.open","runId":"1780696537","ok":false,"error":"review indisponible"}
+```
+Calcul hors boucle principale, 30 s max, une revue à la fois, résultat mis en cache (hash du run + date du
+fichier + implémentation). Refusé pendant une partie (« calculée hors ligne »). **Aujourd'hui Hermes ne
+fournit aucune implémentation d'`IReviewBuilder` : la réponse est toujours `"review indisponible"`.**
+Autres erreurs : `runId invalide` (seulement `[A-Za-z0-9_-]`), `run introuvable`, `op inconnue`,
+`requête illisible`. Requête > 4 Kio : client déconnecté.
+
+### 4.2 Section `event` attendue du miroir (demande à Miroir 2)
+Le daemon appelle `ultima-mirror probe --json --sections event` à l'entrée d'une salle d'événement. La CLI
+appelle `GameReader.ReadEvent()` si la bibliothèque l'expose (idem `ReadPiles()` pour `piles`), sinon la section
+est listée dans `"unsupported"` (code de sortie inchangé, pas de dégradation) et le daemon ne retente qu'au
+prochain lancement du jeu. Forme attendue de `sections.event.value` (champs absents tolérés) :
+```json
+{"eventId":"EVENT.ABYSSAL_BATHS","name":"Bains abyssaux",
+ "options":[{"id":"ABYSSAL_BATHS.pages.INITIAL.options.IMMERSE","label":"Plonger","description":"…","available":true}]}
+```
+Le daemon passe au calcul les identifiants NUS (`ABYSSAL_BATHS`, `IMMERSE` = dernier segment après « . »),
+format de `data/calibration/events.json`. `piles` : uniquement des COMPTES/contenus visibles, jamais l'ordre
+de la pioche (champ interdit par `ReadGuard`).
+
 Alternative sans socket : surveiller `state.json` (inotify `IN_MOVED_TO` sur le dossier), mais sa
 seule présence ne prouve pas que le daemon tourne (le fichier survit à l'arrêt).
 
@@ -134,9 +175,10 @@ ultima-daemon run    [options]   premier plan (systemd : §7)
 ultima-daemon status [options]   état publié + daemon joignable ? (code 3 si injoignable)
 ultima-daemon dump   [options]   calcule UNE fois l'état depuis les fichiers, l'écrit sur stdout (rien n'est publié, aucune lecture mémoire)
   --root DIR  --runtime-dir DIR  --settings FILE  --mirror FILE  --no-mirror  --no-scoring
-  --data DIR  --game-comm NAME   -v|--verbose
+  --data DIR  --game-comm NAME   --log FILE   -v|--verbose
 ```
-Journal : stderr (journald sous systemd), une ligne par événement utile, jamais par sondage.
+Journal : `~/.local/state/ultima/daemon.log` (+ stderr → journald sous systemd), une ligne par événement
+utile, jamais par sondage.
 
 ## 6. Données du calcul : `ULTIMA_DATA`
 
