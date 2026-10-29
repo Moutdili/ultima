@@ -71,3 +71,7 @@ après les options mesurées à score égal.
 Le win rate par type y est **fortement biaisé** (élite 25 % > monstre 18 % : les joueurs qui
 prennent les élites sont meilleurs). Seuls les **dégâts subis** et les **deltas d'or** y sont
 utilisables ; ce fichier ne sert pas encore de score de salle.
+
+⚠️ Les moyennes d'or sont bornées à ±2 000 : certains runs portent des valeurs trafiquées
+(max observé **100 000 017** d'or) qui écrasaient la moyenne (monstre +501 avant bornage,
++13 après). Le delta médian est la vraie information.

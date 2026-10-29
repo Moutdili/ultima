@@ -69,9 +69,11 @@ def main():
                     cell = rooms[(act, t, b)]
                     cell[0] += 1
                     cell[1] += won
-                    cell[2] += ps.get("damage_taken") or 0
+                    cell[2] += min(999, ps.get("damage_taken") or 0)
                     gold_now = ps.get("current_gold") or 0
-                    cell[3] += gold_now - prev_gold
+                    # Or borné : certains runs portent des valeurs trafiquées (max observé
+                    # 100 000 017) qui écrasent la moyenne. On borne à ±2 000 pour la mesure.
+                    cell[3] += max(-1000, min(2000, gold_now - prev_gold))
                     cell[4] += before
                     cell[5] += gold_now
                     prev_gold = gold_now
