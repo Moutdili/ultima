@@ -37,6 +37,7 @@
 | Phases / invulnérabilité de boss | ❌ | absent |
 | Invocations / minions | ❌ | absent (le codex ne les chiffre pas) |
 | Ascension hors dégâts/PV (Scarcity, DoubleBoss, AscendersBane…) | ❌ | absent |
+| **Double boss à A10** | ❌ | mesuré : **2 salles de boss en acte 3 dans 70 % des runs A10** (7 509 / 10 685), 1 seule en dessous → le scoring doit exiger de tenir **deux combats de boss** consécutifs |
 | Prix marchand (`ModifyMerchantPrice`) | ❌ | `ShopScorer` ignore les réductions de prix des reliques |
 | Ordre de mélange (`ModifyShuffleOrder`) | ❌ | absent (jeu supposé uniforme) |
 | Valeur X (`ModifyXValue`) | partiel | X supposé = 1 énergie |
