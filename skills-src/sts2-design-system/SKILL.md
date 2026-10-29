@@ -5,6 +5,9 @@ description: Use when building or reviewing the ULTIMA overlay UI — Slay the S
 
 # ULTIMA design system (charte = contrat)
 
+> **PHASE DESIGN OUVERTE (Mio, 2026-10-29)** : « retravailler le HUD et l'UI/UX de tout » ; le verre doit être
+> **étourdissant**, avec un **effet loupe** sur le jeu derrière le panneau. Voir §8 ci-dessous (prime sur §3).
+
 > **v2 (2026-10-28) — ULTIMA est une APPLICATION EXTERNE** (`docs/20`). La palette, la hiérarchie,
 > le rail et les critères restent valides. Le §3 « shader du jeu » ne s'applique plus tel quel :
 > une fenêtre externe ne peut pas lire l'écran du jeu. Le verre vient du **flou du compositeur**
@@ -106,3 +109,27 @@ probabilités) → 3 (CSV/log). Une info de niveau 2 n'apparaît jamais au nivea
 | Durée d'expansion | 150-220 ms |
 | FPS avec flou | ≥ 55 |
 | `new Color(` hors `UltimaPalette` | 0 occurrence |
+
+
+## 8. Verre v3 « étourdissant » + effet loupe (extension GNOME Shell 50)
+Trois niveaux, réglables (`HudSettings.Quality` du contrat v1.3) :
+| Niveau | Rendu | Technique (à vérifier dans le code de GNOME Shell 50 / Mutter, citer fichier) |
+|---|---|---|
+| `eco` | aplat #192930 ~0.85 + liseré or | St.Widget + style ; coût ~0 |
+| `verre` | flou du décor + teinte + reflet spéculaire + grain fin + liseré or 1 px + ombre | `Shell.BlurEffect` (BACKGROUND), dégradé/specular par `Shell.GLSLEffect` (snippets GLSL) |
+| `loupe` | `verre` + le jeu derrière le panneau **grossi** (×1.04-1.10) et **réfracté** sur les bords (lentille), légère aberration chromatique | `Clutter.Clone` de `global.window_group` (ou de l'acteur de la fenêtre du jeu) dans un conteneur découpé, décalé pour s'aligner sous le panneau et mis à l'échelle autour de son centre ; distorsion en barillet + aberration par `Shell.GLSLEffect` sur le clone |
+Règles : rien de tout ça quand le panneau est replié (rail = aplat) ; aucune animation en boucle ;
+coût mesuré (protocole `docs/perf/MESURE.md`) : si `loupe` dépasse le budget FPS, défaut = `verre`.
+
+## 9. Couleurs des notes S à F (palette du jeu uniquement)
+S = gold `#EFC851` · A = green `#7FFF00` · B = aqua `#2AEBBE` · C = blue `#87CEEB` · D = orange `#FFA518` ·
+F = red `#FF5555` · « — » (non calculé) = gray `#808080`. Malédictions : purple `#EE82EE` + mot « Malédiction ».
+Enchantements : aqua + nom (« Célérité 1 »). La lettre est TOUJOURS écrite (jamais la couleur seule).
+
+## 10. UX
+- Une seule chose importante à la fois : en récompense/shop, la carte de décision occupe le panneau
+  (lettre en grand, raison principale en une ligne, détail F9/survol) ; deck & co passent au second plan.
+- Lisible à 1920×1200 @125 % (taille min 14 px logiques), contraste ≥ 4,5:1 sur le verre.
+- Survol / épinglage / masquage : Super+Maj+I / Super+Maj+O (jamais de touches F).
+- Validation visuelle sur captures RÉELLES pendant une fenêtre de test ; banc GNOME isolé autorisé
+  seulement sur bus de session PRIVÉ et sans aucun appel au bus système (logind/GDM).

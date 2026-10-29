@@ -130,6 +130,9 @@ public sealed record DeckEvaluation(Score Score, string? Archetype, IReadOnlyLis
 /// <summary>Modules affichables, personnalisables (ordre + visibilité) via le compagnon.</summary>
 public sealed record OverlaySettings(IReadOnlyList<ModuleSetting> Modules)
 {
+    /// <summary>v1.3 : réglages du HUD (TUI `ultima` et compagnon les écrivent, le daemon les publie).</summary>
+    public HudSettings Hud { get; init; } = HudSettings.Default;
+
     // Ordre voulu par Mio (2026-10-29) : deck, cartes enchantées, malédictions, reliques, potions ;
     // les modules contextuels (récompense, shop, chemins, note du deck) s'affichent selon l'écran.
     public static OverlaySettings Default { get; } = new(new ModuleSetting[]
@@ -164,4 +167,15 @@ public static class RoomTypes
     public const string Monster = "monster", Elite = "elite", Unknown = "unknown", RestSite = "rest_site",
         Shop = "shop", Treasure = "treasure", Boss = "boss", Ancient = "ancient";
     public static readonly IReadOnlyList<string> All = new[] { Monster, Elite, Unknown, RestSite, Shop, Treasure, Boss, Ancient };
+}
+
+/// <summary>
+/// v1.3 — réglages visuels du HUD. Quality : "eco" (aplat teinté, coût ~0), "verre" (flou + teinte + reflet),
+/// "loupe" (verre + clone grossissant du jeu derrière le panneau + réfraction). Side : "right" | "left".
+/// </summary>
+public sealed record HudSettings(string Quality, double HeightFraction, double RestOpacity, string Side,
+    bool DeckScoreInCombat, bool GradesOnly)
+{
+    public static HudSettings Default { get; } = new("verre", 0.55, 0.62, "right", false, false);
+    public static readonly IReadOnlyList<string> Qualities = new[] { "eco", "verre", "loupe" };
 }

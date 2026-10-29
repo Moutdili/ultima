@@ -36,3 +36,9 @@ Version majeure = rupture seulement ; ajouts compatibles = `ContractMinor`. Nouv
 `RunView.Party`, `ScoringContext.Allies`, `Score.DeltaG` (signé : malédictions négatives, Total reste 0..100),
 `ScoreTerm.Evidence`, revue de run (`ReviewTimeline`, livrée par op socket `review.open` + fichier), interfaces
 `IRoutePlanner`, `IEventAdvisor`, `IReviewBuilder`. Modules `event`, `route`, `party`. Détail : docs/22 §v1.2.
+
+## v1.3 (mineure 3) : réglages du HUD
+`OverlaySettings.Hud` = `HudSettings(Quality "eco|verre|loupe", HeightFraction, RestOpacity, Side "right|left",
+DeckScoreInCombat, GradesOnly)` ; défaut `("verre", 0.55, 0.62, "right", false, false)`. Écrits dans
+`~/.config/ultima/settings.json` par le TUI `ultima` ou le compagnon, publiés par le daemon dans `state.settings.hud`,
+appliqués par l'extension.
