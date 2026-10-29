@@ -106,6 +106,15 @@ Recherche dans `~/sts2/game/pck/src/Core` (fedora) :
 
 C'est exactement l'argument de Mio : une stratégie « empiler du mana et frapper N fois » ne marche pas contre un plafond par tour. Ces contraintes doivent être **par rencontre**, pas globales.
 
+**Sortie exploitable (S19)** : `tools/index_constraints.py` relit ces fichiers (ssh lecture
+seule vers `fedora`, repli sur une table manuelle documentée et sourcée) et publie
+`data/catalog/constraints.json` — 3 monstres, 4 rencontres, 5,4 Ko. Côté moteur,
+`ThreatModel` expose `DamageCap(encounterId, ascension)`, `Respawns(encounterId)` et
+`IsBurstIneffective(encounterId, ascension)` (vrai si **tous** les monstres de la rencontre
+plafonnent et que le plafond ≤ 25 % du coup attendu). Un plafond ne vaut que pour la
+créature qui le porte : le catalogue publie `cap_monsters` et `cap_scope`
+(`always` / `periodic` / `late_phase`).
+
 ## 5. Ce qui reste à construire
 
 1. **Déduplication** du corpus par signature de contenu (deck + reliques + trajectoire) → index propre.
@@ -113,7 +122,7 @@ C'est exactement l'argument de Mio : une stratégie « empiler du mana et frappe
    co-op = 86 % des retraits, calibration gonflée de 6,2 % seulement.
 2. **Expression par run** : courbe de puissance cumulée par étage (pente, courbure, paliers d'acte) + profil d'explosivité (tours et dégâts par combat, comparés à la moyenne de la rencontre).
 3. **Clustering** des expressions → archétypes (explosif, tanky, scaling, hybride) et poids par acte.
-4. **Catalogue de contraintes** par rencontre (plafond de dégâts, respawn, représailles) issu du code source.
+4. **Catalogue de contraintes** par rencontre (plafond de dégâts, respawn, représailles) issu du code source. — *Plafond et respawn faits en S19 (`data/catalog/constraints.json`) ; les représailles (riposte, dégâts au tueur) ne sont pas traitées.*
 5. **Test d'identification** : après dédup, vérifier que l'empreinte (deck + reliques + PV + boss 1/2/3 + trajectoire) est unique, puis mesurer la reconnaissance à partir d'un état partiel.
 6. **Contrôler l'attribution** : croiser les déclencheurs avec le type de carte et l'étage, et
    vérifier sur les 8 % de replays que le saut correspond bien à la carte jouée (pas à un événement).
