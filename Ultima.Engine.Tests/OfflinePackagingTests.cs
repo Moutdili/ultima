@@ -41,7 +41,8 @@ public sealed class OfflinePackagingTests
         "potions.json",             // PotionCatalog
         "relics.json",              // RelicCatalog
         "priority_cards.json",      // PriorityCatalog (embarqué aussi dans Ultima.dll)
-        "powers.json",              // pouvoirs modifiant les dégâts
+        "powers.json",              // catalogue déclaratif des 260 pouvoirs (hooks + expressions)
+        "powers_damage.json",       // index historique des pouvoirs modifiant les dégâts
         "stats.json",              // compteurs de l'indexation (documentation/debug)
     };
 
