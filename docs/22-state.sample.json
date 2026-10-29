@@ -317,44 +317,49 @@
   "settings": {
     "modules": [
       {
-        "id": "curses",
+        "id": "deck",
         "enabled": true,
         "order": 0
       },
       {
-        "id": "deck",
+        "id": "enchanted",
         "enabled": true,
         "order": 1
       },
       {
-        "id": "relics",
+        "id": "curses",
         "enabled": true,
         "order": 2
       },
       {
-        "id": "enchanted",
+        "id": "relics",
         "enabled": true,
         "order": 3
       },
       {
-        "id": "reward",
+        "id": "potions",
         "enabled": true,
         "order": 4
       },
       {
-        "id": "shop",
+        "id": "reward",
         "enabled": true,
         "order": 5
       },
       {
-        "id": "paths",
+        "id": "shop",
         "enabled": true,
         "order": 6
       },
       {
-        "id": "deck_score",
+        "id": "paths",
         "enabled": true,
         "order": 7
+      },
+      {
+        "id": "deck_score",
+        "enabled": true,
+        "order": 8
       }
     ]
   }

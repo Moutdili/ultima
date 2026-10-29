@@ -76,16 +76,19 @@ public sealed record DeckEvaluation(Score Score, string? Archetype, IReadOnlyLis
 /// <summary>Modules affichables, personnalisables (ordre + visibilité) via le compagnon.</summary>
 public sealed record OverlaySettings(IReadOnlyList<ModuleSetting> Modules)
 {
+    // Ordre voulu par Mio (2026-10-29) : deck, cartes enchantées, malédictions, reliques, potions ;
+    // les modules contextuels (récompense, shop, chemins, note du deck) s'affichent selon l'écran.
     public static OverlaySettings Default { get; } = new(new ModuleSetting[]
     {
-        new(ModuleIds.Curses, true, 0),
-        new(ModuleIds.Deck, true, 1),
-        new(ModuleIds.Relics, true, 2),
-        new(ModuleIds.Enchanted, true, 3),
-        new(ModuleIds.Reward, true, 4),
-        new(ModuleIds.Shop, true, 5),
-        new(ModuleIds.Paths, true, 6),
-        new(ModuleIds.DeckScore, true, 7),
+        new(ModuleIds.Deck, true, 0),
+        new(ModuleIds.Enchanted, true, 1),
+        new(ModuleIds.Curses, true, 2),
+        new(ModuleIds.Relics, true, 3),
+        new(ModuleIds.Potions, true, 4),
+        new(ModuleIds.Reward, true, 5),
+        new(ModuleIds.Shop, true, 6),
+        new(ModuleIds.Paths, true, 7),
+        new(ModuleIds.DeckScore, true, 8),
     });
 }
 
@@ -93,6 +96,6 @@ public sealed record ModuleSetting(string Id, bool Enabled, int Order);
 
 public static class ModuleIds
 {
-    public const string Curses = "curses", Deck = "deck", Relics = "relics", Enchanted = "enchanted",
+    public const string Curses = "curses", Deck = "deck", Relics = "relics", Enchanted = "enchanted", Potions = "potions",
         Reward = "reward", Shop = "shop", Paths = "paths", DeckScore = "deck_score";
 }

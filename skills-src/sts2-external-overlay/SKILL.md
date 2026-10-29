@@ -30,3 +30,10 @@ pas de vrai flou. Bascule : `ultima-x11 toggle` (raccourci GNOME personnalisé S
 - Tout réglage visuel se valide sur capture réelle (`tools/proof/capture-composed.py`) PENDANT une
   fenêtre de test convenue avec Mio (jamais sur son bureau sans accord).
 - FPS ≥ 55 : non encore mesuré (compteur Steam absent) → à instrumenter.
+
+## Phase actuelle (décision Mio 2026-10-29) : FONCTIONNEL, design en dernier
+- Afficher les vraies données de `EngineState` (skill `sts2-engine-contract`) en texte brut lisible,
+  modules dans l'ordre des réglages (défaut : deck, enchantées, malédictions, reliques, potions ;
+  contextuels : récompense, shop, chemins, note du deck). Score absent → « — ».
+- Aucune retouche de style/verre tant que Mio n'ouvre pas la phase design.
+- Performance prioritaire : voir skill `sts2-performance` (baisses ressenties à la pioche).
