@@ -543,3 +543,8 @@ par fichier (local s'il existe, sinon commité) + un test avec un `local/` parti
   **Hermes garde ses commits signés Hermes**). Procédure : branches mergées, Hermes en pause, sauvegarde
   `git bundle --all`, `git filter-repo --message-callback` (suppression du trailer), push forcé de toutes
   les branches avec lease, Hermes repart d'un clone propre.
+
+## Réécriture finale de l'historique — à ajouter (2026-10-29)
+L'ID Steam de Mio a été commité en clair (commit 201739d, `Ultima.Daemon.Tests/Fixtures/make_fixtures.py`,
+retiré dans 92d810e) et apparaît aussi dans des chemins cités par STATUS/docs. Lors de la réécriture
+finale : `git filter-repo --replace-text` (ID → `<steam-id>`) en plus du retrait des lignes Co-Authored-By.
