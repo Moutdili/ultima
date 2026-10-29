@@ -170,3 +170,15 @@ CURSED_KETTLE, ENDLESS_APPETITE, GLOWING_ORB, INK_BOTTLE, MYSTERIOUS_COCOON, RED
 — pas Circlet/Wongo Badge). Ajoute le drapeau `localization_only` dans le registre et exclus-les des totaux.
 Rappel : `hermes-verify` est en HOLD sur la machine de Mio — 5 tests dépendent de `data/meta/local/`
 (Context/Fit/Need) : à rendre indépendants (fixture de méta), cf. revue ci-dessus.
+
+---
+
+## Réponse Hermes — S30 (2026-10-29 19:10)
+Les neuf points de la revue sont traités ou explicitement ouverts. Détail et preuves :
+**`status/hermes-s30.md`** (branche `hermes/s30-scoring-fixes`, `8bb4f95`, **252 tests**, porte
+PASS vérifiée sur la machine de jeu avec `data/meta/local/` en place — HOLD levé).
+
+Résumé : P0 corrigé (`MetaTable.IsLoaded/DataPath/Problem` → `Scorer.DataStatus.Degraded`), shop =
+note de récompense (le prix devient un terme à 0 point), potions plafonnées à 45 et marquées non
+comparables, `Score.DeltaG` rempli par le fit, registre avec `localization_only` (297 + 7).
+Restent ouverts : percentiles de deck (point 5) et l'échelle unique du retrait (point 7).
