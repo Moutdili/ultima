@@ -80,7 +80,7 @@ Performance : un seul panneau flouté, `blur` non animé, mesurer ≥ 55 FPS en 
 
 ## 4. Divulgation progressive
 
-- Repos : rail 8 px, 3 pastilles (PV / létal / priorité).
+- Repos : rail en verre seul, sans pastille (§12).
 - Survol : expansion à 260 px en 180 ms (ease-out), pas d'overshoot.
 - Inactivité : retour au rail après 2,5 s.
 - F8 : masquer. F9 : détail (variantes, contributions, probabilités).
@@ -146,3 +146,12 @@ Enchantements : aqua + nom (« Célérité 1 »). La lettre est TOUJOURS écrite
   pas de répétition d'une info déjà visible dans le jeu (PV/or du jeu : seulement si une décision en dépend).
 - Densité : marges généreuses, au plus 1 accent coloré par ligne, texte secondaire en crème 60 %.
 - Test : demander « que fait le joueur de cette info dans les 10 prochaines secondes ? » — sinon, la masquer.
+
+## 12. Rail et ouverture (exigence Mio, 2026-10-29) — remplace « 3 pastilles »
+- **Le rail est une simple bande de VERRE**, sans pastille, sans bouton, sans texte, sans icône. Seule exception
+  tolérée : aucune. (L'alerte létale/malédiction passe par le contenu une fois ouvert, pas par le rail.)
+- **Ouverture fluide** : le verre s'élargit (ease-out, ~220 ms), puis le contenu apparaît en fondu léger
+  (léger décalage par ligne), sans saut de mise en page ni rebond ; fermeture symétrique plus brève.
+- Aucune image perdue : animation pilotée par le compositeur (transitions Clutter/Tween implicites), jamais par
+  des timers JS ; pas de relayout de texte à chaque image (préparer le contenu avant l'animation).
+- Le contenu dévoilé = les modules du contrat dans l'ordre des réglages, selon §11 (une ligne par module).
