@@ -29,6 +29,7 @@ Ces fichiers sont générés : ne pas les éditer à la main, relancer le script
 | `cards_effects.json` | dégâts, bloc, coups, pioche, énergie, pouvoirs, deltas d'amélioration (`CardEffects`) | 577 cartes · 298 Ko | `tools/index_card_effects.py` |
 | `monsters.json` | PV, moves, dégâts normal/ascension (`ThreatModel`, `BossCatalog`) | 128 monstres · 175 Ko | `tools/index_source.py` puis `tools/index_threats.py` |
 | `encounters.json` | rencontre → monstres, acte, type de salle (`ThreatModel`) | 87 rencontres · 55 Ko | `tools/index_threats.py` |
+| `encounter_copies.json` | effectifs réels par rencontre : distribution des copies de monstres (`ThreatModel`, docs/34) | 86 rencontres · 23 Ko | `tools/index_encounter_copies.py` |
 | `intents_by_monster.json` | plus gros coup par monstre (`BossCatalog`) | 39 Ko | `tools/index_source.py` |
 | `relics.json` | id, nom FR, description FR, tags mécaniques (`RelicCatalog`) | 304 reliques · 70 Ko | `tools/index_relics.py` |
 | `potions.json` | id, nom FR, description FR, tags (`PotionCatalog`) | 64 potions · 14 Ko | `tools/index_potions.py` |
@@ -81,6 +82,9 @@ python3 -I tools/index_card_effects.py
 
 # 4. modèle de menace ← data/codex/{monsters,encounters,encounter_stats}.json
 python3 -I tools/index_threats.py
+
+# 4 bis. copies de monstres ← export de runs (non commité, réseau)
+python3 -I tools/index_encounter_copies.py --limit 0
 
 # 5. potions + reliques ← localisation FR du jeu
 python3 -I tools/index_potions.py

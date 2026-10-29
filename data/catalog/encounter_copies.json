@@ -1,0 +1,1233 @@
+{
+ "generated_by": "tools/index_encounter_copies.py",
+ "sources": [
+  "runs-v0.107.1.jsonl.gz"
+ ],
+ "note": "Effectifs observés dans rooms[].monster_ids (doublons inclus), restreints aux monstres DÉCLARÉS par la rencontre : les pets et invocations qui apparaissent aussi dans monster_ids (BYRDPIP, OSTY, GUARDBOT, PAELS_LEGION…) sont ignorés. Les distributions par monstre sont MARGINALES : la somme des « 1 » d'une rencontre à plusieurs types n'est pas le nombre de combats sans copie. max_instances = nombre max de copies d'UN MÊME monstre (c'est le multiplicateur de menace) ; max_total_monsters = instances tous monstres confondus. fights_with_copies = combats où au moins un monstre apparaît ≥ 2 fois (compté exactement).",
+ "filters": {
+  "modes": [
+   "standard"
+  ],
+  "solo_only": true,
+  "runs_scanned": 785121,
+  "runs_kept": 459386,
+  "limit": 0
+ },
+ "count": 86,
+ "total_fights": 5296129,
+ "encounters_with_copies": 42,
+ "fights_with_copies": 1050258,
+ "skipped_fights_unknown_encounter": 8917,
+ "skipped_fights_unknown_monster": 9489,
+ "skipped_fights_no_enemy": 4,
+ "encounters": {
+  "AEONGLASS_BOSS": {
+   "total_fights": 37592,
+   "fights_with_copies": 0,
+   "copies_share": 0.0,
+   "max_instances": 1,
+   "max_total_monsters": 1,
+   "monsters": {
+    "AEONGLASS": {
+     "1": 37592
+    }
+   }
+  },
+  "AXEBOTS_NORMAL": {
+   "total_fights": 27511,
+   "fights_with_copies": 15,
+   "copies_share": 0.0005,
+   "max_instances": 2,
+   "max_total_monsters": 2,
+   "monsters": {
+    "AXEBOT": {
+     "1": 27496,
+     "2": 15
+    }
+   }
+  },
+  "BATTLEWORN_DUMMY_EVENT_ENCOUNTER": {
+   "total_fights": 16812,
+   "fights_with_copies": 0,
+   "copies_share": 0.0,
+   "max_instances": 1,
+   "max_total_monsters": 1,
+   "monsters": {
+    "BATTLE_FRIEND_V1": {
+     "1": 2287
+    },
+    "BATTLE_FRIEND_V2": {
+     "1": 10329
+    },
+    "BATTLE_FRIEND_V3": {
+     "1": 4196
+    }
+   }
+  },
+  "BOWLBUGS_NORMAL": {
+   "total_fights": 49293,
+   "fights_with_copies": 0,
+   "copies_share": 0.0,
+   "max_instances": 1,
+   "max_total_monsters": 3,
+   "monsters": {
+    "BOWLBUG_EGG": {
+     "1": 32819
+    },
+    "BOWLBUG_NECTAR": {
+     "1": 32886
+    },
+    "BOWLBUG_ROCK": {
+     "1": 49293
+    },
+    "BOWLBUG_SILK": {
+     "1": 32881
+    }
+   }
+  },
+  "BOWLBUGS_WEAK": {
+   "total_fights": 119119,
+   "fights_with_copies": 0,
+   "copies_share": 0.0,
+   "max_instances": 1,
+   "max_total_monsters": 3,
+   "monsters": {
+    "BOWLBUG_EGG": {
+     "1": 59432
+    },
+    "BOWLBUG_NECTAR": {
+     "1": 59689
+    },
+    "BOWLBUG_ROCK": {
+     "1": 119119
+    }
+   }
+  },
+  "BYGONE_EFFIGY_ELITE": {
+   "total_fights": 102986,
+   "fights_with_copies": 0,
+   "copies_share": 0.0,
+   "max_instances": 1,
+   "max_total_monsters": 1,
+   "monsters": {
+    "BYGONE_EFFIGY": {
+     "1": 102986
+    }
+   }
+  },
+  "BYRDONIS_ELITE": {
+   "total_fights": 101803,
+   "fights_with_copies": 2,
+   "copies_share": 0.0,
+   "max_instances": 2,
+   "max_total_monsters": 2,
+   "monsters": {
+    "BYRDONIS": {
+     "1": 101801,
+     "2": 2
+    }
+   }
+  },
+  "CEREMONIAL_BEAST_BOSS": {
+   "total_fights": 50757,
+   "fights_with_copies": 0,
+   "copies_share": 0.0,
+   "max_instances": 1,
+   "max_total_monsters": 1,
+   "monsters": {
+    "CEREMONIAL_BEAST": {
+     "1": 50757
+    }
+   }
+  },
+  "CHOMPERS_NORMAL": {
+   "total_fights": 58680,
+   "fights_with_copies": 58680,
+   "copies_share": 1.0,
+   "max_instances": 2,
+   "max_total_monsters": 2,
+   "monsters": {
+    "CHOMPER": {
+     "2": 58680
+    }
+   }
+  },
+  "CONSTRUCT_MENAGERIE_NORMAL": {
+   "total_fights": 27956,
+   "fights_with_copies": 27956,
+   "copies_share": 1.0,
+   "max_instances": 2,
+   "max_total_monsters": 3,
+   "monsters": {
+    "CUBEX_CONSTRUCT": {
+     "2": 27956
+    },
+    "PUNCH_CONSTRUCT": {
+     "1": 27956
+    }
+   }
+  },
+  "CORPSE_SLUGS_NORMAL": {
+   "total_fights": 41180,
+   "fights_with_copies": 41180,
+   "copies_share": 1.0,
+   "max_instances": 3,
+   "max_total_monsters": 3,
+   "monsters": {
+    "CORPSE_SLUG": {
+     "3": 41180
+    }
+   }
+  },
+  "CORPSE_SLUGS_WEAK": {
+   "total_fights": 145490,
+   "fights_with_copies": 145490,
+   "copies_share": 1.0,
+   "max_instances": 3,
+   "max_total_monsters": 3,
+   "monsters": {
+    "CORPSE_SLUG": {
+     "2": 145489,
+     "3": 1
+    }
+   }
+  },
+  "CUBEX_CONSTRUCT_NORMAL": {
+   "total_fights": 40915,
+   "fights_with_copies": 0,
+   "copies_share": 0.0,
+   "max_instances": 1,
+   "max_total_monsters": 1,
+   "monsters": {
+    "CUBEX_CONSTRUCT": {
+     "1": 40915
+    }
+   }
+  },
+  "CULTISTS_NORMAL": {
+   "total_fights": 45312,
+   "fights_with_copies": 1,
+   "copies_share": 0.0,
+   "max_instances": 2,
+   "max_total_monsters": 3,
+   "monsters": {
+    "CALCIFIED_CULTIST": {
+     "1": 45311,
+     "2": 1
+    },
+    "DAMP_CULTIST": {
+     "1": 45312
+    }
+   }
+  },
+  "DECIMILLIPEDE_ELITE": {
+   "total_fights": 103687,
+   "fights_with_copies": 0,
+   "copies_share": 0.0,
+   "max_instances": 1,
+   "max_total_monsters": 3,
+   "monsters": {
+    "DECIMILLIPEDE_SEGMENT_BACK": {
+     "1": 103687
+    },
+    "DECIMILLIPEDE_SEGMENT_FRONT": {
+     "1": 103687
+    },
+    "DECIMILLIPEDE_SEGMENT_MIDDLE": {
+     "1": 103687
+    }
+   }
+  },
+  "DENSE_VEGETATION_EVENT_ENCOUNTER": {
+   "total_fights": 7654,
+   "fights_with_copies": 7654,
+   "copies_share": 1.0,
+   "max_instances": 4,
+   "max_total_monsters": 4,
+   "monsters": {
+    "WRIGGLER": {
+     "4": 7654
+    }
+   }
+  },
+  "DEVOTED_SCULPTOR_WEAK": {
+   "total_fights": 77268,
+   "fights_with_copies": 1,
+   "copies_share": 0.0,
+   "max_instances": 2,
+   "max_total_monsters": 2,
+   "monsters": {
+    "DEVOTED_SCULPTOR": {
+     "1": 77267,
+     "2": 1
+    }
+   }
+  },
+  "ENTOMANCER_ELITE": {
+   "total_fights": 101718,
+   "fights_with_copies": 2,
+   "copies_share": 0.0,
+   "max_instances": 2,
+   "max_total_monsters": 2,
+   "monsters": {
+    "ENTOMANCER": {
+     "1": 101716,
+     "2": 2
+    }
+   }
+  },
+  "EXOSKELETONS_NORMAL": {
+   "total_fights": 53577,
+   "fights_with_copies": 53577,
+   "copies_share": 1.0,
+   "max_instances": 4,
+   "max_total_monsters": 4,
+   "monsters": {
+    "EXOSKELETON": {
+     "4": 53577
+    }
+   }
+  },
+  "EXOSKELETONS_WEAK": {
+   "total_fights": 118574,
+   "fights_with_copies": 118574,
+   "copies_share": 1.0,
+   "max_instances": 3,
+   "max_total_monsters": 3,
+   "monsters": {
+    "EXOSKELETON": {
+     "3": 118574
+    }
+   }
+  },
+  "FABRICATOR_NORMAL": {
+   "total_fights": 27726,
+   "fights_with_copies": 0,
+   "copies_share": 0.0,
+   "max_instances": 1,
+   "max_total_monsters": 1,
+   "monsters": {
+    "FABRICATOR": {
+     "1": 27726
+    }
+   }
+  },
+  "FAKE_MERCHANT_EVENT_ENCOUNTER": {
+   "total_fights": 359,
+   "fights_with_copies": 0,
+   "copies_share": 0.0,
+   "max_instances": 1,
+   "max_total_monsters": 1,
+   "monsters": {
+    "FAKE_MERCHANT_MONSTER": {
+     "1": 359
+    }
+   }
+  },
+  "FLYCONID_NORMAL": {
+   "total_fights": 32664,
+   "fights_with_copies": 0,
+   "copies_share": 0.0,
+   "max_instances": 1,
+   "max_total_monsters": 3,
+   "monsters": {
+    "FLYCONID": {
+     "1": 32664
+    },
+    "LEAF_SLIME_M": {
+     "1": 16330
+    },
+    "TWIG_SLIME_M": {
+     "1": 16335
+    }
+   }
+  },
+  "FOGMOG_NORMAL": {
+   "total_fights": 40782,
+   "fights_with_copies": 0,
+   "copies_share": 0.0,
+   "max_instances": 1,
+   "max_total_monsters": 2,
+   "monsters": {
+    "EYE_WITH_TEETH": {
+     "1": 40469
+    },
+    "FOGMOG": {
+     "1": 40782
+    }
+   }
+  },
+  "FOSSIL_STALKER_NORMAL": {
+   "total_fights": 45476,
+   "fights_with_copies": 1,
+   "copies_share": 0.0,
+   "max_instances": 2,
+   "max_total_monsters": 2,
+   "monsters": {
+    "FOSSIL_STALKER": {
+     "1": 45475,
+     "2": 1
+    }
+   }
+  },
+  "FROG_KNIGHT_NORMAL": {
+   "total_fights": 27841,
+   "fights_with_copies": 0,
+   "copies_share": 0.0,
+   "max_instances": 1,
+   "max_total_monsters": 1,
+   "monsters": {
+    "FROG_KNIGHT": {
+     "1": 27841
+    }
+   }
+  },
+  "FUZZY_WURM_CRAWLER_WEAK": {
+   "total_fights": 152671,
+   "fights_with_copies": 2,
+   "copies_share": 0.0,
+   "max_instances": 2,
+   "max_total_monsters": 2,
+   "monsters": {
+    "FUZZY_WURM_CRAWLER": {
+     "1": 152669,
+     "2": 2
+    }
+   }
+  },
+  "GLOBE_HEAD_NORMAL": {
+   "total_fights": 27761,
+   "fights_with_copies": 1,
+   "copies_share": 0.0,
+   "max_instances": 2,
+   "max_total_monsters": 2,
+   "monsters": {
+    "GLOBE_HEAD": {
+     "1": 27760,
+     "2": 1
+    }
+   }
+  },
+  "GREMLIN_MERC_NORMAL": {
+   "total_fights": 45294,
+   "fights_with_copies": 0,
+   "copies_share": 0.0,
+   "max_instances": 1,
+   "max_total_monsters": 3,
+   "monsters": {
+    "FAT_GREMLIN": {
+     "1": 44189
+    },
+    "GREMLIN_MERC": {
+     "1": 45294
+    },
+    "SNEAKY_GREMLIN": {
+     "1": 44191
+    }
+   }
+  },
+  "HAUNTED_SHIP_NORMAL": {
+   "total_fights": 45247,
+   "fights_with_copies": 1,
+   "copies_share": 0.0,
+   "max_instances": 2,
+   "max_total_monsters": 2,
+   "monsters": {
+    "HAUNTED_SHIP": {
+     "1": 45246,
+     "2": 1
+    }
+   }
+  },
+  "HUNTER_KILLER_NORMAL": {
+   "total_fights": 59225,
+   "fights_with_copies": 0,
+   "copies_share": 0.0,
+   "max_instances": 1,
+   "max_total_monsters": 1,
+   "monsters": {
+    "HUNTER_KILLER": {
+     "1": 59225
+    }
+   }
+  },
+  "INFESTED_PRISMS_ELITE": {
+   "total_fights": 102339,
+   "fights_with_copies": 2,
+   "copies_share": 0.0,
+   "max_instances": 2,
+   "max_total_monsters": 2,
+   "monsters": {
+    "INFESTED_PRISM": {
+     "1": 102337,
+     "2": 2
+    }
+   }
+  },
+  "INKLETS_NORMAL": {
+   "total_fights": 42647,
+   "fights_with_copies": 42647,
+   "copies_share": 1.0,
+   "max_instances": 3,
+   "max_total_monsters": 3,
+   "monsters": {
+    "INKLET": {
+     "3": 42647
+    }
+   }
+  },
+  "KAISER_CRAB_BOSS": {
+   "total_fights": 52770,
+   "fights_with_copies": 0,
+   "copies_share": 0.0,
+   "max_instances": 1,
+   "max_total_monsters": 2,
+   "monsters": {
+    "CRUSHER": {
+     "1": 52770
+    },
+    "ROCKET": {
+     "1": 52770
+    }
+   }
+  },
+  "KNIGHTS_ELITE": {
+   "total_fights": 49813,
+   "fights_with_copies": 2,
+   "copies_share": 0.0,
+   "max_instances": 2,
+   "max_total_monsters": 4,
+   "monsters": {
+    "FLAIL_KNIGHT": {
+     "1": 49812,
+     "2": 1
+    },
+    "MAGI_KNIGHT": {
+     "1": 49812,
+     "2": 1
+    },
+    "SPECTRAL_KNIGHT": {
+     "1": 49813
+    }
+   }
+  },
+  "KNOWLEDGE_DEMON_BOSS": {
+   "total_fights": 52960,
+   "fights_with_copies": 0,
+   "copies_share": 0.0,
+   "max_instances": 1,
+   "max_total_monsters": 1,
+   "monsters": {
+    "KNOWLEDGE_DEMON": {
+     "1": 52960
+    }
+   }
+  },
+  "LAGAVULIN_MATRIARCH_BOSS": {
+   "total_fights": 48670,
+   "fights_with_copies": 0,
+   "copies_share": 0.0,
+   "max_instances": 1,
+   "max_total_monsters": 1,
+   "monsters": {
+    "LAGAVULIN_MATRIARCH": {
+     "1": 48670
+    }
+   }
+  },
+  "LIVING_FOG_NORMAL": {
+   "total_fights": 45082,
+   "fights_with_copies": 0,
+   "copies_share": 0.0,
+   "max_instances": 1,
+   "max_total_monsters": 2,
+   "monsters": {
+    "GAS_BOMB": {
+     "1": 43368
+    },
+    "LIVING_FOG": {
+     "1": 45082
+    }
+   }
+  },
+  "LOUSE_PROGENITOR_NORMAL": {
+   "total_fights": 58693,
+   "fights_with_copies": 0,
+   "copies_share": 0.0,
+   "max_instances": 1,
+   "max_total_monsters": 1,
+   "monsters": {
+    "LOUSE_PROGENITOR": {
+     "1": 58693
+    }
+   }
+  },
+  "MAWLER_NORMAL": {
+   "total_fights": 42517,
+   "fights_with_copies": 0,
+   "copies_share": 0.0,
+   "max_instances": 1,
+   "max_total_monsters": 1,
+   "monsters": {
+    "MAWLER": {
+     "1": 42517
+    }
+   }
+  },
+  "MECHA_KNIGHT_ELITE": {
+   "total_fights": 50007,
+   "fights_with_copies": 2,
+   "copies_share": 0.0,
+   "max_instances": 2,
+   "max_total_monsters": 2,
+   "monsters": {
+    "MECHA_KNIGHT": {
+     "1": 50005,
+     "2": 2
+    }
+   }
+  },
+  "MYSTERIOUS_KNIGHT_EVENT_ENCOUNTER": {
+   "total_fights": 9226,
+   "fights_with_copies": 0,
+   "copies_share": 0.0,
+   "max_instances": 1,
+   "max_total_monsters": 1,
+   "monsters": {
+    "MYSTERIOUS_KNIGHT": {
+     "1": 9226
+    }
+   }
+  },
+  "MYTES_NORMAL": {
+   "total_fights": 58951,
+   "fights_with_copies": 58951,
+   "copies_share": 1.0,
+   "max_instances": 2,
+   "max_total_monsters": 2,
+   "monsters": {
+    "MYTE": {
+     "2": 58951
+    }
+   }
+  },
+  "NIBBITS_NORMAL": {
+   "total_fights": 41955,
+   "fights_with_copies": 41955,
+   "copies_share": 1.0,
+   "max_instances": 2,
+   "max_total_monsters": 2,
+   "monsters": {
+    "NIBBIT": {
+     "2": 41955
+    }
+   }
+  },
+  "NIBBITS_WEAK": {
+   "total_fights": 155135,
+   "fights_with_copies": 1,
+   "copies_share": 0.0,
+   "max_instances": 2,
+   "max_total_monsters": 2,
+   "monsters": {
+    "NIBBIT": {
+     "1": 155134,
+     "2": 1
+    }
+   }
+  },
+  "OVERGROWTH_CRAWLERS": {
+   "total_fights": 33953,
+   "fights_with_copies": 0,
+   "copies_share": 0.0,
+   "max_instances": 1,
+   "max_total_monsters": 2,
+   "monsters": {
+    "FUZZY_WURM_CRAWLER": {
+     "1": 33953
+    },
+    "SHRINKER_BEETLE": {
+     "1": 33953
+    }
+   }
+  },
+  "OVICOPTER_NORMAL": {
+   "total_fights": 58729,
+   "fights_with_copies": 0,
+   "copies_share": 0.0,
+   "max_instances": 1,
+   "max_total_monsters": 2,
+   "monsters": {
+    "OVICOPTER": {
+     "1": 58729
+    },
+    "TOUGH_EGG": {
+     "1": 58155
+    }
+   }
+  },
+  "OWL_MAGISTRATE_NORMAL": {
+   "total_fights": 27560,
+   "fights_with_copies": 0,
+   "copies_share": 0.0,
+   "max_instances": 1,
+   "max_total_monsters": 1,
+   "monsters": {
+    "OWL_MAGISTRATE": {
+     "1": 27560
+    }
+   }
+  },
+  "PHANTASMAL_GARDENERS_ELITE": {
+   "total_fights": 98376,
+   "fights_with_copies": 98376,
+   "copies_share": 1.0,
+   "max_instances": 4,
+   "max_total_monsters": 4,
+   "monsters": {
+    "PHANTASMAL_GARDENER": {
+     "4": 98376
+    }
+   }
+  },
+  "PHROG_PARASITE_ELITE": {
+   "total_fights": 102458,
+   "fights_with_copies": 0,
+   "copies_share": 0.0,
+   "max_instances": 1,
+   "max_total_monsters": 2,
+   "monsters": {
+    "PHROG_PARASITE": {
+     "1": 102458
+    },
+    "WRIGGLER": {
+     "1": 100829
+    }
+   }
+  },
+  "PUNCH_CONSTRUCT_NORMAL": {
+   "total_fights": 45165,
+   "fights_with_copies": 0,
+   "copies_share": 0.0,
+   "max_instances": 1,
+   "max_total_monsters": 1,
+   "monsters": {
+    "PUNCH_CONSTRUCT": {
+     "1": 45165
+    }
+   }
+  },
+  "PUNCH_OFF_EVENT_ENCOUNTER": {
+   "total_fights": 5821,
+   "fights_with_copies": 5821,
+   "copies_share": 1.0,
+   "max_instances": 2,
+   "max_total_monsters": 2,
+   "monsters": {
+    "PUNCH_CONSTRUCT": {
+     "2": 5821
+    }
+   }
+  },
+  "QUEEN_BOSS": {
+   "total_fights": 35338,
+   "fights_with_copies": 2,
+   "copies_share": 0.0001,
+   "max_instances": 2,
+   "max_total_monsters": 3,
+   "monsters": {
+    "QUEEN": {
+     "1": 35338
+    },
+    "TORCH_HEAD_AMALGAM": {
+     "1": 35336,
+     "2": 2
+    }
+   }
+  },
+  "RUBY_RAIDERS_NORMAL": {
+   "total_fights": 42443,
+   "fights_with_copies": 0,
+   "copies_share": 0.0,
+   "max_instances": 1,
+   "max_total_monsters": 3,
+   "monsters": {
+    "ASSASSIN_RUBY_RAIDER": {
+     "1": 25272
+    },
+    "AXE_RUBY_RAIDER": {
+     "1": 25363
+    },
+    "BRUTE_RUBY_RAIDER": {
+     "1": 25589
+    },
+    "CROSSBOW_RUBY_RAIDER": {
+     "1": 25572
+    },
+    "TRACKER_RUBY_RAIDER": {
+     "1": 25533
+    }
+   }
+  },
+  "SCROLLS_OF_BITING_NORMAL": {
+   "total_fights": 23949,
+   "fights_with_copies": 23949,
+   "copies_share": 1.0,
+   "max_instances": 4,
+   "max_total_monsters": 4,
+   "monsters": {
+    "SCROLL_OF_BITING": {
+     "4": 23949
+    }
+   }
+  },
+  "SCROLLS_OF_BITING_WEAK": {
+   "total_fights": 77019,
+   "fights_with_copies": 77019,
+   "copies_share": 1.0,
+   "max_instances": 4,
+   "max_total_monsters": 4,
+   "monsters": {
+    "SCROLL_OF_BITING": {
+     "3": 77018,
+     "4": 1
+    }
+   }
+  },
+  "SEAPUNK_NORMAL": {
+   "total_fights": 41591,
+   "fights_with_copies": 0,
+   "copies_share": 0.0,
+   "max_instances": 1,
+   "max_total_monsters": 2,
+   "monsters": {
+    "CALCIFIED_CULTIST": {
+     "1": 41591
+    },
+    "SEAPUNK": {
+     "1": 41580
+    }
+   }
+  },
+  "SEAPUNK_WEAK": {
+   "total_fights": 145794,
+   "fights_with_copies": 3,
+   "copies_share": 0.0,
+   "max_instances": 2,
+   "max_total_monsters": 2,
+   "monsters": {
+    "SEAPUNK": {
+     "1": 145791,
+     "2": 3
+    }
+   }
+  },
+  "SEWER_CLAM_NORMAL": {
+   "total_fights": 44911,
+   "fights_with_copies": 0,
+   "copies_share": 0.0,
+   "max_instances": 1,
+   "max_total_monsters": 1,
+   "monsters": {
+    "SEWER_CLAM": {
+     "1": 44911
+    }
+   }
+  },
+  "SHRINKER_BEETLE_WEAK": {
+   "total_fights": 154184,
+   "fights_with_copies": 3,
+   "copies_share": 0.0,
+   "max_instances": 2,
+   "max_total_monsters": 2,
+   "monsters": {
+    "SHRINKER_BEETLE": {
+     "1": 154181,
+     "2": 3
+    }
+   }
+  },
+  "SKULKING_COLONY_ELITE": {
+   "total_fights": 95986,
+   "fights_with_copies": 3,
+   "copies_share": 0.0,
+   "max_instances": 2,
+   "max_total_monsters": 2,
+   "monsters": {
+    "SKULKING_COLONY": {
+     "1": 95983,
+     "2": 3
+    }
+   }
+  },
+  "SLIMED_BERSERKER_NORMAL": {
+   "total_fights": 27514,
+   "fights_with_copies": 0,
+   "copies_share": 0.0,
+   "max_instances": 1,
+   "max_total_monsters": 1,
+   "monsters": {
+    "SLIMED_BERSERKER": {
+     "1": 27514
+    }
+   }
+  },
+  "SLIMES_NORMAL": {
+   "total_fights": 34692,
+   "fights_with_copies": 0,
+   "copies_share": 0.0,
+   "max_instances": 1,
+   "max_total_monsters": 4,
+   "monsters": {
+    "LEAF_SLIME_M": {
+     "1": 34692
+    },
+    "LEAF_SLIME_S": {
+     "1": 34692
+    },
+    "TWIG_SLIME_M": {
+     "1": 34692
+    },
+    "TWIG_SLIME_S": {
+     "1": 34692
+    }
+   }
+  },
+  "SLIMES_WEAK": {
+   "total_fights": 154761,
+   "fights_with_copies": 0,
+   "copies_share": 0.0,
+   "max_instances": 1,
+   "max_total_monsters": 4,
+   "monsters": {
+    "LEAF_SLIME_M": {
+     "1": 77552
+    },
+    "LEAF_SLIME_S": {
+     "1": 154761
+    },
+    "TWIG_SLIME_M": {
+     "1": 77212
+    },
+    "TWIG_SLIME_S": {
+     "1": 154761
+    }
+   }
+  },
+  "SLITHERING_STRANGLER_NORMAL": {
+   "total_fights": 40810,
+   "fights_with_copies": 6759,
+   "copies_share": 0.1656,
+   "max_instances": 2,
+   "max_total_monsters": 3,
+   "monsters": {
+    "LEAF_SLIME_M": {
+     "1": 6789
+    },
+    "LEAF_SLIME_S": {
+     "1": 6745,
+     "2": 3371
+    },
+    "SLITHERING_STRANGLER": {
+     "1": 40810
+    },
+    "SNAPPING_JAXFRUIT": {
+     "1": 13673
+    },
+    "TWIG_SLIME_M": {
+     "1": 6845
+    },
+    "TWIG_SLIME_S": {
+     "1": 6745,
+     "2": 3388
+    }
+   }
+  },
+  "SLUDGE_SPINNER_WEAK": {
+   "total_fights": 145323,
+   "fights_with_copies": 5,
+   "copies_share": 0.0,
+   "max_instances": 2,
+   "max_total_monsters": 2,
+   "monsters": {
+    "SLUDGE_SPINNER": {
+     "1": 145318,
+     "2": 5
+    }
+   }
+  },
+  "SLUMBERING_BEETLE_NORMAL": {
+   "total_fights": 49420,
+   "fights_with_copies": 1,
+   "copies_share": 0.0,
+   "max_instances": 2,
+   "max_total_monsters": 4,
+   "monsters": {
+    "BOWLBUG_ROCK": {
+     "1": 49420
+    },
+    "BOWLBUG_SILK": {
+     "1": 49419,
+     "2": 1
+    },
+    "SLUMBERING_BEETLE": {
+     "1": 49420
+    }
+   }
+  },
+  "SNAPPING_JAXFRUIT_NORMAL": {
+   "total_fights": 38401,
+   "fights_with_copies": 0,
+   "copies_share": 0.0,
+   "max_instances": 1,
+   "max_total_monsters": 2,
+   "monsters": {
+    "FLYCONID": {
+     "1": 38401
+    },
+    "SNAPPING_JAXFRUIT": {
+     "1": 38401
+    }
+   }
+  },
+  "SOUL_FYSH_BOSS": {
+   "total_fights": 49406,
+   "fights_with_copies": 0,
+   "copies_share": 0.0,
+   "max_instances": 1,
+   "max_total_monsters": 1,
+   "monsters": {
+    "SOUL_FYSH": {
+     "1": 49406
+    }
+   }
+  },
+  "SOUL_NEXUS_ELITE": {
+   "total_fights": 50351,
+   "fights_with_copies": 1,
+   "copies_share": 0.0,
+   "max_instances": 2,
+   "max_total_monsters": 2,
+   "monsters": {
+    "SOUL_NEXUS": {
+     "1": 50350,
+     "2": 1
+    }
+   }
+  },
+  "SPINY_TOAD_NORMAL": {
+   "total_fights": 58741,
+   "fights_with_copies": 0,
+   "copies_share": 0.0,
+   "max_instances": 1,
+   "max_total_monsters": 1,
+   "monsters": {
+    "SPINY_TOAD": {
+     "1": 58741
+    }
+   }
+  },
+  "TERROR_EEL_ELITE": {
+   "total_fights": 98420,
+   "fights_with_copies": 2,
+   "copies_share": 0.0,
+   "max_instances": 2,
+   "max_total_monsters": 2,
+   "monsters": {
+    "TERROR_EEL": {
+     "1": 98418,
+     "2": 2
+    }
+   }
+  },
+  "TEST_SUBJECT_BOSS": {
+   "total_fights": 35747,
+   "fights_with_copies": 0,
+   "copies_share": 0.0,
+   "max_instances": 1,
+   "max_total_monsters": 1,
+   "monsters": {
+    "TEST_SUBJECT": {
+     "1": 35747
+    }
+   }
+  },
+  "THE_INSATIABLE_BOSS": {
+   "total_fights": 52993,
+   "fights_with_copies": 0,
+   "copies_share": 0.0,
+   "max_instances": 1,
+   "max_total_monsters": 1,
+   "monsters": {
+    "THE_INSATIABLE": {
+     "1": 52993
+    }
+   }
+  },
+  "THE_KIN_BOSS": {
+   "total_fights": 50431,
+   "fights_with_copies": 50420,
+   "copies_share": 0.9998,
+   "max_instances": 2,
+   "max_total_monsters": 3,
+   "monsters": {
+    "KIN_FOLLOWER": {
+     "1": 11,
+     "2": 50420
+    },
+    "KIN_PRIEST": {
+     "1": 50431
+    }
+   }
+  },
+  "THE_LOST_AND_FORGOTTEN_NORMAL": {
+   "total_fights": 27851,
+   "fights_with_copies": 0,
+   "copies_share": 0.0,
+   "max_instances": 1,
+   "max_total_monsters": 2,
+   "monsters": {
+    "THE_FORGOTTEN": {
+     "1": 27851
+    },
+    "THE_LOST": {
+     "1": 27851
+    }
+   }
+  },
+  "THE_OBSCURA_NORMAL": {
+   "total_fights": 58790,
+   "fights_with_copies": 0,
+   "copies_share": 0.0,
+   "max_instances": 1,
+   "max_total_monsters": 2,
+   "monsters": {
+    "PARAFRIGHT": {
+     "1": 58234
+    },
+    "THE_OBSCURA": {
+     "1": 58790
+    }
+   }
+  },
+  "THIEVING_HOPPER_WEAK": {
+   "total_fights": 118021,
+   "fights_with_copies": 1,
+   "copies_share": 0.0,
+   "max_instances": 2,
+   "max_total_monsters": 2,
+   "monsters": {
+    "THIEVING_HOPPER": {
+     "1": 118020,
+     "2": 1
+    }
+   }
+  },
+  "TOADPOLES_WEAK": {
+   "total_fights": 146181,
+   "fights_with_copies": 146181,
+   "copies_share": 1.0,
+   "max_instances": 3,
+   "max_total_monsters": 3,
+   "monsters": {
+    "TOADPOLE": {
+     "2": 146178,
+     "3": 3
+    }
+   }
+  },
+  "TUNNELER_NORMAL": {
+   "total_fights": 10,
+   "fights_with_copies": 0,
+   "copies_share": 0.0,
+   "max_instances": 1,
+   "max_total_monsters": 2,
+   "monsters": {
+    "CHOMPER": {
+     "1": 2
+    },
+    "TUNNELER": {
+     "1": 10
+    }
+   }
+  },
+  "TUNNELER_WEAK": {
+   "total_fights": 118211,
+   "fights_with_copies": 1,
+   "copies_share": 0.0,
+   "max_instances": 2,
+   "max_total_monsters": 2,
+   "monsters": {
+    "TUNNELER": {
+     "1": 118210,
+     "2": 1
+    }
+   }
+  },
+  "TURRET_OPERATOR_WEAK": {
+   "total_fights": 77281,
+   "fights_with_copies": 1,
+   "copies_share": 0.0,
+   "max_instances": 2,
+   "max_total_monsters": 3,
+   "monsters": {
+    "LIVING_SHIELD": {
+     "1": 77280,
+     "2": 1
+    },
+    "TURRET_OPERATOR": {
+     "1": 77281
+    }
+   }
+  },
+  "TWO_TAILED_RATS_NORMAL": {
+   "total_fights": 45013,
+   "fights_with_copies": 45013,
+   "copies_share": 1.0,
+   "max_instances": 4,
+   "max_total_monsters": 4,
+   "monsters": {
+    "TWO_TAILED_RAT": {
+     "3": 45012,
+     "4": 1
+    }
+   }
+  },
+  "VANTOM_BOSS": {
+   "total_fights": 50708,
+   "fights_with_copies": 0,
+   "copies_share": 0.0,
+   "max_instances": 1,
+   "max_total_monsters": 1,
+   "monsters": {
+    "VANTOM": {
+     "1": 50708
+    }
+   }
+  },
+  "VINE_SHAMBLER_NORMAL": {
+   "total_fights": 40996,
+   "fights_with_copies": 0,
+   "copies_share": 0.0,
+   "max_instances": 1,
+   "max_total_monsters": 1,
+   "monsters": {
+    "VINE_SHAMBLER": {
+     "1": 40996
+    }
+   }
+  },
+  "WATERFALL_GIANT_BOSS": {
+   "total_fights": 49085,
+   "fights_with_copies": 0,
+   "copies_share": 0.0,
+   "max_instances": 1,
+   "max_total_monsters": 1,
+   "monsters": {
+    "WATERFALL_GIANT": {
+     "1": 49085
+    }
+   }
+  }
+ }
+}
