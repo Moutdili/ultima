@@ -39,7 +39,11 @@ public sealed record CardEffect(
     IReadOnlyDictionary<string, int> Vars,
     IReadOnlyList<string> Keywords)
 {
-    /// <summary>Nombre de coups (1 si la source ne le précise pas).</summary>
+    /// <summary>
+    /// Nombre de coups de base (1 si la source ne le précise pas). L'amélioration n'est pas
+    /// repliée ici : <c>upgrade.repeat</c> (+1 sur 10 cartes) compte des répétitions d'effet, pas
+    /// toujours des coups — le JSON brut le porte, ce record non.
+    /// </summary>
     public int Hits => HitCount ?? 1;
 
     /// <summary>

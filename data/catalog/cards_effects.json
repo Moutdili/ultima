@@ -9,7 +9,7 @@
   "damage_up": "valeur APRÈS amélioration : damage_base + delta upgrade.damage s'il existe, sinon damage_base (l'amélioration ne touche pas les dégâts) ; null si la base est null.",
   "block_base": "bloc gagné (`block` de l'API). null = la carte ne donne pas de bloc.",
   "block_up": "block_base + delta upgrade.block s'il existe, sinon block_base ; null si la base est null.",
-  "hits": "`hit_count` brut : nombre de coups. null = non fourni par l'API (coup unique implicite ou X fois).",
+  "hits": "`hit_count` brut : nombre de coups. null = non fourni par l'API (coup unique implicite ou X fois). N'est PAS majoré par l'amélioration : 10 cartes portent upgrade.repeat '+1' (répétitions de l'effet, pas toujours des coups) — voir upgrade.",
   "draw_base": "cartes piochées (`cards_draw`). null = la carte ne pioche pas.",
   "draw_up": "draw_base + delta upgrade.cards s'il existe, sinon draw_base ; null si la base est null.",
   "energy_base": "énergie gagnée (`energy_gain`). null = la carte ne rend pas d'énergie.",
