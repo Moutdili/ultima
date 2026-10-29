@@ -1,0 +1,10 @@
+#!/usr/bin/python3
+"""ULTIMA — fenêtre compagnon. Usage : ultima-companion [--check | --paths | --version]"""
+import os
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.realpath(__file__)))
+
+from ultima_companion.app import main  # noqa: E402
+
+sys.exit(main())

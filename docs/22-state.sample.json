@@ -168,7 +168,8 @@
               "source": "exemple"
             }
           ],
-          "confidence": "medium"
+          "confidence": "medium",
+          "grade": "B"
         }
       }
     ],
@@ -235,7 +236,8 @@
               "source": "24 or sur 116"
             }
           ],
-          "confidence": "medium"
+          "confidence": "medium",
+          "grade": "A"
         }
       },
       {
@@ -270,7 +272,8 @@
           "source": "malédiction injouable"
         }
       ],
-      "confidence": "medium"
+      "confidence": "medium",
+      "grade": "B"
     }
   },
   "paths": null,
@@ -294,7 +297,8 @@
           "source": "exemple"
         }
       ],
-      "confidence": "low"
+      "confidence": "low",
+      "grade": "C"
     },
     "archetype": null,
     "potentialArchetypes": [

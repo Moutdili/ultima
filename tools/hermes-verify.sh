@@ -29,7 +29,7 @@ fi
 say "3. CHAMPS INTERDITS (probabiliste seulement)"
 # Le moteur ne doit jamais lire les séquences pré-tirées ni les cotes cachées.
 HITS=$(grep -rInE 'normal_encounter_ids|elite_encounter_ids|event_ids|relic_grab_bag|shared_relic_grab_bag|\brng\b|\bodds\b' \
-        Ultima.Engine/Scoring Ultima.Engine/Paths 2>/dev/null | grep -v '^\s*//' || true)
+        Ultima.Engine/Scoring Ultima.Engine/Paths 2>/dev/null | grep -vE ':[0-9]+:[[:space:]]*///' || true)
 if [ -z "$HITS" ]; then ok "aucun champ interdit"; else ko "champ interdit trouvé"; echo "$HITS"; fi
 
 say "4. STUBS / TODO restants dans la zone CALCUL"

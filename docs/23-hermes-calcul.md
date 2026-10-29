@@ -58,7 +58,11 @@ Le daemon (chef) appelle tes classes ; tant qu'elles n'existent pas, il publie d
 1. **Probabiliste seulement** (Mio) : n'utilise JAMAIS les séquences pré-tirées (`*_encounter_ids`,
    `event_ids`), `rng`, `odds`, sacs de reliques, ni le boss/la variante des actes futurs. Tes
    entrées ne contiennent que ce que le joueur voit — n'en ajoute pas.
-2. **Score explicable** : `Total` 0-100 = somme bornée de `ScoreTerm` nommés, chacun avec sa
+2. **Notation S à F** (décision Mio) : `Score.Grade` est dérivé de `Total` par `Grades.FromTotal`
+   (S ≥ 85, A ≥ 70, B ≥ 55, C ≥ 40, D ≥ 25, F < 25) — **calibre tes Total sur cette échelle**
+   (alignée sur les tiers de `data/meta` : S≈90, A≈75, B≈60, C≈45, D≈30). Une pondération qui
+   comprime tout en C/D est un bug. Ajoute un test de distribution sur les cartes du catalogue.
+2bis. **Score explicable** : `Total` 0-100 = somme bornée de `ScoreTerm` nommés, chacun avec sa
    `Source` (« Spire Codex v0.107.1 n=42 259 », « tes 247 runs », « synergie poison : 5 cartes »).
    Aucun nombre magique. `Confidence` = high | medium | low selon la taille d'échantillon.
 3. **Les sources de méta se contredisent** (ρ 0,19-0,44) : garde le détail par source dans les termes.
@@ -102,6 +106,8 @@ Le daemon (chef) appelle tes classes ; tant qu'elles n'existent pas, il publie d
 - [ ] **S5** `ScoreRelic` : méta + synergie deck/personnage.
 - [ ] **S6** `EvaluateDeck` : note du deck vs reliques et boss de l'acte, archétype probable,
       archétypes potentiels (`archetypes.json`), liste des malédictions.
+- [ ] **S6bis** `ScorePotion` (ajout contrat v1.1, implémentation par défaut `null`) : potions possédées,
+      quand les garder/utiliser (vs boss de l'acte).
 - [ ] **S7** Validation : 10 situations réelles tirées de l'historique, notées par Mio → corrélation.
 
 ### Chemins (`Ultima.Engine/Paths/`)

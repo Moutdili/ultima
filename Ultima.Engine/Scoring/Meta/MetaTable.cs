@@ -60,7 +60,16 @@ public sealed class MetaTable : IMetaTable
     {
         var dir = ScoringData.ResolveMetaDir(metaDir);
         var localDir = Path.Combine(dir, "local");
-        var source = File.Exists(Path.Combine(localDir, "card_tiers.json")) ? localDir : dir;
+
+        // Repli FICHIER PAR FICHIER : Mio a un local/ partiel (card_tiers + relic_tiers seulement,
+        // notes sous licence). Choisir local/ en bloc laissait archetypes.json introuvable.
+        string Pick(string name)
+        {
+            var local = Path.Combine(localDir, name);
+            return File.Exists(local) ? local : Path.Combine(dir, name);
+        }
+
+        string source = File.Exists(Path.Combine(localDir, "card_tiers.json")) ? localDir : dir;
 
         var cards = new Dictionary<string, MetaEntry>(StringComparer.OrdinalIgnoreCase);
         var relics = new Dictionary<string, MetaEntry>(StringComparer.OrdinalIgnoreCase);
@@ -70,12 +79,12 @@ public sealed class MetaTable : IMetaTable
         string? generated = null, patch = null;
         double? skipRate = null, skipElo = null;
 
-        var cardPath = Path.Combine(source, "card_tiers.json");
+        var cardPath = Pick("card_tiers.json");
         if (File.Exists(cardPath))
         {
             using var doc = JsonDocument.Parse(File.ReadAllBytes(cardPath));
             var root = doc.RootElement;
-            variant = Str(root, "variant") ?? "public";
+            variant = Str(root, "variant") ?? (source == localDir ? "full" : "public");
             generated = Str(root, "generated");
             patch = Str(root, "patch_target");
 
@@ -89,7 +98,7 @@ public sealed class MetaTable : IMetaTable
             ReadGroups(root, "characters", cards);
         }
 
-        var relicPath = Path.Combine(source, "relic_tiers.json");
+        var relicPath = Pick("relic_tiers.json");
         if (File.Exists(relicPath))
         {
             using var doc = JsonDocument.Parse(File.ReadAllBytes(relicPath));
@@ -99,7 +108,7 @@ public sealed class MetaTable : IMetaTable
             ReadGroups(root, "groups", relics);
         }
 
-        var archPath = Path.Combine(source, "archetypes.json");
+        var archPath = Pick("archetypes.json");
         if (File.Exists(archPath))
         {
             using var doc = JsonDocument.Parse(File.ReadAllBytes(archPath));

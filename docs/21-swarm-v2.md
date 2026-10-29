@@ -146,6 +146,9 @@ Vague 2
 
 ## 6. Protocoles
 
+- **Attribution Git (décision Mio, 2026-10-29)** : l'auteur de chaque commit est **Mio**
+  (`Mio <mio@hermes-bot.local>`) ; AUCUNE ligne `Co-Authored-By`, aucune mention de Claude ou
+  d'Anthropic dans les messages de commit ni dans les prompts système des agents.
 - **Git** : une branche par agent (`v2/<rôle>`), worktree dédié ; seul le chef merge dans `main`.
   **Hermes** (décision de Mio) : libre sur main. Le chef fait `git pull --ff-only` avant chaque
   push, ne touche jamais aux fichiers que Hermes a en cours, et le signale dans `STATUS.md`.
