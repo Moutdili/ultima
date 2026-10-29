@@ -1,0 +1,29 @@
+{
+ "schema": "ultima.relic_curses/1",
+ "source": "data/catalog/relics.json (description_fr + tag « curse ») croisé avec final.rel / final.deck du corpus d'explosivité (50 000 victoires + 50 000 défaites)",
+ "method": "co-occurrence mesurée : part des runs portant la relique dont le deck final contient la malédiction citée",
+ "generated_by": "vérification manuelle + corpus, voir docs/35-curses-statuts.md §4 et status/hermes-s25.md",
+ "caveat": "Aucune entrée n'est déduite d'un nom. Seules les correspondances vérifiées à 100 % sur le corpus sont chiffrées ; les reliques à malédictions aléatoires sont listées dans « rejected » avec la raison.",
+ "entries": [
+  {
+   "relic": "CALLING_BELL",
+   "curse": "CURSE_OF_THE_BELL",
+   "count": 1,
+   "evidence": "1 623 runs sur 1 623 portant Cloche d'appel ont Curse of the Bell dans le deck final (100 %) ; 1 623 des 1 640 runs contenant cette malédiction (99,0 %) portent la relique — correspondance mesurée, pas déduite"
+  }
+ ],
+ "rejected": [
+  {
+   "relic": "NEOWS_BONES",
+   "reason": "« {Curses} Malédictions aléatoires » : aucune carte fixe. 79,6 % des 5 681 runs portant la relique ont au moins une malédiction, mais ASCENDERS_BANE (55,2 %) vient du palier A5+ et non de la relique : aucune correspondance prouvable, donc aucun prix."
+  },
+  {
+   "relic": "SERE_TALON",
+   "reason": "Malédictions aléatoires également (2,37 malédiction par run contre 1,35 pour Osselets de Neow) : aucune carte identifiable, donc non chiffrée."
+  },
+  {
+   "relic": "DARKSTONE_PERIAPT",
+   "reason": "Ne donne pas de malédiction : elle augmente les PV max quand on en obtient une. Le tag « curse » décrit un bénéfice, pas un coût — exclue."
+  }
+ ]
+}

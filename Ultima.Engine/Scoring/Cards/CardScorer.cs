@@ -1,6 +1,7 @@
 using System.Collections.Concurrent;
 using System.Runtime.CompilerServices;
 using Ultima.Engine.Contracts;
+using Ultima.Engine.Scoring.Curses;
 using Ultima.Engine.Scoring.Model;
 using Ultima.Engine.Scoring.Personal;
 using Ultima.Engine.Scoring.Strength;
@@ -14,7 +15,11 @@ namespace Ultima.Engine.Scoring.Cards;
 /// <list type="bullet">
 ///   <item><b>Méta communautaire</b> : round(consensus × 0.55), source <see cref="SourceLabel"/> ;</item>
 ///   <item><b>Enchantement</b> : +3 + min(2, amount) ;</item>
-///   <item><b>Malédiction</b> : −30 ;</item>
+///   <item><b>Malédiction (impact mesuré)</b> : <see cref="CurseScorer.Penalty"/> — dérivée de la
+///         toxicité mesurée sur 63 634 runs (docs/35), p. ex. −25 pour Poor Sleep, −17 pour
+///         Injury, −14 pour Clumsy ; −12 explicite pour une malédiction sans mesure ; −6
+///         forfaitaire pour un statut. Remplace le −30 fixe, qui ne distinguait pas une
+///         malédiction mortelle d'une malédiction quasi neutre ;</item>
 ///   <item><b>Historique perso</b> : clamp(round(delta × 40), −8, +8), seulement si ≥5 runs des deux côtés ;</item>
 ///   <item><b>Fit au deck (ΔG)</b> : clamp(round(2·ΔG), −20, +20), ΔG = G(deck+carte) − G(deck)
 ///         (docs/27 §3 couche L1 et §7bis) — c'est le terme qui fait remonter une carte médiocre
@@ -114,15 +119,17 @@ public sealed class CardScorer
     private readonly SynergyEngine _synergy;
     private readonly PlayerStrengthCalculator _strength;
     private readonly CardEffects _effects;
+    private readonly CurseScorer _curses;
 
     public CardScorer(IMetaTable meta, IPersonalStats personal, SynergyEngine synergy,
-        PlayerStrengthCalculator? strength = null, CardEffects? effects = null)
+        PlayerStrengthCalculator? strength = null, CardEffects? effects = null, CurseScorer? curses = null)
     {
         _meta = meta;
         _personal = personal;
         _synergy = synergy;
         _strength = strength ?? LazyStrength.Value;
         _effects = effects ?? CardEffects.Default;
+        _curses = curses ?? CurseScorer.Default;
     }
 
     public Score ScoreCard(CardInstance card, ScoringContext ctx) => ScoreCard(card, ctx, includeNeed: true);
@@ -153,8 +160,11 @@ public sealed class CardScorer
         if (card.Enchantment != null)
             b.Add($"Enchantement {card.Enchantment.Id}", 3 + Math.Min(2, card.Enchantment.Amount), "enchantement");
 
-        if (IsCurse(meta))
-            b.Add("Malédiction", -30, meta!.DisplayName);
+        // Malédiction : pénalité dérivée de l'impact mesuré (docs/35), plus de −30 forfaitaire.
+        // La détection passe par le catalogue du jeu, car la méta publique ne note pas les
+        // malédictions (0 entrée « Curse » dans card_tiers.json) : sans ça, le terme ne
+        // s'appliquait jamais à une vraie malédiction.
+        if (_curses.Term(card.Id, _meta) is { } curse) b.Add(curse);
 
         var stats = _personal.Card(card.Id);
         if (stats?.WinRateDelta is double delta)
@@ -433,6 +443,11 @@ public sealed class CardScorer
             $"deck courant : {verdict}");
     }
 
+    /// <summary>
+    /// Vrai si l'entrée méta décrit une malédiction (Type/Rarity « Curse »). Conservé pour les
+    /// appelants qui n'ont que la méta ; le <b>score</b>, lui, passe par <see cref="CurseScorer"/>,
+    /// qui consulte aussi le catalogue du jeu (la méta publique ne note aucune malédiction).
+    /// </summary>
     internal static bool IsCurse(MetaEntry? meta) =>
         meta != null && ((meta.Type ?? "").Contains("Curse", StringComparison.OrdinalIgnoreCase)
                          || (meta.Rarity ?? "").Contains("Curse", StringComparison.OrdinalIgnoreCase));

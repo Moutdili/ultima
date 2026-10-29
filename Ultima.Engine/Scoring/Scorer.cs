@@ -22,9 +22,17 @@ public sealed class Scorer : IScorer
     private readonly ShopScorer _shop;
     private readonly DeckEvaluator _deck;
     private readonly PotionScorer _potions;
+    private readonly RemovalAdvisor _removal;
 
     public IMetaTable Meta { get; }
     public IPersonalStats Personal { get; }
+
+    /// <summary>
+    /// Conseiller de retrait (docs/35) : classe les cartes du deck par gain de G après retrait,
+    /// malédictions comprises, et compare ce gain au prix (75 or, 100 à A6+). Hors contrat
+    /// <c>IScorer</c> (figé) : ajout additif pour l'UI et les tests.
+    /// </summary>
+    public RemovalAdvisor Removal => _removal;
 
     public Scorer(IMetaTable? meta = null, IPersonalStats? personal = null)
     {
@@ -37,6 +45,7 @@ public sealed class Scorer : IScorer
         _shop = new ShopScorer(_cards, _relics);
         _deck = new DeckEvaluator(Meta, _cards);
         _potions = new PotionScorer(PotionCatalog.Load());
+        _removal = new RemovalAdvisor(meta: Meta);
     }
 
     public Score ScoreCard(CardInstance card, ScoringContext ctx) => _cards.ScoreCard(card, ctx);
@@ -45,6 +54,13 @@ public sealed class Scorer : IScorer
         _cards.ScoreSkip(offered, ctx);
 
     public Score ScoreRelic(string relicId, ScoringContext ctx) => _relics.Score(relicId, ctx);
+
+    /// <summary>
+    /// Valeur nette d'une relique qui impose une malédiction (docs/35 §4) — hors contrat figé,
+    /// additif. <paramref name="includeRemovalCost"/> ajoute le prix du retrait (75/100 or selon A6).
+    /// </summary>
+    public RelicNetValue ScoreRelicNet(string relicId, ScoringContext ctx, bool includeRemovalCost = false) =>
+        _relics.NetValue(relicId, ctx, includeRemovalCost);
 
     public Score ScoreShopItem(string kind, string id, int price, ScoringContext ctx) =>
         _shop.Score(kind, id, price, ctx);
