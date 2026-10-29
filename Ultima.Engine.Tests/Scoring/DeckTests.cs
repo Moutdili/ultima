@@ -228,13 +228,21 @@ public sealed class DeckTests
 
         Evaluator.Evaluate(ctx); // chauffe : chargement lazy des catalogues (data/catalog)
 
-        const int iterations = 20;
-        var sw = Stopwatch.StartNew();
-        for (int i = 0; i < iterations; i++) Evaluator.Evaluate(ctx);
-        sw.Stop();
+        // Mesure ROBUSTE : le minimum par lot de 20 appels, sur 5 lots. Une moyenne unique est
+        // sensible à une pause GC / au scheduler (test instable en CI ou pendant un build
+        // parallèle) ; le minimum, non. Le seuil garde son sens : une régression O(n²) ralentit
+        // tous les lots, pas un seul.
+        const int iterations = 20, batches = 5;
+        double best = double.MaxValue;
+        for (int b = 0; b < batches; b++)
+        {
+            var sw = Stopwatch.StartNew();
+            for (int i = 0; i < iterations; i++) Evaluator.Evaluate(ctx);
+            sw.Stop();
+            best = Math.Min(best, sw.Elapsed.TotalMilliseconds / iterations);
+        }
 
-        double perCall = sw.Elapsed.TotalMilliseconds / iterations;
-        Assert.True(perCall < 5.0, $"attendu < 5 ms par appel sur 60 cartes, mesuré {perCall:0.###} ms");
+        Assert.True(best < 5.0, $"attendu < 5 ms par appel sur 60 cartes, mesuré {best:0.###} ms");
         Assert.InRange(Evaluator.Evaluate(ctx).Score.Total, 0, 100);
     }
 

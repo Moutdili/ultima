@@ -1,5 +1,6 @@
 {
- "source_root": "/home/mio/sts2/game/pck/src/Core",
+ "source_root": "game/pck/src/Core",
+ "source_root_note": "relatif a la racine du depot (jeu decompile, non commite)",
  "cards": 578,
  "cards_by_type": {
   "Power": 111,
