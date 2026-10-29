@@ -1,0 +1,1384 @@
+[INFO] Preloading 'Event Room' assets... count=2 vfx=0
+[INFO] Preloading 'Event Room' Complete: assets=2 time_elapsed=223ms
+[INFO] Player 70000000000000002 selected card reward
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 1 coord: (3, 1))
+[INFO] Player 70000000000000002 selected card reward
+[INFO] Player 70000000000000002 selected card reward
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 1 coord: (3, 1))
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 1 coord: (3, 1))
+[INFO] Preloading 'Combat Room' assets... count=10 vfx=0
+[INFO] Preloading 'Combat Room' Complete: assets=10 time_elapsed=94ms
+[INFO] Creating NCombatRoom with mode=ActiveCombat encounter=SEAPUNK_WEAK.
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Player 70000000000000002 selected card reward
+[INFO] Player 70000000000000001 selected card reward
+[INFO] Player 70000000000000003 selected card reward
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 1 coord: (3, 2))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 1 coord: (3, 2))
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 1 coord: (3, 2))
+[INFO] Preloading 'Event Room' assets... count=2 vfx=0
+[INFO] Preloading 'Event Room' Complete: assets=2 time_elapsed=48ms
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 1 coord: (2, 3))
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 1 coord: (2, 3))
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 1 coord: (2, 3))
+[INFO] Preloading 'Event Room' assets... count=1 vfx=1
+[INFO] Preloading 'Event Room' Complete: assets=2 time_elapsed=77ms
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 1 coord: (1, 4))
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 1 coord: (1, 4))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 1 coord: (1, 4))
+[INFO] Preloading 'Combat Room' assets... count=9 vfx=0
+[INFO] Preloading 'Combat Room' Complete: assets=9 time_elapsed=85ms
+[INFO] Creating NCombatRoom with mode=ActiveCombat encounter=TOADPOLES_WEAK.
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Player 70000000000000002 selected card reward
+[INFO] Player 70000000000000001 selected card reward
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 1 coord: (0, 5))
+[INFO] Player 70000000000000003 selected card reward
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 1 coord: (0, 5))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 1 coord: (0, 5))
+[INFO] Preloading 'Event Room' assets... count=2 vfx=1
+[INFO] Preloading 'Event Room' Complete: assets=3 time_elapsed=60ms
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 1 coord: (1, 6))
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 1 coord: (1, 6))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 1 coord: (1, 6))
+[INFO] Preloading 'RestSite Room' assets... count=4 vfx=2
+[INFO] Preloading 'RestSite Room' Complete: assets=6 time_elapsed=305ms
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Player 70000000000000002 selected card reward
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 1 coord: (1, 7))
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 1 coord: (1, 7))
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 1 coord: (1, 7))
+[INFO] Preloading 'Combat Room' assets... count=9 vfx=0
+[INFO] Preloading 'Combat Room' Complete: assets=9 time_elapsed=80ms
+[INFO] Creating NCombatRoom with mode=ActiveCombat encounter=CORPSE_SLUGS_WEAK.
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Player 70000000000000002 selected card reward
+[INFO] Player 70000000000000001 selected card reward
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 1 coord: (0, 8))
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 1 coord: (0, 8))
+[INFO] Player 70000000000000003 selected card reward
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 1 coord: (0, 8))
+[INFO] Preloading 'Treasure Room' assets... count=2 vfx=0
+[INFO] Preloading 'Treasure Room' Complete: assets=2 time_elapsed=59ms
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 1 coord: (0, 9))
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 1 coord: (0, 9))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 1 coord: (0, 9))
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Preloading 'Merchant Room' assets... count=1 vfx=0
+[INFO] Preloading 'Merchant Room' Complete: assets=1 time_elapsed=217ms
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 1 coord: (0, 10))
+[INFO] Player 70000000000000003 selected card reward
+[INFO] Player 70000000000000003 selected card reward
+[INFO] Player 70000000000000003 selected card reward
+[INFO] Player 70000000000000003 selected card reward
+[INFO] Player 70000000000000003 selected card reward
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 1 coord: (0, 10))
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 1 coord: (0, 10))
+[INFO] Preloading 'Combat Room' assets... count=11 vfx=0
+[INFO] Preloading 'Combat Room' Complete: assets=11 time_elapsed=144ms
+[INFO] Creating NCombatRoom with mode=ActiveCombat encounter=TERROR_EEL_ELITE.
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Player 70000000000000001 selected card reward
+[INFO] Player 70000000000000003 selected card reward
+[INFO] Player 70000000000000002 selected card reward
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 1 coord: (0, 11))
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 1 coord: (0, 11))
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 1 coord: (0, 11))
+[INFO] Preloading 'RestSite Room' assets... count=4 vfx=2
+[INFO] Preloading 'RestSite Room' Complete: assets=6 time_elapsed=170ms
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Player 70000000000000002 selected card reward
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 1 coord: (0, 12))
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 1 coord: (0, 12))
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 1 coord: (0, 12))
+[INFO] Preloading 'Combat Room' assets... count=9 vfx=0
+[INFO] Preloading 'Combat Room' Complete: assets=9 time_elapsed=86ms
+[INFO] Creating NCombatRoom with mode=ActiveCombat encounter=SKULKING_COLONY_ELITE.
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Player 70000000000000001 selected card reward
+[INFO] Player 70000000000000002 selected card reward
+[INFO] Player 70000000000000003 selected card reward
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 1 coord: (0, 13))
+[INFO] Player vote changed for 70000000000000001: MapVote (gen: 1 coord: (0, 13))->MapVote (gen: 1 coord: (1, 13))
+[INFO] Player vote changed for 70000000000000001: MapVote (gen: 1 coord: (1, 13))->MapVote (gen: 1 coord: (0, 13))
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 1 coord: (0, 13))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 1 coord: (0, 13))
+[INFO] Preloading 'Combat Room' assets... count=9 vfx=0
+[INFO] Preloading 'Combat Room' Complete: assets=9 time_elapsed=31ms
+[INFO] Creating NCombatRoom with mode=ActiveCombat encounter=TWO_TAILED_RATS_NORMAL.
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Player 70000000000000002 selected card reward
+[INFO] Player 70000000000000001 selected card reward
+[INFO] Player 70000000000000003 selected card reward
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 1 coord: (0, 14))
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 1 coord: (0, 14))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 1 coord: (0, 14))
+[INFO] Preloading 'RestSite Room' assets... count=4 vfx=2
+[INFO] Preloading 'RestSite Room' Complete: assets=6 time_elapsed=137ms
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Player 70000000000000002 selected card reward
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 1 coord: (3, 15))
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 1 coord: (3, 15))
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 1 coord: (3, 15))
+[INFO] Preloading 'Combat Room' assets... count=9 vfx=0
+[INFO] Preloading 'Combat Room' Complete: assets=9 time_elapsed=247ms
+[INFO] Creating NCombatRoom with mode=ActiveCombat encounter=WATERFALL_GIANT_BOSS.
+[INFO] Preloading 'Combat Room' assets... count=9 vfx=0
+[INFO] Preloading 'Combat Room' Complete: assets=9 time_elapsed=258ms
+[INFO] Creating NCombatRoom with mode=ActiveCombat encounter=WATERFALL_GIANT_BOSS.
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Player 70000000000000001 selected card reward
+[INFO] Player 70000000000000002 selected card reward
+[INFO] Player 70000000000000003 selected card reward
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 2 coord: (3, 0))
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 2 coord: (3, 0))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 2 coord: (3, 0))
+[INFO] Preloading 'Event Room' assets... count=3 vfx=0
+[INFO] Preloading 'Event Room' Complete: assets=3 time_elapsed=145ms
+[INFO] Player 70000000000000003 selected card reward
+[INFO] Player 70000000000000003 selected card reward
+[INFO] Player 70000000000000003 selected card reward
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 2 coord: (0, 1))
+[INFO] Player 70000000000000003 selected card reward
+[INFO] Player 70000000000000003 selected card reward
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 2 coord: (0, 1))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 2 coord: (0, 1))
+[INFO] Preloading 'Combat Room' assets... count=10 vfx=0
+[INFO] Preloading 'Combat Room' Complete: assets=10 time_elapsed=151ms
+[INFO] Creating NCombatRoom with mode=ActiveCombat encounter=THIEVING_HOPPER_WEAK.
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Player 70000000000000003 selected card reward
+[INFO] Player 70000000000000001 selected card reward
+[INFO] Player 70000000000000002 selected card reward
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 2 coord: (0, 2))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 2 coord: (0, 2))
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 2 coord: (0, 2))
+[INFO] Preloading 'Event Room' assets... count=2 vfx=1
+[INFO] Preloading 'Event Room' Complete: assets=3 time_elapsed=131ms
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 2 coord: (0, 3))
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 2 coord: (0, 3))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 2 coord: (0, 3))
+[INFO] Preloading 'Event Room' assets... count=1 vfx=1
+[INFO] Preloading 'Event Room' Complete: assets=2 time_elapsed=121ms
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 2 coord: (0, 4))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 2 coord: (0, 4))
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 2 coord: (0, 4))
+[INFO] Preloading 'Treasure Room' assets... count=2 vfx=0
+[INFO] Preloading 'Treasure Room' Complete: assets=2 time_elapsed=50ms
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 2 coord: (0, 5))
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 2 coord: (0, 5))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 2 coord: (0, 5))
+[INFO] Preloading 'Combat Room' assets... count=11 vfx=0
+[INFO] Preloading 'Combat Room' Complete: assets=11 time_elapsed=102ms
+[INFO] Creating NCombatRoom with mode=ActiveCombat encounter=BOWLBUGS_WEAK.
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Player 70000000000000001 selected card reward
+[INFO] Player 70000000000000002 selected card reward
+[INFO] Player 70000000000000003 selected card reward
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 2 coord: (0, 6))
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 2 coord: (0, 6))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 2 coord: (0, 6))
+[INFO] Preloading 'RestSite Room' assets... count=4 vfx=2
+[INFO] Preloading 'RestSite Room' Complete: assets=6 time_elapsed=167ms
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 2 coord: (1, 7))
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 2 coord: (1, 7))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 2 coord: (1, 7))
+[INFO] Preloading 'Treasure Room' assets... count=2 vfx=0
+[INFO] Preloading 'Treasure Room' Complete: assets=2 time_elapsed=39ms
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 2 coord: (2, 8))
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 2 coord: (2, 8))
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 2 coord: (2, 8))
+[INFO] Preloading 'RestSite Room' assets... count=4 vfx=2
+[INFO] Preloading 'RestSite Room' Complete: assets=6 time_elapsed=148ms
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 2 coord: (1, 9))
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 2 coord: (1, 9))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 2 coord: (1, 9))
+[INFO] Preloading 'Combat Room' assets... count=11 vfx=0
+[INFO] Preloading 'Combat Room' Complete: assets=11 time_elapsed=109ms
+[INFO] Creating NCombatRoom with mode=ActiveCombat encounter=THE_OBSCURA_NORMAL.
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Player 70000000000000002 selected card reward
+[INFO] Player 70000000000000003 selected card reward
+[INFO] Player 70000000000000001 selected card reward
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 2 coord: (0, 10))
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 2 coord: (0, 10))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 2 coord: (0, 10))
+[INFO] Preloading 'RestSite Room' assets... count=4 vfx=2
+[INFO] Preloading 'RestSite Room' Complete: assets=6 time_elapsed=141ms
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Player 70000000000000002 selected card reward
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 2 coord: (0, 11))
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 2 coord: (0, 11))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 2 coord: (0, 11))
+[INFO] Preloading 'Combat Room' assets... count=8 vfx=0
+[INFO] Preloading 'Combat Room' Complete: assets=8 time_elapsed=100ms
+[INFO] Creating NCombatRoom with mode=ActiveCombat encounter=ENTOMANCER_ELITE.
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Player 70000000000000001 selected card reward
+[INFO] Player 70000000000000002 selected card reward
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 2 coord: (0, 12))
+[INFO] Player 70000000000000003 selected card reward
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 2 coord: (0, 12))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 2 coord: (0, 12))
+[INFO] Preloading 'Combat Room' assets... count=4 vfx=0
+[INFO] Preloading 'Combat Room' Complete: assets=4 time_elapsed=95ms
+[INFO] Creating NCombatRoom with mode=ActiveCombat encounter=LOUSE_PROGENITOR_NORMAL.
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Player 70000000000000003 selected card reward
+[INFO] Player 70000000000000002 selected card reward
+[INFO] Player 70000000000000001 selected card reward
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 2 coord: (1, 13))
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 2 coord: (1, 13))
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 2 coord: (1, 13))
+[INFO] Preloading 'RestSite Room' assets... count=4 vfx=2
+[INFO] Preloading 'RestSite Room' Complete: assets=6 time_elapsed=142ms
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 2 coord: (3, 14))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 2 coord: (3, 14))
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 2 coord: (3, 14))
+[INFO] Preloading 'Combat Room' assets... count=9 vfx=0
+[INFO] Preloading 'Combat Room' Complete: assets=9 time_elapsed=164ms
+[INFO] Creating NCombatRoom with mode=ActiveCombat encounter=THE_INSATIABLE_BOSS.
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Player 70000000000000002 selected card reward
+[INFO] Player 70000000000000001 selected card reward
+[INFO] Player 70000000000000003 selected card reward
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Preloading 'Combat Room' assets... count=10 vfx=0
+[INFO] Preloading 'Combat Room' Complete: assets=10 time_elapsed=128ms
+[INFO] Creating NCombatRoom with mode=FinishedCombat encounter=THE_INSATIABLE_BOSS.
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Player 70000000000000001 selected card reward
+[INFO] Player 70000000000000003 selected card reward
+[INFO] Player 70000000000000002 selected card reward
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Preloading 'Combat Room' assets... count=10 vfx=0
+[INFO] Preloading 'Combat Room' Complete: assets=10 time_elapsed=157ms
+[INFO] Creating NCombatRoom with mode=FinishedCombat encounter=THE_INSATIABLE_BOSS.
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Player 70000000000000001 selected card reward
+[INFO] Player 70000000000000003 selected card reward
+[INFO] Player 70000000000000002 selected card reward
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 2 coord: (3, 0))
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 2 coord: (3, 0))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 2 coord: (3, 0))
+[INFO] Preloading 'Event Room' assets... count=2 vfx=0
+[INFO] Preloading 'Event Room' Complete: assets=2 time_elapsed=150ms
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 2 coord: (2, 1))
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 2 coord: (2, 1))
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 2 coord: (2, 1))
+[INFO] Preloading 'Combat Room' assets... count=8 vfx=0
+[INFO] Preloading 'Combat Room' Complete: assets=8 time_elapsed=114ms
+[INFO] Creating NCombatRoom with mode=ActiveCombat encounter=SCROLLS_OF_BITING_WEAK.
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Player 70000000000000001 selected card reward
+[INFO] Player 70000000000000002 selected card reward
+[INFO] Player 70000000000000003 selected card reward
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 2 coord: (2, 2))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 2 coord: (2, 2))
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 2 coord: (2, 2))
+[INFO] Preloading 'Event Room' assets... count=2 vfx=0
+[INFO] Preloading 'Event Room' Complete: assets=2 time_elapsed=43ms
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 2 coord: (2, 3))
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 2 coord: (2, 3))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 2 coord: (2, 3))
+[INFO] Preloading 'Combat Room' assets... count=8 vfx=0
+[INFO] Preloading 'Combat Room' Complete: assets=8 time_elapsed=126ms
+[INFO] Creating NCombatRoom with mode=ActiveCombat encounter=DEVOTED_SCULPTOR_WEAK.
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Player 70000000000000001 selected card reward
+[INFO] Player 70000000000000003 selected card reward
+[INFO] Player 70000000000000002 selected card reward
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 2 coord: (3, 4))
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 2 coord: (3, 4))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 2 coord: (3, 4))
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Preloading 'Merchant Room' assets... count=1 vfx=0
+[INFO] Preloading 'Merchant Room' Complete: assets=1 time_elapsed=119ms
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 2 coord: (4, 5))
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 2 coord: (4, 5))
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 2 coord: (4, 5))
+[INFO] Preloading 'Combat Room' assets... count=8 vfx=0
+[INFO] Preloading 'Combat Room' Complete: assets=8 time_elapsed=90ms
+[INFO] Creating NCombatRoom with mode=ActiveCombat encounter=SCROLLS_OF_BITING_NORMAL.
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Player 70000000000000001 selected card reward
+[INFO] Player 70000000000000002 selected card reward
+[INFO] Player 70000000000000003 selected card reward
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 2 coord: (5, 6))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 2 coord: (5, 6))
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 2 coord: (5, 6))
+[INFO] Preloading 'Treasure Room' assets... count=2 vfx=0
+[INFO] Preloading 'Treasure Room' Complete: assets=2 time_elapsed=30ms
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 2 coord: (5, 7))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 2 coord: (5, 7))
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 2 coord: (5, 7))
+[INFO] Preloading 'RestSite Room' assets... count=4 vfx=2
+[INFO] Preloading 'RestSite Room' Complete: assets=6 time_elapsed=264ms
+[INFO] Preloading 'RestSite Room' assets... count=4 vfx=2
+[INFO] Preloading 'RestSite Room' Complete: assets=6 time_elapsed=250ms
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 1 coord: (5, 8))
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 1 coord: (5, 8))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 1 coord: (5, 8))
+[INFO] Preloading 'Combat Room' assets... count=8 vfx=0
+[INFO] Preloading 'Combat Room' Complete: assets=8 time_elapsed=99ms
+[INFO] Creating NCombatRoom with mode=ActiveCombat encounter=SOUL_NEXUS_ELITE.
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Player 70000000000000001 selected card reward
+[INFO] Player 70000000000000003 selected card reward
+[INFO] Player 70000000000000002 selected card reward
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 1 coord: (5, 9))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 1 coord: (5, 9))
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 1 coord: (5, 9))
+[INFO] Preloading 'Combat Room' assets... count=5 vfx=0
+[INFO] Preloading 'Combat Room' Complete: assets=5 time_elapsed=39ms
+[INFO] Creating NCombatRoom with mode=ActiveCombat encounter=OWL_MAGISTRATE_NORMAL.
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Player 70000000000000003 selected card reward
+[INFO] Player 70000000000000001 selected card reward
+[INFO] Player 70000000000000002 selected card reward
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 1 coord: (5, 10))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 1 coord: (5, 10))
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 1 coord: (5, 10))
+[INFO] Preloading 'Event Room' assets... count=2 vfx=1
+[INFO] Preloading 'Event Room' Complete: assets=3 time_elapsed=55ms
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 1 coord: (4, 11))
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 1 coord: (4, 11))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 1 coord: (4, 11))
+[INFO] Preloading 'Combat Room' assets... count=11 vfx=0
+[INFO] Preloading 'Combat Room' Complete: assets=11 time_elapsed=129ms
+[INFO] Creating NCombatRoom with mode=ActiveCombat encounter=CONSTRUCT_MENAGERIE_NORMAL.
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Player 70000000000000001 selected card reward
+[INFO] Player 70000000000000002 selected card reward
+[INFO] Player 70000000000000003 selected card reward
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 1 coord: (4, 12))
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 1 coord: (4, 12))
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 1 coord: (4, 12))
+[INFO] Preloading 'RestSite Room' assets... count=4 vfx=2
+[INFO] Preloading 'RestSite Room' Complete: assets=6 time_elapsed=160ms
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Player 70000000000000002 selected card reward
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 1 coord: (3, 13))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 1 coord: (3, 13))
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 1 coord: (3, 13))
+[INFO] Preloading 'Combat Room' assets... count=12 vfx=0
+[INFO] Preloading 'Combat Room' Complete: assets=12 time_elapsed=116ms
+[INFO] Creating NCombatRoom with mode=ActiveCombat encounter=TEST_SUBJECT_BOSS.
+[INFO] Preloading 'Event Room' assets... count=1 vfx=0
+[INFO] Preloading 'Event Room' Complete: assets=1 time_elapsed=50ms
+[INFO] Creating NCombatRoom with mode=VisualOnly encounter=THE_ARCHITECT_EVENT_ENCOUNTER.
+[INFO] Wrote 74873 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Preloading 'Event Room' assets... count=2 vfx=0
+[INFO] Preloading 'Event Room' Complete: assets=2 time_elapsed=261ms
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 1 coord: (0, 1))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 1 coord: (1, 1))
+[INFO] Player vote changed for 70000000000000002: MapVote (gen: 1 coord: (0, 1))->MapVote (gen: 1 coord: (1, 1))
+[INFO] Wrote 83637 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 1 coord: (1, 1))
+[INFO] Player vote changed for 70000000000000004: ->MapVote (gen: 1 coord: (1, 1))
+[INFO] Wrote 83750 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Preloading 'Combat Room' assets... count=9 vfx=0
+[INFO] Preloading 'Combat Room' Complete: assets=9 time_elapsed=100ms
+[INFO] Creating NCombatRoom with mode=ActiveCombat encounter=FUZZY_WURM_CRAWLER_WEAK.
+[INFO] Wrote 86252 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Player 70000000000000001 selected card reward
+[INFO] Player 70000000000000002 selected card reward
+[INFO] Player 70000000000000003 selected card reward
+[INFO] Player 70000000000000004 selected card reward
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 1 coord: (1, 2))
+[INFO] Player vote changed for 70000000000000004: ->MapVote (gen: 1 coord: (1, 2))
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 1 coord: (1, 2))
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 1 coord: (1, 2))
+[INFO] Wrote 91572 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Preloading 'Merchant Room' assets... count=1 vfx=0
+[INFO] Preloading 'Merchant Room' Complete: assets=1 time_elapsed=116ms
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 1 coord: (0, 3))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 1 coord: (0, 3))
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 1 coord: (0, 3))
+[INFO] Player vote changed for 70000000000000004: ->MapVote (gen: 1 coord: (0, 3))
+[INFO] Wrote 101391 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Preloading 'Combat Room' assets... count=9 vfx=0
+[INFO] Preloading 'Combat Room' Complete: assets=9 time_elapsed=85ms
+[INFO] Creating NCombatRoom with mode=ActiveCombat encounter=SHRINKER_BEETLE_WEAK.
+[INFO] Wrote 103687 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Player 70000000000000001 selected card reward
+[INFO] Player 70000000000000004 selected card reward
+[INFO] Player 70000000000000002 selected card reward
+[INFO] Player 70000000000000003 selected card reward
+[INFO] Player vote changed for 70000000000000004: ->MapVote (gen: 1 coord: (0, 4))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 1 coord: (0, 4))
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 1 coord: (0, 4))
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 1 coord: (0, 4))
+[INFO] Wrote 107102 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Preloading 'Combat Room' assets... count=6 vfx=0
+[INFO] Preloading 'Combat Room' Complete: assets=6 time_elapsed=70ms
+[INFO] Creating NCombatRoom with mode=ActiveCombat encounter=SLIMES_WEAK.
+[INFO] Wrote 109453 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Player 70000000000000001 selected card reward
+[INFO] Player 70000000000000002 selected card reward
+[INFO] Player 70000000000000003 selected card reward
+[INFO] Player 70000000000000004 selected card reward
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 1 coord: (0, 5))
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 1 coord: (0, 5))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 1 coord: (0, 5))
+[INFO] Player vote changed for 70000000000000004: ->MapVote (gen: 1 coord: (0, 5))
+[INFO] Wrote 112859 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Preloading 'Event Room' assets... count=2 vfx=0
+[INFO] Preloading 'Event Room' Complete: assets=2 time_elapsed=53ms
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 1 coord: (0, 6))
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 1 coord: (0, 6))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 1 coord: (0, 6))
+[INFO] Player vote changed for 70000000000000004: ->MapVote (gen: 1 coord: (0, 6))
+[INFO] Wrote 116438 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Preloading 'RestSite Room' assets... count=4 vfx=2
+[INFO] Preloading 'RestSite Room' Complete: assets=6 time_elapsed=286ms
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 1 coord: (0, 7))
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 1 coord: (0, 7))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 1 coord: (0, 7))
+[INFO] Player vote changed for 70000000000000004: ->MapVote (gen: 1 coord: (0, 7))
+[INFO] Wrote 118919 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Preloading 'Event Room' assets... count=2 vfx=1
+[INFO] Preloading 'Event Room' Complete: assets=3 time_elapsed=85ms
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 1 coord: (0, 8))
+[INFO] Player vote changed for 70000000000000004: ->MapVote (gen: 1 coord: (0, 8))
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 1 coord: (0, 8))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 1 coord: (0, 8))
+[INFO] Wrote 122157 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Preloading 'Treasure Room' assets... count=2 vfx=0
+[INFO] Preloading 'Treasure Room' Complete: assets=2 time_elapsed=52ms
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 1 coord: (0, 9))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 1 coord: (0, 9))
+[INFO] Player vote changed for 70000000000000004: ->MapVote (gen: 1 coord: (0, 9))
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 1 coord: (0, 9))
+[INFO] Wrote 124471 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Preloading 'RestSite Room' assets... count=4 vfx=2
+[INFO] Preloading 'RestSite Room' Complete: assets=6 time_elapsed=285ms
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 1 coord: (0, 10))
+[INFO] Player vote changed for 70000000000000004: ->MapVote (gen: 1 coord: (0, 10))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 1 coord: (0, 10))
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 1 coord: (0, 10))
+[INFO] Wrote 127229 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Preloading 'Combat Room' assets... count=10 vfx=0
+[INFO] Preloading 'Combat Room' Complete: assets=10 time_elapsed=86ms
+[INFO] Creating NCombatRoom with mode=ActiveCombat encounter=BYGONE_EFFIGY_ELITE.
+[INFO] Wrote 129534 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Player 70000000000000001 selected card reward
+[INFO] Player 70000000000000004 selected card reward
+[INFO] Player 70000000000000003 selected card reward
+[INFO] Player vote changed for 70000000000000004: ->MapVote (gen: 1 coord: (0, 11))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 1 coord: (0, 11))
+[INFO] Player 70000000000000002 selected card reward
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 1 coord: (0, 11))
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 1 coord: (0, 11))
+[INFO] Wrote 134310 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Preloading 'RestSite Room' assets... count=4 vfx=2
+[INFO] Preloading 'RestSite Room' Complete: assets=6 time_elapsed=186ms
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 1 coord: (0, 12))
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 1 coord: (0, 12))
+[INFO] Player vote changed for 70000000000000004: ->MapVote (gen: 1 coord: (0, 12))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 1 coord: (0, 12))
+[INFO] Wrote 137023 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Preloading 'Combat Room' assets... count=11 vfx=0
+[INFO] Preloading 'Combat Room' Complete: assets=11 time_elapsed=71ms
+[INFO] Creating NCombatRoom with mode=ActiveCombat encounter=SLITHERING_STRANGLER_NORMAL.
+[INFO] Wrote 139664 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Player 70000000000000001 selected card reward
+[INFO] Player 70000000000000002 selected card reward
+[INFO] Player 70000000000000003 selected card reward
+[INFO] Player 70000000000000004 selected card reward
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 1 coord: (0, 13))
+[INFO] Player vote changed for 70000000000000004: ->MapVote (gen: 1 coord: (0, 13))
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 1 coord: (1, 13))
+[INFO] Player vote changed for 70000000000000001: MapVote (gen: 1 coord: (1, 13))->MapVote (gen: 1 coord: (0, 13))
+[INFO] Player vote changed for 70000000000000001: MapVote (gen: 1 coord: (0, 13))->MapVote (gen: 1 coord: (1, 13))
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 1 coord: (0, 13))
+[INFO] Wrote 142731 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Preloading 'Combat Room' assets... count=5 vfx=0
+[INFO] Preloading 'Combat Room' Complete: assets=5 time_elapsed=69ms
+[INFO] Creating NCombatRoom with mode=ActiveCombat encounter=BYRDONIS_ELITE.
+[INFO] Wrote 145252 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Player 70000000000000001 selected card reward
+[INFO] Player 70000000000000002 selected card reward
+[INFO] Player 70000000000000004 selected card reward
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 1 coord: (0, 14))
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 1 coord: (0, 14))
+[INFO] Player vote changed for 70000000000000004: ->MapVote (gen: 1 coord: (0, 14))
+[INFO] Player 70000000000000003 selected card reward
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 1 coord: (0, 14))
+[INFO] Wrote 149606 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Preloading 'RestSite Room' assets... count=4 vfx=2
+[INFO] Preloading 'RestSite Room' Complete: assets=6 time_elapsed=185ms
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 1 coord: (3, 15))
+[INFO] Player vote changed for 70000000000000004: ->MapVote (gen: 1 coord: (3, 15))
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 1 coord: (3, 15))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 1 coord: (3, 15))
+[INFO] Wrote 153354 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Preloading 'Combat Room' assets... count=8 vfx=0
+[INFO] Preloading 'Combat Room' Complete: assets=8 time_elapsed=134ms
+[INFO] Creating NCombatRoom with mode=ActiveCombat encounter=VANTOM_BOSS.
+[INFO] Wrote 155538 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Player 70000000000000001 selected card reward
+[INFO] Player 70000000000000004 selected card reward
+[INFO] Player 70000000000000003 selected card reward
+[INFO] Player 70000000000000002 selected card reward
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 2 coord: (3, 0))
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 2 coord: (3, 0))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 2 coord: (3, 0))
+[INFO] Player vote changed for 70000000000000004: ->MapVote (gen: 2 coord: (3, 0))
+[INFO] Wrote 154364 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Preloading 'Event Room' assets... count=3 vfx=0
+[INFO] Preloading 'Event Room' Complete: assets=3 time_elapsed=134ms
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 2 coord: (3, 1))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 2 coord: (3, 1))
+[INFO] Player vote changed for 70000000000000004: ->MapVote (gen: 2 coord: (3, 1))
+[INFO] Wrote 162639 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 2 coord: (3, 1))
+[INFO] Wrote 162696 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Preloading 'Combat Room' assets... count=10 vfx=0
+[INFO] Preloading 'Combat Room' Complete: assets=10 time_elapsed=118ms
+[INFO] Creating NCombatRoom with mode=ActiveCombat encounter=TUNNELER_WEAK.
+[INFO] Wrote 164971 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Player 70000000000000002 selected card reward
+[INFO] Player 70000000000000001 selected card reward
+[INFO] Player 70000000000000004 selected card reward
+[INFO] Player vote changed for 70000000000000004: ->MapVote (gen: 2 coord: (4, 2))
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 2 coord: (4, 2))
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 2 coord: (4, 2))
+[INFO] Player 70000000000000003 selected card reward
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 2 coord: (4, 2))
+[INFO] Wrote 168449 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Preloading 'Event Room' assets... count=2 vfx=0
+[INFO] Preloading 'Event Room' Complete: assets=2 time_elapsed=103ms
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 2 coord: (3, 3))
+[INFO] Player vote changed for 70000000000000004: ->MapVote (gen: 2 coord: (3, 3))
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 2 coord: (3, 3))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 2 coord: (3, 3))
+[INFO] Wrote 172237 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Preloading 'Merchant Room' assets... count=1 vfx=0
+[INFO] Preloading 'Merchant Room' Complete: assets=1 time_elapsed=234ms
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 2 coord: (4, 4))
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 2 coord: (4, 4))
+[INFO] Player 70000000000000004 selected card reward
+[INFO] Player 70000000000000004 selected card reward
+[INFO] Player 70000000000000004 selected card reward
+[INFO] Player 70000000000000004 selected card reward
+[INFO] Player 70000000000000004 selected card reward
+[INFO] Player 70000000000000004 selected card reward
+[INFO] Player 70000000000000004 selected card reward
+[INFO] Player 70000000000000004 selected card reward
+[INFO] Player 70000000000000004 selected card reward
+[INFO] Player 70000000000000004 selected card reward
+[INFO] Player 70000000000000004 selected card reward
+[INFO] Player vote changed for 70000000000000004: ->MapVote (gen: 2 coord: (4, 4))
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 2 coord: (4, 4))
+[INFO] Wrote 188468 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Preloading 'Combat Room' assets... count=10 vfx=0
+[INFO] Preloading 'Combat Room' Complete: assets=10 time_elapsed=120ms
+[INFO] Creating NCombatRoom with mode=ActiveCombat encounter=THIEVING_HOPPER_WEAK.
+[INFO] Wrote 193724 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Player 70000000000000003 selected card reward
+[INFO] Player 70000000000000001 selected card reward
+[INFO] Player 70000000000000002 selected card reward
+[INFO] Player 70000000000000004 selected card reward
+[INFO] Player 70000000000000003 selected card reward
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 2 coord: (4, 5))
+[INFO] Player vote changed for 70000000000000004: ->MapVote (gen: 2 coord: (4, 5))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 2 coord: (4, 5))
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 2 coord: (4, 5))
+[INFO] Wrote 195818 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Preloading 'Combat Room' assets... count=9 vfx=0
+[INFO] Preloading 'Combat Room' Complete: assets=9 time_elapsed=51ms
+[INFO] Creating NCombatRoom with mode=ActiveCombat encounter=BOWLBUGS_NORMAL.
+[INFO] Wrote 198175 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Player 70000000000000001 selected card reward
+[INFO] Player 70000000000000004 selected card reward
+[INFO] Player 70000000000000003 selected card reward
+[INFO] Player 70000000000000002 selected card reward
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 2 coord: (3, 6))
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 2 coord: (3, 6))
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 2 coord: (3, 6))
+[INFO] Player vote changed for 70000000000000004: ->MapVote (gen: 2 coord: (3, 6))
+[INFO] Wrote 201464 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Preloading 'RestSite Room' assets... count=4 vfx=2
+[INFO] Preloading 'RestSite Room' Complete: assets=6 time_elapsed=153ms
+[INFO] Player vote changed for 70000000000000004: ->MapVote (gen: 2 coord: (3, 7))
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 2 coord: (3, 7))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 2 coord: (3, 7))
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 2 coord: (3, 7))
+[INFO] Wrote 203821 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Preloading 'Treasure Room' assets... count=2 vfx=0
+[INFO] Preloading 'Treasure Room' Complete: assets=2 time_elapsed=54ms
+[INFO] Player vote changed for 70000000000000004: ->MapVote (gen: 2 coord: (3, 8))
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 2 coord: (3, 8))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 2 coord: (3, 8))
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 2 coord: (3, 8))
+[INFO] Wrote 206142 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Preloading 'RestSite Room' assets... count=4 vfx=2
+[INFO] Preloading 'RestSite Room' Complete: assets=6 time_elapsed=201ms
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 2 coord: (2, 9))
+[INFO] Player vote changed for 70000000000000004: ->MapVote (gen: 2 coord: (2, 9))
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 2 coord: (2, 9))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 2 coord: (2, 9))
+[INFO] Wrote 208853 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Preloading 'Merchant Room' assets... count=1 vfx=0
+[INFO] Preloading 'Merchant Room' Complete: assets=1 time_elapsed=148ms
+[INFO] Player vote changed for 70000000000000004: ->MapVote (gen: 2 coord: (2, 10))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 2 coord: (2, 10))
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 2 coord: (2, 10))
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 2 coord: (2, 10))
+[INFO] Wrote 219596 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Preloading 'RestSite Room' assets... count=4 vfx=2
+[INFO] Preloading 'RestSite Room' Complete: assets=6 time_elapsed=134ms
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 2 coord: (2, 11))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 2 coord: (2, 11))
+[INFO] Player vote changed for 70000000000000004: ->MapVote (gen: 2 coord: (2, 11))
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 2 coord: (2, 11))
+[INFO] Wrote 222301 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Preloading 'Combat Room' assets... count=19 vfx=1
+[INFO] Preloading 'Combat Room' Complete: assets=20 time_elapsed=136ms
+[INFO] Creating NCombatRoom with mode=ActiveCombat encounter=DECIMILLIPEDE_ELITE.
+[INFO] Wrote 224690 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Player 70000000000000001 selected card reward
+[INFO] Player 70000000000000002 selected card reward
+[INFO] Player 70000000000000004 selected card reward
+[INFO] Player 70000000000000003 selected card reward
+[INFO] Player vote changed for 70000000000000004: ->MapVote (gen: 2 coord: (2, 12))
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 2 coord: (2, 12))
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 2 coord: (2, 12))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 2 coord: (2, 12))
+[INFO] Wrote 228609 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Preloading 'Event Room' assets... count=2 vfx=1
+[INFO] Preloading 'Event Room' Complete: assets=3 time_elapsed=71ms
+[INFO] Player vote changed for 70000000000000004: ->MapVote (gen: 2 coord: (2, 13))
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 2 coord: (2, 13))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 2 coord: (2, 13))
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 2 coord: (2, 13))
+[INFO] Wrote 234578 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Preloading 'RestSite Room' assets... count=4 vfx=2
+[INFO] Preloading 'RestSite Room' Complete: assets=6 time_elapsed=218ms
+[INFO] Player vote changed for 70000000000000004: ->MapVote (gen: 2 coord: (3, 14))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 2 coord: (3, 14))
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 2 coord: (3, 14))
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 2 coord: (3, 14))
+[INFO] Wrote 237748 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Preloading 'Combat Room' assets... count=9 vfx=0
+[INFO] Preloading 'Combat Room' Complete: assets=9 time_elapsed=185ms
+[INFO] Creating NCombatRoom with mode=ActiveCombat encounter=THE_INSATIABLE_BOSS.
+[INFO] Wrote 240284 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Player 70000000000000004 selected card reward
+[INFO] Player 70000000000000001 selected card reward
+[INFO] Player 70000000000000003 selected card reward
+[INFO] Player 70000000000000002 selected card reward
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 3 coord: (3, 0))
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 3 coord: (3, 0))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 3 coord: (3, 0))
+[INFO] Player vote changed for 70000000000000004: ->MapVote (gen: 3 coord: (3, 0))
+[INFO] Wrote 240303 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Preloading 'Event Room' assets... count=3 vfx=0
+[INFO] Preloading 'Event Room' Complete: assets=3 time_elapsed=134ms
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 3 coord: (2, 1))
+[INFO] Player vote changed for 70000000000000004: ->MapVote (gen: 3 coord: (2, 1))
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 3 coord: (2, 1))
+[INFO] Wrote 249225 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 3 coord: (2, 1))
+[INFO] Wrote 249146 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Preloading 'Combat Room' assets... count=8 vfx=0
+[INFO] Preloading 'Combat Room' Complete: assets=8 time_elapsed=117ms
+[INFO] Creating NCombatRoom with mode=ActiveCombat encounter=SCROLLS_OF_BITING_WEAK.
+[INFO] Wrote 252021 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Player 70000000000000002 selected card reward
+[INFO] Player 70000000000000001 selected card reward
+[INFO] Player 70000000000000004 selected card reward
+[INFO] Player vote changed for 70000000000000004: ->MapVote (gen: 3 coord: (2, 2))
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 3 coord: (2, 2))
+[INFO] Player 70000000000000003 selected card reward
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 3 coord: (2, 2))
+[INFO] Player 70000000000000003 selected card reward
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 3 coord: (2, 2))
+[INFO] Wrote 256197 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Preloading 'Merchant Room' assets... count=1 vfx=0
+[INFO] Preloading 'Merchant Room' Complete: assets=1 time_elapsed=113ms
+[INFO] Player vote changed for 70000000000000004: ->MapVote (gen: 3 coord: (2, 3))
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 3 coord: (2, 3))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 3 coord: (2, 3))
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 3 coord: (2, 3))
+[INFO] Wrote 266984 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Preloading 'Combat Room' assets... count=8 vfx=0
+[INFO] Preloading 'Combat Room' Complete: assets=8 time_elapsed=101ms
+[INFO] Creating NCombatRoom with mode=ActiveCombat encounter=DEVOTED_SCULPTOR_WEAK.
+[INFO] Wrote 269281 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Player 70000000000000003 selected card reward
+[INFO] Player 70000000000000004 selected card reward
+[INFO] Player 70000000000000002 selected card reward
+[INFO] Player 70000000000000001 selected card reward
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 3 coord: (1, 4))
+[INFO] Player vote changed for 70000000000000004: ->MapVote (gen: 3 coord: (1, 4))
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 3 coord: (1, 4))
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 3 coord: (1, 4))
+[INFO] Wrote 272922 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Preloading 'Combat Room' assets... count=5 vfx=0
+[INFO] Preloading 'Combat Room' Complete: assets=5 time_elapsed=52ms
+[INFO] Creating NCombatRoom with mode=ActiveCombat encounter=OWL_MAGISTRATE_NORMAL.
+[INFO] Wrote 275221 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Player 70000000000000001 selected card reward
+[INFO] Player 70000000000000004 selected card reward
+[INFO] Player 70000000000000003 selected card reward
+[INFO] Player 70000000000000002 selected card reward
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 3 coord: (1, 5))
+[INFO] Player vote changed for 70000000000000004: ->MapVote (gen: 3 coord: (1, 5))
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 3 coord: (1, 5))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 3 coord: (1, 5))
+[INFO] Wrote 279429 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Preloading 'Combat Room' assets... count=6 vfx=0
+[INFO] Preloading 'Combat Room' Complete: assets=6 time_elapsed=102ms
+[INFO] Creating NCombatRoom with mode=ActiveCombat encounter=AXEBOTS_NORMAL.
+[INFO] Wrote 281696 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Player 70000000000000001 selected card reward
+[INFO] Player 70000000000000002 selected card reward
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 3 coord: (2, 6))
+[INFO] Player 70000000000000004 selected card reward
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 3 coord: (2, 6))
+[INFO] Player 70000000000000003 selected card reward
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 3 coord: (2, 6))
+[INFO] Player vote changed for 70000000000000004: ->MapVote (gen: 3 coord: (2, 6))
+[INFO] Wrote 285187 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Preloading 'Treasure Room' assets... count=2 vfx=0
+[INFO] Preloading 'Treasure Room' Complete: assets=2 time_elapsed=51ms
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 3 coord: (2, 7))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 3 coord: (2, 7))
+[INFO] Player vote changed for 70000000000000004: ->MapVote (gen: 3 coord: (2, 7))
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 3 coord: (2, 7))
+[INFO] Wrote 287150 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Preloading 'Merchant Room' assets... count=1 vfx=0
+[INFO] Preloading 'Merchant Room' Complete: assets=1 time_elapsed=167ms
+[INFO] Player vote changed for 70000000000000004: ->MapVote (gen: 3 coord: (2, 8))
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 3 coord: (2, 8))
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 3 coord: (2, 8))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 3 coord: (2, 8))
+[INFO] Wrote 296375 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Preloading 'RestSite Room' assets... count=4 vfx=2
+[INFO] Preloading 'RestSite Room' Complete: assets=6 time_elapsed=155ms
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 3 coord: (1, 9))
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 3 coord: (1, 9))
+[INFO] Player vote changed for 70000000000000004: ->MapVote (gen: 3 coord: (1, 9))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 3 coord: (1, 9))
+[INFO] Wrote 298983 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Preloading 'Merchant Room' assets... count=1 vfx=0
+[INFO] Preloading 'Merchant Room' Complete: assets=1 time_elapsed=116ms
+[INFO] Player vote changed for 70000000000000004: ->MapVote (gen: 3 coord: (1, 10))
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 3 coord: (1, 10))
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 3 coord: (1, 10))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 3 coord: (1, 10))
+[INFO] Wrote 308134 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Preloading 'Combat Room' assets... count=10 vfx=0
+[INFO] Preloading 'Combat Room' Complete: assets=10 time_elapsed=104ms
+[INFO] Creating NCombatRoom with mode=ActiveCombat encounter=GLOBE_HEAD_NORMAL.
+[INFO] Wrote 310420 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Player 70000000000000003 selected card reward
+[INFO] Player 70000000000000001 selected card reward
+[INFO] Player 70000000000000004 selected card reward
+[INFO] Player 70000000000000002 selected card reward
+[INFO] Player vote changed for 70000000000000004: ->MapVote (gen: 3 coord: (1, 11))
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 3 coord: (1, 11))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 3 coord: (1, 11))
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 3 coord: (1, 11))
+[INFO] Wrote 314192 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Preloading 'Combat Room' assets... count=5 vfx=0
+[INFO] Preloading 'Combat Room' Complete: assets=5 time_elapsed=65ms
+[INFO] Creating NCombatRoom with mode=ActiveCombat encounter=THE_LOST_AND_FORGOTTEN_NORMAL.
+[INFO] Wrote 316532 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Player 70000000000000003 selected card reward
+[INFO] Player 70000000000000002 selected card reward
+[INFO] Player 70000000000000004 selected card reward
+[INFO] Player 70000000000000001 selected card reward
+[INFO] Player vote changed for 70000000000000004: ->MapVote (gen: 3 coord: (1, 12))
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 3 coord: (1, 12))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 3 coord: (1, 12))
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 3 coord: (1, 12))
+[INFO] Wrote 320365 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Preloading 'RestSite Room' assets... count=4 vfx=2
+[INFO] Preloading 'RestSite Room' Complete: assets=6 time_elapsed=153ms
+[INFO] Player vote changed for 70000000000000004: ->MapVote (gen: 3 coord: (3, 13))
+[INFO] Player vote changed for 70000000000000002: ->MapVote (gen: 3 coord: (3, 13))
+[INFO] Player vote changed for 70000000000000001: ->MapVote (gen: 3 coord: (3, 13))
+[INFO] Player vote changed for 70000000000000003: ->MapVote (gen: 3 coord: (3, 13))
+[INFO] Wrote 323131 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Preloading 'Combat Room' assets... count=15 vfx=0
+[INFO] Preloading 'Combat Room' Complete: assets=15 time_elapsed=117ms
+[INFO] Creating NCombatRoom with mode=ActiveCombat encounter=QUEEN_BOSS.
+[INFO] Wrote 323482 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Preloading 'Combat Room' assets... count=16 vfx=0
+[INFO] Preloading 'Combat Room' Complete: assets=16 time_elapsed=173ms
+[INFO] Creating NCombatRoom with mode=ActiveCombat encounter=QUEEN_BOSS.
+[INFO] Wrote 325831 bytes to path=user://steam/70000000000000001/profile1/saves/current_run_mp.save save_dir=user://steam/70000000000000001
+[INFO] Preloading 'Event Room' assets... count=1 vfx=0
+[INFO] Preloading 'Event Room' Complete: assets=1 time_elapsed=49ms
+[INFO] Creating NCombatRoom with mode=VisualOnly encounter=THE_ARCHITECT_EVENT_ENCOUNTER.
+[INFO] NGame.Quit called

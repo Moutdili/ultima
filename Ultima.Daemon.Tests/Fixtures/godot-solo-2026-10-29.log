@@ -1,0 +1,719 @@
+MegaDot v4.5.1.m.12.mono.custom_build - https://godotengine.org
+Vulkan 1.4.354 - Forward+ - Using Device #0: AMD - AMD Radeon 780M Graphics (RADV PHOENIX)
+
+FMOD Sound System: Successfully initialized
+SCRIPT ERROR: Parse Error: Could not find type "SentryEvent" in the current scope.
+   at: GDScript::reload (res://addons/sentry/SentryInit.gd:70)
+SCRIPT ERROR: Parse Error: Could not find type "SentryEvent" in the current scope.
+   at: GDScript::reload (res://addons/sentry/SentryInit.gd:70)
+SCRIPT ERROR: Parse Error: Could not find type "SentryOptions" in the current scope.
+   at: GDScript::reload (res://addons/sentry/SentryInit.gd:27)
+SCRIPT ERROR: Parse Error: Identifier "SentrySDK" not declared in the current scope.
+   at: GDScript::reload (res://addons/sentry/SentryInit.gd:27)
+SCRIPT ERROR: Parse Error: Identifier "SentrySDK" not declared in the current scope.
+   at: GDScript::reload (res://addons/sentry/SentryInit.gd:37)
+SCRIPT ERROR: Parse Error: Identifier "SentrySDK" not declared in the current scope.
+   at: GDScript::reload (res://addons/sentry/SentryInit.gd:43)
+SCRIPT ERROR: Parse Error: Identifier "SentrySDK" not declared in the current scope.
+   at: GDScript::reload (res://addons/sentry/SentryInit.gd:51)
+SCRIPT ERROR: Parse Error: Identifier "SentrySDK" not declared in the current scope.
+   at: GDScript::reload (res://addons/sentry/SentryInit.gd:53)
+SCRIPT ERROR: Parse Error: Identifier "SentrySDK" not declared in the current scope.
+   at: GDScript::reload (res://addons/sentry/SentryInit.gd:56)
+SCRIPT ERROR: Parse Error: Identifier "SentrySDK" not declared in the current scope.
+   at: GDScript::reload (res://addons/sentry/SentryInit.gd:57)
+SCRIPT ERROR: Parse Error: Identifier "SentrySDK" not declared in the current scope.
+   at: GDScript::reload (res://addons/sentry/SentryInit.gd:61)
+SCRIPT ERROR: Parse Error: Identifier "SentrySDK" not declared in the current scope.
+   at: GDScript::reload (res://addons/sentry/SentryInit.gd:65)
+SCRIPT ERROR: Parse Error: Cannot infer the type of "message" variable because the value doesn't have a set type.
+   at: GDScript::reload (res://addons/sentry/SentryInit.gd:82)
+SCRIPT ERROR: Parse Error: Identifier "SentrySDK" not declared in the current scope.
+   at: GDScript::reload (res://addons/sentry/SentryInit.gd:175)
+SCRIPT ERROR: Parse Error: Identifier "SentrySDK" not declared in the current scope.
+   at: GDScript::reload (res://addons/sentry/SentryInit.gd:176)
+SCRIPT ERROR: Parse Error: Identifier "SentrySDK" not declared in the current scope.
+   at: GDScript::reload (res://addons/sentry/SentryInit.gd:183)
+SCRIPT ERROR: Parse Error: Identifier "SentrySDK" not declared in the current scope.
+   at: GDScript::reload (res://addons/sentry/SentryInit.gd:189)
+SCRIPT ERROR: Parse Error: Identifier "SentrySDK" not declared in the current scope.
+   at: GDScript::reload (res://addons/sentry/SentryInit.gd:192)
+SCRIPT ERROR: Parse Error: Cannot infer the type of "event" variable because the value doesn't have a set type.
+   at: GDScript::reload (res://addons/sentry/SentryInit.gd:192)
+SCRIPT ERROR: Parse Error: Identifier "SentrySDK" not declared in the current scope.
+   at: GDScript::reload (res://addons/sentry/SentryInit.gd:194)
+ERROR: Failed to load script "res://addons/sentry/SentryInit.gd" with error "Parse error".
+   at: load (modules/gdscript/gdscript.cpp:3041)
+ERROR: Failed to instantiate an autoload, script 'res://addons/sentry/SentryInit.gd' does not inherit from 'Node'.
+   at: start (main/main.cpp:4351)
+[INFO] Found release_info.json at: /home/user/.var/app/com.valvesoftware.Steam/.local/share/Steam/steamapps/common/Slay the Spire 2/release_info.json
+[INFO] [Sentry.NET] Initialized: env=development, release=v0.107.1
+[INFO] Steamworks: attempting initialization...
+[INFO] Steam is running: True
+[INFO] Steamworks initialization succeeded!
+[INFO] Steam is enabled, we will write saves to steam storage. Enabled for account: True, app: True 
+[INFO] Registered 11 migrations
+[INFO] Current save versions: PrefsSave v2; ProfileSave v2; SerializableProgress v21; RunHistory v9; SerializableRun v16; SettingsSave v5
+[WARN] Asset not cached: res://scenes/debug/dev_console.tscn
+[INFO] Syncing cloud save files to the local save directory
+[WARN] Asset not cached: res://scenes/cards/card.tscn
+[WARN] Asset not cached: res://scenes/cards/holders/grid_card_holder.tscn
+[INFO] AtlasManager: Loaded ui_atlas with 102 sprites
+[INFO] AtlasManager: Loaded compressed with 45 sprites
+[INFO] Loading locale path=res://localization/eng
+[INFO] ModelIdSerializationCache initialized. Categories: 20 Entries: 1622 Epochs: 57 Hash: 3954186980
+[INFO] Profile-scoped data path initialized: user://steam/70000000000000001/profile1
+[WARN] Progress parse: ValidationError { Severity = Warning, Path = CardStats.[488], Message = Unknown card ID: CARD.FOLLOW_THROUGH, IsFatal = False }
+[WARN] Progress parse: ValidationError { Severity = Warning, Path = DiscoveredCards, Message = Unknown CardModel ID: CARD.FOLLOW_THROUGH, IsFatal = False }
+ERROR: Node not found: "SentryInit" (relative to "/root").
+   at: get_node (scene/main/node.cpp:1907)
+   C# backtrace (most recent call first):
+       [0] Godot.GodotObject Godot.NativeCalls.godot_icall_1_866(nint, nint, Godot.NativeInterop.godot_node_path)
+       [1] Godot.Node Godot.Node.GetNode(Godot.NodePath)
+       [2] void MegaCrit.Sts2.Core.Debug.SentryService.AfterGameInit(string, string, Godot.Node)
+       [3] void MegaCrit.Sts2.Core.Nodes.NGame+<GameStartup>d__117.MoveNext()
+       [4] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.ExecutionContextCallback(object)
+       [5] void System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, object)
+       [6] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext(System.Threading.Thread)
+       [7] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext()
+       [8] void Godot.SignalAwaiter.SignalCallback(nint, Godot.NativeInterop.godot_variant**, int, Godot.NativeInterop.godot_bool*)
+[INFO] [Sentry.NET] Platform branch: public, sample rate: 10 %
+[INFO] AtlasManager: Loaded controller_atlas with 112 sprites
+[INFO] MuteInBackground: FocusIn received [tween=False, msSinceFocusOut=1558, windowFocused=True]
+[INFO] Applying display settings...
+  FULLSCREEN: True
+  ASPECT_RATIO: (SixteenByNine)
+  TARGET_DISPLAY: (0)
+  WINDOW_SIZE: (1920, 1080)
+  POSITION: (-1, -1)
+[INFO] [Display] Min size: (64, 64) Max size: (16384, 16384)
+[INFO] [Display] Setting FULLSCREEN on Display: 1 of 1
+[INFO] VSync: Adaptive
+[INFO] === Godot OS Debug Information ===
+Timestamp: 10/29/2026 12:47:44
+OS: Linux
+OS Version: 2
+Distribution Name: Steam Runtime 2 (soldier)
+Device Model: GenericDevice
+Is Debug Build: False
+Is Sandboxed: True
+Executable Path: /home/user/.var/app/com.valvesoftware.Steam/.local/share/Steam/steamapps/common/Slay the Spire 2/SlayTheSpire2
+Data Directory: /home/user/.var/app/com.valvesoftware.Steam/data
+User Data Directory: /home/user/.var/app/com.valvesoftware.Steam/data/SlayTheSpire2
+Command Line Args: 
+User Command Line Args: 
+OS Locale: en_US
+OS Language: en
+Game Locale: en_US
+Is UserFS Persistent: True
+Is Stdout Verbose: False
+Is Low Processor Usage Mode: False
+Architecture: x86_64
+Engine Version: 4.5.1-m.12 (custom_build)
+Is Editor: False
+Release Version: v0.107.1
+Release Commit: 59260271
+Release Date: 06/18/2026 22:43:56
+Processor Count: 16
+Processor Name: AMD Ryzen 7 250 w/ Radeon 780M Graphics
+Main assembly hash: 1692500715
+Rendering device name: AMD Radeon 780M Graphics (RADV PHOENIX)
+Screen info (primary 0):
+  Index 0: Size: (3072, 1920) Orientation: Landscape Scale: 1 DPI: 258 Refresh Rate: 59.99
+Video Memory Used: 0.0B
+Memory Info:
+  physical: 23.1GB
+  free: 1.6GB
+  available: 9.6GB
+  stack: 8.0MB
+  Static Memory Usage: 0.0B
+  Static Memory Peak Usage: 0.0B
+Disk Info:
+  Index 1: Name: /usr Type: Fixed Format: btrfs Available: 0.8TB Total Free: 0.8TB Total Size: 0.9TB
+  Index 2: Name: /run/parent/usr Type: Fixed Format: btrfs Available: 0.8TB Total Free: 0.8TB Total Size: 0.9TB
+  Index 3: Name: /app Type: Fixed Format: btrfs Available: 0.8TB Total Free: 0.8TB Total Size: 0.9TB
+  Index 4: Name: /run/parent/app Type: Fixed Format: btrfs Available: 0.8TB Total Free: 0.8TB Total Size: 0.9TB
+  Index 5: Name: /run/parent/app/lib/i386-linux-gnu Type: Fixed Format: btrfs Available: 0.8TB Total Free: 0.8TB Total Size: 0.9TB
+  Index 7: Name: /run/parent/app/lib/i386-linux-gnu/GL/default Type: Fixed Format: btrfs Available: 0.8TB Total Free: 0.8TB Total Size: 0.9TB
+  Index 8: Name: /run/parent/app/lib/i386-linux-gnu/GL/default Type: Fixed Format: btrfs Available: 0.8TB Total Free: 0.8TB Total Size: 0.9TB
+  Index 9: Name: /run/parent/app/lib/i386-linux-gnu/codecs-extra Type: Fixed Format: btrfs Available: 0.8TB Total Free: 0.8TB Total Size: 0.9TB
+  Index 11: Name: /run/parent/usr/lib/extensions/vulkan/MangoHud Type: Fixed Format: btrfs Available: 0.8TB Total Free: 0.8TB Total Size: 0.9TB
+  Index 13: Name: /run/parent/usr/lib/x86_64-linux-gnu/GL/default Type: Fixed Format: btrfs Available: 0.8TB Total Free: 0.8TB Total Size: 0.9TB
+  Index 14: Name: /run/parent/usr/lib/x86_64-linux-gnu/GL/default Type: Fixed Format: btrfs Available: 0.8TB Total Free: 0.8TB Total Size: 0.9TB
+  Index 15: Name: /run/parent/usr/lib/x86_64-linux-gnu/codecs-extra Type: Fixed Format: btrfs Available: 0.8TB Total Free: 0.8TB Total Size: 0.9TB
+  Index 17: Name: /run/parent/usr/lib/x86_64-linux-gnu/dri/amd/amf Type: Fixed Format: btrfs Available: 0.8TB Total Free: 0.8TB Total Size: 0.9TB
+  Index 18: Name: /run/parent/usr/share/runtime/locale Type: Fixed Format: btrfs Available: 0.8TB Total Free: 0.8TB Total Size: 0.9TB
+  Index 29: Name: /etc/machine-id Type: Fixed
+  Index 30: Name: /etc/X11 Type: Fixed Format: btrfs Available: 0.8TB Total Free: 0.8TB Total Size: 0.9TB
+  Index 31: Name: /etc/alsa Type: Fixed Format: btrfs Available: 0.8TB Total Free: 0.8TB Total Size: 0.9TB
+  Index 32: Name: /etc/bash.bashrc Type: Fixed
+  Index 33: Name: /etc/ca-certificates Type: Fixed Format: btrfs Available: 0.8TB Total Free: 0.8TB Total Size: 0.9TB
+  Index 34: Name: /etc/ca-certificates.conf Type: Fixed
+  Index 35: Name: /etc/debian_chroot Type: Fixed
+  Index 36: Name: /etc/debian_version Type: Fixed
+  Index 37: Name: /etc/environment Type: Fixed
+  Index 38: Name: /etc/fonts Type: Fixed Format: btrfs Available: 0.8TB Total Free: 0.8TB Total Size: 0.9TB
+  Index 39: Name: /etc/gss Type: Fixed Format: btrfs Available: 0.8TB Total Free: 0.8TB Total Size: 0.9TB
+  Index 40: Name: /etc/gtk-2.0 Type: Fixed Format: btrfs Available: 0.8TB Total Free: 0.8TB Total Size: 0.9TB
+  Index 41: Name: /etc/gtk-3.0 Type: Fixed Format: btrfs Available: 0.8TB Total Free: 0.8TB Total Size: 0.9TB
+  Index 42: Name: /etc/inputrc Type: Fixed
+  Index 43: Name: /etc/krb5.conf.d Type: Fixed Format: btrfs Available: 0.8TB Total Free: 0.8TB Total Size: 0.9TB
+  Index 44: Name: /etc/ld.so.conf.d Type: Fixed Format: btrfs Available: 0.8TB Total Free: 0.8TB Total Size: 0.9TB
+  Index 45: Name: /etc/locale.alias Type: Fixed
+  Index 46: Name: /etc/locale.gen Type: Fixed
+  Index 47: Name: /etc/magic Type: Fixed
+  Index 48: Name: /etc/magic.mime Type: Fixed
+  Index 49: Name: /etc/mime.types Type: Fixed
+  Index 50: Name: /etc/nsswitch.conf Type: Fixed
+  Index 51: Name: /etc/openal Type: Fixed Format: btrfs Available: 0.8TB Total Free: 0.8TB Total Size: 0.9TB
+  Index 52: Name: /etc/profile Type: Fixed
+  Index 53: Name: /etc/profile.d Type: Fixed Format: btrfs Available: 0.8TB Total Free: 0.8TB Total Size: 0.9TB
+  Index 54: Name: /etc/protocols Type: Fixed
+  Index 55: Name: /etc/pulse Type: Fixed Format: btrfs Available: 0.8TB Total Free: 0.8TB Total Size: 0.9TB
+  Index 56: Name: /etc/python3 Type: Fixed Format: btrfs Available: 0.8TB Total Free: 0.8TB Total Size: 0.9TB
+  Index 57: Name: /etc/python3.7 Type: Fixed Format: btrfs Available: 0.8TB Total Free: 0.8TB Total Size: 0.9TB
+  Index 58: Name: /etc/sensors.d Type: Fixed Format: btrfs Available: 0.8TB Total Free: 0.8TB Total Size: 0.9TB
+  Index 59: Name: /etc/sensors3.conf Type: Fixed
+  Index 60: Name: /etc/services Type: Fixed
+  Index 61: Name: /etc/ssl Type: Fixed Format: btrfs Available: 0.8TB Total Free: 0.8TB Total Size: 0.9TB
+  Index 62: Name: /etc/vdpau_wrapper.cfg Type: Fixed
+  Index 63: Name: /etc/vulkan Type: Fixed Format: btrfs Available: 0.8TB Total Free: 0.8TB Total Size: 0.9TB
+  Index 64: Name: /etc/xattr.conf Type: Fixed
+  Index 65: Name: /etc/runtime-ld.so.cache Type: Fixed
+  Index 66: Name: /etc/runtime-ld.so.conf Type: Fixed
+  Index 67: Name: /etc/asound.conf Type: Fixed
+  Index 68: Name: /var/cache Type: Fixed Format: btrfs Available: 0.8TB Total Free: 0.8TB Total Size: 0.9TB
+  Index 69: Name: /var/data Type: Fixed Format: btrfs Available: 0.8TB Total Free: 0.8TB Total Size: 0.9TB
+  Index 70: Name: /var/config Type: Fixed Format: btrfs Available: 0.8TB Total Free: 0.8TB Total Size: 0.9TB
+  Index 71: Name: /var/tmp Type: Fixed Format: btrfs Available: 0.8TB Total Free: 0.8TB Total Size: 0.9TB
+  Index 72: Name: /usr/share/zoneinfo Type: Fixed Format: btrfs Available: 0.8TB Total Free: 0.8TB Total Size: 0.9TB
+  Index 89: Name: /home/user Type: Fixed Format: btrfs Available: 0.8TB Total Free: 0.8TB Total Size: 0.9TB
+  Index 91: Name: /home/user/.var/app/com.valvesoftware.Steam Type: Fixed Format: btrfs Available: 0.8TB Total Free: 0.8TB Total Size: 0.9TB
+  Index 92: Name: /home/user/Music Type: Fixed Format: btrfs Available: 0.8TB Total Free: 0.8TB Total Size: 0.9TB
+  Index 93: Name: /home/user/Pictures Type: Fixed Format: btrfs Available: 0.8TB Total Free: 0.8TB Total Size: 0.9TB
+  Index 94: Name: /media Type: Fixed Format: btrfs Available: 0.8TB Total Free: 0.8TB Total Size: 0.9TB
+  Index 95: Name: /mnt Type: Fixed Format: btrfs Available: 0.8TB Total Free: 0.8TB Total Size: 0.9TB
+  Index 100: Name: /run/host/os-release Type: Fixed
+  Index 116: Name: /run/host/fonts Type: Fixed Format: btrfs Available: 0.8TB Total Free: 0.8TB Total Size: 0.9TB
+  Index 117: Name: /run/host/fonts-cache Type: Fixed Format: btrfs Available: 0.8TB Total Free: 0.8TB Total Size: 0.9TB
+  Index 118: Name: /run/host/user-fonts Type: Fixed Format: btrfs Available: 0.8TB Total Free: 0.8TB Total Size: 0.9TB
+  Index 119: Name: /run/host/user-fonts-cache Type: Fixed Format: btrfs Available: 0.8TB Total Free: 0.8TB Total Size: 0.9TB
+  Index 121: Name: /run/host/share/icons Type: Fixed Format: btrfs Available: 0.8TB Total Free: 0.8TB Total Size: 0.9TB
+  Index 122: Name: /run/host/user-share/icons Type: Fixed Format: btrfs Available: 0.8TB Total Free: 0.8TB Total Size: 0.9TB
+Important Environment Variables:
+  PATH: ~/.var/app/com.valvesoftware.Steam/.local/share/Steam/steamapps/common/SteamLinuxRuntime/var/steam-runtime/amd64/bin:~/.var/app/com.valvesoftware.Steam/.local/share/Steam/steamapps/common/SteamLinuxRuntime/var/steam-runtime/amd64/usr/bin:~/.var/app/com.valvesoftware.Steam/.local/share/Steam/steamapps/common/SteamLinuxRuntime/var/steam-runtime/usr/bin:/usr/bin:/bin
+  GODOT_ROOT_DIR: 
+  HOME: ~
+  DYLD_LIBRARY_PATH: 
+  LD_LIBRARY_PATH: ~/.var/app/com.valvesoftware.Steam/.local/share/Steam/steamapps/common/SteamLinuxRuntime/var/steam-runtime/pinned_libs_32:~/.var/app/com.valvesoftware.Steam/.local/share/Steam/steamapps/common/SteamLinuxRuntime/var/steam-runtime/pinned_libs_64:/usr/lib/pressure-vessel/overrides/lib/x86_64-linux-gnu/aliases:/usr/lib/pressure-vessel/overrides/lib/i386-linux-gnu/aliases:/usr/lib/pressure-vessel/overrides/lib/x86_64-linux-gnu:/usr/lib/pressure-vessel/overrides/lib/i386-linux-gnu:/lib/i386-linux-gnu:/usr/local/lib:/lib/x86_64-linux-gnu:~/.var/app/com.valvesoftware.Steam/.local/share/Steam/steamapps/common/SteamLinuxRuntime/var/steam-runtime/lib/i386-linux-gnu:~/.var/app/com.valvesoftware.Steam/.local/share/Steam/steamapps/common/SteamLinuxRuntime/var/steam-runtime/usr/lib/i386-linux-gnu:~/.var/app/com.valvesoftware.Steam/.local/share/Steam/steamapps/common/SteamLinuxRuntime/var/steam-runtime/lib/x86_64-linux-gnu:~/.var/app/com.valvesoftware.Steam/.local/share/Steam/steamapps/common/SteamLinuxRuntime/var/steam-runtime/usr/lib/x86_64-linux-gnu:~/.var/app/com.valvesoftware.Steam/.local/share/Steam/steamapps/common/SteamLinuxRuntime/var/steam-runtime/lib:~/.var/app/com.valvesoftware.Steam/.local/share/Steam/steamapps/common/SteamLinuxRuntime/var/steam-runtime/usr/lib:~/.var/app/com.valvesoftware.Steam/.local/share/Steam/steamapps/common/Slay the Spire 2
+Linux Environment:
+  Running under Proton: True
+  PROTON_VERSION: 
+  WINEPREFIX set: False
+  XDG_SESSION_TYPE: wayland
+  XDG_CURRENT_DESKTOP: GNOME
+  WAYLAND_DISPLAY: wayland-0
+
+[INFO] Preloading 'IntroLogo' assets... count=3 vfx=0
+[INFO] MuteInBackground: environment [displayServer=X11, os=Linux]
+[INFO] MuteInBackground: FocusOut received [tween=False, windowFocused=False]
+[INFO] Limiting background FPS to 30
+[INFO] MuteInBackground: FocusIn received [tween=True, msSinceFocusOut=2, windowFocused=True]
+[INFO] MuteInBackground: Unmuted, restored volume to 0.5
+[INFO] Restored foreground FPS
+[INFO] Window changed! New size: (3072, 1920)
+[INFO] MuteInBackground: FocusOut received [tween=False, windowFocused=False]
+[INFO] Limiting background FPS to 30
+[INFO] MuteInBackground: FocusIn received [tween=True, msSinceFocusOut=0, windowFocused=True]
+[INFO] MuteInBackground: Unmuted, restored volume to 0.5
+[INFO] Restored foreground FPS
+[INFO] Preloading 'IntroLogo' Complete: assets=3 time_elapsed=37ms
+[INFO] Preloading 'MainMenuEssentials' assets... count=5 vfx=0
+[INFO] SteamStatsManager: User stats received
+[INFO] SteamStatsManager: Global stats received (found=True), architect damage = 439950630755
+[INFO] Preloading 'MainMenuEssentials' Complete: assets=5 time_elapsed=418ms
+[WARN] Asset not cached: res://debug_audio/SOTE_Logo_Echoing_ShortTail.mp3
+[INFO] MuteInBackground: FocusOut received [tween=False, windowFocused=False]
+[INFO] Limiting background FPS to 30
+[INFO] [Startup] Time to main menu (Godot ticks): 11026ms
+[INFO] [Startup] Time to main menu: 11,036ms
+[INFO] [Startup] Resource stats (main menu loaded (essential)): StaticMem=0B, VRAM=196.9MB, Objects=7,966, Resources=456, Nodes=1,455, CachedAssets=11
+[INFO] AtlasManager: Loaded epoch_atlas with 57 sprites
+[INFO] AtlasManager: Loaded relic_atlas with 341 sprites
+[INFO] AtlasManager: Loaded relic_outline_atlas with 341 sprites
+[INFO] AtlasManager: Loaded power_atlas with 264 sprites
+[INFO] AtlasManager: Loaded card_atlas with 875 sprites
+[INFO] AtlasManager: Loaded potion_atlas with 63 sprites
+[INFO] AtlasManager: Loaded potion_outline_atlas with 63 sprites
+[INFO] AtlasManager: Loaded stats_screen_atlas with 16 sprites
+[INFO] AtlasManager: Loaded intent_atlas with 310 sprites
+[INFO] AtlasManager: Loaded era_atlas with 27 sprites
+[INFO] Unloading 4 missed cache assets
+[INFO] Preloading 'Common' assets... count=686 vfx=92
+[INFO] [Startup] Resource stats (main menu loaded (complete)): StaticMem=0B, VRAM=445.6MB, Objects=7,826, Resources=454, Nodes=1,453, CachedAssets=5
+[INFO] Preloading 'Common' Complete: assets=778 time_elapsed=6,836ms
+[INFO] MuteInBackground: FocusIn received [tween=True, msSinceFocusOut=24235, windowFocused=True]
+[INFO] MuteInBackground: Unmuted, restored volume to 0.5
+[INFO] Restored foreground FPS
+[INFO] MuteInBackground: FocusOut received [tween=False, windowFocused=False]
+[INFO] Limiting background FPS to 30
+[INFO] MuteInBackground: FocusIn received [tween=True, msSinceFocusOut=12021, windowFocused=True]
+[INFO] MuteInBackground: Unmuted, restored volume to 0.5
+[INFO] Restored foreground FPS
+[WARN] Asset not cached: res://scenes/screens/singleplayer_submenu.tscn
+[INFO] Max ascension changed to 0
+[INFO] Max ascension changed to 2
+[INFO] [StartRunLobby (1)] CHARACTER.IRONCLAD ascension set to preferred: 2
+[INFO] Max ascension changed to 9
+[INFO] [StartRunLobby (1)] CHARACTER.DEFECT ascension set to preferred: 9
+[INFO] [StartRunLobby (1)] Local player 1 is ready
+[INFO] Embarking on a singleplayer DEFECT run. Ascension: 9 Seed: YZCJ3CX14V
+[INFO] Preloading 'characters=DEFECT' assets... count=37 vfx=6
+[INFO] Preloading 'characters=DEFECT' Complete: assets=43 time_elapsed=452ms
+[WARN] Asset not cached: res://animations/map/ceremonial_beast_boss/ceremonial_beast_boss_node_skel_data.tres
+[INFO] Preloading 'Act=OVERGROWTH' assets... count=6 vfx=0
+[INFO] Preloading 'Act=OVERGROWTH' Complete: assets=6 time_elapsed=35ms
+[INFO] Preloading 'Act=OVERGROWTH' assets... count=0 vfx=0
+[INFO] Preloading 'Act=OVERGROWTH' Complete: assets=0 time_elapsed=12ms
+[INFO] Wrote 194807 bytes to path=user://steam/70000000000000001/profile1/saves/progress.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 194807 bytes to profile1/saves/progress.save in steam remote store
+[INFO] Wrote 45284 bytes to path=user://steam/70000000000000001/profile1/saves/current_run.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 45284 bytes to profile1/saves/current_run.save in steam remote store
+[INFO] Unloading 2 missed cache assets
+[INFO] Preloading 'Event Room' assets... count=3 vfx=0
+[INFO] Preloading 'Event Room' Complete: assets=3 time_elapsed=236ms
+[WARN] Asset not cached: res://scenes/events/ancient_dialogue_line.tscn
+[INFO] MuteInBackground: FocusOut received [tween=False, windowFocused=False]
+[INFO] Limiting background FPS to 30
+[INFO] MuteInBackground: FocusIn received [tween=True, msSinceFocusOut=16556, windowFocused=True]
+[INFO] MuteInBackground: Unmuted, restored volume to 0.5
+[INFO] Restored foreground FPS
+[INFO] Wrote 194807 bytes to path=user://steam/70000000000000001/profile1/saves/progress.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 194807 bytes to profile1/saves/progress.save in steam remote store
+[INFO] Wrote 47887 bytes to path=user://steam/70000000000000001/profile1/saves/current_run.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 47887 bytes to profile1/saves/current_run.save in steam remote store
+[WARN] Asset not cached: res://images/orbs/lightning_orb.png
+[INFO] MuteInBackground: FocusOut received [tween=False, windowFocused=False]
+[INFO] Limiting background FPS to 30
+[INFO] MuteInBackground: FocusIn received [tween=True, msSinceFocusOut=28355, windowFocused=True]
+[INFO] MuteInBackground: Unmuted, restored volume to 0.5
+[INFO] Restored foreground FPS
+[INFO] MuteInBackground: FocusOut received [tween=False, windowFocused=False]
+[INFO] Limiting background FPS to 30
+[INFO] MuteInBackground: FocusIn received [tween=True, msSinceFocusOut=25622, windowFocused=True]
+[INFO] MuteInBackground: Unmuted, restored volume to 0.5
+[INFO] Restored foreground FPS
+[INFO] MuteInBackground: FocusOut received [tween=False, windowFocused=False]
+[INFO] Limiting background FPS to 30
+[INFO] MuteInBackground: FocusIn received [tween=True, msSinceFocusOut=10889, windowFocused=True]
+[INFO] MuteInBackground: Unmuted, restored volume to 0.5
+[INFO] Restored foreground FPS
+[INFO] Player vote changed for 1: ->MapVote (gen: 1 coord: (3, 1))
+[INFO] Wrote 194807 bytes to path=user://steam/70000000000000001/profile1/saves/progress.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 194807 bytes to profile1/saves/progress.save in steam remote store
+[INFO] Wrote 47942 bytes to path=user://steam/70000000000000001/profile1/saves/current_run.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 47942 bytes to profile1/saves/current_run.save in steam remote store
+[INFO] Unloading 2 missed cache assets
+[INFO] Preloading 'Combat Room' assets... count=9 vfx=0
+[INFO] Preloading 'Combat Room' Complete: assets=9 time_elapsed=143ms
+[INFO] Creating NCombatRoom with mode=ActiveCombat encounter=SHRINKER_BEETLE_WEAK.
+[INFO] MuteInBackground: FocusOut received [tween=False, windowFocused=False]
+[INFO] Limiting background FPS to 30
+[WARN] Asset not cached: res://scenes/orbs/orb_visuals/lightning_orb.tscn
+[WARN] Asset not cached: res://images/orbs/lightning_orb.png
+[INFO] MuteInBackground: FocusIn received [tween=True, msSinceFocusOut=6821, windowFocused=True]
+[INFO] MuteInBackground: Unmuted, restored volume to 0.5
+[INFO] Restored foreground FPS
+[INFO] MuteInBackground: FocusOut received [tween=False, windowFocused=False]
+[INFO] Limiting background FPS to 30
+[INFO] MuteInBackground: FocusIn received [tween=True, msSinceFocusOut=1122, windowFocused=True]
+[INFO] MuteInBackground: Unmuted, restored volume to 0.5
+[INFO] Restored foreground FPS
+[INFO] MuteInBackground: FocusOut received [tween=False, windowFocused=False]
+[INFO] Limiting background FPS to 30
+[INFO] MuteInBackground: FocusIn received [tween=True, msSinceFocusOut=1722, windowFocused=True]
+[INFO] MuteInBackground: Unmuted, restored volume to 0.5
+[INFO] Restored foreground FPS
+[INFO] MuteInBackground: FocusOut received [tween=False, windowFocused=False]
+[INFO] Limiting background FPS to 30
+[INFO] MuteInBackground: FocusIn received [tween=True, msSinceFocusOut=12788, windowFocused=True]
+[INFO] MuteInBackground: Unmuted, restored volume to 0.5
+[INFO] Restored foreground FPS
+[INFO] MuteInBackground: FocusOut received [tween=False, windowFocused=False]
+[INFO] Limiting background FPS to 30
+[INFO] MuteInBackground: FocusIn received [tween=True, msSinceFocusOut=1222, windowFocused=True]
+[INFO] MuteInBackground: Unmuted, restored volume to 0.5
+[INFO] Restored foreground FPS
+[INFO] MuteInBackground: FocusOut received [tween=False, windowFocused=False]
+[INFO] Limiting background FPS to 30
+[INFO] MuteInBackground: FocusIn received [tween=True, msSinceFocusOut=388, windowFocused=True]
+[INFO] MuteInBackground: Unmuted, restored volume to 0.5
+[INFO] Restored foreground FPS
+[INFO] MuteInBackground: FocusOut received [tween=False, windowFocused=False]
+[INFO] Limiting background FPS to 30
+[INFO] MuteInBackground: FocusIn received [tween=True, msSinceFocusOut=5622, windowFocused=True]
+[INFO] MuteInBackground: Unmuted, restored volume to 0.5
+[INFO] Restored foreground FPS
+[INFO] MuteInBackground: FocusOut received [tween=False, windowFocused=False]
+[INFO] Limiting background FPS to 30
+[INFO] MuteInBackground: FocusIn received [tween=True, msSinceFocusOut=6022, windowFocused=True]
+[INFO] MuteInBackground: Unmuted, restored volume to 0.5
+[INFO] Restored foreground FPS
+[INFO] MuteInBackground: FocusOut received [tween=False, windowFocused=False]
+[INFO] Limiting background FPS to 30
+[INFO] MuteInBackground: FocusIn received [tween=True, msSinceFocusOut=30921, windowFocused=True]
+[INFO] MuteInBackground: Unmuted, restored volume to 0.5
+[INFO] Restored foreground FPS
+[INFO] MuteInBackground: FocusOut received [tween=False, windowFocused=False]
+[INFO] Limiting background FPS to 30
+[INFO] MuteInBackground: FocusIn received [tween=True, msSinceFocusOut=455, windowFocused=True]
+[INFO] MuteInBackground: Unmuted, restored volume to 0.5
+[INFO] Restored foreground FPS
+[INFO] MuteInBackground: FocusOut received [tween=False, windowFocused=False]
+[INFO] Limiting background FPS to 30
+[INFO] MuteInBackground: FocusIn received [tween=True, msSinceFocusOut=322, windowFocused=True]
+[INFO] MuteInBackground: Unmuted, restored volume to 0.5
+[INFO] Restored foreground FPS
+[INFO] MuteInBackground: FocusOut received [tween=False, windowFocused=False]
+[INFO] Limiting background FPS to 30
+[INFO] MuteInBackground: FocusIn received [tween=True, msSinceFocusOut=39155, windowFocused=True]
+[INFO] MuteInBackground: Unmuted, restored volume to 0.5
+[INFO] Restored foreground FPS
+[INFO] MuteInBackground: FocusOut received [tween=False, windowFocused=False]
+[INFO] Limiting background FPS to 30
+[INFO] MuteInBackground: FocusIn received [tween=True, msSinceFocusOut=16521, windowFocused=True]
+[INFO] MuteInBackground: Unmuted, restored volume to 0.5
+[INFO] Restored foreground FPS
+[INFO] Player 1 playing card STRIKE_DEFECT (targeting Shrinker Beetle (index 1))
+[INFO] Player 1 playing card STRIKE_DEFECT (targeting Shrinker Beetle (index 1))
+[INFO] Player 1 playing card ZAP (no target)
+[INFO] Monster SHRINKER_BEETLE performing move SHRINKER_MOVE
+[WARN] Asset not cached: res://images/powers/shrink_power.png
+[INFO] Player 1 playing card DEFEND_DEFECT (no target)
+[INFO] Player 1 playing card STRIKE_DEFECT (targeting Shrinker Beetle (index 1))
+[INFO] Player 1 playing card STRIKE_DEFECT (targeting Shrinker Beetle (index 1))
+[INFO] Monster SHRINKER_BEETLE performing move CHOMP_MOVE
+[INFO] Player 1 playing card DUALCAST (no target)
+[WARN] Warning: Packet writer is growing from 1024 bytes to 2048 bytes!
+[WARN] Warning: Packet writer is growing from 2048 bytes to 4096 bytes!
+[INFO] Wrote 48962 bytes to path=user://steam/70000000000000001/profile1/saves/current_run.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 48962 bytes to profile1/saves/current_run.save in steam remote store
+[INFO] CHARACTER.DEFECT has won against encounter ENCOUNTER.SHRINKER_BEETLE_WEAK. That's 38 wins
+[INFO] CHARACTER.DEFECT has killed a MONSTER.SHRINKER_BEETLE. That's 47 kills
+[INFO] Wrote 194807 bytes to path=user://steam/70000000000000001/profile1/saves/progress.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 194807 bytes to profile1/saves/progress.save in steam remote store
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] MuteInBackground: FocusOut received [tween=False, windowFocused=False]
+[INFO] Limiting background FPS to 30
+[INFO] MuteInBackground: FocusIn received [tween=True, msSinceFocusOut=5756, windowFocused=True]
+[INFO] MuteInBackground: Unmuted, restored volume to 0.5
+[INFO] Restored foreground FPS
+[INFO] MuteInBackground: FocusOut received [tween=False, windowFocused=False]
+[INFO] Limiting background FPS to 30
+[INFO] MuteInBackground: FocusIn received [tween=True, msSinceFocusOut=4122, windowFocused=True]
+[INFO] MuteInBackground: Unmuted, restored volume to 0.5
+[INFO] Restored foreground FPS
+[INFO] MuteInBackground: FocusOut received [tween=False, windowFocused=False]
+[INFO] Limiting background FPS to 30
+[INFO] MuteInBackground: FocusIn received [tween=True, msSinceFocusOut=11888, windowFocused=True]
+[INFO] MuteInBackground: Unmuted, restored volume to 0.5
+[INFO] Restored foreground FPS
+[INFO] Player 1 selected card reward
+[WARN] Asset not cached: res://images/orbs/frost_orb.png
+[INFO] MuteInBackground: FocusOut received [tween=False, windowFocused=False]
+[INFO] Limiting background FPS to 30
+[INFO] MuteInBackground: FocusIn received [tween=True, msSinceFocusOut=5621, windowFocused=True]
+[INFO] MuteInBackground: Unmuted, restored volume to 0.5
+[INFO] Restored foreground FPS
+[INFO] MuteInBackground: FocusOut received [tween=False, windowFocused=False]
+[INFO] Limiting background FPS to 30
+[INFO] MuteInBackground: FocusIn received [tween=True, msSinceFocusOut=6122, windowFocused=True]
+[INFO] MuteInBackground: Unmuted, restored volume to 0.5
+[INFO] Restored foreground FPS
+[INFO] MuteInBackground: FocusOut received [tween=False, windowFocused=False]
+[INFO] Limiting background FPS to 30
+[INFO] MuteInBackground: FocusIn received [tween=True, msSinceFocusOut=7754, windowFocused=True]
+[INFO] MuteInBackground: Unmuted, restored volume to 0.5
+[INFO] Restored foreground FPS
+[INFO] MuteInBackground: FocusOut received [tween=False, windowFocused=False]
+[INFO] Limiting background FPS to 30
+[INFO] MuteInBackground: FocusIn received [tween=True, msSinceFocusOut=2688, windowFocused=True]
+[INFO] MuteInBackground: Unmuted, restored volume to 0.5
+[INFO] Restored foreground FPS
+[INFO] MuteInBackground: FocusOut received [tween=False, windowFocused=False]
+[INFO] Limiting background FPS to 30
+[INFO] MuteInBackground: FocusIn received [tween=True, msSinceFocusOut=3188, windowFocused=True]
+[INFO] MuteInBackground: Unmuted, restored volume to 0.5
+[INFO] Restored foreground FPS
+[INFO] MuteInBackground: FocusOut received [tween=False, windowFocused=False]
+[INFO] Limiting background FPS to 30
+[INFO] MuteInBackground: FocusIn received [tween=True, msSinceFocusOut=1554, windowFocused=True]
+[INFO] MuteInBackground: Unmuted, restored volume to 0.5
+[INFO] Restored foreground FPS
+[INFO] MuteInBackground: FocusOut received [tween=False, windowFocused=False]
+[INFO] Limiting background FPS to 30
+[INFO] MuteInBackground: FocusIn received [tween=True, msSinceFocusOut=5687, windowFocused=True]
+[INFO] MuteInBackground: Unmuted, restored volume to 0.5
+[INFO] Restored foreground FPS
+[INFO] MuteInBackground: FocusOut received [tween=False, windowFocused=False]
+[INFO] Limiting background FPS to 30
+[INFO] MuteInBackground: FocusIn received [tween=True, msSinceFocusOut=25854, windowFocused=True]
+[INFO] MuteInBackground: Unmuted, restored volume to 0.5
+[INFO] Restored foreground FPS
+[INFO] Player 1 obtained CARD.BOOT_SEQUENCE from card reward
+[INFO] Player 1 obtained 10 gold from reward
+[INFO] Player vote changed for 1: ->MapVote (gen: 1 coord: (3, 2))
+[INFO] Wrote 194807 bytes to path=user://steam/70000000000000001/profile1/saves/progress.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 194807 bytes to profile1/saves/progress.save in steam remote store
+[INFO] Wrote 49560 bytes to path=user://steam/70000000000000001/profile1/saves/current_run.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 49560 bytes to profile1/saves/current_run.save in steam remote store
+[INFO] Unloading 4 missed cache assets
+[INFO] Preloading 'Event Room' assets... count=2 vfx=0
+[INFO] Preloading 'Event Room' Complete: assets=2 time_elapsed=53ms
+[WARN] Asset not cached: res://scenes/ui/card_hover_tip.tscn
+[WARN] Asset not cached: res://images/orbs/lightning_orb.png
+[INFO] Player 1 chose cards [STRIKE_DEFECT]
+[INFO] Unloading 2 missed cache assets
+[INFO] Preloading 'Common' assets... count=125 vfx=1
+[WARN] Asset not cached: res://scenes/screens/main_menu.tscn
+[INFO] [Startup] Time to main menu (Godot ticks): 605404ms
+[INFO] Preloading 'Common' Complete: assets=125 time_elapsed=1,047ms
+[INFO] Wrote 49944 bytes to path=user://steam/70000000000000001/profile1/saves/current_run.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 49944 bytes to profile1/saves/current_run.save in steam remote store
+[INFO] Continuing run with character: CHARACTER.DEFECT
+[INFO] Preloading 'characters=DEFECT' assets... count=37 vfx=6
+[INFO] Preloading 'characters=DEFECT' Complete: assets=43 time_elapsed=586ms
+[WARN] Asset not cached: res://animations/map/ceremonial_beast_boss/ceremonial_beast_boss_node_skel_data.tres
+[INFO] Preloading 'Act=OVERGROWTH' assets... count=6 vfx=0
+[INFO] Preloading 'Act=OVERGROWTH' Complete: assets=6 time_elapsed=26ms
+[INFO] Unloading 2 missed cache assets
+[INFO] Preloading 'Event Room' assets... count=3 vfx=0
+[INFO] Preloading 'Event Room' Complete: assets=3 time_elapsed=34ms
+[INFO] Preloading 'Common' assets... count=125 vfx=1
+[WARN] Warning: Packet writer is growing from 1024 bytes to 2048 bytes!
+[WARN] Warning: Packet writer is growing from 2048 bytes to 4096 bytes!
+[WARN] Asset not cached: res://scenes/screens/main_menu.tscn
+[INFO] [Startup] Time to main menu (Godot ticks): 611831ms
+[INFO] Preloading 'Common' Complete: assets=125 time_elapsed=934ms
+[INFO] Abandoning run from main menu
+[INFO] CHARACTER.DEFECT has lost to encounter ENCOUNTER.SHRINKER_BEETLE_WEAK. That's 2 losses
+[INFO] CHARACTER.DEFECT has died to a MONSTER.SHRINKER_BEETLE. That's 2 losses
+[INFO] Player already has Epoch: NEOW_EPOCH
+[INFO] Player already has Epoch: OROBAS_EPOCH
+[INFO] Player already has Epoch: DARV_EPOCH
+[INFO] Wrote 194808 bytes to path=user://steam/70000000000000001/profile1/saves/progress.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 194808 bytes to profile1/saves/progress.save in steam remote store
+[INFO] Forgetting file profile1/saves/history/1792284036.run from cloud storage because we're past our quota. Bytes after forgetting: 4062066. Files after forgetting: 100
+[INFO] Wrote 6003 bytes to path=user://steam/70000000000000001/profile1/saves/history/1793274550.run save_dir=user://steam/70000000000000001
+[INFO] Wrote 6003 bytes to profile1/saves/history/1793274550.run in steam remote store
+[INFO] Saved run history: 1793274550.run
+[INFO] Created Run History entry!
+[WARN] Asset not cached: res://scenes/screens/singleplayer_submenu.tscn
+[INFO] Max ascension changed to 0
+[INFO] Max ascension changed to 2
+[INFO] [StartRunLobby (1)] CHARACTER.IRONCLAD ascension set to preferred: 2
+[INFO] Max ascension changed to 9
+[INFO] [StartRunLobby (1)] CHARACTER.DEFECT ascension set to preferred: 9
+[INFO] [StartRunLobby (1)] Local player 1 is ready
+[INFO] Embarking on a singleplayer DEFECT run. Ascension: 9 Seed: 4XKBYFKNY4
+[INFO] Preloading 'characters=DEFECT' assets... count=37 vfx=6
+[INFO] Preloading 'characters=DEFECT' Complete: assets=43 time_elapsed=497ms
+[INFO] Preloading 'Act=UNDERDOCKS' assets... count=8 vfx=0
+[INFO] Preloading 'Act=UNDERDOCKS' Complete: assets=8 time_elapsed=33ms
+[INFO] Preloading 'Act=UNDERDOCKS' assets... count=0 vfx=0
+[INFO] Preloading 'Act=UNDERDOCKS' Complete: assets=0 time_elapsed=15ms
+[INFO] Wrote 194808 bytes to path=user://steam/70000000000000001/profile1/saves/progress.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 194808 bytes to profile1/saves/progress.save in steam remote store
+[INFO] Wrote 43614 bytes to path=user://steam/70000000000000001/profile1/saves/current_run.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 43614 bytes to profile1/saves/current_run.save in steam remote store
+[INFO] Unloading 2 missed cache assets
+[INFO] Preloading 'Event Room' assets... count=2 vfx=0
+[INFO] Preloading 'Event Room' Complete: assets=2 time_elapsed=399ms
+[WARN] Asset not cached: res://scenes/events/ancient_dialogue_line.tscn
+[WARN] Asset not cached: res://images/packed/sprite_fonts/defect_energy_icon.png
+[INFO] Wrote 194808 bytes to path=user://steam/70000000000000001/profile1/saves/progress.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 194808 bytes to profile1/saves/progress.save in steam remote store
+[INFO] Wrote 45550 bytes to path=user://steam/70000000000000001/profile1/saves/current_run.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 45550 bytes to profile1/saves/current_run.save in steam remote store
+[INFO] Unloading 2 missed cache assets
+[INFO] Preloading 'Common' assets... count=125 vfx=1
+[WARN] Warning: Packet writer is growing from 1024 bytes to 2048 bytes!
+[WARN] Asset not cached: res://scenes/screens/main_menu.tscn
+[INFO] [Startup] Time to main menu (Godot ticks): 634937ms
+[INFO] Preloading 'Common' Complete: assets=125 time_elapsed=882ms
+[INFO] Abandoning run from main menu
+[INFO] Player already has Epoch: NEOW_EPOCH
+[INFO] Player already has Epoch: OROBAS_EPOCH
+[INFO] Player already has Epoch: DARV_EPOCH
+[INFO] Wrote 194808 bytes to path=user://steam/70000000000000001/profile1/saves/progress.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 194808 bytes to profile1/saves/progress.save in steam remote store
+[INFO] Forgetting file profile1/saves/history/1792284672.run from cloud storage because we're past our quota. Bytes after forgetting: 4060517. Files after forgetting: 100
+[INFO] Wrote 3449 bytes to path=user://steam/70000000000000001/profile1/saves/history/1793275082.run save_dir=user://steam/70000000000000001
+[INFO] Wrote 3449 bytes to profile1/saves/history/1793275082.run in steam remote store
+[INFO] Saved run history: 1793275082.run
+[INFO] Created Run History entry!
+[WARN] Asset not cached: res://scenes/screens/singleplayer_submenu.tscn
+[INFO] Max ascension changed to 0
+[INFO] Max ascension changed to 2
+[INFO] [StartRunLobby (1)] CHARACTER.IRONCLAD ascension set to preferred: 2
+[INFO] Max ascension changed to 0
+[INFO] [StartRunLobby (1)] CHARACTER.NECROBINDER has not revealed the Ascension Epoch, disabling Ascension.
+[INFO] [StartRunLobby (1)] Local player 1 is ready
+[INFO] Embarking on a singleplayer NECROBINDER run. Ascension: 0 Seed: 0FYPTGNV7C
+[INFO] Preloading 'characters=NECROBINDER' assets... count=38 vfx=7
+[INFO] Preloading 'characters=NECROBINDER' Complete: assets=45 time_elapsed=526ms
+[WARN] Asset not cached: res://animations/map/ceremonial_beast_boss/ceremonial_beast_boss_node_skel_data.tres
+[INFO] Preloading 'Act=OVERGROWTH' assets... count=6 vfx=0
+[INFO] Preloading 'Act=OVERGROWTH' Complete: assets=6 time_elapsed=37ms
+[INFO] Preloading 'Act=OVERGROWTH' assets... count=0 vfx=0
+[INFO] Preloading 'Act=OVERGROWTH' Complete: assets=0 time_elapsed=15ms
+[INFO] Wrote 194808 bytes to path=user://steam/70000000000000001/profile1/saves/progress.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 194808 bytes to profile1/saves/progress.save in steam remote store
+[INFO] Wrote 41257 bytes to path=user://steam/70000000000000001/profile1/saves/current_run.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 41257 bytes to profile1/saves/current_run.save in steam remote store
+[INFO] Unloading 3 missed cache assets
+[INFO] Preloading 'Event Room' assets... count=3 vfx=0
+[INFO] Preloading 'Event Room' Complete: assets=3 time_elapsed=400ms
+[WARN] Asset not cached: res://scenes/events/ancient_dialogue_line.tscn
+[WARN] Asset not cached: res://images/packed/sprite_fonts/necrobinder_energy_icon.png
+[INFO] Player 1 selected card reward
+[INFO] Player 1 obtained CARD.SLICE from card reward
+[INFO] Player 1 selected card reward
+[INFO] Player 1 obtained CARD.CLAW from card reward
+[INFO] Wrote 194808 bytes to path=user://steam/70000000000000001/profile1/saves/progress.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 194808 bytes to profile1/saves/progress.save in steam remote store
+[INFO] Wrote 44792 bytes to path=user://steam/70000000000000001/profile1/saves/current_run.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 44792 bytes to profile1/saves/current_run.save in steam remote store
+[INFO] Player vote changed for 1: ->MapVote (gen: 1 coord: (4, 1))
+[INFO] Wrote 194808 bytes to path=user://steam/70000000000000001/profile1/saves/progress.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 194808 bytes to profile1/saves/progress.save in steam remote store
+[INFO] Wrote 44640 bytes to path=user://steam/70000000000000001/profile1/saves/current_run.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 44640 bytes to profile1/saves/current_run.save in steam remote store
+[INFO] Unloading 2 missed cache assets
+[INFO] Preloading 'Combat Room' assets... count=11 vfx=0
+[INFO] Preloading 'Combat Room' Complete: assets=11 time_elapsed=88ms
+[INFO] Creating NCombatRoom with mode=ActiveCombat encounter=SLIMES_WEAK.
+[WARN] Asset not cached: res://images/powers/die_for_you_power.png
+[INFO] Player 1 playing card SLICE (targeting Twig Slime (S) (index 4))
+[INFO] Player 1 playing card BODYGUARD (no target)
+[INFO] Player 1 playing card DEFEND_NECROBINDER (no target)
+[INFO] Player 1 playing card DEFEND_NECROBINDER (no target)
+[INFO] Monster LEAF_SLIME_S performing move TACKLE_MOVE
+[INFO] Monster LEAF_SLIME_M performing move STICKY_SHOT
+[INFO] Monster TWIG_SLIME_S performing move TACKLE_MOVE
+[INFO] Player 1 playing card CLAW (targeting Twig Slime (S) (index 4))
+[INFO] Player 1 playing card STRIKE_NECROBINDER (targeting Leaf Slime (S) (index 2))
+[INFO] Player 1 playing card STRIKE_NECROBINDER (targeting Leaf Slime (S) (index 2))
+[INFO] Player 1 playing card DEFEND_NECROBINDER (no target)
+[INFO] Monster LEAF_SLIME_M performing move CLUMP_SHOT
+[INFO] Player 1 playing card UNLEASH (targeting Leaf Slime (M) (index 2))
+[INFO] Player 1 playing card STRIKE_NECROBINDER (targeting Leaf Slime (M) (index 2))
+[INFO] Player 1 playing card STRIKE_NECROBINDER (targeting Leaf Slime (M) (index 2))
+[INFO] Monster LEAF_SLIME_M performing move STICKY_SHOT
+[INFO] Player 1 playing card CLAW (targeting Leaf Slime (M) (index 2))
+[INFO] Player 1 playing card BODYGUARD (no target)
+[INFO] Player 1 playing card SLIMED (no target)
+[INFO] Player 1 playing card SLICE (targeting Leaf Slime (M) (index 2))
+[INFO] Player 1 playing card DEFEND_NECROBINDER (no target)
+[INFO] Monster LEAF_SLIME_M performing move CLUMP_SHOT
+[INFO] Player 1 playing card STRIKE_NECROBINDER (targeting Leaf Slime (M) (index 2))
+[WARN] Warning: Packet writer is growing from 1024 bytes to 2048 bytes!
+[WARN] Warning: Packet writer is growing from 2048 bytes to 4096 bytes!
+[INFO] Wrote 45745 bytes to path=user://steam/70000000000000001/profile1/saves/current_run.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 45745 bytes to profile1/saves/current_run.save in steam remote store
+[INFO] CHARACTER.NECROBINDER has won against encounter ENCOUNTER.SLIMES_WEAK. That's 2 wins
+[INFO] CHARACTER.NECROBINDER has killed a MONSTER.LEAF_SLIME_S. That's 2 kills
+[INFO] CHARACTER.NECROBINDER fought MONSTER.LEAF_SLIME_M for the first time and WON >:(
+[INFO] CHARACTER.NECROBINDER has killed a MONSTER.TWIG_SLIME_S. That's 2 kills
+[INFO] Wrote 194920 bytes to path=user://steam/70000000000000001/profile1/saves/progress.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 194920 bytes to profile1/saves/progress.save in steam remote store
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Player 1 obtained 17 gold from reward
+[INFO] Player 1 obtained POTION.ATTACK_POTION from potion reward
+[INFO] Player 1 selected card reward
+[INFO] Player 1 obtained CARD.DEFY from card reward
+[INFO] Player vote changed for 1: ->MapVote (gen: 1 coord: (4, 2))
+[INFO] Wrote 194920 bytes to path=user://steam/70000000000000001/profile1/saves/progress.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 194920 bytes to profile1/saves/progress.save in steam remote store
+[INFO] Wrote 46592 bytes to path=user://steam/70000000000000001/profile1/saves/current_run.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 46592 bytes to profile1/saves/current_run.save in steam remote store
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Card rarity: Rolled <masqué>
+[INFO] Unloading 1 missed cache assets
+[INFO] Preloading 'Merchant Room' assets... count=1 vfx=0
+[INFO] Preloading 'Merchant Room' Complete: assets=1 time_elapsed=231ms
+[INFO] MuteInBackground: FocusOut received [tween=False, windowFocused=False]
+[INFO] Limiting background FPS to 30
+[INFO] MuteInBackground: FocusIn received [tween=True, msSinceFocusOut=3819, windowFocused=True]
+[INFO] MuteInBackground: Unmuted, restored volume to 0.5
+[INFO] Restored foreground FPS
+[INFO] MuteInBackground: FocusOut received [tween=False, windowFocused=False]
+[INFO] Limiting background FPS to 30
+[INFO] MuteInBackground: FocusIn received [tween=True, msSinceFocusOut=22652, windowFocused=True]
+[INFO] MuteInBackground: Unmuted, restored volume to 0.5
+[INFO] Restored foreground FPS
+[INFO] MuteInBackground: FocusOut received [tween=False, windowFocused=False]
+[INFO] Limiting background FPS to 30
+[INFO] MuteInBackground: FocusIn received [tween=True, msSinceFocusOut=6121, windowFocused=True]
+[INFO] MuteInBackground: Unmuted, restored volume to 0.5
+[INFO] Restored foreground FPS
+[INFO] MuteInBackground: FocusOut received [tween=False, windowFocused=False]
+[INFO] Limiting background FPS to 30
+[INFO] MuteInBackground: FocusIn received [tween=True, msSinceFocusOut=754, windowFocused=True]
+[INFO] MuteInBackground: Unmuted, restored volume to 0.5
+[INFO] Restored foreground FPS
+[WARN] Asset not cached: res://scenes/ui/card_hover_tip.tscn
+[INFO] MuteInBackground: FocusOut received [tween=False, windowFocused=False]
+[INFO] Limiting background FPS to 30
+[INFO] MuteInBackground: FocusIn received [tween=True, msSinceFocusOut=957, windowFocused=True]
+[INFO] MuteInBackground: Unmuted, restored volume to 0.5
+[INFO] Restored foreground FPS
+[INFO] MuteInBackground: FocusOut received [tween=False, windowFocused=False]
+[INFO] Limiting background FPS to 30
+[INFO] MuteInBackground: FocusIn received [tween=True, msSinceFocusOut=1586, windowFocused=True]
+[INFO] MuteInBackground: Unmuted, restored volume to 0.5
+[INFO] Restored foreground FPS
+[INFO] MuteInBackground: FocusOut received [tween=False, windowFocused=False]
+[INFO] Limiting background FPS to 30
+[INFO] NGame.Quit called
+[INFO] Wrote 2417 bytes to path=user://steam/70000000000000001/settings.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 283 bytes to path=user://steam/70000000000000001/profile1/saves/prefs.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 283 bytes to profile1/saves/prefs.save in steam remote store
+[INFO] Wrote 194940 bytes to path=user://steam/70000000000000001/profile1/saves/progress.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 194940 bytes to profile1/saves/progress.save in steam remote store
+[INFO] Wrote 49 bytes to path=user://steam/70000000000000001/profile.save save_dir=user://steam/70000000000000001
+[INFO] Wrote 49 bytes to profile.save in steam remote store
+[INFO] Steamworks: shutting down...
+[INFO] Steamworks shutdown succeeded!
+[INFO] [Sentry.NET] Shutting down
+FMOD Sound System: System released
+WARNING: 740 RIDs of type "CanvasItem" were leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2678)
+ERROR: 1 RID allocations of type 'N26RendererEnvironmentStorage11EnvironmentE' were leaked at exit.
+ERROR: 5 shaders of type CanvasShaderRD were never freed
+   at: ~ShaderRD (servers/rendering/renderer_rd/shader_rd.cpp:1044)
+ERROR: 20 RID allocations of type 'N10RendererRD16ParticlesStorage9ParticlesE' were leaked at exit.
+ERROR: 1 shaders of type ParticlesShaderRD were never freed
+   at: ~ShaderRD (servers/rendering/renderer_rd/shader_rd.cpp:1044)
+ERROR: 20 RID allocations of type 'N10RendererRD11MeshStorage4MeshE' were leaked at exit.
+ERROR: 55 RID allocations of type 'N10RendererRD15MaterialStorage8MaterialE' were leaked at exit.
+ERROR: 6 RID allocations of type 'N10RendererRD15MaterialStorage6ShaderE' were leaked at exit.
+ERROR: 27 RID allocations of type 'N10RendererRD14TextureStorage7TextureE' were leaked at exit.
+WARNING: 103 RIDs of type "UniformBuffer" were leaked.
+   at: _free_rids (servers/rendering/rendering_device.cpp:6981)
+WARNING: 50 RIDs of type "Texture" were leaked.
+   at: finalize (servers/rendering/rendering_device.cpp:7191)
+ERROR: 279 RID allocations of type 'PN18TextServerAdvanced22ShapedTextDataAdvancedE' were leaked at exit.
+ERROR: 4 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+ERROR: 5 RID allocations of type 'PN18TextServerAdvanced27FontAdvancedLinkedVariationE' were leaked at exit.
+WARNING: ObjectDB instances leaked at exit (run with --verbose for details).
+   at: cleanup (core/object/object.cpp:2514)
+ERROR: 79 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:795)

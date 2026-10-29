@@ -10,13 +10,14 @@ Sorties :
   abandon, marchand, fermeture) ;
 - godot-coop-2026-10-29.events.log : lignes d'événements de la session co-op 12:47 (4 joueurs).
 """
+import os
 import re
 import sys
 from pathlib import Path
 
 LOGS = Path.home() / ".var/app/com.valvesoftware.Steam/.local/share/SlayTheSpire2/logs"
 HERE = Path(__file__).resolve().parent
-MIO = "76561199515637309"
+MIO = os.environ.get("STEAM_ID", "")  # ID Steam local à anonymiser (jamais en dur dans le dépôt)
 EVENT = re.compile(r"Preloading '[A-Za-z]+ Room'|Creating NCombatRoom|Card rarity: Rolled|selected card reward"
                    r"|Player vote changed|Wrote \d+ bytes to path=.*current_run|Continuing run|Abandoning run|NGame.Quit")
 
