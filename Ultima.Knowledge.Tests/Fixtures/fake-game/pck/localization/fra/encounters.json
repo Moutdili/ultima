@@ -1,0 +1,4 @@
+{
+  "GLASS_GOLEM_BOSS.loss": "{character} s'est égaré{characterGender:choose(feminine):e|}.",
+  "GLASS_GOLEM_BOSS.title": "Golem de verre"
+}

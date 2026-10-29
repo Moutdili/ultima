@@ -1,0 +1,7 @@
+{
+  "COPPER_BELL.description": "Au lever {Combats:plural:de la prochaine aube|des [blue]{}[/blue] prochaines aubes}, ramassez [blue]{Gold}[/blue] [gold]Écus[/gold].",
+  "COPPER_BELL.flavor": "[red]Elle tinte.[/red]",
+  "COPPER_BELL.title": "Cloche de cuivre",
+  "MIRROR_SHARD.description": "Reflétez {StarterCard.StringValue:cond:[gold]{StarterCard}[/gold]|un jeton de départ}. Ornez de [purple]{Enchantment}[/purple]. Touchez [blue]{GoldIncrease:percentMore()} %[/blue] d'écus en plus.",
+  "MIRROR_SHARD.title": "Éclat de miroir"
+}
