@@ -6,7 +6,7 @@ namespace Ultima.Daemon.Settings;
 
 /// <summary>
 /// Réglages de l'overlay : <c>~/.config/ultima/settings.json</c> (écrit par le compagnon, LU par le daemon).
-/// Format : la sérialisation camelCase d'<see cref="OverlaySettings"/> (<c>{"modules":[{"id","enabled","order"}]}</c>).
+/// Format : la sérialisation camelCase d'<see cref="OverlaySettings"/> (<c>{"modules":[{"id","enabled","order"}],"hud":{…}}</c>, v1.3).
 /// Absent → <see cref="OverlaySettings.Default"/>. Illisible → dernier réglage valide conservé.
 /// Normalisation : ids inconnus ignorés, doublons ignorés, modules manquants ajoutés (activés) après les autres,
 /// ordre renuméroté 0..n-1.
@@ -51,7 +51,26 @@ public static class SettingsStore
             .ToList();
         foreach (var d in OverlaySettings.Default.Modules)
             if (seen.Add(d.Id)) list.Add(d with { Order = int.MaxValue });
-        return new OverlaySettings(list.Select((m, i) => m with { Order = i }).ToArray());
+        return new OverlaySettings(list.Select((m, i) => m with { Order = i }).ToArray()) { Hud = NormalizeHud(s.Hud) };
+    }
+
+    /// <summary>
+    /// v1.3 : réglages du HUD, validés champ par champ (une valeur invalide reprend SA valeur par défaut,
+    /// les autres sont gardées) : qualité ∈ eco|verre|loupe, hauteur ∈ ]0,1], opacité au repos ∈ [0,1],
+    /// côté ∈ right|left. « hud » absent ou null → <see cref="HudSettings.Default"/>.
+    /// </summary>
+    public static HudSettings NormalizeHud(HudSettings? h)
+    {
+        var d = HudSettings.Default;
+        if (h is null) return d;
+        static bool Finite(double v) => !double.IsNaN(v) && !double.IsInfinity(v);
+        return new HudSettings(
+            h.Quality is { } q && HudSettings.Qualities.Contains(q.ToLowerInvariant()) ? q.ToLowerInvariant() : d.Quality,
+            Finite(h.HeightFraction) && h.HeightFraction > 0 && h.HeightFraction <= 1 ? h.HeightFraction : d.HeightFraction,
+            Finite(h.RestOpacity) && h.RestOpacity >= 0 && h.RestOpacity <= 1 ? h.RestOpacity : d.RestOpacity,
+            h.Side?.ToLowerInvariant() is "right" or "left" ? h.Side.ToLowerInvariant() : d.Side,
+            h.DeckScoreInCombat,
+            h.GradesOnly);
     }
 }
 

@@ -36,6 +36,15 @@ public sealed class SocketServer : IStateSink, IDisposable
 
     public string Path => _path;
 
+    /// <summary>
+    /// Requêtes montantes (v1.2) : une ligne JSON par requête, ≤ 4 Kio (au-delà : client déconnecté).
+    /// La réponse (une ligne JSON) est envoyée à CE client seulement, entre deux lignes d'état ; elle se
+    /// reconnaît à son champ <c>op</c> (les états ont <c>contractVersion</c>).
+    /// </summary>
+    public Func<string, Task<string?>>? OnRequest { get; set; }
+
+    public const int MaxRequestBytes = 4096;
+
     public int ClientCount { get { lock (_gate) return _clients.Count; } }
 
     private async Task AcceptLoop()
@@ -93,13 +102,26 @@ public sealed class SocketServer : IStateSink, IDisposable
     /// </summary>
     private async Task WatchEof(Client c)
     {
-        var buf = new byte[256];
+        var buf = new byte[1024];
+        var pending = new List<byte>();
         try
         {
             while (true)
             {
                 int n = await c.Socket.ReceiveAsync(buf, SocketFlags.None, _cts.Token).ConfigureAwait(false);
                 if (n == 0) break;
+                for (int i = 0; i < n; i++)
+                {
+                    if (buf[i] != (byte)'\n') { pending.Add(buf[i]); continue; }
+                    var line = Encoding.UTF8.GetString(pending.ToArray()).Trim();
+                    pending.Clear();
+                    if (line.Length == 0 || OnRequest is not { } handler) continue;
+                    string? resp;
+                    try { resp = await handler(line).ConfigureAwait(false); }
+                    catch (Exception e) { resp = null; Diag.Warn($"socket : requête en échec : {e.Message}"); }
+                    if (resp is not null) c.Queue.Writer.TryWrite(resp);
+                }
+                if (pending.Count > MaxRequestBytes) { Diag.Warn("socket : requête trop longue, client déconnecté"); break; }
             }
         }
         catch (Exception e) when (e is SocketException or ObjectDisposedException or OperationCanceledException) { }

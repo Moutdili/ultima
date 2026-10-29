@@ -49,7 +49,8 @@ public class ContractShapeTests
     /// Champs ADDITIFS des versions mineures que docs/22-state.sample.json ne montre pas encore. Seuls ceux-ci
     /// sont tolérés en plus (signalé au chef dans status/cableur.md) :
     /// v1.1 (8abdeb1) CardView.description, PotionView.score ;
-    /// v1.2 (89e376e) contractMinor, map, route, event, RunView.party, Score.deltaG, ScoreTerm.evidence.
+    /// v1.2 (89e376e) contractMinor, map, route, event, RunView.party, Score.deltaG, ScoreTerm.evidence ;
+    /// v1.3 (be593ee) OverlaySettings.hud.
     /// </summary>
     private static bool AdditiveField(string path, string key, JsonObject obj) => key switch
     {
@@ -57,6 +58,7 @@ public class ContractShapeTests
         "score" => path.Contains(".potions["),
         "contractMinor" or "map" or "route" or "event" => path == "$",
         "party" => path == "$.run",
+        "hud" => path == "$.settings", // v1.3
         "deltaG" => obj.ContainsKey("confidence"),
         "evidence" => obj.ContainsKey("points"),
         _ => false,

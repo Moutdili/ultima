@@ -7,7 +7,13 @@ namespace Ultima.Daemon.State;
 
 /// <summary>Partie « run » de l'état, calculée UNE fois par save relue (et non à chaque événement de log).</summary>
 public sealed record RunPart(RunState Source, PlayerState Player, RunView View, ScoringContext Context,
-    DeckEvaluation? Deck, PathsView? Paths);
+    DeckEvaluation? Deck, PathsView? Paths)
+{
+    /// <summary>v1.2 : carte visible de l'acte courant (save).</summary>
+    public MapView? Map { get; init; }
+    /// <summary>v1.2 : route conseillée (IRoutePlanner de Hermes).</summary>
+    public RouteView? Route { get; init; }
+}
 
 /// <summary>
 /// Assemble un <see cref="EngineState"/> conforme au contrat : noms via <see cref="IKnowledge"/>,
@@ -20,15 +26,20 @@ public sealed class StateAssembler
     private readonly IKnowledge _k;
     private readonly IScorer? _scorer;
     private readonly IPathAnalyzer? _paths;
+    private readonly IRoutePlanner? _route;
+    private readonly IEventAdvisor? _events;
     private readonly ulong? _steamId64;
     private readonly HashSet<string> _warned = new(StringComparer.Ordinal);
 
-    public StateAssembler(IKnowledge knowledge, IScorer? scorer, IPathAnalyzer? paths, ulong? steamId64)
+    public StateAssembler(IKnowledge knowledge, IScorer? scorer, IPathAnalyzer? paths, ulong? steamId64,
+        IRoutePlanner? route = null, IEventAdvisor? events = null)
     {
         _k = knowledge;
         _scorer = scorer;
         _paths = paths;
         _steamId64 = steamId64;
+        _route = route;
+        _events = events;
     }
 
     // ---------- calcul protégé ----------
@@ -90,7 +101,13 @@ public sealed class StateAssembler
         if (me is null) return null;
         var act = run.CurrentAct;
         var ctx = new ScoringContext(me.CharacterId, run.CurrentActIndex, act?.BossId, run.Ascension, run.FloorCount,
-            me.Deck, me.Relics.Select(r => r.Id).ToArray(), me.Gold, me.CurrentHp, me.MaxHp);
+            me.Deck, me.Relics.Select(r => r.Id).ToArray(), me.Gold, me.CurrentHp, me.MaxHp)
+        {
+            // v1.2 : alliés co-op (joueur local exclu), identifiants seulement ; vide en solo
+            Allies = run.Players.Where(p => p.NetId != me.NetId)
+                .Select(p => new AllyContext(p.NetId, p.CharacterId, p.CurrentHp, p.MaxHp, p.Deck, p.Relics.Select(r => r.Id).ToArray()))
+                .ToArray(),
+        };
 
         var deck = me.Deck.Select(c => Card(c, SafeScore("score.card", s => s.ScoreCard(c, ctx)))).ToArray();
         var relics = me.Relics.Select(r => Relic(r.Id, SafeScore("score.relic", s => s.ScoreRelic(r.Id, ctx)))).ToArray();
@@ -103,7 +120,10 @@ public sealed class StateAssembler
             act?.BossId is { } b ? Guard("knowledge.encounter", () => _k.EncounterName(b)) ?? b : null,
             run.Ascension, me.CurrentHp, me.MaxHp, me.Gold,
             run.FloorCount, // = RunState.TotalFloor du jeu (somme de map_point_history), Runs/RunState.cs:158
-            deck, relics, potions);
+            deck, relics, potions)
+        {
+            Party = BuildParty(run, me, deck, relics), // v1.2
+        };
 
         // Malédictions : TOUJOURS renseignées par le daemon (module « curses »), même si le calcul échoue.
         var curses = deck.Where(c => c.IsCurse).ToArray();
@@ -124,7 +144,68 @@ public sealed class StateAssembler
             paths = Guard("paths", () => _paths.Analyze(map, pos, run.CurrentActIndex, me.CharacterId, me.CurrentHp));
             if (paths is { TotalPaths: <= 0 }) paths = null; // stub vide → « — »
         }
-        return new RunPart(run, me, view, ctx, evaluation, paths);
+        var mapView = Guard("map", () => BuildMap(run));
+        var route = mapView is null || _route is null ? null : Guard("route", () => _route.Plan(mapView, ctx));
+        return new RunPart(run, me, view, ctx, evaluation, paths) { Map = mapView, Route = route };
+    }
+
+    /// <summary>
+    /// v1.2 : carte VISIBLE de l'acte courant (types des cases, liens, cases visitées, position, boss).
+    /// Les actes futurs ne sont jamais publiés (la save les masque déjà : <c>ActInfo.IsRevealed</c>).
+    /// </summary>
+    public static MapView? BuildMap(RunState run)
+    {
+        var act = run.CurrentAct;
+        if (act is not { IsRevealed: true, Map: { } map }) return null;
+        var visited = run.VisitedMapCoords.ToHashSet();
+        var nodes = map.ByCoord.Values
+            .OrderBy(n => n.Coord.Row).ThenBy(n => n.Coord.Col)
+            .Select(n => new MapNodeView(n.Coord.Col, n.Coord.Row, n.RawType,
+                n.Children.Select(c => new MapCoordView(c.Col, c.Row)).ToArray(), visited.Contains(n.Coord)))
+            .ToArray();
+        var pos = run.CurrentCoord is { } p ? new MapCoordView(p.Col, p.Row) : null;
+        return new MapView(run.CurrentActIndex, map.Width, map.Height, nodes, pos, new MapCoordView(map.Boss.Coord.Col, map.Boss.Coord.Row));
+    }
+
+    /// <summary>v1.2 : tous les joueurs de la save (local inclus, IsLocal). Solo : une seule entrée.</summary>
+    private IReadOnlyList<AllyView> BuildParty(RunState run, PlayerState me, IReadOnlyList<CardView> myDeck, IReadOnlyList<RelicView> myRelics) =>
+        run.Players.Select(p =>
+        {
+            bool local = p.NetId == me.NetId;
+            var name = Guard("knowledge.character", () => _k.CharacterName(p.CharacterId)) ?? p.CharacterId;
+            return new AllyView(p.NetId, name, p.CharacterId, local, p.CurrentHp, p.MaxHp,
+                local ? myDeck : p.Deck.Select(c => Card(c, null)).ToArray(),
+                local ? myRelics : p.Relics.Select(r => Relic(r.Id, null)).ToArray());
+        }).ToArray();
+
+    /// <summary>PV de l'équipe pris en mémoire quand la lecture mémoire est plus récente que la save.</summary>
+    public static IReadOnlyList<AllyView> OverlayParty(IReadOnlyList<AllyView> party, MRun mem) =>
+        party.Select(a => mem.Players.FirstOrDefault(m => m.NetId == a.NetId) is { } m ? a with { Hp = m.Hp, MaxHp = m.MaxHp } : a).ToArray();
+
+    /// <summary>
+    /// v1.2 : événement courant lu par le miroir (section « event ») + notes de l'<see cref="IEventAdvisor"/>
+    /// (Hermes). Les identifiants sont passés NUS au calcul (<c>EVENT.ABYSSAL_BATHS</c> → <c>ABYSSAL_BATHS</c>,
+    /// option <c>…options.ABSTAIN</c> → <c>ABSTAIN</c>) ; null = option non mesurée (« — »).
+    /// </summary>
+    public EventView? BuildEvent(MEvent? mem, RunPart? run)
+    {
+        if (mem?.EventId is not { Length: > 0 } eventId || mem.Options is null) return null;
+        var options = mem.Options.Where(o => o.Id is { Length: > 0 }).ToArray();
+        var ids = options.Select(o => BareOption(o.Id!)).ToArray();
+        IReadOnlyList<Score?> scores = Array.Empty<Score?>();
+        if (_events is not null && run?.Context is { } ctx)
+            scores = Guard("event", () => _events.Rank(BareEvent(eventId), ids, ctx)) ?? Array.Empty<Score?>();
+        var views = options.Select((o, i) => new EventOptionView(o.Id!, o.Label ?? ids[i], o.Description, o.Available ?? true,
+            i < scores.Count && scores[i] is { Terms.Count: > 0 } sc ? sc : null)).ToArray();
+        return new EventView(eventId, mem.Name ?? BareEvent(eventId), views);
+    }
+
+    internal static string BareEvent(string id) => id.StartsWith("EVENT.", StringComparison.Ordinal) ? id[6..] : id;
+
+    internal static string BareOption(string id)
+    {
+        var i = id.LastIndexOf('.');
+        return i >= 0 && i < id.Length - 1 ? id[(i + 1)..] : id;
     }
 
     /// <summary>Offre de récompense : première récompense de cartes locale non prise (sinon la dernière prise).</summary>
@@ -179,7 +260,12 @@ public sealed class StateAssembler
     }
 
     public static EngineState Compose(DateTimeOffset at, SourceHealth health, Screen screen, RunPart? run,
-        RewardView? reward, ShopView? shop, OverlaySettings settings) =>
-        new(EngineState.CurrentVersion, at, health, screen, run?.View, reward, shop,
-            run?.Paths, run?.Deck, settings);
+        RewardView? reward, ShopView? shop, OverlaySettings settings, EventView? ev = null, RunView? runView = null) =>
+        new(EngineState.CurrentVersion, at, health, screen, runView ?? run?.View, reward, shop,
+            run?.Paths, run?.Deck, settings)
+        {
+            Map = run?.Map,     // v1.2
+            Route = run?.Route, // v1.2
+            Event = ev,         // v1.2
+        };
 }

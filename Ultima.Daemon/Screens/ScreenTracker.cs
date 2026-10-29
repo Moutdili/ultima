@@ -11,6 +11,8 @@ public enum MirrorNeed
     None = 0,
     Reward = 1,
     Shop = 2,
+    /// <summary>v1.2 : options de l'événement (section « event » du miroir, Miroir 2).</summary>
+    Event = 4,
 }
 
 /// <summary>
@@ -18,7 +20,7 @@ public enum MirrorNeed
 /// déterministe : aucun E/S, aucune horloge — rejouable sur un log réel.
 ///
 /// Règles (prouvées sur les logs de la fenêtre de test du 2026-10-29) :
-/// - <c>Preloading 'X Room'</c> : Combat / Event / RestSite / Treasure / Merchant→Shop (lecture shop).
+/// - <c>Preloading 'X Room'</c> : Combat / Event (lecture event) / RestSite / Treasure / Merchant→Shop (lecture shop).
 /// - <c>Card rarity: Rolled</c> après une salle (combat, événement, feu, trésor) : écran de récompense
 ///   (lecture reward). Les MÊMES lignes précèdent aussi la génération du marchand (vote → tirages →
 ///   <c>Preloading 'Merchant Room'</c>) : depuis la carte, un tirage ne change donc rien.
@@ -48,7 +50,7 @@ public sealed class ScreenTracker
                 return r.Kind switch
                 {
                     RoomKind.Combat => Set(Screen.Combat),
-                    RoomKind.Event => Set(Screen.Event),
+                    RoomKind.Event => Set(Screen.Event) | MirrorNeed.Event,
                     RoomKind.RestSite => Set(Screen.RestSite),
                     RoomKind.Treasure => Set(Screen.Treasure),
                     RoomKind.Merchant => Set(Screen.Shop) | MirrorNeed.Shop,
