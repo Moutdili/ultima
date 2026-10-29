@@ -27,8 +27,8 @@ public sealed class FitTests
     private static IReadOnlyList<CardInstance> Repeat(string id, int count) =>
         Enumerable.Range(0, count).Select(_ => Card(id)).ToArray();
 
-    private static ScoringContext Ctx(IReadOnlyList<CardInstance> deck, string character = "CHARACTER.IRONCLAD") =>
-        new(character, 0, BossAct1, 0, 10, deck, Array.Empty<string>(), 99, 70, 70);
+    private static ScoringContext Ctx(IReadOnlyList<CardInstance> deck, string character = "CHARACTER.IRONCLAD", int hp = 70) =>
+        new(character, 0, BossAct1, 0, 10, deck, Array.Empty<string>(), 99, hp, 70);
 
     /// <summary>Deck de 12 attaques ironclad, sans une seule carte de bloc : le trou est net.</summary>
     private static IReadOnlyList<CardInstance> AttackOnlyDeck() =>
@@ -54,45 +54,67 @@ public sealed class FitTests
         Assert.NotNull(bareFit);
         Assert.Equal(CardScorer.MaxFit, bareFit!.Points);
 
-        // Idempotence : le besoin est couvert, le fit résiduel est marginal — 2 points sur un
-        // plafond de 20, soit 10× moins que dans le deck sans bloc. ΔG mesuré = +1 pt
-        // (survie +3, consistance −2). Ce +1 existait déjà avant S17 : il était simplement masqué
-        // par la pénalité de dilution de l'ancienne Offense (Σdégâts/N, une carte à 0 dégât
-        // faisait baisser la densité) ; le burst top-k ne dilue plus, donc le +1 apparaît.
-        Assert.InRange(Fit(covered)?.Points ?? 0, 0, 2);
+        // Idempotence : le besoin est couvert, le fit résiduel est marginal — 4 points sur un
+        // plafond de 20, soit 5× moins que dans le deck sans bloc. ΔG mesuré = +2 pts sous les
+        // poids calibrés (survie +3, consistance −2) : la survie pèse 85 % à l'acte 1 depuis S20,
+        // donc +3 de survie valent +2,55 arrondis à +2 ; l'offense ne pèse plus que 10 %.
+        Assert.InRange(Fit(covered)?.Points ?? 0, 0, 4);
         Assert.True(bare.Total > covered.Total,
             $"Impervious dans un deck sans bloc = {bare.Total}, dans un deck couvert = {covered.Total}");
 
         // S16 (L2) : à PV plein, le besoin « coup du boss » s'ajoute aux DEUX cas (+5) car même le deck
         // couvert ne tient que 9 bloc/tour pour un pire coup de 15. L2 ne crée donc pas l'écart : c'est
-        // le fit (L1) qui sépare les deux notes. La lettre du cas dégarni passe de A à S (82 → 87) :
-        // total inchangé par ailleurs, seul le terme L2 s'ajoute.
+        // le fit (L1) qui sépare les deux notes. Totaux mesurés sous les poids calibrés : 87 (S) pour
+        // le cas dégarni, 71 (A) pour le deck couvert — le fit y vaut 20 contre 4.
         Assert.NotNull(bare.Terms.SingleOrDefault(t => t.Label == "Besoin immédiat — coup du boss"));
         Assert.NotNull(covered.Terms.SingleOrDefault(t => t.Label == "Besoin immédiat — coup du boss"));
         Assert.DoesNotContain(bare.Terms, t => t.Label.Contains("PV bas", StringComparison.Ordinal));
         Assert.Equal("S", bare.Grade);
-        Assert.Equal("B", covered.Grade);
+        Assert.Equal("A", covered.Grade);
     }
 
     // ---------------------------------------------------- (b) le fit porte la note
 
     [Fact]
-    public void Low_meta_card_reaches_A_through_fit()
+    public void Low_meta_offense_card_fit_shrinks_under_calibrated_weights()
     {
         // Big Bang : 0 énergie, pioche 1, énergie 1, aucun dégât. Un deck de 12 Big Bang ne fait
         // donc aucun dégât : Crash Landing (Attaque 21 en zone) comble offense ET couverture.
+        //
+        // S20 : ce cas mesurait « C-tier + fit max ⇒ A » sous les poids écrits à la main (offense
+        // 30 %, couverture 10 % → ΔG 17, fit plafonné à 20, total 73 A). Les poids calibrés sur
+        // 71 634 runs donnent 10 % et 5 % à l'acte 1 : ΔG tombe à 6, le fit à 12 et la carte
+        // reste B (65). Effet assumé du branchement — la data ne soutient pas mieux que 10 % pour l'offense à
+        // l'acte 1 (tools/calibration/report.md §3.2). L'amplitude du fit (×2, plafond 20) et la
+        // note méta sont inchangées : c'est la valeur de ΔG qui baisse, pas l'échelle.
         var score = new Scorer().ScoreCard(Card("CARD.CRASH_LANDING"), Ctx(Repeat("CARD.BIG_BANG", 12), "CHARACTER.REGENT"));
 
         var fit = Fit(score);
         Assert.NotNull(fit);
-        Assert.Equal(CardScorer.MaxFit, fit!.Points); // ΔG mesuré 11 → 2·ΔG = 22, borné à 20
+        Assert.Equal(12, fit!.Points); // 2·ΔG = 2·6
+        Assert.Contains("ΔG = +6 pts", fit.Source);
 
-        // La méta seule la laisse en C : c'est bien le fit qui la fait changer de lettre.
+        // La méta seule la laisse en C : c'est bien le fit qui la fait changer de lettre (C → B).
         var meta = Assert.Single(score.Terms, t => t.Label.StartsWith("Méta communautaire", StringComparison.Ordinal));
-        Assert.InRange(meta.Points, 0, 54);
-        Assert.True(score.Total - fit.Points < 70,
-            $"sans le fit, {score.Total - fit.Points} pts (< 70) ; avec, {score.Total}");
-        Assert.True(score.Total >= 70, $"Crash Landing devrait sortir A, obtenu {score.Total} ({score.Grade})");
+        Assert.Equal(50, meta.Points);
+        Assert.True(score.Total - fit.Points < 54,
+            $"sans le fit, {score.Total - fit.Points} pts (< 54) ; avec, {score.Total}");
+        Assert.Equal(65, score.Total);
+        Assert.Equal("B", score.Grade);
+    }
+
+    [Fact]
+    public void Low_meta_block_card_still_reaches_max_fit()
+    {
+        // Contrepartie du test précédent : la dimension dominante de l'acte 1 est la survie
+        // (85 % calibré). Taunt (C-tier, méta 41) dans 12 Big Bang garde un fit maximal : la
+        // calibration ne rabote pas l'amplitude du fit, elle déplace la valeur vers la dimension
+        // que la data associe au gain. À PV bas (20/70), la carte sort A.
+        var score = new Scorer().ScoreCard(Card("CARD.TAUNT"), Ctx(Repeat("CARD.BIG_BANG", 12), hp: 20));
+
+        var fit = Fit(score);
+        Assert.NotNull(fit);
+        Assert.Equal(CardScorer.MaxFit, fit!.Points);
         Assert.Equal("A", score.Grade);
     }
 

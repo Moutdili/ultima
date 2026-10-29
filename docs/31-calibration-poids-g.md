@@ -219,3 +219,28 @@ de puissance de mise à mort, et il n'est **pas** implémenté comme Offense.
 Détail complet, définitions et contrôles : `status/hermes-s17.md` ; parité C#/Python vérifiée par
 `tools/calibration/validate_csharp.py` (60 decks, 1020 champs, 0 écart).
 
+
+## 8. S20 — les poids calibrés sont branchés dans le moteur
+
+Depuis S20, `StrengthWeights` lit `data/calibration/weights.json` au premier usage et applique
+`proposed_weights` :
+
+| acte | Survie | Offense | Consistance | Couverture | source |
+|---|---:|---:|---:|---:|---|
+| 1 | 85 % | 10 % | 0 % | 5 % | `proposed_weights.act_1` |
+| 2 | 82 % | 0 % | 18 % | 0 % | `proposed_weights.act_2` |
+| 3 | 30 % | 40 % | 15 % | 15 % | constantes du code (non identifiable) |
+
+- Validation : schéma `ultima.calibration.weights/1`, quatre poids numériques dans [0, 1], somme
+  à 1 ± 1e-3. Le fit arrondit à 4 décimales (0,8180 + 0 + 0,1798 + 0,0021 = 0,9999) : les poids
+  sont renormalisés pour que la somme fasse exactement 1.
+- Repli : fichier absent, illisible, JSON invalide, schéma différent, poids négatif, somme fausse
+  ou métadonnées manquantes ⇒ **constantes écrites à la main**, sans exception. `Problem` porte la
+  raison, `Source` affiche « constantes par défaut ».
+- Provenance exposée : `StrengthWeights.Source` = « calibré (n=71 634 runs, 2026-10-29) » ou
+  « constantes par défaut » ; chaque terme de dimension finit par
+  « poids calibrés sur 71 634 runs (2026-10-29) : 0.85 ».
+- Effet mesuré (détail : `status/hermes-s20.md`) : G monte sur les decks défensifs et baisse sur
+  les decks offensifs à l'acte 1 — c'est exactement ce que disent les parts. Une carte purement
+  offensive perd du fit (Crash Landing : 73 A → 65 B), une carte défensive en gagne (Impervious
+  en deck couvert : B → A). L'amplitude du fit (×2, plafond 20) n'a pas été retouchée.

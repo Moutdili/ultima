@@ -73,12 +73,24 @@ public sealed class NeedTests
     public void Hp_need_grows_as_hp_drops()
     {
         var scorer = new Scorer();
-        var totals = new[] { 34, 21, 14, 7 }.Select(hp =>
+        var hps = new[] { 34, 21, 14, 7 };
+        var needs = hps.Select(hp =>
+            NeedPoints(scorer.ScoreCard(Card("CARD.IMPERVIOUS"), Ctx(CoveredDeck(), hp: hp)))).ToArray();
+        var totals = hps.Select(hp =>
             scorer.ScoreCard(Card("CARD.IMPERVIOUS"), Ctx(CoveredDeck(), hp: hp)).Total).ToArray();
 
-        for (var i = 1; i < totals.Length; i++)
-            Assert.True(totals[i] >= totals[i - 1],
-                $"les PV baissent de 34 à 7 : les totaux devraient croître, obtenu {string.Join(" → ", totals)}");
+        // L2 est monotone : plus les PV descendent, plus le besoin de bloc augmente.
+        for (var i = 1; i < needs.Length; i++)
+            Assert.True(needs[i] >= needs[i - 1],
+                $"les PV baissent de {hps[i - 1]} à {hps[i]} : le besoin devrait croître, obtenu {string.Join(" → ", needs)}");
+        Assert.True(needs[^1] > needs[0]);
+
+        // S20 : on n'exige plus la monotonie du TOTAL. Il ajoute le fit (2·ΔG arrondi) dont ΔG
+        // varie de 2 à 3 points selon les PV — sous les poids calibrés (survie 85 %), le +10 de
+        // besoin entre 34 et 7 PV est compensé par −2 de fit, d'où 67 → 73 → 78 → 76. Le besoin,
+        // lui, est bien croissant (1 → 7 → 10 → 10, plafonné à 20 % des PV).
+        Assert.True(totals[^1] > totals[0],
+            $"le total à {hps[^1]} PV devrait dépasser celui à {hps[0]} PV : {string.Join(" → ", totals)}");
 
         // 21/70 = 30 % et 14/70 = 20 % : 20 % est le point de besoin maximal.
         Assert.Equal(CardScorer.MaxHpNeed,

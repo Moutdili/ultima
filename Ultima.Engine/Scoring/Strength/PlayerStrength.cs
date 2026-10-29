@@ -9,43 +9,6 @@ using Ultima.Saves.Model;
 namespace Ultima.Engine.Scoring.Strength;
 
 /// <summary>
-/// Poids par acte du score global (docs/27 §7bis). La somme vaut 1 : <see cref="Apply"/> reste donc
-/// sur l'échelle 0..100 des autres notes, sans renormalisation cachée.
-/// <para>
-/// Les valeurs sont des <b>constantes nommées</b> (docs/27) : elles disent seulement ce qui compte le
-/// plus à chaque acte — encaisser d'abord à l'acte 1, tuer le boss d'abord à l'acte 3. Elles ne sont
-/// pas encore calibrées sur le backtest (voir status/hermes-s11.md).
-/// </para>
-/// </summary>
-public sealed record ActWeights(double Survie, double Offense, double Consistance, double Couverture)
-{
-    /// <summary>Somme des quatre poids (doit valoir 1).</summary>
-    public double Sum => Survie + Offense + Consistance + Couverture;
-
-    /// <summary>Total 0..100 = combinaison linéaire bornée des quatre dimensions.</summary>
-    public int Apply(int survie, int offense, int consistance, int couverture) => ScoreMath.Clamp(
-        ScoreMath.Round(Survie * survie + Offense * offense + Consistance * consistance + Couverture * couverture),
-        0, 100);
-}
-
-/// <summary>Poids par acte, act-index 0-based comme <see cref="ScoringContext.ActIndex"/>.</summary>
-public static class StrengthWeights
-{
-    /// <summary>Acte 1 : on survit avant de briller (les boss frappent 14..30, le deck est pauvre).</summary>
-    public static readonly ActWeights Act1 = new(0.40, 0.30, 0.20, 0.10);
-
-    /// <summary>Acte 2 : l'offense devient aussi importante que la survie (boss 321..408 PV).</summary>
-    public static readonly ActWeights Act2 = new(0.30, 0.35, 0.20, 0.15);
-
-    /// <summary>Acte 3 : il faut tuer (512+ PV), la couverture passe devant la consistance.</summary>
-    public static readonly ActWeights Act3 = new(0.30, 0.40, 0.15, 0.15);
-
-    /// <summary>Poids de l'acte ; au-delà de l'acte 3 on garde les poids de l'acte 3.</summary>
-    public static ActWeights ForActIndex(int actIndex) =>
-        actIndex <= 0 ? Act1 : actIndex == 1 ? Act2 : Act3;
-}
-
-/// <summary>
 /// Statuts que le boss applique au tour 1, quand ils sont connus. Ils entrent dans les PV effectifs
 /// (docs/27 §7bis) : un boss qui applique Vulnérable rend chaque point de PV moins utile.
 /// <para>
@@ -92,8 +55,14 @@ public sealed record PlayerStrength(
     /// <summary>Numéro d'acte 1-based utilisé pour les poids.</summary>
     public int Act { get; init; } = 1;
 
-    /// <summary>Poids appliqués aux quatre dimensions.</summary>
-    public ActWeights Weights { get; init; } = StrengthWeights.Act1;
+    /// <summary>Poids appliqués aux quatre dimensions (calibrés par défaut, cf. <see cref="StrengthWeights"/>).</summary>
+    public ActWeights Weights { get; init; } = StrengthWeights.ForActIndex(0);
+
+    /// <summary>
+    /// Provenance des poids : « poids calibrés sur 71 634 runs (2026-10-29) » ou
+    /// « poids par défaut (constantes écrites à la main) ». Reprise telle quelle par l'explication.
+    /// </summary>
+    public string WeightSource { get; init; } = WeightCalibration.Defaults.Provenance;
 
     /// <summary>Mesures brutes (bloc/tour, dégâts/tour, menace…) — utiles au ΔG et à l'explication.</summary>
     public IReadOnlyDictionary<string, double> Measures { get; init; } =
@@ -323,13 +292,23 @@ public sealed class PlayerStrengthCalculator
     private readonly CardEffects _effects;
     private readonly ThreatModel _threat;
     private readonly RelicCatalog _relics;
+    private readonly WeightCalibration? _calibration;
 
-    /// <summary>Catalogues injectables (tests) ; par défaut ceux du dépôt, chargés une seule fois.</summary>
-    public PlayerStrengthCalculator(CardEffects? effects = null, ThreatModel? threat = null, RelicCatalog? relics = null)
+    /// <summary>
+    /// Catalogues injectables (tests) ; par défaut ceux du dépôt, chargés une seule fois.
+    /// <paramref name="calibration"/> fixe les poids de G : null = poids effectifs du processus
+    /// (<see cref="StrengthWeights.Current"/>), sinon les poids fournis (tests, simulation).
+    /// </summary>
+    public PlayerStrengthCalculator(
+        CardEffects? effects = null,
+        ThreatModel? threat = null,
+        RelicCatalog? relics = null,
+        WeightCalibration? calibration = null)
     {
         _effects = effects ?? CardEffects.Default;
         _threat = threat ?? ThreatModel.Default;
         _relics = relics ?? LazyRelics.Value;
+        _calibration = calibration;
     }
 
     /// <summary>Courbe de saturation : <c>100·x/(x+k)</c>, jamais 100, jamais négative.</summary>
@@ -349,7 +328,8 @@ public sealed class PlayerStrengthCalculator
     {
         var st = statuses ?? ThreatStatuses.None;
         var deck = ctx.Deck ?? Array.Empty<CardInstance>();
-        var weights = StrengthWeights.ForActIndex(ctx.ActIndex);
+        var calibration = _calibration ?? StrengthWeights.Current;
+        var weights = calibration.ForActIndex(ctx.ActIndex);
         var act = ActNumber(ctx.ActIndex);
         var terms = new List<ScoreTerm>();
         var measures = new Dictionary<string, double>(StringComparer.Ordinal);
@@ -362,6 +342,7 @@ public sealed class PlayerStrengthCalculator
             {
                 Act = act,
                 Weights = weights,
+                WeightSource = calibration.Provenance,
                 Measures = measures,
                 Confidence = Model.Confidence.Unknown,
             };
@@ -446,7 +427,7 @@ public sealed class PlayerStrengthCalculator
                 $"bloc {F(blockPerTurn)}/tour (réf. {F(blockTarget)} = {Pct(BlockShareAtHalf)} du pire coup " +
                 $"{threat.WorstHit}) · PV effectifs {effectiveHp}/{ctx.MaxHp} → {F(hpBuffer)} coups " +
                 $"(réf. {F(HpBufferHitsAtHalf)}) · soins {F(healPerCombat)} PV/combat · " +
-                $"menace : {threat.Source} · poids {F2(weights.Survie)}"));
+                $"menace : {threat.Source} · {WeightNote(weights.Survie, calibration)}"));
         }
 
         // --- Offense ------------------------------------------------------------------------
@@ -466,7 +447,7 @@ public sealed class PlayerStrengthCalculator
                 $"burst {F(damagePerTurn)} dgt/tour sur les {burstCards} meilleure(s) carte(s) " +
                 $"+ scaling {F(scaling)} (cible {F(damageTarget)} = {threat.BossHp} PV / " +
                 $"{F(OffenseKillTurns)} tours ; densité moyenne {F(damageDensityPerTurn)} dgt/tour, " +
-                $"non utilisée) · poids {F2(weights.Offense)}"));
+                $"non utilisée) · {WeightNote(weights.Offense, calibration)}"));
         }
 
         // --- Consistance --------------------------------------------------------------------
@@ -492,7 +473,7 @@ public sealed class PlayerStrengthCalculator
             $"pour un coût moyen {F(avgCost)} (taux de jeu {Pct(playRate)}) · deck {deck.Count} cartes " +
             $"(idéal ≤ {F(IdealDeckSize)}) · pénalités {penalties} " +
             $"({profile.Curses} malédiction(s), {profile.Statuses} statut(s), {profile.Situational} situationnelle(s), " +
-            $"{profile.Unknown} inconnue(s)) · poids {F2(weights.Consistance)}"));
+            $"{profile.Unknown} inconnue(s)) · {WeightNote(weights.Consistance, calibration)}"));
         measures["penalties"] = penalties;
 
         // --- Couverture ---------------------------------------------------------------------
@@ -509,7 +490,7 @@ public sealed class PlayerStrengthCalculator
             $"dégâts de zone {Pct(aoeShare)} (réf. {Pct(AoeShareAtHalf)}) · " +
             $"{profile.DebuffCards + relic.Debuff} carte(s) à statut négatif (réf. {F(DebuffCardsAtHalf)}) · " +
             $"{profile.Utility.Count} catégorie(s) d'utilité ({string.Join(", ", profile.Utility)}) " +
-            $"(réf. {F(UtilityAtHalf)}) · poids {F2(weights.Couverture)}"));
+            $"(réf. {F(UtilityAtHalf)}) · {WeightNote(weights.Couverture, calibration)}"));
 
         // --- Données insuffisantes (transparence) -------------------------------------------
         if (profile.Unknown > 0)
@@ -535,6 +516,7 @@ public sealed class PlayerStrengthCalculator
         {
             Act = act,
             Weights = weights,
+            WeightSource = calibration.Provenance,
             Measures = measures,
             Confidence = coverage >= 0.99 && profile.Unknown == 0 && !threat.IsActMedian && threat.WorstHit > 0
                 ? Model.Confidence.High
@@ -910,6 +892,15 @@ public sealed class PlayerStrengthCalculator
     // --- Format ---------------------------------------------------------------------------------
 
     private static int ActNumber(int actIndex) => Math.Clamp(actIndex, 0, 2) + 1;
+
+    /// <summary>
+    /// Libellé du poids dans un terme de dimension : « poids calibrés sur 71 634 runs
+    /// (2026-10-29) : 0.85 » ou « poids par défaut (constantes écrites à la main) : 0.40 ». Le
+    /// libellé de la dimension (« Survie », « Offense »…) est inchangé — seule la provenance
+    /// s'ajoute devant la valeur.
+    /// </summary>
+    private static string WeightNote(double weight, WeightCalibration calibration) =>
+        $"{calibration.Provenance} : {F2(weight)}";
 
     private static string F(double value) => value.ToString("0.0", CultureInfo.InvariantCulture);
 

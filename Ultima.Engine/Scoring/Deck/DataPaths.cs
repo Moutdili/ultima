@@ -29,4 +29,47 @@ public static class DataPaths
 
         return null;
     }
+
+    /// <summary>
+    /// Localise <c>data/calibration/weights.json</c> (poids de G calibrés, écrit par
+    /// <c>tools/calibration/fit_weights.py</c>). Priorité : <c>ULTIMA_DATA</c>, voisin de
+    /// <c>data/catalog</c>, puis remontée depuis l'assembly. Null si absent — l'appelant retombe
+    /// alors sur les constantes du code, jamais sur un chiffre inventé.
+    /// </summary>
+    public static string? CalibrationFile()
+    {
+        var env = Environment.GetEnvironmentVariable("ULTIMA_DATA");
+        if (!string.IsNullOrWhiteSpace(env))
+        {
+            foreach (var candidate in new[]
+                     {
+                         Path.Combine(env!, "calibration", "weights.json"),
+                         Path.Combine(env!, "data", "calibration", "weights.json"),
+                     })
+            {
+                if (File.Exists(candidate)) return candidate;
+            }
+        }
+
+        var catalog = CatalogDir();
+        if (!string.IsNullOrWhiteSpace(catalog))
+        {
+            var dataDir = Path.GetDirectoryName(Path.GetFullPath(catalog));
+            if (!string.IsNullOrWhiteSpace(dataDir))
+            {
+                var candidate = Path.Combine(dataDir!, "calibration", "weights.json");
+                if (File.Exists(candidate)) return candidate;
+            }
+        }
+
+        var dir = AppContext.BaseDirectory;
+        for (int i = 0; i < 8 && !string.IsNullOrEmpty(dir); i++)
+        {
+            var candidate = Path.Combine(dir, "data", "calibration", "weights.json");
+            if (File.Exists(candidate)) return candidate;
+            dir = Path.GetDirectoryName(dir.TrimEnd(Path.DirectorySeparatorChar));
+        }
+
+        return null;
+    }
 }
