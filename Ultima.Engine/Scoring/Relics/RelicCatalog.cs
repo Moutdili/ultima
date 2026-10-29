@@ -26,7 +26,7 @@ public sealed class RelicCatalog
     {
         if (string.IsNullOrWhiteSpace(relicId)) return null;
         var id = relicId.Trim().ToUpperInvariant();
-        if (id.StartsWith("RELIC.")) id = id[7..];
+        if (id.StartsWith("RELIC.")) id = id[6..];   // "RELIC." fait 6 caractères, pas 7
         return _byId.TryGetValue(id, out var e) ? e : null;
     }
 

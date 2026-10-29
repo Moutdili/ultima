@@ -3,6 +3,19 @@ using System.Text.Json;
 namespace Ultima.Engine.Scoring.Threat;
 
 /// <summary>
+/// Règles de menace mesurées sur les replays combat (docs/30), pas déduites de l'API.
+/// </summary>
+public static class ThreatRules
+{
+    /// <summary>
+    /// Le jeu applique les dégâts `ascension` à partir de A10 (et `normal` en dessous).
+    /// Mesuré sur 22 replays : 206/389 moves concordaient avec l'ancienne règle « A1+ »,
+    /// 295/389 avec celle-ci.
+    /// </summary>
+    public const int AscensionDamageFrom = 10;
+}
+
+/// <summary>
 /// Un move tel que le codex le publie : dégâts normaux ET ascensionnels, nombre de coups,
 /// bloc, soin, pouvoirs appliqués. Aucune valeur n'est déduite : un move sans dégâts dans
 /// le catalogue reste à 0 ici (voir <see cref="DamageAt"/>).
@@ -19,10 +32,11 @@ public sealed record MoveThreat(
 {
     /// <summary>
     /// Dégâts d'un coup à l'ascension demandée. Le codex ne distingue que « normal » et
-    /// « ascension » (A1+) : toute valeur &gt; 0 prend la variante ascension, et retombe sur
-    /// la variante normale quand elle n'existe pas.
+    /// « ascension » ; les replays combat montrent que le jeu reste sur « normal » jusqu'à A9 et
+    /// bascule à partir de A10 (voir <see cref="ThreatRules.AscensionDamageFrom"/>). Repli sur
+    /// l'autre variante quand elle manque.
     /// </summary>
-    public int DamageAt(int ascension) => ascension > 0
+    public int DamageAt(int ascension) => ascension >= ThreatRules.AscensionDamageFrom
         ? DamageAscension ?? DamageNormal ?? 0
         : DamageNormal ?? DamageAscension ?? 0;
 

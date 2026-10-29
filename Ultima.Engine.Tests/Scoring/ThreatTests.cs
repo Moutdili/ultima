@@ -33,8 +33,11 @@ public sealed class ThreatTests
     public void Aeonglass_worst_hit_is_26_normal_and_32_ascension()
     {
         // Ebb : 26 normal / 32 ascension, un seul coup. Eye Lasers (11 × 2 = 22) reste en dessous.
+        // Barème mesuré sur les replays (docs/30) : normal jusqu'à A9, ascension à partir de A10.
         Assert.Equal(26, Model.MaxHit("AEONGLASS_BOSS", 0));
-        Assert.Equal(32, Model.MaxHit("ENCOUNTER.AEONGLASS_BOSS", 1));
+        Assert.Equal(26, Model.MaxHit("ENCOUNTER.AEONGLASS_BOSS", 1));
+        Assert.Equal(26, Model.MaxHit("ENCOUNTER.AEONGLASS_BOSS", 9));
+        Assert.Equal(32, Model.MaxHit("ENCOUNTER.AEONGLASS_BOSS", ThreatRules.AscensionDamageFrom));
         Assert.Equal(32, Model.MaxHit("ENCOUNTER.AEONGLASS_BOSS", 20));
 
         var worst = Model.WorstMove("AEONGLASS_BOSS", 0);
