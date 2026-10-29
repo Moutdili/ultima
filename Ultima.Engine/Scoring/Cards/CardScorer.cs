@@ -164,7 +164,15 @@ public sealed class CardScorer
         // La détection passe par le catalogue du jeu, car la méta publique ne note pas les
         // malédictions (0 entrée « Curse » dans card_tiers.json) : sans ça, le terme ne
         // s'appliquait jamais à une vraie malédiction.
-        if (_curses.Term(card.Id, _meta) is { } curse) b.Add(curse);
+        // Contrat v1.2 : le Total reste borné 0..100 (c'est la lettre S-F), mais l'effet SIGNÉ
+        // sur la force du joueur part dans DeltaG — sinon une malédiction tombe à 0 et seule
+        // la lettre bouge, ce qui masque la pénalité.
+        var curseDelta = 0;
+        if (_curses.Term(card.Id, _meta) is { } curse)
+        {
+            b.Add(curse);
+            curseDelta = curse.Points;
+        }
 
         var stats = _personal.Card(card.Id);
         if (stats?.WinRateDelta is double delta)
@@ -181,7 +189,8 @@ public sealed class CardScorer
         if (CostCurve(meta, ctx) is { } curve) b.Add(curve);
         if (includeNeed) b.AddRange(Need(card, ctx));
 
-        return b.Build(Confidence.Of(meta?.SourceCount ?? 0, _personal.RunCount));
+        var score = b.Build(Confidence.Of(meta?.SourceCount ?? 0, _personal.RunCount));
+        return curseDelta != 0 ? score with { DeltaG = curseDelta } : score;
     }
 
     /// <summary>

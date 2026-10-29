@@ -130,6 +130,25 @@ public sealed class CoopScorer
         Recommends(Evaluate(card, players));
 
     /// <summary>
+    /// Contrat v1.2 : évalue une carte pour l'équipe réelle — joueur local en premier, puis les
+    /// alliés de <see cref="ScoringContext.Allies"/>. L'or des alliés n'est pas dans le contrat ;
+    /// il n'entre pas dans le ΔG d'une carte, donc on réutilise celui du joueur local.
+    /// </summary>
+    public CoopVerdict Evaluate(CardInstance card, ScoringContext ctx)
+    {
+        var players = new List<ScoringContext>(1 + ctx.Allies.Count) { ctx };
+
+        foreach (var ally in ctx.Allies)
+        {
+            players.Add(new ScoringContext(
+                ally.CharacterId, ctx.ActIndex, ctx.BossId, ctx.Ascension, ctx.Floor,
+                ally.Deck, ally.RelicIds, ctx.Gold, ally.Hp, ally.MaxHp));
+        }
+
+        return Evaluate(card, players);
+    }
+
+    /// <summary>
     /// Même règle, sur un verdict déjà calculé (évite un second passage de G sur tous les decks).
     /// </summary>
     public static bool Recommends(CoopVerdict verdict) =>
