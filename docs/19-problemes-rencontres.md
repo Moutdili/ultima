@@ -157,8 +157,8 @@ cosmétique, déplace les sauvegardes dans `modded/`.
 
 **État réel des données** (rien n'est perdu) :
 ```
-…/SlayTheSpire2/steam/76561199515637309/profile1|2|3/      ← vanilla, intact
-…/SlayTheSpire2/steam/76561199515637309/modded/profile1/   ← créé par ULTIMA
+…/SlayTheSpire2/steam/<steam-id>/profile1|2|3/      ← vanilla, intact
+…/SlayTheSpire2/steam/<steam-id>/modded/profile1/   ← créé par ULTIMA
 …/Steam/userdata/1555371581/2868840/remote/                ← miroir Steam Cloud
 ```
 

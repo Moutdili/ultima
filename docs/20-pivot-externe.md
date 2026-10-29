@@ -36,7 +36,7 @@
 
 ## 2. Inventaire des données lisibles de l'extérieur (prouvé)
 
-Racine : `D = ~/.var/app/com.valvesoftware.Steam/.local/share/SlayTheSpire2/steam/76561199515637309/`
+Racine : `D = ~/.var/app/com.valvesoftware.Steam/.local/share/SlayTheSpire2/steam/<steam-id>/`
 
 | Source | Format | Rafraîchi quand | Contenu utile |
 |---|---|---|---|
