@@ -1,5 +1,15 @@
 [
  {
+  "_meta": {
+   "generated_by": "tools/index_threats.py",
+   "sources": [
+    "data/codex/monsters.json",
+    "data/codex/encounters.json"
+   ],
+   "note": "moves un par un (normal + ascension + hit_count) ; aucune rotation inventée"
+  }
+ },
+ {
   "class": "Aeonglass",
   "file": "Models/Monsters/Aeonglass.cs",
   "min_hp": {
@@ -34,7 +44,15 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "EBB",
+    "damage": {
+     "normal": 26,
+     "ascension": 32,
+     "hit_count": null
+    },
+    "block": 33,
+    "intent_codex": "Attack + Defend"
    },
    {
     "state": "EYE_LASERS_MOVE",
@@ -52,7 +70,14 @@
      [
       2
      ]
-    ]
+    ],
+    "id": "EYE_LASERS",
+    "damage": {
+     "normal": 11,
+     "ascension": 12,
+     "hit_count": 2
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "INCREASING_INTENSITY_MOVE",
@@ -73,9 +98,16 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "INCREASING_INTENSITY",
+    "intent_codex": "Status + Buff"
    }
-  ]
+  ],
+  "id": "AEONGLASS",
+  "name": "Aeonglass",
+  "type": "Boss",
+  "hp_normal": 512,
+  "hp_ascension": 535
  },
  {
   "class": "Architect",
@@ -92,7 +124,12 @@
     9999
    ]
   },
-  "ascension_scaled": false
+  "ascension_scaled": false,
+  "id": "ARCHITECT",
+  "name": "The Architect",
+  "type": "Normal",
+  "hp_normal": 9999,
+  "hp_ascension": null
  },
  {
   "class": "AssassinRubyRaider",
@@ -125,9 +162,21 @@
       11,
       10
      ]
-    ]
+    ],
+    "id": "KILLSHOT",
+    "damage": {
+     "normal": 10,
+     "ascension": 11,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    }
-  ]
+  ],
+  "id": "ASSASSIN_RUBY_RAIDER",
+  "name": "Assassin Raider",
+  "type": "Normal",
+  "hp_normal": 18,
+  "hp_ascension": 19
  },
  {
   "class": "AxeRubyRaider",
@@ -167,7 +216,15 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "SWING_1",
+    "damage": {
+     "normal": 5,
+     "ascension": 6,
+     "hit_count": null
+    },
+    "block": 5,
+    "intent_codex": "Attack + Defend"
    },
    {
     "state": "SWING_2",
@@ -188,7 +245,15 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "SWING_2",
+    "damage": {
+     "normal": 5,
+     "ascension": 6,
+     "hit_count": null
+    },
+    "block": 5,
+    "intent_codex": "Attack + Defend"
    },
    {
     "state": "BIG_SWING",
@@ -202,9 +267,21 @@
       13,
       12
      ]
-    ]
+    ],
+    "id": "BIG_SWING",
+    "damage": {
+     "normal": 12,
+     "ascension": 13,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    }
-  ]
+  ],
+  "id": "AXE_RUBY_RAIDER",
+  "name": "Axe Raider",
+  "type": "Normal",
+  "hp_normal": 20,
+  "hp_ascension": 21
  },
  {
   "class": "Axebot",
@@ -237,7 +314,17 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "BOOT_UP",
+    "block": 10,
+    "powers": [
+     {
+      "power_id": "STRENGTH",
+      "target": "self",
+      "amount": 3
+     }
+    ],
+    "intent_codex": "Defend + Buff"
    },
    {
     "state": "ONE_TWO_MOVE",
@@ -255,7 +342,14 @@
      [
       2
      ]
-    ]
+    ],
+    "id": "ONE_TWO",
+    "damage": {
+     "normal": 9,
+     "ascension": 10,
+     "hit_count": 2
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "HAMMER_UPPERCUT_MOVE",
@@ -276,9 +370,33 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "HAMMER_UPPERCUT",
+    "damage": {
+     "normal": 12,
+     "ascension": 14,
+     "hit_count": null
+    },
+    "powers": [
+     {
+      "power_id": "WEAK",
+      "target": "player",
+      "amount": 2
+     },
+     {
+      "power_id": "FRAIL",
+      "target": "player",
+      "amount": 2
+     }
+    ],
+    "intent_codex": "Attack + Debuff"
    }
-  ]
+  ],
+  "id": "AXEBOT",
+  "name": "Axebot",
+  "type": "Normal",
+  "hp_normal": 70,
+  "hp_ascension": 76
  },
  {
   "class": "BattleFriendV1",
@@ -295,7 +413,12 @@
     75
    ]
   },
-  "ascension_scaled": false
+  "ascension_scaled": false,
+  "id": "BATTLE_FRIEND_V1",
+  "name": "Battle Friend V1.0",
+  "type": "Normal",
+  "hp_normal": 75,
+  "hp_ascension": null
  },
  {
   "class": "BattleFriendV2",
@@ -312,7 +435,12 @@
     150
    ]
   },
-  "ascension_scaled": false
+  "ascension_scaled": false,
+  "id": "BATTLE_FRIEND_V2",
+  "name": "Battle Friend V2.0",
+  "type": "Normal",
+  "hp_normal": 150,
+  "hp_ascension": null
  },
  {
   "class": "BattleFriendV3",
@@ -329,7 +457,12 @@
     300
    ]
   },
-  "ascension_scaled": false
+  "ascension_scaled": false,
+  "id": "BATTLE_FRIEND_V3",
+  "name": "Battle Friend V3.0",
+  "type": "Normal",
+  "hp_normal": 300,
+  "hp_ascension": null
  },
  {
   "class": "BigDummy",
@@ -395,9 +528,22 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "BITE",
+    "damage": {
+     "normal": 7,
+     "ascension": 8,
+     "hit_count": null
+    },
+    "block": 7,
+    "intent_codex": "Attack + Defend"
    }
-  ]
+  ],
+  "id": "BOWLBUG_EGG",
+  "name": "Bowlbug (Egg)",
+  "type": "Normal",
+  "hp_normal": 21,
+  "hp_ascension": 23
  },
  {
   "class": "BowlbugNectar",
@@ -429,14 +575,30 @@
      [
       3
      ]
-    ]
+    ],
+    "id": "THRASH",
+    "damage": {
+     "normal": 3,
+     "ascension": null,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "BUFF_MOVE",
     "method": "BuffMove",
     "intent": "BuffIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "BUFF",
+    "powers": [
+     {
+      "power_id": "STRENGTH",
+      "target": "self",
+      "amount": 15
+     }
+    ],
+    "intent_codex": "Buff"
    },
    {
     "state": "THRASH2_MOVE",
@@ -449,9 +611,21 @@
      [
       3
      ]
-    ]
+    ],
+    "id": "THRASH2",
+    "damage": {
+     "normal": 3,
+     "ascension": null,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    }
-  ]
+  ],
+  "id": "BOWLBUG_NECTAR",
+  "name": "Bowlbug (Nectar)",
+  "type": "Normal",
+  "hp_normal": 35,
+  "hp_ascension": 36
  },
  {
   "class": "BowlbugRock",
@@ -484,16 +658,30 @@
       16,
       15
      ]
-    ]
+    ],
+    "id": "HEADBUTT",
+    "damage": {
+     "normal": 15,
+     "ascension": 16,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "DIZZY_MOVE",
     "method": "DizzyMove",
     "intent": "StunIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "DIZZY",
+    "intent_codex": "Stun"
    }
-  ]
+  ],
+  "id": "BOWLBUG_ROCK",
+  "name": "Bowlbug (Rock)",
+  "type": "Normal",
+  "hp_normal": 45,
+  "hp_ascension": 46
  },
  {
   "class": "BowlbugSilk",
@@ -530,16 +718,37 @@
      [
       2
      ]
-    ]
+    ],
+    "id": "THRASH",
+    "damage": {
+     "normal": 4,
+     "ascension": 5,
+     "hit_count": 2
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "TOXIC_SPIT_MOVE",
     "method": "SpitMove",
     "intent": "DebuffIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "TOXIC_SPIT",
+    "powers": [
+     {
+      "power_id": "WEAK",
+      "target": "player",
+      "amount": 1
+     }
+    ],
+    "intent_codex": "Debuff"
    }
-  ]
+  ],
+  "id": "BOWLBUG_SILK",
+  "name": "Bowlbug (Silk)",
+  "type": "Normal",
+  "hp_normal": 40,
+  "hp_ascension": 41
  },
  {
   "class": "BruteRubyRaider",
@@ -572,16 +781,37 @@
       8,
       7
      ]
-    ]
+    ],
+    "id": "BEAT",
+    "damage": {
+     "normal": 7,
+     "ascension": 8,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "ROAR_MOVE",
     "method": "RoarMove",
     "intent": "BuffIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "ROAR",
+    "powers": [
+     {
+      "power_id": "STRENGTH",
+      "target": "self",
+      "amount": 3
+     }
+    ],
+    "intent_codex": "Buff"
    }
-  ]
+  ],
+  "id": "BRUTE_RUBY_RAIDER",
+  "name": "Brute Raider",
+  "type": "Normal",
+  "hp_normal": 30,
+  "hp_ascension": 31
  },
  {
   "class": "BygoneEffigy",
@@ -604,21 +834,34 @@
     "method": "InitialSleepMove",
     "intent": "SleepIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "SLEEP",
+    "intent_codex": "Sleep"
    },
    {
     "state": "WAKE_MOVE",
     "method": "WakeMove",
     "intent": "BuffIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "WAKE",
+    "powers": [
+     {
+      "power_id": "STRENGTH",
+      "target": "self",
+      "amount": 10
+     }
+    ],
+    "intent_codex": "Buff"
    },
    {
     "state": "SLEEP_MOVE_2",
     "method": "SleepMove",
     "intent": "SleepIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "SLEEP_MOVE_2",
+    "intent_codex": "Sleep"
    },
    {
     "state": "SLASHES_MOVE",
@@ -632,9 +875,21 @@
       15,
       13
      ]
-    ]
+    ],
+    "id": "SLASHES",
+    "damage": {
+     "normal": 13,
+     "ascension": 15,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    }
-  ]
+  ],
+  "id": "BYGONE_EFFIGY",
+  "name": "Bygone Effigy",
+  "type": "Elite",
+  "hp_normal": 127,
+  "hp_ascension": 132
  },
  {
   "class": "Byrdonis",
@@ -672,7 +927,14 @@
       3,
       3
      ]
-    ]
+    ],
+    "id": "PECK",
+    "damage": {
+     "normal": 3,
+     "ascension": 4,
+     "hit_count": 3
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "SWOOP_MOVE",
@@ -686,9 +948,21 @@
       19,
       17
      ]
-    ]
+    ],
+    "id": "SWOOP",
+    "damage": {
+     "normal": 17,
+     "ascension": 19,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    }
-  ]
+  ],
+  "id": "BYRDONIS",
+  "name": "Byrdonis",
+  "type": "Elite",
+  "hp_normal": 81,
+  "hp_ascension": 90
  },
  {
   "class": "Byrdpip",
@@ -705,7 +979,12 @@
     9999
    ]
   },
-  "ascension_scaled": false
+  "ascension_scaled": false,
+  "id": "BYRDPIP",
+  "name": "Byrdpip",
+  "type": "Normal",
+  "hp_normal": 9999,
+  "hp_ascension": null
  },
  {
   "class": "CalcifiedCultist",
@@ -731,7 +1010,16 @@
     "method": "IncantationMove",
     "intent": "BuffIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "INCANTATION",
+    "powers": [
+     {
+      "power_id": "RITUAL",
+      "target": "self",
+      "amount": 2
+     }
+    ],
+    "intent_codex": "Buff"
    },
    {
     "state": "DARK_STRIKE_MOVE",
@@ -745,9 +1033,21 @@
       11,
       9
      ]
-    ]
+    ],
+    "id": "DARK_STRIKE",
+    "damage": {
+     "normal": 9,
+     "ascension": 11,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    }
-  ]
+  ],
+  "id": "CALCIFIED_CULTIST",
+  "name": "Calcified Cultist",
+  "type": "Normal",
+  "hp_normal": 38,
+  "hp_ascension": 39
  },
  {
   "class": "CeremonialBeast",
@@ -770,7 +1070,16 @@
     "method": "StampMove",
     "intent": "BuffIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "STAMP",
+    "powers": [
+     {
+      "power_id": "PLOW",
+      "target": "self",
+      "amount": 150
+     }
+    ],
+    "intent_codex": "Buff"
    },
    {
     "state": "PLOW_MOVE",
@@ -791,21 +1100,46 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "PLOW",
+    "damage": {
+     "normal": 18,
+     "ascension": 20,
+     "hit_count": null
+    },
+    "powers": [
+     {
+      "power_id": "STRENGTH",
+      "target": "self",
+      "amount": 2
+     }
+    ],
+    "intent_codex": "Attack + Buff"
    },
    {
     "state": "STUN_MOVE",
     "method": "StunnedMove",
     "intent": "StunIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "STUN",
+    "intent_codex": "Stun"
    },
    {
     "state": "BEAST_CRY_MOVE",
     "method": "BeastCryMove",
     "intent": "DebuffIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "BEAST_CRY",
+    "powers": [
+     {
+      "power_id": "RINGING",
+      "target": "player",
+      "amount": 1
+     }
+    ],
+    "intent_codex": "Debuff"
    },
    {
     "state": "STOMP_MOVE",
@@ -819,7 +1153,14 @@
       17,
       15
      ]
-    ]
+    ],
+    "id": "STOMP",
+    "damage": {
+     "normal": 15,
+     "ascension": 17,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "CRUSH_MOVE",
@@ -840,9 +1181,28 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "CRUSH",
+    "damage": {
+     "normal": 17,
+     "ascension": 19,
+     "hit_count": null
+    },
+    "powers": [
+     {
+      "power_id": "STRENGTH",
+      "target": "self",
+      "amount": 3
+     }
+    ],
+    "intent_codex": "Attack + Buff"
    }
-  ]
+  ],
+  "id": "CEREMONIAL_BEAST",
+  "name": "Ceremonial Beast",
+  "type": "Boss",
+  "hp_normal": 252,
+  "hp_ascension": 262
  },
  {
   "class": "Chomper",
@@ -879,7 +1239,14 @@
      [
       2
      ]
-    ]
+    ],
+    "id": "CLAMP",
+    "damage": {
+     "normal": 8,
+     "ascension": 9,
+     "hit_count": 2
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "SCREECH_MOVE",
@@ -892,9 +1259,16 @@
      [
       3
      ]
-    ]
+    ],
+    "id": "SCREECH",
+    "intent_codex": "Status"
    }
-  ]
+  ],
+  "id": "CHOMPER",
+  "name": "Chomper",
+  "type": "Normal",
+  "hp_normal": 60,
+  "hp_ascension": 63
  },
  {
   "class": "CorpseSlug",
@@ -930,7 +1304,14 @@
      [
       2
      ]
-    ]
+    ],
+    "id": "WHIP_SLAP",
+    "damage": {
+     "normal": 3,
+     "ascension": null,
+     "hit_count": 2
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "GLOMP_MOVE",
@@ -944,16 +1325,37 @@
       9,
       8
      ]
-    ]
+    ],
+    "id": "GLOMP",
+    "damage": {
+     "normal": 8,
+     "ascension": 9,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "GOOP_MOVE",
     "method": "GoopMove",
     "intent": "DebuffIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "GOOP",
+    "powers": [
+     {
+      "power_id": "FRAIL",
+      "target": "player",
+      "amount": 2
+     }
+    ],
+    "intent_codex": "Debuff"
    }
-  ]
+  ],
+  "id": "CORPSE_SLUG",
+  "name": "Corpse Slug",
+  "type": "Normal",
+  "hp_normal": 25,
+  "hp_ascension": 27
  },
  {
   "class": "CrossbowRubyRaider",
@@ -986,16 +1388,31 @@
       16,
       14
      ]
-    ]
+    ],
+    "id": "FIRE",
+    "damage": {
+     "normal": 14,
+     "ascension": 16,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "RELOAD_MOVE",
     "method": "ReloadMove",
     "intent": "DefendIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "RELOAD",
+    "block": 3,
+    "intent_codex": "Defend"
    }
-  ]
+  ],
+  "id": "CROSSBOW_RUBY_RAIDER",
+  "name": "Crossbow Raider",
+  "type": "Normal",
+  "hp_normal": 18,
+  "hp_ascension": 19
  },
  {
   "class": "Crusher",
@@ -1025,7 +1442,14 @@
       14,
       12
      ]
-    ]
+    ],
+    "id": "THRASH",
+    "damage": {
+     "normal": 12,
+     "ascension": 14,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "ENLARGING_STRIKE_MOVE",
@@ -1039,7 +1463,14 @@
       4,
       4
      ]
-    ]
+    ],
+    "id": "ENLARGING_STRIKE",
+    "damage": {
+     "normal": 4,
+     "ascension": 4,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "BUG_STING_MOVE",
@@ -1064,14 +1495,42 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "BUG_STING",
+    "damage": {
+     "normal": 6,
+     "ascension": 7,
+     "hit_count": 2
+    },
+    "powers": [
+     {
+      "power_id": "WEAK",
+      "target": "player",
+      "amount": 2
+     },
+     {
+      "power_id": "FRAIL",
+      "target": "player",
+      "amount": 2
+     }
+    ],
+    "intent_codex": "Attack + Debuff"
    },
    {
     "state": "ADAPT_MOVE",
     "method": "AdaptMove",
     "intent": "BuffIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "ADAPT",
+    "powers": [
+     {
+      "power_id": "STRENGTH",
+      "target": "self",
+      "amount": 2
+     }
+    ],
+    "intent_codex": "Buff"
    },
    {
     "state": "GUARDED_STRIKE_MOVE",
@@ -1092,9 +1551,22 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "GUARDED_STRIKE",
+    "damage": {
+     "normal": 12,
+     "ascension": 14,
+     "hit_count": null
+    },
+    "block": 18,
+    "intent_codex": "Attack + Defend"
    }
-  ]
+  ],
+  "id": "CRUSHER",
+  "name": "Crusher",
+  "type": "Boss",
+  "hp_normal": 209,
+  "hp_ascension": 219
  },
  {
   "class": "CubexConstruct",
@@ -1117,7 +1589,16 @@
     "method": "ChargeUpMove",
     "intent": "BuffIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "CHARGE_UP",
+    "powers": [
+     {
+      "power_id": "STRENGTH",
+      "target": "self",
+      "amount": 2
+     }
+    ],
+    "intent_codex": "Buff"
    },
    {
     "state": "REPEATER_BLAST_MOVE",
@@ -1138,7 +1619,21 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "REPEATER_BLAST",
+    "damage": {
+     "normal": 7,
+     "ascension": 8,
+     "hit_count": null
+    },
+    "powers": [
+     {
+      "power_id": "STRENGTH",
+      "target": "self",
+      "amount": 2
+     }
+    ],
+    "intent_codex": "Attack + Buff"
    },
    {
     "state": "REPEATER_BLAST_MOVE_2",
@@ -1159,7 +1654,21 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "REPEATER_BLAST_MOVE_2",
+    "damage": {
+     "normal": 7,
+     "ascension": 8,
+     "hit_count": null
+    },
+    "powers": [
+     {
+      "power_id": "STRENGTH",
+      "target": "self",
+      "amount": 2
+     }
+    ],
+    "intent_codex": "Attack + Buff"
    },
    {
     "state": "EXPEL_MOVE",
@@ -1177,9 +1686,21 @@
      [
       2
      ]
-    ]
+    ],
+    "id": "EXPEL",
+    "damage": {
+     "normal": 5,
+     "ascension": 6,
+     "hit_count": 2
+    },
+    "intent_codex": "Attack"
    }
-  ]
+  ],
+  "id": "CUBEX_CONSTRUCT",
+  "name": "Cubex Construct",
+  "type": "Normal",
+  "hp_normal": 65,
+  "hp_ascension": 70
  },
  {
   "class": "DampCultist",
@@ -1205,7 +1726,16 @@
     "method": "IncantationMove",
     "intent": "BuffIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "INCANTATION",
+    "powers": [
+     {
+      "power_id": "RITUAL",
+      "target": "self",
+      "amount": 5
+     }
+    ],
+    "intent_codex": "Buff"
    },
    {
     "state": "DARK_STRIKE_MOVE",
@@ -1219,9 +1749,21 @@
       3,
       1
      ]
-    ]
+    ],
+    "id": "DARK_STRIKE",
+    "damage": {
+     "normal": 1,
+     "ascension": 3,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    }
-  ]
+  ],
+  "id": "DAMP_CULTIST",
+  "name": "Damp Cultist",
+  "type": "Normal",
+  "hp_normal": 51,
+  "hp_ascension": 52
  },
  {
   "class": "DecimillipedeSegment",
@@ -1258,7 +1800,14 @@
      [
       2
      ]
-    ]
+    ],
+    "id": "WRITHE",
+    "damage": {
+     "normal": 5,
+     "ascension": 6,
+     "hit_count": 2
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "BULK_MOVE",
@@ -1279,7 +1828,21 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "BULK",
+    "damage": {
+     "normal": 6,
+     "ascension": 7,
+     "hit_count": null
+    },
+    "powers": [
+     {
+      "power_id": "STRENGTH",
+      "target": "self",
+      "amount": 2
+     }
+    ],
+    "intent_codex": "Attack + Buff"
    },
    {
     "state": "CONSTRICT_MOVE",
@@ -1300,16 +1863,37 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "CONSTRICT",
+    "damage": {
+     "normal": 8,
+     "ascension": 9,
+     "hit_count": null
+    },
+    "powers": [
+     {
+      "power_id": "WEAK",
+      "target": "player",
+      "amount": 1
+     }
+    ],
+    "intent_codex": "Attack + Debuff"
    },
    {
     "state": "REATTACH_MOVE",
     "method": "ReattachMove",
     "intent": "HealIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "REATTACH",
+    "intent_codex": "Heal"
    }
-  ]
+  ],
+  "id": "DECIMILLIPEDE_SEGMENT",
+  "name": "Decimillipede",
+  "type": "Elite",
+  "hp_normal": 40,
+  "hp_ascension": 46
  },
  {
   "class": "DeprecatedMonster",
@@ -1349,7 +1933,9 @@
     "method": "ForbiddenIncantationMove",
     "intent": "BuffIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "FORBIDDEN_INCANTATION",
+    "intent_codex": "Buff"
    },
    {
     "state": "SAVAGE_MOVE",
@@ -1363,9 +1949,21 @@
       15,
       12
      ]
-    ]
+    ],
+    "id": "SAVAGE",
+    "damage": {
+     "normal": 12,
+     "ascension": 15,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    }
-  ]
+  ],
+  "id": "DEVOTED_SCULPTOR",
+  "name": "Devoted Sculptor",
+  "type": "Normal",
+  "hp_normal": 162,
+  "hp_ascension": 172
  },
  {
   "class": "Entomancer",
@@ -1388,7 +1986,26 @@
     "method": "SpitMove",
     "intent": "BuffIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "PHEROMONE_SPIT",
+    "powers": [
+     {
+      "power_id": "PERSONAL_HIVE",
+      "target": "self",
+      "amount": 1
+     },
+     {
+      "power_id": "STRENGTH",
+      "target": "self",
+      "amount": 1
+     },
+     {
+      "power_id": "STRENGTH",
+      "target": "self",
+      "amount": 2
+     }
+    ],
+    "intent_codex": "Buff"
    },
    {
     "state": "BEES_MOVE",
@@ -1407,7 +2024,14 @@
       8,
       7
      ]
-    ]
+    ],
+    "id": "BEES",
+    "damage": {
+     "normal": 3,
+     "ascension": 3,
+     "hit_count": 7
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "SPEAR_MOVE",
@@ -1421,9 +2045,21 @@
       20,
       18
      ]
-    ]
+    ],
+    "id": "SPEAR",
+    "damage": {
+     "normal": 18,
+     "ascension": 20,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    }
-  ]
+  ],
+  "id": "ENTOMANCER",
+  "name": "Entomancer",
+  "type": "Elite",
+  "hp_normal": 145,
+  "hp_ascension": 155
  },
  {
   "class": "Exoskeleton",
@@ -1460,7 +2096,14 @@
       4,
       3
      ]
-    ]
+    ],
+    "id": "SKITTER",
+    "damage": {
+     "normal": 1,
+     "ascension": null,
+     "hit_count": 3
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "MANDIBLES_MOVE",
@@ -1474,16 +2117,37 @@
       9,
       8
      ]
-    ]
+    ],
+    "id": "MANDIBLES",
+    "damage": {
+     "normal": 8,
+     "ascension": 9,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "ENRAGE_MOVE",
     "method": "EnrageMove",
     "intent": "BuffIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "ENRAGE",
+    "powers": [
+     {
+      "power_id": "STRENGTH",
+      "target": "self",
+      "amount": 2
+     }
+    ],
+    "intent_codex": "Buff"
    }
-  ]
+  ],
+  "id": "EXOSKELETON",
+  "name": "Exoskeleton",
+  "type": "Normal",
+  "hp_normal": 24,
+  "hp_ascension": 25
  },
  {
   "class": "EyeWithTeeth",
@@ -1511,9 +2175,16 @@
      [
       3
      ]
-    ]
+    ],
+    "id": "DISTRACT",
+    "intent_codex": "Status"
    }
-  ]
+  ],
+  "id": "EYE_WITH_TEETH",
+  "name": "Eye with Teeth",
+  "type": "Normal",
+  "hp_normal": 6,
+  "hp_ascension": null
  },
  {
   "class": "Fabricator",
@@ -1536,7 +2207,9 @@
     "method": "FabricateMove",
     "intent": "SummonIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "FABRICATE",
+    "intent_codex": "Summon"
    },
    {
     "state": "FABRICATING_STRIKE_MOVE",
@@ -1557,7 +2230,14 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "FABRICATING_STRIKE",
+    "damage": {
+     "normal": 18,
+     "ascension": 21,
+     "hit_count": null
+    },
+    "intent_codex": "Attack + Summon"
    },
    {
     "state": "DISINTEGRATE_MOVE",
@@ -1571,9 +2251,21 @@
       13,
       11
      ]
-    ]
+    ],
+    "id": "DISINTEGRATE",
+    "damage": {
+     "normal": 11,
+     "ascension": 13,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    }
-  ]
+  ],
+  "id": "FABRICATOR",
+  "name": "Fabricator",
+  "type": "Normal",
+  "hp_normal": 150,
+  "hp_ascension": 155
  },
  {
   "class": "FakeMerchantMonster",
@@ -1606,7 +2298,14 @@
       15,
       13
      ]
-    ]
+    ],
+    "id": "SWIPE",
+    "damage": {
+     "normal": 13,
+     "ascension": 15,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "SPEW_COINS_MOVE",
@@ -1623,7 +2322,14 @@
      [
       8
      ]
-    ]
+    ],
+    "id": "SPEW_COINS",
+    "damage": {
+     "normal": 2,
+     "ascension": null,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "THROW_RELIC_MOVE",
@@ -1644,16 +2350,44 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "THROW_RELIC",
+    "damage": {
+     "normal": 9,
+     "ascension": 10,
+     "hit_count": null
+    },
+    "powers": [
+     {
+      "power_id": "FRAIL",
+      "target": "player",
+      "amount": 1
+     }
+    ],
+    "intent_codex": "Attack + Debuff"
    },
    {
     "state": "ENRAGE_MOVE",
     "method": "EnrageMove",
     "intent": "BuffIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "ENRAGE",
+    "powers": [
+     {
+      "power_id": "STRENGTH",
+      "target": "self",
+      "amount": 2
+     }
+    ],
+    "intent_codex": "Buff"
    }
-  ]
+  ],
+  "id": "FAKE_MERCHANT_MONSTER",
+  "name": "The Merchant???",
+  "type": "Normal",
+  "hp_normal": 165,
+  "hp_ascension": 175
  },
  {
   "class": "FatGremlin",
@@ -1679,16 +2413,25 @@
     "method": "SpawnedMove",
     "intent": "StunIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "SPAWNED",
+    "intent_codex": "Stun"
    },
    {
     "state": "FLEE_MOVE",
     "method": "FleeMove",
     "intent": "EscapeIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "FLEE",
+    "intent_codex": "Escape"
    }
-  ]
+  ],
+  "id": "FAT_GREMLIN",
+  "name": "Fat Gremlin",
+  "type": "Normal",
+  "hp_normal": 13,
+  "hp_ascension": 14
  },
  {
   "class": "FlailKnight",
@@ -1711,7 +2454,16 @@
     "method": "WarChantMove",
     "intent": "BuffIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "WAR_CHANT",
+    "powers": [
+     {
+      "power_id": "STRENGTH",
+      "target": "self",
+      "amount": 3
+     }
+    ],
+    "intent_codex": "Buff"
    },
    {
     "state": "FLAIL_MOVE",
@@ -1729,7 +2481,14 @@
      [
       2
      ]
-    ]
+    ],
+    "id": "FLAIL",
+    "damage": {
+     "normal": 9,
+     "ascension": 10,
+     "hit_count": 2
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "RAM_MOVE",
@@ -1743,9 +2502,21 @@
       17,
       15
      ]
-    ]
+    ],
+    "id": "RAM",
+    "damage": {
+     "normal": 15,
+     "ascension": 17,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    }
-  ]
+  ],
+  "id": "FLAIL_KNIGHT",
+  "name": "Flail Knight",
+  "type": "Elite",
+  "hp_normal": 101,
+  "hp_ascension": 108
  },
  {
   "class": "Flyconid",
@@ -1771,7 +2542,21 @@
     "method": "VulnerableSporesMove",
     "intent": "DebuffIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "VULNERABLE_SPORES",
+    "damage": {
+     "normal": 8,
+     "ascension": 9,
+     "hit_count": null
+    },
+    "powers": [
+     {
+      "power_id": "VULNERABLE",
+      "target": "player",
+      "amount": 2
+     }
+    ],
+    "intent_codex": "Debuff"
    },
    {
     "state": "FRAIL_SPORES_MOVE",
@@ -1792,7 +2577,21 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "FRAIL_SPORES",
+    "damage": {
+     "normal": 8,
+     "ascension": 9,
+     "hit_count": null
+    },
+    "powers": [
+     {
+      "power_id": "FRAIL",
+      "target": "player",
+      "amount": 2
+     }
+    ],
+    "intent_codex": "Attack + Debuff"
    },
    {
     "state": "SMASH_MOVE",
@@ -1806,9 +2605,21 @@
       12,
       11
      ]
-    ]
+    ],
+    "id": "SMASH",
+    "damage": {
+     "normal": 11,
+     "ascension": 12,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    }
-  ]
+  ],
+  "id": "FLYCONID",
+  "name": "Flyconid",
+  "type": "Normal",
+  "hp_normal": 47,
+  "hp_ascension": 51
  },
  {
   "class": "Fogmog",
@@ -1831,7 +2642,9 @@
     "method": "IllusionMove",
     "intent": "SummonIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "ILLUSION",
+    "intent_codex": "Summon"
    },
    {
     "state": "SWIPE_MOVE",
@@ -1852,7 +2665,21 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "SWIPE",
+    "damage": {
+     "normal": 8,
+     "ascension": 9,
+     "hit_count": null
+    },
+    "powers": [
+     {
+      "power_id": "STRENGTH",
+      "target": "self",
+      "amount": 1
+     }
+    ],
+    "intent_codex": "Attack + Buff"
    },
    {
     "state": "SWIPE_RANDOM_MOVE",
@@ -1873,7 +2700,21 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "SWIPE_RANDOM",
+    "damage": {
+     "normal": 8,
+     "ascension": 9,
+     "hit_count": null
+    },
+    "powers": [
+     {
+      "power_id": "STRENGTH",
+      "target": "self",
+      "amount": 1
+     }
+    ],
+    "intent_codex": "Attack + Buff"
    },
    {
     "state": "HEADBUTT_MOVE",
@@ -1887,9 +2728,21 @@
       16,
       14
      ]
-    ]
+    ],
+    "id": "HEADBUTT",
+    "damage": {
+     "normal": 14,
+     "ascension": 16,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    }
-  ]
+  ],
+  "id": "FOGMOG",
+  "name": "Fogmog",
+  "type": "Normal",
+  "hp_normal": 74,
+  "hp_ascension": 78
  },
  {
   "class": "FossilStalker",
@@ -1929,7 +2782,21 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "TACKLE",
+    "damage": {
+     "normal": 9,
+     "ascension": 11,
+     "hit_count": null
+    },
+    "powers": [
+     {
+      "power_id": "FRAIL",
+      "target": "player",
+      "amount": 1
+     }
+    ],
+    "intent_codex": "Attack + Debuff"
    },
    {
     "state": "LATCH_MOVE",
@@ -1943,7 +2810,14 @@
       14,
       12
      ]
-    ]
+    ],
+    "id": "LATCH",
+    "damage": {
+     "normal": 12,
+     "ascension": 14,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "LASH_MOVE",
@@ -1961,9 +2835,21 @@
      [
       2
      ]
-    ]
+    ],
+    "id": "LASH",
+    "damage": {
+     "normal": 3,
+     "ascension": 4,
+     "hit_count": 2
+    },
+    "intent_codex": "Attack"
    }
-  ]
+  ],
+  "id": "FOSSIL_STALKER",
+  "name": "Fossil Stalker",
+  "type": "Normal",
+  "hp_normal": 51,
+  "hp_ascension": 54
  },
  {
   "class": "FrogKnight",
@@ -1986,7 +2872,16 @@
     "method": "ForTheQueenMove",
     "intent": "BuffIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "FOR_THE_QUEEN",
+    "powers": [
+     {
+      "power_id": "STRENGTH",
+      "target": "self",
+      "amount": 5
+     }
+    ],
+    "intent_codex": "Buff"
    },
    {
     "state": "STRIKE_DOWN_EVIL",
@@ -2000,7 +2895,14 @@
       23,
       21
      ]
-    ]
+    ],
+    "id": "STRIKE_DOWN_EVIL",
+    "damage": {
+     "normal": 21,
+     "ascension": 23,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "TONGUE_LASH",
@@ -2021,7 +2923,21 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "TONGUE_LASH",
+    "damage": {
+     "normal": 13,
+     "ascension": 14,
+     "hit_count": null
+    },
+    "powers": [
+     {
+      "power_id": "FRAIL",
+      "target": "player",
+      "amount": 2
+     }
+    ],
+    "intent_codex": "Attack + Debuff"
    },
    {
     "state": "BEETLE_CHARGE",
@@ -2035,9 +2951,21 @@
       40,
       35
      ]
-    ]
+    ],
+    "id": "BEETLE_CHARGE",
+    "damage": {
+     "normal": 35,
+     "ascension": 40,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    }
-  ]
+  ],
+  "id": "FROG_KNIGHT",
+  "name": "Frog Knight",
+  "type": "Normal",
+  "hp_normal": 191,
+  "hp_ascension": 199
  },
  {
   "class": "FuzzyWurmCrawler",
@@ -2070,7 +2998,14 @@
       6,
       4
      ]
-    ]
+    ],
+    "id": "FIRST_ACID_GOOP",
+    "damage": {
+     "normal": 4,
+     "ascension": 6,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "ACID_GOOP",
@@ -2084,16 +3019,37 @@
       6,
       4
      ]
-    ]
+    ],
+    "id": "ACID_GOOP",
+    "damage": {
+     "normal": 4,
+     "ascension": 6,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "INHALE",
     "method": "Inhale",
     "intent": "BuffIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "INHALE",
+    "powers": [
+     {
+      "power_id": "STRENGTH",
+      "target": "self",
+      "amount": 7
+     }
+    ],
+    "intent_codex": "Buff"
    }
-  ]
+  ],
+  "id": "FUZZY_WURM_CRAWLER",
+  "name": "Fuzzy Wurm Crawler",
+  "type": "Normal",
+  "hp_normal": 55,
+  "hp_ascension": 58
  },
  {
   "class": "GasBomb",
@@ -2120,9 +3076,21 @@
     ],
     "values": [
      null
-    ]
+    ],
+    "id": "EXPLODE",
+    "damage": {
+     "normal": 8,
+     "ascension": 9,
+     "hit_count": null
+    },
+    "intent_codex": "Special"
    }
-  ]
+  ],
+  "id": "GAS_BOMB",
+  "name": "Gas Bomb",
+  "type": "Normal",
+  "hp_normal": 7,
+  "hp_ascension": 8
  },
  {
   "class": "GlobeHead",
@@ -2156,7 +3124,14 @@
      [
       3
      ]
-    ]
+    ],
+    "id": "THUNDER_STRIKE",
+    "damage": {
+     "normal": 6,
+     "ascension": 7,
+     "hit_count": 3
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "SHOCKING_SLAP",
@@ -2177,7 +3152,21 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "SHOCKING_SLAP",
+    "damage": {
+     "normal": 13,
+     "ascension": 14,
+     "hit_count": null
+    },
+    "powers": [
+     {
+      "power_id": "FRAIL",
+      "target": "player",
+      "amount": 2
+     }
+    ],
+    "intent_codex": "Attack + Debuff"
    },
    {
     "state": "GALVANIC_BURST",
@@ -2198,9 +3187,28 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "GALVANIC_BURST",
+    "damage": {
+     "normal": 16,
+     "ascension": 17,
+     "hit_count": null
+    },
+    "powers": [
+     {
+      "power_id": "STRENGTH",
+      "target": "self",
+      "amount": 2
+     }
+    ],
+    "intent_codex": "Attack + Buff"
    }
-  ]
+  ],
+  "id": "GLOBE_HEAD",
+  "name": "Globe Head",
+  "type": "Normal",
+  "hp_normal": 148,
+  "hp_ascension": 158
  },
  {
   "class": "GremlinMerc",
@@ -2237,7 +3245,14 @@
      [
       2
      ]
-    ]
+    ],
+    "id": "GIMME",
+    "damage": {
+     "normal": 7,
+     "ascension": 8,
+     "hit_count": 2
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "DOUBLE_SMASH_MOVE",
@@ -2262,7 +3277,21 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "DOUBLE_SMASH",
+    "damage": {
+     "normal": 6,
+     "ascension": 7,
+     "hit_count": 2
+    },
+    "powers": [
+     {
+      "power_id": "WEAK",
+      "target": "player",
+      "amount": 2
+     }
+    ],
+    "intent_codex": "Attack + Debuff"
    },
    {
     "state": "HEHE_MOVE",
@@ -2283,9 +3312,28 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "HEHE",
+    "damage": {
+     "normal": 8,
+     "ascension": 9,
+     "hit_count": null
+    },
+    "powers": [
+     {
+      "power_id": "STRENGTH",
+      "target": "self",
+      "amount": 2
+     }
+    ],
+    "intent_codex": "Attack + Buff"
    }
-  ]
+  ],
+  "id": "GREMLIN_MERC",
+  "name": "Gremlin Merc",
+  "type": "Normal",
+  "hp_normal": 47,
+  "hp_ascension": 51
  },
  {
   "class": "Guardbot",
@@ -2311,9 +3359,17 @@
     "method": "GuardMove",
     "intent": "DefendIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "GUARD",
+    "block": 15,
+    "intent_codex": "Defend"
    }
-  ]
+  ],
+  "id": "GUARDBOT",
+  "name": "Guardbot",
+  "type": "Normal",
+  "hp_normal": 16,
+  "hp_ascension": 17
  },
  {
   "class": "HauntedShip",
@@ -2343,7 +3399,14 @@
       14,
       13
      ]
-    ]
+    ],
+    "id": "SWIPE",
+    "damage": {
+     "normal": 13,
+     "ascension": 14,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "STOMP_MOVE",
@@ -2361,7 +3424,14 @@
      [
       3
      ]
-    ]
+    ],
+    "id": "STOMP",
+    "damage": {
+     "normal": 4,
+     "ascension": 5,
+     "hit_count": 3
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "HAUNT_MOVE",
@@ -2381,9 +3451,23 @@
        ]
       ]
      }
-    ]
+    ],
+    "id": "HAUNT",
+    "powers": [
+     {
+      "power_id": "WEAK",
+      "target": "player",
+      "amount": 3
+     }
+    ],
+    "intent_codex": "Debuff + Status"
    }
-  ]
+  ],
+  "id": "HAUNTED_SHIP",
+  "name": "Haunted Ship",
+  "type": "Normal",
+  "hp_normal": 63,
+  "hp_ascension": 67
  },
  {
   "class": "HunterKiller",
@@ -2406,7 +3490,16 @@
     "method": "GoopMove",
     "intent": "DebuffIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "TENDERIZING_GOOP",
+    "powers": [
+     {
+      "power_id": "TENDER",
+      "target": "player",
+      "amount": 1
+     }
+    ],
+    "intent_codex": "Debuff"
    },
    {
     "state": "BITE_MOVE",
@@ -2420,7 +3513,14 @@
       19,
       17
      ]
-    ]
+    ],
+    "id": "BITE",
+    "damage": {
+     "normal": 17,
+     "ascension": 19,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "PUNCTURE_MOVE",
@@ -2438,9 +3538,21 @@
      [
       3
      ]
-    ]
+    ],
+    "id": "PUNCTURE",
+    "damage": {
+     "normal": 7,
+     "ascension": 8,
+     "hit_count": 3
+    },
+    "intent_codex": "Attack"
    }
-  ]
+  ],
+  "id": "HUNTER_KILLER",
+  "name": "Hunter Killer",
+  "type": "Normal",
+  "hp_normal": 121,
+  "hp_ascension": 126
  },
  {
   "class": "InfestedPrism",
@@ -2470,7 +3582,14 @@
       17,
       15
      ]
-    ]
+    ],
+    "id": "JAB",
+    "damage": {
+     "normal": 15,
+     "ascension": 17,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "RADIATE_MOVE",
@@ -2491,7 +3610,15 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "RADIATE",
+    "damage": {
+     "normal": 11,
+     "ascension": 13,
+     "hit_count": null
+    },
+    "block": 11,
+    "intent_codex": "Attack + Defend"
    },
    {
     "state": "WHIRLWIND_MOVE",
@@ -2509,7 +3636,14 @@
      [
       3
      ]
-    ]
+    ],
+    "id": "WHIRLWIND",
+    "damage": {
+     "normal": 5,
+     "ascension": 6,
+     "hit_count": 3
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "PULSATE_MOVE",
@@ -2535,9 +3669,29 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "PULSATE",
+    "damage": {
+     "normal": 8,
+     "ascension": 10,
+     "hit_count": null
+    },
+    "block": 20,
+    "powers": [
+     {
+      "power_id": "VITAL_SPARK",
+      "target": "self",
+      "amount": 2
+     }
+    ],
+    "intent_codex": "Attack + Buff + Defend"
    }
-  ]
+  ],
+  "id": "INFESTED_PRISM",
+  "name": "Infested Prism",
+  "type": "Elite",
+  "hp_normal": 161,
+  "hp_ascension": 171
  },
  {
   "class": "Inklet",
@@ -2570,7 +3724,14 @@
       4,
       3
      ]
-    ]
+    ],
+    "id": "JAB",
+    "damage": {
+     "normal": 3,
+     "ascension": 4,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "WHIRLWIND_MOVE",
@@ -2588,7 +3749,14 @@
      [
       3
      ]
-    ]
+    ],
+    "id": "WHIRLWIND",
+    "damage": {
+     "normal": 2,
+     "ascension": 3,
+     "hit_count": 3
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "PIERCING_GAZE_MOVE",
@@ -2602,9 +3770,21 @@
       11,
       10
      ]
-    ]
+    ],
+    "id": "PIERCING_GAZE",
+    "damage": {
+     "normal": 10,
+     "ascension": 11,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    }
-  ]
+  ],
+  "id": "INKLET",
+  "name": "Inklet",
+  "type": "Normal",
+  "hp_normal": 11,
+  "hp_ascension": 12
  },
  {
   "class": "KinFollower",
@@ -2637,7 +3817,14 @@
       5,
       5
      ]
-    ]
+    ],
+    "id": "QUICK_SLASH",
+    "damage": {
+     "normal": 5,
+     "ascension": 5,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "BOOMERANG_MOVE",
@@ -2655,16 +3842,37 @@
      [
       2
      ]
-    ]
+    ],
+    "id": "BOOMERANG",
+    "damage": {
+     "normal": 2,
+     "ascension": 2,
+     "hit_count": 2
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "POWER_DANCE_MOVE",
     "method": "PowerDanceMove",
     "intent": "BuffIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "POWER_DANCE",
+    "powers": [
+     {
+      "power_id": "STRENGTH",
+      "target": "self",
+      "amount": 2
+     }
+    ],
+    "intent_codex": "Buff"
    }
-  ]
+  ],
+  "id": "KIN_FOLLOWER",
+  "name": "Kin Follower",
+  "type": "Boss",
+  "hp_normal": 58,
+  "hp_ascension": 62
  },
  {
   "class": "KinPriest",
@@ -2701,7 +3909,21 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "ORB_OF_FRAILTY",
+    "damage": {
+     "normal": 8,
+     "ascension": 9,
+     "hit_count": null
+    },
+    "powers": [
+     {
+      "power_id": "FRAIL",
+      "target": "player",
+      "amount": 1
+     }
+    ],
+    "intent_codex": "Attack + Debuff"
    },
    {
     "state": "ORB_OF_WEAKNESS_MOVE",
@@ -2722,7 +3944,21 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "ORB_OF_WEAKNESS",
+    "damage": {
+     "normal": 8,
+     "ascension": 9,
+     "hit_count": null
+    },
+    "powers": [
+     {
+      "power_id": "WEAK",
+      "target": "player",
+      "amount": 1
+     }
+    ],
+    "intent_codex": "Attack + Debuff"
    },
    {
     "state": "BEAM_MOVE",
@@ -2740,16 +3976,37 @@
      [
       3
      ]
-    ]
+    ],
+    "id": "BEAM",
+    "damage": {
+     "normal": 3,
+     "ascension": 3,
+     "hit_count": 3
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "RITUAL_MOVE",
     "method": "RitualMove",
     "intent": "BuffIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "RITUAL",
+    "powers": [
+     {
+      "power_id": "STRENGTH",
+      "target": "self",
+      "amount": 2
+     }
+    ],
+    "intent_codex": "Buff"
    }
-  ]
+  ],
+  "id": "KIN_PRIEST",
+  "name": "Kin Priest",
+  "type": "Boss",
+  "hp_normal": 190,
+  "hp_ascension": 199
  },
  {
   "class": "KnowledgeDemon",
@@ -2772,7 +4029,9 @@
     "method": "CurseOfKnowledge",
     "intent": "DebuffIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "CURSE_OF_KNOWLEDGE",
+    "intent_codex": "Debuff"
    },
    {
     "state": "SLAP_MOVE",
@@ -2786,7 +4045,14 @@
       18,
       17
      ]
-    ]
+    ],
+    "id": "SLAP",
+    "damage": {
+     "normal": 17,
+     "ascension": 18,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "KNOWLEDGE_OVERWHELMING_MOVE",
@@ -2804,7 +4070,14 @@
      [
       3
      ]
-    ]
+    ],
+    "id": "KNOWLEDGE_OVERWHELMING",
+    "damage": {
+     "normal": 8,
+     "ascension": 9,
+     "hit_count": 3
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "PONDER_MOVE",
@@ -2830,9 +4103,29 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "PONDER",
+    "damage": {
+     "normal": 11,
+     "ascension": 13,
+     "hit_count": null
+    },
+    "heal": 30,
+    "powers": [
+     {
+      "power_id": "STRENGTH",
+      "target": "self",
+      "amount": 2
+     }
+    ],
+    "intent_codex": "Attack + Heal + Buff"
    }
-  ]
+  ],
+  "id": "KNOWLEDGE_DEMON",
+  "name": "Knowledge Demon",
+  "type": "Boss",
+  "hp_normal": 379,
+  "hp_ascension": 399
  },
  {
   "class": "LagavulinMatriarch",
@@ -2855,7 +4148,9 @@
     "method": "SleepMove",
     "intent": "SleepIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "SLEEP",
+    "intent_codex": "Sleep"
    },
    {
     "state": "SLASH_MOVE",
@@ -2869,7 +4164,14 @@
       21,
       19
      ]
-    ]
+    ],
+    "id": "SLASH",
+    "damage": {
+     "normal": 19,
+     "ascension": 21,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "SLASH2_MOVE",
@@ -2890,7 +4192,15 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "SLASH2",
+    "damage": {
+     "normal": 12,
+     "ascension": 14,
+     "hit_count": null
+    },
+    "block": 12,
+    "intent_codex": "Attack + Defend"
    },
    {
     "state": "DISEMBOWEL_MOVE",
@@ -2908,7 +4218,14 @@
      [
       2
      ]
-    ]
+    ],
+    "id": "DISEMBOWEL",
+    "damage": {
+     "normal": 9,
+     "ascension": 10,
+     "hit_count": 2
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "SOUL_SIPHON_MOVE",
@@ -2922,9 +4239,23 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "SOUL_SIPHON",
+    "powers": [
+     {
+      "power_id": "STRENGTH",
+      "target": "self",
+      "amount": 2
+     }
+    ],
+    "intent_codex": "Debuff + Buff"
    }
-  ]
+  ],
+  "id": "LAGAVULIN_MATRIARCH",
+  "name": "Lagavulin Matriarch",
+  "type": "Boss",
+  "hp_normal": 222,
+  "hp_ascension": 233
  },
  {
   "class": "LeafSlimeM",
@@ -2957,7 +4288,14 @@
       9,
       8
      ]
-    ]
+    ],
+    "id": "CLUMP_SHOT",
+    "damage": {
+     "normal": 8,
+     "ascension": 9,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "STICKY_SHOT",
@@ -2970,9 +4308,16 @@
      [
       2
      ]
-    ]
+    ],
+    "id": "STICKY_SHOT",
+    "intent_codex": "Status"
    }
-  ]
+  ],
+  "id": "LEAF_SLIME_M",
+  "name": "Leaf Slime (M)",
+  "type": "Normal",
+  "hp_normal": 32,
+  "hp_ascension": 33
  },
  {
   "class": "LeafSlimeS",
@@ -3005,7 +4350,14 @@
       4,
       3
      ]
-    ]
+    ],
+    "id": "TACKLE",
+    "damage": {
+     "normal": 3,
+     "ascension": 4,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "GOOP_MOVE",
@@ -3018,9 +4370,16 @@
      [
       1
      ]
-    ]
+    ],
+    "id": "GOOP",
+    "intent_codex": "Status"
    }
-  ]
+  ],
+  "id": "LEAF_SLIME_S",
+  "name": "Leaf Slime (S)",
+  "type": "Normal",
+  "hp_normal": 11,
+  "hp_ascension": 12
  },
  {
   "class": "LivingFog",
@@ -3057,7 +4416,21 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "ADVANCED_GAS",
+    "damage": {
+     "normal": 8,
+     "ascension": 9,
+     "hit_count": null
+    },
+    "powers": [
+     {
+      "power_id": "SMOGGY",
+      "target": "player",
+      "amount": 1
+     }
+    ],
+    "intent_codex": "Attack + Debuff"
    },
    {
     "state": "BLOAT_MOVE",
@@ -3078,7 +4451,14 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "BLOAT",
+    "damage": {
+     "normal": 5,
+     "ascension": 6,
+     "hit_count": null
+    },
+    "intent_codex": "Attack + Summon"
    },
    {
     "state": "SUPER_GAS_BLAST_MOVE",
@@ -3092,9 +4472,21 @@
       9,
       8
      ]
-    ]
+    ],
+    "id": "SUPER_GAS_BLAST",
+    "damage": {
+     "normal": 8,
+     "ascension": 9,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    }
-  ]
+  ],
+  "id": "LIVING_FOG",
+  "name": "Living Fog",
+  "type": "Normal",
+  "hp_normal": 80,
+  "hp_ascension": 82
  },
  {
   "class": "LivingShield",
@@ -3123,7 +4515,14 @@
      [
       6
      ]
-    ]
+    ],
+    "id": "SHIELD_SLAM",
+    "damage": {
+     "normal": 6,
+     "ascension": null,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "SMASH_MOVE",
@@ -3144,9 +4543,28 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "SMASH",
+    "damage": {
+     "normal": 16,
+     "ascension": 18,
+     "hit_count": null
+    },
+    "powers": [
+     {
+      "power_id": "STRENGTH",
+      "target": "self",
+      "amount": 3
+     }
+    ],
+    "intent_codex": "Attack + Buff"
    }
-  ]
+  ],
+  "id": "LIVING_SHIELD",
+  "name": "Living Shield",
+  "type": "Normal",
+  "hp_normal": 55,
+  "hp_ascension": 65
  },
  {
   "class": "LouseProgenitor",
@@ -3186,7 +4604,21 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "WEB_CANNON",
+    "damage": {
+     "normal": 9,
+     "ascension": 10,
+     "hit_count": null
+    },
+    "powers": [
+     {
+      "power_id": "FRAIL",
+      "target": "player",
+      "amount": 2
+     }
+    ],
+    "intent_codex": "Attack + Debuff"
    },
    {
     "state": "POUNCE_MOVE",
@@ -3200,7 +4632,14 @@
       16,
       14
      ]
-    ]
+    ],
+    "id": "POUNCE",
+    "damage": {
+     "normal": 14,
+     "ascension": 16,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "CURL_AND_GROW_MOVE",
@@ -3214,9 +4653,24 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "CURL_AND_GROW",
+    "block": 14,
+    "powers": [
+     {
+      "power_id": "STRENGTH",
+      "target": "self",
+      "amount": 5
+     }
+    ],
+    "intent_codex": "Defend + Buff"
    }
-  ]
+  ],
+  "id": "LOUSE_PROGENITOR",
+  "name": "Louse Progenitor",
+  "type": "Normal",
+  "hp_normal": 134,
+  "hp_ascension": 138
  },
  {
   "class": "MagiKnight",
@@ -3253,21 +4707,34 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "POWER_SHIELD",
+    "damage": {
+     "normal": 6,
+     "ascension": 7,
+     "hit_count": null
+    },
+    "block": 5,
+    "intent_codex": "Attack + Defend"
    },
    {
     "state": "DAMPEN_MOVE",
     "method": "DampenMove",
     "intent": "DebuffIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "DAMPEN",
+    "intent_codex": "Debuff"
    },
    {
     "state": "PREP_MOVE",
     "method": "PrepMove",
     "intent": "DefendIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "PREP",
+    "block": 5,
+    "intent_codex": "Defend"
    },
    {
     "state": "MAGIC_BOMB",
@@ -3281,7 +4748,14 @@
       40,
       35
      ]
-    ]
+    ],
+    "id": "MAGIC_BOMB",
+    "damage": {
+     "normal": 35,
+     "ascension": 40,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "RAM_MOVE",
@@ -3295,9 +4769,21 @@
       11,
       10
      ]
-    ]
+    ],
+    "id": "RAM",
+    "damage": {
+     "normal": 10,
+     "ascension": 11,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    }
-  ]
+  ],
+  "id": "MAGI_KNIGHT",
+  "name": "Magi Knight",
+  "type": "Elite",
+  "hp_normal": 82,
+  "hp_ascension": 89
  },
  {
   "class": "Mawler",
@@ -3327,14 +4813,30 @@
       16,
       14
      ]
-    ]
+    ],
+    "id": "RIP_AND_TEAR",
+    "damage": {
+     "normal": 14,
+     "ascension": 16,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "ROAR_MOVE",
     "method": "RoarMove",
     "intent": "DebuffIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "ROAR",
+    "powers": [
+     {
+      "power_id": "VULNERABLE",
+      "target": "player",
+      "amount": 3
+     }
+    ],
+    "intent_codex": "Debuff"
    },
    {
     "state": "CLAW_MOVE",
@@ -3352,9 +4854,21 @@
      [
       2
      ]
-    ]
+    ],
+    "id": "CLAW",
+    "damage": {
+     "normal": 4,
+     "ascension": 5,
+     "hit_count": 2
+    },
+    "intent_codex": "Attack"
    }
-  ]
+  ],
+  "id": "MAWLER",
+  "name": "Mawler",
+  "type": "Normal",
+  "hp_normal": 72,
+  "hp_ascension": 76
  },
  {
   "class": "MechaKnight",
@@ -3384,7 +4898,14 @@
       30,
       25
      ]
-    ]
+    ],
+    "id": "CHARGE",
+    "damage": {
+     "normal": 25,
+     "ascension": 30,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "FLAMETHROWER_MOVE",
@@ -3397,7 +4918,9 @@
      [
       4
      ]
-    ]
+    ],
+    "id": "FLAMETHROWER",
+    "intent_codex": "Status"
    },
    {
     "state": "WINDUP_MOVE",
@@ -3411,7 +4934,17 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "WINDUP",
+    "block": 15,
+    "powers": [
+     {
+      "power_id": "STRENGTH",
+      "target": "self",
+      "amount": 5
+     }
+    ],
+    "intent_codex": "Defend + Buff"
    },
    {
     "state": "HEAVY_CLEAVE_MOVE",
@@ -3425,9 +4958,21 @@
       40,
       35
      ]
-    ]
+    ],
+    "id": "HEAVY_CLEAVE",
+    "damage": {
+     "normal": 35,
+     "ascension": 40,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    }
-  ]
+  ],
+  "id": "MECHA_KNIGHT",
+  "name": "Mecha Knight",
+  "type": "Elite",
+  "hp_normal": 300,
+  "hp_ascension": 320
  },
  {
   "class": "MockArtifactMonster",
@@ -3677,7 +5222,9 @@
      [
       2
      ]
-    ]
+    ],
+    "id": "TOXIC",
+    "intent_codex": "Status"
    },
    {
     "state": "BITE_MOVE",
@@ -3691,7 +5238,14 @@
       15,
       13
      ]
-    ]
+    ],
+    "id": "BITE",
+    "damage": {
+     "normal": 13,
+     "ascension": 15,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "SUCK_MOVE",
@@ -3712,9 +5266,28 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "SUCK",
+    "damage": {
+     "normal": 4,
+     "ascension": 6,
+     "hit_count": null
+    },
+    "powers": [
+     {
+      "power_id": "STRENGTH",
+      "target": "self",
+      "amount": 2
+     }
+    ],
+    "intent_codex": "Attack + Buff"
    }
-  ]
+  ],
+  "id": "MYTE",
+  "name": "Myte",
+  "type": "Normal",
+  "hp_normal": 61,
+  "hp_ascension": 64
  },
  {
   "class": "Nibbit",
@@ -3747,7 +5320,14 @@
       13,
       12
      ]
-    ]
+    ],
+    "id": "BUTT",
+    "damage": {
+     "normal": 12,
+     "ascension": 13,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "SLICE_MOVE",
@@ -3768,16 +5348,38 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "SLICE",
+    "damage": {
+     "normal": 6,
+     "ascension": 7,
+     "hit_count": null
+    },
+    "block": 5,
+    "intent_codex": "Attack + Defend"
    },
    {
     "state": "HISS_MOVE",
     "method": "HissMove",
     "intent": "BuffIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "HISS",
+    "powers": [
+     {
+      "power_id": "STRENGTH",
+      "target": "self",
+      "amount": 2
+     }
+    ],
+    "intent_codex": "Buff"
    }
-  ]
+  ],
+  "id": "NIBBIT",
+  "name": "Nibbit",
+  "type": "Normal",
+  "hp_normal": 42,
+  "hp_ascension": 44
  },
  {
   "class": "Noisebot",
@@ -3809,9 +5411,16 @@
      [
       2
      ]
-    ]
+    ],
+    "id": "NOISE",
+    "intent_codex": "Status"
    }
-  ]
+  ],
+  "id": "NOISEBOT",
+  "name": "Noisebot",
+  "type": "Normal",
+  "hp_normal": 18,
+  "hp_ascension": 19
  },
  {
   "class": "OneHpMonster",
@@ -3854,7 +5463,12 @@
     1
    ]
   },
-  "ascension_scaled": false
+  "ascension_scaled": false,
+  "id": "OSTY",
+  "name": "Osty",
+  "type": "Normal",
+  "hp_normal": 1,
+  "hp_ascension": null
  },
  {
   "class": "Ovicopter",
@@ -3880,7 +5494,16 @@
     "method": "LayEggsMove",
     "intent": "SummonIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "LAY_EGGS",
+    "powers": [
+     {
+      "power_id": "MINION",
+      "target": "self",
+      "amount": 1
+     }
+    ],
+    "intent_codex": "Summon"
    },
    {
     "state": "SMASH_MOVE",
@@ -3894,7 +5517,14 @@
       17,
       16
      ]
-    ]
+    ],
+    "id": "SMASH",
+    "damage": {
+     "normal": 16,
+     "ascension": 17,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "TENDERIZER_MOVE",
@@ -3915,16 +5545,44 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "TENDERIZER",
+    "damage": {
+     "normal": 7,
+     "ascension": 8,
+     "hit_count": null
+    },
+    "powers": [
+     {
+      "power_id": "VULNERABLE",
+      "target": "player",
+      "amount": 2
+     }
+    ],
+    "intent_codex": "Attack + Debuff"
    },
    {
     "state": "NUTRITIONAL_PASTE_MOVE",
     "method": "NutritionalPasteMove",
     "intent": "BuffIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "NUTRITIONAL_PASTE",
+    "powers": [
+     {
+      "power_id": "STRENGTH",
+      "target": "self",
+      "amount": 3
+     }
+    ],
+    "intent_codex": "Buff"
    }
-  ]
+  ],
+  "id": "OVICOPTER",
+  "name": "Ovicopter",
+  "type": "Normal",
+  "hp_normal": 124,
+  "hp_ascension": 126
  },
  {
   "class": "OwlMagistrate",
@@ -3954,7 +5612,14 @@
       17,
       16
      ]
-    ]
+    ],
+    "id": "MAGISTRATE_SCRUTINY",
+    "damage": {
+     "normal": 16,
+     "ascension": 17,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "PECK_ASSAULT",
@@ -3972,14 +5637,30 @@
      [
       6
      ]
-    ]
+    ],
+    "id": "PECK_ASSAULT",
+    "damage": {
+     "normal": 4,
+     "ascension": 4,
+     "hit_count": 6
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "JUDICIAL_FLIGHT",
     "method": "JudicialFlightMove",
     "intent": "BuffIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "JUDICIAL_FLIGHT",
+    "powers": [
+     {
+      "power_id": "SOAR",
+      "target": "self",
+      "amount": 1
+     }
+    ],
+    "intent_codex": "Buff"
    },
    {
     "state": "VERDICT",
@@ -4000,9 +5681,28 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "VERDICT",
+    "damage": {
+     "normal": 33,
+     "ascension": 36,
+     "hit_count": null
+    },
+    "powers": [
+     {
+      "power_id": "VULNERABLE",
+      "target": "player",
+      "amount": 4
+     }
+    ],
+    "intent_codex": "Attack + Debuff"
    }
-  ]
+  ],
+  "id": "OWL_MAGISTRATE",
+  "name": "Owl Magistrate",
+  "type": "Normal",
+  "hp_normal": 231,
+  "hp_ascension": 247
  },
  {
   "class": "PaelsLegion",
@@ -4019,7 +5719,12 @@
     9999
    ]
   },
-  "ascension_scaled": false
+  "ascension_scaled": false,
+  "id": "PAELS_LEGION",
+  "name": "Pael's Legion",
+  "type": "Normal",
+  "hp_normal": 9999,
+  "hp_ascension": null
  },
  {
   "class": "Parafright",
@@ -4048,9 +5753,21 @@
       17,
       16
      ]
-    ]
+    ],
+    "id": "SLAM",
+    "damage": {
+     "normal": 16,
+     "ascension": 17,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    }
-  ]
+  ],
+  "id": "PARAFRIGHT",
+  "name": "Parafright",
+  "type": "Normal",
+  "hp_normal": 21,
+  "hp_ascension": null
  },
  {
   "class": "PhantasmalGardener",
@@ -4083,7 +5800,14 @@
       5,
       5
      ]
-    ]
+    ],
+    "id": "BITE",
+    "damage": {
+     "normal": 5,
+     "ascension": 5,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "LASH_MOVE",
@@ -4097,7 +5821,14 @@
       7,
       7
      ]
-    ]
+    ],
+    "id": "LASH",
+    "damage": {
+     "normal": 7,
+     "ascension": 7,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "FLAIL_MOVE",
@@ -4115,16 +5846,37 @@
       3,
       3
      ]
-    ]
+    ],
+    "id": "FLAIL",
+    "damage": {
+     "normal": 1,
+     "ascension": null,
+     "hit_count": 3
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "ENLARGE_MOVE",
     "method": "EnlargeMove",
     "intent": "BuffIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "ENLARGE",
+    "powers": [
+     {
+      "power_id": "STRENGTH",
+      "target": "self",
+      "amount": 2
+     }
+    ],
+    "intent_codex": "Buff"
    }
-  ]
+  ],
+  "id": "PHANTASMAL_GARDENER",
+  "name": "Phantasmal Gardener",
+  "type": "Elite",
+  "hp_normal": 26,
+  "hp_ascension": 27
  },
  {
   "class": "PhrogParasite",
@@ -4156,7 +5908,9 @@
      [
       3
      ]
-    ]
+    ],
+    "id": "INFECT",
+    "intent_codex": "Status"
    },
    {
     "state": "LASH_MOVE",
@@ -4174,9 +5928,21 @@
      [
       4
      ]
-    ]
+    ],
+    "id": "LASH",
+    "damage": {
+     "normal": 4,
+     "ascension": 5,
+     "hit_count": 4
+    },
+    "intent_codex": "Attack"
    }
-  ]
+  ],
+  "id": "PHROG_PARASITE",
+  "name": "Phrog Parasite",
+  "type": "Elite",
+  "hp_normal": 61,
+  "hp_ascension": 66
  },
  {
   "class": "PunchConstruct",
@@ -4199,7 +5965,10 @@
     "method": "ReadyMove",
     "intent": "DefendIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "READY",
+    "block": 10,
+    "intent_codex": "Defend"
    },
    {
     "state": "STRONG_PUNCH_MOVE",
@@ -4213,7 +5982,14 @@
       16,
       14
      ]
-    ]
+    ],
+    "id": "STRONG_PUNCH",
+    "damage": {
+     "normal": 14,
+     "ascension": 16,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "FAST_PUNCH_MOVE",
@@ -4238,9 +6014,28 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "FAST_PUNCH",
+    "damage": {
+     "normal": 5,
+     "ascension": 6,
+     "hit_count": 2
+    },
+    "powers": [
+     {
+      "power_id": "FRAIL",
+      "target": "player",
+      "amount": 1
+     }
+    ],
+    "intent_codex": "Attack + Debuff"
    }
-  ]
+  ],
+  "id": "PUNCH_CONSTRUCT",
+  "name": "Punch Construct",
+  "type": "Normal",
+  "hp_normal": 55,
+  "hp_ascension": 60
  },
  {
   "class": "Queen",
@@ -4263,14 +6058,42 @@
     "method": "PuppetStringsMove",
     "intent": "CardDebuffIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "PUPPET_STRINGS",
+    "powers": [
+     {
+      "power_id": "CHAINS_OF_BINDING",
+      "target": "player",
+      "amount": 3
+     }
+    ],
+    "intent_codex": "Debuff"
    },
    {
     "state": "YOU_ARE_MINE_MOVE",
     "method": "YoureMineMove",
     "intent": "DebuffIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "YOU_ARE_MINE",
+    "powers": [
+     {
+      "power_id": "FRAIL",
+      "target": "player",
+      "amount": 99
+     },
+     {
+      "power_id": "WEAK",
+      "target": "player",
+      "amount": 99
+     },
+     {
+      "power_id": "VULNERABLE",
+      "target": "player",
+      "amount": 99
+     }
+    ],
+    "intent_codex": "Debuff"
    },
    {
     "state": "BURN_BRIGHT_FOR_ME_MOVE",
@@ -4284,7 +6107,10 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "BURN_BRIGHT_FOR_ME",
+    "block": 20,
+    "intent_codex": "Buff + Defend"
    },
    {
     "state": "OFF_WITH_YOUR_HEAD_MOVE",
@@ -4302,7 +6128,14 @@
      [
       5
      ]
-    ]
+    ],
+    "id": "OFF_WITH_YOUR_HEAD",
+    "damage": {
+     "normal": 3,
+     "ascension": 4,
+     "hit_count": 5
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "EXECUTION_MOVE",
@@ -4316,16 +6149,37 @@
       18,
       15
      ]
-    ]
+    ],
+    "id": "EXECUTION",
+    "damage": {
+     "normal": 15,
+     "ascension": 18,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "ENRAGE_MOVE",
     "method": "EnrageMove",
     "intent": "BuffIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "ENRAGE",
+    "powers": [
+     {
+      "power_id": "STRENGTH",
+      "target": "self",
+      "amount": 2
+     }
+    ],
+    "intent_codex": "Buff"
    }
-  ]
+  ],
+  "id": "QUEEN",
+  "name": "Queen",
+  "type": "Boss",
+  "hp_normal": 400,
+  "hp_ascension": 419
  },
  {
   "class": "Rocket",
@@ -4355,7 +6209,14 @@
       4,
       3
      ]
-    ]
+    ],
+    "id": "TARGETING_RETICLE",
+    "damage": {
+     "normal": 3,
+     "ascension": 4,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "PRECISION_BEAM_MOVE",
@@ -4369,14 +6230,30 @@
       20,
       18
      ]
-    ]
+    ],
+    "id": "PRECISION_BEAM",
+    "damage": {
+     "normal": 18,
+     "ascension": 20,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "CHARGE_UP_MOVE",
     "method": "ChargeUpMove",
     "intent": "BuffIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "CHARGE_UP",
+    "powers": [
+     {
+      "power_id": "STRENGTH",
+      "target": "self",
+      "amount": 2
+     }
+    ],
+    "intent_codex": "Buff"
    },
    {
     "state": "LASER_MOVE",
@@ -4390,16 +6267,30 @@
       35,
       31
      ]
-    ]
+    ],
+    "id": "LASER",
+    "damage": {
+     "normal": 31,
+     "ascension": 35,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "RECHARGE_MOVE",
     "method": "RechargeMove",
     "intent": "SleepIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "RECHARGE",
+    "intent_codex": "Sleep"
    }
-  ]
+  ],
+  "id": "ROCKET",
+  "name": "Rocket",
+  "type": "Boss",
+  "hp_normal": 199,
+  "hp_ascension": 209
  },
  {
   "class": "ScrollOfBiting",
@@ -4432,7 +6323,14 @@
       16,
       14
      ]
-    ]
+    ],
+    "id": "CHOMP",
+    "damage": {
+     "normal": 14,
+     "ascension": 16,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "CHEW",
@@ -4450,16 +6348,37 @@
      [
       2
      ]
-    ]
+    ],
+    "id": "CHEW",
+    "damage": {
+     "normal": 5,
+     "ascension": 6,
+     "hit_count": 2
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "MORE_TEETH",
     "method": "MoreTeethMove",
     "intent": "BuffIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "MORE_TEETH",
+    "powers": [
+     {
+      "power_id": "STRENGTH",
+      "target": "self",
+      "amount": 2
+     }
+    ],
+    "intent_codex": "Buff"
    }
-  ]
+  ],
+  "id": "SCROLL_OF_BITING",
+  "name": "Scroll of Biting",
+  "type": "Normal",
+  "hp_normal": 30,
+  "hp_ascension": 33
  },
  {
   "class": "Seapunk",
@@ -4492,7 +6411,14 @@
       13,
       11
      ]
-    ]
+    ],
+    "id": "SEA_KICK",
+    "damage": {
+     "normal": 11,
+     "ascension": 13,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "SPINNING_KICK_MOVE",
@@ -4509,7 +6435,14 @@
      [
       4
      ]
-    ]
+    ],
+    "id": "SPINNING_KICK",
+    "damage": {
+     "normal": 2,
+     "ascension": null,
+     "hit_count": 4
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "BUBBLE_BURP_MOVE",
@@ -4523,9 +6456,24 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "BUBBLE_BURP",
+    "block": 7,
+    "powers": [
+     {
+      "power_id": "STRENGTH",
+      "target": "self",
+      "amount": 1
+     }
+    ],
+    "intent_codex": "Buff + Defend"
    }
-  ]
+  ],
+  "id": "SEAPUNK",
+  "name": "Seapunk",
+  "type": "Normal",
+  "hp_normal": 44,
+  "hp_ascension": 47
  },
  {
   "class": "SewerClam",
@@ -4548,7 +6496,16 @@
     "method": "PressurizeMove",
     "intent": "BuffIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "PRESSURIZE",
+    "powers": [
+     {
+      "power_id": "STRENGTH",
+      "target": "self",
+      "amount": 4
+     }
+    ],
+    "intent_codex": "Buff"
    },
    {
     "state": "JET_MOVE",
@@ -4562,9 +6519,21 @@
       11,
       10
      ]
-    ]
+    ],
+    "id": "JET",
+    "damage": {
+     "normal": 10,
+     "ascension": 11,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    }
-  ]
+  ],
+  "id": "SEWER_CLAM",
+  "name": "Sewer Clam",
+  "type": "Normal",
+  "hp_normal": 56,
+  "hp_ascension": 58
  },
  {
   "class": "ShrinkerBeetle",
@@ -4594,7 +6563,9 @@
     ],
     "values": [
      null
-    ]
+    ],
+    "id": "SHRINKER",
+    "intent_codex": "Debuff"
    },
    {
     "state": "CHOMP_MOVE",
@@ -4608,7 +6579,14 @@
       8,
       7
      ]
-    ]
+    ],
+    "id": "CHOMP",
+    "damage": {
+     "normal": 7,
+     "ascension": 8,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "STOMP_MOVE",
@@ -4622,9 +6600,21 @@
       14,
       13
      ]
-    ]
+    ],
+    "id": "STOMP",
+    "damage": {
+     "normal": 13,
+     "ascension": 14,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    }
-  ]
+  ],
+  "id": "SHRINKER_BEETLE",
+  "name": "Shrinker Beetle",
+  "type": "Normal",
+  "hp_normal": 38,
+  "hp_ascension": 40
  },
  {
   "class": "SingleAttackMoveMonster",
@@ -4686,7 +6676,14 @@
       16,
       14
      ]
-    ]
+    ],
+    "id": "ZOOM",
+    "damage": {
+     "normal": 14,
+     "ascension": 16,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "ZOOM_MOVE_2",
@@ -4700,7 +6697,14 @@
       16,
       14
      ]
-    ]
+    ],
+    "id": "ZOOM_MOVE_2",
+    "damage": {
+     "normal": 14,
+     "ascension": 16,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "INERTIA_MOVE",
@@ -4721,7 +6725,21 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "INERTIA",
+    "damage": {
+     "normal": 9,
+     "ascension": 11,
+     "hit_count": null
+    },
+    "powers": [
+     {
+      "power_id": "STRENGTH",
+      "target": "self",
+      "amount": 2
+     }
+    ],
+    "intent_codex": "Attack + Buff"
    },
    {
     "state": "PIERCING_STABS_MOVE",
@@ -4739,9 +6757,21 @@
      [
       2
      ]
-    ]
+    ],
+    "id": "PIERCING_STABS",
+    "damage": {
+     "normal": 7,
+     "ascension": 8,
+     "hit_count": 2
+    },
+    "intent_codex": "Attack"
    }
-  ]
+  ],
+  "id": "SKULKING_COLONY",
+  "name": "Skulking Colony",
+  "type": "Elite",
+  "hp_normal": 75,
+  "hp_ascension": 80
  },
  {
   "class": "SlimedBerserker",
@@ -4770,7 +6800,9 @@
      [
       10
      ]
-    ]
+    ],
+    "id": "VOMIT_ICHOR",
+    "intent_codex": "Status"
    },
    {
     "state": "LEECHING_HUG_MOVE",
@@ -4784,7 +6816,21 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "LEECHING_HUG",
+    "powers": [
+     {
+      "power_id": "WEAK",
+      "target": "player",
+      "amount": 3
+     },
+     {
+      "power_id": "STRENGTH",
+      "target": "self",
+      "amount": 3
+     }
+    ],
+    "intent_codex": "Debuff + Buff"
    },
    {
     "state": "SMOTHER_MOVE",
@@ -4798,7 +6844,14 @@
       33,
       30
      ]
-    ]
+    ],
+    "id": "SMOTHER",
+    "damage": {
+     "normal": 30,
+     "ascension": 33,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "FURIOUS_PUMMELING_MOVE",
@@ -4816,9 +6869,21 @@
      [
       4
      ]
-    ]
+    ],
+    "id": "FURIOUS_PUMMELING",
+    "damage": {
+     "normal": 4,
+     "ascension": 5,
+     "hit_count": 4
+    },
+    "intent_codex": "Attack"
    }
-  ]
+  ],
+  "id": "SLIMED_BERSERKER",
+  "name": "Slimed Berserker",
+  "type": "Normal",
+  "hp_normal": 261,
+  "hp_ascension": 281
  },
  {
   "class": "SlitheringStrangler",
@@ -4844,7 +6909,16 @@
     "method": "ConstrictMove",
     "intent": "DebuffIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "CONSTRICT",
+    "powers": [
+     {
+      "power_id": "CONSTRICT",
+      "target": "player",
+      "amount": 3
+     }
+    ],
+    "intent_codex": "Debuff"
    },
    {
     "state": "THWACK",
@@ -4865,7 +6939,15 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "THWACK",
+    "damage": {
+     "normal": 7,
+     "ascension": 8,
+     "hit_count": null
+    },
+    "block": 5,
+    "intent_codex": "Attack + Defend"
    },
    {
     "state": "LASH",
@@ -4879,9 +6961,21 @@
       13,
       12
      ]
-    ]
+    ],
+    "id": "LASH",
+    "damage": {
+     "normal": 12,
+     "ascension": 13,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    }
-  ]
+  ],
+  "id": "SLITHERING_STRANGLER",
+  "name": "Slithering Strangler",
+  "type": "Normal",
+  "hp_normal": 53,
+  "hp_ascension": 54
  },
  {
   "class": "SludgeSpinner",
@@ -4921,7 +7015,21 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "OIL_SPRAY",
+    "damage": {
+     "normal": 8,
+     "ascension": 9,
+     "hit_count": null
+    },
+    "powers": [
+     {
+      "power_id": "WEAK",
+      "target": "player",
+      "amount": 1
+     }
+    ],
+    "intent_codex": "Attack + Debuff"
    },
    {
     "state": "SLAM_MOVE",
@@ -4935,7 +7043,14 @@
       12,
       11
      ]
-    ]
+    ],
+    "id": "SLAM",
+    "damage": {
+     "normal": 11,
+     "ascension": 12,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "RAGE_MOVE",
@@ -4956,9 +7071,28 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "RAGE",
+    "damage": {
+     "normal": 6,
+     "ascension": 7,
+     "hit_count": null
+    },
+    "powers": [
+     {
+      "power_id": "STRENGTH",
+      "target": "self",
+      "amount": 3
+     }
+    ],
+    "intent_codex": "Attack + Buff"
    }
-  ]
+  ],
+  "id": "SLUDGE_SPINNER",
+  "name": "Sludge Spinner",
+  "type": "Normal",
+  "hp_normal": 37,
+  "hp_ascension": 41
  },
  {
   "class": "SlumberingBeetle",
@@ -4981,7 +7115,9 @@
     "method": "SnoreMove",
     "intent": "SleepIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "SNORE",
+    "intent_codex": "Sleep"
    },
    {
     "state": "ROLL_OUT_MOVE",
@@ -5002,9 +7138,28 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "ROLL_OUT",
+    "damage": {
+     "normal": 16,
+     "ascension": 18,
+     "hit_count": null
+    },
+    "powers": [
+     {
+      "power_id": "STRENGTH",
+      "target": "self",
+      "amount": 2
+     }
+    ],
+    "intent_codex": "Attack + Buff"
    }
-  ]
+  ],
+  "id": "SLUMBERING_BEETLE",
+  "name": "Slumbering Beetle",
+  "type": "Normal",
+  "hp_normal": 86,
+  "hp_ascension": 89
  },
  {
   "class": "SnappingJaxfruit",
@@ -5044,9 +7199,28 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "ENERGY_ORB",
+    "damage": {
+     "normal": 3,
+     "ascension": 4,
+     "hit_count": null
+    },
+    "powers": [
+     {
+      "power_id": "STRENGTH",
+      "target": "self",
+      "amount": 2
+     }
+    ],
+    "intent_codex": "Attack + Buff"
    }
-  ]
+  ],
+  "id": "SNAPPING_JAXFRUIT",
+  "name": "Snapping Jaxfruit",
+  "type": "Normal",
+  "hp_normal": 31,
+  "hp_ascension": 34
  },
  {
   "class": "SneakyGremlin",
@@ -5072,7 +7246,9 @@
     "method": "SpawnedMove",
     "intent": "StunIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "SPAWNED",
+    "intent_codex": "Stun"
    },
    {
     "state": "TACKLE_MOVE",
@@ -5086,9 +7262,21 @@
       10,
       9
      ]
-    ]
+    ],
+    "id": "TACKLE",
+    "damage": {
+     "normal": 9,
+     "ascension": 10,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    }
-  ]
+  ],
+  "id": "SNEAKY_GREMLIN",
+  "name": "Sneaky Gremlin",
+  "type": "Normal",
+  "hp_normal": 10,
+  "hp_ascension": 11
  },
  {
   "class": "SoulFysh",
@@ -5117,7 +7305,9 @@
      [
       2
      ]
-    ]
+    ],
+    "id": "BECKON",
+    "intent_codex": "Status"
    },
    {
     "state": "DE_GAS_MOVE",
@@ -5131,7 +7321,14 @@
       17,
       16
      ]
-    ]
+    ],
+    "id": "DE_GAS",
+    "damage": {
+     "normal": 16,
+     "ascension": 17,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "GAZE_MOVE",
@@ -5158,14 +7355,30 @@
        ]
       ]
      }
-    ]
+    ],
+    "id": "GAZE",
+    "damage": {
+     "normal": 7,
+     "ascension": 8,
+     "hit_count": null
+    },
+    "intent_codex": "Attack + Status"
    },
    {
     "state": "FADE_MOVE",
     "method": "FadeMove",
     "intent": "BuffIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "FADE",
+    "powers": [
+     {
+      "power_id": "INTANGIBLE",
+      "target": "self",
+      "amount": 2
+     }
+    ],
+    "intent_codex": "Buff"
    },
    {
     "state": "SCREAM_MOVE",
@@ -5186,9 +7399,28 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "SCREAM",
+    "damage": {
+     "normal": 13,
+     "ascension": 15,
+     "hit_count": null
+    },
+    "powers": [
+     {
+      "power_id": "VULNERABLE",
+      "target": "player",
+      "amount": 3
+     }
+    ],
+    "intent_codex": "Attack + Debuff"
    }
-  ]
+  ],
+  "id": "SOUL_FYSH",
+  "name": "Soul Fysh",
+  "type": "Boss",
+  "hp_normal": 211,
+  "hp_ascension": 221
  },
  {
   "class": "SoulNexus",
@@ -5218,7 +7450,14 @@
       31,
       29
      ]
-    ]
+    ],
+    "id": "SOUL_BURN",
+    "damage": {
+     "normal": 29,
+     "ascension": 31,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "MAELSTROM_MOVE",
@@ -5237,7 +7476,14 @@
       4,
       4
      ]
-    ]
+    ],
+    "id": "MAELSTROM",
+    "damage": {
+     "normal": 6,
+     "ascension": 7,
+     "hit_count": 4
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "DRAIN_LIFE_MOVE",
@@ -5262,9 +7508,33 @@
        null
       ]
      }
-    ]
+    ],
+    "id": "DRAIN_LIFE",
+    "damage": {
+     "normal": 18,
+     "ascension": 19,
+     "hit_count": null
+    },
+    "powers": [
+     {
+      "power_id": "VULNERABLE",
+      "target": "player",
+      "amount": 2
+     },
+     {
+      "power_id": "WEAK",
+      "target": "player",
+      "amount": 2
+     }
+    ],
+    "intent_codex": "Attack + Debuff"
    }
-  ]
+  ],
+  "id": "SOUL_NEXUS",
+  "name": "Soul Nexus",
+  "type": "Elite",
+  "hp_normal": 234,
+  "hp_ascension": 254
  },
  {
   "class": "SpectralKnight",
@@ -5287,7 +7557,16 @@
     "method": "HexMove",
     "intent": "DebuffIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "HEX",
+    "powers": [
+     {
+      "power_id": "HEX",
+      "target": "self",
+      "amount": 2
+     }
+    ],
+    "intent_codex": "Debuff"
    },
    {
     "state": "SOUL_SLASH",
@@ -5301,7 +7580,14 @@
       17,
       15
      ]
-    ]
+    ],
+    "id": "SOUL_SLASH",
+    "damage": {
+     "normal": 15,
+     "ascension": 17,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "SOUL_FLAME",
@@ -5319,9 +7605,21 @@
      [
       3
      ]
-    ]
+    ],
+    "id": "SOUL_FLAME",
+    "damage": {
+     "normal": 3,
+     "ascension": 4,
+     "hit_count": 3
+    },
+    "intent_codex": "Attack"
    }
-  ]
+  ],
+  "id": "SPECTRAL_KNIGHT",
+  "name": "Spectral Knight",
+  "type": "Elite",
+  "hp_normal": 93,
+  "hp_ascension": 97
  },
  {
   "class": "SpinyToad",
@@ -5347,7 +7645,16 @@
     "method": "SpikesMove",
     "intent": "BuffIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "PROTRUDING_SPIKES",
+    "powers": [
+     {
+      "power_id": "THORNS",
+      "target": "self",
+      "amount": 5
+     }
+    ],
+    "intent_codex": "Buff"
    },
    {
     "state": "SPIKE_EXPLOSION_MOVE",
@@ -5361,7 +7668,14 @@
       25,
       23
      ]
-    ]
+    ],
+    "id": "SPIKE_EXPLOSION",
+    "damage": {
+     "normal": 23,
+     "ascension": 25,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "TONGUE_LASH_MOVE",
@@ -5375,9 +7689,21 @@
       19,
       17
      ]
-    ]
+    ],
+    "id": "TONGUE_LASH",
+    "damage": {
+     "normal": 17,
+     "ascension": 19,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    }
-  ]
+  ],
+  "id": "SPINY_TOAD",
+  "name": "Spiny Toad",
+  "type": "Normal",
+  "hp_normal": 116,
+  "hp_ascension": 121
  },
  {
   "class": "Stabbot",
@@ -5417,9 +7743,28 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "STAB",
+    "damage": {
+     "normal": 11,
+     "ascension": 12,
+     "hit_count": null
+    },
+    "powers": [
+     {
+      "power_id": "FRAIL",
+      "target": "player",
+      "amount": 1
+     }
+    ],
+    "intent_codex": "Attack + Debuff"
    }
-  ]
+  ],
+  "id": "STABBOT",
+  "name": "Stabbot",
+  "type": "Normal",
+  "hp_normal": 18,
+  "hp_ascension": 19
  },
  {
   "class": "TenHpMonster",
@@ -5475,7 +7820,14 @@
       18,
       16
      ]
-    ]
+    ],
+    "id": "CRASH",
+    "damage": {
+     "normal": 16,
+     "ascension": 18,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "THRASH_MOVE",
@@ -5500,23 +7852,53 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "THRASH",
+    "damage": {
+     "normal": 3,
+     "ascension": 4,
+     "hit_count": 3
+    },
+    "powers": [
+     {
+      "power_id": "VIGOR",
+      "target": "self",
+      "amount": 6
+     }
+    ],
+    "intent_codex": "Attack + Buff"
    },
    {
     "state": "STUN_MOVE",
     "method": "StunMove",
     "intent": "StunIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "STUN",
+    "intent_codex": "Stun"
    },
    {
     "state": "TERROR_MOVE",
     "method": "TerrorMove",
     "intent": "DebuffIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "TERROR",
+    "powers": [
+     {
+      "power_id": "VULNERABLE",
+      "target": "player",
+      "amount": 99
+     }
+    ],
+    "intent_codex": "Debuff"
    }
-  ]
+  ],
+  "id": "TERROR_EEL",
+  "name": "Terror Eel",
+  "type": "Elite",
+  "hp_normal": 140,
+  "hp_ascension": 150
  },
  {
   "class": "TestSubject",
@@ -5543,7 +7925,21 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "RESPAWN",
+    "powers": [
+     {
+      "power_id": "PAINFUL_STABS",
+      "target": "self",
+      "amount": 1
+     },
+     {
+      "power_id": "NEMESIS",
+      "target": "self",
+      "amount": 1
+     }
+    ],
+    "intent_codex": "Heal + Buff"
    },
    {
     "state": "BITE_MOVE",
@@ -5557,7 +7953,14 @@
       22,
       20
      ]
-    ]
+    ],
+    "id": "BITE",
+    "damage": {
+     "normal": 20,
+     "ascension": 22,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "SKULL_BASH_MOVE",
@@ -5578,7 +7981,21 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "SKULL_BASH",
+    "damage": {
+     "normal": 14,
+     "ascension": 16,
+     "hit_count": null
+    },
+    "powers": [
+     {
+      "power_id": "VULNERABLE",
+      "target": "player",
+      "amount": 1
+     }
+    ],
+    "intent_codex": "Attack + Debuff"
    },
    {
     "state": "MULTI_CLAW_MOVE",
@@ -5594,7 +8011,14 @@
       10
      ],
      null
-    ]
+    ],
+    "id": "MULTI_CLAW",
+    "damage": {
+     "normal": 10,
+     "ascension": 11,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "PHASE3_LACERATE_MOVE",
@@ -5612,7 +8036,14 @@
      [
       3
      ]
-    ]
+    ],
+    "id": "PHASE3_LACERATE",
+    "damage": {
+     "normal": 10,
+     "ascension": 11,
+     "hit_count": 3
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "BIG_POUNCE",
@@ -5625,7 +8056,14 @@
      [
       45
      ]
-    ]
+    ],
+    "id": "BIG_POUNCE",
+    "damage": {
+     "normal": 45,
+     "ascension": null,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "BURNING_GROWL_MOVE",
@@ -5646,9 +8084,23 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "BURNING_GROWL",
+    "powers": [
+     {
+      "power_id": "STRENGTH",
+      "target": "self",
+      "amount": 2
+     }
+    ],
+    "intent_codex": "Status + Buff"
    }
-  ]
+  ],
+  "id": "TEST_SUBJECT",
+  "name": "Test Subject #C14",
+  "type": "Boss",
+  "hp_normal": null,
+  "hp_ascension": null
  },
  {
   "class": "TheAdversaryMkOne",
@@ -5676,7 +8128,14 @@
      [
       12
      ]
-    ]
+    ],
+    "id": "SMASH",
+    "damage": {
+     "normal": 12,
+     "ascension": null,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "BEAM_MOVE",
@@ -5689,7 +8148,14 @@
      [
       15
      ]
-    ]
+    ],
+    "id": "BEAM",
+    "damage": {
+     "normal": 15,
+     "ascension": null,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "BARRAGE_MOVE",
@@ -5713,9 +8179,28 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "BARRAGE",
+    "damage": {
+     "normal": 8,
+     "ascension": null,
+     "hit_count": 2
+    },
+    "powers": [
+     {
+      "power_id": "STRENGTH",
+      "target": "self",
+      "amount": 2
+     }
+    ],
+    "intent_codex": "Attack + Buff"
    }
-  ]
+  ],
+  "id": "THE_ADVERSARY_MK_ONE",
+  "name": "The Adversary Mk 1",
+  "type": "Normal",
+  "hp_normal": 100,
+  "hp_ascension": null
  },
  {
   "class": "TheAdversaryMkThree",
@@ -5744,7 +8229,14 @@
      [
       15
      ]
-    ]
+    ],
+    "id": "CRASH",
+    "damage": {
+     "normal": 15,
+     "ascension": null,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "FLAME_BEAM_MOVE",
@@ -5757,7 +8249,14 @@
      [
       18
      ]
-    ]
+    ],
+    "id": "FLAME_BEAM",
+    "damage": {
+     "normal": 18,
+     "ascension": null,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "BARRAGE_MOVE",
@@ -5781,9 +8280,28 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "BARRAGE",
+    "damage": {
+     "normal": 10,
+     "ascension": null,
+     "hit_count": 2
+    },
+    "powers": [
+     {
+      "power_id": "STRENGTH",
+      "target": "self",
+      "amount": 4
+     }
+    ],
+    "intent_codex": "Attack + Buff"
    }
-  ]
+  ],
+  "id": "THE_ADVERSARY_MK_THREE",
+  "name": "The Adversary Mk 3",
+  "type": "Normal",
+  "hp_normal": 300,
+  "hp_ascension": 300
  },
  {
   "class": "TheAdversaryMkTwo",
@@ -5812,7 +8330,14 @@
      [
       13
      ]
-    ]
+    ],
+    "id": "BASH",
+    "damage": {
+     "normal": 13,
+     "ascension": null,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "FLAME_BEAM_MOVE",
@@ -5825,7 +8350,14 @@
      [
       16
      ]
-    ]
+    ],
+    "id": "FLAME_BEAM",
+    "damage": {
+     "normal": 16,
+     "ascension": null,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "BARRAGE_MOVE",
@@ -5849,9 +8381,28 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "BARRAGE",
+    "damage": {
+     "normal": 9,
+     "ascension": null,
+     "hit_count": 2
+    },
+    "powers": [
+     {
+      "power_id": "STRENGTH",
+      "target": "self",
+      "amount": 3
+     }
+    ],
+    "intent_codex": "Attack + Buff"
    }
-  ]
+  ],
+  "id": "THE_ADVERSARY_MK_TWO",
+  "name": "The Adversary Mk 2",
+  "type": "Normal",
+  "hp_normal": 200,
+  "hp_ascension": 200
  },
  {
   "class": "TheForgotten",
@@ -5886,7 +8437,17 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "MIASMA",
+    "block": 8,
+    "powers": [
+     {
+      "power_id": "DEXTERITY",
+      "target": "self",
+      "amount": 2
+     }
+    ],
+    "intent_codex": "Debuff + Defend + Buff"
    },
    {
     "state": "DREAD",
@@ -5897,9 +8458,16 @@
     ],
     "values": [
      null
-    ]
+    ],
+    "id": "DREAD",
+    "intent_codex": "Attack"
    }
-  ]
+  ],
+  "id": "THE_FORGOTTEN",
+  "name": "The Forgotten",
+  "type": "Normal",
+  "hp_normal": 106,
+  "hp_ascension": 111
  },
  {
   "class": "TheInsatiable",
@@ -5935,7 +8503,9 @@
        ]
       ]
      }
-    ]
+    ],
+    "id": "LIQUIFY_GROUND",
+    "intent_codex": "Buff + Status"
    },
    {
     "state": "THRASH_MOVE",
@@ -5953,7 +8523,14 @@
      [
       2
      ]
-    ]
+    ],
+    "id": "THRASH",
+    "damage": {
+     "normal": 8,
+     "ascension": 9,
+     "hit_count": 2
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "THRASH_MOVE_2",
@@ -5971,7 +8548,14 @@
      [
       2
      ]
-    ]
+    ],
+    "id": "THRASH_MOVE_2",
+    "damage": {
+     "normal": 8,
+     "ascension": 9,
+     "hit_count": 2
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "LUNGING_BITE_MOVE",
@@ -5985,16 +8569,37 @@
       31,
       28
      ]
-    ]
+    ],
+    "id": "LUNGING_BITE",
+    "damage": {
+     "normal": 28,
+     "ascension": 31,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "SALIVATE_MOVE",
     "method": "SalivateMove",
     "intent": "BuffIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "SALIVATE",
+    "powers": [
+     {
+      "power_id": "STRENGTH",
+      "target": "self",
+      "amount": 2
+     }
+    ],
+    "intent_codex": "Buff"
    }
-  ]
+  ],
+  "id": "THE_INSATIABLE",
+  "name": "The Insatiable",
+  "type": "Boss",
+  "hp_normal": 321,
+  "hp_ascension": 341
  },
  {
   "class": "TheLost",
@@ -6024,7 +8629,16 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "DEBILITATING_SMOG",
+    "powers": [
+     {
+      "power_id": "STRENGTH",
+      "target": "self",
+      "amount": 2
+     }
+    ],
+    "intent_codex": "Debuff + Buff"
    },
    {
     "state": "EYE_LASERS",
@@ -6042,9 +8656,21 @@
      [
       2
      ]
-    ]
+    ],
+    "id": "EYE_LASERS",
+    "damage": {
+     "normal": 4,
+     "ascension": 5,
+     "hit_count": 2
+    },
+    "intent_codex": "Attack"
    }
-  ]
+  ],
+  "id": "THE_LOST",
+  "name": "The Lost",
+  "type": "Normal",
+  "hp_normal": 93,
+  "hp_ascension": 99
  },
  {
   "class": "TheObscura",
@@ -6067,7 +8693,9 @@
     "method": "IllusionMove",
     "intent": "SummonIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "ILLUSION",
+    "intent_codex": "Summon"
    },
    {
     "state": "PIERCING_GAZE_MOVE",
@@ -6081,14 +8709,23 @@
       11,
       10
      ]
-    ]
+    ],
+    "id": "PIERCING_GAZE",
+    "damage": {
+     "normal": 10,
+     "ascension": 11,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "SAIL_MOVE",
     "method": "WailMove",
     "intent": "BuffIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "SAIL",
+    "intent_codex": "Buff"
    },
    {
     "state": "HARDENING_STRIKE_MOVE",
@@ -6109,9 +8746,22 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "HARDENING_STRIKE",
+    "damage": {
+     "normal": 6,
+     "ascension": 7,
+     "hit_count": null
+    },
+    "block": 6,
+    "intent_codex": "Attack + Defend"
    }
-  ]
+  ],
+  "id": "THE_OBSCURA",
+  "name": "The Obscura",
+  "type": "Normal",
+  "hp_normal": 123,
+  "hp_ascension": 129
  },
  {
   "class": "ThievingHopper",
@@ -6148,7 +8798,14 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "THIEVERY",
+    "damage": {
+     "normal": 17,
+     "ascension": 19,
+     "hit_count": null
+    },
+    "intent_codex": "Attack + Debuff"
    },
    {
     "state": "NAB_MOVE",
@@ -6162,7 +8819,14 @@
       16,
       14
      ]
-    ]
+    ],
+    "id": "NAB",
+    "damage": {
+     "normal": 14,
+     "ascension": 16,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "HAT_TRICK_MOVE",
@@ -6176,23 +8840,46 @@
       23,
       21
      ]
-    ]
+    ],
+    "id": "HAT_TRICK",
+    "damage": {
+     "normal": 21,
+     "ascension": 23,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "FLUTTER_MOVE",
     "method": "FlutterMove",
     "intent": "BuffIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "FLUTTER",
+    "powers": [
+     {
+      "power_id": "FLUTTER",
+      "target": "self",
+      "amount": 5
+     }
+    ],
+    "intent_codex": "Buff"
    },
    {
     "state": "ESCAPE_MOVE",
     "method": "EscapeMove",
     "intent": "EscapeIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "ESCAPE",
+    "intent_codex": "Escape"
    }
-  ]
+  ],
+  "id": "THIEVING_HOPPER",
+  "name": "Thieving Hopper",
+  "type": "Normal",
+  "hp_normal": 79,
+  "hp_ascension": 84
  },
  {
   "class": "Toadpole",
@@ -6229,7 +8916,14 @@
      [
       3
      ]
-    ]
+    ],
+    "id": "SPIKE_SPIT",
+    "damage": {
+     "normal": 3,
+     "ascension": 4,
+     "hit_count": 3
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "WHIRL_MOVE",
@@ -6243,16 +8937,37 @@
       8,
       7
      ]
-    ]
+    ],
+    "id": "WHIRL",
+    "damage": {
+     "normal": 7,
+     "ascension": 8,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "SPIKEN_MOVE",
     "method": "SpikenMove",
     "intent": "BuffIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "SPIKEN",
+    "powers": [
+     {
+      "power_id": "THORNS",
+      "target": "self",
+      "amount": 2
+     }
+    ],
+    "intent_codex": "Buff"
    }
-  ]
+  ],
+  "id": "TOADPOLE",
+  "name": "Toadpole",
+  "type": "Normal",
+  "hp_normal": 21,
+  "hp_ascension": 22
  },
  {
   "class": "TorchHeadAmalgam",
@@ -6282,7 +8997,14 @@
       19,
       18
      ]
-    ]
+    ],
+    "id": "TACKLE",
+    "damage": {
+     "normal": 18,
+     "ascension": 19,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "TACKLE_2_MOVE",
@@ -6296,7 +9018,14 @@
       19,
       18
      ]
-    ]
+    ],
+    "id": "TACKLE_2",
+    "damage": {
+     "normal": 18,
+     "ascension": 19,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "BEAM_MOVE",
@@ -6314,7 +9043,14 @@
      [
       3
      ]
-    ]
+    ],
+    "id": "BEAM",
+    "damage": {
+     "normal": 8,
+     "ascension": 8,
+     "hit_count": 3
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "TACKLE_3_MOVE",
@@ -6328,7 +9064,14 @@
       15,
       14
      ]
-    ]
+    ],
+    "id": "TACKLE_3",
+    "damage": {
+     "normal": 14,
+     "ascension": 15,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "TACKLE_4_MOVE",
@@ -6342,9 +9085,21 @@
       15,
       14
      ]
-    ]
+    ],
+    "id": "TACKLE_4",
+    "damage": {
+     "normal": 14,
+     "ascension": 15,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    }
-  ]
+  ],
+  "id": "TORCH_HEAD_AMALGAM",
+  "name": "Torch Head Amalgam",
+  "type": "Boss",
+  "hp_normal": 199,
+  "hp_ascension": 211
  },
  {
   "class": "ToughEgg",
@@ -6370,7 +9125,9 @@
     "method": "HatchMove",
     "intent": "SummonIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "HATCH",
+    "intent_codex": "Summon"
    },
    {
     "state": "NIBBLE_MOVE",
@@ -6384,9 +9141,21 @@
       5,
       4
      ]
-    ]
+    ],
+    "id": "NIBBLE",
+    "damage": {
+     "normal": 4,
+     "ascension": 5,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    }
-  ]
+  ],
+  "id": "TOUGH_EGG",
+  "name": "Tough Egg",
+  "type": "Normal",
+  "hp_normal": 14,
+  "hp_ascension": 15
  },
  {
   "class": "TrackerRubyRaider",
@@ -6412,7 +9181,16 @@
     "method": "TrackMove",
     "intent": "DebuffIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "TRACK",
+    "powers": [
+     {
+      "power_id": "FRAIL",
+      "target": "player",
+      "amount": 2
+     }
+    ],
+    "intent_codex": "Debuff"
    },
    {
     "state": "HOUNDS_MOVE",
@@ -6431,9 +9209,21 @@
       9,
       8
      ]
-    ]
+    ],
+    "id": "HOUNDS",
+    "damage": {
+     "normal": 1,
+     "ascension": 1,
+     "hit_count": 8
+    },
+    "intent_codex": "Attack"
    }
-  ]
+  ],
+  "id": "TRACKER_RUBY_RAIDER",
+  "name": "Tracker Raider",
+  "type": "Normal",
+  "hp_normal": 21,
+  "hp_ascension": 22
  },
  {
   "class": "Tunneler",
@@ -6463,7 +9253,14 @@
       15,
       13
      ]
-    ]
+    ],
+    "id": "BITE",
+    "damage": {
+     "normal": 13,
+     "ascension": 15,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "BURROW_MOVE",
@@ -6477,7 +9274,17 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "BURROW",
+    "block": 32,
+    "powers": [
+     {
+      "power_id": "BURROWED",
+      "target": "self",
+      "amount": 1
+     }
+    ],
+    "intent_codex": "Buff + Defend"
    },
    {
     "state": "BELOW_MOVE",
@@ -6491,16 +9298,30 @@
       26,
       23
      ]
-    ]
+    ],
+    "id": "BELOW",
+    "damage": {
+     "normal": 23,
+     "ascension": 26,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "DIZZY_MOVE",
     "method": "StillDizzyMove",
     "intent": "StunIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "DIZZY",
+    "intent_codex": "Stun"
    }
-  ]
+  ],
+  "id": "TUNNELER",
+  "name": "Tunneler",
+  "type": "Normal",
+  "hp_normal": 87,
+  "hp_ascension": 92
  },
  {
   "class": "TurretOperator",
@@ -6534,7 +9355,14 @@
      [
       5
      ]
-    ]
+    ],
+    "id": "UNLOAD",
+    "damage": {
+     "normal": 3,
+     "ascension": 4,
+     "hit_count": 5
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "UNLOAD_MOVE_2",
@@ -6552,16 +9380,37 @@
      [
       5
      ]
-    ]
+    ],
+    "id": "UNLOAD_MOVE_2",
+    "damage": {
+     "normal": 3,
+     "ascension": 4,
+     "hit_count": 5
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "RELOAD_MOVE",
     "method": "ReloadMove",
     "intent": "BuffIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "RELOAD",
+    "powers": [
+     {
+      "power_id": "STRENGTH",
+      "target": "self",
+      "amount": 1
+     }
+    ],
+    "intent_codex": "Buff"
    }
-  ]
+  ],
+  "id": "TURRET_OPERATOR",
+  "name": "Turret Operator",
+  "type": "Normal",
+  "hp_normal": 41,
+  "hp_ascension": 51
  },
  {
   "class": "TwigSlimeM",
@@ -6594,7 +9443,14 @@
       12,
       11
      ]
-    ]
+    ],
+    "id": "POKEY_POUNCE",
+    "damage": {
+     "normal": 11,
+     "ascension": 12,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "STICKY_SHOT_MOVE",
@@ -6607,9 +9463,16 @@
      [
       1
      ]
-    ]
+    ],
+    "id": "STICKY_SHOT",
+    "intent_codex": "Status"
    }
-  ]
+  ],
+  "id": "TWIG_SLIME_M",
+  "name": "Twig Slime (M)",
+  "type": "Normal",
+  "hp_normal": 26,
+  "hp_ascension": 27
  },
  {
   "class": "TwigSlimeS",
@@ -6642,9 +9505,21 @@
       5,
       4
      ]
-    ]
+    ],
+    "id": "TACKLE",
+    "damage": {
+     "normal": 4,
+     "ascension": 5,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    }
-  ]
+  ],
+  "id": "TWIG_SLIME_S",
+  "name": "Twig Slime (S)",
+  "type": "Normal",
+  "hp_normal": 7,
+  "hp_ascension": 8
  },
  {
   "class": "TwoTailedRat",
@@ -6677,7 +9552,14 @@
       9,
       8
      ]
-    ]
+    ],
+    "id": "SCRATCH",
+    "damage": {
+     "normal": 8,
+     "ascension": 9,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "DISEASE_BITE_MOVE",
@@ -6691,23 +9573,46 @@
       7,
       6
      ]
-    ]
+    ],
+    "id": "DISEASE_BITE",
+    "damage": {
+     "normal": 6,
+     "ascension": 7,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "SCREECH_MOVE",
     "method": "ScreechMove",
     "intent": "DebuffIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "SCREECH",
+    "powers": [
+     {
+      "power_id": "FRAIL",
+      "target": "player",
+      "amount": 1
+     }
+    ],
+    "intent_codex": "Debuff"
    },
    {
     "state": "CALL_FOR_BACKUP_MOVE",
     "method": "CallForBackup",
     "intent": "SummonIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "CALL_FOR_BACKUP",
+    "intent_codex": "Summon"
    }
-  ]
+  ],
+  "id": "TWO_TAILED_RAT",
+  "name": "Two-Tailed Rat",
+  "type": "Normal",
+  "hp_normal": 17,
+  "hp_ascension": 18
  },
  {
   "class": "Vantom",
@@ -6737,7 +9642,14 @@
       8,
       7
      ]
-    ]
+    ],
+    "id": "INK_BLOT",
+    "damage": {
+     "normal": 7,
+     "ascension": 8,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "INKY_LANCE_MOVE",
@@ -6755,7 +9667,14 @@
      [
       2
      ]
-    ]
+    ],
+    "id": "INKY_LANCE",
+    "damage": {
+     "normal": 6,
+     "ascension": 7,
+     "hit_count": 2
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "DISMEMBER_MOVE",
@@ -6782,16 +9701,37 @@
        ]
       ]
      }
-    ]
+    ],
+    "id": "DISMEMBER",
+    "damage": {
+     "normal": 26,
+     "ascension": 30,
+     "hit_count": null
+    },
+    "intent_codex": "Attack + Status"
    },
    {
     "state": "PREPARE_MOVE",
     "method": "PrepareMove",
     "intent": "BuffIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "PREPARE",
+    "powers": [
+     {
+      "power_id": "STRENGTH",
+      "target": "self",
+      "amount": 2
+     }
+    ],
+    "intent_codex": "Buff"
    }
-  ]
+  ],
+  "id": "VANTOM",
+  "name": "Vantom",
+  "type": "Boss",
+  "hp_normal": 173,
+  "hp_ascension": 183
  },
  {
   "class": "VineShambler",
@@ -6828,7 +9768,21 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "GRASPING_VINES",
+    "damage": {
+     "normal": 8,
+     "ascension": 9,
+     "hit_count": null
+    },
+    "powers": [
+     {
+      "power_id": "TANGLED",
+      "target": "player",
+      "amount": 1
+     }
+    ],
+    "intent_codex": "Attack + Debuff"
    },
    {
     "state": "SWIPE_MOVE",
@@ -6846,7 +9800,14 @@
      [
       2
      ]
-    ]
+    ],
+    "id": "SWIPE",
+    "damage": {
+     "normal": 6,
+     "ascension": 7,
+     "hit_count": 2
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "CHOMP_MOVE",
@@ -6860,9 +9821,21 @@
       18,
       16
      ]
-    ]
+    ],
+    "id": "CHOMP",
+    "damage": {
+     "normal": 16,
+     "ascension": 18,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    }
-  ]
+  ],
+  "id": "VINE_SHAMBLER",
+  "name": "Vine Shambler",
+  "type": "Normal",
+  "hp_normal": 61,
+  "hp_ascension": 64
  },
  {
   "class": "WaterfallGiant",
@@ -6885,7 +9858,16 @@
     "method": "PressurizeMove",
     "intent": "BuffIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "PRESSURIZE",
+    "powers": [
+     {
+      "power_id": "STEAM_ERUPTION",
+      "target": "self",
+      "amount": 15
+     }
+    ],
+    "intent_codex": "Buff"
    },
    {
     "state": "STOMP_MOVE",
@@ -6911,7 +9893,26 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "STOMP",
+    "damage": {
+     "normal": 15,
+     "ascension": 16,
+     "hit_count": null
+    },
+    "powers": [
+     {
+      "power_id": "WEAK",
+      "target": "player",
+      "amount": 1
+     },
+     {
+      "power_id": "STEAM_ERUPTION",
+      "target": "self",
+      "amount": 3
+     }
+    ],
+    "intent_codex": "Attack + Debuff + Buff"
    },
    {
     "state": "RAM_MOVE",
@@ -6932,7 +9933,21 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "RAM",
+    "damage": {
+     "normal": 10,
+     "ascension": 11,
+     "hit_count": null
+    },
+    "powers": [
+     {
+      "power_id": "STEAM_ERUPTION",
+      "target": "self",
+      "amount": 3
+     }
+    ],
+    "intent_codex": "Attack + Buff"
    },
    {
     "state": "SIPHON_MOVE",
@@ -6946,7 +9961,16 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "SIPHON",
+    "powers": [
+     {
+      "power_id": "STEAM_ERUPTION",
+      "target": "self",
+      "amount": 3
+     }
+    ],
+    "intent_codex": "Heal + Buff"
    },
    {
     "state": "PRESSURE_GUN_MOVE",
@@ -6964,7 +9988,16 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "PRESSURE_GUN",
+    "powers": [
+     {
+      "power_id": "STEAM_ERUPTION",
+      "target": "self",
+      "amount": 3
+     }
+    ],
+    "intent_codex": "Attack + Buff"
    },
    {
     "state": "PRESSURE_UP_MOVE",
@@ -6985,14 +10018,30 @@
       "args": [],
       "values": []
      }
-    ]
+    ],
+    "id": "PRESSURE_UP",
+    "damage": {
+     "normal": 13,
+     "ascension": 14,
+     "hit_count": null
+    },
+    "powers": [
+     {
+      "power_id": "STEAM_ERUPTION",
+      "target": "self",
+      "amount": 3
+     }
+    ],
+    "intent_codex": "Attack + Buff"
    },
    {
     "state": "ABOUT_TO_BLOW_MOVE",
     "method": "AboutToBlowMove",
     "intent": "StunIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "ABOUT_TO_BLOW",
+    "intent_codex": "Stun"
    },
    {
     "state": "EXPLODE_MOVE",
@@ -7003,9 +10052,16 @@
     ],
     "values": [
      null
-    ]
+    ],
+    "id": "EXPLODE",
+    "intent_codex": "Special"
    }
-  ]
+  ],
+  "id": "WATERFALL_GIANT",
+  "name": "Waterfall Giant",
+  "type": "Boss",
+  "hp_normal": 240,
+  "hp_ascension": 250
  },
  {
   "class": "Wriggler",
@@ -7038,7 +10094,14 @@
       7,
       6
      ]
-    ]
+    ],
+    "id": "NASTY_BITE",
+    "damage": {
+     "normal": 6,
+     "ascension": 7,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
    },
    {
     "state": "WRIGGLE_MOVE",
@@ -7058,16 +10121,32 @@
        ]
       ]
      }
-    ]
+    ],
+    "id": "WRIGGLE",
+    "powers": [
+     {
+      "power_id": "STRENGTH",
+      "target": "self",
+      "amount": 2
+     }
+    ],
+    "intent_codex": "Buff + Status"
    },
    {
     "state": "SPAWNED_MOVE",
     "method": "SpawnedMove",
     "intent": "StunIntent",
     "args": [],
-    "values": []
+    "values": [],
+    "id": "SPAWNED",
+    "intent_codex": "Stun"
    }
-  ]
+  ],
+  "id": "WRIGGLER",
+  "name": "Wriggler",
+  "type": "Elite",
+  "hp_normal": 17,
+  "hp_ascension": 18
  },
  {
   "class": "Zapbot",
@@ -7100,7 +10179,338 @@
       15,
       14
      ]
+    ],
+    "id": "ZAP",
+    "damage": {
+     "normal": 14,
+     "ascension": 15,
+     "hit_count": null
+    },
+    "intent_codex": "Attack"
+   }
+  ],
+  "id": "ZAPBOT",
+  "name": "Zapbot",
+  "type": "Normal",
+  "hp_normal": 18,
+  "hp_ascension": 19
+ },
+ {
+  "class": "DecimillipedeSegmentBack",
+  "id": "DECIMILLIPEDE_SEGMENT_BACK",
+  "name": "Decimillipede Segment (Back)",
+  "type": "Elite",
+  "hp_normal": 40,
+  "hp_ascension": 46,
+  "moves": [
+   {
+    "id": "WRITHE",
+    "name": "Writhe",
+    "intent": "Attack",
+    "values": [
+     [
+      6,
+      5
+     ],
+     [
+      2
+     ]
+    ],
+    "damage": {
+     "normal": 5,
+     "ascension": 6,
+     "hit_count": 2
+    }
+   },
+   {
+    "id": "BULK",
+    "name": "Bulk",
+    "intent": "Attack + Buff",
+    "values": [
+     [
+      7,
+      6
+     ]
+    ],
+    "damage": {
+     "normal": 6,
+     "ascension": 7,
+     "hit_count": null
+    },
+    "powers": [
+     {
+      "power_id": "STRENGTH",
+      "target": "self",
+      "amount": 2
+     }
     ]
+   },
+   {
+    "id": "CONSTRICT",
+    "name": "Constrict",
+    "intent": "Attack + Debuff",
+    "values": [
+     [
+      9,
+      8
+     ]
+    ],
+    "damage": {
+     "normal": 8,
+     "ascension": 9,
+     "hit_count": null
+    },
+    "powers": [
+     {
+      "power_id": "WEAK",
+      "target": "player",
+      "amount": 1
+     }
+    ]
+   },
+   {
+    "id": "DEAD",
+    "name": "Dead",
+    "intent": "Unknown",
+    "values": null
+   },
+   {
+    "id": "REATTACH",
+    "name": "Reattach",
+    "intent": "Heal",
+    "values": null
+   }
+  ]
+ },
+ {
+  "class": "DecimillipedeSegmentFront",
+  "id": "DECIMILLIPEDE_SEGMENT_FRONT",
+  "name": "Decimillipede Segment (Front)",
+  "type": "Elite",
+  "hp_normal": 40,
+  "hp_ascension": 46,
+  "moves": [
+   {
+    "id": "WRITHE",
+    "name": "Writhe",
+    "intent": "Attack",
+    "values": [
+     [
+      6,
+      5
+     ],
+     [
+      2
+     ]
+    ],
+    "damage": {
+     "normal": 5,
+     "ascension": 6,
+     "hit_count": 2
+    }
+   },
+   {
+    "id": "BULK",
+    "name": "Bulk",
+    "intent": "Attack + Buff",
+    "values": [
+     [
+      7,
+      6
+     ]
+    ],
+    "damage": {
+     "normal": 6,
+     "ascension": 7,
+     "hit_count": null
+    },
+    "powers": [
+     {
+      "power_id": "STRENGTH",
+      "target": "self",
+      "amount": 2
+     }
+    ]
+   },
+   {
+    "id": "CONSTRICT",
+    "name": "Constrict",
+    "intent": "Attack + Debuff",
+    "values": [
+     [
+      9,
+      8
+     ]
+    ],
+    "damage": {
+     "normal": 8,
+     "ascension": 9,
+     "hit_count": null
+    },
+    "powers": [
+     {
+      "power_id": "WEAK",
+      "target": "player",
+      "amount": 1
+     }
+    ]
+   },
+   {
+    "id": "DEAD",
+    "name": "Dead",
+    "intent": "Unknown",
+    "values": null
+   },
+   {
+    "id": "REATTACH",
+    "name": "Reattach",
+    "intent": "Heal",
+    "values": null
+   }
+  ]
+ },
+ {
+  "class": "DecimillipedeSegmentMiddle",
+  "id": "DECIMILLIPEDE_SEGMENT_MIDDLE",
+  "name": "Decimillipede Segment (Middle)",
+  "type": "Elite",
+  "hp_normal": 40,
+  "hp_ascension": 46,
+  "moves": [
+   {
+    "id": "WRITHE",
+    "name": "Writhe",
+    "intent": "Attack",
+    "values": [
+     [
+      6,
+      5
+     ],
+     [
+      2
+     ]
+    ],
+    "damage": {
+     "normal": 5,
+     "ascension": 6,
+     "hit_count": 2
+    }
+   },
+   {
+    "id": "BULK",
+    "name": "Bulk",
+    "intent": "Attack + Buff",
+    "values": [
+     [
+      7,
+      6
+     ]
+    ],
+    "damage": {
+     "normal": 6,
+     "ascension": 7,
+     "hit_count": null
+    },
+    "powers": [
+     {
+      "power_id": "STRENGTH",
+      "target": "self",
+      "amount": 2
+     }
+    ]
+   },
+   {
+    "id": "CONSTRICT",
+    "name": "Constrict",
+    "intent": "Attack + Debuff",
+    "values": [
+     [
+      9,
+      8
+     ]
+    ],
+    "damage": {
+     "normal": 8,
+     "ascension": 9,
+     "hit_count": null
+    },
+    "powers": [
+     {
+      "power_id": "WEAK",
+      "target": "player",
+      "amount": 1
+     }
+    ]
+   },
+   {
+    "id": "DEAD",
+    "name": "Dead",
+    "intent": "Unknown",
+    "values": null
+   },
+   {
+    "id": "REATTACH",
+    "name": "Reattach",
+    "intent": "Heal",
+    "values": null
+   }
+  ]
+ },
+ {
+  "class": "MysteriousKnight",
+  "id": "MYSTERIOUS_KNIGHT",
+  "name": "Mysterious Knight",
+  "type": "Normal",
+  "hp_normal": 101,
+  "hp_ascension": 108,
+  "moves": [
+   {
+    "id": "WAR_CHANT",
+    "name": "War Chant",
+    "intent": "Buff",
+    "values": null,
+    "powers": [
+     {
+      "power_id": "STRENGTH",
+      "target": "self",
+      "amount": 3
+     }
+    ]
+   },
+   {
+    "id": "FLAIL",
+    "name": "Flail",
+    "intent": "Attack",
+    "values": [
+     [
+      10,
+      9
+     ],
+     [
+      2
+     ]
+    ],
+    "damage": {
+     "normal": 9,
+     "ascension": 10,
+     "hit_count": 2
+    }
+   },
+   {
+    "id": "RAM",
+    "name": "Ram",
+    "intent": "Attack",
+    "values": [
+     [
+      17,
+      15
+     ]
+    ],
+    "damage": {
+     "normal": 15,
+     "ascension": 17,
+     "hit_count": null
+    }
    }
   ]
  }
