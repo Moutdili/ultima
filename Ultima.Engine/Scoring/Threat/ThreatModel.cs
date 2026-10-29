@@ -192,16 +192,19 @@ public sealed class ThreatModel
     private readonly Dictionary<string, EncounterThreat> _encounters;
     private readonly Dictionary<string, ThreatConstraint> _constraints;
     private readonly Dictionary<string, ThreatConstraint> _monsterConstraints;
+    private readonly Dictionary<string, Dictionary<string, int>> _copies;
 
     private ThreatModel(Dictionary<string, MonsterThreat> monsters,
                         Dictionary<string, EncounterThreat> encounters,
                         Dictionary<string, ThreatConstraint> constraints,
-                        Dictionary<string, ThreatConstraint> monsterConstraints)
+                        Dictionary<string, ThreatConstraint> monsterConstraints,
+                        Dictionary<string, Dictionary<string, int>>? copies = null)
     {
         _monsters = monsters;
         _encounters = encounters;
         _constraints = constraints;
         _monsterConstraints = monsterConstraints;
+        _copies = copies ?? new Dictionary<string, Dictionary<string, int>>(StringComparer.OrdinalIgnoreCase);
     }
 
     /// <summary>Nombre de monstres indexés.</summary>
@@ -254,27 +257,85 @@ public sealed class ThreatModel
         var constraintsPath = Path.Combine(dir, "constraints.json");
         var monsterConstraints = LoadConstraints(constraintsPath, "monsters");
         var constraints = LoadConstraints(constraintsPath, "encounters");
+        var copies = LoadCopies(Path.Combine(dir, "encounter_copies.json"));
         if (monsters.Count == 0 && encounters.Count == 0) return Empty;
-        return new ThreatModel(monsters, encounters, constraints, monsterConstraints);
+        return new ThreatModel(monsters, encounters, constraints, monsterConstraints, copies);
     }
 
     /// <summary>
     /// Pire tour de la rencontre : somme, sur ses monstres, du move le plus fort de chacun
-    /// (<c>dégâts × hit_count</c>, variante ascension si <paramref name="ascension"/> &gt; 0).
-    /// Rencontre inconnue ⇒ 0. Ce n'est pas une rotation : c'est le maximum simultané.
+    /// (<c>dégâts × hit_count</c>, variante ascension si <paramref name="ascension"/> &gt; 0),
+    /// **multiplié par le nombre d'instances réellement observé** quand le catalogue des copies
+    /// en déclare plusieurs (docs/39 : 42 rencontres, jusqu'à ×4 ; l'agrégat est sous-estimé de
+    /// 11,8 % sans cette correction). Rencontre inconnue ⇒ 0. Ce n'est pas une rotation : c'est
+    /// le maximum simultané.
     /// </summary>
     public int MaxHit(string encounterId, int ascension)
     {
         var encounter = Encounter(encounterId);
         if (encounter is null) return 0;
 
+        _copies.TryGetValue(encounterId, out var perMonster);
+
         var total = 0;
-        foreach (var monsterId in encounter.MonsterIds)
+        foreach (var group in encounter.MonsterIds.GroupBy(id => id, StringComparer.OrdinalIgnoreCase))
         {
-            if (!_monsters.TryGetValue(monsterId, out var monster)) continue;
-            total += monster.WorstHit(ascension);
+            if (!_monsters.TryGetValue(group.Key, out var monster)) continue;
+            var listed = group.Count();
+            var observed = perMonster is not null && perMonster.TryGetValue(group.Key, out var c) ? c : 1;
+            var instances = Math.Max(listed, observed);
+            total += monster.WorstHit(ascension) * Math.Max(1, instances);
         }
         return total;
+    }
+
+    /// <summary>
+    /// Nombre d'instances déclarées pour un monstre dans une rencontre (1 si inconnu).
+    /// Sert à l'interface pour expliquer « 4 exosquelettes, pas 1 ».
+    /// </summary>
+    public int Instances(string encounterId, string monsterId) =>
+        _copies.TryGetValue(encounterId, out var perMonster) && perMonster.TryGetValue(monsterId, out var count)
+            ? Math.Max(1, count)
+            : 1;
+
+    private static Dictionary<string, Dictionary<string, int>> LoadCopies(string path)
+    {
+        var result = new Dictionary<string, Dictionary<string, int>>(StringComparer.OrdinalIgnoreCase);
+        try
+        {
+            if (!File.Exists(path)) return result;
+            using var doc = JsonDocument.Parse(File.ReadAllBytes(path));
+            if (!doc.RootElement.TryGetProperty("encounters", out var encounters) || encounters.ValueKind != JsonValueKind.Object)
+                return result;
+
+            foreach (var encounter in encounters.EnumerateObject())
+            {
+                if (!encounter.Value.TryGetProperty("monsters", out var monsters) || monsters.ValueKind != JsonValueKind.Object)
+                    continue;
+                var perMonster = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
+                foreach (var monster in monsters.EnumerateObject())
+                {
+                    var best = 1;
+                    if (monster.Value.ValueKind == JsonValueKind.Object)
+                    {
+                        foreach (var bucket in monster.Value.EnumerateObject())
+                        {
+                            if (int.TryParse(bucket.Name, out var instance) && instance > best) best = instance;
+                        }
+                    }
+                    perMonster[monster.Name] = best;
+                }
+                if (perMonster.Count > 0) result[encounter.Name] = perMonster;
+            }
+        }
+        catch (JsonException)
+        {
+            // Catalogue illisible : on garde le comportement sans copies plutôt que d'inventer.
+        }
+        catch (IOException)
+        {
+        }
+        return result;
     }
 
     /// <summary>

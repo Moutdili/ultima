@@ -115,7 +115,17 @@ réels et n'est donc pas affecté. Le catalogue est en revanche l'entrée exacte
 branchées dans `MaxHit` par rencontre (tâche en cours) : sans lui, un deck de bloc serait jugé sur
 8 dégâts au lieu de 24 contre `EXOSKELETONS_WEAK`.
 
-## 5. Limites
+## Branchement dans le moteur
+
+`ThreatModel.MaxHit` multiplie désormais le pire coup de chaque monstre par son **nombre
+d'instances observé** (`Instances(encounter, monster)`), sans compter deux fois un monstre déjà
+listé plusieurs fois dans la rencontre. Effets mesurés par les tests :
+
+- `SCROLLS_OF_BITING_NORMAL` : pire tour **×4** ;
+- `AEONGLASS_BOSS` : inchangé (1 instance) ;
+- `THE_KIN_BOSS` : 2 `KIN_FOLLOWER` + 1 `KIN_PRIEST`, strictement supérieur à la version sans copies.
+
+## Limites
 
 - **Distributions marginales, pas jointes.** Pour une rencontre à plusieurs types, la somme des « 1 »
   n'est pas le nombre de combats sans copie et on ne peut pas reconstruire la composition exacte
