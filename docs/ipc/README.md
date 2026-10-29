@@ -44,7 +44,7 @@ versions mineures publiés même s'ils ne sont pas encore remplis (`null`) : v1.
 
 | Moment | Ce que fait le daemon |
 |---|---|
-| Démarrage | verrou → profil vanilla actif (`ProfileLocator`, jamais `modded/`) → données (`ULTIMA_DATA`, §6) → calcul (Hermes) → réglages → jeu lancé ? → save (`SaveWatcher`) → `godot.log` : **rejoué depuis le début si le jeu tourne** (écran courant retrouvé sans lecture mémoire), sinon suivi depuis la fin → publication → `nice 10` + E/S idle sur tous les fils. |
+| Démarrage | verrou → profil vanilla actif (`ProfileLocator`, jamais `modded/`) → connaissance (`~/.local/share/ultima/kb/kb.json`, sinon noms = identifiants) → données (`ULTIMA_DATA`, §6) → calcul (Hermes) → réglages → jeu lancé ? → save (`SaveWatcher`) → `godot.log` : **rejoué depuis le début si le jeu tourne** (écran courant retrouvé sans lecture mémoire), sinon suivi depuis la fin → publication → `nice 10` + E/S idle sur tous les fils. |
 | Jeu lancé | détecté sur activité inotify du dossier des logs (le jeu fait tourner `godot.log` au démarrage) puis `/proc/PID/comm == SlayTheSpire2` ; écran `Menu` ; **un** `ultima-mirror layout --json` (lecture du fichier `sts2.dll`, pas de la mémoire). |
 | Jeu arrêté | `pidfd_open` + `poll` bloquant : notification immédiate, 0 % CPU ; écran `Unknown`, `gameRunning=false`, vues mémoire effacées, état fichiers seulement. |
 | Save réécrite | (le jeu écrit `X.tmp` puis renomme) relecture → deck, reliques, potions, scores, chemins recalculés **une fois par save**. Plus de run → écran `Menu`. |
@@ -149,6 +149,10 @@ La valeur retenue est **réécrite dans l'environnement du daemon** avant de con
 tous ses résolveurs (`ScoringData`, `DataPaths`, `CurseIndex`…) lisent la même racine. Une valeur qui
 ne mène à aucun `meta/` est ignorée et signalée. Sans données : scores et chemins `null`. Journal :
 `données : ULTIMA_DATA=/home/mio/sts2/data (à côté de l'exécutable)`.
+
+Noms et textes FR : base de l'Encyclopédiste `$XDG_DATA_HOME/ultima/kb/kb.json`
+(`~/.local/share/ultima/kb/kb.json`, construite par `tools/kb/build-kb`). Absente : noms = identifiants,
+malédictions reconnues quand même (liste des classes `Curse` du source v0.107.1).
 
 ## 7. Installation (Mio — rien n'est installé automatiquement)
 
