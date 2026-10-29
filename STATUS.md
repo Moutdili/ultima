@@ -522,3 +522,9 @@ Reste : partie B (extension GNOME, vraie session), mesure FPS.
 - **Décision S1 : moteur B (extension GNOME) retenu** ; moteur A (X11) conservé en repli.
 - Skills créées depuis les preuves : `sts2-external-overlay`, `sts2-memory-mirror`.
 - Reste non mesuré : FPS (ressenti > 55).
+
+## Décision Mio (2026-10-29) : design EN DERNIER
+« Le design est vraiment nul, on le travaillera à la fin quand le moteur sera en place de A à Z. »
+→ Jusqu'à nouvel ordre, l'overlay n'est qu'un AFFICHAGE FONCTIONNEL (texte brut, lisible) :
+aucun agent ne travaille la charte/le verre/le style. Priorité : moteur complet (données → daemon →
+intelligence → affichage brut), prouvé sur le vrai jeu.
