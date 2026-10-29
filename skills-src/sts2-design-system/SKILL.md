@@ -133,3 +133,16 @@ Enchantements : aqua + nom (« Célérité 1 »). La lettre est TOUJOURS écrite
 - Survol / épinglage / masquage : Super+Maj+I / Super+Maj+O (jamais de touches F).
 - Validation visuelle sur captures RÉELLES pendant une fenêtre de test ; banc GNOME isolé autorisé
   seulement sur bus de session PRIVÉ et sans aucun appel au bus système (logind/GDM).
+
+## 11. Minimalisme et cohérence (exigence Mio, 2026-10-29) — PRIME sur tout le reste
+« Une UI/UX aussi minimaliste qu'épurée, pour que l'utilisateur ne sente pas son écran pris par des infos non pratiques. »
+- **N'afficher que l'actionnable maintenant.** Au repos : le rail seul (3 pastilles). Déployé : un résumé d'UNE
+  ligne par module (« Deck 14 · 2 enchantées · 1 malédiction · reliques 4 »), le détail seulement à l'épinglage/survol.
+- **Le moment de décision prend la place** (récompense, shop, événement) : lettre + une raison, rien d'autre visible.
+- **Une seule grammaire visuelle** partout (HUD, compagnon, TUI) : mêmes couleurs S-F (§9), mêmes libellés,
+  même ordre des modules, mêmes icônes/symboles, mêmes espacements. Si un élément n'a pas d'équivalent dans
+  les trois surfaces, se demander s'il est utile.
+- **Rien sans valeur pratique** : pas de logo, pas de titre décoratif, pas de chiffre sans décision associée,
+  pas de répétition d'une info déjà visible dans le jeu (PV/or du jeu : seulement si une décision en dépend).
+- Densité : marges généreuses, au plus 1 accent coloré par ligne, texte secondaire en crème 60 %.
+- Test : demander « que fait le joueur de cette info dans les 10 prochaines secondes ? » — sinon, la masquer.
