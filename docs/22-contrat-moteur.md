@@ -34,3 +34,19 @@ camelCase de `EngineState`. Score `null` = calcul pas encore disponible (Hermes)
 Transport v1 : fichier `$XDG_RUNTIME_DIR/ultima/state.json` réécrit atomiquement (tmp + rename) à
 chaque changement, plus socket Unix `$XDG_RUNTIME_DIR/ultima/state.sock` (une ligne JSON par état).
 Réglages : `~/.config/ultima/settings.json` (écrit par le compagnon, surveillé par le daemon).
+
+## Contrat v1.2 (2026-10-29, ADDITIF — `Ultima.Engine/Contracts/EngineContractsV12.cs`)
+Réponse aux demandes de Hermes (docs/28 §6, docs/29 §5.3, docs/42 §4). Version majeure inchangée
+(`EngineState.CurrentVersion = 1`), mineure `ContractMinor = 2` : aucun consommateur n'est cassé.
+| Demande | Réponse |
+|---|---|
+| `MapView` (nœuds + successeurs) | `EngineState.Map` (`MapView`, `MapNodeView`, `MapCoordView`) — seulement ce que le joueur voit |
+| Route | `EngineState.Route` (`RouteView`) + interface `IRoutePlanner` (défaut : null) |
+| `PartyView` | `RunView.Party` (`AllyView`) + `ScoringContext.Allies` (`AllyContext`, local exclu) |
+| `EventView` | `EngineState.Event` (`EventView`, `EventOptionView`) + interface `IEventAdvisor` (défaut : null) |
+| Review | types de docs/29 §5.3 repris tels quels + `IReviewBuilder` ; livraison **one-shot** (recommandation retenue) : op socket `{"op":"review.open","runId":"…"}` → fichier `$XDG_RUNTIME_DIR/ultima/review/<hash>.json` (daemon) |
+| Scores négatifs (malédictions) | `Score.DeltaG` (double?, signé) ; `Total` reste 0..100 pour la lettre S-F |
+| Preuve chiffrée d'un terme | `ScoreTerm.Evidence` (string?) |
+| Modules | `event`, `route`, `party` ajoutés après l'ordre de Mio (deck, enchantées, malédictions, reliques, potions) |
+Côté daemon (chef) : remplir `Map` depuis la save, `Party` depuis la save + miroir, `Event` depuis le miroir
+(chemins d'objets d'événement à cartographier), op `review.open`.

@@ -109,3 +109,15 @@ python3 -I tools/index_curse_impact.py      # régénère curse_impact.json
 - 163 reliques taguées mais non converties en ΔG.
 - `PathPlanner`/`EventScorer`/`CoopScorer` non branchés au jeu (contrat v1.2).
 - L'UI (overlay) n'est pas dans ce dépôt.
+
+---
+## Réponse du chef (2026-10-29 17:55)
+- **Contrat v1.2 livré** (additif) : voir docs/22 §v1.2 — MapView/RouteView + `IRoutePlanner`, `RunView.Party` +
+  `ScoringContext.Allies`, `EventView` + `IEventAdvisor`, ReviewTimeline (tes types, tels quels) + `IReviewBuilder`
+  (livraison one-shot `review.open` retenue), `Score.DeltaG` signé, `ScoreTerm.Evidence`. 238/238 sur clone propre.
+- **À corriger (Hermes)** : sur la machine de Mio, `data/meta/local/` (notes Untapped) fait échouer 4 tests :
+  `ContextTests.Explanation_names_the_meta_source`, `FitTests.Same_card_scores_higher_when_the_need_is_not_covered`,
+  `NeedTests.A_45_point_card_with_a_big_fit_plus_need_reaches_A`, `NeedTests.Low_meta_block_card_reaches_A_with_max_fit_and_low_hp`.
+  Les tests doivent fixer leur méta (fixture) au lieu de lire la variante présente sur la machine — comme pour
+  `ULTIMA_DATA`, ils doivent être insensibles à `local/`.
+- Tags de reliques (163 muettes) et pouvoirs comportementaux : restent dans ton périmètre (calcul).

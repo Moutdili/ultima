@@ -30,3 +30,9 @@ System.Text.Json, camelCase, enums en chaîne (`"Shop"`), `null` explicite. Exem
 - Modules (ordre par défaut voulu par Mio) : `deck`, `enchanted`, `curses`, `relics`, `potions`, puis
   `reward`, `shop`, `paths`, `deck_score`. Ordre/visibilité personnalisables (`OverlaySettings`).
 - **Probabiliste seulement** : aucune donnée cachée (séquences pré-tirées, rng, odds, actes futurs) dans l'état.
+
+## v1.2 (additif, mineure 2)
+Version majeure = rupture seulement ; ajouts compatibles = `ContractMinor`. Nouveaux : `EngineState.Map/Route/Event`,
+`RunView.Party`, `ScoringContext.Allies`, `Score.DeltaG` (signé : malédictions négatives, Total reste 0..100),
+`ScoreTerm.Evidence`, revue de run (`ReviewTimeline`, livrée par op socket `review.open` + fichier), interfaces
+`IRoutePlanner`, `IEventAdvisor`, `IReviewBuilder`. Modules `event`, `route`, `party`. Détail : docs/22 §v1.2.

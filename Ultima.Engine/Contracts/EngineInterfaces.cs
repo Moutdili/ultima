@@ -24,7 +24,11 @@ public sealed record PotionInfo(string Id, string ClassName, string Name, string
 /// <summary>Contexte de scoring : tout ce que le joueur voit (aucune donnée cachée).</summary>
 public sealed record ScoringContext(
     string CharacterId, int ActIndex, string? BossId, int Ascension, int Floor,
-    IReadOnlyList<CardInstance> Deck, IReadOnlyList<string> RelicIds, int Gold, int Hp, int MaxHp);
+    IReadOnlyList<CardInstance> Deck, IReadOnlyList<string> RelicIds, int Gold, int Hp, int MaxHp)
+{
+    /// <summary>v1.2 : alliés (co-op), joueur local exclu. Vide en solo.</summary>
+    public IReadOnlyList<AllyContext> Allies { get; init; } = Array.Empty<AllyContext>();
+}
 
 /// <summary>Stratège : scores explicables (méta communautaire + historique perso + synergies).</summary>
 public interface IScorer
