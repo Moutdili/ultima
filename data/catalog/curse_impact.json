@@ -1,0 +1,637 @@
+{
+ "schema": "ultima.curse_impact/1",
+ "method": "runs entrées en acte 3 (floors >= 33) ; delta de win rate vs baseline",
+ "baseline_win_rate": 78.57,
+ "sample_runs": 63634,
+ "min_sample": 300,
+ "caveat": "Observationnel. Les deltas positifs mesurent souvent un bundle événement+contrepartie, pas la carte seule.",
+ "entries": [
+  {
+   "id": "BECKON",
+   "type": "status",
+   "measured": true,
+   "description": "",
+   "n": 3,
+   "win_rate": 0.0,
+   "delta_pp": -78.57,
+   "reliable": false,
+   "measured_toxicity": 100,
+   "effect_family": "unclassified",
+   "effect_severity": 50,
+   "effect_value": null,
+   "toxicity": 100,
+   "keywords": []
+  },
+  {
+   "id": "SLOTH",
+   "type": "status",
+   "measured": true,
+   "description": "",
+   "n": 1,
+   "win_rate": 0.0,
+   "delta_pp": -78.57,
+   "reliable": false,
+   "measured_toxicity": 100,
+   "effect_family": "play_limit",
+   "effect_severity": 95,
+   "effect_value": null,
+   "toxicity": 100,
+   "keywords": []
+  },
+  {
+   "id": "POOR_SLEEP",
+   "type": "curse",
+   "measured": true,
+   "description": "",
+   "n": 314,
+   "win_rate": 69.11,
+   "delta_pp": -9.46,
+   "reliable": true,
+   "measured_toxicity": 97,
+   "effect_family": "unplayable_only",
+   "effect_severity": 35,
+   "effect_value": null,
+   "toxicity": 97,
+   "keywords": [
+    "Retain",
+    "Unplayable"
+   ]
+  },
+  {
+   "id": "NORMALITY",
+   "type": "curse",
+   "measured": true,
+   "description": "",
+   "n": 2206,
+   "win_rate": 80.42,
+   "delta_pp": 1.85,
+   "reliable": true,
+   "measured_toxicity": 41,
+   "effect_family": "play_limit",
+   "effect_severity": 95,
+   "effect_value": 3,
+   "toxicity": 95,
+   "keywords": [
+    "Unplayable"
+   ]
+  },
+  {
+   "id": "MIND_ROT",
+   "type": "status",
+   "measured": false,
+   "description": "",
+   "n": 0,
+   "win_rate": null,
+   "delta_pp": null,
+   "reliable": false,
+   "measured_toxicity": null,
+   "effect_family": "draw_reduction",
+   "effect_severity": 85,
+   "effect_value": null,
+   "toxicity": 85,
+   "keywords": [],
+   "reason": "absent du corpus (jamais acquis avant l'acte 3) — sévérité par effet décrit"
+  },
+  {
+   "id": "VOID",
+   "type": "status",
+   "measured": false,
+   "description": "",
+   "n": 0,
+   "win_rate": null,
+   "delta_pp": null,
+   "reliable": false,
+   "measured_toxicity": null,
+   "effect_family": "energy_loss",
+   "effect_severity": 80,
+   "effect_value": null,
+   "toxicity": 80,
+   "keywords": [
+    "Ethereal",
+    "Unplayable"
+   ],
+   "reason": "absent du corpus (jamais acquis avant l'acte 3) — sévérité par effet décrit"
+  },
+  {
+   "id": "WASTE_AWAY",
+   "type": "status",
+   "measured": false,
+   "description": "",
+   "n": 0,
+   "win_rate": null,
+   "delta_pp": null,
+   "reliable": false,
+   "measured_toxicity": null,
+   "effect_family": "energy_loss",
+   "effect_severity": 80,
+   "effect_value": null,
+   "toxicity": 80,
+   "keywords": [],
+   "reason": "absent du corpus (jamais acquis avant l'acte 3) — sévérité par effet décrit"
+  },
+  {
+   "id": "DECAY",
+   "type": "curse",
+   "measured": true,
+   "description": "",
+   "n": 1792,
+   "win_rate": 80.47,
+   "delta_pp": 1.9,
+   "reliable": true,
+   "measured_toxicity": 41,
+   "effect_family": "end_turn_damage",
+   "effect_severity": 75,
+   "effect_value": null,
+   "toxicity": 75,
+   "keywords": [
+    "Unplayable"
+   ]
+  },
+  {
+   "id": "REGRET",
+   "type": "curse",
+   "measured": true,
+   "description": "",
+   "n": 587,
+   "win_rate": 84.67,
+   "delta_pp": 6.1,
+   "reliable": true,
+   "measured_toxicity": 20,
+   "effect_family": "hp_loss",
+   "effect_severity": 75,
+   "effect_value": null,
+   "toxicity": 75,
+   "keywords": [
+    "Unplayable"
+   ]
+  },
+  {
+   "id": "BURN",
+   "type": "status",
+   "measured": true,
+   "description": "",
+   "n": 1,
+   "win_rate": 100.0,
+   "delta_pp": 21.43,
+   "reliable": false,
+   "measured_toxicity": 0,
+   "effect_family": "end_turn_damage",
+   "effect_severity": 75,
+   "effect_value": null,
+   "toxicity": 75,
+   "keywords": [
+    "Unplayable"
+   ]
+  },
+  {
+   "id": "BAD_LUCK",
+   "type": "curse",
+   "measured": false,
+   "description": "",
+   "n": 0,
+   "win_rate": null,
+   "delta_pp": null,
+   "reliable": false,
+   "measured_toxicity": null,
+   "effect_family": "hp_loss",
+   "effect_severity": 75,
+   "effect_value": null,
+   "toxicity": 75,
+   "keywords": [
+    "Unplayable",
+    "Eternal"
+   ],
+   "reason": "absent du corpus (jamais acquis avant l'acte 3) — sévérité par effet décrit"
+  },
+  {
+   "id": "DISINTEGRATION",
+   "type": "status",
+   "measured": false,
+   "description": "",
+   "n": 0,
+   "win_rate": null,
+   "delta_pp": null,
+   "reliable": false,
+   "measured_toxicity": null,
+   "effect_family": "end_turn_damage",
+   "effect_severity": 75,
+   "effect_value": null,
+   "toxicity": 75,
+   "keywords": [],
+   "reason": "absent du corpus (jamais acquis avant l'acte 3) — sévérité par effet décrit"
+  },
+  {
+   "id": "INFECTION",
+   "type": "status",
+   "measured": false,
+   "description": "",
+   "n": 0,
+   "win_rate": null,
+   "delta_pp": null,
+   "reliable": false,
+   "measured_toxicity": null,
+   "effect_family": "end_turn_damage",
+   "effect_severity": 75,
+   "effect_value": null,
+   "toxicity": 75,
+   "keywords": [
+    "Unplayable"
+   ],
+   "reason": "absent du corpus (jamais acquis avant l'acte 3) — sévérité par effet décrit"
+  },
+  {
+   "id": "TOXIC",
+   "type": "status",
+   "measured": false,
+   "description": "",
+   "n": 0,
+   "win_rate": null,
+   "delta_pp": null,
+   "reliable": false,
+   "measured_toxicity": null,
+   "effect_family": "end_turn_damage",
+   "effect_severity": 75,
+   "effect_value": null,
+   "toxicity": 75,
+   "keywords": [
+    "Exhaust"
+   ],
+   "reason": "absent du corpus (jamais acquis avant l'acte 3) — sévérité par effet décrit"
+  },
+  {
+   "id": "WITHER",
+   "type": "status",
+   "measured": false,
+   "description": "",
+   "n": 0,
+   "win_rate": null,
+   "delta_pp": null,
+   "reliable": false,
+   "measured_toxicity": null,
+   "effect_family": "end_turn_damage",
+   "effect_severity": 75,
+   "effect_value": null,
+   "toxicity": 75,
+   "keywords": [
+    "Unplayable"
+   ],
+   "reason": "absent du corpus (jamais acquis avant l'acte 3) — sévérité par effet décrit"
+  },
+  {
+   "id": "INJURY",
+   "type": "curse",
+   "measured": true,
+   "description": "",
+   "n": 5190,
+   "win_rate": 75.53,
+   "delta_pp": -3.04,
+   "reliable": true,
+   "measured_toxicity": 65,
+   "effect_family": "unplayable_only",
+   "effect_severity": 35,
+   "effect_value": null,
+   "toxicity": 65,
+   "keywords": [
+    "Unplayable"
+   ]
+  },
+  {
+   "id": "DEBT",
+   "type": "curse",
+   "measured": true,
+   "description": "",
+   "n": 3188,
+   "win_rate": 77.13,
+   "delta_pp": -1.44,
+   "reliable": true,
+   "measured_toxicity": 57,
+   "effect_family": "gold_loss",
+   "effect_severity": 45,
+   "effect_value": null,
+   "toxicity": 57,
+   "keywords": [
+    "Unplayable"
+   ]
+  },
+  {
+   "id": "GREED",
+   "type": "curse",
+   "measured": true,
+   "description": "",
+   "n": 5782,
+   "win_rate": 77.34,
+   "delta_pp": -1.23,
+   "reliable": true,
+   "measured_toxicity": 56,
+   "effect_family": "unplayable_only",
+   "effect_severity": 35,
+   "effect_value": null,
+   "toxicity": 56,
+   "keywords": [
+    "Unplayable",
+    "Eternal"
+   ]
+  },
+  {
+   "id": "DOUBT",
+   "type": "curse",
+   "measured": true,
+   "description": "",
+   "n": 1163,
+   "win_rate": 77.64,
+   "delta_pp": -0.93,
+   "reliable": true,
+   "measured_toxicity": 55,
+   "effect_family": "debuff",
+   "effect_severity": 55,
+   "effect_value": null,
+   "toxicity": 55,
+   "keywords": [
+    "Unplayable"
+   ]
+  },
+  {
+   "id": "SHAME",
+   "type": "curse",
+   "measured": true,
+   "description": "",
+   "n": 459,
+   "win_rate": 82.35,
+   "delta_pp": 3.78,
+   "reliable": true,
+   "measured_toxicity": 31,
+   "effect_family": "debuff",
+   "effect_severity": 55,
+   "effect_value": null,
+   "toxicity": 55,
+   "keywords": [
+    "Unplayable"
+   ]
+  },
+  {
+   "id": "CLUMSY",
+   "type": "curse",
+   "measured": true,
+   "description": "",
+   "n": 11305,
+   "win_rate": 78.0,
+   "delta_pp": -0.57,
+   "reliable": true,
+   "measured_toxicity": 53,
+   "effect_family": "unplayable_only",
+   "effect_severity": 35,
+   "effect_value": null,
+   "toxicity": 53,
+   "keywords": [
+    "Ethereal",
+    "Unplayable"
+   ]
+  },
+  {
+   "id": "CURSE_OF_THE_BELL",
+   "type": "curse",
+   "measured": true,
+   "description": "",
+   "n": 923,
+   "win_rate": 78.01,
+   "delta_pp": -0.56,
+   "reliable": true,
+   "measured_toxicity": 53,
+   "effect_family": "unplayable_only",
+   "effect_severity": 35,
+   "effect_value": null,
+   "toxicity": 53,
+   "keywords": [
+    "Unplayable",
+    "Eternal"
+   ]
+  },
+  {
+   "id": "SPORE_MIND",
+   "type": "curse",
+   "measured": true,
+   "description": "",
+   "n": 438,
+   "win_rate": 81.05,
+   "delta_pp": 2.48,
+   "reliable": true,
+   "measured_toxicity": 38,
+   "effect_family": "unclassified",
+   "effect_severity": 50,
+   "effect_value": null,
+   "toxicity": 50,
+   "keywords": [
+    "Exhaust"
+   ]
+  },
+  {
+   "id": "ENTHRALLED",
+   "type": "curse",
+   "measured": true,
+   "description": "",
+   "n": 1,
+   "win_rate": 100.0,
+   "delta_pp": 21.43,
+   "reliable": false,
+   "measured_toxicity": 0,
+   "effect_family": "forced_order",
+   "effect_severity": 50,
+   "effect_value": null,
+   "toxicity": 50,
+   "keywords": [
+    "Eternal"
+   ]
+  },
+  {
+   "id": "DEBRIS",
+   "type": "status",
+   "measured": false,
+   "description": "",
+   "n": 0,
+   "win_rate": null,
+   "delta_pp": null,
+   "reliable": false,
+   "measured_toxicity": null,
+   "effect_family": "unclassified",
+   "effect_severity": 50,
+   "effect_value": null,
+   "toxicity": 50,
+   "keywords": [
+    "Exhaust"
+   ],
+   "reason": "absent du corpus (jamais acquis avant l'acte 3) — sévérité par effet décrit"
+  },
+  {
+   "id": "SLIMED",
+   "type": "status",
+   "measured": false,
+   "description": "",
+   "n": 0,
+   "win_rate": null,
+   "delta_pp": null,
+   "reliable": false,
+   "measured_toxicity": null,
+   "effect_family": "unclassified",
+   "effect_severity": 50,
+   "effect_value": null,
+   "toxicity": 50,
+   "keywords": [
+    "Exhaust"
+   ],
+   "reason": "absent du corpus (jamais acquis avant l'acte 3) — sévérité par effet décrit"
+  },
+  {
+   "id": "FRANTIC_ESCAPE",
+   "type": "status",
+   "measured": false,
+   "description": "",
+   "n": 0,
+   "win_rate": null,
+   "delta_pp": null,
+   "reliable": false,
+   "measured_toxicity": null,
+   "effect_family": "escape",
+   "effect_severity": 40,
+   "effect_value": null,
+   "toxicity": 40,
+   "keywords": [],
+   "reason": "absent du corpus (jamais acquis avant l'acte 3) — sévérité par effet décrit"
+  },
+  {
+   "id": "WRITHE",
+   "type": "curse",
+   "measured": true,
+   "description": "",
+   "n": 582,
+   "win_rate": 83.16,
+   "delta_pp": 4.59,
+   "reliable": true,
+   "measured_toxicity": 27,
+   "effect_family": "unplayable_only",
+   "effect_severity": 35,
+   "effect_value": null,
+   "toxicity": 35,
+   "keywords": [
+    "Innate",
+    "Unplayable"
+   ]
+  },
+  {
+   "id": "ASCENDERS_BANE",
+   "type": "curse",
+   "measured": true,
+   "description": "",
+   "n": 6,
+   "win_rate": 83.33,
+   "delta_pp": 4.76,
+   "reliable": false,
+   "measured_toxicity": 26,
+   "effect_family": "unplayable_only",
+   "effect_severity": 35,
+   "effect_value": null,
+   "toxicity": 35,
+   "keywords": [
+    "Ethereal",
+    "Unplayable",
+    "Eternal"
+   ]
+  },
+  {
+   "id": "FOLLY",
+   "type": "curse",
+   "measured": true,
+   "description": "",
+   "n": 1,
+   "win_rate": 100.0,
+   "delta_pp": 21.43,
+   "reliable": false,
+   "measured_toxicity": 0,
+   "effect_family": "unplayable_only",
+   "effect_severity": 35,
+   "effect_value": null,
+   "toxicity": 35,
+   "keywords": [
+    "Innate",
+    "Ethereal",
+    "Unplayable",
+    "Eternal"
+   ]
+  },
+  {
+   "id": "DAZED",
+   "type": "status",
+   "measured": false,
+   "description": "",
+   "n": 0,
+   "win_rate": null,
+   "delta_pp": null,
+   "reliable": false,
+   "measured_toxicity": null,
+   "effect_family": "unplayable_only",
+   "effect_severity": 35,
+   "effect_value": null,
+   "toxicity": 35,
+   "keywords": [
+    "Ethereal",
+    "Unplayable"
+   ],
+   "reason": "absent du corpus (jamais acquis avant l'acte 3) — sévérité par effet décrit"
+  },
+  {
+   "id": "SOOT",
+   "type": "status",
+   "measured": false,
+   "description": "",
+   "n": 0,
+   "win_rate": null,
+   "delta_pp": null,
+   "reliable": false,
+   "measured_toxicity": null,
+   "effect_family": "unplayable_only",
+   "effect_severity": 35,
+   "effect_value": null,
+   "toxicity": 35,
+   "keywords": [
+    "Unplayable"
+   ],
+   "reason": "absent du corpus (jamais acquis avant l'acte 3) — sévérité par effet décrit"
+  },
+  {
+   "id": "WOUND",
+   "type": "status",
+   "measured": false,
+   "description": "",
+   "n": 0,
+   "win_rate": null,
+   "delta_pp": null,
+   "reliable": false,
+   "measured_toxicity": null,
+   "effect_family": "unplayable_only",
+   "effect_severity": 35,
+   "effect_value": null,
+   "toxicity": 35,
+   "keywords": [
+    "Unplayable"
+   ],
+   "reason": "absent du corpus (jamais acquis avant l'acte 3) — sévérité par effet décrit"
+  },
+  {
+   "id": "GUILTY",
+   "type": "curse",
+   "measured": true,
+   "description": "",
+   "n": 3545,
+   "win_rate": 81.69,
+   "delta_pp": 3.12,
+   "reliable": true,
+   "measured_toxicity": 34,
+   "effect_family": "self_removing",
+   "effect_severity": 10,
+   "effect_value": null,
+   "toxicity": 34,
+   "keywords": [
+    "Unplayable"
+   ]
+  }
+ ]
+}

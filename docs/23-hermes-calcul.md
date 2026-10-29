@@ -58,7 +58,11 @@ Le daemon (chef) appelle tes classes ; tant qu'elles n'existent pas, il publie d
 1. **Probabiliste seulement** (Mio) : n'utilise JAMAIS les séquences pré-tirées (`*_encounter_ids`,
    `event_ids`), `rng`, `odds`, sacs de reliques, ni le boss/la variante des actes futurs. Tes
    entrées ne contiennent que ce que le joueur voit — n'en ajoute pas.
-2. **Score explicable** : `Total` 0-100 = somme bornée de `ScoreTerm` nommés, chacun avec sa
+2. **Notation S à F** (décision Mio) : `Score.Grade` est dérivé de `Total` par `Grades.FromTotal`
+   (S ≥ 85, A ≥ 70, B ≥ 55, C ≥ 40, D ≥ 25, F < 25) — **calibre tes Total sur cette échelle**
+   (alignée sur les tiers de `data/meta` : S≈90, A≈75, B≈60, C≈45, D≈30). Une pondération qui
+   comprime tout en C/D est un bug. Ajoute un test de distribution sur les cartes du catalogue.
+2bis. **Score explicable** : `Total` 0-100 = somme bornée de `ScoreTerm` nommés, chacun avec sa
    `Source` (« Spire Codex v0.107.1 n=42 259 », « tes 247 runs », « synergie poison : 5 cartes »).
    Aucun nombre magique. `Confidence` = high | medium | low selon la taille d'échantillon.
 3. **Les sources de méta se contredisent** (ρ 0,19-0,44) : garde le détail par source dans les termes.
@@ -102,6 +106,8 @@ Le daemon (chef) appelle tes classes ; tant qu'elles n'existent pas, il publie d
 - [ ] **S5** `ScoreRelic` : méta + synergie deck/personnage.
 - [ ] **S6** `EvaluateDeck` : note du deck vs reliques et boss de l'acte, archétype probable,
       archétypes potentiels (`archetypes.json`), liste des malédictions.
+- [ ] **S6bis** `ScorePotion` (ajout contrat v1.1, implémentation par défaut `null`) : potions possédées,
+      quand les garder/utiliser (vs boss de l'acte).
 - [ ] **S7** Validation : 10 situations réelles tirées de l'historique, notées par Mio → corrélation.
 
 ### Chemins (`Ultima.Engine/Paths/`)
@@ -123,3 +129,20 @@ Le daemon (chef) appelle tes classes ; tant qu'elles n'existent pas, il publie d
 - Rendu : `status/hermes.md` — ce qui est fait, preuves (sorties de tests), **ce qui n'est pas prouvé**,
   demandes de changement de contrat.
 - Le chef branche tes classes dans le daemon dès qu'elles compilent ; rien à câbler de ton côté.
+
+---
+
+## 7. Retour du chef sur la livraison (docs/26, 2026-10-29)
+Livraison acceptée : 80/80 sur clone propre, revue P0-P3 sérieuse, périmètre respecté. À reprendre :
+1. **[bloquant] Calibrage avec la méta locale réelle** : sur la machine de Mio (`data/meta/local/` =
+   notes Untapped/slaythetierlist présentes), `Calibration_puts_the_best_card_in_A_or_S` échoue
+   (meilleure carte = 66 → B). C'est la configuration de jeu réelle de Mio : la notation S→F doit tenir
+   avec ET sans `local/`. Teste les deux variantes (fixture `local/` complète synthétique) et calibre
+   sur la distribution réelle (cible : S rare, A pour les meilleures cartes du consensus, médiane ≈ C).
+2. **P2-2 prix soldé** : décision chef — `price` passé à `ScoreShopItem` est le **prix affiché**
+   (soldes et réductions de reliques déjà appliquées par le daemon) ; aucun changement de contrat.
+3. **P2-3 tags** : `CardView.Description` (contrat v1.1) et `IKnowledge` arrivent (Encyclopédiste) ;
+   bascule les tags sur les descriptions dès que `Ultima.Knowledge` est mergé.
+4. **P2-6 chemins de données** : la convention sera fixée par le daemon (`ULTIMA_DATA`) ; unifie ensuite
+   `DataPaths` et `ScoringData` sur un seul résolveur.
+5. **S7** : les 10 situations notées par Mio se feront pendant la fenêtre de test n°2.

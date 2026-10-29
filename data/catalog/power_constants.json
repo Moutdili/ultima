@@ -1,0 +1,104 @@
+{
+  "schema": 1,
+  "kind": "manual",
+  "generated_by": "main — table manuelle (aucune valeur sans ligne de code citée)",
+  "source": "mio@100.123.83.40:~/sts2/game/pck/src/Core/Models (lecture seule, ssh)",
+  "note": "Complète data/catalog/powers.json pour les hooks que tools/index_powers.py ne peut pas réduire au mini-langage de ExpressionEval. Une ligne n'est admise qu'avec un source 'fichier.cs:ligne'. value_expression est la formule exacte du code ; evaluable=false veut dire « documentée mais hors grammaire, l'appelant doit l'implémenter » — jamais une valeur inventée.",
+  "sets": {
+    "damage_multipliers": {
+      "documented_total": 25,
+      "definition": "Multiplicateurs de dégâts comptés par docs/33 §3.1 et docs/36 §« Les trous » 3 : 21 pouvoirs qui surchargent ModifyDamageMultiplicative + 3 reliques qui le surchargent + PaperPhrog qui modifie ModifyVulnerableMultiplier = 25. Les reliques sont hors du périmètre de powers.json : elles sont listées ici pour que le total annoncé soit vérifiable.",
+      "powers": [
+        "colossus",
+        "conqueror",
+        "covered",
+        "diamond_diadem",
+        "double_damage",
+        "flanking",
+        "flutter",
+        "gigantification",
+        "guarded",
+        "hang",
+        "intercept",
+        "knockdown",
+        "lethality",
+        "shrink",
+        "slow",
+        "soar",
+        "surrounded",
+        "tank",
+        "tracking",
+        "vulnerable",
+        "weak"
+      ],
+      "relics": [
+        {
+          "id": "pen_nib",
+          "hook": "ModifyDamageMultiplicative",
+          "value_expression": "2",
+          "source": "PenNib.cs:125",
+          "note": "×2 sur la 10e attaque jouée (AttacksPlayed == 9), et ×2 sur l'attaque mémorisée par AttackToDouble (PenNib.cs:131)."
+        },
+        {
+          "id": "undying_sigil",
+          "hook": "ModifyDamageMultiplicative",
+          "value_expression": "0.5",
+          "source": "UndyingSigil.cs:47",
+          "note": "Multiplie les dégâts subis par 0.5 (DynamicVars[\"DamageDecrease\"] = 0.5m, UndyingSigil.cs:21)."
+        },
+        {
+          "id": "vitruvian_minion",
+          "hook": "ModifyDamageMultiplicative",
+          "value_expression": "2",
+          "source": "VitruvianMinion.cs:31",
+          "note": "×2 sur les dégâts ; la même relique multiplie aussi le bloc par 2 (VitruvianMinion.cs:48, ModifyBlockMultiplicative)."
+        },
+        {
+          "id": "paper_phrog",
+          "hook": "ModifyVulnerableMultiplier",
+          "value_expression": "In + 0.25",
+          "source": "PaperPhrog.cs:26",
+          "note": "Vulnérable passe de ×1.5 à ×1.75 : le hook reçoit le multiplicateur courant et ajoute 0.25."
+        }
+      ]
+    }
+  },
+  "constants": [
+    {
+      "power": "slow",
+      "hook": "ModifyDamageMultiplicative",
+      "value_expression": "1 + 0.1 * SlowAmount",
+      "source": "SlowPower.cs:43",
+      "evaluable": false,
+      "reason": "dynamicvar_runtime",
+      "note": "SlowAmount est un compteur de combat : +1 par carte jouée ce tour (AfterCardPlayed, SlowPower.cs:28), remis à 0 au début du tour du propriétaire (SlowPower.cs:58). Ce n'est pas base.Amount (la pile du pouvoir), donc la valeur n'est pas figée au littéral du CanonicalVars (0m)."
+    },
+    {
+      "power": "intercept",
+      "hook": "ModifyDamageMultiplicative",
+      "value_expression": "CoveredCount + 1",
+      "source": "InterceptPower.cs:68",
+      "evaluable": false,
+      "reason": "state",
+      "note": "CoveredCount = GetInternalData<Data>().coveredCreatures.Count (alliés couverts par Intercept) ; +1 pour l'attaquant lui-même. Dépend de l'état de combat, pas de la pile du pouvoir."
+    },
+    {
+      "power": "mind_rot",
+      "hook": "ModifyHandDraw",
+      "value_expression": "max(0, In - Amount)",
+      "source": "MindRotPower.cs:20",
+      "evaluable": false,
+      "reason": "call",
+      "note": "Math.Max(0m, count - (decimal)base.Amount) : le mini-langage n'a pas de max, l'appelant doit clamper à 0."
+    },
+    {
+      "power": "shadowmeld",
+      "hook": "ModifyBlockMultiplicative",
+      "value_expression": "2 ^ Amount",
+      "source": "ShadowmeldPower.cs:30",
+      "evaluable": false,
+      "reason": "call",
+      "note": "Math.Pow(2.0, base.Amount) : exponentiel, hors grammaire (pas d'opérateur de puissance). Le bloc est doublé par pile du pouvoir."
+    }
+  ]
+}

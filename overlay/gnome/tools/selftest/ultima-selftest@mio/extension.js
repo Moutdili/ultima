@@ -179,7 +179,7 @@ export default class SelftestExtension extends Extension {
         await sleep(900);
         const ov = Main.extensionManager.lookup('ultima@mio')?.stateObj?._overlay;
         this._results.notes.push(`diag survol : get_pointer=${JSON.stringify(global.get_pointer().slice(0, 2))} ` +
-            `pollId=${ov?._pollId} expanded=${ov?._expanded} dwell=${ov?._dwellSince} layout=${JSON.stringify(ov?._layout)}`);
+            `sondage=${ov?._poller?.active} expanded=${ov?._expanded} dwell=${ov?._dwellSince} layout=${JSON.stringify(ov?._layout)}`);
         this._check('survol -> panneau déployé à 260 px', Math.round(root.width) === 260, `width=${root.width}`);
         await this._shot('02-survol-deploye');
 

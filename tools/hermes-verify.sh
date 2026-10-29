@@ -2,6 +2,11 @@
 # Porte de vérification de la partie CALCUL (Hermes) — à lancer avant tout merge.
 # Usage : bash tools/hermes-verify.sh [--fast]
 set -uo pipefail
+
+# ULTIMA_DATA redirige les catalogues hors du dépôt. Sur une machine où plusieurs worktrees
+# tournent en parallèle, un agent peut l'exporter dans le shell partagé : la porte vérifierait
+# alors les données d'un autre worktree (9 tests en échec constatés). La porte teste CE dépôt.
+unset ULTIMA_DATA
 cd "$(dirname "$0")/.."
 export PATH="$HOME/.dotnet:$PATH"
 export DOTNET_CLI_TELEMETRY_OPTOUT=1 DOTNET_NOLOGO=1
@@ -29,7 +34,7 @@ fi
 say "3. CHAMPS INTERDITS (probabiliste seulement)"
 # Le moteur ne doit jamais lire les séquences pré-tirées ni les cotes cachées.
 HITS=$(grep -rInE 'normal_encounter_ids|elite_encounter_ids|event_ids|relic_grab_bag|shared_relic_grab_bag|\brng\b|\bodds\b' \
-        Ultima.Engine/Scoring Ultima.Engine/Paths 2>/dev/null | grep -v '^\s*//' || true)
+        Ultima.Engine/Scoring Ultima.Engine/Paths 2>/dev/null | grep -vE ':[0-9]+:[[:space:]]*///' || true)
 if [ -z "$HITS" ]; then ok "aucun champ interdit"; else ko "champ interdit trouvé"; echo "$HITS"; fi
 
 say "4. STUBS / TODO restants dans la zone CALCUL"

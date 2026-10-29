@@ -22,6 +22,8 @@ System.Text.Json, camelCase, enums en chaîne (`"Shop"`), `null` explicite. Exem
 `docs/22-state.sample.json` (shop Necrobinder de la fenêtre de test).
 
 ## Sémantique à respecter
+- **Notation S à F** : afficher `score.grade` (S, A, B, C, D, F) en premier ; `total` et les termes en détail.
+  Seuils : S ≥ 85, A ≥ 70, B ≥ 55, C ≥ 40, D ≥ 25, F < 25 (`Grades.FromTotal`).
 - `Score == null` → calcul indisponible → l'UI affiche « — », jamais 0, jamais une valeur inventée.
 - `SourceHealth.Degraded != null` → l'UI l'affiche en tête.
 - `Screen` pilote les modules contextuels : `reward` (Screen.Reward), `shop` (Screen.Shop), `paths` (Screen.Map).

@@ -1,0 +1,12 @@
+[Desktop Entry]
+# Non installé automatiquement. Pour l'installer (une fois) :
+#   cp overlay/companion/ultima-companion.desktop ~/.local/share/applications/
+#   puis remplacer Exec par le chemin absolu de overlay/companion/ultima-companion
+Type=Application
+Name=ULTIMA Compagnon
+Comment=Réglages de l'overlay ULTIMA et informations sur la run (Slay the Spire 2)
+Exec=ultima-companion
+Icon=applications-games-symbolic
+Terminal=false
+Categories=Game;
+StartupNotify=true

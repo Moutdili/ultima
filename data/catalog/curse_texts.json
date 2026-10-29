@@ -1,0 +1,26 @@
+{
+ "schema": "ultima.curse_texts/1",
+ "source": "pck/localization/fra/cards.json (description)",
+ "texts": {
+  "BAD_LUCK": "À la fin de votre tour, si cette carte est dans votre Main, perdez {HpLoss:diff()} PV.",
+  "DEBT": "À la fin de votre tour, si cette carte est dans votre [gold]Main[/gold], perdez {Gold:diff()} [gold]Pièces d'or[/gold].",
+  "DECAY": "À la fin de votre tour, si cette carte est dans votre [gold]Main[/gold], subissez {Damage:diff()} dégâts.",
+  "DOUBT": "À la fin de votre tour, si cette carte est dans votre [gold]Main[/gold], gagnez [gold]Affaibli[/gold] ({WeakPower:diff()}).",
+  "ENTHRALLED": "Si cette carte est dans votre [gold]Main[/gold], elle doit être jouée avant les autres cartes.",
+  "GUILTY": "Retiré de votre [gold]Deck[/gold] au bout de {Combats:diff()} {Combats:plural:combat|combats}.",
+  "NORMALITY": "Vous ne pouvez pas jouer plus de 3 cartes ce tour.{InCombat:\n({CalculatedCards:plural:{} carte restante|{} cartes restantes})|}",
+  "REGRET": "À la fin de votre tour, si cette carte est dans votre [gold]Main[/gold], perdez 1 PV pour chaque carte dans votre [gold]Main[/gold].",
+  "SHAME": "À la fin de votre tour, si cette carte est dans votre [gold]Main[/gold], gagnez [gold]Fragilisé[/gold] ({Frail:diff()}).",
+  "BURN": "À la fin de votre tour, si cette carte est dans votre [gold]Main[/gold], subissez {Damage:diff()} dégâts.",
+  "DISINTEGRATION": "À la fin de votre tour, subissez {DisintegrationPower:diff()} dégâts.",
+  "FRANTIC_ESCAPE": "Éloignez-vous.\nAugmentez [gold]Sables mouvants[/gold] de 1.\nAugmentez le coût de cette carte de 1.",
+  "INFECTION": "À la fin de votre tour, si cette carte est dans votre [gold]Main[/gold], subissez {Damage:diff()} dégâts.",
+  "MIND_ROT": "Piochez {MindRotPower:diff()} {MindRotPower:plural:carte|cartes} en moins chaque tour.",
+  "SLIMED": "Piochez 1 carte.",
+  "SLOTH": "Vous ne pouvez pas jouer plus de {SlothPower:diff()} {SlothPower:plural:carte|cartes} chaque tour.",
+  "TOXIC": "À la fin de votre tour, si cette carte est dans votre [gold]Main[/gold], subissez {Damage:diff()} dégâts.",
+  "VOID": "Lorsque vous piochez cette carte, perdez {Energy:energyIcons()}.",
+  "WASTE_AWAY": "Gagnez {WasteAwayPower:diff()} {energyPrefix:energyIcons(1)} en moins chaque tour.",
+  "WITHER": "À la fin de votre tour, si cette carte est dans votre [gold]Main[/gold], subissez {Damage:diff()} dégâts."
+ }
+}

@@ -6,7 +6,9 @@ Zéro dépendance (python3 >= 3.9, stdlib seule). Lecture seule sur le source du
 Régénération (commande exacte, depuis la racine du dépôt — c'est ce qu'appelle le Makefile) :
     python3 tools/index_source.py --src game/pck/src/Core --out data/catalog --repo .
 Depuis un worktree dont game/ n'est pas extrait, pointer --src vers une copie extraite, ex. :
-    python3 tools/index_source.py --src /home/mio/sts2/game/pck/src/Core --out data/catalog --repo .
+    python3 tools/index_source.py --src ../autre-clone/game/pck/src/Core --out data/catalog --repo .
+(aucun chemin utilisateur n'est code en dur : --src est libre, stats.json n'enregistre qu'un
+chemin relatif au depot quand le source est sous --repo)
 
 Entrées (sous --src = .../src/Core) :
   - Models/Cards/*.cs      (classes dérivant de CardModel ; Models/Cards/Mocks/ ignoré)
@@ -23,7 +25,9 @@ Sorties (sous --out, sauf la doc) :
                            valeurs EXTRAITES de monsters.json (aucun recalcul) ; listes telles que
                            dans monsters.json (ordre [ascension, normal] si scalé), null si non résolu ;
                            repeats = [1] pour SingleAttackIntent (`override int Repeats => 1`).
-  - powers.json            pouvoirs modifiant les dégâts
+  - powers_damage.json     pouvoirs modifiant les dégâts (index historique ; le catalogue
+                           complet des 260 pouvoirs est data/catalog/powers.json, produit
+                           par tools/index_powers.py)
   - stats.json             compteurs
   - <--repo>/docs/11-api-catalog.md (résumé lisible)
 
@@ -53,6 +57,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 from collections import Counter
 from pathlib import Path
@@ -375,6 +380,14 @@ def main() -> None:
     outdir = Path(args.out).resolve()
     outdir.mkdir(parents=True, exist_ok=True)
 
+    # Chemin PORTABLE dans stats.json : jamais /home/<user>. Relatif au depot quand c'est
+    # possible, sinon relatif avec ../ (le champ reste lisible depuis n'importe quel clone).
+    repo_root = Path(args.repo).resolve()
+    try:
+        source_root = str(src.relative_to(repo_root))
+    except ValueError:
+        source_root = os.path.relpath(src, repo_root)
+
     cards = parse_cards(core)
     monsters = parse_monsters(core)
     powers = parse_powers(core)
@@ -383,7 +396,8 @@ def main() -> None:
     offensive = [row for rows in intents.values() for row in rows]
 
     stats = {
-        "source_root": str(src),
+        "source_root": source_root,
+        "source_root_note": "relatif a la racine du depot (jeu decompile, non commite)",
         "cards": len(cards),
         "cards_by_type": dict(Counter(c.get("type", "?") for c in cards)),
         "cards_by_rarity": dict(Counter(c.get("rarity", "?") for c in cards)),
@@ -406,7 +420,7 @@ def main() -> None:
 
     (outdir / "cards.json").write_text(json.dumps(cards, indent=1, ensure_ascii=False))
     (outdir / "monsters.json").write_text(json.dumps(monsters, indent=1, ensure_ascii=False))
-    (outdir / "powers.json").write_text(json.dumps(powers, indent=1, ensure_ascii=False))
+    (outdir / "powers_damage.json").write_text(json.dumps(powers, indent=1, ensure_ascii=False))
     (outdir / "priority_cards.json").write_text(json.dumps(priority, indent=1, ensure_ascii=False))
     (outdir / "intents_by_monster.json").write_text(
         json.dumps(intents, indent=1, ensure_ascii=False)

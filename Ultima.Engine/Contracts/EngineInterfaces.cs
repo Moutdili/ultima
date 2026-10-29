@@ -35,6 +35,10 @@ public interface IScorer
     Score ScoreShopItem(string kind, string id, int price, ScoringContext ctx);
     Score ScoreRemoval(int price, ScoringContext ctx);
     DeckEvaluation EvaluateDeck(ScoringContext ctx);
+
+    /// <summary>Ajout v1.1 : score d'une potion possédée. Implémentation par défaut = non calculé (null),
+    /// pour ne pas casser les implémentations existantes ; Hermes la surcharge quand il est prêt.</summary>
+    Score? ScorePotion(string potionId, ScoringContext ctx) => null;
 }
 
 /// <summary>Cartographe : chemins de la position courante au boss (probabiliste, sans tirage caché).</summary>

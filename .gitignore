@@ -21,3 +21,14 @@ status/
 
 # Godot.NET.Sdk (intermediaires)
 .godot/
+
+# python (harnais de backtest)
+__pycache__/
+*.pyc
+
+# corpus de backtest (téléchargé, non versionné)
+data/runs/
+data/exports/
+data/codex/
+data/index/
+data/replays/

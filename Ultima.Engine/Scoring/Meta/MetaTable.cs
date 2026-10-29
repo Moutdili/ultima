@@ -21,6 +21,12 @@ public sealed class MetaTable : IMetaTable
     public int CardCount => _cards.Count;
     public int RelicCount => _relics.Count;
 
+    /// <summary>Toutes les cartes chargées (lecture seule) — utilisé par les tests de calibrage.</summary>
+    public IReadOnlyCollection<MetaEntry> Cards => _cards.Values;
+
+    /// <summary>Toutes les reliques chargées (lecture seule).</summary>
+    public IReadOnlyCollection<MetaEntry> Relics => _relics.Values;
+
     private MetaTable(
         Dictionary<string, MetaEntry> cards,
         Dictionary<string, MetaEntry> relics,
@@ -60,7 +66,16 @@ public sealed class MetaTable : IMetaTable
     {
         var dir = ScoringData.ResolveMetaDir(metaDir);
         var localDir = Path.Combine(dir, "local");
-        var source = File.Exists(Path.Combine(localDir, "card_tiers.json")) ? localDir : dir;
+
+        // Repli FICHIER PAR FICHIER : Mio a un local/ partiel (card_tiers + relic_tiers seulement,
+        // notes sous licence). Choisir local/ en bloc laissait archetypes.json introuvable.
+        string Pick(string name)
+        {
+            var local = Path.Combine(localDir, name);
+            return File.Exists(local) ? local : Path.Combine(dir, name);
+        }
+
+        string source = File.Exists(Path.Combine(localDir, "card_tiers.json")) ? localDir : dir;
 
         var cards = new Dictionary<string, MetaEntry>(StringComparer.OrdinalIgnoreCase);
         var relics = new Dictionary<string, MetaEntry>(StringComparer.OrdinalIgnoreCase);
@@ -70,12 +85,12 @@ public sealed class MetaTable : IMetaTable
         string? generated = null, patch = null;
         double? skipRate = null, skipElo = null;
 
-        var cardPath = Path.Combine(source, "card_tiers.json");
+        var cardPath = Pick("card_tiers.json");
         if (File.Exists(cardPath))
         {
             using var doc = JsonDocument.Parse(File.ReadAllBytes(cardPath));
             var root = doc.RootElement;
-            variant = Str(root, "variant") ?? "public";
+            variant = Str(root, "variant") ?? (source == localDir ? "full" : "public");
             generated = Str(root, "generated");
             patch = Str(root, "patch_target");
 
@@ -89,7 +104,7 @@ public sealed class MetaTable : IMetaTable
             ReadGroups(root, "characters", cards);
         }
 
-        var relicPath = Path.Combine(source, "relic_tiers.json");
+        var relicPath = Pick("relic_tiers.json");
         if (File.Exists(relicPath))
         {
             using var doc = JsonDocument.Parse(File.ReadAllBytes(relicPath));
@@ -99,7 +114,7 @@ public sealed class MetaTable : IMetaTable
             ReadGroups(root, "groups", relics);
         }
 
-        var archPath = Path.Combine(source, "archetypes.json");
+        var archPath = Pick("archetypes.json");
         if (File.Exists(archPath))
         {
             using var doc = JsonDocument.Parse(File.ReadAllBytes(archPath));
@@ -126,7 +141,37 @@ public sealed class MetaTable : IMetaTable
             }
         }
 
+        ApplyPercentiles(cards);
+        ApplyPercentiles(relics);
+
         return new MetaTable(cards, relics, archetypes, variant, generated, patch, skipRate, skipElo);
+    }
+
+    /// <summary>
+    /// Ajoute à chaque entrée son rang de consensus (0..1) dans la table. Une note locale peut être
+    /// sur une autre échelle (ou comprimée) : le rang, lui, garde le même sens. Les ex æquo partagent
+    /// le rang le plus bas, ce qui évite de fabriquer un ordre inexistant.
+    /// </summary>
+    private static void ApplyPercentiles(Dictionary<string, MetaEntry> entries)
+    {
+        var rated = entries.Values
+            .Where(e => e.Consensus is not null)
+            .Select(e => e.Consensus!.Value)
+            .OrderBy(v => v)
+            .ToArray();
+
+        if (rated.Length < 2) return;
+
+        foreach (var (key, entry) in entries.ToArray())
+        {
+            if (entry.Consensus is not double value) continue;
+
+            int index = Array.BinarySearch(rated, value);
+            if (index < 0) index = ~index;
+            while (index > 0 && rated[index - 1] == value) index--;   // premier ex æquo
+
+            entries[key] = entry with { ConsensusPercentile = (double)index / (rated.Length - 1) };
+        }
     }
 
     private static void ReadGroups(JsonElement root, string groupsKey, Dictionary<string, MetaEntry> into)

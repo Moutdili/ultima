@@ -20,6 +20,10 @@ description: Use when scoring Slay the Spire 2 cards at card rewards or in the s
   borné et pondéré par n (intervalle de confiance ; n < 10 → 0 et mention « peu de données »).
 Le détail (F9) affiche chaque terme avec sa source. Aucun nombre magique.
 
+## Notation affichée : S à F (décision Mio)
+`Grades.FromTotal` (contrat) : S ≥ 85, A ≥ 70, B ≥ 55, C ≥ 40, D ≥ 25, F < 25. Les Total doivent
+être calibrés sur cette échelle (tiers data/meta : S≈90, A≈75, B≈60, C≈45, D≈30).
+
 ## Données
 - Catalogue : `data/catalog/*.json` (régénéré depuis le source), localisation `game/pck/localization/fra`.
 - Perso : `history/*.run` (`map_point_history[].player_stats[].card_choices` = proposées/choisies).

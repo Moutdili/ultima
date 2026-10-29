@@ -1,0 +1,1200 @@
+{
+ "schema": "ultima.event_options/1",
+ "source": "pck/localization/fra/events.json",
+ "options": [
+  {
+   "event": "ABYSSAL_BATHS",
+   "option": "ABSTAIN",
+   "title": "S'abstenir",
+   "description": "Récupérez [green]{Heal}[/green] PV."
+  },
+  {
+   "event": "ABYSSAL_BATHS",
+   "option": "EXIT_BATHS",
+   "title": "Quitter les bains",
+   "description": ""
+  },
+  {
+   "event": "ABYSSAL_BATHS",
+   "option": "IMMERSE",
+   "title": "S'immerger",
+   "description": "Gagnez [green]{MaxHp}[/green] PV Max. Subissez [red]{Damage}[/red] dégâts."
+  },
+  {
+   "event": "ABYSSAL_BATHS",
+   "option": "LINGER",
+   "title": "Rester",
+   "description": "Gagnez [green]{MaxHp}[/green] PV Max. Subissez [red]{Damage}[/red] dégâts."
+  },
+  {
+   "event": "ACTSFROMTHEPAST-BONFIRE_SPIRITS",
+   "option": "CONTINUE",
+   "title": null,
+   "description": ""
+  },
+  {
+   "event": "ACTSFROMTHEPAST-BONFIRE_SPIRITS",
+   "option": "OFFER",
+   "title": null,
+   "description": ""
+  },
+  {
+   "event": "ACTSFROMTHEPAST-DUPLICATOR",
+   "option": "PRAY",
+   "title": null,
+   "description": ""
+  },
+  {
+   "event": "ACTSFROMTHEPAST-FACE_TRADER",
+   "option": "CONTINUE",
+   "title": null,
+   "description": ""
+  },
+  {
+   "event": "ACTSFROMTHEPAST-GOLDEN_SHRINE",
+   "option": "DESECRATE",
+   "title": null,
+   "description": ""
+  },
+  {
+   "event": "ACTSFROMTHEPAST-GOLDEN_SHRINE",
+   "option": "PRAY",
+   "title": null,
+   "description": ""
+  },
+  {
+   "event": "ACTSFROMTHEPAST-LAB",
+   "option": "SEARCH",
+   "title": null,
+   "description": ""
+  },
+  {
+   "event": "ACTSFROMTHEPAST-MATCH_AND_KEEP",
+   "option": "CONTINUE",
+   "title": null,
+   "description": ""
+  },
+  {
+   "event": "ACTSFROMTHEPAST-MATCH_AND_KEEP",
+   "option": "PLAY",
+   "title": null,
+   "description": ""
+  },
+  {
+   "event": "ACTSFROMTHEPAST-OMINOUS_FORGE",
+   "option": "FORGE",
+   "title": null,
+   "description": ""
+  },
+  {
+   "event": "ACTSFROMTHEPAST-PURIFIER",
+   "option": "PRAY",
+   "title": null,
+   "description": ""
+  },
+  {
+   "event": "ACTSFROMTHEPAST-SCRAP_OOZE",
+   "option": "REACH",
+   "title": null,
+   "description": ""
+  },
+  {
+   "event": "ACTSFROMTHEPAST-TRANSMOGRIFIER",
+   "option": "PRAY",
+   "title": null,
+   "description": ""
+  },
+  {
+   "event": "ACTSFROMTHEPAST-UPGRADE_SHRINE",
+   "option": "PRAY",
+   "title": null,
+   "description": ""
+  },
+  {
+   "event": "ACTSFROMTHEPAST-WHEEL_OF_CHANGE",
+   "option": "PLAY",
+   "title": null,
+   "description": ""
+  },
+  {
+   "event": "AMALGAMATOR",
+   "option": "COMBINE_DEFENDS",
+   "title": "Alliage de Défenses",
+   "description": "Retirez [blue]2[/blue] [gold]Défenses[/gold]. Ajoutez [gold]{Card2}[/gold] à votre [gold]Deck[/gold]."
+  },
+  {
+   "event": "AMALGAMATOR",
+   "option": "COMBINE_STRIKES",
+   "title": "Alliage de Frappes",
+   "description": "Retirez [blue]2[/blue] [gold]Frappes[/gold]. Ajoutez [gold]{Card1}[/gold] à votre [gold]Deck[/gold]."
+  },
+  {
+   "event": "AROMA_OF_CHAOS",
+   "option": "LET_GO",
+   "title": "Lâcher prise",
+   "description": "[gold]Transformez[/gold] une carte de votre [gold]Deck[/gold]."
+  },
+  {
+   "event": "AROMA_OF_CHAOS",
+   "option": "MAINTAIN_CONTROL",
+   "title": "Garder le contrôle",
+   "description": "[gold]Améliorez[/gold] une carte de votre [gold]Deck[/gold]."
+  },
+  {
+   "event": "BATTLEWORN_DUMMY",
+   "option": "SETTING_1",
+   "title": "Niveau 1",
+   "description": "Affrontez un mannequin avec [blue]{Setting1Hp}[/blue] PV. Récupérez [blue]1[/blue] [gold]Potion[/gold] aléatoire."
+  },
+  {
+   "event": "BATTLEWORN_DUMMY",
+   "option": "SETTING_2",
+   "title": "Niveau 2",
+   "description": "Affrontez un mannequin d'entraînement avec [blue]{Setting2Hp}[/blue] PV. [gold]Améliorez[/gold] [blue]2[/blue] cartes au hasard."
+  },
+  {
+   "event": "BATTLEWORN_DUMMY",
+   "option": "SETTING_3",
+   "title": "Niveau 3",
+   "description": "Affrontez un mannequin avec [blue]{Setting3Hp}[/blue] PV. Obtenez une [gold]Relique[/gold] aléatoire."
+  },
+  {
+   "event": "BRAIN_LEECH",
+   "option": "RIP",
+   "title": "Arracher la sangsue",
+   "description": "Perdez [red]{RipHpLoss}[/red] PV. Recevez une récompense de carte Incolore."
+  },
+  {
+   "event": "BRAIN_LEECH",
+   "option": "SHARE_KNOWLEDGE",
+   "title": "Partager la connaissance",
+   "description": "Choisissez [blue]{CardChoiceCount}[/blue] parmi [blue]{FromCardChoiceCount}[/blue] cartes aléatoires à ajouter à votre [gold]Deck[/gold]."
+  },
+  {
+   "event": "BUGSLAYER",
+   "option": "EXTERMINATION",
+   "title": "Apprendre la Technique d’Extermination",
+   "description": "Ajoutez [gold]{Card1}[/gold] à votre [gold]Deck[/gold]."
+  },
+  {
+   "event": "BUGSLAYER",
+   "option": "SQUASH",
+   "title": "Apprendre la Technique d’Aplatissement",
+   "description": "Ajoutez [gold]{Card2}[/gold] à votre [gold]Deck[/gold]."
+  },
+  {
+   "event": "BYRDONIS_NEST",
+   "option": "EAT",
+   "title": "Manger l’œuf",
+   "description": "Gagnez [blue]{MaxHp}[/blue] PV Max."
+  },
+  {
+   "event": "BYRDONIS_NEST",
+   "option": "TAKE",
+   "title": "Récupérer l’œuf",
+   "description": "Ajoutez [gold]{Card}[/gold] à votre [gold]Deck[/gold]."
+  },
+  {
+   "event": "COLORFUL_PHILOSOPHERS",
+   "option": "DEFECT",
+   "title": "Bleu",
+   "description": "Obtenez [blue]{Cards}[/blue] {Cards:plural:carte|cartes} du Défectueux."
+  },
+  {
+   "event": "COLORFUL_PHILOSOPHERS",
+   "option": "IRONCLAD",
+   "title": "Rouge",
+   "description": "Obtenez [blue]{Cards}[/blue] {Cards:plural:carte|cartes} du Soldat de Fer."
+  },
+  {
+   "event": "COLORFUL_PHILOSOPHERS",
+   "option": "NECROBINDER",
+   "title": "Rose",
+   "description": "Obtenez [blue]{Cards}[/blue] {Cards:plural:carte|cartes} de la Tisse-Mort."
+  },
+  {
+   "event": "COLORFUL_PHILOSOPHERS",
+   "option": "REGENT",
+   "title": "Orange",
+   "description": "Obtenez [blue]{Cards}[/blue] {Cards:plural:carte|cartes} du Régent."
+  },
+  {
+   "event": "COLORFUL_PHILOSOPHERS",
+   "option": "SILENT",
+   "title": "Vert",
+   "description": "Obtenez [blue]{Cards}[/blue] {Cards:plural:carte|cartes} de la Silencieuse."
+  },
+  {
+   "event": "COLOSSAL_FLOWER",
+   "option": "EXTRACT_CURRENT_PRIZE_1",
+   "title": "Extraire du nectar",
+   "description": "Obtenez [blue]{Prize1}[/blue] [gold]Pièces d’or[/gold]."
+  },
+  {
+   "event": "COLOSSAL_FLOWER",
+   "option": "EXTRACT_CURRENT_PRIZE_2",
+   "title": "Extraire du nectar",
+   "description": "Obtenez [blue]{Prize2}[/blue] [gold]Pièces d’or[/gold]."
+  },
+  {
+   "event": "COLOSSAL_FLOWER",
+   "option": "EXTRACT_INSTEAD",
+   "title": "Extraire du nectar",
+   "description": "Obtenez [blue]{Prize3}[/blue] [gold]Pièces d’or[/gold]."
+  },
+  {
+   "event": "COLOSSAL_FLOWER",
+   "option": "POLLINOUS_CORE",
+   "title": "Atteindre le centre",
+   "description": "Perdez [red]7[/red] PV. Obtenez [gold]Cœur pollinique[/gold]."
+  },
+  {
+   "event": "COLOSSAL_FLOWER",
+   "option": "REACH_DEEPER_1",
+   "title": "Pénétrer plus loin",
+   "description": "Enfoncez votre main plus loin. Perdez [red]5[/red] PV."
+  },
+  {
+   "event": "COLOSSAL_FLOWER",
+   "option": "REACH_DEEPER_2",
+   "title": "Pénétrer plus loin",
+   "description": "Enfoncez votre main encore plus loin. Perdez [red]6[/red] PV."
+  },
+  {
+   "event": "CRYSTAL_SPHERE",
+   "option": "PAYMENT_PLAN",
+   "title": "Formule de paiement",
+   "description": "Obtenez [red]{CurseTitle}[/red]. Effectuez [blue]{PaymentPlanCount}[/blue] [purple]révélations[/purple]."
+  },
+  {
+   "event": "CRYSTAL_SPHERE",
+   "option": "UNCOVER_FUTURE",
+   "title": "Dévoiler l’avenir",
+   "description": "Payez [red]{UncoverFutureCost}[/red] [gold]Pièces d’or[/gold]. Effectuez [blue]{UncoverFutureProphesizeCount}[/blue] [purple]révélations[/purple]."
+  },
+  {
+   "event": "DENSE_VEGETATION",
+   "option": "FIGHT",
+   "title": "Fuite !",
+   "description": ""
+  },
+  {
+   "event": "DENSE_VEGETATION",
+   "option": "REST",
+   "title": "Repos",
+   "description": "Récupérez [green]{Heal}[/green] PV. Affrontez des [red]ennemis[/red]."
+  },
+  {
+   "event": "DENSE_VEGETATION",
+   "option": "TRUDGE_ON",
+   "title": "Avancer malgré tout",
+   "description": "Recevez [blue]{Gold}[/blue] [gold]Pièces d'or[/gold]. Perdez [red]{HpLoss}[/red] PV."
+  },
+  {
+   "event": "DOLL_ROOM",
+   "option": "EXAMINE",
+   "title": "Les examiner toutes pour faire le meilleur choix",
+   "description": "Perdez [red]{ExamineHpLoss}[/red] PV. Choisissez [blue]1[/blue] [gold]Relique poupée[/gold] parmi [blue]3[/blue]."
+  },
+  {
+   "event": "DOLL_ROOM",
+   "option": "RANDOM",
+   "title": "Choisir au hasard",
+   "description": "Obtenez une [gold]Relique poupée[/gold] aléatoire."
+  },
+  {
+   "event": "DOLL_ROOM",
+   "option": "TAKE_SOME_TIME",
+   "title": "Prendre votre temps",
+   "description": "Perdez [red]{TakeTimeHpLoss}[/red] PV. Choisissez [blue]1[/blue] [gold]Relique poupée[/gold] parmi [blue]2[/blue]."
+  },
+  {
+   "event": "DOORS_OF_LIGHT_AND_DARK",
+   "option": "DARK",
+   "title": "Porte de l’ombre",
+   "description": "Retirez [blue]1[/blue] carte de votre [gold]Deck[/gold]."
+  },
+  {
+   "event": "DOORS_OF_LIGHT_AND_DARK",
+   "option": "LIGHT",
+   "title": "Porte de la lumière",
+   "description": "[gold]Améliorez[/gold] [blue]{Cards}[/blue] cartes aléatoires dans votre [gold]Deck[/gold]."
+  },
+  {
+   "event": "DROWNING_BEACON",
+   "option": "BOTTLE",
+   "title": "Mettre en bouteille",
+   "description": "Récupérez [aqua]{Potion}[/aqua]."
+  },
+  {
+   "event": "DROWNING_BEACON",
+   "option": "CLIMB",
+   "title": "Gravir le phare",
+   "description": "Obtenez [gold]{Relic}[/gold]. Perdez [red]{HpLoss}[/red] PV Max."
+  },
+  {
+   "event": "ENDLESS_CONVEYOR",
+   "option": "CAVIAR",
+   "title": "Attraper le caviar",
+   "description": "Payez [red]{Gold}[/red] [gold]Pièces d'or[/gold]. Gagnez [green]{CaviarMaxHp}[/green] PV Max. Continuez le festin !"
+  },
+  {
+   "event": "ENDLESS_CONVEYOR",
+   "option": "CLAM_ROLL",
+   "title": "Attraper le maki aux palourdes",
+   "description": "Payez [red]{Gold}[/red] [gold]Pièces d'or[/gold]. Récupérez [green]{ClamRollHeal}[/green] PV. Continuez le festin !"
+  },
+  {
+   "event": "ENDLESS_CONVEYOR",
+   "option": "FRIED_EEL",
+   "title": "Attraper l'anguille frite",
+   "description": "Payez [red]{Gold}[/red] [gold]Pièces d'or[/gold]. Ajoutez une Carte incolore aléatoire à votre [gold]Deck[/gold]. Continuez le festin !"
+  },
+  {
+   "event": "ENDLESS_CONVEYOR",
+   "option": "GOLDEN_FYSH",
+   "title": "Attraper le poissâme doré",
+   "description": "[green]COUP DE CHANCE ![/green] Gagnez [blue]{GoldenFyshGold}[/blue] [gold]Pièces d'or[/gold]."
+  },
+  {
+   "event": "ENDLESS_CONVEYOR",
+   "option": "JELLY_LIVER",
+   "title": "Attraper le foie en gelée",
+   "description": "Payez [red]{Gold}[/red] [gold]Pièces d'or[/gold]. [gold]Transformez[/gold] une carte. Continuez le festin !"
+  },
+  {
+   "event": "ENDLESS_CONVEYOR",
+   "option": "LEAVE",
+   "title": "Partir",
+   "description": ""
+  },
+  {
+   "event": "ENDLESS_CONVEYOR",
+   "option": "OBSERVE_CHEF",
+   "title": "Observer le chef",
+   "description": "[gold]Améliorez[/gold] une carte aléatoire de votre [gold]Deck[/gold]."
+  },
+  {
+   "event": "ENDLESS_CONVEYOR",
+   "option": "SEAPUNK_SALAD",
+   "title": "Attraper la salade de voyou marin",
+   "description": "Payez [red]{Gold}[/red] [gold]Pièces d'or[/gold]. Ajoutez [gold]Repas frénétique[/gold] à votre [gold]Deck[/gold]. Continuez le festin !"
+  },
+  {
+   "event": "ENDLESS_CONVEYOR",
+   "option": "SPICY_SNAPPY",
+   "title": "Attraper le vivaneau épicé",
+   "description": "Payez [red]{Gold}[/red] [gold]Pièces d'or[/gold]. [gold]Améliorez[/gold] une carte aléatoire de votre [gold]Deck[/gold]. Continuez le festin !"
+  },
+  {
+   "event": "ENDLESS_CONVEYOR",
+   "option": "SUSPICIOUS_CONDIMENT",
+   "title": "Attraper le condiment suspect",
+   "description": "Payez [red]{Gold}[/red] [gold]Pièces d'or[/gold]. Obtenez une [gold]Potion[/gold] aléatoire. Continuez le festin !"
+  },
+  {
+   "event": "FIELD_OF_MAN_SIZED_HOLES",
+   "option": "ENTER_YOUR_HOLE",
+   "title": "Entrer dans votre trou",
+   "description": "[gold]Envoûtez[/gold] une carte avec [purple]{Enchantment}[/purple]."
+  },
+  {
+   "event": "FIELD_OF_MAN_SIZED_HOLES",
+   "option": "RESIST",
+   "title": "Résister",
+   "description": "Retirez [blue]{Cards}[/blue] cartes de votre [gold]Deck[/gold]. Ajoutez [red]{ResistCurse}[/red] à votre [gold]Deck[/gold]."
+  },
+  {
+   "event": "GRAVE_OF_THE_FORGOTTEN",
+   "option": "ACCEPT",
+   "title": "Accueillir l’{Relic}",
+   "description": "Obtenez [gold]{Relic}[/gold]."
+  },
+  {
+   "event": "GRAVE_OF_THE_FORGOTTEN",
+   "option": "CONFRONT",
+   "title": "Confronter à la réalité",
+   "description": "Ajoutez [red]{Curse}[/red] à votre [gold]Deck[/gold]. [gold]Envoûtez[/gold] une carte qui s’[gold]Épuise[/gold] avec [purple]{Enchantment}[/purple]."
+  },
+  {
+   "event": "HUNGRY_FOR_MUSHROOMS",
+   "option": "BIG_MUSHROOM",
+   "title": "Gros champi",
+   "description": ""
+  },
+  {
+   "event": "HUNGRY_FOR_MUSHROOMS",
+   "option": "FRAGRANT_MUSHROOM",
+   "title": "Champi aromatique",
+   "description": ""
+  },
+  {
+   "event": "INFESTED_AUTOMATON",
+   "option": "STUDY",
+   "title": "Étudier",
+   "description": "Obtenez un [gold]Pouvoir[/gold] aléatoire."
+  },
+  {
+   "event": "INFESTED_AUTOMATON",
+   "option": "TOUCH_CORE",
+   "title": "Toucher le cœur",
+   "description": "Obtenez une[gold] carte de coût 0[/gold] aléatoire."
+  },
+  {
+   "event": "INTEGRATEDSTRATEGYEVENTS-SHIFTING_CITY_EVENT",
+   "option": "ENTER_FRAGMENT",
+   "title": null,
+   "description": ""
+  },
+  {
+   "event": "INTEGRATEDSTRATEGYEVENTS-SHIFTING_CITY_EVENT",
+   "option": "UNDERSTAND_CITY",
+   "title": null,
+   "description": ""
+  },
+  {
+   "event": "JUNGLE_MAZE_ADVENTURE",
+   "option": "JOIN_FORCES",
+   "title": "Unir vos forces",
+   "description": "Recevez [blue]{JoinForcesGold}[/blue] [gold]Pièces d’or[/gold]."
+  },
+  {
+   "event": "JUNGLE_MAZE_ADVENTURE",
+   "option": "SOLO_QUEST",
+   "title": "Quête solo",
+   "description": "Recevez [blue]{SoloGold}[/blue] [gold]Pièces d’or[/gold]. Perdez [red]{SoloHp}[/red] PV."
+  },
+  {
+   "event": "LOST_WISP",
+   "option": "CLAIM",
+   "title": "Capturer le feu follet",
+   "description": "Ajoutez [red]{Curse}[/red] à votre [gold]Deck[/gold]. Obtenez le [gold]{Relic}[/gold]."
+  },
+  {
+   "event": "LOST_WISP",
+   "option": "SEARCH",
+   "title": "Fouiller les environs",
+   "description": "Obtenez [blue]{Gold}[/blue] [gold]Pièces d’or[/gold]."
+  },
+  {
+   "event": "LUMINOUS_CHOIR",
+   "option": "OFFER_TRIBUTE",
+   "title": "Offrir un tribut",
+   "description": "Payez [red]{Gold}[/red] [gold]Pièces d’or[/gold]. Obtenez une [gold]Relique[/gold] aléatoire."
+  },
+  {
+   "event": "LUMINOUS_CHOIR",
+   "option": "REACH_INTO_THE_FLESH",
+   "title": "Entailler la chair",
+   "description": "Retirez [blue]2[/blue] cartes de votre [gold]Deck[/gold]. Ajoutez [red]Conscience sporique[/red] à votre [gold]Deck[/gold]."
+  },
+  {
+   "event": "MORPHIC_GROVE",
+   "option": "GROUP",
+   "title": "Groupe",
+   "description": "{IsMultiplayer:Tout le monde perd|Perdez} [red]TOUTES[/red] {IsMultiplayer:leurs|vos} [gold]Pièces d'or[/gold]. [gold]Transformez[/gold] [blue]2[/blue] cartes."
+  },
+  {
+   "event": "MORPHIC_GROVE",
+   "option": "LONER",
+   "title": "Individu",
+   "description": "Gagnez [green]{MaxHp}[/green] PV Max."
+  },
+  {
+   "event": "NEOW",
+   "option": "ANCIENT_AFFECTION_BOND",
+   "title": null,
+   "description": ""
+  },
+  {
+   "event": "NEOW",
+   "option": "STARTER_REMOVAL",
+   "title": null,
+   "description": ""
+  },
+  {
+   "event": "NONUPEIPE",
+   "option": "ANCIENT_AFFECTION_BOND",
+   "title": null,
+   "description": ""
+  },
+  {
+   "event": "OROBAS",
+   "option": "ANCIENT_AFFECTION_BOND",
+   "title": null,
+   "description": ""
+  },
+  {
+   "event": "PAEL",
+   "option": "ANCIENT_AFFECTION_BOND",
+   "title": null,
+   "description": ""
+  },
+  {
+   "event": "PIKAMOD-PIKA_MOD_OLD_ROD_EVENT",
+   "option": "AFTER_RESULT",
+   "title": null,
+   "description": ""
+  },
+  {
+   "event": "PIKAMOD-PIKA_MOD_OLD_ROD_EVENT",
+   "option": "PAID_RETRY",
+   "title": null,
+   "description": ""
+  },
+  {
+   "event": "POTION_COURIER",
+   "option": "GRAB_POTIONS",
+   "title": "Prendre les potions",
+   "description": "Obtenez [blue]{FoulPotions}[/blue] [gold]{FoulPotions:plural:Potion infecte|Potions infectes}[/gold]."
+  },
+  {
+   "event": "POTION_COURIER",
+   "option": "RANSACK",
+   "title": "Fouiller",
+   "description": "Obtenez [blue]1[/blue] [gold]Potion inhabituelle[/gold] aléatoire."
+  },
+  {
+   "event": "PUNCH_OFF",
+   "option": "FIGHT",
+   "title": "Combattre",
+   "description": ""
+  },
+  {
+   "event": "PUNCH_OFF",
+   "option": "I_CAN_TAKE_THEM",
+   "title": "Je peux me les faire",
+   "description": "Affrontez-les pour obtenir des [gold]Récompenses supérieures[/gold]."
+  },
+  {
+   "event": "PUNCH_OFF",
+   "option": "NAB",
+   "title": "Attraper",
+   "description": "Ajoutez [red]Blessure[/red] à votre [gold]Deck[/gold]. Obtenez une [gold]Relique[/gold] aléatoire."
+  },
+  {
+   "event": "RANWID_THE_ELDER",
+   "option": "GOLD",
+   "title": "Offrir {Gold} pièces d’or",
+   "description": "Obtenez une [gold]Relique[/gold] aléatoire."
+  },
+  {
+   "event": "RANWID_THE_ELDER",
+   "option": "POTION",
+   "title": "Offrir {Potion}",
+   "description": "Obtenez une [gold]Relique[/gold] aléatoire."
+  },
+  {
+   "event": "RANWID_THE_ELDER",
+   "option": "RELIC",
+   "title": "Offrir {Relic}",
+   "description": "Obtenez [blue]2[/blue] [gold]Reliques[/gold] aléatoires."
+  },
+  {
+   "event": "REFLECTIONS",
+   "option": "SHATTER",
+   "title": "Briser",
+   "description": "Dupliquez votre [gold]Deck[/gold]. Recevez [purple]Malchance[/purple]."
+  },
+  {
+   "event": "REFLECTIONS",
+   "option": "TOUCH_A_MIRROR",
+   "title": "Toucher un miroir",
+   "description": "[red]Rétrogradez[/red] [blue]2[/blue] cartes aléatoires. [green]Améliorez[/green] [blue]4[/blue] cartes aléatoires."
+  },
+  {
+   "event": "RELIC_TRADER",
+   "option": "BOTTOM",
+   "title": "Prendre celle du bas",
+   "description": "Troquer [gold]{BottomRelicOwned}[/gold] contre [gold]{BottomRelicNew}[/gold]."
+  },
+  {
+   "event": "RELIC_TRADER",
+   "option": "MIDDLE",
+   "title": "Prendre celle du milieu",
+   "description": "Troquer [gold]{MiddleRelicOwned}[/gold] contre [gold]{MiddleRelicNew}[/gold]."
+  },
+  {
+   "event": "RELIC_TRADER",
+   "option": "TOP",
+   "title": "Prendre celle du haut",
+   "description": "Troquer [gold]{TopRelicOwned}[/gold] contre [gold]{TopRelicNew}[/gold]."
+  },
+  {
+   "event": "ROOM_FULL_OF_CHEESE",
+   "option": "GORGE",
+   "title": "Gourmandise",
+   "description": "Choisissez [blue]2[/blue] cartes à ajouter à votre [gold]Deck[/gold] parmi [blue]8[/blue] cartes [gold]Communes[/gold] aléatoires."
+  },
+  {
+   "event": "ROOM_FULL_OF_CHEESE",
+   "option": "SEARCH",
+   "title": "Fouiller",
+   "description": "Perdez [red]{Damage}[/red] PV. Obtenez le [gold]Fromage élu[/gold]."
+  },
+  {
+   "event": "ROUND_TEA_PARTY",
+   "option": "ENJOY_TEA",
+   "title": "Déguster votre thé",
+   "description": "Obtenez [red]{Relic}[/red]. [green]Récupérez tous vos PV.[/green]"
+  },
+  {
+   "event": "ROUND_TEA_PARTY",
+   "option": "PICK_FIGHT",
+   "title": "Chercher la bagarre",
+   "description": "Perdez [red]{Damage}[/red] PV. Obtenez une [gold]Relique[/gold] aléatoire."
+  },
+  {
+   "event": "SAPPHIRE_SEED",
+   "option": "EAT",
+   "title": "Consommer",
+   "description": "Récupérez [green]{Heal}[/green] PV. [gold]Améliorez[/gold] une carte de votre [gold]Deck[/gold]."
+  },
+  {
+   "event": "SAPPHIRE_SEED",
+   "option": "PLANT",
+   "title": "Planter et nourrir",
+   "description": "[gold]Envoûtez[/gold] une carte avec [purple]{Enchantment}[/purple]."
+  },
+  {
+   "event": "SELF_HELP_BOOK",
+   "option": "READ_ENTIRE_BOOK",
+   "title": "Lire en entier",
+   "description": "Choisissez un Pouvoir à [gold]Envoûter[/gold] avec [purple]{Enchantment3}[/purple] [blue]{Enchantment3Amount}[/blue]."
+  },
+  {
+   "event": "SELF_HELP_BOOK",
+   "option": "READ_PASSAGE",
+   "title": "Lire un passage au hasard",
+   "description": "Choisissez une Compétence à [gold]Envoûter[/gold] avec [purple]{Enchantment2}[/purple] [blue]{Enchantment2Amount}[/blue]."
+  },
+  {
+   "event": "SELF_HELP_BOOK",
+   "option": "READ_THE_BACK",
+   "title": "Lire la quatrième de couverture",
+   "description": "Choisissez une Attaque à [gold]Envoûter[/gold] avec [purple]{Enchantment1}[/purple] [blue]{Enchantment1Amount}[/blue]."
+  },
+  {
+   "event": "SHADOWFALL-MIRROR_MIRROR",
+   "option": "TAKE_CARDS",
+   "title": null,
+   "description": ""
+  },
+  {
+   "event": "SLIPPERY_BRIDGE",
+   "option": "HOLD_ON_0",
+   "title": "Tenir bon",
+   "description": "Perdez [red]{HpLoss}[/red] PV. La carte ci-dessus est resélectionnée aléatoirement."
+  },
+  {
+   "event": "SLIPPERY_BRIDGE",
+   "option": "HOLD_ON_1",
+   "title": "Tenir bon",
+   "description": "Perdez [red]{HpLoss}[/red] PV. La carte ci-dessus est resélectionnée aléatoirement."
+  },
+  {
+   "event": "SLIPPERY_BRIDGE",
+   "option": "HOLD_ON_2",
+   "title": "Tenir bon",
+   "description": "Perdez [red]{HpLoss}[/red] PV. La carte ci-dessus est resélectionnée aléatoirement."
+  },
+  {
+   "event": "SLIPPERY_BRIDGE",
+   "option": "HOLD_ON_3",
+   "title": "Tenir bon",
+   "description": "Perdez [red]{HpLoss}[/red] PV. La carte ci-dessus est resélectionnée aléatoirement."
+  },
+  {
+   "event": "SLIPPERY_BRIDGE",
+   "option": "HOLD_ON_4",
+   "title": "Tenir bon",
+   "description": "Perdez [red]{HpLoss}[/red] PV. La carte ci-dessus est resélectionnée aléatoirement."
+  },
+  {
+   "event": "SLIPPERY_BRIDGE",
+   "option": "HOLD_ON_5",
+   "title": "Tenir bon",
+   "description": "Perdez [red]{HpLoss}[/red] PV. La carte ci-dessus est resélectionnée aléatoirement."
+  },
+  {
+   "event": "SLIPPERY_BRIDGE",
+   "option": "HOLD_ON_6",
+   "title": "Tenir bon",
+   "description": "Perdez [red]{HpLoss}[/red] PV. La carte ci-dessus est resélectionnée aléatoirement."
+  },
+  {
+   "event": "SLIPPERY_BRIDGE",
+   "option": "HOLD_ON_LOOP",
+   "title": "Tenir bon",
+   "description": "Perdez [red]{HpLoss}[/red] PV. La carte ci-dessus est resélectionnée aléatoirement."
+  },
+  {
+   "event": "SLIPPERY_BRIDGE",
+   "option": "OVERCOME",
+   "title": "Surmonter",
+   "description": "[red]{RandomCard}[/red] est retiré de votre [gold]Deck[/gold]."
+  },
+  {
+   "event": "SPIRALING_WHIRLPOOL",
+   "option": "DRINK",
+   "title": "Boire l’eau",
+   "description": "Récupérez [green]{Heal}[/green] PV."
+  },
+  {
+   "event": "SPIRALING_WHIRLPOOL",
+   "option": "OBSERVE",
+   "title": "Observer",
+   "description": "[gold]Envoûter[/gold] une [gold]Frappe[/gold] ou une [gold]Défense[/gold] avec [purple]Spirale[/purple]."
+  },
+  {
+   "event": "SPIRIT_GRAFTER",
+   "option": "LET_IT_IN",
+   "title": "Accepter",
+   "description": "Récupérez [green]{LetItInHealAmount}[/green] PV. Ajoutez [gold]Métamorphose[/gold] à votre [gold]Deck[/gold]."
+  },
+  {
+   "event": "SPIRIT_GRAFTER",
+   "option": "REJECTION",
+   "title": "Rejeter",
+   "description": "Perdez [red]{RejectionHpLoss}[/red] PV. [gold]Améliorez[/gold] une carte."
+  },
+  {
+   "event": "STONE_OF_ALL_TIME",
+   "option": "LIFT",
+   "title": "Boire et soulever",
+   "description": "Perdez [red]{DrinkRandomPotion}[/red]. Gagnez [blue]{DrinkMaxHpGain}[/blue] PV Max."
+  },
+  {
+   "event": "STONE_OF_ALL_TIME",
+   "option": "PUSH",
+   "title": "Pousser",
+   "description": "Perdez [red]{PushHpLoss}[/red] PV. [gold]Envoûtez[/gold] une Attaque avec [purple]Vigueur[/purple] [blue]{PushVigorousAmount}[/blue]."
+  },
+  {
+   "event": "SUNKEN_STATUE",
+   "option": "DIVE_INTO_WATER",
+   "title": "Plonger dans l’eau",
+   "description": "Obtenez [blue]{Gold}[/blue] [gold]Pièces d’or[/gold]. Perdez [red]{HpLoss}[/red] PV."
+  },
+  {
+   "event": "SUNKEN_STATUE",
+   "option": "GRAB_SWORD",
+   "title": "Prendre l’épée",
+   "description": "Obtenir l’[gold]{Relic}.[/gold]"
+  },
+  {
+   "event": "SUNKEN_TREASURY",
+   "option": "FIRST_CHEST",
+   "title": "Premier coffre",
+   "description": "Récupérez [blue]{SmallChestGold}[/blue] [gold]Pièces d’or[/gold]."
+  },
+  {
+   "event": "SUNKEN_TREASURY",
+   "option": "SECOND_CHEST",
+   "title": "Deuxième coffre",
+   "description": "Récupérez [blue]{LargeChestGold}[/blue] [gold]Pièces d’or[/gold]. Recevez [red]Cupidité[/red]."
+  },
+  {
+   "event": "SYMBIOTE",
+   "option": "APPROACH",
+   "title": "S’approcher",
+   "description": "[gold]Envoûtez[/gold] une Attaque avec [purple]{Enchantment}[/purple]."
+  },
+  {
+   "event": "SYMBIOTE",
+   "option": "KILL_WITH_FIRE",
+   "title": "Réduire en cendres",
+   "description": "Choisissez une carte à [gold]Transformer[/gold]."
+  },
+  {
+   "event": "TABLET_OF_TRUTH",
+   "option": "DECIPHER",
+   "title": "Tout perdre",
+   "description": "Perdez [red]{DecipherMaxHpLoss}[/red] PV Max. [gold]Améliorez[/gold] TOUTES vos cartes."
+  },
+  {
+   "event": "TABLET_OF_TRUTH",
+   "option": "DECIPHER_1",
+   "title": "Déchiffrer",
+   "description": "Perdez [red]{DecipherMaxHpLoss}[/red] PV Max. [gold]Améliorez[/gold] une carte aléatoire de votre Deck."
+  },
+  {
+   "event": "TABLET_OF_TRUTH",
+   "option": "GIVE_UP",
+   "title": "Laisser tomber",
+   "description": "Terminez de lire le texte et passez votre chemin."
+  },
+  {
+   "event": "TABLET_OF_TRUTH",
+   "option": "SMASH",
+   "title": "Détruire",
+   "description": "Récupérez [green]{SmashHPGain}[/green] PV."
+  },
+  {
+   "event": "TANX",
+   "option": "ANCIENT_AFFECTION_BOND",
+   "title": null,
+   "description": ""
+  },
+  {
+   "event": "TEA_MASTER",
+   "option": "BONE_TEA",
+   "title": "Thé d’os",
+   "description": "Payez [red]{BoneTeaCost}[/red] [gold]Pièces d’or[/gold]. {BoneTeaDescription}"
+  },
+  {
+   "event": "TEA_MASTER",
+   "option": "EMBER_TEA",
+   "title": "Thé de braises",
+   "description": "Payez [red]{EmberTeaCost}[/red] [gold]Pièces d’or[/gold]. {EmberTeaDescription}"
+  },
+  {
+   "event": "TEA_MASTER",
+   "option": "TEA_OF_DISCOURTESY",
+   "title": "Thé de l’incivilité",
+   "description": "{TeaOfDiscourtesyDescription}"
+  },
+  {
+   "event": "TEZCATARA",
+   "option": "ANCIENT_AFFECTION_BOND",
+   "title": null,
+   "description": ""
+  },
+  {
+   "event": "THE_FUTURE_OF_POTIONS",
+   "option": "POTION",
+   "title": "Insérer une potion {Rarity}",
+   "description": "Perdez [gold]{Potion}[/gold]. Obtenez une [gold]{Type} {Rarity}[/gold] [gold]Améliorée[/gold]."
+  },
+  {
+   "event": "THE_LANTERN_KEY",
+   "option": "FIGHT",
+   "title": "Combattre",
+   "description": ""
+  },
+  {
+   "event": "THE_LANTERN_KEY",
+   "option": "KEEP_THE_KEY",
+   "title": "Garder la Clé",
+   "description": "Combattez pour obtenir la Clé."
+  },
+  {
+   "event": "THE_LANTERN_KEY",
+   "option": "RETURN_THE_KEY",
+   "title": "Rendre la Clé",
+   "description": "Obtenez [blue]{Gold}[/blue] [gold]Pièces d’or[/gold]."
+  },
+  {
+   "event": "THE_LEGENDS_WERE_TRUE",
+   "option": "NAB_THE_MAP",
+   "title": "Prendre la carte",
+   "description": "Recevez la [gold]Carte au trésor[/gold]."
+  },
+  {
+   "event": "THE_LEGENDS_WERE_TRUE",
+   "option": "SLOWLY_FIND_AN_EXIT",
+   "title": "Chercher la sortie",
+   "description": "Perdez [red]{Damage}[/red] PV. Obtenez [blue]1[/blue] [gold]Potion[/gold] aléatoire."
+  },
+  {
+   "event": "THIS_OR_THAT",
+   "option": "ORNATE",
+   "title": "Cela",
+   "description": "Ajoutez [red]{Curse}[/red] à votre [gold]Deck[/gold]. Obtenez une [gold]Relique[/gold] aléatoire."
+  },
+  {
+   "event": "THIS_OR_THAT",
+   "option": "PLAIN",
+   "title": "Ceci",
+   "description": "Perdez [red]{HpLoss}[/red] PV. Recevez [blue]{Gold}[/blue] [gold]Pièces d’or[/gold]."
+  },
+  {
+   "event": "TH_SAKUYA-STRANGE_INVITE",
+   "option": "REFUSE",
+   "title": null,
+   "description": ""
+  },
+  {
+   "event": "TINKER_TIME",
+   "option": "ATTACK",
+   "title": "Arme",
+   "description": "Fabriquez une Attaque."
+  },
+  {
+   "event": "TINKER_TIME",
+   "option": "CHAOS",
+   "title": "Chaos",
+   "description": "Ajoutez une carte aléatoire à votre [gold]Main[/gold]. Elle coûte [blue]0[/blue] ce tour."
+  },
+  {
+   "event": "TINKER_TIME",
+   "option": "CHOKING",
+   "title": "Étranglement",
+   "description": "Lorsque vous jouez une carte pendant ce tour, l’ennemi perd [blue]{ChokingDamage}[/blue] PV."
+  },
+  {
+   "event": "TINKER_TIME",
+   "option": "CHOOSE_CARD_TYPE",
+   "title": "Accepter",
+   "description": "Créez une carte personnalisée à ajouter à votre [gold]Deck[/gold]."
+  },
+  {
+   "event": "TINKER_TIME",
+   "option": "CURIOUS",
+   "title": "Curiosité",
+   "description": "Les Pouvoirs coûtent [blue]{CuriousReduction}[/blue] {energyPrefix:energyIcons(1)} de moins."
+  },
+  {
+   "event": "TINKER_TIME",
+   "option": "ENERGIZED",
+   "title": "Stimulation",
+   "description": "Gagnez {EnergizedEnergy:energyIcons()}."
+  },
+  {
+   "event": "TINKER_TIME",
+   "option": "EXPERTISE",
+   "title": "Expertise",
+   "description": "Gagnez [blue]{ExpertiseStrength}[/blue] [gold]Force[/gold]. Gagnez [blue]{ExpertiseDexterity}[/blue] [gold]Dextérité[/gold]."
+  },
+  {
+   "event": "TINKER_TIME",
+   "option": "IMPROVEMENT",
+   "title": "Progrès",
+   "description": "À la fin du combat, [gold]Upgrade[/gold] une carte aléatoire de votre Deck."
+  },
+  {
+   "event": "TINKER_TIME",
+   "option": "POWER",
+   "title": "Gadget",
+   "description": "Fabriquez un Pouvoir."
+  },
+  {
+   "event": "TINKER_TIME",
+   "option": "SAPPING",
+   "title": "Abattement",
+   "description": "Appliquez [blue]{SappingWeak}[/blue] [gold]Faible[/gold]. Appliquez [blue]{SappingVulnerable}[/blue] [gold]Vulnérable[/gold]."
+  },
+  {
+   "event": "TINKER_TIME",
+   "option": "SKILL",
+   "title": "Protection",
+   "description": "Fabriquez une Compétence."
+  },
+  {
+   "event": "TINKER_TIME",
+   "option": "VIOLENCE",
+   "title": "Violence",
+   "description": "Inflige ses dégâts [blue]2[/blue] fois de plus."
+  },
+  {
+   "event": "TINKER_TIME",
+   "option": "WISDOM",
+   "title": "Sagesse",
+   "description": "Piochez [blue]{WisdomCards}[/blue] cartes."
+  },
+  {
+   "event": "TRASH_HEAP",
+   "option": "DIVE_IN",
+   "title": "Fouiller au fond",
+   "description": "Perdez [red]{HpLoss}[/red] PV. Obtenez une [gold]Relique[/gold] du passé aléatoire."
+  },
+  {
+   "event": "TRASH_HEAP",
+   "option": "GRAB",
+   "title": "Ramasser de la camelote",
+   "description": "Récupérez [blue]{Gold}[/blue] [gold]Pièces d’or[/gold]. Obtenez une carte aléatoire du passé ."
+  },
+  {
+   "event": "TRIAL",
+   "option": "ACCEPT",
+   "title": "Accepter",
+   "description": "Cédez. Remplissez votre rôle de {characterGender:choose(feminine):Décideuse|Décideur}."
+  },
+  {
+   "event": "TRIAL",
+   "option": "GUILTY",
+   "title": "DÉCISION : Coupable",
+   "description": "Ajoutez [red]Doute[/red] à votre [gold]Deck[/gold]. Gagnez [blue]2[/blue] Récompenses de cartes."
+  },
+  {
+   "event": "TRIAL",
+   "option": "INNOCENT",
+   "title": "DÉCISION : Innocente",
+   "description": "Ajoutez [red]Doute[/red] à votre [gold]Deck[/gold]. [gold]Transformez[/gold] [blue]2[/blue] cartes."
+  },
+  {
+   "event": "TRIAL",
+   "option": "REJECT",
+   "title": "Refuser",
+   "description": "[red]Vous n’avez pas le droit de Refuser.[/red]"
+  },
+  {
+   "event": "UNREST_SITE",
+   "option": "KILL",
+   "title": "Abattre les arbres",
+   "description": "Perdez [red]{MaxHpLoss}[/red] PV Max. Obtenez une [gold]Relique[/gold] aléatoire."
+  },
+  {
+   "event": "UNREST_SITE",
+   "option": "REST",
+   "title": "Se reposer",
+   "description": "[green]Récupérez tous vos PV.[/green] Recevez [red]Nuit blanche[/red]."
+  },
+  {
+   "event": "VAKUU",
+   "option": "ANCIENT_AFFECTION_BOND",
+   "title": null,
+   "description": ""
+  },
+  {
+   "event": "WAR_HISTORIAN_REPY",
+   "option": "UNLOCK_CAGE",
+   "title": "Déverrouiller la cage",
+   "description": "Perdez [gold]Clé de la lanterne[/gold]. Obtenez [gold]Manuel d’Histoire[/gold]."
+  },
+  {
+   "event": "WAR_HISTORIAN_REPY",
+   "option": "UNLOCK_CHEST",
+   "title": "Déverrouiller le coffre",
+   "description": "Perdez [gold]Clé de la lanterne[/gold]. Obtenez [blue]2[/blue] [gold]Potions[/gold] aléatoires. Obtenez [blue]2[/blue] [gold]Reliques[/gold] aléatoires."
+  },
+  {
+   "event": "WATERLOGGED_SCRIPTORIUM",
+   "option": "BLOODY_INK",
+   "title": "Encre sanguinolente",
+   "description": "Gagnez [green]6[/green] PV Max."
+  },
+  {
+   "event": "WATERLOGGED_SCRIPTORIUM",
+   "option": "PRICKLY_SPONGE",
+   "title": "Éponge rêche",
+   "description": "Payez [red]{PricklySpongeGold}[/red] [gold]Pièces d’or[/gold]. [gold]Envoûtez[/gold] [blue]{Cards}[/blue] {Cards:plural:carte|cartes} avec [purple]Stabilité[/purple]."
+  },
+  {
+   "event": "WATERLOGGED_SCRIPTORIUM",
+   "option": "TENTACLE_QUILL",
+   "title": "Stylo tentacule",
+   "description": "Payez [red]{Gold}[/red] [gold]Pièces d’or[/gold]. [gold]Envoûtez[/gold] une carte avec [purple]Stabilité[/purple]."
+  },
+  {
+   "event": "WELCOME_TO_WONGOS",
+   "option": "BARGAIN_BIN",
+   "title": "Panier de bonnes affaires Wongo’s",
+   "description": "Payez [red]{BargainBinCost}[/red] [gold]Pièces d’or[/gold]. Obtenez [blue]1[/blue] [gold]Relique Commune[/gold] aléatoire."
+  },
+  {
+   "event": "WELCOME_TO_WONGOS",
+   "option": "FEATURED_ITEM",
+   "title": "Article Wongo’s du moment",
+   "description": "Payez [red]{FeaturedItemCost}[/red] [gold]Pièces d’or[/gold]. Obtenez [gold]{RandomRelic}[/gold]."
+  },
+  {
+   "event": "WELCOME_TO_WONGOS",
+   "option": "LEAVE",
+   "title": "Partir",
+   "description": "[red]Rétrogradez[/red] une carte aléatoire de votre Deck."
+  },
+  {
+   "event": "WELCOME_TO_WONGOS",
+   "option": "MYSTERY_BOX",
+   "title": "Boîte mystère Wongo's",
+   "description": "Payez [red]{MysteryBoxCost}[/red] [gold]Pièces d’or[/gold]. Obtenez [blue]{MysteryBoxRelicCount}[/blue] [gold]Reliques[/gold] aléatoires après avoir passé [blue]{MysteryBoxCombatCount}[/blue] combats."
+  },
+  {
+   "event": "WELLSPRING",
+   "option": "BATHE",
+   "title": "Se baigner",
+   "description": "Retirez [blue]1[/blue] carte de votre [gold]Deck[/gold]. Ajoutez [blue]{BatheCurses}[/blue] [red]Coupable[/red] à votre [gold]Deck[/gold]."
+  },
+  {
+   "event": "WELLSPRING",
+   "option": "BOTTLE",
+   "title": "Embouteiller",
+   "description": "Obtenez [blue]1[/blue] [gold]Potion[/gold] aléatoire."
+  },
+  {
+   "event": "WHISPERING_HOLLOW",
+   "option": "GOLD",
+   "title": "Échanger des pièces d’or",
+   "description": "Perdez [red]{Gold}[/red] [gold]Pièces d’or[/gold]. Obtenez [blue]2[/blue] [gold]Potions[/gold] aléatoires."
+  },
+  {
+   "event": "WHISPERING_HOLLOW",
+   "option": "HUG",
+   "title": "Serrer dans vos bras",
+   "description": "Perdez [red]{HpLoss}[/red] PV. Choisissez une carte à [gold]Transformer[/gold]."
+  },
+  {
+   "event": "WOOD_CARVINGS",
+   "option": "BIRD",
+   "title": "Oiseau",
+   "description": "Choisissez [blue]1[/blue] carte de départ à [gold]Transformer[/gold] en [gold]{BirdCard}[/gold]."
+  },
+  {
+   "event": "WOOD_CARVINGS",
+   "option": "SNAKE",
+   "title": "Serpent",
+   "description": "[gold]Envoûtez[/gold] [blue]1[/blue] carte avec [purple]{SnakeEnchantment}[/purple]."
+  },
+  {
+   "event": "WOOD_CARVINGS",
+   "option": "TORUS",
+   "title": "Tore",
+   "description": "Choisissez [blue]1[/blue] carte de départ à [gold]Transformer[/gold] en [gold]{ToricCard}[/gold]."
+  },
+  {
+   "event": "YUI_SPIRE_EXPANSION_EVENT_DEMON_SWORD",
+   "option": "SACRIFICE",
+   "title": null,
+   "description": ""
+  },
+  {
+   "event": "YUWANCARD-BLACKSMITH",
+   "option": "UPGRADE",
+   "title": null,
+   "description": ""
+  },
+  {
+   "event": "YUWANCARD-SKULL_GOLD_RUSH",
+   "option": "OBTAIN_RELIC",
+   "title": null,
+   "description": ""
+  },
+  {
+   "event": "YUWANCARD-SUNKEN_STATUE_QUEST",
+   "option": "GRAB_SWORD",
+   "title": null,
+   "description": ""
+  },
+  {
+   "event": "ZEN_WEAVER",
+   "option": "ARACHNID_ACUPUNCTURE",
+   "title": "Acupuncture arachnoïde",
+   "description": "Payez [red]{ArachnidAcupunctureCost}[/red] [gold]Pièces d’or[/gold]. Retirez [blue]2[/blue] cartes de votre [gold]Deck[/gold]."
+  },
+  {
+   "event": "ZEN_WEAVER",
+   "option": "BREATHING_TECHNIQUES",
+   "title": "Techniques de respiration",
+   "description": "Payez [red]{BreathingTechniquesCost}[/red] [gold]Pièces d’or[/gold]. Ajoutez [blue]2[/blue] [gold]Illuminations[/gold] dans votre [gold]Deck[/gold]."
+  },
+  {
+   "event": "ZEN_WEAVER",
+   "option": "EMOTIONAL_AWARENESS",
+   "title": "Conscience émotionnelle",
+   "description": "Payez [red]{EmotionalAwarenessCost}[/red] [gold]Pièces d’or[/gold]. Retirez [blue]1[/blue] carte de votre [gold]Deck[/gold]."
+  },
+  {
+   "event": "ZSPROJECT-STYX_ZS_EVENT",
+   "option": "RELIC",
+   "title": null,
+   "description": ""
+  },
+  {
+   "event": "pages",
+   "option": "ANCIENT_AFFECTION_MARRIAGE_BOND",
+   "title": null,
+   "description": ""
+  }
+ ]
+}

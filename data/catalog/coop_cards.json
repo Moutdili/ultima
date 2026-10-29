@@ -1,0 +1,281 @@
+{
+ "schema": "ultima.catalog.coop-cards/1",
+ "source": "data/catalog/cards_effects.json (catalogue commité, targets AnyAlly | AllAllies)",
+ "generated_by": "tools/index_coop.py",
+ "count": 13,
+ "counts_by_target": {
+  "AnyAlly": 8,
+  "AllAllies": 5
+ },
+ "field_notes": {
+  "selection": "cartes de data/catalog/cards_effects.json dont target vaut AnyAlly ou AllAllies ; aucune autre carte n'entre dans ce fichier.",
+  "target": "AnyAlly = un allié choisi (le porteur ne se cible pas) ; AllAllies = tous les joueurs, porteur compris.",
+  "affects_carrier": "dérivé de target : true si AllAllies (le texte dit « ALL players »).",
+  "powers": "pouvoirs appliqués, avec leur montant lu dans vars (<Power>Power puis <Power>) ; amount = null si l'index ne chiffre pas ce pouvoir.",
+  "resources": "ressources données en dehors des pouvoirs (bloc, énergie, cartes, invocation), lues dans vars ; clé absente = la carte n'en donne pas.",
+  "self_costs": "coût payé par le porteur (HpLoss) ; clé absente = aucun.",
+  "calculation": "true = montant calculé depuis l'état du board (CalculationBase/CalculationExtra) : non chiffrable sans l'état des joueurs.",
+  "unquantified": "true = ni pouvoir, ni ressource, ni calcul : effet réel mais non chiffré par l'index des effets (canalisation, carte aléatoire).",
+  "upgrade": "dict brut de cards_effects.json (deltas en chaînes) ; non déplié dans ce fichier.",
+  "description": "absente ici : les textes vivent dans data/codex/cards.json, non commité. Ce fichier reste reproductible depuis le seul catalogue commité."
+ },
+ "cards": [
+  {
+   "id": "BELIEVE_IN_YOU",
+   "name": "Believe in You",
+   "target": "AnyAlly",
+   "type": "Skill",
+   "rarity": "Uncommon",
+   "color": "colorless",
+   "cost": 0,
+   "affects_carrier": false,
+   "powers": [],
+   "resources": {
+    "energy": 2
+   },
+   "self_costs": {},
+   "calculation": false,
+   "unquantified": false,
+   "upgrade": {
+    "energy": "+1"
+   }
+  },
+  {
+   "id": "COORDINATE",
+   "name": "Coordinate",
+   "target": "AnyAlly",
+   "type": "Skill",
+   "rarity": "Uncommon",
+   "color": "colorless",
+   "cost": 1,
+   "affects_carrier": false,
+   "powers": [
+    {
+     "power": "Strength",
+     "amount": 5
+    }
+   ],
+   "resources": {},
+   "self_costs": {},
+   "calculation": false,
+   "unquantified": false,
+   "upgrade": {
+    "strength": "+3"
+   }
+  },
+  {
+   "id": "DEMONIC_SHIELD",
+   "name": "Demonic Shield",
+   "target": "AnyAlly",
+   "type": "Skill",
+   "rarity": "Uncommon",
+   "color": "ironclad",
+   "cost": 0,
+   "affects_carrier": false,
+   "powers": [],
+   "resources": {},
+   "self_costs": {
+    "hp": 1
+   },
+   "calculation": true,
+   "unquantified": false,
+   "upgrade": {
+    "remove_exhaust": 1
+   }
+  },
+  {
+   "id": "ENERGY_SURGE",
+   "name": "Energy Surge",
+   "target": "AllAllies",
+   "type": "Skill",
+   "rarity": "Uncommon",
+   "color": "defect",
+   "cost": 1,
+   "affects_carrier": true,
+   "powers": [],
+   "resources": {
+    "energy": 2
+   },
+   "self_costs": {},
+   "calculation": false,
+   "unquantified": false,
+   "upgrade": {
+    "energy": "+1"
+   }
+  },
+  {
+   "id": "GLIMPSE_BEYOND",
+   "name": "Glimpse Beyond",
+   "target": "AllAllies",
+   "type": "Skill",
+   "rarity": "Rare",
+   "color": "necrobinder",
+   "cost": 1,
+   "affects_carrier": true,
+   "powers": [],
+   "resources": {
+    "cards": 3
+   },
+   "self_costs": {},
+   "calculation": false,
+   "unquantified": false,
+   "upgrade": {
+    "cards": "+1"
+   }
+  },
+  {
+   "id": "HUDDLE_UP",
+   "name": "Huddle Up",
+   "target": "AllAllies",
+   "type": "Skill",
+   "rarity": "Uncommon",
+   "color": "colorless",
+   "cost": 1,
+   "affects_carrier": true,
+   "powers": [],
+   "resources": {
+    "cards": 2
+   },
+   "self_costs": {},
+   "calculation": false,
+   "unquantified": false,
+   "upgrade": {
+    "cards": "+1"
+   }
+  },
+  {
+   "id": "IGNITION",
+   "name": "Ignition",
+   "target": "AnyAlly",
+   "type": "Skill",
+   "rarity": "Rare",
+   "color": "defect",
+   "cost": 1,
+   "affects_carrier": false,
+   "powers": [],
+   "resources": {},
+   "self_costs": {},
+   "calculation": false,
+   "unquantified": true,
+   "upgrade": {
+    "remove_exhaust": 1
+   }
+  },
+  {
+   "id": "INTERCEPT",
+   "name": "Intercept",
+   "target": "AnyAlly",
+   "type": "Skill",
+   "rarity": "Uncommon",
+   "color": "colorless",
+   "cost": 1,
+   "affects_carrier": false,
+   "powers": [],
+   "resources": {
+    "block": 9
+   },
+   "self_costs": {},
+   "calculation": false,
+   "unquantified": false,
+   "upgrade": {
+    "block": "+4"
+   }
+  },
+  {
+   "id": "LARGESSE",
+   "name": "Largesse",
+   "target": "AnyAlly",
+   "type": "Skill",
+   "rarity": "Uncommon",
+   "color": "regent",
+   "cost": 0,
+   "affects_carrier": false,
+   "powers": [],
+   "resources": {},
+   "self_costs": {},
+   "calculation": false,
+   "unquantified": true,
+   "upgrade": {
+    "description_changed": 1
+   }
+  },
+  {
+   "id": "LEGION_OF_BONE",
+   "name": "Legion of Bone",
+   "target": "AllAllies",
+   "type": "Skill",
+   "rarity": "Uncommon",
+   "color": "necrobinder",
+   "cost": 2,
+   "affects_carrier": true,
+   "powers": [],
+   "resources": {
+    "summon": 6
+   },
+   "self_costs": {},
+   "calculation": false,
+   "unquantified": false,
+   "upgrade": {
+    "summon": "+2"
+   }
+  },
+  {
+   "id": "LIFT",
+   "name": "Lift",
+   "target": "AnyAlly",
+   "type": "Skill",
+   "rarity": "Uncommon",
+   "color": "colorless",
+   "cost": 1,
+   "affects_carrier": false,
+   "powers": [],
+   "resources": {
+    "block": 11
+   },
+   "self_costs": {},
+   "calculation": false,
+   "unquantified": false,
+   "upgrade": {
+    "block": "+5"
+   }
+  },
+  {
+   "id": "MIMIC",
+   "name": "Mimic",
+   "target": "AnyAlly",
+   "type": "Skill",
+   "rarity": "Rare",
+   "color": "colorless",
+   "cost": 1,
+   "affects_carrier": false,
+   "powers": [],
+   "resources": {},
+   "self_costs": {},
+   "calculation": true,
+   "unquantified": false,
+   "upgrade": {
+    "remove_exhaust": 1
+   }
+  },
+  {
+   "id": "RALLY",
+   "name": "Rally",
+   "target": "AllAllies",
+   "type": "Skill",
+   "rarity": "Rare",
+   "color": "colorless",
+   "cost": 2,
+   "affects_carrier": true,
+   "powers": [],
+   "resources": {
+    "block": 12
+   },
+   "self_costs": {},
+   "calculation": false,
+   "unquantified": false,
+   "upgrade": {
+    "block": "+5"
+   }
+  }
+ ]
+}
