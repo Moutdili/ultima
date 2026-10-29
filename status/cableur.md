@@ -1,4 +1,102 @@
-# Câbleur — Ultima.Daemon (orchestration temps réel et IPC) — rendu du 2026-10-29
+# Câbleur — mission 2 : contrat v1.2/v1.3 dans le daemon — rendu du 2026-10-29 (18:10)
+
+Branche `v2/cableur`, fusionnée avec `origin/main` (a62893f). Auteur Mio, aucune mention d'outil.
+Aucune lecture mémoire du vrai jeu (le jeu était fermé pendant les essais ; vérifié avant chacun).
+
+## Commits
+| sha | objet |
+|---|---|
+| `78e23f6` | feat(daemon): accept event and piles sections in the mirror probe CLI |
+| `68f3d5a` | feat(daemon): fill contract v1.2/v1.3 map, route, party, event, review, HUD |
+| `2d48966` | feat(daemon): document v1.3 IPC and add a real daemon state sample |
+
+## Livré (par point de la mission)
+1. **Map / Route / Party / Allies** : `EngineState.Map` depuis la save (acte courant visible, types bruts =
+   `RoomTypes`, liens, cases visitées, position, boss ; acte futur jamais publié) ; `EngineState.Route` via
+   `RoutePlanner` (Hermes) ; `RunView.Party` = tous les joueurs de la save (`IsLocal`), PV repris de la mémoire
+   si la dernière lecture VÉRIFIÉE est plus récente que la save ; `ScoringContext.Allies` = alliés sans le local.
+2. **Event** : besoin miroir `event` à l'entrée d'une salle d'événement → `EventView` + `EventAdvisor`
+   (ids passés nus : `ABYSSAL_BATHS`, `IMMERSE`). Tant que le miroir ne sait pas lire la section : `null`,
+   aucune dégradation, UNE tentative par lancement du jeu. CLI du probe : `--sections …,event,piles`, appel de
+   `GameReader.ReadEvent()/ReadPiles()` par réflexion s'ils existent, sinon champ `"unsupported"`.
+3. **Revue** : op socket `{"op":"review.open","runId"}` → `review/<hash>.json` via `IReviewBuilder`, hors
+   boucle, 30 s max, cache, refus pendant une partie. Hermes n'a pas d'implémentation →
+   `{"op":"review.open","runId":…,"ok":false,"error":"review indisponible"}`.
+4. **HUD v1.3** : `settings.json` → `state.settings.hud`, validé champ par champ (valeur invalide → défaut de
+   ce champ ; `hud` absent/null → `HudSettings.Default`).
+5. **Journal** : `~/.local/state/ultima/daemon.log` (`$XDG_STATE_HOME`, option `--log`), lignes
+   `2026-10-29 18:07:55.628 INFO  message` (INFO/WARN/ERROR/DEBUG alignés sur 5), copie stderr, rotation > 5 Mio.
+6. **Échantillon** : `docs/ipc/state.v13.sample.json` = `ultima-daemon dump` sur la save réelle (jeu fermé),
+   sans SteamID ni chemin personnel. Le chef le reprend pour `docs/22-state.sample.json`.
+Aussi : `ultima-mirror` cherché dans le dossier du daemon (installation `~/.local/share/ultima/bin`).
+
+## Preuves brutes
+```
+dotnet build Ultima.sln   → 0 erreur ; 1 avertissement préexistant (Ultima.Saves.Tests/RunSaveReaderTests.cs:228, xUnit1031)
+dotnet test Ultima.sln
+Passed!  - Failed: 0, Passed:  64 - Ultima.Saves.Tests.dll
+Passed!  - Failed: 0, Passed:  63 - Ultima.Knowledge.Tests.dll
+Passed!  - Failed: 0, Passed:  39 - Ultima.Daemon.Tests.dll
+Passed!  - Failed: 0, Passed: 252 - Ultima.Engine.Tests.dll
+```
+(l'erreur Debug de `Ultima.sln` signalée en mission 1 est corrigée sur main.)
+
+Tests ajoutés (`V12Tests`, 11) : carte (types ⊂ RoomTypes, graphe fermé, visitées = save, acte futur null) ;
+route du planificateur, panne → null ; équipe solo (1 entrée locale, 0 allié) et co-op (2 joueurs, alliés sans
+le local, PV mémoire) ; événement (ids nus, option non mesurée → null) ; lecture `event` à l'entrée puis effacée
+sur vote ; section non prise en charge → 1 tentative par session (rejeu du log réel : 4 lectures au lieu de 8) ;
+revue sans implémentation, avec implémentation factice (fichier, cache, `runId` hostile `../../etc/passwd`
+refusé, run introuvable, op inconnue, JSON illisible, refus en partie), op sur la vraie socket ; HUD ; format du
+journal. Le rejeu complet du log solo réel donne maintenant `[Event, Reward, Event, Event, Event, Event, Reward, Shop]`
+(5 salles d'événement du log), toujours 0 lecture en combat.
+
+`dump` sur la vraie save (jeu fermé) :
+```
+contrat 1 3 ; map acte 0 7 x 16, 57 nœuds, position (3,5), boss (3,16), 6 visités,
+types [ancient, boss, elite, monster, rest_site, shop, treasure, unknown]
+route : 12 pas, 28 PV attendus au boss, mayBeLethal false, « PathPlanner v1 · rooms.json (80 000 runs solo) · PV cumulés »
+équipe : [La Tisse-Mort, local, 70/73, 14 cartes] ; hud : verre 0.55 0.62 right ; event : null
+```
+Bout en bout (vrai `ultima-mirror` enfant, cible `Sts2Shape.TestTarget`, jamais le jeu) :
+```
+probe --json --sections run,event,piles → exit 0, sections [run], unsupported [event, piles]
+daemon : 2 salles d'événement → 1 seule lecture : « mirror Event exit=0 mirror ms=122 »
+         puis « miroir : section « event » non prise en charge (Miroir 2 à venir) … »
+socket : → {"op":"review.open","runId":"abandon_solo"}
+         ← {"op":"review.open","runId":"abandon_solo","ok":false,"error":"review indisponible"}
+journal : $XDG_STATE_HOME/ultima/daemon.log, lignes « 2026-10-29 18:08:02.036 INFO  mirror Event exit=0 mirror ms=122 »
+```
+Sobriété (binaire final, jeu fermé, 60 s) : `utime=31 stime=3` à t0 et t60 (0 tick), 6 réveils, top 0,0 %.
+
+## Ce qui n'est PAS prouvé
+- Rien sur le vrai jeu en mémoire (aucune fenêtre de test) : PV d'équipe repris de la mémoire, `event` réel.
+- `event` : la section n'existe pas encore (Miroir 2) ; forme attendue proposée dans `docs/ipc/README.md` §4.2,
+  non validée par Miroir 2. Les ids d'options réels du jeu (clé de texte ?) ne sont pas confirmés.
+- Revue : aucun `IReviewBuilder` réel ; seul le chemin « indisponible » tourne en vrai, le chemin « ok » est
+  prouvé avec une implémentation factice.
+- Co-op : construit et testé sur une save synthétique (2 joueurs) ; `AllyView.Name` = nom du PERSONNAGE
+  (la save ne contient pas le pseudo Steam) ; un client co-op SANS `current_run_mp.save` n'a pas d'état run.
+- Carte : seule la save est source ; mise à jour à chaque réécriture de la save (pas au vote).
+- Un événement à plusieurs pages : une seule lecture à l'entrée (pas de signal de log pour la page suivante).
+
+## Besoins pour la prochaine fenêtre de test
+Ceux de la mission 1 (parcours combat → récompense → marchand + achat → événement → feu → trésor → menu,
+MangoHud A/B), plus : vérifier `map`/`route` contre l'écran de carte ; une salle d'événement une fois la
+section `event` de Miroir 2 livrée (ids d'options, plusieurs pages) ; co-op hôte pour `party`.
+
+## Demandes (contrat et autres parties)
+1. **Miroir 2** : section `event` à la forme de `docs/ipc/README.md` §4.2 (ou me dire la sienne) ; `piles` sans
+   l'ordre de la pioche.
+2. **Hermes** : implémentation d'`IReviewBuilder` (le daemon l'appelle dès qu'elle existe : un seul endroit,
+   `DaemonHost.BuildEngine`).
+3. **Chef** : reprendre `docs/ipc/state.v13.sample.json` dans `docs/22-state.sample.json` ; nullabilité de
+   `RewardView.SkipScore`, `DeckEvaluation.Score`, `CardView.Cost` (toujours ouverte, voir mission 1) ;
+   `AllyView.Name` : pseudo non disponible dans la save, préciser si le nom du personnage convient.
+4. **Ultima.Saves** : signaux de log menu/abandon/achat (toujours ouverts, mission 1).
+
+---
+
+# Mission 1 — Ultima.Daemon (orchestration temps réel et IPC) — rendu du 2026-10-29
 
 Branche `v2/cableur` (worktree `/home/mio/v2-cableur`), à jour avec `origin/main` (1dd1654, contrat v1.2).
 Auteur des commits : Mio ; aucune mention d'outil dans les messages (consigne du chef).
