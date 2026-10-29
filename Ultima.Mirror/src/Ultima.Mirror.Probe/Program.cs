@@ -6,7 +6,8 @@ using Ultima.Mirror;
 // Exit codes: 0 ok, 2 game not running, 3 attach failed, 4 layout drift, 5 watchdog, 6 save≠mémoire, 7 section INCONNUE, 1 usage.
 //
 // --json (Câbleur, docs/ipc/README.md) : exactement UNE ligne JSON sur stdout par appel, aucun autre texte ;
-// le code de sortie est inchangé. Schéma : { v, cmd, exit, ms, error, health{…}, sections{name:{stable,attempts,ms,error,value}}, compare }.
+// le code de sortie est inchangé. Schéma : { v, cmd, exit, ms, error, health{…}, sections{name:{stable,attempts,ms,error,value}},
+// unsupported[], compare }. « event » et « piles » (Miroir 2) : lues si GameReader.ReadEvent()/ReadPiles() existent.
 
 var cmd = args.Length > 0 ? args[0] : "help";
 string? Opt(string name) { int i = Array.IndexOf(args, name); return i >= 0 && i + 1 < args.Length ? args[i + 1] : null; }
@@ -14,6 +15,10 @@ bool jsonMode = args.Contains("--json");
 var json = new JsonSerializerOptions { WriteIndented = !args.Contains("--compact"), Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping };
 var jsonLine = new JsonSerializerOptions(JsonSerializerOptions.Web) { WriteIndented = false, Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping };
 var started = System.Diagnostics.Stopwatch.StartNew();
+
+// Sections : lues par la bibliothèque actuelle, et sections annoncées par Miroir 2 (event, piles).
+string[] KnownSections = { "run", "reward", "shop", "combat" };
+string[] FutureSections = { "event", "piles" };
 
 // Sortie JSON : un seul objet, émis une seule fois (le chien de garde et le chemin normal se le disputent).
 var outObj = new JsonObject { ["v"] = 1, ["cmd"] = cmd };
@@ -47,7 +52,7 @@ try
             if (jsonMode) return Finish(1, "commande inconnue");
             Console.WriteLine("""
                 ultima-mirror layout [--dll PATH] [--json]   vérifie ObjectPaths contre la métadonnée de sts2.dll (sans le jeu)
-                ultima-mirror probe [--pid N] [--dac PATH] [--comm NAME] [--count TYPE] [--sections run,reward,shop,combat]
+                ultima-mirror probe [--pid N] [--dac PATH] [--comm NAME] [--count TYPE] [--sections run,reward,shop,combat,event,piles]
                                     [--timeout S | --timeout-ms MS] [--compact] [--compare-save [--save PATH]] [--json]
                                                              s'attache en LECTURE SEULE (suspend:false) et lit l'état
                 ultima-mirror self-check                     liste blanche vs champs interdits
@@ -207,6 +212,26 @@ int Probe()
         Show("reward", reader.ReadRewards);
         Show("shop", reader.ReadShop);
         Show("combat", reader.ReadCombat);
+        // Sections à venir (agent Miroir 2) : appelées si la bibliothèque expose GameReader.Read<Nom>() ; sinon
+        // listées dans « unsupported » (ce n'est PAS une lecture instable : code de sortie inchangé).
+        var unsupported = new JsonArray();
+        foreach (var name in sections.Where(n => !KnownSections.Contains(n)))
+        {
+            var method = FutureSections.Contains(name)
+                ? typeof(GameReader).GetMethod("Read" + char.ToUpperInvariant(name[0]) + name[1..], Type.EmptyTypes)
+                : null;
+            if (method is null) { unsupported.Add(name); Say($"[{name}] non prise en charge par ce miroir"); continue; }
+            Show<object>(name, () =>
+            {
+                try { return method.Invoke(reader, null)!; }
+                catch (System.Reflection.TargetInvocationException e) when (e.InnerException is not null)
+                {
+                    System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(e.InnerException).Throw();
+                    throw;
+                }
+            });
+        }
+        outObj["unsupported"] = unsupported;
 
         if (args.Contains("--compare-save"))
         {
