@@ -2,13 +2,16 @@ using Ultima.Engine.Contracts;
 using Ultima.Engine.Scoring.Cards;
 using Ultima.Engine.Scoring.Model;
 using Ultima.Engine.Scoring.Personal;
+using Ultima.Engine.Scoring.Strength;
 using Ultima.Saves.Model;
 
 namespace Ultima.Engine.Scoring.Relics;
 
 /// <summary>
 /// Score d'une relique (récompense, shop). Formule figée (docs/24-hermes-arch.md §2) :
-/// <c>consensus × 0.75 + synergie deck/personnage (0..+5)</c>, total borné 0..100.
+/// <c>consensus × 0.75 + synergie deck/personnage (0..+5)</c>, plus le <b>fit au deck (ΔG)</b>
+/// borné ±15 (docs/27 §3 L1, §7bis) : une relique médiocre en général mais qui comble un trou du
+/// deck (bloc, pioche, énergie) remonte. Total borné 0..100.
 ///
 /// Une relique sans note chiffrée — catégorie d'Ancien (« Always Amazing », « Needs Synergy »…
 /// non converties en score, cf. <c>score_conventions.ancient_category</c> de
@@ -20,15 +23,41 @@ public sealed class RelicScorer
     /// <summary>Plafond de la synergie deck/personnage (formule figée : 0..+5).</summary>
     public const int MaxSynergy = 5;
 
+    /// <summary>
+    /// Amplitude maximale du fit d'une relique (docs/27 §3 L1). Plus étroite que celle des cartes
+    /// (±20) : une relique ne fait pas gagner un combat à elle seule, et ses effets sont des tags,
+    /// pas des valeurs mesurées (S11).
+    /// </summary>
+    public const int MaxFit = 15;
+
+    /// <summary>
+    /// Échelle ΔG → points. Les <b>tags</b> de reliques ne portent pas de valeurs numériques (S11) :
+    /// leur ΔG est structurellement plus petit que celui d'une carte (max mesuré 6 sur les 304
+    /// reliques du catalogue, deck sans bloc). ×2,5 porte ce maximum au plafond de 15.
+    /// <b>Non calibré</b> : ordre de grandeur assumé, à revoir au backtest (docs/27 §5).
+    /// </summary>
+    public const double FitScale = 2.5;
+
+    /// <summary>
+    /// Taille minimale du deck pour mesurer un fit (même règle que les cartes : pas de fit sur un
+    /// deck naissant, où G mesure surtout la dilution).
+    /// </summary>
+    public const int MinDeckForFit = CardScorer.MinDeckForFit;
+
     private readonly IMetaTable _meta;
     private readonly IPersonalStats _personal;
     private readonly RelicCatalog _catalog;
+    private readonly PlayerStrengthCalculator _strength;
 
-    public RelicScorer(IMetaTable meta, IPersonalStats personal, RelicCatalog? catalog = null)
+    public RelicScorer(IMetaTable meta, IPersonalStats personal, RelicCatalog? catalog = null,
+        PlayerStrengthCalculator? strength = null)
     {
         _meta = meta;
         _personal = personal;
         _catalog = catalog ?? RelicCatalog.Load();
+
+        // Même catalogue de reliques que le scoring : les tags sont lus une seule fois.
+        _strength = strength ?? new PlayerStrengthCalculator(relics: _catalog);
     }
 
     public Score Score(string relicId, ScoringContext ctx)
@@ -57,6 +86,8 @@ public sealed class RelicScorer
             noteSource = NoScoreBasis(meta);
         }
 
+        if (Fit(meta, ctx) is { } fit) b.Add(fit);
+
         foreach (var term in Synergy(meta, ctx)) b.Add(term);
         foreach (var term in Needs(meta, ctx)) b.Add(term);
 
@@ -65,6 +96,23 @@ public sealed class RelicScorer
             : Confidence.Unknown;
 
         return AddNote(b.Build(confidence), note, noteSource);
+    }
+
+    /// <summary>
+    /// Fit au deck (docs/27 §3 L1) : ΔG de la relique dans les tags de S11
+    /// (<see cref="PlayerStrengthCalculator"/> convertit déjà les reliques en bloc/pioche/énergie),
+    /// borné à <see cref="MaxFit"/>. Deck vide ou relique déjà possédée ⇒ aucun fit.
+    /// </summary>
+    private ScoreTerm? Fit(MetaEntry meta, ScoringContext ctx)
+    {
+        var deck = ctx.Deck ?? Array.Empty<CardInstance>();
+        if (deck.Count < MinDeckForFit) return null;
+
+        var delta = _strength.DeltaForRelicDetailed(ctx, meta.Id);
+        var points = ScoreMath.Clamp(ScoreMath.Round(delta.Delta * FitScale), -MaxFit, MaxFit);
+        if (points == 0) return null;
+
+        return new ScoreTerm("Fit au deck (ΔG)", points, delta.Describe());
     }
 
     /// <summary>

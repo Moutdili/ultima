@@ -1,6 +1,9 @@
+using System.Collections.Concurrent;
+using System.Runtime.CompilerServices;
 using Ultima.Engine.Contracts;
 using Ultima.Engine.Scoring.Model;
 using Ultima.Engine.Scoring.Personal;
+using Ultima.Engine.Scoring.Strength;
 using Ultima.Saves.Model;
 
 namespace Ultima.Engine.Scoring.Cards;
@@ -13,6 +16,9 @@ namespace Ultima.Engine.Scoring.Cards;
 ///   <item><b>Enchantement</b> : +3 + min(2, amount) ;</item>
 ///   <item><b>Malédiction</b> : −30 ;</item>
 ///   <item><b>Historique perso</b> : clamp(round(delta × 40), −8, +8), seulement si ≥5 runs des deux côtés ;</item>
+///   <item><b>Fit au deck (ΔG)</b> : clamp(round(2·ΔG), −20, +20), ΔG = G(deck+carte) − G(deck)
+///         (docs/27 §3 couche L1 et §7bis) — c'est le terme qui fait remonter une carte médiocre
+///         en général mais parfaite pour ce deck ;</item>
 ///   <item><b>Synergie deck / reliques</b> : déléguée à <see cref="SynergyEngine"/> (+3/tag, cap 15 ; reliques 0..+5) ;</item>
 ///   <item><b>Adéquation boss</b> : −10..+10, lue dans <see cref="BossProfile"/> (multi-coups, débuffs, scaling) ;</item>
 ///   <item><b>Courbe de coût</b> : −5..+5, densité du deck au même coût.</item>
@@ -27,15 +33,53 @@ public sealed class CardScorer
     /// <summary>En dessous, la courbe de coût n'a pas de sens statistique.</summary>
     private const int MinDeckForCurve = 5;
 
+    /// <summary>
+    /// Amplitude maximale du fit au deck (docs/27 §3, couche L1 : ±20). Une carte à 45 (C) + 20 de
+    /// fit + besoin peut donc dépasser 70 (A) ; S reste réservé aux cas où le fit s'ajoute à un
+    /// socle déjà haut ou à une synergie forte.
+    /// </summary>
+    public const int MaxFit = 20;
+
+    /// <summary>
+    /// Échelle ΔG → points du terme. docs/27 §7bis écrit <c>note ≈ 2·ΔG + prior</c> : on garde ce 2.
+    /// Un ΔG de 10 (carte qui comble un trou : Impervious dans un deck sans bloc) atteint donc le
+    /// plafond de 20. <b>Non calibré</b> : la valeur attendue vient du backtest (docs/27 §5).
+    /// </summary>
+    public const double FitScale = 2.0;
+
+    /// <summary>
+    /// Taille minimale du deck pour mesurer un fit. En dessous, le débit de G est dominé par la
+    /// dilution : un deck d'une carte la joue à chaque tour, donc ajouter n'importe quoi divise les
+    /// dégâts/tour par deux et ΔG mesure cet artefact, pas un manque. Même seuil que la courbe de
+    /// coût (<see cref="MinDeckForCurve"/>) : « pas de fit sur un deck naissant ».
+    /// </summary>
+    public const int MinDeckForFit = 5;
+
+    private static readonly Lazy<PlayerStrengthCalculator> LazyStrength =
+        new(() => new PlayerStrengthCalculator(), LazyThreadSafetyMode.ExecutionAndPublication);
+
+    /// <summary>
+    /// Mémoïsation par contexte : <c>DeckEvaluator</c> note les 60 cartes d'un deck en boucle avec
+    /// le MÊME <see cref="ScoringContext"/>, et ΔG coûte deux G par carte. Clé = référence du
+    /// contexte (weak, aucune fuite), valeur = ΔG par (carte, niveau d'amélioration). Un contexte
+    /// ne doit pas être muté en place entre deux appels — ils sont immuables par construction.
+    /// Instance (pas statique) : un calculateur injecté ne doit pas relire un cache calculé par un autre.
+    /// </summary>
+    private readonly ConditionalWeakTable<ScoringContext, ConcurrentDictionary<string, StrengthDelta>>
+        _fitMemos = new();
+
     private readonly IMetaTable _meta;
     private readonly IPersonalStats _personal;
     private readonly SynergyEngine _synergy;
+    private readonly PlayerStrengthCalculator _strength;
 
-    public CardScorer(IMetaTable meta, IPersonalStats personal, SynergyEngine synergy)
+    public CardScorer(IMetaTable meta, IPersonalStats personal, SynergyEngine synergy,
+        PlayerStrengthCalculator? strength = null)
     {
         _meta = meta;
         _personal = personal;
         _synergy = synergy;
+        _strength = strength ?? LazyStrength.Value;
     }
 
     public Score ScoreCard(CardInstance card, ScoringContext ctx)
@@ -69,12 +113,36 @@ public sealed class CardScorer
                 $"tes {stats.RunsWithCard + stats.RunsWithoutCard} runs");
         }
 
+        if (Fit(card, ctx) is { } fit) b.Add(fit);
+
         b.AddRange(_synergy.Terms(card, ctx));
 
         if (BossFit(card, ctx) is { } bossFit) b.Add(bossFit);
         if (CostCurve(meta, ctx) is { } curve) b.Add(curve);
 
         return b.Build(Confidence.Of(meta?.SourceCount ?? 0, _personal.RunCount));
+    }
+
+    /// <summary>
+    /// Fit au deck (docs/27 §3 L1) : <c>ΔG = G(deck + carte) − G(deck)</c>, converti en points par
+    /// <see cref="FitScale"/> et borné à <see cref="MaxFit"/>. Les dimensions de G saturent, donc
+    /// une carte dont le besoin est déjà couvert vaut ≈ 0 : c'est l'idempotence exigée par docs/27.
+    /// Deck vide ou naissant (&lt; <see cref="MinDeckForFit"/>) ⇒ aucun fit : il n'y a pas encore de
+    /// deck dont mesurer le manque, et le modèle de débit y est dominé par la dilution.
+    /// </summary>
+    private ScoreTerm? Fit(CardInstance card, ScoringContext ctx)
+    {
+        var deck = ctx.Deck ?? Array.Empty<CardInstance>();
+        if (deck.Count < MinDeckForFit) return null;
+
+        var memo = _fitMemos.GetOrCreateValue(ctx);
+        var key = $"{Ids.Bare(card.Id)}#{card.UpgradeLevel}";
+        var delta = memo.GetOrAdd(key, _ => _strength.DeltaForCardDetailed(ctx, card));
+
+        var points = ScoreMath.Clamp(ScoreMath.Round(delta.Delta * FitScale), -MaxFit, MaxFit);
+        if (points == 0) return null;
+
+        return new ScoreTerm("Fit au deck (ΔG)", points, delta.Describe());
     }
 
     /// <summary>
