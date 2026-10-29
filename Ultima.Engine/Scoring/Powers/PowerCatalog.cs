@@ -15,7 +15,9 @@ public sealed record PowerEntry(
     IReadOnlyDictionary<string, string?> Hooks,
     IReadOnlyDictionary<string, string> HookSources,
     IReadOnlyDictionary<string, string> Problems,
-    IReadOnlyDictionary<string, string[]> DynamicInputs)
+    IReadOnlyDictionary<string, string[]> DynamicInputs,
+    IReadOnlyDictionary<string, string> Resolutions,
+    IReadOnlyDictionary<string, string> ManualSources)
 {
     /// <summary>Le pouvoir surcharge-t-il ce hook ? (même si l'expression n'est pas évaluable)</summary>
     public bool Has(string hook) => Hooks.ContainsKey(hook);
@@ -31,6 +33,23 @@ public sealed record PowerEntry(
     /// <summary>Raison de non-évaluabilité : <c>call</c>, <c>state</c>, <c>local</c>, <c>dynamicvar</c>…</summary>
     public string? Problem(string hook) =>
         Problems.TryGetValue(hook, out var reason) ? reason : null;
+
+    /// <summary>
+    /// D'où vient la valeur du hook : <c>code</c> (extraction automatique), <c>manual</c>
+    /// (table <c>power_constants.json</c> avec ligne de code citée), <c>unresolved</c>
+    /// (aucune valeur — jamais un 1 par défaut).
+    /// </summary>
+    public string ResolutionOf(string hook) =>
+        Resolutions.TryGetValue(hook, out var resolution)
+            ? resolution
+            : Expression(hook) is null ? "unresolved" : "code";
+
+    /// <summary>« fichier:ligne » de la ligne de code qui justifie une valeur manuelle.</summary>
+    public string? ManualSourceOf(string hook) =>
+        ManualSources.TryGetValue(hook, out var src) ? src : null;
+
+    /// <summary>Le hook a-t-il une expression applicable par <see cref="ExpressionEval"/> ?</summary>
+    public bool IsEvaluable(string hook) => Expression(hook) is not null;
 
     /// <summary>Modificateurs externes qui peuvent changer la valeur (PaperPhrog, Cruelty…).</summary>
     public IReadOnlyList<string> ModifiersOf(string hook) =>
@@ -89,6 +108,13 @@ public sealed class PowerCatalog
     /// <summary>Expression du hook pour ce pouvoir, ou <c>null</c> si absente / non évaluable.</summary>
     public string? Expression(string? id, string hook) => Get(id)?.Expression(hook);
 
+    /// <summary>
+    /// Résolution du hook : <c>code</c>, <c>manual</c> ou <c>unresolved</c>. Un pouvoir
+    /// inconnu rend <c>unresolved</c> — jamais une valeur par défaut.
+    /// </summary>
+    public string Resolution(string? id, string hook) =>
+        Get(id)?.ResolutionOf(hook) ?? "unresolved";
+
     public static PowerCatalog Load(string? catalogDir = null)
     {
         var dir = ScoringData.ResolveCatalogDir(catalogDir);
@@ -133,7 +159,9 @@ public sealed class PowerCatalog
                 hooks,
                 ReadMap(el, "hook_sources"),
                 ReadMap(el, "unresolved"),
-                ReadLists(el, "dynamic_inputs"));
+                ReadLists(el, "dynamic_inputs"),
+                ReadMap(el, "resolution"),
+                ReadMap(el, "manual_sources"));
 
             catalog._byId[entry.Id] = entry;
             catalog._byClass[entry.Class] = entry;
