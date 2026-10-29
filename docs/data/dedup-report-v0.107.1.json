@@ -1,9 +1,9 @@
 {
-  "genere_le": "2026-10-29T16:39:16+0100",
+  "genere_le": "2026-10-29T16:51:13+0100",
   "source": "/home/mio/sts2/data/index/runs-v0.107.1.jsonl.gz",
   "sortie": "/home/mio/sts2/data/index/deduped-v0.107.1.jsonl.gz",
   "signature_defaut": "picks",
-  "duree_s": 311.7,
+  "duree_s": 236.8,
   "runs_lues": 785121,
   "runs_uniques": 574569,
   "runs_retirees": 210552,
@@ -211,6 +211,28 @@
     "7": 144,
     "8": 14,
     "9": 8
+  },
+  "runs_par_n_joueurs": {
+    "1": 475845,
+    "2": 183060,
+    "3": 85961,
+    "4": 38552,
+    "5": 1180,
+    "6": 330,
+    "7": 168,
+    "8": 16,
+    "9": 9
+  },
+  "taux_retrait_par_n_joueurs": {
+    "1": 6.12,
+    "2": 51.06,
+    "3": 67.03,
+    "4": 75.15,
+    "5": 80.42,
+    "6": 83.64,
+    "7": 85.71,
+    "8": 87.5,
+    "9": 88.89
   },
   "retraits_par_mode": {
     "standard": 195583,

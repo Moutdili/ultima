@@ -243,6 +243,7 @@ def run_dedup(args) -> int:
     hashes: list = []
     removed_by_asc: Counter = Counter()
     removed_by_n: Counter = Counter()
+    runs_by_n: Counter = Counter()
     removed_by_mode: Counter = Counter()
     removed_wins = 0
     sub_counts: dict = {}
@@ -265,6 +266,7 @@ def run_dedup(args) -> int:
                 f = facets(row)
                 sigs = signatures(f, levels)
                 before.add(row)
+                runs_by_n[len(row.get("pl") or [])] += 1
                 if _is_calibration_row(row):
                     sub_rows += 1
                     s0 = sigs[DEFAULT_LEVEL]
@@ -347,6 +349,11 @@ def run_dedup(args) -> int:
         "retraits_par_ascension": {str(k): v for k, v in sorted(
             removed_by_asc.items(), key=lambda kv: (kv[0] is None, kv[0]))},
         "retraits_par_n_joueurs": {str(k): v for k, v in sorted(removed_by_n.items())},
+        "runs_par_n_joueurs": {str(k): v for k, v in sorted(runs_by_n.items())},
+        "taux_retrait_par_n_joueurs": {
+            str(k): round(100 * removed_by_n.get(k, 0) / v, 2)
+            for k, v in sorted(runs_by_n.items())
+        },
         "retraits_par_mode": dict(removed_by_mode.most_common()),
         "gagnees_retirees": removed_wins,
         "dedup_par_issue": {

@@ -1,8 +1,8 @@
 # 33 — Déduplication du corpus de runs (v0.107.1)
 
 > Mesuré le 2026-10-29 sur `data/index/runs-v0.107.1.jsonl.gz` (785 121 runs, 19,0 M décisions
-> de cartes). Outil : `tools/dedup.py`. Rapport machine : `docs/data/dedup-report-v0.107.1.json`
-> (copie de `data/index/dedup-report.json`, gitignoré).
+> de cartes). Outil : `tools/dedup.py`. Rapports machine : `docs/data/dedup-report-v0.107.1.json`
+> (copie de `data/index/dedup-report.json`, gitignoré) et `docs/data/dedup-audit-sample100k.json`.
 > Complète `docs/32` §3, qui annonçait « 38 % de doublons » sur 10 000 runs **gagnées**.
 
 ## 1. Ce qui est mesuré, et avec quelle signature
@@ -56,19 +56,24 @@ gagnées sont des doublons, contre 24,25 % des runs perdues. Sur tout le corpus,
 
 ## 3. Où sont les doublons
 
-**Le co-op explique presque tout.** Les retraits par nombre de joueurs :
+**Le co-op explique presque tout — et la cause est arithmétique.** Le taux de retrait par nombre de
+joueurs suit exactement `(n−1)/n` :
 
-| joueurs | retraits | part |
-|---|---:|---:|
-| 1 (solo) | 29 109 | 13,8 % |
-| 2 | 93 466 | 44,4 % |
-| 3 | 57 616 | 27,4 % |
-| 4 | 28 970 | 13,8 % |
-| ≥ 5 | 1 391 | 0,7 % |
+| joueurs | runs | retraits | taux observé | `(n−1)/n` |
+|---:|---:|---:|---:|---:|
+| 1 (solo) | 475 845 | 29 109 | **6,1 %** | — |
+| 2 | 183 060 | 93 466 | 51,1 % | 50,0 % |
+| 3 | 85 961 | 57 616 | 67,0 % | 66,7 % |
+| 4 | 38 552 | 28 970 | 75,1 % | 75,0 % |
+| 5 | 1 180 | 949 | 80,4 % | 80,0 % |
+| 6 | 330 | 276 | 83,6 % | 83,3 % |
+| 7 | 168 | 144 | 85,7 % | 85,7 % |
 
-Le co-op représente 39,4 % du corpus brut mais **86,2 % des retraits** : chaque session co-op est
-uploadée par plusieurs joueurs (les `player_stats` portent l'identifiant Steam de chaque joueur, et
-la session est identique pour tous). Après dédup, le co-op tombe à 22,25 % du corpus.
+Autrement dit : une session co-op est enregistrée **une fois par joueur** (chaque client soumet la
+partie complète, avec les `player_stats` de tous les participants). Le fichier contient donc `n`
+copies de la même partie, et la déduplication en garde une — c'est le comportement correct, pas une
+fusion abusive. Le co-op pèse 39,4 % du corpus mais **86,2 % des retraits** ; après dédup il tombe à
+22,25 %. Hors effet co-op, le doublon résiduel est de **6,1 % en solo** (re-uploads, relances).
 
 Les runs sans aucune décision (mort ou abandon avant la première récompense) sont 19 415 (2,5 %)
 avant, 2 089 après : 17 326 retraits, soit 8,2 % du total. Ces runs ne portent presque aucune
