@@ -55,11 +55,12 @@ public sealed class StateAssembler
 
     public CardView Card(CardInstance c, Score? score)
     {
-        var info = Guard("knowledge.card", () => _k.Card(c.Id)) ?? Fallbacks.Card(c.Id);
+        // v1.2 : nom « + », coût et texte au niveau d'amélioration de la save
+        var info = Guard("knowledge.card", () => _k.Card(c.Id, c.UpgradeLevel)) ?? Fallbacks.Card(c.Id);
         EnchantmentView? ench = null;
         if (c.Enchantment is { } e)
         {
-            var ei = Guard("knowledge.enchantment", () => _k.Enchantment(e.Id));
+            var ei = Guard("knowledge.enchantment", () => _k.Enchantment(e.Id, e.Amount)); // v1.2 : texte avec le montant
             ench = new EnchantmentView(e.Id, ei?.Name ?? e.Id, e.Amount, ei?.Description ?? "");
         }
         bool curse = info.IsCurse || NullKnowledge.KnownCurses.Contains(c.Id);

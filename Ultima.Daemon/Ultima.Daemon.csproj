@@ -20,6 +20,7 @@
   <ItemGroup>
     <ProjectReference Include="../Ultima.Engine/Ultima.Engine.csproj" />
     <ProjectReference Include="../Ultima.Saves/Ultima.Saves.csproj" />
+    <ProjectReference Include="../Ultima.Knowledge/Ultima.Knowledge.csproj" />
   </ItemGroup>
   <ItemGroup>
     <InternalsVisibleTo Include="Ultima.Daemon.Tests" />

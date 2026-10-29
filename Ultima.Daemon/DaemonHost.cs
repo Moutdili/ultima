@@ -62,7 +62,7 @@ public sealed class DaemonHost : IDisposable
     /// <summary>Construit connaissance + calcul. Toute erreur du calcul → null (scores « — »), jamais un arrêt.</summary>
     public static (IKnowledge, IScorer?, IPathAnalyzer?) BuildEngine(ProfilePaths? paths, bool scoring, string? dataDir = null)
     {
-        IKnowledge knowledge = NullKnowledge.Instance; // TODO(Encyclopédiste) : Ultima.Knowledge dès qu'elle est livrée
+        var knowledge = LoadKnowledge();
         if (!scoring) return (knowledge, null, null);
         if (DataRoot.Apply(dataDir) is null) return (knowledge, null, null);
         IPersonalStats personal = PersonalStats.Empty();
@@ -75,6 +75,22 @@ public sealed class DaemonHost : IDisposable
         try { analyzer = new PathAnalyzer(personal); }
         catch (Exception e) { Diag.Warn($"calcul des chemins indisponible : {e.Message}"); }
         return (knowledge, scorer, analyzer);
+    }
+
+    /// <summary>
+    /// Base de connaissance de l'Encyclopédiste (<c>~/.local/share/ultima/kb/kb.json</c>, construite par
+    /// <c>tools/kb/build-kb</c>). Absente ou illisible : <see cref="NullKnowledge"/> (noms = identifiants).
+    /// </summary>
+    public static IKnowledge LoadKnowledge()
+    {
+        try
+        {
+            var kb = Ultima.Knowledge.KnowledgeBase.TryLoadDefault(out var error);
+            if (kb is not null) { Diag.Info($"connaissance : {Ultima.Knowledge.KnowledgeBase.DefaultPath}"); return kb; }
+            Diag.Warn($"connaissance indisponible ({error}) : noms = identifiants");
+        }
+        catch (Exception e) { Diag.Warn($"connaissance indisponible ({e.GetType().Name}: {e.Message}) : noms = identifiants"); }
+        return NullKnowledge.Instance;
     }
 
     public static ProfilePaths? Locate(string? root, out string? error)
