@@ -1,0 +1,308 @@
+[
+ {
+  "class": "AccuracyPower",
+  "file": "Models/Powers/AccuracyPower.cs",
+  "hooks": [
+   "Additive"
+  ],
+  "literals": [
+   0.0
+  ]
+ },
+ {
+  "class": "CalcifyPower",
+  "file": "Models/Powers/CalcifyPower.cs",
+  "hooks": [
+   "Additive"
+  ],
+  "literals": [
+   0.0
+  ]
+ },
+ {
+  "class": "ColossusPower",
+  "file": "Models/Powers/ColossusPower.cs",
+  "hooks": [
+   "Multiplicative"
+  ],
+  "literals": [
+   1.0
+  ]
+ },
+ {
+  "class": "ConquerorPower",
+  "file": "Models/Powers/ConquerorPower.cs",
+  "hooks": [
+   "Multiplicative"
+  ],
+  "literals": [
+   1.0,
+   2.0
+  ]
+ },
+ {
+  "class": "CoveredPower",
+  "file": "Models/Powers/CoveredPower.cs",
+  "hooks": [
+   "Multiplicative"
+  ],
+  "literals": [
+   0.0,
+   1.0
+  ]
+ },
+ {
+  "class": "DiamondDiademPower",
+  "file": "Models/Powers/DiamondDiademPower.cs",
+  "hooks": [
+   "Multiplicative"
+  ],
+  "literals": [
+   0.5,
+   1.0
+  ]
+ },
+ {
+  "class": "DoubleDamagePower",
+  "file": "Models/Powers/DoubleDamagePower.cs",
+  "hooks": [
+   "Multiplicative"
+  ],
+  "literals": [
+   1.0,
+   2.0
+  ]
+ },
+ {
+  "class": "FlankingPower",
+  "file": "Models/Powers/FlankingPower.cs",
+  "hooks": [
+   "Multiplicative"
+  ],
+  "literals": [
+   1.0
+  ]
+ },
+ {
+  "class": "FlutterPower",
+  "file": "Models/Powers/FlutterPower.cs",
+  "hooks": [
+   "Multiplicative"
+  ],
+  "literals": [
+   1.0
+  ]
+ },
+ {
+  "class": "GigantificationPower",
+  "file": "Models/Powers/GigantificationPower.cs",
+  "hooks": [
+   "Multiplicative"
+  ],
+  "literals": [
+   1.0,
+   3.0
+  ]
+ },
+ {
+  "class": "GuardedPower",
+  "file": "Models/Powers/GuardedPower.cs",
+  "hooks": [
+   "Multiplicative"
+  ],
+  "literals": [
+   0.5,
+   1.0
+  ]
+ },
+ {
+  "class": "HangPower",
+  "file": "Models/Powers/HangPower.cs",
+  "hooks": [
+   "Multiplicative"
+  ],
+  "literals": [
+   1.0
+  ]
+ },
+ {
+  "class": "HardToKillPower",
+  "file": "Models/Powers/HardToKillPower.cs",
+  "hooks": [
+   "Cap"
+  ],
+  "literals": []
+ },
+ {
+  "class": "IntangiblePower",
+  "file": "Models/Powers/IntangiblePower.cs",
+  "hooks": [
+   "Cap"
+  ],
+  "literals": [
+   1.0
+  ]
+ },
+ {
+  "class": "InterceptPower",
+  "file": "Models/Powers/InterceptPower.cs",
+  "hooks": [
+   "Multiplicative"
+  ],
+  "literals": [
+   1.0
+  ]
+ },
+ {
+  "class": "KnockdownPower",
+  "file": "Models/Powers/KnockdownPower.cs",
+  "hooks": [
+   "Multiplicative"
+  ],
+  "literals": [
+   1.0
+  ]
+ },
+ {
+  "class": "LeadershipPower",
+  "file": "Models/Powers/LeadershipPower.cs",
+  "hooks": [
+   "Additive"
+  ],
+  "literals": [
+   0.0
+  ]
+ },
+ {
+  "class": "LethalityPower",
+  "file": "Models/Powers/LethalityPower.cs",
+  "hooks": [
+   "Multiplicative"
+  ],
+  "literals": [
+   1.0
+  ]
+ },
+ {
+  "class": "PhantomBladesPower",
+  "file": "Models/Powers/PhantomBladesPower.cs",
+  "hooks": [
+   "Additive"
+  ],
+  "literals": [
+   0.0
+  ]
+ },
+ {
+  "class": "ShrinkPower",
+  "file": "Models/Powers/ShrinkPower.cs",
+  "hooks": [
+   "Multiplicative"
+  ],
+  "literals": [
+   1.0
+  ]
+ },
+ {
+  "class": "SlowPower",
+  "file": "Models/Powers/SlowPower.cs",
+  "hooks": [
+   "Multiplicative"
+  ],
+  "literals": [
+   1.0
+  ]
+ },
+ {
+  "class": "SoarPower",
+  "file": "Models/Powers/SoarPower.cs",
+  "hooks": [
+   "Multiplicative"
+  ],
+  "literals": [
+   1.0
+  ]
+ },
+ {
+  "class": "StrengthPower",
+  "file": "Models/Powers/StrengthPower.cs",
+  "hooks": [
+   "Additive"
+  ],
+  "literals": [
+   0.0
+  ]
+ },
+ {
+  "class": "SurroundedPower",
+  "file": "Models/Powers/SurroundedPower.cs",
+  "hooks": [
+   "Multiplicative"
+  ],
+  "literals": [
+   1.0,
+   1.5
+  ]
+ },
+ {
+  "class": "TaintedPower",
+  "file": "Models/Powers/TaintedPower.cs",
+  "hooks": [
+   "Additive"
+  ],
+  "literals": [
+   0.0
+  ]
+ },
+ {
+  "class": "TankPower",
+  "file": "Models/Powers/TankPower.cs",
+  "hooks": [
+   "Multiplicative"
+  ],
+  "literals": [
+   1.0,
+   2.0
+  ]
+ },
+ {
+  "class": "TrackingPower",
+  "file": "Models/Powers/TrackingPower.cs",
+  "hooks": [
+   "Multiplicative"
+  ],
+  "literals": [
+   1.0
+  ]
+ },
+ {
+  "class": "VigorPower",
+  "file": "Models/Powers/VigorPower.cs",
+  "hooks": [
+   "Additive"
+  ],
+  "literals": [
+   0.0
+  ]
+ },
+ {
+  "class": "VulnerablePower",
+  "file": "Models/Powers/VulnerablePower.cs",
+  "hooks": [
+   "Multiplicative"
+  ],
+  "literals": [
+   1.0
+  ]
+ },
+ {
+  "class": "WeakPower",
+  "file": "Models/Powers/WeakPower.cs",
+  "hooks": [
+   "Multiplicative"
+  ],
+  "literals": [
+   1.0
+  ]
+ }
+]

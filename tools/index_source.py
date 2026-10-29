@@ -25,7 +25,9 @@ Sorties (sous --out, sauf la doc) :
                            valeurs EXTRAITES de monsters.json (aucun recalcul) ; listes telles que
                            dans monsters.json (ordre [ascension, normal] si scalé), null si non résolu ;
                            repeats = [1] pour SingleAttackIntent (`override int Repeats => 1`).
-  - powers.json            pouvoirs modifiant les dégâts
+  - powers_damage.json     pouvoirs modifiant les dégâts (index historique ; le catalogue
+                           complet des 260 pouvoirs est data/catalog/powers.json, produit
+                           par tools/index_powers.py)
   - stats.json             compteurs
   - <--repo>/docs/11-api-catalog.md (résumé lisible)
 
@@ -418,7 +420,7 @@ def main() -> None:
 
     (outdir / "cards.json").write_text(json.dumps(cards, indent=1, ensure_ascii=False))
     (outdir / "monsters.json").write_text(json.dumps(monsters, indent=1, ensure_ascii=False))
-    (outdir / "powers.json").write_text(json.dumps(powers, indent=1, ensure_ascii=False))
+    (outdir / "powers_damage.json").write_text(json.dumps(powers, indent=1, ensure_ascii=False))
     (outdir / "priority_cards.json").write_text(json.dumps(priority, indent=1, ensure_ascii=False))
     (outdir / "intents_by_monster.json").write_text(
         json.dumps(intents, indent=1, ensure_ascii=False)
