@@ -15,7 +15,11 @@ public static class ScoringData
         {
             var candidate = Path.Combine(env!, "data", "catalog");
             if (Directory.Exists(candidate)) return candidate;
-            return Path.Combine(env!, "catalog");
+            var shallow = Path.Combine(env!, "catalog");
+            if (Directory.Exists(shallow)) return shallow;
+            // Override périmé (worktree supprimé, chemin déplacé) : on l'ignore et on résout par
+            // défaut. Sinon le moteur charge zéro catalogue en silence et les tests deviennent
+            // dépendants du shell qui a lancé le process.
         }
 
         var dir = AppContext.BaseDirectory;
@@ -38,8 +42,9 @@ public static class ScoringData
         {
             var candidate = Path.Combine(env!, "data", "meta");
             if (Directory.Exists(candidate)) return candidate;
-            if (Directory.Exists(Path.Combine(env!, "meta"))) return Path.Combine(env!, "meta");
-            return candidate;
+            var shallow = Path.Combine(env!, "meta");
+            if (Directory.Exists(shallow)) return shallow;
+            // Idem catalog : un override qui ne mène nulle part ne doit pas masquer le dépôt.
         }
 
         var dir = AppContext.BaseDirectory;
