@@ -30,13 +30,34 @@ public sealed class ThreatTests
     }
 
     [Fact]
+    public void Hp_scaling_starts_at_A8_and_damage_at_A9()
+    {
+        // Une même entrée porte les deux variantes ; le seuil des PV (ToughEnemies, A8) précède
+        // celui des dégâts (DeadlyEnemies, A9) — ne jamais réutiliser la même constante.
+        var monster = Model.Monster("BOWLBUG_EGG");
+        Assert.NotNull(monster);
+        var normal = monster!.HpNormal;
+        var ascension = monster.HpAscension;
+        Assert.NotNull(normal);
+        Assert.NotNull(ascension);
+        Assert.NotEqual(normal, ascension);
+
+        Assert.Equal(normal, monster.HpAt(ThreatRules.AscensionHpFrom - 1));
+        Assert.Equal(ascension, monster.HpAt(ThreatRules.AscensionHpFrom));
+        Assert.True(ThreatRules.AscensionHpFrom < ThreatRules.AscensionDamageFrom);
+        Assert.False(ThreatRules.IsDoubleBoss(ThreatRules.DoubleBossFrom - 1));
+        Assert.True(ThreatRules.IsDoubleBoss(ThreatRules.DoubleBossFrom));
+    }
+
+    [Fact]
     public void Aeonglass_worst_hit_is_26_normal_and_32_ascension()
     {
         // Ebb : 26 normal / 32 ascension, un seul coup. Eye Lasers (11 × 2 = 22) reste en dessous.
-        // Barème mesuré sur les replays (docs/30) : normal jusqu'à A9, ascension à partir de A10.
+        // Table des paliers (AscensionLevel.cs) : ToughEnemies = 8 (PV), DeadlyEnemies = 9
+        // (dégâts), DoubleBoss = 10. Les dégâts restent donc normaux à A8 et basculent à A9.
         Assert.Equal(26, Model.MaxHit("AEONGLASS_BOSS", 0));
         Assert.Equal(26, Model.MaxHit("ENCOUNTER.AEONGLASS_BOSS", 1));
-        Assert.Equal(26, Model.MaxHit("ENCOUNTER.AEONGLASS_BOSS", 9));
+        Assert.Equal(26, Model.MaxHit("ENCOUNTER.AEONGLASS_BOSS", ThreatRules.AscensionDamageFrom - 1));
         Assert.Equal(32, Model.MaxHit("ENCOUNTER.AEONGLASS_BOSS", ThreatRules.AscensionDamageFrom));
         Assert.Equal(32, Model.MaxHit("ENCOUNTER.AEONGLASS_BOSS", 20));
 

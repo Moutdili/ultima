@@ -88,11 +88,18 @@ Registre complet et omissions classées : `docs/33`.
 
 ### 2.6 Seuils d'ascension : deux barèmes différents
 
-- **Dégâts** : `normal` jusqu'à A9, `ascension` à partir de **A10** — mesuré sur 389 moves de replays
-  (53 % avec l'ancienne règle A1+, 76 % avec A10).
-- **PV** : à A8, les PV observés valent déjà la variante `ascension` (BYGONE_EFFIGY 132, CEREMONIAL_BEAST
-  262, CRUSHER 219) ; à A0 ils valent `normal`. Le seuil exact est ≤ A8 (aucun replay A1-A7) :
-  **ne pas le supposer identique aux dégâts**.
+La table est dans `Entities/Ascension/AscensionLevel.cs` (ordre de l'enum) :
+
+| Palier | Effet | Constante |
+|---|---|---|
+| 8 `ToughEnemies` | **PV** des ennemis → variante `ascension` | `ThreatRules.AscensionHpFrom = 8` |
+| 9 `DeadlyEnemies` | **Dégâts** des ennemis → variante `ascension` | `ThreatRules.AscensionDamageFrom = 9` |
+| 10 `DoubleBoss` | **Deux boss** dans l'acte final | `ThreatRules.IsDoubleBoss(asc)` |
+
+Mesures concordantes : à A8 les PV observés valent déjà la variante `ascension` (Bygone Effigy 132,
+Ceremonial Beast 262, Crusher 219) ; les dégâts restent `normal` à A8 et basculent à A9 (389 moves de
+replays : 76 % de concordance, contre 53 % avec « ascension dès A1 »). **Trois constantes distinctes,
+jamais une seule.**
 
 ## 3. Ce qui est implémenté
 

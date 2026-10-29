@@ -71,8 +71,24 @@ public sealed class OfflinePackagingTests
     public void Data_resolves_inside_the_checkout()
     {
         var root = RepoRoot();
-        var catalog = Path.GetFullPath(ScoringData.ResolveCatalogDir());
-        var meta = Path.GetFullPath(ScoringData.ResolveMetaDir());
+
+        // Le test porte sur la résolution PAR DÉFAUT. Un ULTIMA_DATA laissé dans l'environnement
+        // (worktree d'un agent, test manuel) redirige les catalogues hors du dépôt : on le
+        // neutralise le temps du test, puis on le restaure. Sans ça, la suite est flaky dès que
+        // deux worktrees tournent en parallèle.
+        var previous = Environment.GetEnvironmentVariable("ULTIMA_DATA");
+        string catalog;
+        string meta;
+        try
+        {
+            Environment.SetEnvironmentVariable("ULTIMA_DATA", null);
+            catalog = Path.GetFullPath(ScoringData.ResolveCatalogDir());
+            meta = Path.GetFullPath(ScoringData.ResolveMetaDir());
+        }
+        finally
+        {
+            Environment.SetEnvironmentVariable("ULTIMA_DATA", previous);
+        }
 
         Assert.True(Directory.Exists(catalog), $"data/catalog introuvable : {catalog}");
         Assert.True(Directory.Exists(meta), $"data/meta introuvable : {meta}");

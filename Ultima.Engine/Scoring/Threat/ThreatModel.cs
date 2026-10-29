@@ -7,12 +7,23 @@ namespace Ultima.Engine.Scoring.Threat;
 /// </summary>
 public static class ThreatRules
 {
+    /// <summary>Vrai à partir de A10 : deux boss dans l'acte final (compter deux rencontres).</summary>
+    public static bool IsDoubleBoss(int ascension) => ascension >= DoubleBossFrom;
+
     /// <summary>
-    /// Le jeu applique les dégâts `ascension` à partir de A10 (et `normal` en dessous).
-    /// Mesuré sur 22 replays : 206/389 moves concordaient avec l'ancienne règle « A1+ »,
-    /// 295/389 avec celle-ci.
+    /// Table des paliers (Entities/Ascension/AscensionLevel.cs, ordre de l'enum) :
+    /// 1 SwarmingElites, 2 WearyTraveler, 3 Poverty, 4 TightBelt, 5 AscendersBane,
+    /// 6 Inflation, 7 Scarcity, **8 ToughEnemies (PV)**, **9 DeadlyEnemies (dégâts)**,
+    /// **10 DoubleBoss (deux boss de fin)**.
+    /// Mesuré sur replays : PV à A8 = variante ascension, dégâts à A8 = normal.
     /// </summary>
-    public const int AscensionDamageFrom = 10;
+    public const int AscensionHpFrom = 8;
+
+    /// <summary>Les dégâts passent à la variante `ascension` à partir de A9 (pas A10).</summary>
+    public const int AscensionDamageFrom = 9;
+
+    /// <summary>À partir de A10, l'acte final comporte deux boss.</summary>
+    public const int DoubleBossFrom = 10;
 }
 
 /// <summary>
@@ -83,7 +94,9 @@ public sealed record MonsterThreat(
         return best;
     }
 
-    public int? HpAt(int ascension) => ascension > 0 ? HpAscension ?? HpNormal : HpNormal ?? HpAscension;
+    public int? HpAt(int ascension) => ascension >= ThreatRules.AscensionHpFrom
+        ? HpAscension ?? HpNormal
+        : HpNormal ?? HpAscension;
 }
 
 /// <summary>Statistiques de combat réellement observées pour une rencontre (aucune estimation).</summary>

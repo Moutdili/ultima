@@ -15,7 +15,7 @@
 | Multiplicateurs de bloc (`ModifyBlockMultiplicative`) | **8** | Frail, couvertures… |
 | Cartes jouées en plus (`ModifyCardPlayCount`) | **7** | Burst, Double Tap… |
 | Plafonds de dégâts (`ModifyDamageCap`) | **2** | `IntangiblePower` (cap 1), `HardToKillPower` (cap = Amount) |
-| Paliers d'ascension | **10** | DeadlyEnemies (223 usages), ToughEnemies (173), Scarcity, Poverty, Inflation, WearyTraveler, TightBelt, SwarmingElites, DoubleBoss, AscendersBane |
+| Paliers d'ascension | **10** | ordre de l'enum : 1 SwarmingElites, 2 WearyTraveler, 3 Poverty, 4 TightBelt, 5 AscendersBane, 6 Inflation, 7 Scarcity, **8 ToughEnemies (PV)**, **9 DeadlyEnemies (dégâts)**, **10 DoubleBoss (deux boss finaux)** |
 | Monstres à invocation / phase / respawn | **11+** | Fogmog, Ovicopter, BygoneEffigy, CeremonialBeast, TestSubject, TheObscura, LivingFog, Fabricator, ToughEgg, TwoTailedRat… |
 
 ## 2. Ce qui est modélisé aujourd'hui
