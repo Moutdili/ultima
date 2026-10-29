@@ -50,6 +50,7 @@ def main():
     cards_src = load("cards.json")
     effects = {bare(c.get("id")): c for c in load("cards_effects.json", "cards")}
     impact = {bare(e.get("id")): e for e in load("curse_impact.json", "entries")}
+    status_effects = {bare(e.get("id")): e for e in load("status_effects.json", "entries")}
     coop = {bare(c.get("id")) for c in load("coop_cards.json", "cards")}
     relics = {bare(r.get("id")): r for r in load("relics.json", "relics")}
     pots = {bare(p.get("id")): p for p in load("potions.json", "potions")}
@@ -73,21 +74,27 @@ def main():
         ctype = (c.get("type") or "").lower()
         numeric = bool(eff and any(eff.get(k) for k in (
             "damage_base", "block_base", "draw_base", "energy_base", "hits")))
+        # Registre compact : class/file/rarity/cost restent dans cards.json (déjà commité),
+        # le registre ne duplique que ce qui sert au contrôle de couverture.
         entry = {
             "id": cid,
-            "class": c.get("class"),
-            "file": c.get("file"),
             "type": ctype,
-            "rarity": (c.get("rarity") or "").lower() or None,
-            "cost": c.get("cost"),
             "effects": bool(eff),
             "numeric": numeric,
             "coop": cid in coop,
-            "keywords": eff.get("keywords") if eff else [],
         }
+        keywords = eff.get("keywords") if eff else []
+        if keywords: entry["keywords"] = keywords
         if ctype in ("curse", "status"):
             imp = impact.get(cid)
-            entry["impact"] = "measured" if imp and imp.get("measured") else "no_data"
+            if imp and imp.get("measured"):
+                entry["impact"] = "measured"
+            elif imp and (imp.get("effect_severity") or 0) > 0:
+                entry["impact"] = "effect"
+            elif cid in status_effects:
+                entry["impact"] = "effect"
+            else:
+                entry["impact"] = "no_data"
             entry["toxicity"] = imp.get("toxicity") if imp else None
         card_entries.append(entry)
 
@@ -95,24 +102,17 @@ def main():
     for rid, r in relics.items():
         relic_entries.append({
             "id": rid,
-            "name": r.get("name_fr") or r.get("name"),
-            "tags": r.get("tags") or [],
+            "tagged": bool(r.get("tags")),
             "imposes_curse": rid in relic_curses,
         })
 
-    potion_entries = [{
-        "id": pid,
-        "name": p.get("name_fr") or p.get("name"),
-        "tags": p.get("tags") or [],
-    } for pid, p in pots.items()]
+    potion_entries = [{"id": pid, "tagged": bool(p.get("tags"))} for pid, p in pots.items()]
 
     power_entries = []
     for pid, p in powers.items():
         hooks = p.get("hooks") or {}
         power_entries.append({
             "id": pid,
-            "class": p.get("class"),
-            "hooks": sorted(hooks.keys()) if isinstance(hooks, dict) else [],
             "evaluable": bool(isinstance(hooks, dict) and any(v for v in hooks.values())),
         })
 
@@ -137,7 +137,7 @@ def main():
         "curses_without_impact": [e["id"] for e in curses if e["impact"] == "no_data"],
         "statuses_without_impact": [e["id"] for e in statuses if e["impact"] == "no_data"],
         "powers_without_evaluable_hook": [e["id"] for e in power_entries if not e["evaluable"]],
-        "relics_without_tags": [e["id"] for e in relic_entries if not e["tags"]],
+        "relics_without_tags": [e["id"] for e in relic_entries if not e["tagged"]],
         "encounters_without_stats": [e["id"] for e in encounter_entries if not e["has_stats"]],
         "monsters_without_constraint": [e["id"] for e in monster_entries if not e["constrained"]],
         "cards_with_unknown_keyword": sorted({k for e in card_entries for k in (e.get("keywords") or [])
@@ -163,6 +163,7 @@ def main():
         "coverage": {
             "measured_curses": sum(1 for e in curses if e["impact"] == "measured"),
             "measured_statuses": sum(1 for e in statuses if e["impact"] == "measured"),
+            "classified_statuses": sum(1 for e in statuses if e["impact"] != "no_data"),
             "numeric_cards": sum(1 for e in card_entries if e["numeric"]),
             "evaluable_powers": sum(1 for e in power_entries if e["evaluable"]),
             "constrained_monsters": sum(1 for e in monster_entries if e["constrained"]),

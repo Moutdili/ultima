@@ -58,7 +58,8 @@ public sealed class RegistryCoverageTests
             Assert.True(card.TryGetProperty("impact", out var impact),
                 $"{card.GetProperty("id").GetString()} n'a pas de statut d'impact");
             var value = impact.GetString();
-            Assert.True(value is "measured" or "no_data",
+            // « effect » = classé par l'effet décrit (docs/37), « no_data » = aucune donnée.
+            Assert.True(value is "measured" or "effect" or "no_data",
                 $"{card.GetProperty("id").GetString()} : impact inattendu « {value} »");
         }
 
