@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Ultima.Daemon : orchestration temps réel (saves + godot.log + miroir enfant) -> EngineState -> IPC.
+       Lecture seule absolue sur le jeu. Aucune dépendance externe (pas de ClrMD : le miroir est un processus enfant). -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net9.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>ultima-daemon</AssemblyName>
+    <RootNamespace>Ultima.Daemon</RootNamespace>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <!-- Sobriété : GC poste de travail non concurrent (pas de thread GC d'arrière-plan), peu de mémoire. -->
+    <ServerGarbageCollector>false</ServerGarbageCollector>
+    <ConcurrentGarbageCollection>false</ConcurrentGarbageCollection>
+    <TieredPGO>false</TieredPGO>
+    <InvariantGlobalization>true</InvariantGlobalization>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../Ultima.Engine/Ultima.Engine.csproj" />
+    <ProjectReference Include="../Ultima.Saves/Ultima.Saves.csproj" />
+    <ProjectReference Include="../Ultima.Knowledge/Ultima.Knowledge.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="Ultima.Daemon.Tests" />
+  </ItemGroup>
+</Project>
