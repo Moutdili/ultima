@@ -2,12 +2,12 @@
 <schemalist gettext-domain="ultima">
   <schema id="org.gnome.shell.extensions.ultima" path="/org/gnome/shell/extensions/ultima/">
     <key name="toggle-panel" type="as">
-      <default><![CDATA[['<Super>F9']]]></default>
+      <default><![CDATA[['<Super><Shift>i']]]></default>
       <summary>Déployer / replier le panneau (épinglé)</summary>
       <description>Raccourci global géré par le compositeur : le jeu ne reçoit jamais la touche (leçon v1 n°3).</description>
     </key>
     <key name="toggle-visible" type="as">
-      <default><![CDATA[['<Super>F8']]]></default>
+      <default><![CDATA[['<Super><Shift>o']]]></default>
       <summary>Masquer / afficher ULTIMA</summary>
       <description>Masquage total (charte docs/17 §4, F8). Masqué : aucun suivi du pointeur, aucun coût.</description>
     </key>

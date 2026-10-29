@@ -512,3 +512,13 @@ Preuves brutes : `/home/mio/sts2-proofs/tw1-20261029-1248/` (local, non commité
 - **G audit** : 807 écritures (toutes du jeu), ALERTE=0, VIOLATION=0 ; modded/ identique (sha256) ; PASS.
 - Raccourci GNOME ajouté (accord Mio) : custom-keybindings/ultima-toggle.
 Reste : partie B (extension GNOME, vraie session), mesure FPS.
+
+## Fenêtre de test n°1 — partie B (13:1x) : extension GNOME dans la vraie session
+- Extension active sans erreur (`State: ACTIVE`, log `[ULTIMA] actif : couche=addTopChrome`).
+- **Sur le vrai jeu plein écran** : panneau verre flouté visible (capture), ne recouvre ni l'ennemi,
+  ni ses intents, ni « End Turn » ; survol OK ; clic + touche « 1 » reçus par le jeu ; masquer OK.
+- Super+F9/F8 KO : la rangée F du portable envoie des touches média → raccourcis passés à
+  **Super+Maj+I** (épingler) / **Super+Maj+O** (masquer) : OK.
+- **Décision S1 : moteur B (extension GNOME) retenu** ; moteur A (X11) conservé en repli.
+- Skills créées depuis les preuves : `sts2-external-overlay`, `sts2-memory-mirror`.
+- Reste non mesuré : FPS (ressenti > 55).

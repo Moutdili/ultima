@@ -47,9 +47,9 @@ de 22 % à 58 % de la hauteur, avec 3 pastilles (rouge, or, aqua) et un liseré 
 | 2 | Amener la souris sur le rail (≈ 0,2 s) | Le panneau s'ouvre en 260 px (180 ms, sans rebond) : verre flouté, titre « Deck · 10 cartes · EXEMPLE », 5 lignes |
 | 3 | Cliquer une carte/un ennemi du jeu situé **sous** le panneau ouvert | Le jeu reçoit le clic (le panneau ne prend aucun clic) |
 | 4 | Sortir la souris du panneau | Retour au rail après 2,5 s |
-| 5 | `Super+F9` | Panneau épinglé ouvert, il ne se replie pas |
-| 6 | `Super+F9` | Panneau libéré, retour au rail après 2,5 s hors survol |
-| 7 | `Super+F8` | ULTIMA entièrement masqué ; `Super+F8` de nouveau : réaffiché |
+| 5 | `Super+Maj+I` | Panneau épinglé ouvert, il ne se replie pas |
+| 6 | `Super+Maj+I` | Panneau libéré, retour au rail après 2,5 s hors survol |
+| 7 | `Super+Maj+O` | ULTIMA entièrement masqué ; `Super+Maj+O` de nouveau : réaffiché |
 | 8 | Taper au clavier dans le jeu | Le jeu garde le focus ; F8/F9 seuls ne sont pas pris par ULTIMA |
 | 9 | Super seul (sans autre touche) | Comportement GNOME normal (vue d'ensemble) ; ULTIMA s'y masque |
 
@@ -67,7 +67,7 @@ gsettings --schemadir $SCHEMADIR set org.gnome.shell.extensions.ultima height-fr
 1. **Capture** pendant les gestes 1 et 2 (`Impr. écran` → capture d'écran entier). Les deux doivent montrer le jeu
    plein écran avec le rail, puis avec le panneau ouvert.
 2. **FPS** : compteur FPS de Steam (Paramètres → En jeu → compteur d'images) relevé pendant
-   30 s de combat avec ULTIMA visible, puis 30 s après `Super+F8` (masqué). Seuil : ≥ 55 FPS avec ULTIMA visible
+   30 s de combat avec ULTIMA visible, puis 30 s après `Super+Maj+O` (masqué). Seuil : ≥ 55 FPS avec ULTIMA visible
    (docs/17 §7.7). Noter les deux valeurs.
 3. **Log** : `journalctl --user -b -o cat /usr/bin/gnome-shell | grep -E '\[ULTIMA\]|JS ERROR' > /tmp/ultima-s1.log`
 
@@ -76,7 +76,7 @@ gsettings --schemadir $SCHEMADIR set org.gnome.shell.extensions.ultima height-fr
 - [ ] rail visible au-dessus du jeu **plein écran** (capture 1)
 - [ ] panneau 260 px avec un **verre flouté visible** derrière le texte (capture 2)
 - [ ] clic sur le jeu à travers le panneau ouvert : reçu par le jeu
-- [ ] `Super+F9` / `Super+F8` fonctionnent pendant que le jeu a le focus ; le jeu ne perd jamais le focus
+- [ ] `Super+Maj+I` / `Super+Maj+O` fonctionnent pendant que le jeu a le focus ; le jeu ne perd jamais le focus
 - [ ] FPS avec ULTIMA visible ≥ 55 et écart avec ULTIMA masqué noté
 - [ ] aucune ligne `JS ERROR` liée à `ultima@mio` dans le log
 
