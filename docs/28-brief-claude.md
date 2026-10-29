@@ -1,133 +1,154 @@
-# 28 — Brief pour Claude (état, trouvailles data, méthode)
+# 28 — Brief pour Claude : état, trouvailles, méthode, contraintes
 
-> Écrit par Hermes le 2026-10-29 avant la reprise de Claude (limite reset 17:40).
-> À lire avec `docs/23` (cahier des charges), `docs/24` (archi du calcul) et `docs/27` (méthode de
-> scoring contextuel). Ce document ne remplace rien : il ajoute ce qui a été appris depuis.
+> Écrit par Hermes le 2026-10-29 (soir). Remplace la version précédente : depuis, le corpus a été
+> téléchargé, l'explosivité mesurée, les pouvoirs inventoriés et le scoring branché sur G.
+> À lire avec `docs/27` (méthode), `docs/29` (review), `docs/30` (replays), `docs/31`
+> (calibration), `docs/32` (empreinte/explosivité), `docs/33` (registre des contraintes).
 
-## 1. État du dépôt (vérifié)
+## 1. État du dépôt (à vérifier avant de coder)
 
-- `main` à jour, contrat **v1.1** (`Score.Grade` S→F, `ScorePotion`, `CardView.Description`,
-  `PotionView.Score`, `RoomTypes`).
-- `Ultima.Engine` : scoring cartes/reliques/shop/deck/potions + chemins. **86 tests verts**,
-  `dotnet build -c Release -warnaserror` propre, `bash tools/hermes-verify.sh` → PASS (5 sections).
-- Livré par Hermes depuis ton départ :
-  - **S6bis** `ScorePotion` (64 potions, catalogue généré depuis la localisation FR) ;
-  - **calibrage S→F sur le rang** et non sur le consensus brut (les notes locales Untapped ont une
-    autre échelle : sans ça la meilleure carte tombait en B) ;
-  - **besoin PV** sur les reliques (une relique de PV max passe de B à A à 18/70 PV) ;
-  - libellés de source lisibles : « Spire Codex — consensus 78/100 (1 source, écart 0) » ;
-  - `docs/27` : méthode complète (G/ΔG, fit par manques, co-op, validation).
-- ⚠️ Les agents de Hermes écrivent dans `status/hermes-sN.md` (gitignoré) et ne touchent **jamais**
-  `Ultima.Engine/Contracts/**`, `Ultima.Saves/**`, `Ultima.Mirror/**`, `overlay/**`.
+- Branche `main`, **146 tests** verts, `dotnet build -c Release -warnaserror` propre,
+  `bash tools/hermes-verify.sh` → PASS (5 sections).
+- Contrats : **v1.1** (`Score.Grade` S→F, `ScorePotion`, `RoomTypes`). Aucune modification de
+  `Ultima.Engine/Contracts/**` par Hermes.
+- Livré : S1→S20 (voir §3). Agents en cours au moment d'écrire : dédup du corpus, contraintes
+  d'ennemis, branchement des poids, catalogue de pouvoirs, co-op, copies de monstres.
 
-## 2. Trouvailles data (le gros morceau)
+## 2. Découvertes data (le plus important)
 
-### 2.1 Export de runs public — 2 466 928 runs
+### 2.1 `rooms[]` : la donnée qui change tout
 
-`GET https://spire-codex.com/api/exports/runs/manifest` liste, par version du jeu, des exports
-JSONL gzippés avec `sha256` :
+Chaque étage de `map_point_history` porte :
 
-| Version | runs | taille |
+```json
+{"model_id": "ENCOUNTER.EXOSKELETONS_WEAK",
+ "monster_ids": ["MONSTER.EXOSKELETON","MONSTER.EXOSKELETON","MONSTER.EXOSKELETON"],
+ "room_type": "monster",
+ "turns_taken": 5}
+```
+
+- **`turns_taken`** = durée réelle du combat, pour **toutes** les runs (pas seulement les 8 % de
+  replays) ;
+- **`model_id`** = rencontre exacte (jointure avec `encounter_stats`) ;
+- **`monster_ids` avec doublons** = effectifs réels.
+
+Deux fois, l'audit initial a conclu « pas de tour par tour » : c'était faux. Toujours inspecter les
+tableaux imbriqués avant de déclarer une donnée absente.
+
+### 2.2 Corpus public
+
+- `GET /api/exports/runs/manifest` : 2 466 928 runs / 8,54 Go, dont **785 121 sur v0.107.1**.
+  Téléchargé, sha256 vérifié (`data/exports/`, gitignoré).
+- `tools/index_runs.py` → `data/index/runs-v0.107.1.jsonl.gz` (517 Mo) : **19 039 107 décisions de
+  cartes**, 39 % de co-op, 20,9 % de victoires.
+- **38 % de doublons exacts** (même deck, reliques, PV, tours par acte ; hash différent) : la
+  déduplication précède toute statistique.
+- Replays combat : ~8 % des runs, NDJSON avec `play/hit/intent/shop/decision` (docs/30).
+
+### 2.3 Explosivité : ce que les gagnants font vraiment
+
+50 000 gagnées vs 50 000 perdues, 1,06 M + 0,56 M combats :
+
+| Acte | Tours/combat gagnants | Perdants | Dégâts/combat gagnants | Perdants |
+|---|---|---|---|---|
+| 1 | 4,8 | 5,0 | **8,3** | 11,6 (−28 %) |
+| 2 | 4,7 | 5,1 | **11,8** | 18,0 (−34 %) |
+| 3 | 4,7 | 5,1 | **12,5** | 21,8 (−43 %) |
+
+La vitesse sépare peu (4-8 %) ; les **dégâts évités** séparent massivement. La puissance finale du
+deck ne corrèle ni à la vitesse (0,03) ni aux dégâts (−0,08).
+
+### 2.4 Attribution d'un saut à un choix
+
+Chaque combat est noté
+`0,5·(tours_moyens−tours)/tours_moyens + 0,5·(dégâts_moyens−dégâts)/dégâts_moyens`, puis on compare
+les 3 combats après une carte aux 3 avant (même acte), en retirant la dérive de l'acte.
+
+- Tête : FLASH_OF_STEEL +0,133 (n=966), DISMANTLE +0,120, POMMEL_STRIKE +0,109 (n=4 213),
+  BATTLE_TRANCE +0,105.
+- Queue : VAULT −0,327, WISH −0,229, DEFEND_REGENT −0,120, BASH −0,118.
+- Déclencheurs des plus gros sauts : SHRUG_IT_OFF (472), POMMEL_STRIKE (467), MAD_SCIENCE (443).
+
+Lecture : ce sont des cartes de **pioche / énergie / attaques efficaces** — le débit de cartes, pas
+les dégâts bruts. Le bloc pur ressort négatif parce qu'il ralentit.
+
+### 2.5 Contraintes d'ennemis (vérifiées dans le source)
+
+| Mécanique | Preuve | Effet |
 |---|---|---|
-| **v0.107.1** (notre patch) | **785 121** | 2,63 Go |
-| v0.111.0 | 328 690 | 1,29 Go |
-| v0.110.1 | 66 795 | 0,25 Go |
-| total | 2 466 928 | 8,54 Go |
+| `IntangiblePower.ModifyDamageCap` | `Models/Powers/IntangiblePower.cs` | dégâts subis plafonnés à **1** |
+| `HardToKillPower.ModifyDamageCap` | idem | plafond = `Amount` |
+| `TestSubject` | `Models/Monsters/TestSubject.cs` | **respawn 2 fois** |
+| `SoulFysh`, `Exoskeleton` | `Models/Monsters/` | appliquent Intangible/HardToKill |
 
-Téléchargé et vérifié : `data/exports/runs-v0.107.1.jsonl.gz` (sha256 `315d1bb0…`, identique au
-manifeste). **Une run par ligne, JSON complet du jeu** : `map_point_history`, `player_stats` **par
-joueur**, `card_choices` (`was_picked`), `relic_choices`, `ancient_choice`, PV/or/dégâts par étage.
+Surface mesurée : **260 pouvoirs**, 25 `ModifyDamageMultiplicative`, 17 `ModifyHandDraw`,
+16 `ModifyMaxEnergy`, 11 `ModifyDamageAdditive`, 8 `ModifyBlockMultiplicative`,
+7 `ModifyCardPlayCount`, 2 `ModifyDamageCap`, 10 paliers d'ascension.
+Registre complet et omissions classées : `docs/33`.
 
-### 2.2 Index compact — 785 121 runs, 19 039 107 décisions
+### 2.6 Seuils d'ascension : deux barèmes différents
 
-`tools/index_runs.py` → `data/index/runs-v0.107.1.jsonl.gz` (517 Mo, 401 s) :
+- **Dégâts** : `normal` jusqu'à A9, `ascension` à partir de **A10** — mesuré sur 389 moves de replays
+  (53 % avec l'ancienne règle A1+, 76 % avec A10).
+- **PV** : à A8, les PV observés valent déjà la variante `ascension` (BYGONE_EFFIGY 132, CEREMONIAL_BEAST
+  262, CRUSHER 219) ; à A0 ils valent `normal`. Le seuil exact est ≤ A8 (aucun replay A1-A7) :
+  **ne pas le supposer identique aux dégâts**.
 
-- 785 121 runs indexées (lignes vérifiées), **309 276 co-op (39,4 %)**, win rate 20,9 % ;
-- **19 039 107 décisions de cartes** (28,3 % de skip) + ~6,6 M décisions de reliques ;
-- chaque décision porte : acte, étage, type de salle, `player_id`, PV/max PV, or, cartes proposées,
-  carte prise, reliques proposées/prises ;
-- une ligne par run : `h` hash, `b` build, `m` mode, `asc`, `n` nb joueurs, `w` win, `ab` abandon,
-  `kb` tué par, `pl` joueurs (deck/reliques/potions), `d` décisions.
+## 3. Ce qui est implémenté
 
-### 2.3 Données statiques — `data/codex/` (1,2 Mo, régénérables)
-
-| Fichier | Contenu |
+| Brique | État |
 |---|---|
-| `cards.json` | 577 cartes, **498 avec valeurs** : `damage`, `block`, `hit_count`, `cards_draw`, `energy_gain`, `powers_applied`, `vars`, `upgrade` |
-| `monsters.json` | 115 monstres, **15 boss avec chaque move** : dégâts `normal` ET `ascension`, `hit_count`, `block`, `heal`, `powers` |
-| `encounters.json` | 87 rencontres → monstres, acte, type de salle |
-| `encounter_stats.json` | 50 combats : `avg_damage`, `avg_turns`, `fatal`, par personnage |
-| `archetypes.json` | part + win rate des archétypes par version |
-| `community_stats.json` | 2 237 288 runs, win 27,8 %, par ascension |
-| `relics.json`, `potions.json`, `constants.json`, `charts_meta.json` | compléments |
+| Effets des cartes (577, 298 Ko) | `data/catalog/cards_effects.json` + `CardEffects` |
+| Menace (128 monstres, 15 boss) | `ThreatModel.MaxHit/WorstMove/AverageDamage/EffectiveHp` |
+| Potions (64) / reliques (304) | catalogues + scoring contextuel |
+| Score global G | `PlayerStrength` : Survie/Offense/Consistance/Couverture, saturantes |
+| ΔG (fit) | `clamp(2·ΔG, ±20)` cartes, `2,5·ΔG` ±15 reliques, mémoïsé |
+| L2 besoin | PV bas (bloc/soin, 0..10) + coup du boss > bloc/tour (+5), borné 0..15 |
+| Calibration | `data/calibration/weights.json` (AUC 0,688 acte 1 ; Survie 85-92 %) |
+| Packaging hors ligne | `tools/check-offline.sh` : clone → build + tests, réseau coupé |
+| Backtest | `tools/backtest/` : 100k runs en 23 s, accord 28,8 % |
+| Empreinte/explosivité | `tools/explosivity/{extract,analyze,attribute}.py` |
+| Review (spec) | `docs/29-review-replay.md` (timeline, regret, vitesses, voie combat) |
 
-Régénération : `python3 -I tools/fetch_codex_static.py`.
-
-### 2.4 Replays combat — correction (vérifiée)
-
-⚠️ Première mesure fausse (script qui s'arrêtait au premier match) : **22 runs sur 273 (8,1 %) ont
-`has_replay`**, et `GET /api/runs/{hash}/replay` renvoie alors du **NDJSON** (~470-850 Ko) :
-`header` (replay_version 7, seed, build, personnage, ascension) puis des événements
-`play`, `hit`, `intent`, `shop` (avec prix), `decision` (avec toutes les options).
-
-- Les runs **sans** replay → 404.
-- L'export public ne contient **pas** les replays (0 occurrence sur 785 121 lignes) : il faut les
-  fetcher par hash, run par run. Extrapolation : 785 121 × 8,1 % ≈ 63 000 replays ≈ 30 Go.
-- Conséquence : la review a deux voies — **A** décisions/trajectoire (100 % des runs, livrable),
-  **B** combat tour par tour (8 % des runs, optionnelle). Et ces replays permettent de **valider les
-  dégâts calculés** (effets de cartes, menace) sur de vrais combats.
-- Les moves de boss sont connus **un par un**, pas leur rotation : le modèle de menace doit exposer
-  « pire coup », « coup moyen », « nb de coups », pas une prédiction tour par tour inventée.
-
-## 3. Règles de packaging (exigence Mio)
-
-Un ami qui clone Ultima **ne doit rien télécharger de lourd**. Donc :
-
-- **commités** (petits, générés, < 2 Mo au total) : `data/meta/*`, `data/catalog/*`
-  (cartes, effets, monstres, rencontres, potions, reliques) et `data/calibration/*` (poids appris) ;
-- **jamais commités** (gitignorés) : `data/exports/`, `data/runs/`, `data/index/`, `data/codex/` ;
-- le moteur ne lit **que** les fichiers commités à l'exécution ; l'export et l'index ne servent qu'à
-  produire/valider ces artefacts (backtest hors ligne).
-
-## 4. Méthode de scoring validée par Mio (docs/27)
+## 4. Méthode de scoring (arbitrée par Mio — ne pas la redéfinir)
 
 ```
 note(item, joueur) = L0 intrinsèque (rang Spire Codex, 20..78)
-                   + L1 fit deck (±20, par manques, anti-synergie)
-                   + L2 état/besoin (0..15 : PV, or, boss, malédictions)
+                   + L1 fit deck (±20, par manques, ΔG)
+                   + L2 état/besoin (0..15 : PV, coup du boss)
                    + L3 équipe (co-op)
 ```
 
-- **ΔG** : on définit un score global du joueur `G = w_s·Survie + w_o·Offense + w_c·Consistance +
-  w_v·Couverture`, et la valeur d'un item est `ΔG = G(état+item) − G(état)`. Naturellement idempotent
-  (les dimensions saturent), cohérent entre cartes/reliques/potions/chemins.
-- **S atteignable** par le fit : une relique C-tier qui s'imbrique parfaitement peut sortir S.
-  L'intrinsèque n'est qu'un prior, il reste affiché à part.
-- **PV au début du combat** : la survie utilise les PV **effectifs** (mitigation des statuts du boss
-  au tour 1), pas les PV bruts.
-- **Co-op** (décisions de Mio) : reliques **personnelles** ; allié mort **réanimé à 1 PV** si le
-  groupe passe le combat ; coffre = 3 reliques pour 3 joueurs, et si plusieurs la veulent →
-  **feuille-pierre-ciseaux**. Donc L3 = classement d'envie par joueur + conseil de tie-break
-  (écart de ΔG < 3 → vrai match nul).
-- **Explication** : chaque terme porte libellé + points + source (« Spire Codex — consensus … »).
-  Pas de phrase sans chiffre derrière.
+- **Deux notes affichées** : tier intrinsèque et « pour toi maintenant », jamais fusionnées.
+- **S atteignable** : une carte B (65) + fit 20 sort S ; une carte C basse (45) a besoin de L2.
+- **PV effectifs** au début du combat (Vulnérable ×1,5, Faiblesse ×0,75).
+- **Co-op** : reliques personnelles, allié mort → **revive 1 PV** si le groupe passe, coffre 3 reliques
+  à 3 joueurs, **feuille-pierre-ciseaux** si plusieurs la veulent (écart de ΔG < 3 = vrai match nul).
+- **13 cartes de soutien** (8 `AnyAlly`, 5 `AllAllies`) : ΔG calculé sur le deck de **chaque allié**.
+- **Explication** : chaque terme porte libellé + points + source. Pas de phrase sans chiffre.
 
-## 5. Chantier en cours (swarm Hermes)
+## 5. Contraintes produit
 
-**Livré et mergé (107 tests, porte PASS)** :
-
-| Brique | Sortie réelle |
-|---|---|
-| Effets des cartes | `data/catalog/cards_effects.json` (577 cartes, 298 Ko) + `Ultima.Engine/Scoring/Cards/CardEffects.cs` — 212 cartes avec dégâts, 72 avec bloc, 18 multi-coups, 10 X-cost. Piège traité : `upgrade.damage/block/cards/energy` sont des **deltas texte** (`"+3"`), `upgrade.cost` est un **coût absolu** |
-| Modèle de menace | `data/catalog/monsters.json` (128 entrées, 15 boss) + `encounters.json` (87) + `Ultima.Engine/Scoring/Threat/ThreatModel.cs` — `MaxHit`, pire move, `AverageDamage` (stats observées), `EffectiveHp` (Vulnérable ×1,5, Faiblesse ×0,75). Aeonglass 26/32, EYE_LASERS 11×2 |
-| Harnais de backtest | `tools/backtest/` (loader/policies/metrics/run/selftest) — 100k runs en 23-26 s. Mesures : accord 28,8 %, +1,4 pp de win rate par décision, **−18,5 pp par run = effet de profondeur, pas causalité** (explicité dans la sortie) |
-| Spec review | `docs/29-review-replay.md` (1 295 lignes) — timeline, regret (`ΔG(best) − ΔG(choix)`, seuils 5/12/25), contrôles de vitesse, voie combat optionnelle, demande de contrat v1.2 |
-
-Puis : `G` et `ΔG` (dépendent des deux premiers), `TeamAdvisor` (L3), packaging des artefacts.
+- **Un ami qui clone ne télécharge rien** : commité < 2 Mo (`data/meta`, `data/catalog`,
+  `data/calibration`) ; gitignoré : exports, index, replays, codex. Prouvé par `check-offline.sh`.
+- **Read-only** : le moteur n'appelle jamais `CardPileCmd`, `DamageCmd`, `PowerCmd.Apply`.
+- **Pas de `catch {}` muet, pas de valeur par défaut silencieuse** : un effet non modélisé est
+  `null` + source, ou déclaré absent. Jamais 0.
+- **Review** : voie A (décisions/trajectoire, 100 % des runs) + voie B (combat, 8 % avec replay).
 
 ## 6. Ce qu'on attend de Claude
 
-- Ne pas redéfinir la méthode : elle est arbitrée par Mio (docs/27 §7).
-- Proposer un **contrat v1.2** pour : `PartyView` (tous les joueurs en co-op), `ScoreTerm.Evidence`
-  (citer les cartes concernées), et éventuellement un `ReviewTimeline` pour la feature review.
-- Ne pas commiter de data lourde ; ne pas casser les 86 tests ; lancer `tools/hermes-verify.sh`.
+1. **Contrat v1.2** : `PartyView` (tous les joueurs), `ScoreTerm.Evidence` (cartes concernées),
+   `ReviewTimeline` + `ReviewPoint` (docs/29 §5).
+2. Brancher les **pouvoirs** dans le pipeline de dégâts (catalogue S21 + évaluateur S22) : c'est la
+   brique qui empêche de sous-évaluer les decks de scaling.
+3. **Copies de monstres** dans `ThreatModel` (catalogue S24) et **phases/invulnérabilité**.
+4. Trancher le **seuil d'ascension des PV** (≤ A8, à mesurer sur A1-A7).
+5. Ne pas commiter de data lourde ; ne pas casser les 146 tests ; lancer `tools/hermes-verify.sh`.
+
+## 7. Où vit la connaissance
+
+- Skills : `sts2-combat-math` (pipeline, ascension, replays, pouvoirs, copies),
+  `sts2-meta-scoring` (formule, ΔG, L2, calibration, co-op, explosivité) +
+  `references/contraintes-et-pouvoirs.md`, `references/public-run-corpus.md`, `references/formule-v1.md`.
+- Docs : 22-33. Tout chiffre cité ici est reproductible par un script du dépôt.
