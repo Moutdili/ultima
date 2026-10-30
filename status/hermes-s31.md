@@ -86,6 +86,14 @@ que les récompenses) ; `RankAll` exclut le set de départ. Outil `tools/treasur
 liste en console. Aucune probabilité de coffre inventée : le code indexé déclare la rareté, pas
 les tirages. **289 tests**.
 
+## Méga-vérification (tools/verify_data.py)
+
+Script unique, **440 contrôles** sur toutes les données produites : schémas, bornes, couvertures,
+cohérence entre fichiers, déterminisme des générateurs, chemins absolus, budget de clone.
+Trois anomalies trouvées et corrigées : 2 reliques `RelicRarity.None` rangées à tort dans un pool
+trésor, 222 decks d'actes sous le seuil non documentés, et un contrôle de poids qui lisait la
+mauvaise clé. Résultat : **PASS, 0 échec**, budget 1 999 681 / 2 097 152 octets (95,4 %).
+
 ## File restante
 
 1. 204 pouvoirs comportementaux (d'un bloc, plus tard) — l'index statuts est la première brique.
