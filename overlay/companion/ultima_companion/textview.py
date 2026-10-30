@@ -1,6 +1,6 @@
 """Mise en texte (pure, sans GTK) des pages État et Run. L'UI ne fait qu'afficher ces sections.
 
-Design en dernier (décision Mio) : texte brut, lisible. Score absent → « — », jamais 0.
+Sert à `ultima-companion --check` et à la page Sources (texte). Score absent → « — », jamais 0.
 """
 
 from __future__ import annotations
@@ -178,11 +178,12 @@ def status_sections(result: StateResult, daemon: str, local: OverlaySettings | N
 
     st = result.state
     daemon_rows += [
-        Row("Version du contrat", f"v{st.contract_version} (supportée : v{SUPPORTED_CONTRACT_VERSION})"),
+        Row("Version du contrat", f"v{st.contract_version}.{st.contract_minor} "
+                                  f"(supportée : v{SUPPORTED_CONTRACT_VERSION}.x)"),
         Row("Dernier état publié", fmt_at(st.at, st.at_raw)),
     ]
     if local is not None and st.settings is not None:
-        same = local.same_modules(st.settings)
+        same = local.same_applied(st.settings)
         daemon_rows.append(Row("Réglages appliqués par le daemon",
                                "identiques à settings.json" if same
                                else "différents de settings.json (rechargement en attente)"))

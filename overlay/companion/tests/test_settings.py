@@ -6,11 +6,14 @@ from pathlib import Path
 
 import pytest
 
-from conftest import REPO
+from conftest import FIXTURES, REPO
 from ultima_companion import paths, settings
-from ultima_companion.settings import DEFAULT_ORDER, OverlaySettings
+from ultima_companion.settings import DEFAULT_ORDER, HudSettings, OverlaySettings
 
 CONTRACT = REPO / "Ultima.Engine" / "Contracts" / "EngineContracts.cs"
+# Sortie RÉELLE de System.Text.Json (Web defaults, .NET 9) sur OverlaySettings.Default du contrat v1.3.
+DOTNET_DEFAULT = FIXTURES / "settings.v13.default.json"
+N = len(DEFAULT_ORDER)
 
 
 # ---- défauts ≡ contrat ------------------------------------------------------------------------
@@ -18,27 +21,48 @@ CONTRACT = REPO / "Ultima.Engine" / "Contracts" / "EngineContracts.cs"
 def test_default_order_is_mio_order():
     s = OverlaySettings.default()
     assert s.ids() == ["deck", "enchanted", "curses", "relics", "potions",
-                       "reward", "shop", "paths", "deck_score"]
-    assert [m.order for m in s.modules] == list(range(9))
+                       "reward", "shop", "event", "paths", "route", "party", "deck_score"]
+    assert [m.order for m in s.modules] == list(range(12))
     assert all(m.enabled for m in s.modules)
+    assert s.hud.to_json() == {"quality": "verre", "heightFraction": 0.55, "restOpacity": 0.62,
+                               "side": "right", "deckScoreInCombat": False, "gradesOnly": False}
 
 
-def test_default_serialization_identical_to_sample(sample):
-    # Le daemon publie ses réglages dans state.settings : même forme exacte (clés, ordre, valeurs).
-    assert OverlaySettings.default().to_json() == sample["settings"]
-    assert json.dumps(OverlaySettings.default().to_json()) == json.dumps(sample["settings"])
+def test_default_serialization_identical_to_dotnet():
+    # Même texte, octet pour octet, que System.Text.Json sur le record C# (clés, ordre, valeurs).
+    expected = DOTNET_DEFAULT.read_text(encoding="utf-8").strip()
+    assert json.dumps(OverlaySettings.default().to_json(), separators=(",", ":")) == expected
+    assert OverlaySettings.from_text(expected).to_json() == json.loads(expected)
+
+
+def test_v10_settings_from_sample_upgrade_cleanly(sample):
+    # docs/22-state.sample.json est un état v1.0 (9 modules, pas de hud) : lu sans perte.
+    s = OverlaySettings.from_json(sample["settings"])
+    assert s.ids()[:9] == [m["id"] for m in sample["settings"]["modules"]]
+    assert s.ids()[9:] == ["event", "route", "party"]       # modules v1.2 ajoutés à la fin
+    assert s.hud.to_json() == HudSettings.default().to_json()
 
 
 @pytest.mark.skipif(not CONTRACT.exists(), reason="contrat C# absent")
 def test_default_matches_csharp_contract():
     src = CONTRACT.read_text(encoding="utf-8")
-    ids = dict(re.findall(r'(\w+) = "(\w+)"', src[src.index("class ModuleIds"):]))
+    mod_block = src[src.index("class ModuleIds"):]
+    mod_block = mod_block[:mod_block.index("}")]
+    ids = dict(re.findall(r'(\w+) = "(\w+)"', mod_block))
     default_block = src[src.index("OverlaySettings Default"):src.index("});")]
     entries = re.findall(r"new\(ModuleIds\.(\w+), (true|false), (\d+)\)", default_block)
     expected = [{"id": ids[name], "enabled": en == "true", "order": int(o)} for name, en, o in entries]
-    assert len(expected) == 9
-    assert OverlaySettings.default().to_json() == {"modules": expected}
+    assert len(expected) == 12
+    assert OverlaySettings.default().to_json()["modules"] == expected
     assert set(ids.values()) == set(DEFAULT_ORDER)
+    # HudSettings.Default et Qualities
+    m = re.search(r'HudSettings Default \{ get; \} = new\("(\w+)", ([\d.]+), ([\d.]+), "(\w+)", (true|false), (true|false)\)', src)
+    assert m, "HudSettings.Default introuvable"
+    d = HudSettings.default()
+    assert (d.quality, d.height_fraction, d.rest_opacity, d.side) == (m[1], float(m[2]), float(m[3]), m[4])
+    assert (d.deck_score_in_combat, d.grades_only) == (m[5] == "true", m[6] == "true")
+    q = re.search(r"Qualities = new\[\] \{ ([^}]*) \}", src)
+    assert tuple(re.findall(r'"(\w+)"', q[1])) == settings.QUALITIES
 
 
 # ---- réordonnancement --------------------------------------------------------------------------
@@ -47,10 +71,10 @@ def test_move_up_and_down_renumber():
     s = OverlaySettings.default()
     assert s.move_up("relics")
     assert s.ids()[:5] == ["deck", "enchanted", "relics", "curses", "potions"]
-    assert [m.order for m in s.modules] == list(range(9))
+    assert [m.order for m in s.modules] == list(range(N))
     assert s.move_down("deck")
     assert s.ids()[:3] == ["enchanted", "deck", "relics"]
-    assert [m.order for m in s.modules] == list(range(9))
+    assert [m.order for m in s.modules] == list(range(N))
 
 
 def test_move_at_edges_is_noop():
@@ -90,8 +114,9 @@ def test_from_json_ignores_unknown_fields_and_sorts_by_order():
     assert s.modules[0].enabled is False
     assert s.modules[0].to_json() == {"id": "relics", "enabled": False, "order": 0}
     # modules connus absents → ajoutés à la fin, activés, ordre défaut conservé
-    assert s.ids()[2:] == ["enchanted", "curses", "potions", "reward", "shop", "paths", "deck_score"]
-    assert [m.order for m in s.modules] == list(range(9))
+    assert s.ids()[2:] == ["enchanted", "curses", "potions", "reward", "shop", "event", "paths",
+                           "route", "party", "deck_score"]
+    assert [m.order for m in s.modules] == list(range(N))
     # clé de premier niveau inconnue conservée à l'écriture
     assert s.to_json()["unknownTop"] == {"x": 1}
 
@@ -100,7 +125,7 @@ def test_from_json_keeps_future_module_ids():
     data = {"modules": [{"id": "future_mod", "enabled": True, "order": 0}]}
     s = OverlaySettings.from_json(data)
     assert s.ids()[0] == "future_mod"
-    assert len(s.modules) == 10
+    assert len(s.modules) == N + 1
     assert "inconnu" in settings.module_label("future_mod")
 
 
@@ -144,7 +169,9 @@ def test_save_atomic_roundtrip(isolated_xdg):
     written = settings.save(s)
     assert written == isolated_xdg["config"] / "ultima" / "settings.json"
     raw = json.loads(written.read_text(encoding="utf-8"))
-    assert list(raw) == ["modules"]
+    assert list(raw) == ["modules", "hud"]
+    assert list(raw["hud"]) == ["quality", "heightFraction", "restOpacity", "side",
+                                "deckScoreInCombat", "gradesOnly"]
     assert all(list(m) == ["id", "enabled", "order"] for m in raw["modules"])  # camelCase, ordre C#
     assert raw["modules"][3] == {"id": "potions", "enabled": True, "order": 3}
     # aucun fichier temporaire laissé
@@ -191,3 +218,91 @@ def test_load_missing_and_invalid(isolated_xdg):
     r = settings.load()
     assert r.exists and r.error and "JSON invalide" in r.error
     assert r.settings.ids() == list(DEFAULT_ORDER)
+
+
+# ---- HudSettings v1.3 ----------------------------------------------------------------------------
+
+def test_hud_missing_or_garbage_is_default():
+    for data in ({"modules": []}, {"hud": None}, {"hud": "loupe"}, {"hud": []}, None):
+        assert OverlaySettings.from_json(data).hud.to_json() == HudSettings.default().to_json()
+
+
+@pytest.mark.parametrize("field,value,expected", [
+    ("quality", "loupe", "loupe"), ("quality", "eco", "eco"), ("quality", "LOUPE", "verre"),
+    ("quality", 3, "verre"),
+    ("side", "left", "left"), ("side", "top", "right"), ("side", None, "right"),
+    ("heightFraction", 0.8, 0.8), ("heightFraction", 1, 1.0), ("heightFraction", 0, 0.55),
+    ("heightFraction", 1.5, 0.55), ("heightFraction", -0.1, 0.55), ("heightFraction", "0.7", 0.55),
+    ("heightFraction", True, 0.55),
+    ("restOpacity", 0, 0.0), ("restOpacity", 0.3, 0.3), ("restOpacity", 2, 0.62),
+    ("deckScoreInCombat", True, True), ("deckScoreInCombat", "yes", False),
+    ("gradesOnly", True, True), ("gradesOnly", 1, False),
+])
+def test_hud_field_variants(field, value, expected):
+    hud = HudSettings.from_json({field: value}).to_json()
+    assert hud[field] == expected
+
+
+def test_hud_unknown_keys_preserved_and_order():
+    s = OverlaySettings.from_json({"hud": {"gradesOnly": True, "quality": "eco", "glow": 2}, "zz": 1})
+    out = s.to_json()
+    assert list(out) == ["modules", "hud", "zz"]
+    assert list(out["hud"]) == ["quality", "heightFraction", "restOpacity", "side",
+                                "deckScoreInCombat", "gradesOnly", "glow"]
+    assert out["hud"]["quality"] == "eco" and out["hud"]["gradesOnly"] is True
+
+
+def test_hud_setters_clamp_and_round():
+    h = HudSettings()
+    h.set_height(0.1234)
+    assert h.height_fraction == settings.HEIGHT_RANGE[0]
+    h.set_height(0.6666)
+    assert h.height_fraction == 0.67
+    h.set_opacity(5)
+    assert h.rest_opacity == 1.0
+    h.set_quality("loupe")
+    h.set_side("left")
+    with pytest.raises(ValueError):
+        h.set_quality("ultra")
+    with pytest.raises(ValueError):
+        h.set_side("top")
+    assert h.to_json()["heightFraction"] == 0.67 and h.to_json()["side"] == "left"
+
+
+def test_reset_modules_keeps_hud_and_reset_hud_keeps_modules():
+    s = OverlaySettings.default()
+    s.hud.set_quality("eco")
+    s.move_down("deck")
+    s.reset()
+    assert s.hud.quality == "eco" and s.ids() == list(DEFAULT_ORDER)
+    s.move_down("deck")
+    s.reset_hud()
+    assert s.hud.to_json() == HudSettings.default().to_json() and s.ids()[0] == "enchanted"
+
+
+def test_hud_save_load_roundtrip_atomic(isolated_xdg):
+    p = paths.settings_path()
+    p.parent.mkdir(parents=True)
+    # fichier v1.0 existant (sans hud) : la première écriture ajoute hud sans toucher aux modules
+    p.write_text(json.dumps({"modules": [{"id": "relics", "enabled": False, "order": 0}]}), encoding="utf-8")
+    s = settings.load().settings
+    s.hud.set_quality("loupe")
+    s.hud.set_height(0.7)
+    s.hud.set_opacity(0.4)
+    s.hud.set_side("left")
+    s.hud.deck_score_in_combat = True
+    s.hud.grades_only = True
+    settings.save(s)
+    raw = json.loads(p.read_text(encoding="utf-8"))
+    assert raw["hud"] == {"quality": "loupe", "heightFraction": 0.7, "restOpacity": 0.4, "side": "left",
+                          "deckScoreInCombat": True, "gradesOnly": True}
+    assert raw["modules"][0] == {"id": "relics", "enabled": False, "order": 0}
+    assert sorted(os.listdir(p.parent)) == ["settings.json"]
+    assert settings.load().settings.to_json() == s.to_json()
+
+
+def test_same_applied_compares_hud():
+    a, b = OverlaySettings.default(), OverlaySettings.default()
+    assert a.same_applied(b)
+    b.hud.set_quality("eco")
+    assert a.same_modules(b) and not a.same_applied(b)

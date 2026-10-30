@@ -57,13 +57,17 @@ def test_status_sections_sample(sample):
     secs = textview.status_sections(state.parse_state(sample), ipc.ALIVE, OverlaySettings.default())
     text = _flat(secs)
     assert "Daemon | en marche" in text
-    assert "Version du contrat | v1 (supportée : v1)" in text
+    assert "Version du contrat | v1.0 (supportée : v1.x)" in text
     assert "Mode dégradé | aucun" in text
     assert "Jeu lancé | oui" in text and "Save | OK" in text and "Miroir mémoire | OK" in text
     assert "Latence du miroir | 108 ms" in text
     assert "Écran courant | Boutique (Shop)" in text
-    assert "identiques à settings.json" in text
+    # sample v1.0 (9 modules) ≠ réglages locaux v1.3 (12 modules) : signalé, pas masqué
+    assert "différents de settings.json" in text
     assert "29/10/2026" in text
+    same = textview.status_sections(state.parse_state(sample), ipc.ALIVE,
+                                    state.parse_state(sample).state.settings)
+    assert "identiques à settings.json" in _flat(same)
 
 
 def test_status_sections_settings_differ(sample):
