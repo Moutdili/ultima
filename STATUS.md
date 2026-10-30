@@ -566,3 +566,8 @@ finale : `git filter-repo --replace-text` (ID → `<steam-id>`) en plus du retra
 3. Câbleur 3 (après console + verrier) : textes d'événement depuis Ultima.Knowledge via les clés du miroir,
    relecture si `optionsKnown=false`, enchantement dans CardView (récompense/shop), `enabled` par défaut.
    Piles en combat : après la mesure FPS de la fenêtre n°2.
+- **v2/verrier-design mergé** (`d2ba5ea`) : verre v3 eco/verre/loupe, rail = bande de verre seule, ouverture
+  fluide, aucun travail au repos ; `npm test` 458/458. NON prouvé : rendu réel, shaders AMD, FPS.
+  Procédure : `overlay/gnome/TEST-WINDOW.md`. Test croisé compagnon↔HUD réaligné sur `grammar.js` (chef).
+4. Bornes `HudSettings` fixées dans le contrat (docs/22) : hauteur 0,30–0,85, opacité 0,35–1. À appliquer :
+   daemon (`SettingsStore`), compagnon, HUD, TUI (Câbleur 3 + agents concernés).

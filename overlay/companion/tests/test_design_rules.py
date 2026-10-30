@@ -12,6 +12,7 @@ from conftest import COMPANION, REPO
 from ultima_companion import palette, settings, state, theme, views
 
 RENDER_JS = REPO / "overlay" / "gnome" / "ultima@mio" / "render.js"
+GRAMMAR_JS = REPO / "overlay" / "gnome" / "ultima@mio" / "grammar.js"
 GRADES = {"S", "A", "B", "C", "D", "F", "—"}
 
 
@@ -66,13 +67,13 @@ def test_shortcuts_are_super_shift_never_function_keys():
 
 # ---- §11 -----------------------------------------------------------------------------------------------
 
-def test_module_labels_are_the_hud_block_titles():
-    """Une seule grammaire : le titre de chaque bloc du HUD (render.js) = le libellé du compagnon en capitales."""
-    titles = dict(re.findall(r"block\('([a-z_]+)', [`']([^`'·$]+?) ·", RENDER_JS.read_text(encoding="utf-8")))
-    titles.pop("title", None)
-    assert {"deck", "enchanted", "curses", "relics", "potions", "reward", "shop", "paths", "deck_score"} <= set(titles)
-    for mid, title in titles.items():
-        assert settings.module_label(mid).upper() == title, mid
+def test_module_labels_are_the_hud_labels():
+    """Une seule grammaire : le libellé de chaque module du HUD (grammar.js MODULE_LABEL) = celui du compagnon."""
+    m = re.search(r"MODULE_LABEL = Object\.freeze\(\{([^}]*)\}", GRAMMAR_JS.read_text(encoding="utf-8"))
+    labels = dict(re.findall(r"([a-z_]+): '([^']+)'", m[1]))
+    assert {"deck", "enchanted", "curses", "relics", "potions", "reward", "shop", "paths", "deck_score"} <= set(labels)
+    for mid, label in labels.items():
+        assert settings.module_label(mid) == label, mid
 
 
 def test_hud_module_ids_are_a_prefix_order_of_the_contract_order():

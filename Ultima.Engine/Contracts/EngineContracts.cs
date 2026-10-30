@@ -179,4 +179,6 @@ public sealed record HudSettings(string Quality, double HeightFraction, double R
 {
     public static HudSettings Default { get; } = new("verre", 0.55, 0.62, "right", false, false);
     public static readonly IReadOnlyList<string> Qualities = new[] { "eco", "verre", "loupe" };
+    /// <summary>v1.3 — bornes communes (daemon, HUD, compagnon, TUI) : hors bornes ⇒ ramené à la borne.</summary>
+    public const double HeightMin = 0.30, HeightMax = 0.85, OpacityMin = 0.35, OpacityMax = 1.0;
 }

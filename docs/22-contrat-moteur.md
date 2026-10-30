@@ -67,3 +67,6 @@ Libellés affichés : `Ultima.Knowledge` fait foi. Données de calcul : registre
 - `AllyView.Name` = nom du personnage (la save ne contient pas les pseudos ; préférable pour la vie privée).
 - Échantillon d'état v1.3 produit par le daemon sur une vraie save (anonymisé) : `docs/ipc/state.v13.sample.json`.
   `docs/22-state.sample.json` reste l'échantillon v1 des tests de rendu existants.
+- Bornes communes des `HudSettings` (décision chef, 2026-10-30) : `HeightFraction` 0,30–0,85, `RestOpacity`
+  0,35–1 (`HudSettings.HeightMin/HeightMax/OpacityMin/OpacityMax`). Hors bornes ⇒ ramené à la borne, partout
+  (daemon, HUD, compagnon, TUI). Au-delà de 0,85 le panneau couvre trop le jeu.
