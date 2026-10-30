@@ -1,0 +1,15 @@
+{
+  "id": "sts",
+  "label": "Slay the Spire",
+  "api": 1,
+  "description": "Thème par défaut : palette StsColors du jeu (skill design §1, §9) sur la teinte du verre.",
+  "tones": {
+    "text": "#FFF6E2", "muted": "#FFF6E299", "accent": "#EFC851", "danger": "#FF5555", "ok": "#7FFF00",
+    "warn": "#FFA518", "curse": "#EE82EE", "enchant": "#2AEBBE", "info": "#87CEEB",
+    "grade.S": "#EFC851", "grade.A": "#7FFF00", "grade.B": "#2AEBBE", "grade.C": "#87CEEB",
+    "grade.D": "#FFA518", "grade.F": "#FF5555",
+    "background": "#192930", "border": "#EFC85166"
+  },
+  "logColors": { "timestamp": "muted", "debug": "muted", "info": "text", "warn": "warn", "error": "danger" },
+  "glass": { "tint": "#192930", "tintOpacity": 0.55 }
+}
