@@ -369,6 +369,19 @@ public sealed class ThreatModel
     }
 
     /// <summary>
+    /// Pire coup de la rencontre, corrigé par les statuts des deux camps (docs/47) :
+    /// Force/Vigor de l'attaquant, Faiblesse de l'attaquant, Vulnérabilité/Intangible de la cible.
+    /// Sans statuts, le résultat est exactement <see cref="MaxHit"/>.
+    /// </summary>
+    public int PredictedMaxHit(string encounterId, int ascension = 0,
+        IReadOnlyDictionary<string, int>? attackerStatuses = null,
+        IReadOnlyDictionary<string, int>? defenderStatuses = null)
+    {
+        var baseDamage = MaxHit(encounterId, ascension);
+        return Status.StatusRules.Default.Incoming(baseDamage, attackerStatuses, defenderStatuses);
+    }
+
+    /// <summary>
     /// Dégâts moyens réellement observés sur la rencontre (<c>avg_damage</c> des stats).
     /// <paramref name="character"/> null/vide ⇒ moyenne tous personnages. Rencontre ou
     /// personnage absent de l'échantillon ⇒ null (jamais une moyenne inventée).
