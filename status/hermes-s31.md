@@ -77,6 +77,15 @@ pouvoirs touchent aux dégâts, **12 modélisés**, 24 publiés non modélisés 
 `ThreatModel.PredictedMaxHit`. `StatusSources` répond « qui applique quoi », avec la ligne.
 **284 tests**.
 
+## Trésors potentiels (docs/48)
+
+`tools/treasures/index_relics.py` extrait la rareté **déclarée dans le code de chaque relique** :
+Common 30 · Uncommon 40 · Rare 50 · Shop 30 · Event 35 · Ancient 100 · Starter 10 (298 reliques).
+`TreasureIndex.Rank(ctx, pool, n)` classe les reliques d'un pool pour le deck courant (même scorer
+que les récompenses) ; `RankAll` exclut le set de départ. Outil `tools/treasure_report` pour la
+liste en console. Aucune probabilité de coffre inventée : le code indexé déclare la rareté, pas
+les tirages. **289 tests**.
+
 ## File restante
 
 1. 204 pouvoirs comportementaux (d'un bloc, plus tard) — l'index statuts est la première brique.
