@@ -17,7 +17,8 @@ from pathlib import Path
 DATA = Path("data")
 BUDGET = 2_097_152
 MIN_PUBLISH = 200          # seuil de publication des buckets et des rencontres (docs/43, docs/46)
-REQUIRED_META = ("weight_profile.json", "card_tiers.json", "relic_tiers.json", "card_archetypes.json")
+# Même liste que OfflinePackagingTests.RequiredMetaFiles — sinon la vérif et le test divergent.
+REQUIRED_META = ("card_tiers.json", "relic_tiers.json", "archetypes.json", "sources.json")
 
 failures: list[str] = []
 checks = 0
@@ -86,11 +87,13 @@ def main() -> int:
     powers = load(DATA / "catalog" / "powers.json")
     power_ids = {p["id"] for p in (powers.get("powers", powers) if isinstance(powers, dict) else powers)}
 
-    applies = [a for family in ("cards", "monsters") for row in sources[family] for a in row["applies"]]
+    # Format compact : chaque application est [pouvoir, cible, montant, méthode, ligne].
+    applies = [entry for family in ("cards", "monsters") for row in sources[family] for entry in row["ap"]]
     check(len(applies) == sources["counts"]["applies"], "applications = compteur")
-    unknown = {a["p"] for a in applies if a.get("p")} - power_ids
+    unknown = {entry[0] for entry in applies if entry[0]} - power_ids
     check(not unknown, "pouvoirs appliqués inconnus du catalogue", str(sorted(unknown)[:5]))
-    check(all(a["l"] > 0 for a in applies), "ligne de code renseignée")
+    check(all(entry[4] > 0 for entry in applies), "ligne de code renseignée")
+    check(all(len(entry) == 5 for entry in applies), "application = 5 champs")
 
     modelled = [r for r in rules["rules"] if r["modelled"]]
     check(len(modelled) == rules["counts"]["modelled"], "modélisés = compteur")
@@ -124,18 +127,19 @@ def main() -> int:
     # ---------- pouvoirs ----------
     inventory = load(DATA / "catalog" / "power_inventory.json")
     counts = inventory["counts"]
-    states = [p["state"] for p in inventory["powers"]]
+    # Format compact : s = état (h hook, d dynamic, c conditionnel, n sans signal), pr = primitives.
+    states = [p["s"] for p in inventory["powers"]]
     check(len(states) == counts["powers"], "inventaire pouvoirs : total = compteur")
-    check(states.count("hook") == counts["with_hook"], "pouvoirs à hook = compteur")
-    check(states.count("dynamic_only") == counts["dynamic_only"], "dynamic_only = compteur")
-    check(states.count("conditional_only") == counts["conditional_only"], "conditional_only = compteur")
-    check(states.count("no_signal") == counts["no_signal"], "no_signal = compteur")
-    check(all(p["primitives"] for p in inventory["powers"] if p["state"] == "hook"),
+    check(states.count("h") == counts["with_hook"], "pouvoirs à hook = compteur")
+    check(states.count("d") == counts["dynamic_only"], "dynamic_only = compteur")
+    check(states.count("c") == counts["conditional_only"], "conditional_only = compteur")
+    check(states.count("n") == counts["no_signal"], "no_signal = compteur")
+    check(all(p["pr"] for p in inventory["powers"] if p["s"] == "h"),
           "un pouvoir à hook a au moins une primitive")
-    check(all(not p["primitives"] for p in inventory["powers"] if p["state"] != "hook"),
-          "une primitive n'apparaît que sur un état hook")
-    primitives = {primitive for p in inventory["powers"] for primitive in p["primitives"]}
-    check(primitives <= set(counts["by_primitive"]), "primitives publiées = primitives du compteur")
+    check(all(not p["pr"] for p in inventory["powers"] if p["s"] != "h"),
+          "aucune primitive hors état hook")
+    codes = {"dm", "df", "dc", "bm", "bf", "dr", "en", "cp", "sa"}
+    check({c for p in inventory["powers"] for c in p["pr"]} <= codes, "codes de primitive connus")
 
     # ---------- reliques ----------
     tags = load(DATA / "catalog" / "relic_tags.json")
