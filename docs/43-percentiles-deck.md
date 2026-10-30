@@ -16,6 +16,9 @@ Contrôle croisé : les 120 000 runs de l'index dédupliqué donnent **exactemen
 percentiles (43 / 48 / 53 en acte 1) — la mesure est stable, le corpus large ajoute la couverture
 par personnage.
 
+Couverture : les buckets publiés totalisent **399 778 decks sur 400 000** ; les 222 restants sont
+des actes sous le seuil de publication (n < 200), volontairement écartés plutôt que bruités.
+
 ## Comment la note est calculée
 
 1. `DeckEvaluator` garde ses termes habituels (moyenne des cartes, malédictions, boss, reliques,

@@ -54,10 +54,13 @@ def main() -> int:
         class_name = path.stem
         relic_id = known.get(snake(class_name), snake(class_name))
         pool = POOL.search(text)
+        rarity = match.group(1) if match else None
+        if rarity == "None":
+            rarity = None          # RelicRarity.None : mécanique spéciale, pas un pool de trésor
         rows.append({
             "id": relic_id,
             "class": class_name,
-            "rarity": match.group(1) if match else None,
+            "rarity": rarity,
             "pool_expr": pool.group(1).strip()[:80] if pool else None,
         })
 
