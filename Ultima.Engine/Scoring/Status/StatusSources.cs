@@ -144,19 +144,19 @@ public sealed class StatusSources
             if (string.IsNullOrWhiteSpace(id)) continue;
 
             var applies = new List<StatusApplication>();
-            if (element.TryGetProperty("applies", out var list) && list.ValueKind == JsonValueKind.Array)
+            // Format compact : "ap": [[pouvoir, cible, montant, méthode, ligne], ...]
+            if (element.TryGetProperty("ap", out var list) && list.ValueKind == JsonValueKind.Array)
             {
                 foreach (var item in list.EnumerateArray())
                 {
-                    if (item.ValueKind != JsonValueKind.Object) continue;
-                    // Clés compactes (p/t/a/m/l/d) : le fichier doit tenir dans le budget de clone.
+                    if (item.ValueKind != JsonValueKind.Array || item.GetArrayLength() < 5) continue;
                     applies.Add(new StatusApplication(
-                        Str(item, "p"),
-                        Str(item, "t") ?? "unknown",
-                        Str(item, "a"),
-                        Str(item, "m"),
-                        Int(item, "l"),
-                        item.TryGetProperty("d", out var dyn) && dyn.ValueKind == JsonValueKind.True));
+                        item[0].ValueKind == JsonValueKind.String ? item[0].GetString() : null,
+                        item[1].ValueKind == JsonValueKind.String ? item[1].GetString() ?? "unknown" : "unknown",
+                        item[2].ValueKind == JsonValueKind.String ? item[2].GetString() : null,
+                        item[3].ValueKind == JsonValueKind.String ? item[3].GetString() : null,
+                        item[4].ValueKind == JsonValueKind.Number && item[4].TryGetInt32(out var line) ? line : 0,
+                        false));
                 }
             }
 

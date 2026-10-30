@@ -33,6 +33,12 @@ PRIMITIVES = {
     "ModifyWeakMultiplier": "status_amplifier",
 }
 
+CODES = {
+    "damage_multiplier": "dm", "damage_flat": "df", "damage_cap": "dc",
+    "block_multiplier": "bm", "block_flat": "bf",
+    "draw": "dr", "energy": "en", "card_play_count": "cp", "status_amplifier": "sa",
+}
+
 DYNAMIC = re.compile(r"DynamicVars")
 CONDITION = re.compile(r"\bif\s*\(")
 APPLY = re.compile(r"PowerCmd\.Apply<(\w+)>")
@@ -94,29 +100,26 @@ def main() -> int:
         else:
             state = "no_signal"
 
-        # Les hooks vivent déjà dans powers.json : on ne les duplique pas (budget de clone strict).
+        # Compact : les hooks vivent dans powers.json, les compteurs se recalculent.
         rows.append({
             "id": power_id,
-            "primitives": primitives,
-            "state": state,
-            "dynamic_vars": dynamic,
-            "conditions": conditions,
-            "applies": applies,
-            "applied_by": applied_by.get(power_id),
+            "s": {"hook": "h", "dynamic_only": "d", "conditional_only": "c", "no_signal": "n"}[state],
+            "pr": [CODES[p] for p in primitives],
         })
 
+    codes = {code: name for name, code in CODES.items()}
     counts: dict[str, object] = {
         "powers": len(rows),
-        "with_hook": sum(1 for r in rows if r["primitives"]),
-        "dynamic_only": sum(1 for r in rows if r["state"] == "dynamic_only"),
-        "conditional_only": sum(1 for r in rows if r["state"] == "conditional_only"),
-        "no_signal": sum(1 for r in rows if r["state"] == "no_signal"),
-        "applied_by_cards_or_monsters": sum(1 for r in rows if r["applied_by"]),
+        "with_hook": sum(1 for r in rows if r["pr"]),
+        "dynamic_only": sum(1 for r in rows if r["s"] == "d"),
+        "conditional_only": sum(1 for r in rows if r["s"] == "c"),
+        "no_signal": sum(1 for r in rows if r["s"] == "n"),
     }
     primitives_count: dict[str, int] = {}
     for row in rows:
-        for primitive in row["primitives"]:
-            primitives_count[primitive] = primitives_count.get(primitive, 0) + 1
+        for code in row["pr"]:
+            name = codes.get(code, code)
+            primitives_count[name] = primitives_count.get(name, 0) + 1
     counts["by_primitive"] = dict(sorted(primitives_count.items()))
 
     document = {
