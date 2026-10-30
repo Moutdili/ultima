@@ -4,18 +4,27 @@
 #
 #   tools/verify-all.sh                    # tout
 #   ULTIMA_TEST_PYTHON=/chemin/python3     # Python avec textual + rich + pytest + pytest-asyncio (console)
+#   ULTIMA_COMPANION_PYTHON=/usr/bin/python3  # Python avec PyGObject, si `python3` du PATH n'en a pas
 #
 # La console exige Textual : sans Python adéquat, la suite console est déclarée ABSENTE (échec), pas sautée.
 set -uo pipefail
 cd "$(dirname "$(readlink -f "$0")")/.."
 fail=0
+
+# dotnet peut vivre hors PATH (installation utilisateur ~/.dotnet).
+command -v dotnet >/dev/null 2>&1 || [ ! -x "$HOME/.dotnet/dotnet" ] || PATH="$HOME/.dotnet:$PATH"
+# Les sockets AF_UNIX des tests console sont limités à 108 caractères : un TMPDIR long (ou imbriqué)
+# casse la suite. On impose donc une racine COURTE et fixe, quel que soit le TMPDIR hérité.
+TMPDIR="$(mktemp -d /tmp/u.XXXXXX)"
+export TMPDIR
+trap 'rm -rf "$TMPDIR"' EXIT
 say() { printf '%-10s %s\n' "$1" "$2"; }
 
 out=$(dotnet test Ultima.sln 2>&1); code=$?
 echo "$out" | grep -E '^(Passed|Failed)!' | sed -E 's/, Duration[^-]*- / /'
 [ $code = 0 ] && say ".NET" "vert" || { echo "$out" | grep -E '^\s+Failed ' ; say ".NET" "ROUGE"; fail=1; }
 
-if (cd overlay/companion && python3 -m pytest -q -p no:cacheprovider >/dev/null 2>&1); then say compagnon vert
+if (cd overlay/companion && "${ULTIMA_COMPANION_PYTHON:-python3}" -m pytest -q -p no:cacheprovider >/dev/null 2>&1); then say compagnon vert
 else say compagnon ROUGE; fail=1; fi
 
 if (cd overlay/gnome && npm test >/dev/null 2>&1); then say hud vert
