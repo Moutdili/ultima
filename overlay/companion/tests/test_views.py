@@ -163,15 +163,15 @@ def test_deck_summary_is_one_line(demo, sample):
 def test_health_line_variants(demo):
     r = _st(demo)
     assert views.health_line(r, ipc.ALIVE).text == "Sources OK · miroir 96 ms"
-    assert views.health_line(r, ipc.REFUSED).tone == "orange"
-    assert views.health_line(state.StateResult(state.MISSING), ipc.NO_SOCKET).tone == "red"
+    assert views.health_line(r, ipc.REFUSED).tone == "warn"
+    assert views.health_line(state.StateResult(state.MISSING), ipc.NO_SOCKET).tone == "danger"
     data = copy.deepcopy(demo)
     data["health"]["degraded"] = "miroir indisponible"
     assert views.health_line(_st(data), ipc.ALIVE).text == "Mode dégradé · miroir indisponible"
     data["health"].update(degraded=None, mirrorOk=False)
     assert views.health_line(_st(data), ipc.ALIVE).text == "Source KO : miroir"
     data["health"]["gameRunning"] = False
-    assert views.health_line(_st(data), ipc.ALIVE).tone == "gray"
+    assert views.health_line(_st(data), ipc.ALIVE).tone == "muted"
 
 
 def test_run_groups_order_and_grammar(demo):
@@ -184,17 +184,17 @@ def test_run_groups_order_and_grammar(demo):
     # même ordre que le HUD : malédictions en dernier, coût croissant, nom, sans enchantement d'abord
     assert labels == ["4× Garde (démo)", "Garde (démo)", "4× Lame (démo)", "Rituel (démo)+", "Fardeau (démo)"]
     ench = deck.items[1]
-    assert ench.tag == "Vivacité (démo) 1" and ench.tag_tone == "aqua"
+    assert ench.tag == "Vivacité (démo) 1" and ench.tag_tone == "enchant"
     assert deck.items[3].grade == "S" and deck.items[3].reason == "Méta +80"
     assert groups[1].title == "Enchantées · 1" and [i.label for i in groups[1].items] == ["Garde (démo)"]
     curses = groups[2].items
     assert groups[2].title == "Malédictions · 1"
-    assert curses[0].tag == "Malédiction" and curses[0].tag_tone == "purple" and curses[0].grade == "F"
+    assert curses[0].tag == "Malédiction" and curses[0].tag_tone == "curse" and curses[0].grade == "F"
     relics = groups[3].items
     assert [r.grade for r in relics] == ["A", "—"]
     assert relics[1].detail[-1] == "Note : — (calcul indisponible)"
     party = groups[5].items
-    assert party[0].tone == "red" and party[0].value == "61/80 PV" and party[0].reason == "Ironclad"
+    assert party[0].tone == "danger" and party[0].value == "61/80 PV" and party[0].reason == "Ironclad"
 
 
 def test_run_groups_follow_settings_order(demo):
@@ -215,8 +215,10 @@ def test_run_groups_follow_settings_order(demo):
 def test_run_groups_solo_and_v10(sample):
     groups = views.run_groups(_st(sample).state)
     keys = [g.key for g in groups]
-    assert "party" not in keys                                   # pas d'équipe en solo
-    assert keys[0] == "deck" and keys[-2:] == ["relics", "potions"]
+    # v1.4 : la page Run montre tous les modules des réglages, même vides (décision de Mio)
+    assert keys == ["deck", "enchanted", "curses", "relics", "potions", "party"]
+    party = [g for g in groups if g.key == "party"][0]
+    assert party.items == [] and party.empty == "Pas d'équipe (solo)"
     assert all(i.grade != "0" for g in groups for i in g.items)
 
 

@@ -42,6 +42,10 @@ DEFAULT_ORDER: tuple[str, ...] = (
     DECK, ENCHANTED, CURSES, RELICS, POTIONS, REWARD, SHOP, EVENT, PATHS, ROUTE, PARTY, DECK_SCORE,
 )
 
+# Écrans nommés du contrat (ModuleSetting.Screens, camelCase de l'enum Screen).
+SCREENS: tuple[str, ...] = ("menu", "map", "combat", "reward", "shop", "event", "restSite", "treasure")
+_SCREENS_BY_LOWER = {s.lower(): s for s in SCREENS}
+
 # Libellés = titres des blocs du HUD (render.js) en casse de phrase : une seule grammaire (§11).
 MODULE_LABELS: dict[str, str] = {
     DECK: "Deck",
@@ -66,11 +70,19 @@ MODULE_HINTS: dict[str, str] = {
 }
 
 
-def module_label(module_id: str) -> str:
-    return MODULE_LABELS.get(module_id, f"{module_id} (module inconnu de cette version)")
+def module_label(module_id: str, custom_labels: dict[str, str] | None = None) -> str:
+    if custom_labels and module_id in custom_labels:
+        return custom_labels[module_id]
+    if module_id in MODULE_LABELS:
+        return MODULE_LABELS[module_id]
+    if module_id.startswith("x."):
+        return f"{module_id} (module perso)"
+    return f"{module_id} (module inconnu de cette version)"
 
 
 def module_hint(module_id: str) -> str:
+    if module_id.startswith("x."):
+        return "module perso ou plugin, dessiné comme les autres blocs"
     return MODULE_HINTS.get(module_id, "")
 
 
@@ -85,10 +97,9 @@ QUALITY_HINTS = {
     "loupe": "verre + jeu grossi derrière le panneau",
 }
 SIDE_LABELS = {"left": "Gauche", "right": "Droite"}
-# Bornes de l'interface (le contrat n'en impose pas ; une valeur hors bornes lue dans le fichier
-# est conservée si elle reste dans ]0, 1], sinon remplacée par la valeur par défaut).
-HEIGHT_RANGE = (0.30, 0.90)
-OPACITY_RANGE = (0.20, 1.00)
+# Bornes du contrat v1.4 (docs/44 §3) : la surface produit ET lit toujours dans ces bornes.
+HEIGHT_RANGE = (0.30, 0.85)
+OPACITY_RANGE = (0.35, 1.00)
 
 
 def _ci(data: dict, key: str) -> Any:
@@ -117,13 +128,15 @@ def _choice(v: Any, allowed: tuple[str, ...], default: str) -> str:
     return default
 
 
-def _fraction(v: Any, default: float, allow_zero: bool) -> float:
+def _fraction(v: Any, default: float, bounds: tuple[float, float]) -> float:
+    """Nombre dans les bornes du contrat (arrondi 2 décimales) ; sinon valeur par défaut."""
+    lo, hi = bounds
     if isinstance(v, bool) or not isinstance(v, (int, float)):
         return default
     v = float(v)
-    if v != v or v > 1.0 or v < 0.0 or (v == 0.0 and not allow_zero):  # NaN, hors [0, 1]
+    if v != v:  # NaN
         return default
-    return v
+    return round(min(hi, max(lo, v)), 2)
 
 
 HUD_KEYS = {"quality", "heightFraction", "restOpacity", "side", "deckScoreInCombat", "gradesOnly"}
@@ -153,8 +166,8 @@ class HudSettings:
         go = _ci(data, "gradesOnly")
         return cls(
             quality=_choice(_ci(data, "quality"), QUALITIES, d.quality),
-            height_fraction=_fraction(_ci(data, "heightFraction"), d.height_fraction, allow_zero=False),
-            rest_opacity=_fraction(_ci(data, "restOpacity"), d.rest_opacity, allow_zero=True),
+            height_fraction=_fraction(_ci(data, "heightFraction"), d.height_fraction, HEIGHT_RANGE),
+            rest_opacity=_fraction(_ci(data, "restOpacity"), d.rest_opacity, OPACITY_RANGE),
             side=_choice(_ci(data, "side"), SIDES, d.side),
             deck_score_in_combat=dsc if isinstance(dsc, bool) else d.deck_score_in_combat,
             grades_only=go if isinstance(go, bool) else d.grades_only,
@@ -211,10 +224,45 @@ class ModuleSetting:
     id: str
     enabled: bool = True
     order: int = 0
+    screens: list[str] | None = None       # v1.4 : écrans où le bloc apparaît (None = défaut)
+    extra: dict[str, Any] = field(default_factory=dict)   # clés futures conservées
 
     def to_json(self) -> dict[str, Any]:
-        # Ordre des clés = ordre des paramètres du record C# (Id, Enabled, Order).
-        return {"id": self.id, "enabled": self.enabled, "order": self.order}
+        # Ordre des clés = ordre des paramètres du record C# (Id, Enabled, Order, Screens?) ;
+        # `screens` n'est écrit QUE s'il est présent (défaut du contrat = absent).
+        out: dict[str, Any] = {"id": self.id, "enabled": self.enabled, "order": self.order}
+        if self.screens is not None:
+            out["screens"] = list(self.screens)
+        out.update(self.extra)
+        return out
+
+
+def _screens(v: Any) -> list[str] | None:
+    """`screens` v1.4 : écrans connus, casse tolérée, doublons retirés ; absent/invalide → None."""
+    if not isinstance(v, list):
+        return None
+    out: list[str] = []
+    for item in v:
+        if not isinstance(item, str):
+            continue
+        canonical = _SCREENS_BY_LOWER.get(item.strip().lower())
+        if canonical and canonical not in out:
+            out.append(canonical)
+    return out
+
+
+def _module_setting(item: dict, index: int) -> ModuleSetting | None:
+    mid = _ci(item, "id")
+    if not isinstance(mid, str) or not mid:
+        return None
+    enabled = _ci(item, "enabled")
+    if not isinstance(enabled, bool):
+        enabled = True                      # v1.4 : `enabled` absent ⇒ true
+    order = _ci(item, "order")
+    if isinstance(order, bool) or not isinstance(order, int):
+        order = index
+    return ModuleSetting(mid, enabled, order, _screens(_ci(item, "screens")),
+                         _unknown(item, {"id", "enabled", "order", "screens"}))
 
 
 @dataclass
@@ -248,17 +296,11 @@ class OverlaySettings:
         for index, item in enumerate(raw):
             if not isinstance(item, dict):
                 continue
-            mid = _ci(item, "id")
-            if not isinstance(mid, str) or not mid or mid in seen:
+            module = _module_setting(item, index)
+            if module is None or module.id in seen:
                 continue
-            seen.add(mid)
-            enabled = _ci(item, "enabled")
-            if not isinstance(enabled, bool):
-                enabled = True
-            order = _ci(item, "order")
-            if isinstance(order, bool) or not isinstance(order, int):
-                order = index
-            parsed.append((order, index, ModuleSetting(mid, enabled, order)))
+            seen.add(module.id)
+            parsed.append((module.order, index, module))
 
         parsed.sort(key=lambda t: (t[0], t[1]))
         modules = [m for _, _, m in parsed]
@@ -328,6 +370,10 @@ class OverlaySettings:
     def ids(self) -> list[str]:
         return [m.id for m in self.modules]
 
+    def raw_get(self, key: str) -> Any:
+        """Clé inconnue conservée (ex. `appearance`, `pluginsEnabled`), lue sans tenir compte de la casse."""
+        return _ci(self.extra, key)
+
     def same_modules(self, other: "OverlaySettings") -> bool:
         return [m.to_json() for m in self.modules] == [m.to_json() for m in other.modules]
 
@@ -341,6 +387,57 @@ class LoadResult:
     settings: OverlaySettings
     exists: bool
     error: str | None = None  # message lisible si le fichier existe mais est illisible
+
+
+class SettingsWriteError(OSError):
+    """`settings.json` illisible : on refuse d'écrire plutôt que de perdre les clés inconnues."""
+
+
+def read_settings_file(path: Path | None = None) -> tuple[dict[str, Any] | None, str | None]:
+    """Objet JSON du fichier, et message d'erreur. (None, None) = absent ; (None, msg) = illisible."""
+    path = path or paths.settings_path()
+    try:
+        text = path.read_text(encoding="utf-8")
+    except FileNotFoundError:
+        return None, None
+    except OSError as e:
+        return None, f"lecture impossible : {e}"
+    try:
+        data = json.loads(text)
+    except (ValueError, RecursionError) as e:
+        return None, f"JSON invalide ({e})"
+    if not isinstance(data, dict):
+        return None, "la racine n'est pas un objet JSON"
+    return data, None
+
+
+def write_atomic(path: Path, text: str) -> Path:
+    """Écriture atomique : tmp (même dossier) → fsync → os.replace → fsync du dossier."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    data = text.encode("utf-8")
+    fd, tmp = tempfile.mkstemp(prefix=f".{path.name}.", suffix=".tmp", dir=path.parent)
+    try:
+        with os.fdopen(fd, "wb") as f:
+            f.write(data)
+            f.flush()
+            os.fsync(f.fileno())
+        os.chmod(tmp, 0o644)
+        os.replace(tmp, path)
+    except BaseException:
+        try:
+            os.unlink(tmp)
+        except FileNotFoundError:
+            pass
+        raise
+    try:
+        dfd = os.open(path.parent, os.O_RDONLY | os.O_DIRECTORY)
+        try:
+            os.fsync(dfd)
+        finally:
+            os.close(dfd)
+    except OSError:
+        pass
+    return path
 
 
 def load(path: Path | None = None) -> LoadResult:
@@ -372,30 +469,24 @@ def reload_if_changed(local: OverlaySettings, path: Path | None = None) -> Overl
 
 
 def save(settings: OverlaySettings, path: Path | None = None) -> Path:
-    """Écriture atomique : tmp (même dossier) → fsync → os.replace → fsync du dossier."""
+    """Écriture des clés du compagnon (`modules`, `hud`) sans toucher aux autres.
+
+    Le fichier est RELU juste avant l'écriture : les clés inconnues (`appearance`, `pluginsEnabled`,
+    clés d'une version future) sont conservées telles quelles ; seules `modules` et `hud` changent.
+    Un fichier existant mais illisible est REFUSÉ (on ne peut pas préserver ce qu'on ne lit pas).
+    Écriture atomique (tmp, fsync, rename, fsync du dossier).
+    """
     path = path or paths.settings_path()
-    path.parent.mkdir(parents=True, exist_ok=True)
-    data = settings.to_text().encode("utf-8")
-    fd, tmp = tempfile.mkstemp(prefix=".settings.", suffix=".tmp", dir=path.parent)
-    try:
-        with os.fdopen(fd, "wb") as f:
-            f.write(data)
-            f.flush()
-            os.fsync(f.fileno())
-        os.chmod(tmp, 0o644)
-        os.replace(tmp, path)
-    except BaseException:
-        try:
-            os.unlink(tmp)
-        except FileNotFoundError:
-            pass
-        raise
-    try:
-        dfd = os.open(path.parent, os.O_RDONLY | os.O_DIRECTORY)
-        try:
-            os.fsync(dfd)
-        finally:
-            os.close(dfd)
-    except OSError:
-        pass
+    data = settings.to_json()
+    fresh, error = read_settings_file(path)
+    if error is not None:
+        raise SettingsWriteError(f"settings.json illisible ({error}) : rien n'a été écrit")
+    if fresh is not None:
+        merged: dict[str, Any] = {"modules": data["modules"], "hud": data["hud"]}
+        for key, value in fresh.items():
+            if isinstance(key, str) and key.lower() in ("modules", "hud"):
+                continue          # jamais deux clés pour la même propriété (lecture insensible à la casse)
+            merged[key] = value
+        data = merged
+    write_atomic(path, json.dumps(data, ensure_ascii=False, indent=2) + "\n")
     return path

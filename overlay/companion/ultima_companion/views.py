@@ -14,10 +14,10 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 
 from . import ipc
-from .palette import character_tone
 from .settings import DEFAULT_ORDER, module_label
-from .state import (INVALID, MISSING, OK, TOO_NEW, Card, EngineState, Score, ScoreTerm,
-                    StateResult)
+from .state import (INVALID, MISSING, OK, TOO_NEW, Card, CustomModule, EngineState, Score,
+                    ScoreTerm, StateResult)
+from .tones import ALL as ALL_TONES, character_tone
 
 DASH = "—"
 
@@ -132,7 +132,7 @@ class Item:
     count: int = 1
     reason: str = ""
     tag: str | None = None          # mot coloré (« Malédiction », « Célérité 1 »)
-    tag_tone: str | None = None     # jeton de palette du mot : purple | aqua | red
+    tag_tone: str | None = None     # ton du mot (« curse », « enchant »), jamais une couleur
     value: str | None = None        # valeur à droite, chiffres (« 75 or »)
     detail: list[str] = field(default_factory=list)
     dim: bool = False               # indisponible / trop cher
@@ -153,9 +153,9 @@ def card_item(c: Card, count: int = 1) -> Item:
     detail.append(card_meta(c))
     detail += score_detail(c.score)
     if c.is_curse:
-        tag, tone = "Malédiction", "purple"
+        tag, tone = "Malédiction", "curse"
     elif c.enchantment is not None:
-        tag, tone = enchant_text(c), "aqua"
+        tag, tone = enchant_text(c), "enchant"
     else:
         tag, tone = None, None
     return Item(card_name(c), grade_of(c.score), count, reason_of(c.score) if c.score else "",
@@ -395,23 +395,23 @@ class Health:
 
 def health_line(result: StateResult, daemon: str) -> Health:
     if result.kind == MISSING:
-        return Health(False, "Daemon non démarré", "red")
+        return Health(False, "Daemon non démarré", "danger")
     if result.kind == TOO_NEW:
-        return Health(False, "Mettre à jour ULTIMA", "red")
+        return Health(False, "Mettre à jour ULTIMA", "danger")
     if result.kind == INVALID or result.state is None:
-        return Health(False, "État illisible", "red")
+        return Health(False, "État illisible", "danger")
     if daemon != ipc.ALIVE:
-        return Health(False, "Daemon injoignable · état peut-être périmé", "orange")
+        return Health(False, "Daemon injoignable · état peut-être périmé", "warn")
     h = result.state.health
     if h.degraded:
-        return Health(False, f"Mode dégradé · {h.degraded}", "orange")
+        return Health(False, f"Mode dégradé · {h.degraded}", "warn")
     if not h.game_running:
-        return Health(True, "Jeu fermé · daemon prêt", "gray")
+        return Health(True, "Jeu fermé · daemon prêt", "muted")
     bad = [n for n, ok in (("save", h.save_ok), ("miroir", h.mirror_ok)) if not ok]
     if bad:
-        return Health(False, "Source KO : " + ", ".join(bad), "orange")
+        return Health(False, "Source KO : " + ", ".join(bad), "warn")
     lat = f" · miroir {h.mirror_latency_ms} ms" if h.mirror_latency_ms is not None else ""
-    return Health(True, "Sources OK" + lat, "green")
+    return Health(True, "Sources OK" + lat, "ok")
 
 
 # ---- page Run ---------------------------------------------------------------------------------------------
@@ -422,6 +422,10 @@ class Group:
     title: str
     items: list[Item] = field(default_factory=list)
     empty: str = ""
+    note: str = ""            # ligne discrète sous le titre (« désactivé dans le HUD », « en retard »…)
+    kind: str = "module"      # module | custom | deck_score
+    dim: bool = False
+    source: str = ""          # module | plugin (modules perso seulement)
 
 
 RUN_MODULES = ("deck", "enchanted", "curses", "relics", "potions", "party")
@@ -435,10 +439,29 @@ def _run_order(order: list[str] | None) -> list[str]:
     return seq + [m for m in RUN_MODULES if m not in seq]
 
 
+def run_sequence(order: list[str] | None) -> list[str]:
+    """Ordre complet de la page Run : modules intégrés, note du deck, modules perso `x.*`.
+
+    Décision de Mio (2026-10-30) : la note du deck SUIT l'ordre des réglages (elle n'est plus
+    forcée en tête) et la page montre tous les modules des réglages, y compris les modules perso.
+    """
+    seq: list[str] = []
+    for mid in (order or DEFAULT_ORDER):
+        if (mid in RUN_MODULES or mid == "deck_score" or mid.startswith("x.")) and mid not in seq:
+            seq.append(mid)
+    seq += [m for m in RUN_MODULES if m not in seq]
+    if "deck_score" not in seq:
+        seq.append("deck_score")
+    return seq
+
+
 def run_groups(st: EngineState, order: list[str] | None = None) -> list[Group]:
     """Même découpage que le HUD (render.js) : Deck = toutes les cartes (malédictions en dernier),
-    Enchantées et Malédictions = rappels ciblés, n'apparaissent que s'il y en a (rien sans valeur
-    pratique, §11) ; Équipe seulement en co-op. Ordre = celui des réglages."""
+    Enchantées et Malédictions = rappels ciblés, Équipe seulement en co-op. Ordre = celui des réglages.
+
+    v1.4 (décision de Mio) : chaque module de la page est présent MÊME vide et MÊME désactivé pour le
+    HUD (le drapeau `enabled` ne concerne que le HUD) ; un bloc vide affiche une ligne calme.
+    """
     r = st.run
     if r is None:
         return []
@@ -446,19 +469,19 @@ def run_groups(st: EngineState, order: list[str] | None = None) -> list[Group]:
     built["deck"] = Group("deck", f"{module_label('deck')} · {len(r.deck)}",
                           [card_item(c, n) for c, n in group_cards(r.deck)], "Deck vide")
     enchanted = [c for c in r.deck if c.enchantment is not None]
-    if enchanted:
-        built["enchanted"] = Group("enchanted", f"{module_label('enchanted')} · {len(enchanted)}",
-                                   [card_item(c, n) for c, n in group_cards(enchanted)])
+    built["enchanted"] = Group("enchanted", f"{module_label('enchanted')} · {len(enchanted)}",
+                               [card_item(c, n) for c, n in group_cards(enchanted)],
+                               "Aucune carte enchantée")
     curses = [c for c in r.deck if c.is_curse]
-    if curses:
-        built["curses"] = Group("curses", f"{module_label('curses')} · {len(curses)}",
-                                [card_item(c, n) for c, n in group_cards(curses)])
+    built["curses"] = Group("curses", f"{module_label('curses')} · {len(curses)}",
+                            [card_item(c, n) for c, n in group_cards(curses)], "Aucune malédiction")
     relics = []
     for rel in r.relics:
         detail = ([rel.description] if rel.description else []) + score_detail(rel.score)
         relics.append(Item(rel.name, grade_of(rel.score), reason=reason_of(rel.score) if rel.score else "",
                            detail=detail))
-    built["relics"] = Group("relics", f"{module_label('relics')} · {len(r.relics)}", relics, "Aucune relique")
+    built["relics"] = Group("relics", f"{module_label('relics')} · {len(r.relics)}", relics,
+                            "Aucune relique")
     potions = []
     for p in r.potions:
         detail = ([p.description] if p.description else []) + score_detail(p.score)
@@ -467,16 +490,88 @@ def run_groups(st: EngineState, order: list[str] | None = None) -> list[Group]:
     built["potions"] = Group("potions", f"{module_label('potions')} · {len(r.potions)}", potions,
                              "Aucune potion")
     allies = r.allies
-    if allies:
-        items = []
-        for a in allies:
-            detail = [f"Deck {len(a.deck)} · reliques {len(a.relics)}"]
-            detail += [f"{n}× {card_name(c)}" if n > 1 else card_name(c) for c, n in group_cards(a.deck)]
-            items.append(Item(a.name, DASH, reason=a.character_id.split(".")[-1].capitalize(),
-                              value=f"{a.hp}/{a.max_hp} PV", detail=detail,
-                              tone=character_tone(a.character_id)))
-        built["party"] = Group("party", module_label("party"), items)
+    items = []
+    for a in allies:
+        detail = [f"Deck {len(a.deck)} · reliques {len(a.relics)}"]
+        detail += [f"{n}× {card_name(c)}" if n > 1 else card_name(c) for c, n in group_cards(a.deck)]
+        items.append(Item(a.name, DASH, reason=a.character_id.split(".")[-1].capitalize(),
+                          value=f"{a.hp}/{a.max_hp} PV", detail=detail,
+                          tone=character_tone(a.character_id)))
+    built["party"] = Group("party", module_label("party"), items,
+                           "Pas d'équipe (solo)" if not allies else "")
     return [built[k] for k in _run_order(order) if k in built]
+
+
+def custom_group(module: CustomModule) -> Group:
+    """Un module perso dessiné comme les autres blocs ; santé ≠ ok discrète (mot, jamais la couleur seule)."""
+    items = []
+    for row in module.rows:
+        tone = row.tone if row.tone in ALL_TONES else None
+        items.append(Item(row.text, row.grade or DASH, tone=tone, dim=module.health == "disabled"))
+    note = ""
+    if module.health == "stale":
+        note = "en retard (dernière sortie conservée)"
+    elif module.health == "error":
+        note = "erreur" + (f" · {module.problem}" if module.problem else "")
+    elif module.health == "disabled":
+        note = "désactivé" + (f" · {module.problem}" if module.problem else "")
+    return Group(module.id, module.label, items, "Aucune ligne publiée" if not items else "", note,
+                 "custom", module.health == "disabled", module.source)
+
+
+def custom_groups(st: EngineState, order: list[str] | None = None,
+                  screen: str | None = None) -> list[Group]:
+    """Modules perso (dans l'ordre des réglages) ; `screens` respecté quand un écran est donné."""
+    wanted = [m for m in (order or []) if m.startswith("x.")]
+    wanted += [c.id for c in st.custom if c.id not in wanted]
+    by_id = {c.id: c for c in st.custom}
+    out: list[Group] = []
+    for mid in wanted:
+        module = by_id.get(mid)
+        if module is None:
+            continue
+        if screen is not None and module.screens is not None:
+            if screen.strip().lower() not in {s.lower() for s in module.screens}:
+                continue
+        out.append(custom_group(module))
+    return out
+
+
+def custom_labels(st: EngineState) -> dict[str, str]:
+    """Libellés des modules perso (les réglages n'en connaissent que l'id)."""
+    return {c.id: c.label for c in st.custom}
+
+
+def run_blocks(st: EngineState, order: list[str] | None = None,
+               enabled: dict[str, bool] | None = None,
+               labels: dict[str, str] | None = None) -> list[Group]:
+    """Blocs de la page Run, dans l'ordre des réglages : modules, note du deck, modules perso.
+
+    `enabled` vient des réglages (`OverlaySettings.modules`) : un module désactivé pour le HUD reste
+    affiché, avec la mention discrète « désactivé dans le HUD » (décision de Mio, 2026-10-30).
+    """
+    if st.run is None:
+        return []
+    groups = {g.key: g for g in run_groups(st, order)}
+    customs = {c.id: c for c in st.custom}
+    out: list[Group] = []
+    for key in run_sequence(order):
+        if key == "deck_score":
+            out.append(Group(key, module_label("deck_score"), [], kind="deck_score"))
+        elif key in groups:
+            group = groups[key]
+            if enabled is not None and not enabled.get(key, True):
+                group.note = "désactivé dans le HUD"
+            out.append(group)
+        elif key.startswith("x."):
+            module = customs.get(key)
+            if module is None:
+                out.append(Group(key, module_label(key, labels), [], "Non publié par le daemon",
+                                 kind="custom"))
+            else:
+                out.append(custom_group(module))
+    return out
+
 
 
 @dataclass

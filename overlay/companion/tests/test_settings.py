@@ -112,7 +112,8 @@ def test_from_json_ignores_unknown_fields_and_sorts_by_order():
     s = OverlaySettings.from_json(data)
     assert s.ids()[:2] == ["relics", "deck"]
     assert s.modules[0].enabled is False
-    assert s.modules[0].to_json() == {"id": "relics", "enabled": False, "order": 0}
+    # clé inconnue du module conservée (version future du contrat)
+    assert s.modules[0].to_json() == {"id": "relics", "enabled": False, "order": 0, "colour": "red"}
     # modules connus absents → ajoutés à la fin, activés, ordre défaut conservé
     assert s.ids()[2:] == ["enchanted", "curses", "potions", "reward", "shop", "event", "paths",
                            "route", "party", "deck_score"]
@@ -231,10 +232,11 @@ def test_hud_missing_or_garbage_is_default():
     ("quality", "loupe", "loupe"), ("quality", "eco", "eco"), ("quality", "LOUPE", "loupe"), ("side", "Left", "left"),  # comme NormalizeHud (minuscules)
     ("quality", 3, "verre"),
     ("side", "left", "left"), ("side", "top", "right"), ("side", None, "right"),
-    ("heightFraction", 0.8, 0.8), ("heightFraction", 1, 1.0), ("heightFraction", 0, 0.55),
-    ("heightFraction", 1.5, 0.55), ("heightFraction", -0.1, 0.55), ("heightFraction", "0.7", 0.55),
-    ("heightFraction", True, 0.55),
-    ("restOpacity", 0, 0.0), ("restOpacity", 0.3, 0.3), ("restOpacity", 2, 0.62),
+    ("heightFraction", 0.8, 0.8), ("heightFraction", 1, 0.85), ("heightFraction", 0, 0.30),
+    ("heightFraction", 1.5, 0.85), ("heightFraction", -0.1, 0.30), ("heightFraction", "0.7", 0.55),
+    ("heightFraction", True, 0.55), ("heightFraction", 0.9, 0.85),
+    ("restOpacity", 0, 0.35), ("restOpacity", 0.3, 0.35), ("restOpacity", 2, 1.0),
+    ("restOpacity", 0.9, 0.9),
     ("deckScoreInCombat", True, True), ("deckScoreInCombat", "yes", False),
     ("gradesOnly", True, True), ("gradesOnly", 1, False),
 ])
@@ -429,3 +431,135 @@ def test_hud_summary_is_one_line():
     assert h.summary() == "Verre · hauteur 55 % · repos 62 % · droite"
     h.set_quality("loupe"); h.set_side("left"); h.deck_score_in_combat = True; h.grades_only = True
     assert h.summary() == "Loupe · hauteur 55 % · repos 62 % · gauche · note du deck en combat · lettres seules"
+
+
+# ---- v1.4 : bornes du contrat, `enabled` absent, `screens` -----------------------------------------
+
+def test_contract_bounds_are_the_v1_4_ones():
+    assert settings.HEIGHT_RANGE == (0.30, 0.85)
+    assert settings.OPACITY_RANGE == (0.35, 1.00)
+    h = HudSettings.from_json({"heightFraction": 0.95, "restOpacity": 0.1})
+    assert h.height_fraction == 0.85 and h.rest_opacity == 0.35
+    h = HudSettings.from_json({"heightFraction": 0.29, "restOpacity": 0.99})
+    assert h.height_fraction == 0.30 and h.rest_opacity == 0.99
+
+
+def test_enabled_absent_means_true():
+    s = OverlaySettings.from_json({"modules": [
+        {"id": "deck", "order": 0},
+        {"id": "relics", "order": 1, "enabled": False},
+        {"id": "x.compteur", "order": 2, "screens": ["map", "shop"]},
+    ]})
+    by_id = {m.id: m for m in s.modules}
+    assert by_id["deck"].enabled is True
+    assert by_id["relics"].enabled is False
+    assert by_id["x.compteur"].enabled is True          # module perso, `enabled` absent
+    assert by_id["x.compteur"].screens == ["map", "shop"]
+
+
+def test_screens_parsed_case_insensitively_and_serialized_only_when_present():
+    s = OverlaySettings.from_json({"modules": [
+        {"id": "deck", "order": 0, "screens": ["Map", "SHOP", "inconnu", "map", 3]},
+        {"id": "relics", "order": 1},
+    ]})
+    by_id = {m.id: m for m in s.modules}
+    assert by_id["deck"].screens == ["map", "shop"]
+    assert by_id["relics"].screens is None
+    raw = {m["id"]: m for m in s.to_json()["modules"]}
+    assert raw["deck"]["screens"] == ["map", "shop"]
+    assert "screens" not in raw["relics"]
+    # valeur non-liste → traitée comme absente (écrans par défaut du module)
+    assert OverlaySettings.from_json({"modules": [{"id": "deck", "screens": "map"}]}).modules[0].screens is None
+
+
+def test_module_unknown_keys_are_preserved():
+    s = OverlaySettings.from_json({"modules": [
+        {"id": "deck", "enabled": True, "order": 0, "height": 3, "future": {"a": 1}},
+    ]})
+    raw = s.modules[0].to_json()
+    assert raw["height"] == 3 and raw["future"] == {"a": 1}
+    assert list(raw) == ["id", "enabled", "order", "height", "future"]
+
+
+def test_save_preserves_appearance_plugins_enabled_and_unknown_keys(isolated_xdg):
+    """Écriture : relit le fichier, ne touche que `modules`/`hud`, conserve tout le reste."""
+    p = paths.settings_path()
+    p.parent.mkdir(parents=True)
+    p.write_text(json.dumps({
+        "modules": [{"id": "deck", "enabled": True, "order": 0}],
+        "hud": {"quality": "eco"},
+        "appearance": {"companion": {"theme": "nuit"}, "hud": {"theme": "ardoise"}},
+        "pluginsEnabled": ["x.plugin"],
+        "future": {"v": 5},
+    }), encoding="utf-8")
+    s = settings.load().settings
+    s.set_enabled("deck", False)
+    s.hud.set_quality("loupe")
+    settings.save(s)
+    raw = json.loads(p.read_text(encoding="utf-8"))
+    assert list(raw) == ["modules", "hud", "appearance", "pluginsEnabled", "future"]
+    assert raw["appearance"] == {"companion": {"theme": "nuit"}, "hud": {"theme": "ardoise"}}
+    assert raw["pluginsEnabled"] == ["x.plugin"] and raw["future"] == {"v": 5}
+    assert raw["modules"][0]["enabled"] is False and raw["hud"]["quality"] == "loupe"
+
+
+def test_save_rereads_before_writing_so_external_keys_are_never_clobbered(isolated_xdg):
+    p = paths.settings_path()
+    p.parent.mkdir(parents=True)
+    p.write_text(json.dumps({"modules": OverlaySettings.default().to_json()["modules"],
+                             "hud": HudSettings.default().to_json(),
+                             "appearance": {"companion": {"theme": "sts"}}}), encoding="utf-8")
+    local = settings.load().settings                      # instantané ancien
+    # entre-temps, le TUI (ou l'éditeur d'apparence) écrit d'autres clés
+    p.write_text(json.dumps({"modules": OverlaySettings.default().to_json()["modules"],
+                             "hud": HudSettings.default().to_json(),
+                             "appearance": {"companion": {"theme": "nuit", "tones": {"accent": "#010203"}}},
+                             "pluginsEnabled": ["x.a"]}), encoding="utf-8")
+    local.hud.set_quality("eco")
+    settings.save(local)                                  # relit avant d'écrire
+    raw = json.loads(p.read_text(encoding="utf-8"))
+    assert raw["appearance"]["companion"]["theme"] == "nuit"      # écriture externe conservée
+    assert raw["pluginsEnabled"] == ["x.a"]
+    assert raw["hud"]["quality"] == "eco"                          # nos clés à jour
+
+
+def test_save_does_not_resurrect_a_key_deleted_by_another_writer(isolated_xdg):
+    p = paths.settings_path()
+    p.parent.mkdir(parents=True)
+    p.write_text(json.dumps({"modules": [], "hud": {}, "appearance": {"companion": {}},
+                             "pluginsEnabled": []}), encoding="utf-8")
+    local = settings.load().settings
+    p.write_text(json.dumps({"modules": [], "hud": {}}), encoding="utf-8")   # clé supprimée
+    settings.save(local)
+    raw = json.loads(p.read_text(encoding="utf-8"))
+    assert "appearance" not in raw and "pluginsEnabled" not in raw
+
+
+def test_save_refuses_an_unreadable_file(isolated_xdg):
+    p = paths.settings_path()
+    p.parent.mkdir(parents=True)
+    p.write_text("{ pas du json", encoding="utf-8")
+    with pytest.raises(settings.SettingsWriteError):
+        settings.save(OverlaySettings.default())
+    assert p.read_text(encoding="utf-8") == "{ pas du json"
+
+
+def test_save_never_creates_a_duplicate_case_variant(isolated_xdg):
+    """Le daemon lit sans tenir compte de la casse : une seule clé par propriété, jamais deux."""
+    p = paths.settings_path()
+    p.parent.mkdir(parents=True)
+    p.write_text(json.dumps({
+        "Modules": [{"id": "deck", "enabled": True, "order": 0}],
+        "HUD": {"quality": "eco"},
+        "Appearance": {"Companion": {"theme": "nuit"}},
+        "pluginsEnabled": [],
+    }), encoding="utf-8")
+    s = settings.load().settings
+    s.set_enabled("deck", False)
+    settings.save(s)
+    raw = json.loads(p.read_text(encoding="utf-8"))
+    assert [k for k in raw if k.lower() == "modules"] == ["modules"]
+    assert [k for k in raw if k.lower() == "hud"] == ["hud"]
+    assert [k for k in raw if k.lower() == "appearance"] == ["Appearance"]   # casse d'origine conservée
+    assert raw["Appearance"] == {"Companion": {"theme": "nuit"}}             # untouched
+    assert raw["modules"][0]["enabled"] is False

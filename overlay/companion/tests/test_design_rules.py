@@ -9,11 +9,22 @@ import copy
 import re
 
 from conftest import COMPANION, REPO
-from ultima_companion import palette, settings, state, theme, views
+from ultima_companion import appearance, settings, state, theme, tones, views
 
 RENDER_JS = REPO / "overlay" / "gnome" / "ultima@mio" / "render.js"
 GRAMMAR_JS = REPO / "overlay" / "gnome" / "ultima@mio" / "grammar.js"
 GRADES = {"S", "A", "B", "C", "D", "F", "—"}
+
+
+def _resolved(size=None):
+    app = appearance.CompanionAppearance()
+    if size is not None:
+        app.set_font_size(size)
+    return appearance.resolve(app, dirs=[REPO / "themes"], use_fontconfig=False)
+
+
+def _css(size=None) -> str:
+    return theme.css(_resolved(size))
 
 
 def _all_items(data) -> list[views.Item]:
@@ -30,19 +41,19 @@ def _all_items(data) -> list[views.Item]:
 
 # ---- §9 ------------------------------------------------------------------------------------------------
 
-def test_grade_letter_always_written_and_toned_from_the_game_palette(demo, sample):
+def test_grade_letter_always_written_and_toned_from_the_theme(demo, sample):
     for data in (demo, sample):
         for it in _all_items(data):
             assert it.grade in GRADES, it
-            assert palette.grade_tone(it.grade) in palette.PALETTE
+            assert tones.grade_tone(it.grade) in tones.ALL
             assert theme.grade_class(it.grade) in theme.GRADE_CLASS.values()
 
 
-def test_curse_is_purple_plus_the_word_and_enchantment_is_aqua_plus_its_name(demo):
+def test_curse_is_curse_tone_plus_the_word_and_enchantment_is_enchant_tone_plus_its_name(demo):
     items = _all_items(demo)
-    curses = [i for i in items if i.tag_tone == "purple"]
+    curses = [i for i in items if i.tag_tone == "curse"]
     assert curses and all(i.tag == "Malédiction" for i in curses)
-    ench = [i for i in items if i.tag_tone == "aqua"]
+    ench = [i for i in items if i.tag_tone == "enchant"]
     assert ench and all(i.tag and i.tag[-1].isdigit() for i in ench)   # « Vivacité (démo) 1 »
 
 
@@ -53,9 +64,15 @@ def test_grade_thresholds_are_the_contract_ones():
 
 # ---- §10 -----------------------------------------------------------------------------------------------
 
-def test_min_font_size_14px():
-    sizes = [int(s) for s in re.findall(r"font-size:\s*(\d+)px", theme.css())]
+def test_min_font_size_14px_by_default_and_12px_when_chosen():
+    css = _css()
+    sizes = [int(s) for s in re.findall(r"font-size:\s*(\d+)px", css)]
     assert sizes and min(sizes) >= 14
+    # le contrat autorise 12–24 px : 12 px est honoré pour le corps, le chrome reste ≥ 14 px
+    chosen = _css(12)
+    assert "font-size: 12px" in chosen
+    values = [int(s) for s in re.findall(r"\.value \{[^}]*font-size:\s*(\d+)px", chosen)]
+    assert values and min(values) >= 14
 
 
 def test_shortcuts_are_super_shift_never_function_keys():
@@ -87,19 +104,22 @@ def test_at_most_one_accent_per_line(demo):
         assert not (it.tone and it.tag_tone), it        # nom coloré (personnage) OU mot coloré, jamais les deux
 
 
-def test_secondary_text_is_cream_60_percent():
-    css = theme.css()
-    assert re.search(r"\.secondary \{ color: " + re.escape(palette.rgba("cream", 0.6)), css)
+def test_secondary_text_uses_the_theme_muted_tone():
+    resolved = _resolved()
+    css = theme.css(resolved)
+    assert re.search(r"\.secondary \{ color: " + re.escape(tones.rgba(resolved.tones["muted"], 1.0)),
+                     css)
 
 
 def test_nothing_without_practical_value(sample):
     st = state.parse_state(sample).state
-    keys = [g.key for g in views.run_groups(st)]
-    # pas d'enchantée / de malédiction dans cette run → groupes absents, pas un « aucune » inutile
-    if not any(c.enchantment for c in st.run.deck):
-        assert "enchanted" not in keys
-    if not any(c.is_curse for c in st.run.deck):
-        assert "curses" not in keys
+    groups = views.run_groups(st)
+    keys = [g.key for g in groups]
+    # v1.4 (décision de Mio) : la page Run montre TOUS les modules des réglages, même vides ;
+    # un bloc vide porte une phrase calme, jamais un titre seul.
+    assert keys == ["deck", "enchanted", "curses", "relics", "potions", "party"]
+    for g in groups:
+        assert g.items or g.empty
     assert "\n" not in views.deck_summary(st)                    # résumé : UNE ligne
     for screen in ("Combat", "RestSite", "Treasure"):
         d = copy.deepcopy(sample)
@@ -123,7 +143,7 @@ def test_decision_shows_only_the_decision(demo):
 def test_detail_reveal_is_brief_and_nothing_loops():
     from ultima_companion import ui
     assert 150 <= ui.DETAIL_REVEAL_MS <= 220
-    css = theme.css()
+    css = _css()
     assert "@keyframes" not in css and "animation" not in css
     assert "transition" not in css            # pas d'animation CSS implicite non maîtrisée
     src = (COMPANION / "ultima_companion" / "ui.py").read_text(encoding="utf-8")

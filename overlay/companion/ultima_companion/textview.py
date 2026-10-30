@@ -202,7 +202,48 @@ def status_sections(result: StateResult, daemon: str, local: OverlaySettings | N
         game.rows.append(Row("Run", f"{r.character_name} · acte {r.act_index + 1} · étage {r.floor}"))
     else:
         game.rows.append(Row("Run", "aucune run en cours"))
-    return [Section("Daemon", daemon_rows), sources, game]
+    sections = [Section("Daemon", daemon_rows), sources, game]
+    if st.custom:
+        health_fr = {"ok": "ok", "stale": "en retard", "error": "erreur", "disabled": "désactivé"}
+        rows = []
+        for module in st.custom:
+            sub = f"{module.source} · {len(module.rows)} ligne(s) · {health_fr.get(module.health, module.health)}"
+            if module.problem:
+                sub += f" — {module.problem}"
+            if module.screens:
+                sub += f" · écrans : {', '.join(module.screens)}"
+            rows.append(Row(module.label, sub))
+        sections.append(Section("Modules perso", rows))
+    return sections
+
+
+# ---- apparence (thème, police, autres surfaces) ---------------------------------------------
+
+def appearance_rows(resolved, surfaces_info: list | None = None) -> list[Row]:
+    """Lignes lisibles pour `--check` (mêmes mots que la page Apparence)."""
+    effectif = f"{resolved.theme_id} — {resolved.theme_label}"
+    if resolved.fallback:
+        effectif += " (repli)"
+    rows = [
+        Row("Thème demandé", resolved.requested_theme),
+        Row("Thème effectif", effectif),
+        Row("Police", resolved.font_summary),
+    ]
+    if resolved.warnings:
+        rows.append(Row("Avertissements", " · ".join(resolved.warnings)))
+    for info in surfaces_info or []:
+        line = f"{info.theme} · {info.font} — commande : {info.theme_command}"
+        rows.append(Row(info.title, line))
+    return rows
+
+
+def appearance_section(resolved, surfaces_info: list | None = None) -> Section:
+    return Section("Apparence", appearance_rows(resolved, surfaces_info))
+
+
+def appearance_message(resolved) -> str | None:
+    """Message visible quand un thème est cassé (bandeau de la fenêtre, `--check`)."""
+    return " · ".join(resolved.messages) if resolved.messages else None
 
 
 # ---- page Run ----------------------------------------------------------------------------------

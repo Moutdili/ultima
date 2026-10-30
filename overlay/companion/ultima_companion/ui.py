@@ -20,9 +20,10 @@ gi.require_version("Adw", "1")
 gi.require_version("Pango", "1.0")
 from gi.repository import Adw, Gdk, Gio, GLib, Gtk, Pango  # noqa: E402
 
-from . import fonts, ipc, settings as settings_mod, textview, theme, views  # noqa: E402
-from .state import OK, StateResult  # noqa: E402
-from .watch import StateWatcher  # noqa: E402
+from . import appearance as appearance_mod
+from . import fonts, ipc, settings as settings_mod, textview, theme, themes, tones, views
+from .state import OK, StateResult
+from .watch import StateWatcher
 
 APP_ID = "io.github.mio.UltimaCompanion"
 
@@ -138,6 +139,46 @@ def item_list(items: list[views.Item]) -> Gtk.ListBox:
     return lb
 
 
+def _custom_block(block: views.Group) -> Gtk.Box:
+    """Un module perso/plugin dessiné comme les autres blocs ; santé ≠ ok = un mot, jamais la couleur seule."""
+    box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    head = Gtk.Box(spacing=8)
+    head.append(_label(block.title, "heading-group", ellipsize=True))
+    if block.source == "plugin":
+        head.append(_label("plugin", "secondary"))
+    if block.note:
+        head.append(_label(block.note, "secondary", ellipsize=True))
+    box.append(head)
+    if block.items:
+        box.append(item_list(block.items))
+    else:
+        box.append(_label(block.empty or "Aucune ligne publiée", "empty"))
+    if block.dim:
+        box.add_css_class("dim")
+    return box
+
+
+def _module_block(block: views.Group) -> Gtk.Box:
+    """Bloc d'un module intégré (même grammaire que le HUD) ; note discrète si désactivé pour le HUD."""
+    box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    head = Gtk.Box(spacing=8)
+    title = _label(block.title.upper(), "heading-group", ellipsize=True)
+    tone = {"curses": "curse", "enchanted": "enchant"}.get(block.key)   # §9 : la couleur double le mot
+    if tone:
+        title.add_css_class(theme.tone_class(tone))
+    head.append(title)
+    if block.note:
+        head.append(_label(block.note, "secondary", ellipsize=True))
+    box.append(head)
+    if block.items:
+        box.append(item_list(block.items))
+    else:
+        box.append(_label(block.empty, "empty"))
+    if block.dim:
+        box.add_css_class("dim")
+    return box
+
+
 def _page_scroller(content: Gtk.Widget, max_width: int = 720) -> Gtk.ScrolledWindow:
     clamp = Adw.Clamp(maximum_size=max_width, tightening_threshold=560, child=content)
     sw = Gtk.ScrolledWindow(hscrollbar_policy=Gtk.PolicyType.NEVER, vexpand=True)
@@ -161,7 +202,8 @@ class DashboardPage(Gtk.Box):
         self._on_open_run = on_open_run
         self.append(_page_scroller(self._col))
 
-    def update(self, result: StateResult, daemon: str, order: list[str] | None = None) -> None:
+    def update(self, result: StateResult, daemon: str, order: list[str] | None = None,
+               custom: list[views.Group] | None = None) -> None:
         _clear(self._col)
         st = result.state if result.kind == OK else None
         if st is not None and st.run is not None:
@@ -184,6 +226,11 @@ class DashboardPage(Gtk.Box):
         if d.empty:
             panel.append(_label(d.empty, "empty", wrap=True))
         self._col.append(panel)
+
+        # Modules perso/plugins publiés par le daemon (EngineState.Custom) : mêmes blocs que la
+        # page Run, mais seulement sur les écrans qu'ils déclarent (`screens`).
+        for block in custom or []:
+            self._col.append(_custom_block(block))
 
         if st is not None and st.run is not None:
             note = views.deck_note(st)
@@ -215,7 +262,9 @@ class RunPage(Gtk.Box):
         self._col = _column()
         self.append(_page_scroller(self._col))
 
-    def update(self, result: StateResult, order: list[str] | None = None) -> None:
+    def update(self, result: StateResult, order: list[str] | None = None,
+               enabled: dict[str, bool] | None = None,
+               labels: dict[str, str] | None = None) -> None:
         _clear(self._col)
         st = result.state if result.kind == OK else None
         if st is None or st.run is None:
@@ -227,6 +276,19 @@ class RunPage(Gtk.Box):
             return
 
         note = views.deck_note(st)
+        if note is None:
+            return
+        for block in views.run_blocks(st, order, enabled, labels):
+            if block.kind == "deck_score":
+                self._col.append(self._note_panel(note))
+            elif block.kind == "custom":
+                self._col.append(_custom_block(block))
+            else:
+                self._col.append(_module_block(block))
+
+    @staticmethod
+    def _note_panel(note: views.DeckNote) -> Gtk.Box:
+        """La note du deck : bloc normal, à SA place dans l'ordre des réglages (décision de Mio)."""
         panel = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=12)
         panel.add_css_class("glass")
         top = Gtk.Box(spacing=16)
@@ -240,20 +302,7 @@ class RunPage(Gtk.Box):
         panel.append(item_list([views.Item("Détail de la note", views.DASH,
                                            reason=f"Archétype {note.archetype} · boss {note.boss}",
                                            detail=note.detail)]))
-        self._col.append(panel)
-
-        for g in views.run_groups(st, order):
-            box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-            title = _label(g.title.upper(), "heading-group")
-            tone = {"curses": "purple", "enchanted": "aqua"}.get(g.key)   # §9 : la couleur double le mot
-            if tone:
-                title.add_css_class(theme.tone_class(tone))
-            box.append(title)
-            if g.items:
-                box.append(item_list(g.items))
-            else:
-                box.append(_label(g.empty, "empty"))
-            self._col.append(box)
+        return panel
 
 
 # ---- page Réglages du HUD ---------------------------------------------------------------------------------
@@ -271,6 +320,7 @@ class HudPage(Adw.PreferencesPage):
         loaded = settings_mod.load()
         self.settings = loaded.settings
         self._module_rows: list[Adw.SwitchRow] = []
+        self._custom_labels: dict[str, str] = {}
 
         # -- Apparence
         look = Adw.PreferencesGroup(title="Apparence")
@@ -383,8 +433,9 @@ class HudPage(Adw.PreferencesPage):
         self._module_rows = []
         count = len(self.settings.modules)
         for i, m in enumerate(self.settings.modules):
-            row = Adw.SwitchRow(use_markup=False, title=settings_mod.module_label(m.id),
-                                subtitle=settings_mod.module_hint(m.id))
+            row = Adw.SwitchRow(use_markup=False,
+                                title=settings_mod.module_label(m.id, self._custom_labels),
+                                subtitle=self._module_subtitle(m))
             row.set_active(m.enabled)
             row.connect("notify::active", self._on_toggled, m.id)
 
@@ -404,6 +455,19 @@ class HudPage(Adw.PreferencesPage):
             row.add_prefix(down)
             self._modules_group.add(row)
             self._module_rows.append(row)
+
+    def _module_subtitle(self, m: settings_mod.ModuleSetting) -> str:
+        parts = [settings_mod.module_hint(m.id)]
+        if m.screens:
+            parts.append("écrans : " + ", ".join(m.screens))
+        return " · ".join(p for p in parts if p)
+
+    def set_custom_labels(self, labels: dict[str, str]) -> None:
+        """Libellés publiés par le daemon pour les modules `x.*` (les réglages n'ont que l'id)."""
+        if labels == self._custom_labels:
+            return
+        self._custom_labels = dict(labels)
+        GLib.idle_add(self._rebuild_once)
 
     def reload_if_external(self, result: StateResult) -> bool:
         """Réglages modifiés ailleurs (TUI `ultima`) : le daemon republie des réglages différents des nôtres
@@ -521,6 +585,299 @@ class HudPage(Adw.PreferencesPage):
 OverlayPage = HudPage
 
 
+# ---- page Apparence (éditeur minimal, docs/44 §11) ---------------------------------------------------------
+
+TONE_LABELS = {
+    "text": "Texte", "muted": "Texte secondaire", "accent": "Accent", "danger": "Danger",
+    "ok": "Réussi", "warn": "Avertissement", "curse": "Malédiction", "enchant": "Enchantement",
+    "info": "Info",
+    "grade.S": "Note S", "grade.A": "Note A", "grade.B": "Note B", "grade.C": "Note C",
+    "grade.D": "Note D", "grade.F": "Note F",
+    "background": "Fond", "border": "Liseré",
+}
+
+
+class AppearancePage(Adw.PreferencesPage):
+    """Éditeur minimal du compagnon : thème + aperçu, tons, police/taille.
+
+    Une seule configuration par surface (docs/44 §1) : le compagnon n'écrit que
+    `appearance.companion` ; le HUD et la console sont en LECTURE avec la commande `ultima`
+    équivalente. Chaque changement est écrit atomiquement, sans toucher aux autres clés.
+    """
+
+    def __init__(self, on_message, on_changed, state_provider=None) -> None:
+        super().__init__()
+        self._on_message = on_message
+        self._on_changed = on_changed
+        self._state_provider = state_provider
+        self._save_timer: int | None = None
+        self._syncing = False
+        self._catalog = themes.load_catalog()
+        self._resolved: appearance_mod.ResolvedAppearance | None = None
+        self.appearance = appearance_mod.read_companion()
+        self._sig = self._signature()
+        self._theme_ids: list[str] = []
+
+        # -- Thème
+        group = Adw.PreferencesGroup(
+            title="Thème",
+            description="« auto-perso » suit le personnage de la run (repli « sts » hors run). "
+                        "Un thème cassé retombe sur « sts » avec un message, jamais une fenêtre vide.")
+        self._theme_row = Adw.ComboRow(title="Thème du compagnon")
+        self._theme_row.connect("notify::selected", self._on_theme)
+        group.add(self._theme_row)
+        self._theme_status = Adw.ActionRow(title="Thème appliqué")
+        self._theme_status.set_subtitle_selectable(True)
+        group.add(self._theme_status)
+        self.add(group)
+
+        # -- Aperçu (recoloré par le CSS du thème, aucun widget à reconstruire)
+        preview = Adw.PreferencesGroup(title="Aperçu")
+        box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+        box.add_css_class("glass")
+        box.set_margin_top(6)
+        box.set_margin_bottom(6)
+        box.set_margin_start(6)
+        box.set_margin_end(6)
+        box.append(_label("Exemple de bloc", "heading-page"))
+        grades = Gtk.Box(spacing=8)
+        for grade in ("S", "A", "B", "C", "D", "F", views.DASH):
+            grades.append(grade_badge(grade))
+        box.append(grades)
+        words = Gtk.Box(spacing=12)
+        for tone in ("accent", "danger", "ok", "warn", "curse", "enchant", "info", "muted"):
+            words.append(_label(TONE_LABELS[tone], theme.tone_class(tone) or ""))
+        box.append(words)
+        box.append(_label("Texte secondaire · coût 1 · 12 or", "secondary"))
+        preview.add(box)
+        self.add(preview)
+
+        # -- Tons
+        tones_group = Adw.PreferencesGroup(
+            title="Tons",
+            description="Surcharges au-dessus du thème (#RRGGBB ou #RRGGBBAA). Vide = couleur du thème.")
+        reset = Gtk.Button(label="Réinitialiser")
+        reset.add_css_class("flat")
+        reset.set_tooltip_text("Retirer toutes les surcharges de tons du compagnon")
+        reset.connect("clicked", self._on_reset_tones)
+        tones_group.set_header_suffix(reset)
+        self._tone_rows: dict[str, tuple[Adw.ActionRow, Gtk.Entry]] = {}
+        for tone in tones.ALL:
+            row = Adw.ActionRow(title=TONE_LABELS.get(tone, tone))
+            swatch = Gtk.Box(valign=Gtk.Align.CENTER)
+            swatch.add_css_class("swatch")
+            swatch.add_css_class(theme.tone_class(tone) or "")
+            entry = Gtk.Entry(placeholder_text="#RRGGBB", width_chars=10, valign=Gtk.Align.CENTER)
+            entry.connect("activate", self._on_tone, tone)
+            row.add_suffix(swatch)
+            row.add_suffix(entry)
+            tones_group.add(row)
+            self._tone_rows[tone] = (row, entry)
+        self.add(tones_group)
+
+        # -- Police
+        font_group = Adw.PreferencesGroup(
+            title="Police",
+            description="Cherchée dans fonts/{perso,jeu,base,systeme} puis fontconfig ; introuvable : "
+                        "police du thème, puis police système.")
+        self._font_row = Adw.EntryRow(title="Famille")
+        self._font_row.set_show_apply_button(True)
+        self._font_row.connect("apply", self._on_font)
+        font_group.add(self._font_row)
+        size_row = Adw.ActionRow(title="Taille", subtitle="12 à 24 px")
+        self._size = Gtk.Scale.new_with_range(Gtk.Orientation.HORIZONTAL,
+                                              appearance_mod.MIN_FONT_SIZE,
+                                              appearance_mod.MAX_FONT_SIZE, 1)
+        self._size.set_draw_value(False)
+        self._size.set_size_request(200, -1)
+        self._size.set_valign(Gtk.Align.CENTER)
+        self._size_label = _label("", "value", xalign=1.0)
+        self._size_label.set_width_chars(5)
+        self._size.connect("value-changed", self._on_size)
+        size_row.add_suffix(self._size)
+        size_row.add_suffix(self._size_label)
+        font_group.add(size_row)
+        self._font_info = Adw.ActionRow(title="Police retenue")
+        self._font_info.set_subtitle_selectable(True)
+        font_group.add(self._font_info)
+        self.add(font_group)
+
+        # -- Autres surfaces : LECTURE + commande `ultima` équivalente
+        self._surfaces_group = Adw.PreferencesGroup(
+            title="HUD et console (lecture seule)",
+            description="Chaque surface a son apparence (docs/44 §1) ; ces deux-là se règlent depuis "
+                        "le TUI. La commande équivalente est affichée.")
+        self._surface_rows: list[Adw.ActionRow] = []
+        for _info in [i for i in appearance_mod.surfaces() if not i.editable]:
+            row = Adw.ActionRow(title="")
+            row.set_subtitle_selectable(True)
+            self._surfaces_group.add(row)
+            self._surface_rows.append(row)
+        self.add(self._surfaces_group)
+
+        self._rebuild_theme_model()
+        self._sync_widgets()
+        self._refresh_surfaces()
+
+    # ---- état / signature du fichier ----------------------------------------------------------------
+    @staticmethod
+    def _signature():
+        try:
+            st = settings_mod.paths.settings_path().stat()
+            return (st.st_mtime_ns, st.st_size)
+        except OSError:
+            return None
+
+    def _theme_text(self, theme_id: str) -> str:
+        if theme_id == themes.AUTO_ID:
+            return "auto-perso — thème du personnage"
+        theme = self._catalog.themes.get(theme_id)
+        return f"{theme_id} — {theme.label}" if theme is not None else f"{theme_id} — introuvable"
+
+    def _rebuild_theme_model(self) -> None:
+        previous = self._syncing
+        self._syncing = True
+        try:
+            ids = [themes.AUTO_ID] + [t.id for t in themes.available(self._catalog)]
+            if self.appearance.theme not in ids:
+                ids.append(self.appearance.theme)
+            self._theme_ids = ids
+            self._theme_row.set_model(Gtk.StringList.new([self._theme_text(t) for t in ids]))
+            self._select_theme()
+        finally:
+            self._syncing = previous
+
+    def _select_theme(self) -> None:
+        try:
+            index = self._theme_ids.index(self.appearance.theme)
+        except ValueError:
+            index = 0
+        self._theme_row.set_selected(index)
+
+    def _sync_widgets(self) -> None:
+        self._syncing = True
+        try:
+            self._select_theme()
+            self._font_row.set_text(self.appearance.font_family or "")
+            size = self.appearance.font_size or appearance_mod.DEFAULT_FONT_SIZE
+            self._size.set_value(size)
+            self._size_label.set_label(f"{size} px")
+            for tone, (_row, entry) in self._tone_rows.items():
+                entry.set_text(self.appearance.tones.get(tone, ""))
+            self._update_status()
+        finally:
+            self._syncing = False
+
+    def _update_status(self) -> None:
+        resolved = self._resolved
+        if resolved is None:
+            self._theme_status.set_subtitle("—")
+            return
+        line = f"{resolved.theme_id} — {resolved.theme_label}"
+        if resolved.fallback:
+            line += " (repli : le thème demandé n'a pas pu être chargé)"
+        if resolved.messages:
+            line += " · " + " · ".join(resolved.messages)
+        elif resolved.warnings:
+            line += " · " + " · ".join(resolved.warnings[:4])
+        self._theme_status.set_subtitle(line)
+        font = resolved.font_summary
+        if resolved.font_message:
+            font += f" · {resolved.font_message}"
+        self._font_info.set_subtitle(font)
+
+    def show_resolution(self, resolved: appearance_mod.ResolvedAppearance) -> None:
+        self._resolved = resolved
+        self._update_status()
+
+    def _refresh_surfaces(self) -> None:
+        infos = [i for i in appearance_mod.surfaces() if not i.editable]
+        for row, info in zip(self._surface_rows, infos):
+            row.set_title(info.title)
+            row.set_subtitle(f"{info.theme} · {info.font} — commande : {info.theme_command}")
+
+    def reload_if_external(self) -> bool:
+        """`settings.json` modifié par le TUI : on relit `appearance.companion` sans rien écraser."""
+        sig = self._signature()
+        if sig == self._sig:
+            return False
+        self._sig = sig
+        fresh = appearance_mod.read_companion()
+        if fresh.to_json() == self.appearance.to_json():
+            return False
+        self.appearance = fresh
+        self._rebuild_theme_model()
+        self._sync_widgets()
+        self._refresh_surfaces()
+        return True
+
+    # ---- écriture -----------------------------------------------------------------------------------
+    def _save(self) -> None:
+        if self._save_timer is not None:
+            GLib.source_remove(self._save_timer)
+            self._save_timer = None
+        try:
+            path = appearance_mod.save_companion(self.appearance)
+        except appearance_mod.AppearanceWriteError as e:
+            self._on_message(str(e))
+            return
+        self._sig = self._signature()
+        self._on_message(f"Apparence enregistrée ({path.name})")
+        if self._on_changed is not None:
+            self._on_changed()
+
+    def _save_later(self) -> None:
+        if self._save_timer is not None:
+            GLib.source_remove(self._save_timer)
+        self._save_timer = GLib.timeout_add(SAVE_DELAY_MS, self._save_timeout)
+
+    def _save_timeout(self) -> bool:
+        self._save_timer = None
+        self._save()
+        return GLib.SOURCE_REMOVE
+
+    def flush(self) -> None:
+        if self._save_timer is not None:
+            self._save()
+
+    # ---- actions --------------------------------------------------------------------------------------
+    def _on_theme(self, row: Adw.ComboRow, _pspec) -> None:
+        if self._syncing:
+            return
+        index = row.get_selected()
+        if 0 <= index < len(self._theme_ids):
+            self.appearance.set_theme(self._theme_ids[index])
+            self._save()
+
+    def _on_tone(self, entry: Gtk.Entry, tone: str) -> None:
+        text = entry.get_text().strip()
+        if not text:
+            self.appearance.clear_tone(tone)
+            self._save()
+            return
+        if not self.appearance.set_tone(tone, text):
+            self._on_message(f"« {text} » n'est pas une couleur #RRGGBB ou #RRGGBBAA")
+            return
+        self._save()
+
+    def _on_reset_tones(self, _button) -> None:
+        self.appearance.tones = {}
+        self._sync_widgets()
+        self._save()
+
+    def _on_font(self, row: Adw.EntryRow) -> None:
+        self.appearance.set_font_family(row.get_text())
+        self._save()
+
+    def _on_size(self, scale: Gtk.Scale) -> None:
+        value = int(round(scale.get_value()))
+        self._size_label.set_label(f"{value} px")
+        if self._syncing:
+            return
+        self.appearance.set_font_size(value)
+        self._save_later()
+
+
 # ---- page Sources -----------------------------------------------------------------------------------------
 
 class SectionsPage(Adw.PreferencesPage):
@@ -546,13 +903,16 @@ class SectionsPage(Adw.PreferencesPage):
 
 # ---- fenêtre ------------------------------------------------------------------------------------------------
 
-def _install_css(display: Gdk.Display) -> bool:
+def _install_css(display: Gdk.Display, resolved, provider: Gtk.CssProvider | None = None) -> Gtk.CssProvider:
+    """Installe (ou met à jour) la feuille de style du thème sur l'affichage."""
     translucent = bool(display.is_rgba() and display.is_composited())
-    provider = Gtk.CssProvider()
-    provider.load_from_string(theme.css(translucent))
-    Gtk.StyleContext.add_provider_for_display(display, provider,
-                                              Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
-    return translucent
+    if provider is None:
+        provider = Gtk.CssProvider()
+        Gtk.StyleContext.add_provider_for_display(display, provider,
+                                                  Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+    assert provider is not None
+    provider.load_from_string(theme.css(resolved, translucent))
+    return provider
 
 
 class CompanionWindow(Adw.ApplicationWindow):
@@ -562,6 +922,10 @@ class CompanionWindow(Adw.ApplicationWindow):
         self.set_size_request(360, 480)
         self.add_css_class("ultima")
 
+        self._provider: Gtk.CssProvider | None = None
+        self._resolved = None
+        self._character: str | None = None
+
         self._toasts = Adw.ToastOverlay()
         self._banner = Adw.Banner(use_markup=False, revealed=False)
 
@@ -569,10 +933,14 @@ class CompanionWindow(Adw.ApplicationWindow):
         self._dashboard = DashboardPage(lambda: self._stack.set_visible_child_name("run"))
         self._run_page = RunPage()
         self._hud_page = HudPage(self._toast, self._rerender)
+        self._appearance_page = AppearancePage(self._toast, self._apply_appearance,
+                                               self._current_state)
         self._status_page = SectionsPage()
         self._stack.add_titled_with_icon(self._dashboard, "tableau", "Tableau", "go-home-symbolic")
         self._stack.add_titled_with_icon(self._run_page, "run", "Run", "view-list-symbolic")
         self._stack.add_titled_with_icon(self._hud_page, "hud", "HUD", "emblem-system-symbolic")
+        self._stack.add_titled_with_icon(self._appearance_page, "apparence", "Apparence",
+                                         "applications-graphics-symbolic")
         self._stack.add_titled_with_icon(self._status_page, "sources", "Sources",
                                          "network-transmit-receive-symbolic")
 
@@ -597,6 +965,8 @@ class CompanionWindow(Adw.ApplicationWindow):
 
         self._watcher = StateWatcher(self.on_state)
         self.connect("close-request", self._on_close)
+        # Thème et police dès l'ouverture (avant le premier état publié).
+        self._apply_appearance()
         self._watcher.start()
 
     def _toast(self, text: str) -> None:
@@ -604,16 +974,64 @@ class CompanionWindow(Adw.ApplicationWindow):
         toast.set_use_markup(False)
         self._toasts.add_toast(toast)
 
+    def _current_state(self):
+        last = self._watcher.last if getattr(self, "_watcher", None) is not None else None
+        return last.state if last is not None and last.kind == OK else None
+
+    def _apply_appearance(self) -> None:
+        """Résout `appearance.companion`, réinstalle le CSS et met à jour le bandeau."""
+        page = getattr(self, "_appearance_page", None)
+        if page is None:                      # signaux émis pendant la construction de la page
+            return
+        state = self._current_state()
+        self._character = state.run.character_id if state is not None and state.run is not None else None
+        resolved = appearance_mod.resolve(page.appearance, self._character)
+        self._resolved = resolved
+        display = Gdk.Display.get_default()
+        if display is not None:
+            self._provider = _install_css(display, resolved, self._provider)
+        fonts.register([resolved.font_file] if resolved.font_file else [])
+        self._appearance_page.show_resolution(resolved)
+        self._refresh_banner()
+
+    def _refresh_banner(self) -> None:
+        parts = []
+        watcher = getattr(self, "_watcher", None)
+        if watcher is not None and watcher.last is not None:
+            message = textview.banner_message(watcher.last, watcher.daemon)
+            if message:
+                parts.append(message)
+        if self._resolved is not None:
+            message = textview.appearance_message(self._resolved)
+            if message:
+                parts.append(message)
+        text = " · ".join(parts)
+        self._banner.set_title(text)
+        self._banner.set_revealed(bool(text))
+
     def on_state(self, result: StateResult, daemon: str) -> None:
-        msg = textview.banner_message(result, daemon)
-        self._banner.set_title(msg or "")
-        self._banner.set_revealed(msg is not None)
         self._hud_page.reload_if_external(result)
+        if self._appearance_page.reload_if_external():
+            self._apply_appearance()           # le TUI a changé l'apparence du compagnon
+        state = result.state if result.kind == OK else None
         order = self._hud_page.settings.ids()   # même ordre que le HUD (§11), modifié en direct
-        self._dashboard.update(result, daemon, order)
-        self._run_page.update(result, order)
+        enabled = {m.id: m.enabled for m in self._hud_page.settings.modules}
+        labels: dict[str, str] = {}
+        blocks: list[views.Group] = []
+        if state is not None:
+            labels = views.custom_labels(state)
+            self._hud_page.set_custom_labels(labels)
+            blocks = views.custom_groups(state, order, screen=state.screen)
+        self._dashboard.update(result, daemon, order, blocks)
+        self._run_page.update(result, order, enabled, labels)
         self._status_page.set_sections(
             textview.status_sections(result, daemon, self._hud_page.settings))
+        # `auto-perso` suit le personnage : on ne réapplique que s'il a changé.
+        character = state.run.character_id if state is not None and state.run is not None else None
+        if (self._appearance_page.appearance.theme == themes.AUTO_ID
+                and character != self._character):
+            self._apply_appearance()
+        self._refresh_banner()
 
     def _rerender(self) -> None:
         last = self._watcher.last
@@ -622,6 +1040,7 @@ class CompanionWindow(Adw.ApplicationWindow):
 
     def _on_close(self, _win) -> bool:
         self._hud_page.flush()
+        self._appearance_page.flush()
         self._watcher.stop()
         return False
 
@@ -636,10 +1055,6 @@ class CompanionApp(Adw.Application):
         Adw.Application.do_startup(self)
         # Thème sombre imposé : l'identité est celle du jeu, pas celle du bureau.
         Adw.StyleManager.get_default().set_color_scheme(Adw.ColorScheme.FORCE_DARK)
-        self.fonts_loaded = fonts.register()
-        display = Gdk.Display.get_default()
-        if display is not None:
-            _install_css(display)
 
     def do_activate(self) -> None:
         if self._window is None:
@@ -648,5 +1063,5 @@ class CompanionApp(Adw.Application):
         self._window.present()
 
 
-__all__ = ["CompanionApp", "CompanionWindow", "DashboardPage", "HudPage", "ItemRow", "OverlayPage",
-           "RunPage", "SectionsPage", "ipc"]
+__all__ = ["AppearancePage", "CompanionApp", "CompanionWindow", "DashboardPage", "HudPage",
+           "ItemRow", "OverlayPage", "RunPage", "SectionsPage", "ipc"]

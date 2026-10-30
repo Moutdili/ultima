@@ -3,6 +3,7 @@ DISPLAY retiré, WAYLAND_DISPLAY inexistant, voir conftest). On vérifie aussi s
 classe Gtk/Adw utilisée existe dans les versions installées (GTK 4, libadwaita 1.9)."""
 
 import ast
+import json
 import os
 import subprocess
 import sys
@@ -30,6 +31,7 @@ def test_ui_imports_without_window():
     assert issubclass(ui.CompanionWindow, Adw.ApplicationWindow)
     assert issubclass(ui.OverlayPage, Adw.PreferencesPage)
     assert issubclass(ui.HudPage, Adw.PreferencesPage)
+    assert issubclass(ui.AppearancePage, Adw.PreferencesPage)
     from gi.repository import Gtk
     assert issubclass(ui.ItemRow, Gtk.ListBoxRow)
     assert issubclass(ui.DashboardPage, Gtk.Box) and issubclass(ui.RunPage, Gtk.Box)
@@ -67,6 +69,10 @@ def test_gtk_symbols_exist():
                       (Adw.Breakpoint, "add_setter"), (Adw.StyleManager, "set_color_scheme"),
                       (Gtk.CssProvider, "load_from_string"), (Gtk.Label, "set_natural_wrap_mode"),
                       (Gtk.Revealer, "set_reveal_child"), (Gtk.Scale, "set_draw_value"),
+                      (Adw.ComboRow, "set_model"), (Adw.ComboRow, "set_selected"),
+                      (Adw.ComboRow, "get_selected"), (Adw.EntryRow, "set_show_apply_button"),
+                      (Adw.EntryRow, "set_text"), (Gtk.StringList, "new"),
+                      (Gtk.Entry, "set_placeholder_text"), (Gtk.Entry, "get_text"),
                       (Gdk.Display, "is_rgba"), (Gdk.Display, "is_composited")]:
         assert hasattr(cls, meth), f"{cls.__name__}.{meth}"
     # propriétés passées en kwargs
@@ -76,7 +82,8 @@ def test_gtk_symbols_exist():
                       (Adw.Toggle, "name"), (Adw.Toggle, "label"), (Adw.Toggle, "tooltip"),
                       (Adw.ViewSwitcherBar, "reveal"), (Adw.HeaderBar, "title-widget"),
                       (Adw.Clamp, "tightening-threshold"), (Adw.StatusPage, "description"),
-                      (Gtk.Revealer, "transition-duration")]:
+                      (Gtk.Revealer, "transition-duration"), (Gtk.Entry, "placeholder-text"),
+                      (Adw.EntryRow, "text"), (Adw.ComboRow, "selected")]:
         assert cls.find_property(prop) is not None, f"{cls.__name__}:{prop}"
 
 
@@ -99,6 +106,10 @@ def test_launcher_text_modes(isolated_xdg, sample_path):
     assert r.returncode == 0, r.stderr
     assert "Écran courant : Boutique (Shop)" in r.stdout and "0. deck activé" in r.stdout
     assert "== HUD\n  Verre · hauteur 55 % · repos 62 % · droite\n" in r.stdout
+    # v1.4 : l'apparence est affichée en lecture (thème effectif, police, surfaces HUD/TUI)
+    assert "== Apparence" in r.stdout and "Thème effectif : sts — Slay the Spire" in r.stdout
+    assert "ultima theme set hud sts" in r.stdout and "Console (TUI)" in r.stdout
+    assert "Repli sur" not in r.stdout              # aucun thème cassé : aucune alerte
     # --check est en lecture seule : aucun settings.json créé
     assert not (isolated_xdg["config"] / "ultima").exists()
 
@@ -107,3 +118,31 @@ def test_desktop_file_not_installed():
     desktop = COMPANION / "ultima-companion.desktop"
     assert desktop.exists()
     assert not (Path.home() / ".local/share/applications/ultima-companion.desktop").exists()
+
+
+def test_check_shows_a_broken_theme_alert_and_falls_back(isolated_xdg, tmp_path):
+    """Thème cassé : `--check` affiche l'alerte ET le repli `sts` (même source que le bandeau)."""
+    themes_dir = tmp_path / "themes"
+    themes_dir.mkdir()
+    (themes_dir / "casse.json").write_text('{"id": "casse", "label": "C", "api": 1}',
+                                           encoding="utf-8")
+    p = isolated_xdg["config"] / "ultima" / "settings.json"
+    p.parent.mkdir(parents=True)
+    p.write_text(json.dumps({"appearance": {"companion": {"theme": "casse"}}}), encoding="utf-8")
+    env = dict(os.environ)
+    env["ULTIMA_THEMES_DIR"] = str(themes_dir)
+    r = _run(["--check"], env)
+    assert r.returncode == 0, r.stderr
+    assert "!! Thème « casse »" in r.stdout
+    assert "Repli sur « sts »" in r.stdout
+    assert "Thème demandé : casse" in r.stdout
+    assert "Thème effectif : sts — Slay the Spire" in r.stdout
+
+
+def test_the_interface_shows_the_theme_message():
+    """Le message de repli va jusqu'à l'interface : bandeau de la fenêtre + page Apparence."""
+    src = (COMPANION / "ultima_companion" / "ui.py").read_text(encoding="utf-8")
+    assert "textview.appearance_message(self._resolved)" in src
+    assert "self._banner.set_revealed(bool(text))" in src
+    assert "self._theme_status.set_subtitle(line)" in src
+    assert "self._appearance_page.show_resolution(resolved)" in src
