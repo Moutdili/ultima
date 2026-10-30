@@ -31,6 +31,48 @@ public sealed class CardScorerTests
     private static IReadOnlyList<CardInstance> Deck(IEnumerable<string> ids) =>
         ids.Select(Card).ToArray();
 
+    // Deck de 14 cartes : 2 à 1 énergie, 12 à 2+ énergie (coûts du catalogue).
+    private static readonly string[] SparseOneCost =
+    {
+        "PAGESTORM", "ACCURACY",
+        "BASH", "BLOOD_WALL", "BLUDGEON", "BARRICADE", "ADAPTIVE_STRIKE", "ALL_FOR_ONE",
+        "APOTHEOSIS", "BOUNCING_FLASK", "ABRASIVE", "BEAT_DOWN", "BOMBARDMENT", "BULLET_TIME",
+    };
+
+    // Même taille, mais 8 cartes à 1 énergie : le coût sature réellement le deck.
+    private static readonly string[] DenseOneCost =
+    {
+        "PAGESTORM", "ACCURACY", "ACROBATICS", "AFTERIMAGE", "AFTERLIFE", "AGGRESSION", "ALCHEMIZE", "ANOINTED",
+        "BASH", "BLOOD_WALL", "BLUDGEON", "BARRICADE", "ADAPTIVE_STRIKE", "ALL_FOR_ONE",
+    };
+
+    private static ScoringContext CtxWithDeck(IEnumerable<string> deck) =>
+        new("CHARACTER.IRONCLAD", 1, "ENCOUNTER.WATERFALL_GIANT_BOSS", 0, 99,
+            Deck(deck), Array.Empty<string>(), 70, 70, 70);
+
+    [Fact]
+    public void La_courbe_de_cout_compte_tout_le_deck_et_pas_seulement_la_meta()
+    {
+        // Régression : la densité était calculée sur les seules cartes connues de la méta
+        // (4 sur 14), d'où un faux « 2/4 = 50 %, coût saturé » sur un deck qui n'en a que 2 sur 14.
+        var score = new Scorer().ScoreCard(Card("CARD.PAGESTORM"), CtxWithDeck(SparseOneCost));
+
+        Assert.DoesNotContain(score.Terms, t => t.Label.StartsWith("Courbe de coût") && t.Points < 0);
+
+        var curve = score.Terms.FirstOrDefault(t => t.Label.StartsWith("Courbe de coût"));
+        if (curve is not null) Assert.Contains("14", curve.Source);
+    }
+
+    [Fact]
+    public void La_courbe_de_cout_signale_la_saturation_quand_elle_est_reelle()
+    {
+        var score = new Scorer().ScoreCard(Card("CARD.PAGESTORM"), CtxWithDeck(DenseOneCost));
+
+        var curve = Assert.Single(score.Terms, t => t.Label.StartsWith("Courbe de coût"));
+        Assert.True(curve.Points < 0, $"8 cartes à 1 énergie sur 14 doivent peser négativement (points = {curve.Points})");
+        Assert.Contains("8/14", curve.Source);
+    }
+
     [Fact]
     public void Three_real_defect_cards_score_in_range_with_explainable_terms()
     {

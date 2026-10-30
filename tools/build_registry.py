@@ -152,6 +152,16 @@ def main():
         "monsters_without_constraint": [e["id"] for e in monster_entries if not e["constrained"]],
         "cards_with_unknown_keyword": sorted({k for e in card_entries for k in (e.get("keywords") or [])
                                               if k not in KNOWN_KEYWORDS}),
+        # Absences DÉCLARÉES (T5 §3) : ce ne sont pas des trous de mesure mais des entités
+        # volontairement hors barème, avec leur raison. Un lecteur du registre doit pouvoir
+        # distinguer « pas encore mesuré » de « pas notable, et voici pourquoi ».
+        "declared_absent": {
+            "relics": [{
+                "id": "DEPRECATED_RELIC",
+                "reason": "artefact de développement (RelicRarity.None) sans effet en jeu — hors barème, "
+                          "seule relique non notée sur 304",
+            }],
+        },
     }
 
     payload = {
@@ -201,7 +211,9 @@ def main():
     print("comptes :", json.dumps(payload["counts"], ensure_ascii=False))
     print("couverture :", json.dumps(payload["coverage"], ensure_ascii=False))
     for k, v in gaps.items():
-        print(f"  {k:34s} {len(v):4d}  {v[:6]}{'…' if len(v) > 6 else ''}")
+        shown = v if isinstance(v, dict) else v[:6]
+        suffix = "" if isinstance(v, dict) or len(v) <= 6 else "…"
+        print(f"  {k:34s} {len(v):4d}  {shown}{suffix}")
 
 
 if __name__ == "__main__":

@@ -60,9 +60,10 @@ public sealed class Scorer : IScorer
         _cards = new CardScorer(Meta, Personal, synergy);
         _relics = new RelicScorer(Meta, Personal, RelicCatalog.Load());
         _potions = new PotionScorer(PotionCatalog.Load());
-        _shop = new ShopScorer(_cards, _relics, _potions);
-        _deck = new DeckEvaluator(Meta, _cards, DeckPercentiles.Default);
+        // Le conseiller est construit AVANT le shop : ScoreRemoval n'a qu'une seule vérité (T5 §1).
         _removal = new RemovalAdvisor(meta: Meta);
+        _shop = new ShopScorer(_cards, _relics, _potions, _removal);
+        _deck = new DeckEvaluator(Meta, _cards, DeckPercentiles.Default);
     }
 
     public Score ScoreCard(CardInstance card, ScoringContext ctx) => _cards.ScoreCard(card, ctx);
@@ -90,21 +91,9 @@ public sealed class Scorer : IScorer
     /// </summary>
     public Score ScoreRemoval(int price, ScoringContext ctx)
     {
-        var score = _shop.ScoreRemoval(price, ctx);
-
-        var best = _removal.Recommend(ctx, price, Math.Max(0, ctx.Gold))
-            .OrderByDescending(c => c.Score)
-            .FirstOrDefault();
-
-        if (best is null) return score;   // deck vide : rien à recommander
-
-        var terms = new List<ScoreTerm>(score.Terms)
-        {
-            new($"Meilleure carte à retirer : {best.Name}", 0,
-                $"{best.Reason} · gain {best.Score} pts de G, rentable dès {best.BreakEven:0.#}"),
-        };
-
-        return score with { Terms = terms };
+        // Une seule vérité : ShopScorer.ScoreRemoval note le gain du RemovalAdvisor.
+        // Pas de second classement ni de terme dupliqué ici (T5 §1).
+        return _shop.ScoreRemoval(price, ctx);
     }
 
     public DeckEvaluation EvaluateDeck(ScoringContext ctx) => _deck.Evaluate(ctx);

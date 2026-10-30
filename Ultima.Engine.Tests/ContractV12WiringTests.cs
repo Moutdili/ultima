@@ -98,6 +98,25 @@ public sealed class ContractV12WiringTests
     }
 
     [Fact]
+    public void EventAdvisor_note_une_relique_proposee_par_un_ancien()
+    {
+        // Un Ancien propose des reliques : l'option est un id de relique, pas un texte d'événement.
+        var scores = new EventAdvisor().Rank("ANCIENT_EVENT", new[] { "RELIC.AKABEKO" }, Ctx(gold: 100));
+
+        var score = Assert.Single(scores);
+        Assert.NotNull(score);
+        Assert.Contains(score!.Terms, t => t.Label == "Offre d'Ancien" && t.Points == 0);
+        Assert.InRange(score.Total, 0, 100);
+    }
+
+    [Fact]
+    public void EventAdvisor_rend_null_pour_une_option_qui_n_est_ni_texte_ni_relique()
+    {
+        var scores = new EventAdvisor().Rank("ANCIENT_EVENT", new[] { "PAS_UNE_RELIQUE" }, Ctx());
+        Assert.Null(Assert.Single(scores));
+    }
+
+    [Fact]
     public void Malediction_porte_un_DeltaG_negatif()
     {
         var score = new Scorer().ScoreCard(new CardInstance("INJURY", 0, null, null), Ctx());

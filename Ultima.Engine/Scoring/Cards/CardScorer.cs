@@ -419,11 +419,14 @@ public sealed class CardScorer
         if (meta?.Cost is not int cost) return null;
         if (ctx.Deck.Count < MinDeckForCurve) return null;
 
+        // Le coût vient du CATALOGUE (578 cartes), pas de la méta : celle-ci ne note qu'une partie
+        // des cartes, et s'y fier faisait conclure « 2/4 cartes à 1 énergie = saturation » sur un
+        // deck de 14 cartes (2 réels). La méta reste le repli pour une carte hors catalogue.
         var same = 0;
         var known = 0;
         foreach (var card in ctx.Deck)
         {
-            if (_meta.Card(card.Id)?.Cost is not int deckCost) continue;
+            if (!TryDeckCost(card.Id, out var deckCost)) continue;
             known++;
             if (deckCost == cost) same++;
         }
@@ -459,8 +462,27 @@ public sealed class CardScorer
             return null;
         }
 
+        var unresolved = Math.Max(0, ctx.Deck.Count - known);
+        var caveat = unresolved == 0
+            ? ""
+            : $" — {unresolved} carte(s) du deck sans coût connu, hors calcul";
+
         return new ScoreTerm($"Courbe de coût à {cost} énergie", ScoreMath.Clamp(points, -5, 5),
-            $"deck courant : {verdict}");
+            $"deck courant ({known} cartes comptées sur {ctx.Deck.Count}) : {verdict}{caveat}");
+    }
+
+    /// <summary>Coût d'une carte du deck : catalogue d'abord, méta en repli.</summary>
+    private bool TryDeckCost(string cardId, out int cost)
+    {
+        if (CardCosts.TryCost(cardId, out cost)) return true;
+        if (_meta.Card(cardId)?.Cost is int metaCost)
+        {
+            cost = metaCost;
+            return true;
+        }
+
+        cost = 0;
+        return false;
     }
 
     /// <summary>
