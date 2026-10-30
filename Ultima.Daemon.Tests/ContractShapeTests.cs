@@ -50,7 +50,7 @@ public class ContractShapeTests
     /// sont tolérés en plus (signalé au chef dans status/cableur.md) :
     /// v1.1 (8abdeb1) CardView.description, PotionView.score ;
     /// v1.2 (89e376e) contractMinor, map, route, event, RunView.party, Score.deltaG, ScoreTerm.evidence ;
-    /// v1.3 (be593ee) OverlaySettings.hud.
+    /// v1.3 (be593ee) OverlaySettings.hud ; v1.4 (docs/44) custom, ModuleSetting.screens.
     /// </summary>
     private static bool AdditiveField(string path, string key, JsonObject obj) => key switch
     {
@@ -59,6 +59,8 @@ public class ContractShapeTests
         "contractMinor" or "map" or "route" or "event" => path == "$",
         "party" => path == "$.run",
         "hud" => path == "$.settings", // v1.3
+        "custom" => path == "$", // v1.4
+        "screens" => path.StartsWith("$.settings.modules["), // v1.4
         "deltaG" => obj.ContainsKey("confidence"),
         "evidence" => obj.ContainsKey("points"),
         _ => false,

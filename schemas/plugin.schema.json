@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ultima.local/schemas/plugin.schema.json",
+  "title": "Manifeste de plugin ULTIMA (docs/44 §7)",
+  "type": "object",
+  "required": [
+    "id",
+    "label",
+    "api",
+    "exec"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^x\\.[a-z0-9][a-z0-9-]{0,39}$"
+    },
+    "label": {
+      "type": "string",
+      "maxLength": 40
+    },
+    "api": {
+      "const": 1
+    },
+    "version": {
+      "type": "string",
+      "maxLength": 20
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 200
+    },
+    "exec": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "screens": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "menu",
+          "map",
+          "combat",
+          "reward",
+          "shop",
+          "event",
+          "restSite",
+          "treasure"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "timeoutMs": {
+      "type": "integer",
+      "minimum": 10,
+      "maximum": 500,
+      "default": 200
+    },
+    "minIntervalMs": {
+      "type": "integer",
+      "minimum": 250,
+      "maximum": 60000,
+      "default": 1000
+    }
+  }
+}

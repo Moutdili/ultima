@@ -1,0 +1,224 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ultima.local/schemas/appearance.schema.json",
+  "title": "settings.json → appearance (docs/44 §3)",
+  "description": "Valeur absente ou invalide ⇒ défaut, champ par champ. Clés inconnues conservées par tous les écrivains.",
+  "type": "object",
+  "properties": {
+    "hud": {
+      "type": "object",
+      "properties": {
+        "theme": {
+          "type": "string"
+        },
+        "font": {
+          "type": "object",
+          "properties": {
+            "family": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 80
+            },
+            "size": {
+              "type": "integer",
+              "minimum": 12,
+              "maximum": 24
+            }
+          },
+          "additionalProperties": false
+        },
+        "tones": {
+          "type": "object",
+          "propertyNames": {
+            "enum": [
+              "text",
+              "muted",
+              "accent",
+              "danger",
+              "ok",
+              "warn",
+              "curse",
+              "enchant",
+              "info",
+              "grade.S",
+              "grade.A",
+              "grade.B",
+              "grade.C",
+              "grade.D",
+              "grade.F",
+              "background",
+              "border"
+            ]
+          },
+          "additionalProperties": {
+            "type": "string",
+            "pattern": "^#[0-9A-Fa-f]{6}([0-9A-Fa-f]{2})?$"
+          }
+        },
+        "position": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "side": {
+              "enum": [
+                "left",
+                "right"
+              ]
+            },
+            "anchor": {
+              "enum": [
+                "top",
+                "center",
+                "bottom"
+              ]
+            },
+            "offsetX": {
+              "type": "integer"
+            },
+            "offsetY": {
+              "type": "integer"
+            },
+            "width": {
+              "type": "integer",
+              "minimum": 280,
+              "maximum": 520
+            }
+          }
+        },
+        "railEdge": {
+          "type": "boolean"
+        }
+      }
+    },
+    "companion": {
+      "type": "object",
+      "properties": {
+        "theme": {
+          "type": "string"
+        },
+        "font": {
+          "type": "object",
+          "properties": {
+            "family": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 80
+            },
+            "size": {
+              "type": "integer",
+              "minimum": 12,
+              "maximum": 24
+            }
+          },
+          "additionalProperties": false
+        },
+        "tones": {
+          "type": "object",
+          "propertyNames": {
+            "enum": [
+              "text",
+              "muted",
+              "accent",
+              "danger",
+              "ok",
+              "warn",
+              "curse",
+              "enchant",
+              "info",
+              "grade.S",
+              "grade.A",
+              "grade.B",
+              "grade.C",
+              "grade.D",
+              "grade.F",
+              "background",
+              "border"
+            ]
+          },
+          "additionalProperties": {
+            "type": "string",
+            "pattern": "^#[0-9A-Fa-f]{6}([0-9A-Fa-f]{2})?$"
+          }
+        }
+      }
+    },
+    "tui": {
+      "type": "object",
+      "properties": {
+        "theme": {
+          "type": "string"
+        },
+        "tones": {
+          "type": "object",
+          "propertyNames": {
+            "enum": [
+              "text",
+              "muted",
+              "accent",
+              "danger",
+              "ok",
+              "warn",
+              "curse",
+              "enchant",
+              "info",
+              "grade.S",
+              "grade.A",
+              "grade.B",
+              "grade.C",
+              "grade.D",
+              "grade.F",
+              "background",
+              "border"
+            ]
+          },
+          "additionalProperties": {
+            "type": "string",
+            "pattern": "^#[0-9A-Fa-f]{6}([0-9A-Fa-f]{2})?$"
+          }
+        },
+        "logColors": {
+          "type": "object",
+          "propertyNames": {
+            "enum": [
+              "timestamp",
+              "debug",
+              "info",
+              "warn",
+              "error"
+            ]
+          },
+          "additionalProperties": {
+            "oneOf": [
+              {
+                "type": "string",
+                "pattern": "^#[0-9A-Fa-f]{6}([0-9A-Fa-f]{2})?$"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "text",
+                  "muted",
+                  "accent",
+                  "danger",
+                  "ok",
+                  "warn",
+                  "curse",
+                  "enchant",
+                  "info",
+                  "grade.S",
+                  "grade.A",
+                  "grade.B",
+                  "grade.C",
+                  "grade.D",
+                  "grade.F",
+                  "background",
+                  "border"
+                ]
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

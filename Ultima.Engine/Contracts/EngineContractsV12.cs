@@ -9,7 +9,7 @@ namespace Ultima.Engine.Contracts;
 
 public static class ContractInfo
 {
-    public const int CurrentMinor = 3;   // v1.3 : HudSettings
+    public const int CurrentMinor = 4;   // v1.3 : HudSettings ; v1.4 : Custom, ModuleSetting.Screens
 }
 
 // ---- Carte et route (MapView → PathPlanner) ---------------------------------------------------

@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ultima.local/schemas/module.schema.json",
+  "title": "Module déclaratif ULTIMA (docs/44 §6) — aucun code",
+  "type": "object",
+  "required": [
+    "id",
+    "label",
+    "api",
+    "rows"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^x\\.[a-z0-9][a-z0-9-]{0,39}$"
+    },
+    "label": {
+      "type": "string",
+      "maxLength": 40
+    },
+    "api": {
+      "const": 1
+    },
+    "screens": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "menu",
+          "map",
+          "combat",
+          "reward",
+          "shop",
+          "event",
+          "restSite",
+          "treasure"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "rows": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 20,
+      "items": {
+        "type": "object",
+        "required": [
+          "text"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 160
+          },
+          "tone": {
+            "type": "string",
+            "enum": [
+              "text",
+              "muted",
+              "accent",
+              "danger",
+              "ok",
+              "warn",
+              "curse",
+              "enchant",
+              "info",
+              "grade.S",
+              "grade.A",
+              "grade.B",
+              "grade.C",
+              "grade.D",
+              "grade.F"
+            ]
+          },
+          "when": {
+            "type": "string",
+            "maxLength": 200
+          },
+          "grade": {
+            "type": "string",
+            "maxLength": 80
+          }
+        }
+      }
+    }
+  }
+}

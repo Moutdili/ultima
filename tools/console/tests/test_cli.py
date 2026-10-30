@@ -1,5 +1,6 @@
 """Sous-commandes : codes de sortie, --json, couleur (--color, NO_COLOR, FORCE_COLOR), journal filtré."""
 
+from ultima_console import CONTRACT_MAJOR, CONTRACT_MINOR
 import json
 import os
 import subprocess
@@ -130,7 +131,7 @@ def test_hud_status_and_toggle_use_fake_tool(capsys, env):
 def test_version_and_doctor_json(capsys):
     code, out, _ = run(capsys, "version", "--json")
     d = json.loads(out)
-    assert code == 0 and d["contract"] == "1.3" and d["commit"] is None
+    assert code == 0 and d["contract"] == f"{CONTRACT_MAJOR}.{CONTRACT_MINOR}" and d["commit"] is None
     code, out, _ = run(capsys, "doctor", "--quick", "--json")
     d = json.loads(out)
     labels = {c["label"]: c["status"] for c in d["checks"]}

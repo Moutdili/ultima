@@ -13,8 +13,9 @@
 3. **Rien ne casse** : un thème, un module ou un plugin invalide est ignoré **champ par champ ou en entier**,
    avec un message clair (`ultima doctor`, journal du daemon) ; la surface retombe sur le thème `sts`.
 4. **Tons sémantiques** : surfaces, modules et plugins ne parlent jamais en hex mais en **tons**
-   (`text`, `muted`, `accent`, `danger`, `ok`, `warn`, `curse`, `enchant`, `info`, `grade.S` … `grade.F`).
-   Le thème associe une couleur à chaque ton. Un plugin s'affiche donc bien dans tous les thèmes.
+   (`text`, `muted`, `accent`, `danger`, `ok`, `warn`, `curse`, `enchant`, `info`, `grade.S` … `grade.F` ;
+   `Ultima.Engine.Contracts.Tones`). Le thème associe une couleur à chaque ton, plus `background` et `border`
+   (réservés aux thèmes). Un plugin s'affiche donc bien dans tous les thèmes.
 5. Règles inchangées : lecture seule, probabiliste seulement (les modules et plugins ne voient que
    `EngineState`, qui ne contient aucun tirage caché), notes S à F avec les mêmes seuils, raccourcis Super+Maj.
 
@@ -43,9 +44,13 @@ d'écrire, ne modifie que ses clés, **conserve les clés inconnues** et écrit 
     "railEdge": true
   },
   "companion": { "theme": "sts", "font": { "family": "Fira Sans", "size": 14 }, "tones": {} },
-  "tui": { "theme": "terminal", "tones": {} }
+  "tui": { "theme": "terminal", "tones": {}, "logColors": { "warn": "warn", "error": "#FF5555" } }
 }
 ```
+- **TUI** : toute son apparence (thème, tons, couleurs du journal) vit ici, à côté du HUD et du compagnon.
+  `~/.config/ultima/console.json` ne garde que les options de lancement du daemon ; son ancienne clé `theme` et
+  ses `logColors` sont repris une fois dans `appearance.tui` (migration silencieuse, ancien fichier conservé).
+  Un thème s'applique au **cadre et au contenu** (notes, malédictions, journal) : plus aucune couleur codée en dur.
 - `theme` : id d'un thème intégré ou utilisateur. `"auto-perso"` = thème du personnage de la run en cours
   (repli `sts` hors run). Pour le TUI seulement, `"terminal"` = **les 16 couleurs ANSI du terminal de
   l'utilisateur** (aucune couleur imposée, fond du terminal respecté).

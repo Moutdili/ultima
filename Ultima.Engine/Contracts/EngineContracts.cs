@@ -30,6 +30,8 @@ public sealed record EngineState(
     public RouteView? Route { get; init; }
     /// <summary>v1.2 : événement courant et ses options (Screen.Event).</summary>
     public EventView? Event { get; init; }
+    /// <summary>v1.4 : modules perso et plugins évalués par le daemon (docs/44).</summary>
+    public IReadOnlyList<CustomModuleView>? Custom { get; init; }
 }
 
 /// <summary>Santé des sources. Degraded != null → l'UI l'annonce (jamais de faux chiffre).</summary>
@@ -153,7 +155,11 @@ public sealed record OverlaySettings(IReadOnlyList<ModuleSetting> Modules)
     });
 }
 
-public sealed record ModuleSetting(string Id, bool Enabled, int Order);
+public sealed record ModuleSetting(string Id, bool Enabled, int Order)
+{
+    /// <summary>v1.4 : écrans où le bloc apparaît (ScreenIds.All) ; null = écrans par défaut du module.</summary>
+    public IReadOnlyList<string>? Screens { get; init; }
+}
 
 public static class ModuleIds
 {

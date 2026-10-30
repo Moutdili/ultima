@@ -1,5 +1,6 @@
 """Bandeau ULTIMA : dessin exact (48 × 8), couleurs de la palette, repli une ligne (taille, locale), NO_COLOR."""
 
+from ultima_console import CONTRACT_MAJOR, CONTRACT_MINOR
 import os
 import subprocess
 import sys
@@ -62,7 +63,7 @@ def test_version_banner_and_no_color(capsys, monkeypatch):
     monkeypatch.setenv("LINES", "40")
     assert cli.main(["version", "--color", "always"]) == 0
     out = capsys.readouterr().out
-    assert f"{rgb('gold')}{banner.ART[1]}" in out and "contrat v1.3" in out
+    assert f"{rgb('gold')}{banner.ART[1]}" in out and f"contrat v{CONTRACT_MAJOR}.{CONTRACT_MINOR}" in out
     monkeypatch.setenv("NO_COLOR", "1")
     monkeypatch.setenv("FORCE_COLOR", "1")
     cli.main(["version"])

@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ultima.local/schemas/plugin-output.schema.json",
+  "title": "Réponse d'un plugin (une ligne JSON sur stdout, docs/44 §7)",
+  "type": "object",
+  "required": [
+    "rows"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "rows": {
+      "type": "array",
+      "maxItems": 20,
+      "items": {
+        "type": "object",
+        "required": [
+          "text"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 160
+          },
+          "tone": {
+            "type": "string",
+            "enum": [
+              "text",
+              "muted",
+              "accent",
+              "danger",
+              "ok",
+              "warn",
+              "curse",
+              "enchant",
+              "info",
+              "grade.S",
+              "grade.A",
+              "grade.B",
+              "grade.C",
+              "grade.D",
+              "grade.F"
+            ]
+          },
+          "grade": {
+            "enum": [
+              "S",
+              "A",
+              "B",
+              "C",
+              "D",
+              "F"
+            ]
+          }
+        }
+      }
+    }
+  }
+}
