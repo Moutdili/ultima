@@ -8,7 +8,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 
-from . import ipc
+from . import ipc, views
 from .settings import OverlaySettings
 from .state import (INVALID, MISSING, OK, SUPPORTED_CONTRACT_VERSION, TOO_NEW, Card, Score,
                     StateResult)
@@ -102,7 +102,7 @@ def card_title(c: Card) -> str:
 
 
 def card_subtitle(c: Card) -> str:
-    cost = "injouable" if (c.cost < 0 and c.is_curse) else f"coût {c.cost}"
+    cost = views.cost_text(c)
     parts = [TYPE_LABELS.get(c.type, c.type), RARITY_LABELS.get(c.rarity, c.rarity), cost,
              f"score {fmt_score(c.score)}"]
     line = " · ".join(parts)

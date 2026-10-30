@@ -176,28 +176,61 @@ def test_health_line_variants(demo):
 
 def test_run_groups_order_and_grammar(demo):
     groups = views.run_groups(_st(demo).state)
-    assert [g.key for g in groups] == ["curses", "deck", "relics", "potions", "party"]
-    curses = groups[0].items
-    assert curses[0].tag == "Malédiction" and curses[0].tag_tone == "purple" and curses[0].grade == "F"
-    deck = groups[1]
+    # ordre des modules = OverlaySettings.Default (deck, enchantées, malédictions, reliques, potions…)
+    assert [g.key for g in groups] == ["deck", "enchanted", "curses", "relics", "potions", "party"]
+    deck = groups[0]
     assert deck.title == "Deck · 11"
     labels = [i.label for i in deck.items]
-    # même ordre que le HUD : coût croissant, nom, sans enchantement d'abord
-    assert labels == ["4× Garde (démo)", "Garde (démo)", "4× Lame (démo)", "Rituel (démo)+"]
+    # même ordre que le HUD : malédictions en dernier, coût croissant, nom, sans enchantement d'abord
+    assert labels == ["4× Garde (démo)", "Garde (démo)", "4× Lame (démo)", "Rituel (démo)+", "Fardeau (démo)"]
     ench = deck.items[1]
     assert ench.tag == "Vivacité (démo) 1" and ench.tag_tone == "aqua"
     assert deck.items[3].grade == "S" and deck.items[3].reason == "Méta +80"
-    relics = groups[2].items
+    assert groups[1].title == "Enchantées · 1" and [i.label for i in groups[1].items] == ["Garde (démo)"]
+    curses = groups[2].items
+    assert groups[2].title == "Malédictions · 1"
+    assert curses[0].tag == "Malédiction" and curses[0].tag_tone == "purple" and curses[0].grade == "F"
+    relics = groups[3].items
     assert [r.grade for r in relics] == ["A", "—"]
     assert relics[1].detail[-1] == "Note : — (calcul indisponible)"
-    party = groups[4].items
+    party = groups[5].items
     assert party[0].tone == "red" and party[0].value == "61/80 PV" and party[0].reason == "Ironclad"
+
+
+def test_run_groups_follow_settings_order(demo):
+    """« tout personnalisable » : la page Run et la ligne de résumé suivent l'ordre des réglages."""
+    from ultima_companion.settings import OverlaySettings
+    s = OverlaySettings.default()
+    s.move_up("potions"); s.move_up("potions"); s.move_up("potions"); s.move_up("potions")
+    s.move_down("enchanted")
+    st = _st(demo).state
+    assert [g.key for g in views.run_groups(st, s.ids())] == \
+        ["potions", "deck", "curses", "enchanted", "relics", "party"]
+    assert views.deck_summary(st, s.ids()).startswith("potions ")
+    # ids inconnus / incomplets : modules manquants remis à leur place par défaut, à la fin
+    assert [g.key for g in views.run_groups(st, ["relics", "future_x"])] == \
+        ["relics", "deck", "enchanted", "curses", "potions", "party"]
 
 
 def test_run_groups_solo_and_v10(sample):
     groups = views.run_groups(_st(sample).state)
-    assert [g.key for g in groups] == ["curses", "deck", "relics", "potions"]   # pas d'équipe en solo
+    keys = [g.key for g in groups]
+    assert "party" not in keys                                   # pas d'équipe en solo
+    assert keys[0] == "deck" and keys[-2:] == ["relics", "potions"]
     assert all(i.grade != "0" for g in groups for i in g.items)
+
+
+def test_null_cost_v13(demo):
+    """v1.3 : `cost: null` = coût X ou injouable ; jamais « coût 0 »."""
+    data = copy.deepcopy(demo)
+    data["run"]["deck"][0]["cost"] = None
+    data["run"]["deck"][-1]["cost"] = None
+    st = _st(data).state
+    x, curse = st.run.deck[0], st.run.deck[-1]
+    assert x.cost is None and views.cost_text(x) == "coût X"
+    assert views.cost_text(curse) == "injouable"
+    assert "coût 0" not in views.card_meta(x)
+    assert views.group_cards([x, st.run.deck[4]])[-1][0] is x            # coût X trié après les coûts connus
 
 
 def test_deck_note(demo, sample):
@@ -214,3 +247,56 @@ def test_score_detail_delta_g_signed(demo):
     bane = [c for c in _st(demo).state.run.deck if c.is_curse][0]
     head = views.score_detail(bane.score)[0]
     assert "ΔG -4.5" in head and "5/100" in head
+
+
+# ---- échantillon RÉEL du daemon v1.3 (docs/ipc/state.v13.sample.json) + sections absentes / null ---------
+
+from conftest import REPO  # noqa: E402
+from ultima_companion import textview  # noqa: E402
+
+V13 = REPO / "docs" / "ipc" / "state.v13.sample.json"
+SECTIONS = ["health", "run", "reward", "shop", "paths", "deck", "settings", "map", "route", "event"]
+
+
+def _v13():
+    import json
+    return json.loads(V13.read_text(encoding="utf-8"))
+
+
+@pytest.mark.skipif(not V13.exists(), reason="échantillon v1.3 absent")
+def test_real_v13_sample_parses_and_renders():
+    r = state.parse_state(_v13())
+    st = r.state
+    assert r.kind == state.OK and (st.contract_version, st.contract_minor) == (1, 3)
+    assert st.run is not None and st.run.deck and st.map is not None and st.route is not None
+    assert st.settings.hud.to_json()["quality"] == "verre"
+    assert all(c.cost is not None for c in st.run.deck)
+    assert views.run_groups(st)[0].key == "deck"
+    assert views.decision(r).kind in {"map", "idle", "reward", "shop", "event"}
+    rows = [row for sec in textview.status_sections(r, ipc.ALIVE, st.settings) for row in sec.rows]
+    assert any(row.title == "Réglages appliqués par le daemon" and "identiques" in row.subtitle for row in rows)
+
+
+@pytest.mark.skipif(not V13.exists(), reason="échantillon v1.3 absent")
+@pytest.mark.parametrize("section", SECTIONS)
+@pytest.mark.parametrize("how", ["null", "absent"])
+def test_every_section_null_or_absent_is_tolerated(section, how):
+    data = _v13()
+    if how == "null":
+        data[section] = None
+    else:
+        del data[section]
+    for screen in ("Map", "Reward", "Shop", "Event", "Combat"):
+        data["screen"] = screen
+        r = state.parse_state(data)
+        assert r.kind == state.OK
+        dec = views.decision(r)
+        assert dec.items or dec.empty                             # toujours quelque chose de calme à montrer
+        if r.state.run is not None:
+            views.run_groups(r.state)
+            views.deck_summary(r.state)
+            assert views.deck_note(r.state).grade in {"S", "A", "B", "C", "D", "F", "—"}
+        textview.status_sections(r, ipc.ALIVE, None)
+        textview.run_sections(r)
+    if section == "deck":
+        assert views.deck_note(state.parse_state(data).state).grade == "—"   # « — », jamais 0

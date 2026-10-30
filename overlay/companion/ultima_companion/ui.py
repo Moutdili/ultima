@@ -1,4 +1,4 @@
-"""Interface GTK4 + libadwaita 1.9 — phase design ouverte (Mio, 2026-10-29). Voir DESIGN.md.
+"""Interface GTK4 + libadwaita 1.9 — phase design ouverte (Mio, 2026-10-29), skill sts2-design-system §8-§12.
 
 Quatre pages (Adw.ViewStack + Adw.ViewSwitcher, barre du bas sur fenêtre étroite) :
 Tableau (la décision du moment), Run (deck, reliques, potions, équipe), HUD (réglages v1.3 + modules),
@@ -31,6 +31,8 @@ SHORTCUTS = (
     ("Super+Maj+O", "masquer / afficher"),
 )
 SAVE_DELAY_MS = 350   # curseurs : une seule écriture quand Mio relâche
+# Détail (niveau 2) : dévoilement bref, sans rebond, jamais en boucle (skill §4 : 150-220 ms, §12).
+DETAIL_REVEAL_MS = 160
 
 
 # ---- briques visuelles --------------------------------------------------------------------------------
@@ -103,7 +105,7 @@ class ItemRow(Gtk.ListBoxRow):
         self._revealer = None
         if item.detail:
             self._revealer = Gtk.Revealer(transition_type=Gtk.RevealerTransitionType.SLIDE_DOWN,
-                                          transition_duration=160)
+                                          transition_duration=DETAIL_REVEAL_MS)
             detail = _label("\n".join(item.detail), "secondary", wrap=True)
             detail.set_selectable(True)
             detail.set_margin_start(14 + 30 + 14)
@@ -159,7 +161,7 @@ class DashboardPage(Gtk.Box):
         self._on_open_run = on_open_run
         self.append(_page_scroller(self._col))
 
-    def update(self, result: StateResult, daemon: str) -> None:
+    def update(self, result: StateResult, daemon: str, order: list[str] | None = None) -> None:
         _clear(self._col)
         st = result.state if result.kind == OK else None
         if st is not None and st.run is not None:
@@ -187,7 +189,7 @@ class DashboardPage(Gtk.Box):
             note = views.deck_note(st)
             row = Gtk.Box(spacing=12)
             row.append(grade_badge(note.grade))
-            row.append(_label(views.deck_summary(st), "secondary", ellipsize=True, xalign=0.0))
+            row.append(_label(views.deck_summary(st, order), "secondary", ellipsize=True, xalign=0.0))
             row.get_last_child().set_hexpand(True)
             btn = Gtk.Button(label="Voir la run", valign=Gtk.Align.CENTER)
             btn.add_css_class("flat")
@@ -213,7 +215,7 @@ class RunPage(Gtk.Box):
         self._col = _column()
         self.append(_page_scroller(self._col))
 
-    def update(self, result: StateResult) -> None:
+    def update(self, result: StateResult, order: list[str] | None = None) -> None:
         _clear(self._col)
         st = result.state if result.kind == OK else None
         if st is None or st.run is None:
@@ -240,11 +242,12 @@ class RunPage(Gtk.Box):
                                            detail=note.detail)]))
         self._col.append(panel)
 
-        for g in views.run_groups(st):
+        for g in views.run_groups(st, order):
             box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
             title = _label(g.title.upper(), "heading-group")
-            if g.key == "curses":
-                title.add_css_class(theme.tone_class("purple"))
+            tone = {"curses": "purple", "enchanted": "aqua"}.get(g.key)   # §9 : la couleur double le mot
+            if tone:
+                title.add_css_class(theme.tone_class(tone))
             box.append(title)
             if g.items:
                 box.append(item_list(g.items))
@@ -273,7 +276,7 @@ class HudPage(Adw.PreferencesPage):
         look = Adw.PreferencesGroup(title="Apparence")
         reset_hud = Gtk.Button(label="Par défaut", valign=Gtk.Align.CENTER)
         reset_hud.add_css_class("flat")
-        reset_hud.set_tooltip_text("Verre · 55 % · 62 % · droite")
+        reset_hud.set_tooltip_text(settings_mod.HudSettings.default().summary())
         reset_hud.connect("clicked", self._on_reset_hud)
         look.set_header_suffix(reset_hud)
 
@@ -401,6 +404,21 @@ class HudPage(Adw.PreferencesPage):
             row.add_prefix(down)
             self._modules_group.add(row)
             self._module_rows.append(row)
+
+    def reload_if_external(self, result: StateResult) -> bool:
+        """Réglages modifiés ailleurs (TUI `ultima`) : le daemon republie des réglages différents des nôtres
+        → on relit settings.json et on resynchronise les contrôles. Une écriture en attente est prioritaire."""
+        st = result.state if result.kind == OK else None
+        if self._save_timer is not None or st is None or st.settings is None \
+                or st.settings.same_applied(self.settings):
+            return False
+        fresh = settings_mod.reload_if_changed(self.settings)
+        if fresh is None:
+            return False
+        self.settings = fresh
+        self._sync_hud_widgets()
+        GLib.idle_add(self._rebuild_once)
+        return True
 
     # ---- écriture ---------------------------------------------------------------------------------------
     def _persist(self) -> None:
@@ -590,8 +608,10 @@ class CompanionWindow(Adw.ApplicationWindow):
         msg = textview.banner_message(result, daemon)
         self._banner.set_title(msg or "")
         self._banner.set_revealed(msg is not None)
-        self._dashboard.update(result, daemon)
-        self._run_page.update(result)
+        self._hud_page.reload_if_external(result)
+        order = self._hud_page.settings.ids()   # même ordre que le HUD (§11), modifié en direct
+        self._dashboard.update(result, daemon, order)
+        self._run_page.update(result, order)
         self._status_page.set_sections(
             textview.status_sections(result, daemon, self._hud_page.settings))
 

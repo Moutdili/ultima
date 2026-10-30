@@ -15,7 +15,7 @@ from dataclasses import dataclass, field
 
 from . import ipc
 from .palette import character_tone
-from .settings import module_label
+from .settings import DEFAULT_ORDER, module_label
 from .state import (INVALID, MISSING, OK, TOO_NEW, Card, EngineState, Score, ScoreTerm,
                     StateResult)
 
@@ -110,13 +110,15 @@ def enchant_text(c: Card) -> str | None:
     return f"{e.name} {e.amount}" if e.amount else e.name
 
 
+def cost_text(c: Card) -> str:
+    """v1.3 : `cost == null` = coût X ou injouable (le contrat ne distingue pas) ; ancien daemon : < 0."""
+    if c.cost is None or c.cost < 0:
+        return "injouable" if (c.is_curse or c.type in ("Curse", "Status")) else "coût X"
+    return f"coût {c.cost}"
+
+
 def card_meta(c: Card) -> str:
-    if c.is_curse and c.cost < 0:
-        cost = "injouable"
-    elif c.cost < 0:
-        cost = "coût X"
-    else:
-        cost = f"coût {c.cost}"
+    cost = cost_text(c)
     return " · ".join([TYPE_LABELS.get(c.type, c.type), RARITY_LABELS.get(c.rarity, c.rarity), cost])
 
 
@@ -177,7 +179,7 @@ def group_cards(cards: list[Card]) -> list[tuple[Card, int]]:
             groups[k] = [c, 1]
 
     def cost_key(c: Card) -> int:
-        return 99 if c.cost < 0 else c.cost
+        return 99 if c.cost is None or c.cost < 0 else c.cost
 
     out = [(g[0], g[1]) for g in groups.values()]
     out.sort(key=lambda t: (t[0].is_curse, cost_key(t[0]), t[0].name.casefold(), t[0].upgrade,
@@ -355,22 +357,23 @@ def decision(result: StateResult) -> Decision:
 
 # ---- lignes de résumé -----------------------------------------------------------------------------------
 
-def deck_summary(st: EngineState) -> str:
-    """Une ligne par run (skill §11) : « Deck 14 · 2 enchantées · 1 malédiction · reliques 4 · potions 1 »."""
+def deck_summary(st: EngineState, order: list[str] | None = None) -> str:
+    """Une ligne par run (skill §11) : « Deck 14 · 2 enchantées · 1 malédiction · reliques 4 · potions 1 »,
+    dans l'ordre des modules des réglages (même ordre que le HUD) ; un compte nul (enchantées,
+    malédictions) n'est pas écrit."""
     r = st.run
     if r is None:
         return ""
-    n = len(r.deck)
     ench = sum(1 for c in r.deck if c.enchantment is not None)
     curses = sum(1 for c in r.deck if c.is_curse)
-    parts = [f"Deck {n}"]
-    if ench:
-        parts.append(f"{ench} enchantée{'s' if ench > 1 else ''}")
-    if curses:
-        parts.append(f"{curses} malédiction{'s' if curses > 1 else ''}")
-    parts.append(f"reliques {len(r.relics)}")
-    parts.append(f"potions {len(r.potions)}")
-    return " · ".join(parts)
+    pieces = {
+        "deck": f"Deck {len(r.deck)}",
+        "enchanted": f"{ench} enchantée{'s' if ench > 1 else ''}" if ench else "",
+        "curses": f"{curses} malédiction{'s' if curses > 1 else ''}" if curses else "",
+        "relics": f"reliques {len(r.relics)}",
+        "potions": f"potions {len(r.potions)}",
+    }
+    return " · ".join(pieces[k] for k in _run_order(order) if pieces.get(k))
 
 
 def run_title(st: EngineState) -> str:
@@ -421,30 +424,48 @@ class Group:
     empty: str = ""
 
 
-def run_groups(st: EngineState) -> list[Group]:
+RUN_MODULES = ("deck", "enchanted", "curses", "relics", "potions", "party")
+
+
+def _run_order(order: list[str] | None) -> list[str]:
+    """Modules de la page Run dans l'ordre des réglages (`OverlaySettings.modules`), défaut sinon.
+    Les modules des réglages hors page Run (récompense, shop…) sont ignorés ; un module de la page Run
+    absent des réglages est ajouté à la fin, à sa place par défaut."""
+    seq = [m for m in (order or DEFAULT_ORDER) if m in RUN_MODULES]
+    return seq + [m for m in RUN_MODULES if m not in seq]
+
+
+def run_groups(st: EngineState, order: list[str] | None = None) -> list[Group]:
+    """Même découpage que le HUD (render.js) : Deck = toutes les cartes (malédictions en dernier),
+    Enchantées et Malédictions = rappels ciblés, n'apparaissent que s'il y en a (rien sans valeur
+    pratique, §11) ; Équipe seulement en co-op. Ordre = celui des réglages."""
     r = st.run
     if r is None:
         return []
-    groups: list[Group] = []
+    built: dict[str, Group] = {}
+    built["deck"] = Group("deck", f"{module_label('deck')} · {len(r.deck)}",
+                          [card_item(c, n) for c, n in group_cards(r.deck)], "Deck vide")
+    enchanted = [c for c in r.deck if c.enchantment is not None]
+    if enchanted:
+        built["enchanted"] = Group("enchanted", f"{module_label('enchanted')} · {len(enchanted)}",
+                                   [card_item(c, n) for c, n in group_cards(enchanted)])
     curses = [c for c in r.deck if c.is_curse]
     if curses:
-        groups.append(Group("curses", module_label("curses"),
-                            [card_item(c, n) for c, n in group_cards(curses)]))
-    groups.append(Group("deck", f"{module_label('deck')} · {len(r.deck)}",
-                        [card_item(c, n) for c, n in group_cards([c for c in r.deck if not c.is_curse])],
-                        "Deck vide"))
+        built["curses"] = Group("curses", f"{module_label('curses')} · {len(curses)}",
+                                [card_item(c, n) for c, n in group_cards(curses)])
     relics = []
     for rel in r.relics:
         detail = ([rel.description] if rel.description else []) + score_detail(rel.score)
         relics.append(Item(rel.name, grade_of(rel.score), reason=reason_of(rel.score) if rel.score else "",
                            detail=detail))
-    groups.append(Group("relics", f"{module_label('relics')} · {len(r.relics)}", relics, "Aucune relique"))
+    built["relics"] = Group("relics", f"{module_label('relics')} · {len(r.relics)}", relics, "Aucune relique")
     potions = []
     for p in r.potions:
         detail = ([p.description] if p.description else []) + score_detail(p.score)
         potions.append(Item(p.name, grade_of(p.score), reason=reason_of(p.score) if p.score else "",
                             detail=detail))
-    groups.append(Group("potions", f"{module_label('potions')} · {len(r.potions)}", potions, "Aucune potion"))
+    built["potions"] = Group("potions", f"{module_label('potions')} · {len(r.potions)}", potions,
+                             "Aucune potion")
     allies = r.allies
     if allies:
         items = []
@@ -454,8 +475,8 @@ def run_groups(st: EngineState) -> list[Group]:
             items.append(Item(a.name, DASH, reason=a.character_id.split(".")[-1].capitalize(),
                               value=f"{a.hp}/{a.max_hp} PV", detail=detail,
                               tone=character_tone(a.character_id)))
-        groups.append(Group("party", module_label("party"), items))
-    return groups
+        built["party"] = Group("party", module_label("party"), items)
+    return [built[k] for k in _run_order(order) if k in built]
 
 
 @dataclass

@@ -1,7 +1,8 @@
 """Lecture tolérante de `EngineState` (contrat v1.3, camelCase, enums en chaîne, null explicite).
 
 v1.1 : `CardView.description`, `PotionView.score`. v1.2 (additif) : `contractMinor`, `map`, `route`,
-`event`, `run.party`, `score.deltaG`, `terms[].evidence`. v1.3 : `settings.hud`. Toute section absente
+`event`, `run.party`, `score.deltaG`, `terms[].evidence`. v1.3 : `settings.hud`,
+`reward.skipScore` et `card.cost` nullables. Toute section absente
 (daemon plus ancien) est simplement None / vide : l'UI montre alors un état vide propre.
 
 Règles du contrat (skill sts2-engine-contract) :
@@ -141,7 +142,7 @@ class Card:
     name: str
     type: str
     rarity: str
-    cost: int
+    cost: int | None              # v1.3 : null = coût X ou injouable
     upgrade: int
     enchantment: Enchantment | None
     is_curse: bool
@@ -160,7 +161,7 @@ def parse_card(d: Any) -> Card | None:
     cid = _str(d, "id", "?")
     return Card(
         id=cid, name=_str(d, "name", cid), type=_str(d, "type", "?"), rarity=_str(d, "rarity", "?"),
-        cost=_int(d, "cost", 0), upgrade=_int(d, "upgrade", 0), enchantment=ench,
+        cost=_int(d, "cost"), upgrade=_int(d, "upgrade", 0), enchantment=ench,
         is_curse=_bool(d, "isCurse"), score=parse_score(d.get("score")),
         description=_str(d, "description"),
     )
