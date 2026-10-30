@@ -41,6 +41,14 @@ public static class ObjectPaths
     public const string CombatManager = "MegaCrit.Sts2.Core.Combat.CombatManager";
     public const string CombatState = "MegaCrit.Sts2.Core.Combat.CombatState";
     public const string PlayerCombatState = "MegaCrit.Sts2.Core.Entities.Players.PlayerCombatState";
+    // ---- miroir 2 (2026-10-29) ----
+    public const string EventSynchronizer = "MegaCrit.Sts2.Core.Multiplayer.Game.EventSynchronizer";
+    public const string EventRoom = "MegaCrit.Sts2.Core.Rooms.EventRoom";
+    public const string EventModel = "MegaCrit.Sts2.Core.Models.EventModel";
+    public const string AncientEventModel = "MegaCrit.Sts2.Core.Models.AncientEventModel";
+    public const string EventOption = "MegaCrit.Sts2.Core.Events.EventOption";
+    public const string LocString = "MegaCrit.Sts2.Core.Localization.LocString";
+    public const string EnchantmentModel = "MegaCrit.Sts2.Core.Models.EnchantmentModel";
 
     static string K(string prop) => $"<{prop}>k__BackingField";
 
@@ -109,7 +117,51 @@ public static class ObjectPaths
         new(CombatState, K("RoundNumber"), false, "Combat/CombatState.cs:102", "tour"),
         new(PlayerCombatState, "_energy", false, "Entities/Players/PlayerCombatState.cs:21", "énergie"),
         new(PlayerCombatState, K("Hand"), false, "Entities/Players/PlayerCombatState.cs:60", "main"),
+
+        // ---- miroir 2 : piles de combat (la pioche est à part : UnorderedOnly) ----
+        new(PlayerCombatState, K("DiscardPile"), false, "Entities/Players/PlayerCombatState.cs:64", "défausse (rendue comptée)"),
+        new(PlayerCombatState, K("ExhaustPile"), false, "Entities/Players/PlayerCombatState.cs:66", "épuisement (rendu compté)"),
+        new(PlayerCombatState, K("PlayPile"), false, "Entities/Players/PlayerCombatState.cs:68", "carte en cours de jeu (rendue comptée)"),
+
+        // ---- miroir 2 : enchantements (toute carte lue : deck, main, récompense, shop, piles) ----
+        new(CardModel, K("Enchantment"), false, "Models/CardModel.cs:631", "EnchantmentModel? (null = pas d'enchantement)"),
+        new(EnchantmentModel, "_amount", false, "Models/EnchantmentModel.cs:29", "montant (DisplayAmount == Amount : aucune surcharge dans Models/Enchantments)"),
+
+        // ---- miroir 2 : événement courant ----
+        new(RunManager, K("EventSynchronizer"), false, "Runs/RunManager.cs:139", "racine des événements (créé l.408)"),
+        new(EventSynchronizer, "_localPlayerId", false, "Multiplayer/Game/EventSynchronizer.cs:26", "joueur local"),
+        new(EventSynchronizer, "_events", false, "Multiplayer/Game/EventSynchronizer.cs:28", "List<EventModel> mutables, index = slot joueur (GetEventForPlayer l.311-315)"),
+        new(EventRoom, K("CanonicalEvent"), false, "Rooms/EventRoom.cs:29", "événement canonique de la salle (contrôle croisé de l'id)"),
+        new(EventModel, K("Owner"), false, "Models/EventModel.cs:77", "Player propriétaire (contrôle : == joueur local)"),
+        new(EventModel, K("Description"), false, "Models/EventModel.cs:87", "LocString? de la page courante"),
+        new(EventModel, "_currentOptions", false, "Models/EventModel.cs:42", "List<EventOption>? = options affichées (NEventRoom.cs:192)"),
+        new(EventModel, "_isFinished", false, "Models/EventModel.cs:44", "fini → l'écran n'affiche que « Continuer » (NEventRoom.cs:193-196)"),
+        new(EventOption, K("TextKey"), false, "Events/EventOption.cs:14", "id stable de l'option (préfixe de clé de localisation)"),
+        new(EventOption, K("Title"), false, "Events/EventOption.cs:16", "LocString du libellé"),
+        new(EventOption, K("Description"), false, "Events/EventOption.cs:18", "LocString de la description"),
+        new(EventOption, K("IsLocked"), false, "Events/EventOption.cs:24", "verrouillée (clic ignoré, NEventRoom.cs:211)"),
+        new(EventOption, K("IsProceed"), false, "Events/EventOption.cs:26", "bouton « continuer »"),
+        new(EventOption, K("WasChosen"), false, "Events/EventOption.cs:28", "déjà choisie"),
+        new(EventOption, K("Relic"), false, "Events/EventOption.cs:30", "RelicModel? affichée avec l'option (anciens)"),
+        new(LocString, "<locTable>P", false, "Localization/LocString.cs:13", "table de localisation (paramètre de constructeur primaire)"),
+        new(LocString, "<locEntryKey>P", false, "Localization/LocString.cs:13", "clé de localisation (paramètre de constructeur primaire)"),
     };
+
+    /// <summary>
+    /// Fields whose CONTENT is visible in game but whose ORDER is hidden. <see cref="ReadGuard.Check"/>
+    /// still refuses them; only <see cref="MirrorSession.ReadUnorderedPile"/> may follow them, and it
+    /// returns a counted multiset sorted by card key — the order never leaves the library.
+    /// Justification: the game itself shows the draw pile SORTED (rarity, id), never in draw order
+    /// (Nodes/Screens/NCardPileScreen.cs:122-125). Not part of <see cref="All"/> (so the
+    /// whitelist self-check stays strict) but verified by <c>layout</c>.
+    /// </summary>
+    public static readonly IReadOnlyList<FieldSpec> UnorderedOnly = new FieldSpec[]
+    {
+        new(PlayerCombatState, K("DrawPile"), false, "Entities/Players/PlayerCombatState.cs:62", "pioche : CONTENU compté seulement, ordre jamais rendu"),
+    };
+
+    /// <summary>Everything <c>layout</c> checks against sts2.dll metadata.</summary>
+    public static IEnumerable<FieldSpec> AllForLayout => All.Concat(UnorderedOnly);
 
     /// <summary>
     /// Fields that must NEVER be read (Mio decision 2026-10-28, "probabiliste seulement", docs/20 §8.2)

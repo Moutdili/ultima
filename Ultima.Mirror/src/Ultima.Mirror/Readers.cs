@@ -4,7 +4,10 @@ using P = Ultima.Mirror.ObjectPaths;
 
 namespace Ultima.Mirror;
 
-public sealed record CardView(string? Id, int Upgrade);
+/// <summary>Enchantment on a card: id "ENCHANTMENT.X" + amount (Models/EnchantmentModel.cs:29, DisplayAmount == Amount).</summary>
+public sealed record EnchantView(string? Id, int Amount);
+/// <summary>A card. <see cref="Enchantment"/> added by miroir 2 (null = none); positional order unchanged.</summary>
+public sealed record CardView(string? Id, int Upgrade, EnchantView? Enchantment = null);
 public sealed record PlayerView(ulong NetId, string? Character, int Hp, int MaxHp, int Block, int Gold, int MaxEnergy,
     IReadOnlyList<CardView> Deck, IReadOnlyList<string?> Relics, IReadOnlyList<string?> PotionSlots);
 public sealed record RunView(bool InRun, ulong? LocalNetId, int AscensionLevel, int ActIndex, string? CurrentRoomType,
@@ -21,6 +24,63 @@ public sealed record ShopView(bool InShop, IReadOnlyList<ShopCardView> Cards, IR
 
 public sealed record EnemyView(string? Id, int Hp, int MaxHp, int Block);
 public sealed record CombatView(bool InProgress, int Round, int? Energy, IReadOnlyList<CardView> Hand, IReadOnlyList<EnemyView> Enemies);
+
+// ---- miroir 2 : piles de combat (comptées, jamais ordonnées) ----
+public sealed record CountedCard(CardView Card, int Count);
+
+/// <summary>Multiset of a pile: <see cref="Cards"/> sorted by card key (id, upgrade, enchantment), never by position.</summary>
+public sealed record CountedPile(int Total, IReadOnlyList<CountedCard> Cards)
+{
+    public static CountedPile From(IEnumerable<CardView> cards)
+    {
+        var groups = cards
+            .GroupBy(c => c) // record equality: id + upgrade + enchantment
+            .Select(g => new CountedCard(g.Key, g.Count()))
+            .OrderBy(c => c.Card.Id ?? "", StringComparer.Ordinal)
+            .ThenBy(c => c.Card.Upgrade)
+            .ThenBy(c => c.Card.Enchantment?.Id ?? "", StringComparer.Ordinal)
+            .ThenBy(c => c.Card.Enchantment?.Amount ?? 0)
+            .ToList();
+        return new CountedPile(groups.Sum(g => g.Count), groups);
+    }
+}
+
+/// <summary>
+/// Local player's combat piles. <see cref="CardsBeforeReshuffle"/> = draw pile size (the discard is
+/// shuffled back only when a draw finds it empty). Null piles = not in combat.
+/// </summary>
+public sealed record PilesView(bool InCombat, CountedPile? Hand, CountedPile? Draw, CountedPile? Discard,
+    CountedPile? Exhaust, CountedPile? Play, int? CardsBeforeReshuffle);
+
+// ---- miroir 2 : événement courant ----
+/// <summary>Localisation key (table + key). Rendering (FR text, SmartFormat variables) belongs to Ultima.Knowledge.</summary>
+public sealed record LocKeyView(string? Table, string? Key);
+
+// Shape = what Ultima.Daemon parses (Ultima.Daemon/Mirror/MirrorModels.cs : MEvent / MEventOption,
+// camelCase, unknown fields ignored): eventId, name, options[{id, label, description, available}].
+// The mirror never renders text (that would need a method call: LocString.GetFormattedText); so the
+// display strings name/label/description are ALWAYS null and the localisation keys travel next to
+// them (nameKey, titleKey, descriptionKey) for Ultima.Knowledge. Null = « — », never invented text.
+
+/// <summary>
+/// One option as displayed (<see cref="Index"/> = button order). <see cref="Id"/> = EventOption.TextKey
+/// (e.g. "X.pages.INITIAL.options.ABSTAIN"; the daemon keeps the last segment). <see cref="Available"/> =
+/// !Locked (a locked option ignores the click, Nodes/Rooms/NEventRoom.cs:211). Option variables (e.g. HP
+/// lost) are NOT read. <see cref="Label"/>/<see cref="Description"/> are always null (see above).
+/// </summary>
+public sealed record EventOptionMirrorView(int Index, string? Id, string? Label, string? Description, bool Available,
+    LocKeyView? TitleKey, LocKeyView? DescriptionKey, bool Locked, bool IsProceed, bool WasChosen, string? RelicId);
+
+/// <summary>
+/// Current event of the local player. <see cref="OptionsKnown"/> = false when the room is an event but
+/// the local mutable event is not (yet) the room's event: <see cref="Options"/> is then null ("inconnu"),
+/// never stale options. <see cref="IsFinished"/> = true → the screen shows a single synthetic « Continuer »
+/// button (NEventRoom.cs:193-196) that is not in <see cref="Options"/>.
+/// <see cref="NameKey"/> = (table of the page description, "ENTRY.title") per EventModel.cs:66 — table null
+/// if unknown. <see cref="Name"/> is always null (see above).
+/// </summary>
+public sealed record EventMirrorView(bool InEvent, string? EventId, string? Name, IReadOnlyList<EventOptionMirrorView>? Options,
+    bool IsAncient, bool OptionsKnown, bool IsFinished, LocKeyView? NameKey, LocKeyView? DescriptionKey);
 
 /// <summary>
 /// Follows the paths of <see cref="ObjectPaths"/> from static roots. No heap scan, no stack walk.
@@ -42,7 +102,13 @@ public sealed class GameReader(MirrorSession s)
         return v.Value.ReadField<bool>("hasValue") ? v.Value.ReadField<ulong>("value") : null;
     }
 
-    CardView Card(ClrObject card) => new(ModelIdOf(card), card.IsNull ? 0 : Val<int>(card, "_currentUpgradeLevel"));
+    CardView Card(ClrObject card)
+    {
+        if (card.IsNull) return new(null, 0);
+        var ench = Obj(card, K("Enchantment"));
+        return new(ModelIdOf(card), Val<int>(card, "_currentUpgradeLevel"),
+            ench.IsNull ? null : new EnchantView(ModelIdOf(ench), Val<int>(ench, "_amount")));
+    }
 
     IReadOnlyList<CardView> Pile(ClrObject pile) => s.List(Obj(pile, "_cards")).Select(Card).ToList();
 
@@ -176,6 +242,75 @@ public sealed class GameReader(MirrorSession s)
             if (!pcs.IsNull) { energy = Val<int>(pcs, "_energy"); hand = Pile(Obj(pcs, K("Hand"))); }
         }
         return new CombatView(inProgress, Val<int>(cs, K("RoundNumber")), energy, hand, enemies);
+    }
+
+    /// <summary>
+    /// Piles of the local player, COUNTED. Hand/discard/exhaust/play via the whitelist; the draw pile
+    /// only via <see cref="MirrorSession.ReadUnorderedPile"/> (order erased inside the library).
+    /// Called by the probe CLI by reflection (`--sections piles`, Ultima.Mirror.Probe/Program.cs).
+    /// </summary>
+    public PilesView ReadPiles()
+    {
+        var none = new PilesView(false, null, null, null, null, null, null);
+        var rs = RunState();
+        if (rs.IsNull) return none;
+        var pcs = Obj(LocalPlayer(rs, out _), K("PlayerCombatState"));
+        if (pcs.IsNull) return none;
+        CountedPile Counted(string field) => CountedPile.From(Pile(Obj(pcs, K(field))));
+        var draw = s.ReadUnorderedPile(pcs, K("DrawPile"), Card);
+        return new PilesView(true, Counted("Hand"), draw, Counted("DiscardPile"), Counted("ExhaustPile"), Counted("PlayPile"),
+            draw.Total);
+    }
+
+    static LocKeyView? Loc(ClrObject locString) =>
+        locString.IsNull ? null : new LocKeyView(Str(locString, "<locTable>P"), Str(locString, "<locEntryKey>P"));
+
+    static bool DerivesFrom(ClrObject o, string typeName)
+    {
+        for (var t = o.Type; t is not null; t = t.BaseType) if (t.Name == typeName) return true;
+        return false;
+    }
+
+    /// <summary>
+    /// RunState._currentRooms[^1] is EventRoom → RunManager.EventSynchronizer._events[slot local],
+    /// cross-checked: Owner.NetId == local AND event id == room's CanonicalEvent id. Mismatch (event not
+    /// begun yet, or previous event still in the list) → OptionsKnown = false, Options = null.
+    /// Called by the probe CLI by reflection (`--sections event`, Ultima.Mirror.Probe/Program.cs).
+    /// </summary>
+    public EventMirrorView ReadEvent()
+    {
+        var none = new EventMirrorView(false, null, null, null, false, false, false, null, null);
+        var rm = RunManager();
+        var rs = Obj(rm, K("State"));
+        if (rs.IsNull) return none;
+        var rooms = s.List(Obj(rs, "_currentRooms"));
+        if (rooms.Count == 0 || rooms[^1].Type?.Name != P.EventRoom) return none;
+        var roomEventId = ModelIdOf(Obj(rooms[^1], K("CanonicalEvent")));
+        if (roomEventId is null) throw new MirrorMissException("EventRoom sans CanonicalEvent");
+        var unknown = none with { InEvent = true, EventId = roomEventId };
+
+        var me = LocalPlayer(rs, out int slot);
+        var myId = Val<ulong>(me, K("NetId"));
+        var sync = Obj(rm, K("EventSynchronizer"));
+        if (sync.IsNull) return unknown;
+        if (Val<ulong>(sync, "_localPlayerId") != myId) throw new MirrorMissException("EventSynchronizer : joueur local incohérent");
+        var events = s.List(Obj(sync, "_events"));
+        if (slot < 0 || slot >= events.Count) return unknown;
+        var ev = events[slot];
+        var owner = Obj(ev, K("Owner"));
+        if (ev.IsNull || owner.IsNull || Val<ulong>(owner, K("NetId")) != myId || ModelIdOf(ev) != roomEventId) return unknown;
+
+        var desc = Loc(Obj(ev, K("Description")));
+        var entry = roomEventId[(roomEventId.IndexOf('.') + 1)..];
+        var options = s.List(Obj(ev, "_currentOptions")).Select((o, i) =>
+        {
+            bool locked = Val<bool>(o, K("IsLocked"));
+            return new EventOptionMirrorView(i, Str(o, K("TextKey")), null, null, !locked,
+                Loc(Obj(o, K("Title"))), Loc(Obj(o, K("Description"))),
+                locked, Val<bool>(o, K("IsProceed")), Val<bool>(o, K("WasChosen")), ModelIdOf(Obj(o, K("Relic"))));
+        }).ToList();
+        return new EventMirrorView(true, roomEventId, null, options, DerivesFrom(ev, P.AncientEventModel), true,
+            Val<bool>(ev, "_isFinished"), new LocKeyView(desc?.Table, entry + ".title"), desc);
     }
 
     /// <summary>Count live+dead instances of a type by walking the GC heap (diagnostic only, slow).</summary>

@@ -7,7 +7,7 @@ public sealed record LayoutCheck(FieldSpec Spec, bool TypeFound, bool FieldFound
 
 /// <summary>
 /// Reads sts2.dll METADATA only (System.Reflection.Metadata — the assembly is never loaded or
-/// executed) and checks that every <see cref="ObjectPaths.All"/> entry exists with the right
+/// executed) and checks that every <see cref="ObjectPaths.AllForLayout"/> entry (whitelist + unordered-only) exists with the right
 /// static/instance kind. This is the patch-drift detector: run it after every game update.
 /// </summary>
 public static class StaticLayout
@@ -19,7 +19,7 @@ public static class StaticLayout
         var md = pe.GetMetadataReader();
         var fields = IndexFields(md);
         var result = new List<LayoutCheck>();
-        foreach (var spec in ObjectPaths.All)
+        foreach (var spec in ObjectPaths.AllForLayout)
         {
             if (!fields.TryGetValue(spec.Type, out var typeFields))
             {

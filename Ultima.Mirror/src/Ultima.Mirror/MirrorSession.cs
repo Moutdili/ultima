@@ -150,6 +150,24 @@ public sealed class MirrorSession : IDisposable
         return res;
     }
 
+    /// <summary>
+    /// The ONLY way to follow a field of <see cref="ObjectPaths.UnorderedOnly"/> (the draw pile):
+    /// reads the CardPile, maps each card, and returns a counted multiset sorted by card key.
+    /// The ordered list exists only in this method's locals; nothing ordered is returned, so a
+    /// caller cannot learn the draw order (Mio decision « probabiliste seulement »).
+    /// </summary>
+    public CountedPile ReadUnorderedPile(ClrObject owner, string field, Func<ClrObject, CardView> card)
+    {
+        ReadGuard.CheckUnordered(field);
+        if (owner.IsNull) throw new MirrorMissException($"lecture de {field} sur null");
+        ClrInstanceField? f = null;
+        for (var t = owner.Type; t is not null && f is null; t = t.BaseType) f = t.GetFieldByName(field);
+        if (f is null) throw new MirrorMissException($"champ absent : {owner.Type?.Name}.{field}");
+        var pile = f.ReadObject(owner.Address, interior: false);
+        if (pile.IsNull) throw new MirrorMissException($"{field} null");
+        return CountedPile.From(List(Obj(pile, "_cards")).Select(card));
+    }
+
     /// <summary>ModelId of an AbstractModel, as "CATEGORY.ENTRY" (same form as current_run.save).</summary>
     public static string? ModelIdOf(ClrObject model)
     {
