@@ -91,10 +91,23 @@ public sealed class RelicScorer
     public Score Score(string relicId, ScoringContext ctx)
     {
         var meta = _meta.Relic(relicId);
+        var entry = _catalog.Get(relicId);
+        var tagValue = RelicTagValues.Evaluate(entry);
+        var tagUsed = false;
 
-        // Relique inconnue : score borné + terme explicite, jamais une exception.
+        // Relique absente de la méta : si le catalogue du jeu la connaît et que ses tags portent
+        // un effet, on donne une note de repli bornée (jamais un 0 silencieux). Sinon : explicite.
         if (meta == null)
+        {
+            if (tagValue.Total > 0)
+            {
+                var fallback = new ScoreBuilder();
+                fallback.AddRange(tagValue.Terms);
+                return fallback.Build(Confidence.Low);
+            }
+
             return NoData($"relique « {Ids.Bare(relicId)} » absente de data/meta/relic_tiers.json");
+        }
 
         var b = new ScoreBuilder();
         string? note = null, noteSource = null;
@@ -107,6 +120,12 @@ public sealed class RelicScorer
                 : Math.Min(80, 10 + ScoreMath.Round(ScoreMath.Clamp(consensus, 0, 100) * 0.70));
 
             b.Add("Méta communautaire", Math.Clamp(calibrated, 0, 80), CardScorer.SourceLabel(meta));
+        }
+        else if (tagValue.Total > 0)
+        {
+            // Aucune mesure communautaire, mais le catalogue décrit un effet : note de repli.
+            b.AddRange(tagValue.Terms);
+            tagUsed = true;
         }
         else
         {
@@ -121,7 +140,7 @@ public sealed class RelicScorer
 
         var confidence = meta.Consensus.HasValue
             ? Confidence.Of(meta.SourceCount, _personal.RunCount)
-            : Confidence.Unknown;
+            : tagUsed ? Confidence.Low : Confidence.Unknown;
 
         return AddNote(b.Build(confidence), note, noteSource);
     }

@@ -56,9 +56,9 @@
   `registry.json` (`gaps.powers_without_evaluable_hook`).
 - **37 rencontres sans statistiques** (`avg_damage`/`avg_turns`) : le moteur dit « aucune mesure ».
 - **112 monstres sans contrainte** : normal, seuls 3 ont un plafond ou un respawn (docs/33).
-- **163 reliques taguées mais muettes pour le scorer** : `RelicScorer` ne lit que 7 tags
-  (`block/draw/energy/heal/strength/debuff/curse`). Deux reliques changent de ΔG aujourd'hui
-  (`LIZARD_TAIL` revive, `UNSETTLING_LAMP` debuff) ; l'extension est un chantier séparé.
+- **Reliques muettes : résolu** (docs/44). `RelicScorer` lisait 7 tags sur 41 ; un barème de repli
+  borné (plafond B, confiance `low`) note désormais les reliques sans consensus communautaire.
+  Mesure : **303 / 304 reliques notées**, seule exception `DEPRECATED_RELIC` (artefact sans effet).
 - **Budget de données** : le registre a été compacté de 177 à 100 Ko pour tenir sous les 2 Mo du
   clone (test `Committed_data_stays_within_the_clone_budget`).
 
