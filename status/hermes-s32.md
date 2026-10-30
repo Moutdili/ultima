@@ -1,6 +1,8 @@
 # Hermes — S32 : daemon v1.4 (T1 du plan 45)
 
-> Branche `hermes/t1-daemon-v14`, partie de `origin/v2/cableur3`, `origin/main` fusionné (sans conflit).
+> Branche `hermes/t1-daemon-v14`, partie de `origin/v2/cableur3`, `origin/main` fusionné **deux fois** (sans
+> conflit), la dernière fois après `60bb99a` (porte stable, mesure d'allocation) et `e9fe3b0` (sélection de
+> carte en récompense).
 > Périmètre respecté : `Ultima.Daemon/**`, `Ultima.Daemon.Tests/**`, `docs/ipc/**`, **une** section ajoutée à
 > `docs/44-personnalisation.md` (§7bis `pluginsEnabled`). Aucune modification de `Ultima.Engine/Contracts/**`,
 > `schemas/**`, `docs/22`, du reste de `docs/44`.
@@ -205,13 +207,12 @@ parenthèses, profondeur, `${…}` ⇒ refus ou « — »), `Invalid_modules_are
 
 - **Fenêtre de test réelle (chef + Mio)** : lancer le jeu, provoquer un événement, vérifier `event` +
   enchantements dans la récompense/le marchand, et un plugin activé pendant une partie.
-- **Sensibilité de la porte à la charge de l'hôte** : pendant la session, l'hôte (12 cœurs) a porté une charge
-  8–18 (autres agents ; un `tools/encounters/measure.py` à 98 % CPU observé). Dans ces conditions,
-  `Ultima.Engine.Tests.Scoring.DeckTests.Deck_de_60_cartes_reste_sous_5ms` (budget 5 ms) et parfois la suite
-  console (Textual) échouent, **même sans mes changements** : le test passe seul (249 ms) et échoue seulement
-  quand une autre suite tourne en parallèle. J'ai réduit la durée de la suite daemon de 5 s à 3 s (moins de
-  processus Python lancés) et lancé la porte à charge revenue sous 6 : **deux passes vertes d'affilée**. Aucun
-  test du daemon n'a échoué dans les runs rouges. À relancer sur une machine calme pour confirmer.
+- **Sensibilité de la porte à la charge de l'hôte (résorbée par le chef)** : pendant la session, l'hôte
+  (12 cœurs) a porté une charge 8–18 (autres agents ; un `tools/encounters/measure.py` à 98 % CPU observé) et
+  `Deck_de_60_cartes_reste_sous_5ms` (budget 5 ms, mesure au temps mural) échouait alors qu'il passait seul
+  (249 ms). J'ai réduit la suite daemon de 5 s à 3 s (moins de processus Python) ; le chef a remplacé cette
+  mesure par une mesure d'allocation par thread (`60bb99a`). Après fusion de `origin/main`, la porte est verte
+  (voir « Prouvé »). Rien à faire côté daemon.
 - `dump` ne compose pas `custom` (seul `run` le fait) : volontaire, `dump` reste « fichiers seulement ».
   À ajouter si le chef veut inspecter les modules hors daemon (facile : passer un `CustomHost`).
 - Pas de temporisation entre deux relances de plugin (`minIntervalMs` sert de plafond d'envoi) ; si le chef
