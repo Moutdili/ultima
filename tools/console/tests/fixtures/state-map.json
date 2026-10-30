@@ -1,0 +1,367 @@
+{
+  "contractVersion": 1,
+  "at": "2026-10-29T13:00:00+01:00",
+  "health": {
+    "gameRunning": true,
+    "saveOk": true,
+    "mirrorOk": false,
+    "mirrorLatencyMs": null,
+    "degraded": "lecture mémoire refusée : ptrace_scope=1 (doit valoir 0)"
+  },
+  "screen": "Map",
+  "run": {
+    "characterId": "CHARACTER.NECROBINDER",
+    "characterName": "Nécrolieuse",
+    "actIndex": 0,
+    "actId": "ACT.OVERGROWTH",
+    "bossId": "ENCOUNTER.CEREMONIAL_BEAST_BOSS",
+    "bossName": "Bête cérémonielle",
+    "ascension": 9,
+    "hp": 66,
+    "maxHp": 66,
+    "gold": 116,
+    "floor": 4,
+    "deck": [
+      {
+        "id": "CARD.STRIKE_NECROBINDER",
+        "name": "Frappe",
+        "type": "Attack",
+        "rarity": "Basic",
+        "cost": 1,
+        "upgrade": 0,
+        "enchantment": null,
+        "isCurse": false,
+        "score": null
+      },
+      {
+        "id": "CARD.STRIKE_NECROBINDER",
+        "name": "Frappe",
+        "type": "Attack",
+        "rarity": "Basic",
+        "cost": 1,
+        "upgrade": 0,
+        "enchantment": null,
+        "isCurse": false,
+        "score": null
+      },
+      {
+        "id": "CARD.STRIKE_NECROBINDER",
+        "name": "Frappe",
+        "type": "Attack",
+        "rarity": "Basic",
+        "cost": 1,
+        "upgrade": 0,
+        "enchantment": null,
+        "isCurse": false,
+        "score": null
+      },
+      {
+        "id": "CARD.STRIKE_NECROBINDER",
+        "name": "Frappe",
+        "type": "Attack",
+        "rarity": "Basic",
+        "cost": 1,
+        "upgrade": 0,
+        "enchantment": null,
+        "isCurse": false,
+        "score": null
+      },
+      {
+        "id": "CARD.DEFEND_NECROBINDER",
+        "name": "Défense",
+        "type": "Skill",
+        "rarity": "Basic",
+        "cost": 1,
+        "upgrade": 0,
+        "enchantment": null,
+        "isCurse": false,
+        "score": null
+      },
+      {
+        "id": "CARD.DEFEND_NECROBINDER",
+        "name": "Défense",
+        "type": "Skill",
+        "rarity": "Basic",
+        "cost": 1,
+        "upgrade": 0,
+        "enchantment": null,
+        "isCurse": false,
+        "score": null
+      },
+      {
+        "id": "CARD.DEFEND_NECROBINDER",
+        "name": "Défense",
+        "type": "Skill",
+        "rarity": "Basic",
+        "cost": 1,
+        "upgrade": 0,
+        "enchantment": null,
+        "isCurse": false,
+        "score": null
+      },
+      {
+        "id": "CARD.DEFEND_NECROBINDER",
+        "name": "Défense",
+        "type": "Skill",
+        "rarity": "Basic",
+        "cost": 1,
+        "upgrade": 0,
+        "enchantment": null,
+        "isCurse": false,
+        "score": null
+      },
+      {
+        "id": "CARD.SCOURGE",
+        "name": "Fléau",
+        "type": "Skill",
+        "rarity": "Uncommon",
+        "cost": 1,
+        "upgrade": 0,
+        "enchantment": null,
+        "isCurse": false,
+        "score": null
+      },
+      {
+        "id": "CARD.DEFEND_NECROBINDER",
+        "name": "Défense",
+        "type": "Skill",
+        "rarity": "Basic",
+        "cost": 1,
+        "upgrade": 0,
+        "enchantment": {
+          "id": "ENCHANTMENT.SWIFT",
+          "name": "Célérité",
+          "amount": 1,
+          "description": "Piochez 1 carte la première fois que cette carte est jouée chaque combat."
+        },
+        "isCurse": false,
+        "score": null
+      },
+      {
+        "id": "CARD.ASCENDERS_BANE",
+        "name": "Fléau de l'Ascendant",
+        "type": "Curse",
+        "rarity": "Curse",
+        "cost": -1,
+        "upgrade": 0,
+        "enchantment": null,
+        "isCurse": true,
+        "score": null
+      }
+    ],
+    "relics": [
+      {
+        "id": "RELIC.BONE_HEART",
+        "name": "(exemple)",
+        "description": "…",
+        "score": {
+          "total": 62,
+          "terms": [
+            {
+              "label": "Méta",
+              "points": 60,
+              "source": "Spire Codex v0.107.1"
+            },
+            {
+              "label": "Synergie",
+              "points": 2,
+              "source": "exemple"
+            }
+          ],
+          "confidence": "medium",
+          "grade": "B"
+        }
+      }
+    ],
+    "potions": [
+      {
+        "id": "POTION.ATTACK_POTION",
+        "name": "Potion d'attaque",
+        "description": "…"
+      }
+    ]
+  },
+  "reward": null,
+  "shop": null,
+  "paths": {
+    "totalPaths": 23,
+    "nextChoices": [
+      {
+        "col": 2,
+        "row": 5,
+        "roomType": "elite",
+        "pathCount": 7,
+        "min": {
+          "monster": 1,
+          "elite": 1,
+          "unknown": 0,
+          "rest": 1,
+          "shop": 0,
+          "treasure": 0
+        },
+        "median": {
+          "monster": 3,
+          "elite": 1,
+          "unknown": 2,
+          "rest": 2,
+          "shop": 1,
+          "treasure": 1
+        },
+        "max": {
+          "monster": 5,
+          "elite": 2,
+          "unknown": 4,
+          "rest": 3,
+          "shop": 1,
+          "treasure": 1
+        },
+        "expectedDamage": 24.6,
+        "riskBasis": "médiane des combats"
+      },
+      {
+        "col": 4,
+        "row": 5,
+        "roomType": "rest_site",
+        "pathCount": 16,
+        "min": {
+          "monster": 1,
+          "elite": 0,
+          "unknown": 0,
+          "rest": 1,
+          "shop": 0,
+          "treasure": 0
+        },
+        "median": {
+          "monster": 3,
+          "elite": 0,
+          "unknown": 2,
+          "rest": 2,
+          "shop": 1,
+          "treasure": 1
+        },
+        "max": {
+          "monster": 5,
+          "elite": 1,
+          "unknown": 4,
+          "rest": 3,
+          "shop": 1,
+          "treasure": 1
+        },
+        "expectedDamage": 11.2,
+        "riskBasis": "médiane des combats"
+      }
+    ],
+    "nodes": []
+  },
+  "deck": {
+    "score": {
+      "total": 48,
+      "terms": [
+        {
+          "label": "Méta des cartes",
+          "points": 44,
+          "source": "exemple"
+        },
+        {
+          "label": "Malédiction",
+          "points": -6,
+          "source": "Fléau de l'Ascendant"
+        },
+        {
+          "label": "Vs boss acte 1",
+          "points": 10,
+          "source": "exemple"
+        }
+      ],
+      "confidence": "low",
+      "grade": "C"
+    },
+    "archetype": null,
+    "potentialArchetypes": [
+      "Âmes (exemple)"
+    ],
+    "curses": [
+      {
+        "id": "CARD.ASCENDERS_BANE",
+        "name": "Fléau de l'Ascendant",
+        "type": "Curse",
+        "rarity": "Curse",
+        "cost": -1,
+        "upgrade": 0,
+        "enchantment": null,
+        "isCurse": true,
+        "score": null
+      }
+    ]
+  },
+  "settings": {
+    "modules": [
+      {
+        "id": "deck",
+        "enabled": true,
+        "order": 0
+      },
+      {
+        "id": "enchanted",
+        "enabled": true,
+        "order": 1
+      },
+      {
+        "id": "curses",
+        "enabled": true,
+        "order": 2
+      },
+      {
+        "id": "relics",
+        "enabled": true,
+        "order": 3
+      },
+      {
+        "id": "potions",
+        "enabled": true,
+        "order": 4
+      },
+      {
+        "id": "reward",
+        "enabled": true,
+        "order": 5
+      },
+      {
+        "id": "shop",
+        "enabled": true,
+        "order": 6
+      },
+      {
+        "id": "paths",
+        "enabled": true,
+        "order": 7
+      },
+      {
+        "id": "deck_score",
+        "enabled": true,
+        "order": 8
+      }
+    ],
+    "hud": {
+      "quality": "verre",
+      "heightFraction": 0.55,
+      "restOpacity": 0.62,
+      "side": "right",
+      "deckScoreInCombat": false,
+      "gradesOnly": false
+    }
+  },
+  "contractMinor": 3,
+  "route": {
+    "path": [
+      {
+        "col": 4,
+        "row": 5
+      }
+    ],
+    "expectedHpAtBoss": 41,
+    "mayBeLethal": false,
+    "terms": [],
+    "basis": "PathPlanner"
+  }
+}
