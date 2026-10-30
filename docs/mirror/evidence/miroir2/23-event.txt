@@ -1,0 +1,242 @@
+# 2026-10-30T14:44:08+01:00 cible de test --scene event ; sortie de la CIBLE :
+TESTTARGET pid=707337 runtime=v9.0.22 mutate=True scene=event
+EXPECT run: ascension=3 act=1 hp=61/70 gold>=99 deck=11 (1 enchantée SOWN_TEST 1) relics=2 potions=[FIRE_POTION_TEST,null,null]
+EXPECT reward: BACKFLIP_TEST, DAGGER_THROW_TEST, PREPARED_TEST+1 [ENCHANTMENT.SWIFT_TEST 2]
+EXPECT shop: InShop=false (top room is an EventRoom)
+EXPECT event: EVENT.BATHS_TEST, OptionsKnown=true, options IMMERSE(avail) ABSTAIN(avail) LOCKED_CHOICE(locked)
+EXPECT piles: hand 2, draw 6 = DEFEND×1 + DEFEND[SOWN_TEST 1]×1 + NEUTRALIZE+1×1 + STRIKE×2 + ZAP×1 (sorted, order reshuffled every 5 ms), discard 2, exhaust 1 (SLIMED), play 0, before reshuffle 6
+EXPECT combat: round=2 energy=3 hand=[STRIKE_TEST,SURVIVOR_TEST] enemy JAW_WORM_TEST 30/44 block 6
+
+$ strace -f -e trace=ptrace,process_vm_writev,process_vm_readv,kill,tgkill,tkill,pidfd_open,pidfd_send_signal mirror-proof read --pid 707337 --sections event,piles,reward,shop
+pid 707337 (Sts2Shape.TestT) attaché en 118 ms, suspend:false, runtime Version 9.0.2226.52218 @Commit: faaecba82df8933d7af60972138ce25f9c776cbd
+[reward] stable après 2 lecture(s), 236 ms
+{
+  "openRewardSets": 1,
+  "cardRewards": [
+    {
+      "alreadyTaken": false,
+      "offered": [
+        {
+          "id": "CARD.BACKFLIP_TEST",
+          "upgrade": 0,
+          "enchantment": null
+        },
+        {
+          "id": "CARD.DAGGER_THROW_TEST",
+          "upgrade": 0,
+          "enchantment": null
+        },
+        {
+          "id": "CARD.PREPARED_TEST",
+          "upgrade": 1,
+          "enchantment": {
+            "id": "ENCHANTMENT.SWIFT_TEST",
+            "amount": 2
+          }
+        }
+      ]
+    }
+  ]
+}
+[shop] stable après 2 lecture(s), 13 ms
+{
+  "inShop": false,
+  "cards": [],
+  "relics": [],
+  "potions": [],
+  "removalBaseCost": null,
+  "removalEstimatedCost": null,
+  "removalUsed": null,
+  "priceModifiers": []
+}
+[event] stable après 2 lecture(s), 17 ms
+{
+  "inEvent": true,
+  "eventId": "EVENT.BATHS_TEST",
+  "name": null,
+  "options": [
+    {
+      "index": 0,
+      "id": "BATHS_TEST.pages.INITIAL.options.IMMERSE",
+      "label": null,
+      "description": null,
+      "available": true,
+      "titleKey": {
+        "table": "events",
+        "key": "BATHS_TEST.pages.INITIAL.options.IMMERSE.title"
+      },
+      "descriptionKey": {
+        "table": "events",
+        "key": "BATHS_TEST.pages.INITIAL.options.IMMERSE.description"
+      },
+      "locked": false,
+      "isProceed": false,
+      "wasChosen": false,
+      "relicId": null
+    },
+    {
+      "index": 1,
+      "id": "BATHS_TEST.pages.INITIAL.options.ABSTAIN",
+      "label": null,
+      "description": null,
+      "available": true,
+      "titleKey": {
+        "table": "events",
+        "key": "BATHS_TEST.pages.INITIAL.options.ABSTAIN.title"
+      },
+      "descriptionKey": {
+        "table": "events",
+        "key": "BATHS_TEST.pages.INITIAL.options.ABSTAIN.description"
+      },
+      "locked": false,
+      "isProceed": false,
+      "wasChosen": false,
+      "relicId": null
+    },
+    {
+      "index": 2,
+      "id": "BATHS_TEST.pages.INITIAL.options.LOCKED_CHOICE",
+      "label": null,
+      "description": null,
+      "available": false,
+      "titleKey": {
+        "table": "events",
+        "key": "BATHS_TEST.pages.INITIAL.options.LOCKED_CHOICE.title"
+      },
+      "descriptionKey": {
+        "table": "events",
+        "key": "BATHS_TEST.pages.INITIAL.options.LOCKED_CHOICE.description"
+      },
+      "locked": true,
+      "isProceed": false,
+      "wasChosen": false,
+      "relicId": null
+    }
+  ],
+  "isAncient": false,
+  "optionsKnown": true,
+  "isFinished": false,
+  "nameKey": {
+    "table": "events",
+    "key": "BATHS_TEST.title"
+  },
+  "descriptionKey": {
+    "table": "events",
+    "key": "BATHS_TEST.pages.INITIAL.description"
+  }
+}
+[piles] stable après 2 lecture(s), 20 ms
+{
+  "inCombat": true,
+  "hand": {
+    "total": 2,
+    "cards": [
+      {
+        "card": {
+          "id": "CARD.STRIKE_TEST",
+          "upgrade": 0,
+          "enchantment": null
+        },
+        "count": 1
+      },
+      {
+        "card": {
+          "id": "CARD.SURVIVOR_TEST",
+          "upgrade": 0,
+          "enchantment": null
+        },
+        "count": 1
+      }
+    ]
+  },
+  "draw": {
+    "total": 6,
+    "cards": [
+      {
+        "card": {
+          "id": "CARD.DEFEND_TEST",
+          "upgrade": 0,
+          "enchantment": null
+        },
+        "count": 1
+      },
+      {
+        "card": {
+          "id": "CARD.DEFEND_TEST",
+          "upgrade": 0,
+          "enchantment": {
+            "id": "ENCHANTMENT.SOWN_TEST",
+            "amount": 1
+          }
+        },
+        "count": 1
+      },
+      {
+        "card": {
+          "id": "CARD.NEUTRALIZE_TEST",
+          "upgrade": 1,
+          "enchantment": null
+        },
+        "count": 1
+      },
+      {
+        "card": {
+          "id": "CARD.STRIKE_TEST",
+          "upgrade": 0,
+          "enchantment": null
+        },
+        "count": 2
+      },
+      {
+        "card": {
+          "id": "CARD.ZAP_TEST",
+          "upgrade": 0,
+          "enchantment": null
+        },
+        "count": 1
+      }
+    ]
+  },
+  "discard": {
+    "total": 2,
+    "cards": [
+      {
+        "card": {
+          "id": "CARD.DEFEND_TEST",
+          "upgrade": 0,
+          "enchantment": null
+        },
+        "count": 1
+      },
+      {
+        "card": {
+          "id": "CARD.STRIKE_TEST",
+          "upgrade": 0,
+          "enchantment": null
+        },
+        "count": 1
+      }
+    ]
+  },
+  "exhaust": {
+    "total": 1,
+    "cards": [
+      {
+        "card": {
+          "id": "CARD.SLIMED_TEST",
+          "upgrade": 0,
+          "enchantment": null
+        },
+        "count": 1
+      }
+    ]
+  },
+  "play": {
+    "total": 0,
+    "cards": []
+  },
+  "cardsBeforeReshuffle": 6
+}
+exit=0
+# strace .strace-event.log : ptrace=0 process_vm_writev=0 process_vm_readv=6851 kill=1
+#   707353 kill(707337, 0)                  = 0

@@ -1,0 +1,27 @@
+# 2026-10-30T14:44:17+01:00 non-régression : ultima-mirror (CLI inchangée) sur la cible --scene shop
+TESTTARGET pid=707499 runtime=v9.0.22 mutate=True scene=shop
+EXPECT run: ascension=3 act=1 hp=61/70 gold>=99 deck=11 (1 enchantée SOWN_TEST 1) relics=2 potions=[FIRE_POTION_TEST,null,null]
+EXPECT reward: BACKFLIP_TEST, DAGGER_THROW_TEST, PREPARED_TEST+1 [ENCHANTMENT.SWIFT_TEST 2]
+EXPECT shop: ACROBATICS 76(→38), FOOTWORK [ENCHANTMENT.SHARP_TEST 3] 25 sale(→12), APOTHEOSIS 172(→86), VAJRA 147(→73), BLOCK_POTION 52(→26), removal 75(→37)
+EXPECT event: InEvent=false
+EXPECT piles: hand 2, draw 6 = DEFEND×1 + DEFEND[SOWN_TEST 1]×1 + NEUTRALIZE+1×1 + STRIKE×2 + ZAP×1 (sorted, order reshuffled every 5 ms), discard 2, exhaust 1 (SLIMED), play 0, before reshuffle 6
+EXPECT combat: round=2 energy=3 hand=[STRIKE_TEST,SURVIVOR_TEST] enemy JAW_WORM_TEST 30/44 block 6
+
+$ strace -f -e trace=ptrace,process_vm_writev,process_vm_readv,kill,tgkill,tkill,pidfd_open,pidfd_send_signal ultima-mirror probe --pid 707499 --sections run,reward,shop,combat --compact
+pid            : 707499 (comm=Sts2Shape.TestT)
+libcoreclr.so  : /home/mio/.dotnet/shared/Microsoft.NETCore.App/9.0.22/libcoreclr.so
+DAC            : /proc/707499/root/home/mio/.dotnet/shared/Microsoft.NETCore.App/9.0.22/libmscordaccore.so  [à côté de libcoreclr.so via /proc/PID/root (espace de noms de la cible)]
+attache        : OK en 244 ms (suspend:false, lecture process_vm_readv)
+runtime        : Core Version 9.0.2226.52218 @Commit: faaecba82df8933d7af60972138ce25f9c776cbd (== DAC, vérifié)
+modules        : 10 ; tas : workstation, segments=8
+[run] stable après 3 lecture(s), 283 ms
+{"InRun":true,"LocalNetId":1,"AscensionLevel":3,"ActIndex":1,"CurrentRoomType":"MegaCrit.Sts2.Core.Rooms.MerchantRoom","Players":[{"NetId":1,"Character":"CHARACTER.SILENT_TEST","Hp":61,"MaxHp":70,"Block":0,"Gold":109,"MaxEnergy":3,"Deck":[{"Id":"CARD.STRIKE_TEST","Upgrade":0,"Enchantment":null},{"Id":"CARD.STRIKE_TEST","Upgrade":0,"Enchantment":null},{"Id":"CARD.STRIKE_TEST","Upgrade":0,"Enchantment":null},{"Id":"CARD.STRIKE_TEST","Upgrade":0,"Enchantment":null},{"Id":"CARD.STRIKE_TEST","Upgrade":0,"Enchantment":null},{"Id":"CARD.DEFEND_TEST","Upgrade":0,"Enchantment":null},{"Id":"CARD.DEFEND_TEST","Upgrade":0,"Enchantment":null},{"Id":"CARD.DEFEND_TEST","Upgrade":0,"Enchantment":null},{"Id":"CARD.DEFEND_TEST","Upgrade":0,"Enchantment":null},{"Id":"CARD.NEUTRALIZE_TEST","Upgrade":1,"Enchantment":null},{"Id":"CARD.DEFEND_TEST","Upgrade":0,"Enchantment":{"Id":"ENCHANTMENT.SOWN_TEST","Amount":1}}],"Relics":["RELIC.RING_OF_THE_SNAKE_TEST","RELIC.MEMBERSHIP_CARD"],"PotionSlots":["POTION.FIRE_POTION_TEST",null,null]}]}
+[reward] stable après 2 lecture(s), 13 ms
+{"OpenRewardSets":1,"CardRewards":[{"AlreadyTaken":false,"Offered":[{"Id":"CARD.BACKFLIP_TEST","Upgrade":0,"Enchantment":null},{"Id":"CARD.DAGGER_THROW_TEST","Upgrade":0,"Enchantment":null},{"Id":"CARD.PREPARED_TEST","Upgrade":1,"Enchantment":{"Id":"ENCHANTMENT.SWIFT_TEST","Amount":2}}]}]}
+[shop] stable après 2 lecture(s), 29 ms
+{"InShop":true,"Cards":[{"Card":{"Id":"CARD.ACROBATICS_TEST","Upgrade":0,"Enchantment":null},"BaseCost":76,"EstimatedDisplayedCost":38,"OnSale":false,"Colorless":false},{"Card":{"Id":"CARD.FOOTWORK_TEST","Upgrade":0,"Enchantment":{"Id":"ENCHANTMENT.SHARP_TEST","Amount":3}},"BaseCost":25,"EstimatedDisplayedCost":12,"OnSale":true,"Colorless":false},{"Card":{"Id":"CARD.APOTHEOSIS_TEST","Upgrade":0,"Enchantment":null},"BaseCost":172,"EstimatedDisplayedCost":86,"OnSale":false,"Colorless":true}],"Relics":[{"Id":"RELIC.VAJRA_TEST","BaseCost":147,"EstimatedDisplayedCost":73}],"Potions":[{"Id":"POTION.BLOCK_POTION_TEST","BaseCost":52,"EstimatedDisplayedCost":26}],"RemovalBaseCost":75,"RemovalEstimatedCost":37,"RemovalUsed":false,"PriceModifiers":["RELIC.MEMBERSHIP_CARD ×0.5"]}
+[combat] stable après 2 lecture(s), 9 ms
+{"InProgress":true,"Round":2,"Energy":3,"Hand":[{"Id":"CARD.STRIKE_TEST","Upgrade":0,"Enchantment":null},{"Id":"CARD.SURVIVOR_TEST","Upgrade":0,"Enchantment":null}],"Enemies":[{"Id":"MONSTER.JAW_WORM_TEST","Hp":30,"MaxHp":44,"Block":6}]}
+exit=0
+# strace .strace-regress.log : ptrace=0 process_vm_writev=0 process_vm_readv=7486 kill=1
+#   707516 kill(707499, 0)                  = 0

@@ -1,0 +1,12 @@
+# 2026-10-30T14:44:47+01:00 cible --scene event : $ strace -f -e trace=ptrace,process_vm_writev,process_vm_readv,kill,tgkill,tkill,pidfd_open,pidfd_send_signal ultima-mirror probe --pid 708527 --json --sections run,reward,shop,event,piles
+exit=0 ; ligne JSON : /home/mio/v2-miroir2/docs/mirror/evidence/miroir2/32-probe-json-event.jsonl (4407 octets)
+# strace .strace-json-event.log : ptrace=0 process_vm_writev=0 process_vm_readv=7420 kill=1
+#   708564 kill(708527, 0)                  = 0
+# 2026-10-30T14:44:49+01:00 cible --scene ancient : $ strace -f -e trace=ptrace,process_vm_writev,process_vm_readv,kill,tgkill,tkill,pidfd_open,pidfd_send_signal ultima-mirror probe --pid 708587 --json --sections run,reward,shop,event,piles
+exit=0 ; ligne JSON : /home/mio/v2-miroir2/docs/mirror/evidence/miroir2/32-probe-json-ancient.jsonl (4001 octets)
+# strace .strace-json-ancient.log : ptrace=0 process_vm_writev=0 process_vm_readv=7405 kill=1
+#   708601 kill(708587, 0)                  = 0
+# 2026-10-30T14:44:51+01:00 cible --scene event-stale : $ strace -f -e trace=ptrace,process_vm_writev,process_vm_readv,kill,tgkill,tkill,pidfd_open,pidfd_send_signal ultima-mirror probe --pid 708624 --json --sections run,reward,shop,event,piles
+exit=0 ; ligne JSON : /home/mio/v2-miroir2/docs/mirror/evidence/miroir2/32-probe-json-event-stale.jsonl (3225 octets)
+# strace .strace-json-event-stale.log : ptrace=0 process_vm_writev=0 process_vm_readv=7173 kill=1
+#   708659 kill(708624, 0)                  = 0

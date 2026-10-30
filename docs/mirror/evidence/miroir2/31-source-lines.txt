@@ -1,0 +1,81 @@
+# 2026-10-30T14:44:51+01:00 chaque fichier:ligne de ObjectPaths déclare bien le membre (source ~/sts2/game/pck/src/Core)
+OK    Runs/RunManager.cs:64 Instance | public static RunManager Instance { get; } = new RunManager();
+OK    Runs/RunManager.cs:209 State | private RunState? State { get; set; }
+OK    Runs/RunManager.cs:143 RewardsSetSynchronizer | public RewardsSetSynchronizer RewardsSetSynchronizer { get; private set; }
+OK    Runs/RunState.cs:25 _players | private readonly List<Player> _players = new List<Player>();
+OK    Runs/RunState.cs:46 _currentRooms | private readonly List<AbstractRoom> _currentRooms = new List<AbstractRoom>();
+OK    Runs/RunState.cs:27 _currentActIndex | private int _currentActIndex;
+OK    Runs/RunState.cs:210 AscensionLevel | public int AscensionLevel { get; init; }
+OK    Context/LocalContext.cs:19 NetId | public static ulong? NetId { get; set; }
+OK    Entities/Players/Player.cs:48 NetId | public ulong NetId { get; }
+OK    Entities/Players/Player.cs:44 Character | public CharacterModel Character { get; }
+OK    Entities/Players/Player.cs:46 Creature | public Creature Creature { get; }
+OK    Entities/Players/Player.cs:38 _gold | private int _gold;
+OK    Entities/Players/Player.cs:32 _relics | private readonly List<RelicModel> _relics = new List<RelicModel>();
+OK    Entities/Players/Player.cs:34 _potionSlots | private readonly List<PotionModel?> _potionSlots = new List<PotionModel>();
+OK    Entities/Players/Player.cs:198 Deck | public CardPile Deck { get; } = new CardPile(PileType.Deck);
+OK    Entities/Players/Player.cs:200 MaxEnergy | public int MaxEnergy { get; set; }
+OK    Entities/Players/Player.cs:114 PlayerCombatState | public PlayerCombatState? PlayerCombatState { get; private set; }
+OK    Entities/Creatures/Creature.cs:30 _currentHp | private int _currentHp;
+OK    Entities/Creatures/Creature.cs:32 _maxHp | private int _maxHp;
+OK    Entities/Creatures/Creature.cs:28 _block | private int _block;
+OK    Entities/Creatures/Creature.cs:101 Monster | public MonsterModel? Monster { get; }
+OK    Entities/Cards/CardPile.cs:16 _cards | private readonly List<CardModel> _cards = new List<CardModel>();
+OK    Models/AbstractModel.cs:31 Id | public ModelId Id { get; }
+OK    Models/ModelId.cs:9 Category | public string Category { get; }
+OK    Models/ModelId.cs:11 Entry | public string Entry { get; }
+OK    Models/CardModel.cs:91 _currentUpgradeLevel | private int _currentUpgradeLevel;
+OK    Multiplayer/Game/RewardsSetSynchronizer.cs:115 _rewardStates | private readonly List<PlayerRewardState> _rewardStates = new List<PlayerRewardState>();
+OK    Multiplayer/Game/RewardsSetSynchronizer.cs:107 _localPlayerId | private readonly ulong _localPlayerId;
+OK    Multiplayer/Game/RewardsSetSynchronizer.cs:66 rewardsStack | public required List<RewardsSetState> rewardsStack;
+OK    Multiplayer/Game/RewardsSetSynchronizer.cs:93 set | public required RewardsSet set;
+OK    Rewards/RewardsSet.cs:47 Player | public Player Player { get; }
+OK    Rewards/RewardsSet.cs:49 Rewards | public List<Reward> Rewards { get; } = new List<Reward>();
+OK    Rewards/Reward.cs:51 SuccessfullySelected | public bool SuccessfullySelected { get; private set; }
+OK    Rewards/CardReward.cs:37 _cards | private readonly List<CardCreationResult> _cards = new List<CardCreationResult>();
+OK    Entities/Cards/CardCreationResult.cs:8 originalCard | public readonly CardModel originalCard;
+OK    Entities/Cards/CardCreationResult.cs:10 _modifiedCard | private CardModel? _modifiedCard;
+OK    Rooms/MerchantRoom.cs:27 Inventories | public List<MerchantInventory> Inventories { get; private set; } = new List<MerchantInventory>();
+OK    Entities/Merchant/MerchantInventory.cs:30 _characterCardEntries | private readonly List<MerchantCardEntry> _characterCardEntries = new List<MerchantCardEntry>();
+OK    Entities/Merchant/MerchantInventory.cs:32 _colorlessCardEntries | private readonly List<MerchantCardEntry> _colorlessCardEntries = new List<MerchantCardEntry>();
+OK    Entities/Merchant/MerchantInventory.cs:34 _relicEntries | private readonly List<MerchantRelicEntry> _relicEntries = new List<MerchantRelicEntry>();
+OK    Entities/Merchant/MerchantInventory.cs:36 _potionEntries | private readonly List<MerchantPotionEntry> _potionEntries = new List<MerchantPotionEntry>();
+OK    Entities/Merchant/MerchantInventory.cs:46 CardRemovalEntry | public MerchantCardRemovalEntry? CardRemovalEntry { get; private set; }
+OK    Entities/Merchant/MerchantInventory.cs:48 Player | public Player Player { get; }
+OK    Entities/Merchant/MerchantEntry.cs:17 _cost | protected int _cost;
+OK    Entities/Merchant/MerchantCardEntry.cs:32 CreationResult | public CardCreationResult? CreationResult { get; private set; }
+OK    Entities/Merchant/MerchantCardEntry.cs:34 IsOnSale | public bool IsOnSale { get; private set; }
+OK    Entities/Merchant/MerchantRelicEntry.cs:21 Model | public RelicModel? Model { get; private set; }
+OK    Entities/Merchant/MerchantPotionEntry.cs:24 Model | public PotionModel? Model { get; private set; }
+OK    Entities/Merchant/MerchantCardRemovalEntry.cs:16 Used | public bool Used { get; private set; }
+OK    Combat/CombatManager.cs:80 Instance | public static CombatManager Instance { get; } = new CombatManager();
+OK    Combat/CombatManager.cs:67 _state | private CombatState? _state;
+OK    Combat/CombatManager.cs:153 IsInProgress | public bool IsInProgress { get; private set; }
+OK    Combat/CombatState.cs:29 _enemies | private readonly List<Creature> _enemies = new List<Creature>();
+OK    Combat/CombatState.cs:102 RoundNumber | public int RoundNumber { get; set; }
+OK    Entities/Players/PlayerCombatState.cs:21 _energy | private int _energy;
+OK    Entities/Players/PlayerCombatState.cs:60 Hand | public CardPile Hand { get; } = new CardPile(PileType.Hand);
+OK    Entities/Players/PlayerCombatState.cs:64 DiscardPile | public CardPile DiscardPile { get; } = new CardPile(PileType.Discard);
+OK    Entities/Players/PlayerCombatState.cs:66 ExhaustPile | public CardPile ExhaustPile { get; } = new CardPile(PileType.Exhaust);
+OK    Entities/Players/PlayerCombatState.cs:68 PlayPile | public CardPile PlayPile { get; } = new CardPile(PileType.Play);
+OK    Models/CardModel.cs:631 Enchantment | public EnchantmentModel? Enchantment { get; private set; }
+OK    Models/EnchantmentModel.cs:29 _amount | private int _amount;
+OK    Runs/RunManager.cs:139 EventSynchronizer | public EventSynchronizer EventSynchronizer { get; private set; }
+OK    Multiplayer/Game/EventSynchronizer.cs:26 _localPlayerId | private readonly ulong _localPlayerId;
+OK    Multiplayer/Game/EventSynchronizer.cs:28 _events | private readonly List<EventModel> _events = new List<EventModel>();
+OK    Rooms/EventRoom.cs:29 CanonicalEvent | public EventModel CanonicalEvent { get; }
+OK    Models/EventModel.cs:77 Owner | public Player? Owner { get; private set; }
+OK    Models/EventModel.cs:87 Description | public LocString? Description { get; private set; }
+OK    Models/EventModel.cs:42 _currentOptions | private List<EventOption>? _currentOptions;
+OK    Models/EventModel.cs:44 _isFinished | private bool _isFinished;
+OK    Events/EventOption.cs:14 TextKey | public string TextKey { get; private set; }
+OK    Events/EventOption.cs:16 Title | public LocString Title { get; private set; }
+OK    Events/EventOption.cs:18 Description | public LocString Description { get; private set; }
+OK    Events/EventOption.cs:24 IsLocked | public bool IsLocked { get; }
+OK    Events/EventOption.cs:26 IsProceed | public bool IsProceed { get; private set; }
+OK    Events/EventOption.cs:28 WasChosen | public bool WasChosen { get; private set; }
+OK    Events/EventOption.cs:30 Relic | public RelicModel? Relic { get; private set; }
+OK    Localization/LocString.cs:13 locTable | public class LocString(string locTable, string locEntryKey) : IComparable<LocString>
+OK    Localization/LocString.cs:13 locEntryKey | public class LocString(string locTable, string locEntryKey) : IComparable<LocString>
+OK    Entities/Players/PlayerCombatState.cs:62 DrawPile | public CardPile DrawPile { get; } = new CardPile(PileType.Draw);
+79 vérifiés, 0 écart(s)
