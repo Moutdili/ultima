@@ -43,9 +43,22 @@ Mesure : **303 / 304 reliques notées** (avant : 164). Seule exception `DEPRECAT
 la blague, pas au moteur de la corriger.
 Tests : `RelicTagTests` (6) + `RelicCoverageTests` (2 invariants). **265 tests** au total.
 
+## Point 3 — IReviewBuilder : FAIT
+
+`Ultima.Engine/Scoring/Review/ReviewBuilder.cs` (docs/45). Le daemon peut brancher
+`new ReviewService(..., new ReviewBuilder(), ...)` — aucune autre modification.
+
+v1 chiffrée : les **choix de cartes** (ΔG de chaque option, regret = meilleur − pris, passer = 0,
+bandes `RegretBands`). Les autres décisions sont présentes mais **déclarées non chiffrées**, avec
+raison. Réserves dans `ReviewCoverage` : deck reconstitué depuis le deck final (cartes retirées non
+reconstituables), reliques = set final, potions vides par étage.
+Tests : `ReviewBuilderTests` (4). **269 tests** au total.
+
 ## File restante
 
-1. **IReviewBuilder** (contrat v1.2, `review.open`) — à faire avant rencontres et pouvoirs.
+1. 37 rencontres sans statistiques.
+2. 204 pouvoirs comportementaux (d'un bloc, plus tard).
+3. A2 pioche — attendre le miroir (piles de combat).
 3. 37 rencontres sans statistiques.
 4. 204 pouvoirs comportementaux — d'un bloc, plus tard.
 5. A2 (probabilité de pioche, docs/25) — **ne pas commencer** avant que le miroir publie les piles.
