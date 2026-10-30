@@ -571,3 +571,11 @@ finale : `git filter-repo --replace-text` (ID → `<steam-id>`) en plus du retra
   Procédure : `overlay/gnome/TEST-WINDOW.md`. Test croisé compagnon↔HUD réaligné sur `grammar.js` (chef).
 4. Bornes `HudSettings` fixées dans le contrat (docs/22) : hauteur 0,30–0,85, opacité 0,35–1. À appliquer :
    daemon (`SettingsStore`), compagnon, HUD, TUI (Câbleur 3 + agents concernés).
+
+### Décisions Mio (2026-10-30, retour sur le verrier)
+1. Liseré or du rail au repos : gardé pour la fenêtre de test, tranché à l'œil.
+2. Survol piloté par le curseur par défaut si la fenêtre de test confirme qu'il arrive au-dessus du jeu ; sinon `hover-source=poll`.
+3. Contenu en combat : **aucune règle codée en dur**, le HUD affiche ce que les réglages (modifiables depuis le TUI) activent.
+   Vérifié dans `render.js` (`orderedModules` : modules actifs, dans l'ordre) ; seules exceptions prévues par le contrat :
+   `paths` sur la carte, `deck_score` en combat selon `deckScoreInCombat`. Console : exigence transmise (tous les modules
+   + tous les HudSettings éditables depuis le TUI, bornes du contrat).
