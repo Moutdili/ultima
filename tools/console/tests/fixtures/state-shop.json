@@ -1,0 +1,379 @@
+{
+  "contractVersion": 1,
+  "at": "2026-10-29T13:00:00+01:00",
+  "health": {
+    "gameRunning": true,
+    "saveOk": true,
+    "mirrorOk": true,
+    "mirrorLatencyMs": 108,
+    "degraded": null
+  },
+  "screen": "Shop",
+  "run": {
+    "characterId": "CHARACTER.NECROBINDER",
+    "characterName": "Nécrolieuse",
+    "actIndex": 0,
+    "actId": "ACT.OVERGROWTH",
+    "bossId": "ENCOUNTER.CEREMONIAL_BEAST_BOSS",
+    "bossName": "Bête cérémonielle",
+    "ascension": 9,
+    "hp": 66,
+    "maxHp": 66,
+    "gold": 116,
+    "floor": 4,
+    "deck": [
+      {
+        "id": "CARD.STRIKE_NECROBINDER",
+        "name": "Frappe",
+        "type": "Attack",
+        "rarity": "Basic",
+        "cost": 1,
+        "upgrade": 0,
+        "enchantment": null,
+        "isCurse": false,
+        "score": null
+      },
+      {
+        "id": "CARD.STRIKE_NECROBINDER",
+        "name": "Frappe",
+        "type": "Attack",
+        "rarity": "Basic",
+        "cost": 1,
+        "upgrade": 0,
+        "enchantment": null,
+        "isCurse": false,
+        "score": null
+      },
+      {
+        "id": "CARD.STRIKE_NECROBINDER",
+        "name": "Frappe",
+        "type": "Attack",
+        "rarity": "Basic",
+        "cost": 1,
+        "upgrade": 0,
+        "enchantment": null,
+        "isCurse": false,
+        "score": null
+      },
+      {
+        "id": "CARD.STRIKE_NECROBINDER",
+        "name": "Frappe",
+        "type": "Attack",
+        "rarity": "Basic",
+        "cost": 1,
+        "upgrade": 0,
+        "enchantment": null,
+        "isCurse": false,
+        "score": null
+      },
+      {
+        "id": "CARD.DEFEND_NECROBINDER",
+        "name": "Défense",
+        "type": "Skill",
+        "rarity": "Basic",
+        "cost": 1,
+        "upgrade": 0,
+        "enchantment": null,
+        "isCurse": false,
+        "score": null
+      },
+      {
+        "id": "CARD.DEFEND_NECROBINDER",
+        "name": "Défense",
+        "type": "Skill",
+        "rarity": "Basic",
+        "cost": 1,
+        "upgrade": 0,
+        "enchantment": null,
+        "isCurse": false,
+        "score": null
+      },
+      {
+        "id": "CARD.DEFEND_NECROBINDER",
+        "name": "Défense",
+        "type": "Skill",
+        "rarity": "Basic",
+        "cost": 1,
+        "upgrade": 0,
+        "enchantment": null,
+        "isCurse": false,
+        "score": null
+      },
+      {
+        "id": "CARD.DEFEND_NECROBINDER",
+        "name": "Défense",
+        "type": "Skill",
+        "rarity": "Basic",
+        "cost": 1,
+        "upgrade": 0,
+        "enchantment": null,
+        "isCurse": false,
+        "score": null
+      },
+      {
+        "id": "CARD.SCOURGE",
+        "name": "Fléau",
+        "type": "Skill",
+        "rarity": "Uncommon",
+        "cost": 1,
+        "upgrade": 0,
+        "enchantment": null,
+        "isCurse": false,
+        "score": null
+      },
+      {
+        "id": "CARD.DEFEND_NECROBINDER",
+        "name": "Défense",
+        "type": "Skill",
+        "rarity": "Basic",
+        "cost": 1,
+        "upgrade": 0,
+        "enchantment": {
+          "id": "ENCHANTMENT.SWIFT",
+          "name": "Célérité",
+          "amount": 1,
+          "description": "Piochez 1 carte la première fois que cette carte est jouée chaque combat."
+        },
+        "isCurse": false,
+        "score": null
+      },
+      {
+        "id": "CARD.ASCENDERS_BANE",
+        "name": "Fléau de l'Ascendant",
+        "type": "Curse",
+        "rarity": "Curse",
+        "cost": -1,
+        "upgrade": 0,
+        "enchantment": null,
+        "isCurse": true,
+        "score": null
+      }
+    ],
+    "relics": [
+      {
+        "id": "RELIC.BONE_HEART",
+        "name": "(exemple)",
+        "description": "…",
+        "score": {
+          "total": 62,
+          "terms": [
+            {
+              "label": "Méta",
+              "points": 60,
+              "source": "Spire Codex v0.107.1"
+            },
+            {
+              "label": "Synergie",
+              "points": 2,
+              "source": "exemple"
+            }
+          ],
+          "confidence": "medium",
+          "grade": "B"
+        }
+      }
+    ],
+    "potions": [
+      {
+        "id": "POTION.ATTACK_POTION",
+        "name": "Potion d'attaque",
+        "description": "…"
+      }
+    ]
+  },
+  "reward": null,
+  "shop": {
+    "items": [
+      {
+        "kind": "card",
+        "id": "CARD.GRAVEBLAST",
+        "name": "Graveblast",
+        "price": 50,
+        "onSale": false,
+        "affordable": true,
+        "card": {
+          "id": "CARD.GRAVEBLAST",
+          "name": "Graveblast",
+          "type": "Attack",
+          "rarity": "Common",
+          "cost": 1,
+          "upgrade": 0,
+          "enchantment": null,
+          "isCurse": false,
+          "score": null
+        },
+        "score": null
+      },
+      {
+        "kind": "card",
+        "id": "CARD.SCOURGE",
+        "name": "Scourge",
+        "price": 24,
+        "onSale": true,
+        "affordable": true,
+        "card": {
+          "id": "CARD.SCOURGE",
+          "name": "Scourge",
+          "type": "Skill",
+          "rarity": "Uncommon",
+          "cost": 1,
+          "upgrade": 0,
+          "enchantment": null,
+          "isCurse": false,
+          "score": null
+        },
+        "score": {
+          "total": 71,
+          "terms": [
+            {
+              "label": "Méta (médiane 3 sources)",
+              "points": 65,
+              "source": "Baalorlord/Jorbs/Spire Codex v0.107.1"
+            },
+            {
+              "label": "Prix soldé",
+              "points": 6,
+              "source": "24 or sur 116"
+            }
+          ],
+          "confidence": "medium",
+          "grade": "A"
+        }
+      },
+      {
+        "kind": "relic",
+        "id": "RELIC.PENDULUM",
+        "name": "Pendule",
+        "price": 181,
+        "onSale": false,
+        "affordable": false,
+        "card": null,
+        "score": null
+      },
+      {
+        "kind": "potion",
+        "id": "POTION.WEAK_POTION",
+        "name": "Potion de faiblesse",
+        "price": 49,
+        "onSale": false,
+        "affordable": true,
+        "card": null,
+        "score": null
+      }
+    ],
+    "removalPrice": 75,
+    "removalUsed": false,
+    "removalScore": {
+      "total": 68,
+      "terms": [
+        {
+          "label": "Retirer Fléau de l'Ascendant",
+          "points": 68,
+          "source": "malédiction injouable"
+        }
+      ],
+      "confidence": "medium",
+      "grade": "B"
+    }
+  },
+  "paths": null,
+  "deck": {
+    "score": {
+      "total": 48,
+      "terms": [
+        {
+          "label": "Méta des cartes",
+          "points": 44,
+          "source": "exemple"
+        },
+        {
+          "label": "Malédiction",
+          "points": -6,
+          "source": "Fléau de l'Ascendant"
+        },
+        {
+          "label": "Vs boss acte 1",
+          "points": 10,
+          "source": "exemple"
+        }
+      ],
+      "confidence": "low",
+      "grade": "C"
+    },
+    "archetype": null,
+    "potentialArchetypes": [
+      "Âmes (exemple)"
+    ],
+    "curses": [
+      {
+        "id": "CARD.ASCENDERS_BANE",
+        "name": "Fléau de l'Ascendant",
+        "type": "Curse",
+        "rarity": "Curse",
+        "cost": -1,
+        "upgrade": 0,
+        "enchantment": null,
+        "isCurse": true,
+        "score": null
+      }
+    ]
+  },
+  "settings": {
+    "modules": [
+      {
+        "id": "deck",
+        "enabled": true,
+        "order": 0
+      },
+      {
+        "id": "enchanted",
+        "enabled": true,
+        "order": 1
+      },
+      {
+        "id": "curses",
+        "enabled": true,
+        "order": 2
+      },
+      {
+        "id": "relics",
+        "enabled": true,
+        "order": 3
+      },
+      {
+        "id": "potions",
+        "enabled": true,
+        "order": 4
+      },
+      {
+        "id": "reward",
+        "enabled": true,
+        "order": 5
+      },
+      {
+        "id": "shop",
+        "enabled": true,
+        "order": 6
+      },
+      {
+        "id": "paths",
+        "enabled": true,
+        "order": 7
+      },
+      {
+        "id": "deck_score",
+        "enabled": true,
+        "order": 8
+      }
+    ],
+    "hud": {
+      "quality": "verre",
+      "heightFraction": 0.55,
+      "restOpacity": 0.62,
+      "side": "right",
+      "deckScoreInCombat": false,
+      "gradesOnly": false
+    }
+  },
+  "contractMinor": 3
+}

@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# ultima — lanceur de la console ULTIMA (TUI sans argument, sous-commandes sinon : ultima help).
+#
+# Installé : ~/.local/share/ultima/bin/ultima (lien ~/.local/bin/ultima), paquet dans ../lib/console,
+#            Python du venv ../venv (Textual) s'il existe, sinon python3 du système (sous-commandes seules).
+# Dépôt    : tools/console/ultima (paquet à côté, ULTIMA_HOME = installation par défaut).
+set -euo pipefail
+self="$(readlink -f "${BASH_SOURCE[0]}")"
+here="$(dirname "$self")"
+if [[ -d "$here/ultima_console" ]]; then
+    lib="$here"                                  # dépôt
+    root="${ULTIMA_HOME:-${XDG_DATA_HOME:-$HOME/.local/share}/ultima}"
+else
+    root="$(dirname "$here")"                    # installation
+    lib="$root/lib/console"
+    export ULTIMA_HOME="${ULTIMA_HOME:-$root}"
+fi
+py="${ULTIMA_PYTHON:-}"
+if [[ -z "$py" ]]; then
+    if [[ -x "$root/venv/bin/python3" ]]; then py="$root/venv/bin/python3"; else py="python3"; fi
+fi
+# Locale d'origine : Python remplace une locale « C » par C.UTF-8 (PEP 538) avant que le code ne la voie ;
+# le bandeau se replie sur une ligne quand le terminal n'est pas en UTF-8.
+export ULTIMA_LOCALE="${LC_ALL:-${LC_CTYPE:-${LANG:-}}}"
+# -P : ne pas ajouter le dossier courant à sys.path (rien n'est importé depuis l'endroit où l'on tape).
+# -B : aucun __pycache__ écrit à côté du paquet (l'installation ne contient que ce que liste son manifeste).
+PYTHONPATH="$lib${PYTHONPATH:+:$PYTHONPATH}" exec "$py" -B -P -m ultima_console "$@"
