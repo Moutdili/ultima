@@ -548,3 +548,21 @@ par fichier (local s'il existe, sinon commité) + un test avec un `local/` parti
 L'ID Steam de Mio a été commité en clair (commit 201739d, `Ultima.Daemon.Tests/Fixtures/make_fixtures.py`,
 retiré dans 92d810e) et apparaît aussi dans des chemins cités par STATUS/docs. Lors de la réécriture
 finale : `git filter-repo --replace-text` (ID → `<steam-id>`) en plus du retrait des lignes Co-Authored-By.
+
+## Reprise 2026-10-30 — intégration (chef)
+- origin/main à jour avec Hermes S30 (`dbdc3fb`) + S31 percentiles de deck (`d2549f5`, `e5c898c`).
+- **v2/miroir2 mergé** (`d3ae5d4`) : événement, Ancien, piles comptées, enchantements ; 38 tests
+  (`Ultima.Mirror.Tests`, ajouté à `Ultima.sln`) ; campagne sur cible de test : 0 ptrace, 0 écriture, 0 fuite.
+  NON prouvé sur le vrai jeu. Rapport : `status/miroir2.md`.
+- **v2/compagnon-design mergé** (`69eba6b`) : refonte UX + éditeur HudSettings v1.3, aller-retour prouvé ;
+  172 tests. Rendu jamais vu (pas d'affichage autorisé). Rapport : `status/compagnon-design.md`.
+- Solution : Saves 64, Knowledge 63, Mirror 38, Daemon 39, Engine 257 — vert.
+
+### Décisions du chef
+1. `ModuleSetting.enabled` absent ⇒ **true** (un module listé s'affiche ; échec visible plutôt que masqué).
+   Le daemon lit aujourd'hui `false` → correctif daemon à faire (Câbleur 3).
+2. Polices du compagnon lues dans l'extraction locale du jeu (`game/`, ignorée par git, jamais copiées) :
+   accepté, avec repli sur la police système si absente.
+3. Câbleur 3 (après console + verrier) : textes d'événement depuis Ultima.Knowledge via les clés du miroir,
+   relecture si `optionsKnown=false`, enchantement dans CardView (récompense/shop), `enabled` par défaut.
+   Piles en combat : après la mesure FPS de la fenêtre n°2.
