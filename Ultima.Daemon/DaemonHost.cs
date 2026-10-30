@@ -63,7 +63,11 @@ public sealed class DaemonHost : IDisposable
     public sealed record EngineParts(IKnowledge Knowledge, IScorer? Scorer, IPathAnalyzer? Paths,
         IRoutePlanner? Route, IEventAdvisor? Events, IReviewBuilder? Review)
     {
-        public StateAssembler Assembler(ulong? steamId64) => new(Knowledge, Scorer, Paths, steamId64, Route, Events);
+        /// <summary>v1.4 : textes des événements par clé de localisation (paresseux ; absent = null).</summary>
+        public ILocTexts Texts { get; init; } = LocTexts.FromEnvironment(
+            (Knowledge as Ultima.Knowledge.KnowledgeBase)?.Document.Source.LocalizationDir);
+
+        public StateAssembler Assembler(ulong? steamId64) => new(Knowledge, Scorer, Paths, steamId64, Route, Events, Texts);
     }
 
     /// <summary>Construit connaissance + calcul. Toute erreur du calcul → null (scores « — »), jamais un arrêt.</summary>

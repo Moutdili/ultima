@@ -42,6 +42,7 @@ public sealed class DaemonCore
     private OverlaySettings _settings = OverlaySettings.Default;
     private MEvent? _event;
     private bool _eventUnsupported;
+    private bool _eventRetried; // une seule relecture par salle quand les options ne sont pas encore connues
     private MRun? _memRun;
     private DateTimeOffset _memRunAt, _runAt;
     private (MEvent? Mem, RunPart? Run, EventView? View) _eventKey;
@@ -167,6 +168,7 @@ public sealed class DaemonCore
         if (now == Screen.Combat) Scheduler.CancelPending(); // aucune lecture mémoire en combat (v1)
         if (before == Screen.Reward) _reward = null;
         if (before == Screen.Event) _event = null;
+        if (now == Screen.Event || before == Screen.Event) _eventRetried = false;
         if (before == Screen.Shop) { _shop = null; _memGold = null; _memDeckCount = null; _divergence = null; }
         Diag.Debug($"écran {before} → {now}");
     }
@@ -280,7 +282,18 @@ public sealed class DaemonCore
                     _eventUnsupported = true;
                     _event = null;
                 }
-                else _event = r.Event;
+                else
+                {
+                    _event = r.Event;
+                    // options pas encore connues (préchargement de la salle) : UNE relecture après l'anti-rebond,
+                    // jamais de boucle (le drapeau n'est remis à zéro qu'au changement d'écran)
+                    if (r.Event is { OptionsKnown: false } && !_eventRetried)
+                    {
+                        _eventRetried = true;
+                        Diag.Debug("événement : options inconnues, une relecture programmée");
+                        Scheduler.Request(MirrorNeed.Event);
+                    }
+                }
             }
         }
         finally
