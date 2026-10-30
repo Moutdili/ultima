@@ -238,9 +238,12 @@ async def test_tui_write_keeps_unknown_key_and_companion_reads_it():
     comp = companion_module()
     try:
         result = comp.load()
-        assert result.error is None
+        assert result.error is None and result.exists
         assert result.settings.modules[0].id == "deck"       # le compagnon relit le même fichier
-        assert getattr(result, "unknown", None) in (None, data.get("cleInconnue")) or True
+        assert result.settings.hud.quality == "verre"
+        # Les clés que le compagnon ne comprend pas sont conservées par SA lecture aussi.
+        assert result.settings.extra.get("cleInconnue") == {"future": {"v": [1, 2, 3]}}
+        assert result.settings.to_json()["appearance"] == data["appearance"]
     finally:
         for k in ("ultima_companion", "ultima_companion.paths", "ultima_companion.settings"):
             sys.modules.pop(k, None)
