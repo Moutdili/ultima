@@ -48,6 +48,9 @@ public sealed class DeckEvaluator
     /// <summary>Poids de la marge de garde (part Skill/Power) dans l'adéquation boss.</summary>
     public const double GuardMarginWeight = 0.5;
 
+    /// <summary>Part du percentile de corpus dans la note de deck (le reste = note absolue).</summary>
+    public const double PercentileWeight = 0.75;
+
     private readonly IMetaTable _meta;
     private readonly CardScorer _cards;
     private readonly DeckPercentiles _percentiles;
@@ -155,8 +158,13 @@ public sealed class DeckEvaluator
         if (percentile is { } pct)
         {
             var bucket = _percentiles.Find(ctx.CharacterId, act);
-            b.Add($"Percentile des decks (acte {act})", pct - b.RawTotal,
-                $"corpus : {bucket?.N ?? 0} decks, médiane {bucket?.P50 ?? 0}, G = {strength.Total}");
+            var absolute = b.RawTotal;
+            // Le percentile domine (position réelle dans le corpus), la note absolue corrige les
+            // ex æquo : deux decks au 0e percentile ne valent pas pareil si l'un porte une malédiction.
+            var target = (int)Math.Round(PercentileWeight * pct + (1 - PercentileWeight) * absolute);
+            b.Add($"Percentile des decks (acte {act})", target - absolute,
+                $"P{pct} sur {bucket?.N ?? 0} decks (médiane {bucket?.P50 ?? 0}, G = {strength.Total}) ; " +
+                $"note absolue {absolute}/100 gardée à {Math.Round((1 - PercentileWeight) * 100)} % pour l'ordre");
         }
         else
         {

@@ -127,10 +127,11 @@ while (reader.ReadLine() is { } line)
                     if (card.ValueKind != JsonValueKind.Array || card.GetArrayLength() < 1) continue;
                     var id = card[0].GetString();
                     if (string.IsNullOrWhiteSpace(id)) continue;
-                    var upgrade = card.GetArrayLength() > 1 && card[1].ValueKind == JsonValueKind.Number
+                    // extract.py publie [carte, étage d'ajout] : ce n'est PAS un niveau d'amélioration.
+                    var floorAdded = card.GetArrayLength() > 1 && card[1].ValueKind == JsonValueKind.Number
                         ? card[1].GetInt32()
-                        : 0;
-                    deck.Add(new CardInstance(id!, upgrade, null, null));
+                        : (int?)null;
+                    deck.Add(new CardInstance(id!, 0, null, floorAdded));
                 }
             }
         }

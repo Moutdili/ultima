@@ -135,7 +135,15 @@ public sealed class DeckPercentileTests
             var expected = pct.Percentile(ctx.CharacterId, ctx.ActIndex + 1, g);
 
             Assert.NotNull(expected);
-            Assert.Equal(expected!.Value, evaluation.Score.Total);
+
+            // Total = 75 % percentile + 25 % note absolue (les termes hors percentile donnent l'absolu).
+            var absolute = evaluation.Score.Terms
+                .Where(t => !t.Label.StartsWith("Percentile", StringComparison.Ordinal))
+                .Sum(t => t.Points);
+            var blended = (int)Math.Round(DeckEvaluator.PercentileWeight * expected!.Value
+                                          + (1 - DeckEvaluator.PercentileWeight) * absolute);
+
+            Assert.Equal(blended, evaluation.Score.Total);
             Assert.Contains(evaluation.Score.Terms,
                 t => t.Label.StartsWith("Percentile des decks", StringComparison.Ordinal));
         }

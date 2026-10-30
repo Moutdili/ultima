@@ -11,7 +11,10 @@
     buckets     un par (personnage, acte) + un par acte tous personnages (« * »)
                 n, p10, p25, p50, p75, p90, median_deck
 
-Publié : **120 000 runs** (index dédupliqué), 18 buckets, seuil de publication **n ≥ 200**.
+Publié : **400 000 runs solo** (exports complets via `extract.py`), 20 buckets, seuil **n ≥ 200**.
+Contrôle croisé : les 120 000 runs de l'index dédupliqué donnent **exactement les mêmes**
+percentiles (43 / 48 / 53 en acte 1) — la mesure est stable, le corpus large ajoute la couverture
+par personnage.
 
 ## Comment la note est calculée
 
@@ -20,8 +23,12 @@ Publié : **120 000 runs** (index dédupliqué), 18 buckets, seuil de publicatio
 2. Il calcule G à **PV pleins** (`Hp = MaxHp`) : prendre un coup ne doit pas changer la note
    (docs/27 §2).
 3. Il lit le percentile de G dans le bucket (personnage, acte), avec repli sur « * ».
-4. Un dernier terme porte l'écart exact vers ce percentile : le **Total devient le percentile**.
-   Aucune valeur inventée : si aucun bucket n'existe pour l'acte, un terme « Percentile
+4. Un dernier terme recale le total : **Total = 75 % percentile + 25 % note absolue**
+   (`DeckEvaluator.PercentileWeight`). Le percentile domine — c'est lui qui répond à « où en est ce
+   deck par rapport aux autres » — et la note absolue tranche les ex æquo : deux decks au 0e
+   percentile ne se valent pas si l'un porte une malédiction. Sans ce correctif, la note-percentile
+   pure écrasait l'ordre en bas d'échelle (test `Malediction_connue_listee_et_penalisee`).
+5. Aucune valeur inventée : si aucun bucket n'existe pour l'acte, un terme « Percentile
    indisponible » à 0 point le dit et le total reste absolu.
 
 ## Réserves, écrites dans le fichier
