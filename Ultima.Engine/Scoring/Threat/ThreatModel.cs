@@ -115,6 +115,9 @@ public sealed record ObservedStats(
     double? AvgTurns,
     IReadOnlyDictionary<string, ObservedStats> ByCharacter)
 {
+    /// <summary>Provenance : « community » (stats du catalogue) ou « measured » (docs/46).</summary>
+    public string? Source { get; init; }
+
     public static ObservedStats Empty { get; } = new(null, null, null, null, null,
         new Dictionary<string, ObservedStats>(StringComparer.OrdinalIgnoreCase));
 }
@@ -236,7 +239,7 @@ public sealed class ThreatModel
     public static ThreatModel Default => LazyDefault.Value;
 
     /// <summary>Charge le modèle depuis <paramref name="catalogDir"/> (défaut : data/catalog résolu).</summary>
-    public static ThreatModel LoadFrom(string? catalogDir = null)
+    public static ThreatModel LoadFrom(string? catalogDir = null, string? calibrationDir = null)
     {
         string dir;
         try
@@ -254,6 +257,11 @@ public sealed class ThreatModel
 
         var monsters = LoadMonsters(Path.Combine(dir, "monsters.json"));
         var encounters = LoadEncounters(Path.Combine(dir, "encounters.json"));
+
+        // Les 37 rencontres sans statistiques communautaires sont complétées par la mesure maison
+        // (docs/46) : jamais une moyenne inventée, une observation sur N runs, source marquée.
+        encounters = MergeMeasured(encounters,
+            LoadMeasured(Path.Combine(ScoringData.ResolveCalibrationDir(calibrationDir), "encounter_measure.json")));
         var constraintsPath = Path.Combine(dir, "constraints.json");
         var monsterConstraints = LoadConstraints(constraintsPath, "monsters");
         var constraints = LoadConstraints(constraintsPath, "encounters");
@@ -690,6 +698,68 @@ public sealed class ThreatModel
         return null;
     }
 
+    /// <summary>Rencontres sans stats du catalogue : complétées par la mesure, jamais écrasées.</summary>
+    private static Dictionary<string, EncounterThreat> MergeMeasured(
+        Dictionary<string, EncounterThreat> encounters, Dictionary<string, ObservedStats> measured)
+    {
+        if (encounters.Count == 0 || measured.Count == 0) return encounters;
+
+        foreach (var (key, encounter) in encounters.ToArray())
+        {
+            if (encounter.Stats is not null) continue;
+            if (!measured.TryGetValue(key, out var stats)) continue;
+            encounters[key] = encounter with { Stats = stats };
+        }
+
+        return encounters;
+    }
+
+    /// <summary>Lit <c>data/calibration/encounter_measure.json</c> (docs/46).</summary>
+    private static Dictionary<string, ObservedStats> LoadMeasured(string path)
+    {
+        var map = new Dictionary<string, ObservedStats>(StringComparer.OrdinalIgnoreCase);
+        if (!File.Exists(path)) return map;
+
+        try
+        {
+            using var doc = JsonDocument.Parse(File.ReadAllBytes(path));
+            if (doc.RootElement.ValueKind != JsonValueKind.Object) return map;
+            if (!doc.RootElement.TryGetProperty("encounters", out var array) ||
+                array.ValueKind != JsonValueKind.Array) return map;
+
+            foreach (var el in array.EnumerateArray())
+            {
+                if (el.ValueKind != JsonValueKind.Object) continue;
+                var id = Str(el, "id");
+                if (string.IsNullOrWhiteSpace(id)) continue;
+
+                var byCharacter = new Dictionary<string, ObservedStats>(StringComparer.OrdinalIgnoreCase);
+                if (el.TryGetProperty("by_character", out var chars) && chars.ValueKind == JsonValueKind.Object)
+                {
+                    foreach (var c in chars.EnumerateObject())
+                    {
+                        byCharacter[c.Name] = new ObservedStats(
+                            Int(c.Value, "n"), null, null, Dbl(c.Value, "avg_damage"), Dbl(c.Value, "avg_turns"),
+                            new Dictionary<string, ObservedStats>(StringComparer.OrdinalIgnoreCase))
+                        { Source = "measured" };
+                    }
+                }
+
+                map[NormalizeId(id!)] = new ObservedStats(
+                    Int(el, "n"), Int(el, "fatal"), null, Dbl(el, "avg_damage"), Dbl(el, "avg_turns"), byCharacter)
+                { Source = "measured" };
+            }
+        }
+        catch (JsonException)
+        {
+        }
+        catch (IOException)
+        {
+        }
+
+        return map;
+    }
+
     private static Dictionary<string, EncounterThreat> LoadEncounters(string path)
     {
         var map = new Dictionary<string, EncounterThreat>(StringComparer.OrdinalIgnoreCase);
@@ -826,6 +896,12 @@ public sealed class ThreatModel
             Double(stats, "avg_damage"),
             Double(stats, "avg_turns"),
             byCharacter);
+    }
+
+    private static double? Dbl(JsonElement el, string name)
+    {
+        if (!el.TryGetProperty(name, out var v) || v.ValueKind != JsonValueKind.Number) return null;
+        return v.TryGetDouble(out var d) ? d : null;
     }
 
     private static string? Str(JsonElement el, string name) =>

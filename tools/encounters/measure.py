@@ -67,15 +67,21 @@ def main() -> int:
                             "turns_n": 0,
                             "fatal": 0,
                             "characters": collections.Counter(),
+                            "per_character": {},
                         })
                         entry["n"] += 1
                         entry["characters"][character] += 1
+                        per = entry["per_character"].setdefault(character, {"n": 0, "damage": 0, "turns": 0, "turns_n": 0})
+                        per["n"] += 1
                         if position == 0:
                             entry["damage"] += damage
+                            per["damage"] += damage
                         turns = room.get("turns_taken") or 0
                         if turns:
                             entry["turns"] += turns
                             entry["turns_n"] += 1
+                            per["turns"] += turns
+                            per["turns_n"] += 1
                         if model == killed_by:
                             entry["fatal"] += 1
 
@@ -92,6 +98,15 @@ def main() -> int:
             "fatal": entry["fatal"],
             "fatal_rate": round(entry["fatal"] / entry["n"], 4),
             "characters": dict(entry["characters"].most_common()),
+            "by_character": {
+                name: {
+                    "n": values["n"],
+                    "avg_damage": round(values["damage"] / values["n"], 2),
+                    "avg_turns": round(values["turns"] / values["turns_n"], 2) if values["turns_n"] else None,
+                }
+                for name, values in sorted(entry["per_character"].items())
+                if values["n"] >= MIN_N
+            },
         })
 
     document = {
