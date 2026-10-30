@@ -579,3 +579,10 @@ finale : `git filter-repo --replace-text` (ID → `<steam-id>`) en plus du retra
    Vérifié dans `render.js` (`orderedModules` : modules actifs, dans l'ordre) ; seules exceptions prévues par le contrat :
    `paths` sur la carte, `deck_score` en combat selon `deckScoreInCombat`. Console : exigence transmise (tous les modules
    + tous les HudSettings éditables depuis le TUI, bornes du contrat).
+- **v2/console mergé** : TUI `ultima` (Textual), CLI colorée, bandeau ULTIMA, tous les réglages HUD éditables,
+  `tools/install.sh` / `tools/uninstall.sh` à manifeste ; 124 tests (prérequis : textual, rich, pytest-asyncio).
+  Install/uninstall prouvés dans un HOME temporaire (arbre identique). NON prouvé : installation réelle, TUI dans un
+  vrai terminal, `--wheels`. `~/.local/bin/ultima` = alias provisoire vers le worktree v2-console (demande Mio),
+  ancien script sauvegardé en `~/.local/bin/ultima.old-20261029`.
+5. Réponses chef à Console : bornes du contrat à appliquer au compagnon et au daemon (Câbleur 3) ; dégradé du
+   bandeau limité à `palette.py` (pas de nouvel or) ; uninstall restaure ce qui existait avant (défaire exactement).
