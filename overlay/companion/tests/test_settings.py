@@ -228,7 +228,7 @@ def test_hud_missing_or_garbage_is_default():
 
 
 @pytest.mark.parametrize("field,value,expected", [
-    ("quality", "loupe", "loupe"), ("quality", "eco", "eco"), ("quality", "LOUPE", "verre"),
+    ("quality", "loupe", "loupe"), ("quality", "eco", "eco"), ("quality", "LOUPE", "loupe"), ("side", "Left", "left"),  # comme NormalizeHud (minuscules)
     ("quality", 3, "verre"),
     ("side", "left", "left"), ("side", "top", "right"), ("side", None, "right"),
     ("heightFraction", 0.8, 0.8), ("heightFraction", 1, 1.0), ("heightFraction", 0, 0.55),
@@ -306,3 +306,126 @@ def test_same_applied_compares_hud():
     assert a.same_applied(b)
     b.hud.set_quality("eco")
     assert a.same_modules(b) and not a.same_applied(b)
+
+
+# ---- aller-retour HUD sur l'échantillon RÉEL du daemon v1.3 ---------------------------------------------
+
+V13_SAMPLE = REPO / "docs" / "ipc" / "state.v13.sample.json"
+HUD_ORDER = ["quality", "heightFraction", "restOpacity", "side", "deckScoreInCombat", "gradesOnly"]
+
+
+def _daemon_accepts_as_is(hud: dict) -> bool:
+    """Règles de `SettingsStore.NormalizeHud` (daemon, main) : ce que le compagnon écrit doit en sortir inchangé."""
+    return (hud["quality"] in ("eco", "verre", "loupe")
+            and isinstance(hud["heightFraction"], float) and 0 < hud["heightFraction"] <= 1
+            and isinstance(hud["restOpacity"], float) and 0 <= hud["restOpacity"] <= 1
+            and hud["side"] in ("right", "left")
+            and isinstance(hud["deckScoreInCombat"], bool) and isinstance(hud["gradesOnly"], bool))
+
+
+def _edit_everything(s: OverlaySettings) -> None:
+    """Ce que fait la page HUD : chaque contrôle, une fois."""
+    s.hud.set_quality("loupe")
+    s.hud.set_side("left")
+    s.hud.set_height(0.7049)        # curseur : arrondi à 2 décimales
+    s.hud.set_opacity(0.4)
+    s.hud.deck_score_in_combat = True
+    s.hud.grades_only = True
+    s.move_up("potions")
+    s.set_enabled("shop", False)
+
+
+@pytest.mark.skipif(not V13_SAMPLE.exists(), reason="échantillon v1.3 absent")
+def test_v13_daemon_sample_settings_read_and_rewritten_identically():
+    published = json.loads(V13_SAMPLE.read_text(encoding="utf-8"))["settings"]
+    s = OverlaySettings.from_json(published)
+    assert s.to_json() == published                               # mêmes clés, même casse, mêmes valeurs
+    assert list(s.to_json()) == ["modules", "hud"] and list(s.to_json()["hud"]) == HUD_ORDER
+    assert s.to_json() == OverlaySettings.default().to_json()     # daemon sans settings.json = défaut du contrat
+
+
+@pytest.mark.skipif(not V13_SAMPLE.exists(), reason="échantillon v1.3 absent")
+def test_hud_roundtrip_on_v13_sample_read_edit_atomic_write_reread(isolated_xdg):
+    p = paths.settings_path()
+    assert str(p).startswith(str(isolated_xdg["config"]))                 # jamais le vrai ~/.config/ultima
+    published = json.loads(V13_SAMPLE.read_text(encoding="utf-8"))["settings"]
+    p.parent.mkdir(parents=True)
+    p.write_text(json.dumps(published), encoding="utf-8")
+    inode_before = p.stat().st_ino
+
+    loaded = settings.load()                                      # 1. lecture
+    assert loaded.exists and loaded.error is None
+    s = loaded.settings
+    _edit_everything(s)                                           # 2. édition
+    settings.save(s)                                              # 3. écriture atomique
+    assert p.stat().st_ino != inode_before                        #    remplacé par rename, pas réécrit en place
+    assert sorted(os.listdir(p.parent)) == ["settings.json"]      #    aucun fichier temporaire laissé
+    raw = json.loads(p.read_text(encoding="utf-8"))
+    assert raw["hud"] == {"quality": "loupe", "heightFraction": 0.7, "restOpacity": 0.4, "side": "left",
+                          "deckScoreInCombat": True, "gradesOnly": True}
+    assert list(raw["hud"]) == HUD_ORDER and _daemon_accepts_as_is(raw["hud"])
+    assert [m["id"] for m in raw["modules"]][3:5] == ["potions", "relics"]
+    assert [m["order"] for m in raw["modules"]] == list(range(N))
+    assert {m["id"]: m["enabled"] for m in raw["modules"]}["shop"] is False
+    again = settings.load().settings                              # 4. relecture
+    assert again.to_json() == s.to_json() == raw
+    assert again.same_applied(s)
+
+
+def test_case_variants_read_like_the_daemon_and_never_duplicated():
+    """Le daemon lit sans tenir compte de la casse : le compagnon aussi, et réécrit en camelCase seul."""
+    s = OverlaySettings.from_json({"Modules": [{"Id": "relics", "Enabled": False, "Order": 0}],
+                                   "HUD": {"Quality": "Eco", "SIDE": "LEFT", "HeightFraction": 0.6}})
+    out = s.to_json()
+    assert list(out) == ["modules", "hud"]
+    assert out["modules"][0] == {"id": "relics", "enabled": False, "order": 0}
+    assert out["hud"]["quality"] == "eco" and out["hud"]["side"] == "left" and out["hud"]["heightFraction"] == 0.6
+    assert list(out["hud"]) == HUD_ORDER
+
+
+DAEMON_DLL = os.environ.get("ULTIMA_DAEMON_DLL")
+
+
+@pytest.mark.skipif(not DAEMON_DLL, reason="ULTIMA_DAEMON_DLL non défini (daemon compilé hors dépôt)")
+def test_real_daemon_dump_reads_companion_settings_unchanged(isolated_xdg, tmp_path):
+    """Preuve bout en bout : le compagnon écrit, le VRAI daemon (`dump` : calcul ponctuel, rien publié,
+    aucune lecture mémoire) relit et republie `state.settings` à l'identique. Tout en dossiers temporaires."""
+    import subprocess
+    published = json.loads(V13_SAMPLE.read_text(encoding="utf-8"))["settings"]
+    s = OverlaySettings.from_json(published)
+    _edit_everything(s)
+    p = settings.save(s)
+    empty_root = tmp_path / "no-game"
+    empty_root.mkdir()
+    env = {k: v for k, v in os.environ.items() if k not in ("ULTIMA_STS2_ROOT", "ULTIMA_DATA")}
+    env.update(XDG_DATA_HOME=str(tmp_path / "data"), XDG_STATE_HOME=str(tmp_path / "state"))
+    out = subprocess.run(
+        ["dotnet", DAEMON_DLL, "dump", "--root", str(empty_root), "--runtime-dir", str(tmp_path / "rt"),
+         "--settings", str(p), "--no-mirror", "--no-scoring", "--game-comm", "ultima-tests-none",
+         "--log", str(tmp_path / "state" / "d.log")],
+        capture_output=True, text=True, timeout=120, env=env, cwd=tmp_path, check=True)
+    daemon_settings = json.loads(out.stdout)["settings"]
+    assert daemon_settings == json.loads(p.read_text(encoding="utf-8"))
+
+
+def test_reload_if_changed_adopts_tui_edits_and_never_clobbers(isolated_xdg):
+    p = paths.settings_path()
+    assert settings.reload_if_changed(OverlaySettings.default()) is None        # absent : rien à adopter
+    local = OverlaySettings.default()
+    settings.save(local)
+    assert settings.reload_if_changed(local) is None                            # identique : rien
+    tui = OverlaySettings.default()
+    tui.hud.set_quality("eco")
+    tui.set_enabled("relics", False)
+    settings.save(tui)                                                          # le TUI écrit le fichier
+    fresh = settings.reload_if_changed(local)
+    assert fresh is not None and fresh.hud.quality == "eco" and fresh.to_json() == tui.to_json()
+    p.write_text("{ cassé", encoding="utf-8")                                   # illisible : on garde le nôtre
+    assert settings.reload_if_changed(local) is None
+
+
+def test_hud_summary_is_one_line():
+    h = HudSettings.default()
+    assert h.summary() == "Verre · hauteur 55 % · repos 62 % · droite"
+    h.set_quality("loupe"); h.set_side("left"); h.deck_score_in_combat = True; h.grades_only = True
+    assert h.summary() == "Loupe · hauteur 55 % · repos 62 % · gauche · note du deck en combat · lettres seules"

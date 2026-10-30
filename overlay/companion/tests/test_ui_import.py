@@ -98,6 +98,7 @@ def test_launcher_text_modes(isolated_xdg, sample_path):
     r = _run(["--check"], env)
     assert r.returncode == 0, r.stderr
     assert "Écran courant : Boutique (Shop)" in r.stdout and "0. deck activé" in r.stdout
+    assert "== HUD\n  Verre · hauteur 55 % · repos 62 % · droite\n" in r.stdout
     # --check est en lecture seule : aucun settings.json créé
     assert not (isolated_xdg["config"] / "ultima").exists()
 

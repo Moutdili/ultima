@@ -30,6 +30,8 @@ def main(argv: list[str] | None = None) -> int:
             print(f"== {sec.title}")
             for r in sec.rows:
                 print(f"  {r.title} : {r.subtitle}")
+        print("== HUD")
+        print(f"  {loaded.settings.hud.summary()}")
         print("== Modules")
         for m in loaded.settings.modules:
             print(f"  {m.order}. {m.id} {'activé' if m.enabled else 'désactivé'}")

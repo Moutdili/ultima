@@ -91,6 +91,32 @@ HEIGHT_RANGE = (0.30, 0.90)
 OPACITY_RANGE = (0.20, 1.00)
 
 
+def _ci(data: dict, key: str) -> Any:
+    """Lecture insensible à la casse, comme le daemon (`PropertyNameCaseInsensitive = true`) :
+    la clé exacte (camelCase) d'abord, sinon la première variante de casse."""
+    if key in data:
+        return data[key]
+    low = key.lower()
+    for k, v in data.items():
+        if isinstance(k, str) and k.lower() == low:
+            return v
+    return None
+
+
+def _unknown(data: dict, known: set[str]) -> dict[str, Any]:
+    """Clés inconnues conservées ; les variantes de casse d'une clé connue sont lues puis réécrites en
+    camelCase, jamais dupliquées (sinon le daemon verrait deux valeurs pour la même propriété)."""
+    lows = {k.lower() for k in known}
+    return {k: v for k, v in data.items() if not (isinstance(k, str) and k.lower() in lows)}
+
+
+def _choice(v: Any, allowed: tuple[str, ...], default: str) -> str:
+    """Comme `SettingsStore.NormalizeHud` : comparaison en minuscules, valeur écrite en minuscules."""
+    if isinstance(v, str) and v.lower() in allowed:
+        return v.lower()
+    return default
+
+
 def _fraction(v: Any, default: float, allow_zero: bool) -> float:
     if isinstance(v, bool) or not isinstance(v, (int, float)):
         return default
@@ -98,6 +124,9 @@ def _fraction(v: Any, default: float, allow_zero: bool) -> float:
     if v != v or v > 1.0 or v < 0.0 or (v == 0.0 and not allow_zero):  # NaN, hors [0, 1]
         return default
     return v
+
+
+HUD_KEYS = {"quality", "heightFraction", "restOpacity", "side", "deckScoreInCombat", "gradesOnly"}
 
 
 @dataclass
@@ -120,19 +149,16 @@ class HudSettings:
         d = cls()
         if not isinstance(data, dict):
             return d
-        q = data.get("quality")
-        side = data.get("side")
-        dsc = data.get("deckScoreInCombat")
-        go = data.get("gradesOnly")
-        known = {"quality", "heightFraction", "restOpacity", "side", "deckScoreInCombat", "gradesOnly"}
+        dsc = _ci(data, "deckScoreInCombat")
+        go = _ci(data, "gradesOnly")
         return cls(
-            quality=q if q in QUALITIES else d.quality,
-            height_fraction=_fraction(data.get("heightFraction"), d.height_fraction, allow_zero=False),
-            rest_opacity=_fraction(data.get("restOpacity"), d.rest_opacity, allow_zero=True),
-            side=side if side in SIDES else d.side,
+            quality=_choice(_ci(data, "quality"), QUALITIES, d.quality),
+            height_fraction=_fraction(_ci(data, "heightFraction"), d.height_fraction, allow_zero=False),
+            rest_opacity=_fraction(_ci(data, "restOpacity"), d.rest_opacity, allow_zero=True),
+            side=_choice(_ci(data, "side"), SIDES, d.side),
             deck_score_in_combat=dsc if isinstance(dsc, bool) else d.deck_score_in_combat,
             grades_only=go if isinstance(go, bool) else d.grades_only,
-            extra={k: v for k, v in data.items() if k not in known},
+            extra=_unknown(data, HUD_KEYS),
         )
 
     def to_json(self) -> dict[str, Any]:
@@ -147,6 +173,19 @@ class HudSettings:
         }
         out.update(self.extra)
         return out
+
+    def summary(self) -> str:
+        """Une ligne, mêmes mots que la page HUD : « Verre · hauteur 55 % · repos 62 % · droite »
+        (+ « note du deck en combat », « lettres seules » seulement s'ils sont activés)."""
+        parts = [QUALITY_LABELS.get(self.quality, self.quality),
+                 f"hauteur {round(self.height_fraction * 100)} %",
+                 f"repos {round(self.rest_opacity * 100)} %",
+                 SIDE_LABELS.get(self.side, self.side).lower()]
+        if self.deck_score_in_combat:
+            parts.append("note du deck en combat")
+        if self.grades_only:
+            parts.append("lettres seules")
+        return " · ".join(parts)
 
     def set_quality(self, q: str) -> None:
         if q not in QUALITIES:
@@ -195,9 +234,9 @@ class OverlaySettings:
         """Construit depuis un objet JSON déjà décodé. Ne lève jamais : ce qui est invalide est ignoré."""
         if not isinstance(data, dict):
             return cls.default()
-        raw = data.get("modules")
-        hud = HudSettings.from_json(data.get("hud"))
-        extra = {k: v for k, v in data.items() if k not in ("modules", "hud")}
+        raw = _ci(data, "modules")
+        hud = HudSettings.from_json(_ci(data, "hud"))
+        extra = _unknown(data, {"modules", "hud"})
         if not isinstance(raw, list):
             s = cls.default()
             s.hud = hud
@@ -209,14 +248,14 @@ class OverlaySettings:
         for index, item in enumerate(raw):
             if not isinstance(item, dict):
                 continue
-            mid = item.get("id")
+            mid = _ci(item, "id")
             if not isinstance(mid, str) or not mid or mid in seen:
                 continue
             seen.add(mid)
-            enabled = item.get("enabled", True)
+            enabled = _ci(item, "enabled")
             if not isinstance(enabled, bool):
                 enabled = True
-            order = item.get("order", index)
+            order = _ci(item, "order")
             if isinstance(order, bool) or not isinstance(order, int):
                 order = index
             parsed.append((order, index, ModuleSetting(mid, enabled, order)))
@@ -318,6 +357,18 @@ def load(path: Path | None = None) -> LoadResult:
         return LoadResult(OverlaySettings.default(), exists=True,
                           error=f"JSON invalide ({e}) — valeurs par défaut affichées")
     return LoadResult(OverlaySettings.from_json(data), exists=True)
+
+
+def reload_if_changed(local: OverlaySettings, path: Path | None = None) -> OverlaySettings | None:
+    """Le TUI `ultima` écrit le même fichier : si settings.json (valide) diffère de ce que le compagnon
+    a en mémoire, renvoie la version du fichier (à adopter avant toute nouvelle écriture), sinon None.
+    Fichier absent ou illisible → None : on garde la version en mémoire, on n'écrase rien."""
+    loaded = load(path)
+    if not loaded.exists or loaded.error is not None:
+        return None
+    if loaded.settings.to_json() == local.to_json():
+        return None
+    return loaded.settings
 
 
 def save(settings: OverlaySettings, path: Path | None = None) -> Path:
