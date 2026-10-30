@@ -27,6 +27,7 @@ __pycache__/
 *.pyc
 
 # corpus de backtest (téléchargé, non versionné)
+data/explosivity/*.jsonl.gz
 data/runs/
 data/exports/
 data/codex/

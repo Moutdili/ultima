@@ -8,7 +8,9 @@ namespace Ultima.Knowledge.Tests;
 /// <summary>Test « de terrain » : ignoré automatiquement si le jeu n'est pas installé (CI).</summary>
 public sealed class GameFactAttribute : FactAttribute
 {
-    public static string GameDir => Environment.GetEnvironmentVariable("ULTIMA_GAME_DIR") ?? "/home/mio/sts2/game";
+    // Aucun chemin utilisateur en dur : ULTIMA_GAME_DIR, sinon « game » sous la racine du dépôt.
+    public static string GameDir =>
+        Environment.GetEnvironmentVariable("ULTIMA_GAME_DIR") ?? Path.Combine("..", "..", "game");
 
     public GameFactAttribute()
     {

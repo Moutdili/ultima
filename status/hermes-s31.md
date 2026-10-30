@@ -103,6 +103,20 @@ card_play_count 6, energy 5, block 2+4, damage_cap 2), 24 `dynamic_only`, 151 `c
 Étape suivante : primitives + **backtest AUC comme porte de sortie** (si l'AUC ne bouge pas, on
 s'arrête et on l'écrit).
 
+## Statuts — directions qualifiées par le code (docs/50)
+
+`tools/powers/qualify_direction.py` lit la **garde de camp** de chaque hook
+(`target != base.Owner` → subi, `dealer != base.Owner` → infligé) et qualifie **29 des 36** pouvoirs
+qui touchent aux dégâts (contre 12 avant), chacun avec fichier:ligne. Nouveau canal `taken_add`
+(Tainted). 7 restent non modélisés **avec leur raison** (DynamicVars, exponentielle, état de combat).
+
+**Porte de sortie tranchée** : l'AUC demandée n'est pas calculable (aucun état de pouvoir par tour
+dans le corpus). Mesure de rechange (`tools/threat_report`, 80 rencontres) : `MaxHit` est un
+majorant **avant bloc**, l'observé est **après bloc** → ratio médian 8,28, dispersion 3,9x. Cet axe
+ne peut pas arbitrer un modificateur de 0,75-1,5x. Décision : on garde les 29 (gratuits, testés), on
+s'arrête sur les 175 conditionnels, et on ne présente **aucun gain AUC** puisqu'il n'a pas été mesuré.
+**290 tests**.
+
 ## File restante
 
 1. 204 pouvoirs comportementaux (d'un bloc, plus tard) — l'index statuts est la première brique.
