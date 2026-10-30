@@ -335,6 +335,72 @@ class Event:
     options: list[EventOption]
 
 
+# ---- v1.4 : modules perso et plugins (EngineState.Custom) ---------------------------------------
+
+CUSTOM_HEALTH: tuple[str, ...] = ("ok", "stale", "error", "disabled")
+CUSTOM_SOURCES: tuple[str, ...] = ("module", "plugin")
+
+
+@dataclass
+class CustomRow:
+    text: str
+    tone: str | None = None      # ton du contrat (validé au dessin ; inconnu → texte)
+    grade: str | None = None     # S à F, ou None
+
+
+@dataclass
+class CustomModule:
+    """`CustomModuleView` du contrat v1.4 : évalué par le daemon, seulement dessiné ici."""
+    id: str
+    label: str
+    source: str                  # module | plugin
+    screens: list[str] | None
+    rows: list[CustomRow]
+    health: str                  # ok | stale | error | disabled
+    problem: str | None
+
+    @property
+    def degraded(self) -> bool:
+        return self.health != "ok"
+
+
+def _parse_custom(raw: list) -> list[CustomModule]:
+    """Modules `x.*` publiés par le daemon ; entrée invalide ignorée, santé inconnue → error."""
+    out: list[CustomModule] = []
+    seen: set[str] = set()
+    for item in raw:
+        if not isinstance(item, dict):
+            continue
+        mid = _str(item, "id")
+        if not isinstance(mid, str) or not mid.startswith("x.") or mid in seen:
+            continue
+        seen.add(mid)
+        rows = []
+        for r in _list(item, "rows"):
+            if not isinstance(r, dict):
+                continue
+            text = _str(r, "text")
+            if text is None:
+                continue
+            grade = _str(r, "grade")
+            rows.append(CustomRow(text, _str(r, "tone"),
+                                  grade if grade in GRADES else None))
+        health = _str(item, "health", "ok") or "ok"
+        problem = _str(item, "problem")
+        if health not in CUSTOM_HEALTH:
+            problem = problem or f"santé inconnue « {health} »"
+            health = "error"
+        screens_raw = item.get("screens")
+        screens = ([s for s in screens_raw if isinstance(s, str)]
+                   if isinstance(screens_raw, list) else None)
+        source = _str(item, "source", "module") or "module"
+        out.append(CustomModule(mid, _str(item, "label", mid) or mid,
+                                source if source in CUSTOM_SOURCES else "module",
+                                screens, rows, health, problem))
+    return out
+
+
+
 @dataclass
 class EngineState:
     contract_version: int
@@ -352,6 +418,15 @@ class EngineState:
     map: MapState | None = None        # v1.2
     route: Route | None = None         # v1.2
     event: Event | None = None         # v1.2
+    custom: list[CustomModule] = field(default_factory=list)   # v1.4
+
+    def custom_for(self, screen: str | None = None, include_hidden: bool = False) -> list[CustomModule]:
+        """Modules perso à dessiner : `screens` respecté (absent = tous les écrans)."""
+        if screen is None or include_hidden:
+            return list(self.custom)
+        wanted = screen.strip().lower()
+        return [c for c in self.custom if c.screens is None or wanted in
+                {s.lower() for s in c.screens}]
 
     @property
     def has_reward(self) -> bool:
@@ -557,6 +632,7 @@ def parse_state(data: Any) -> StateResult:
         map=_parse_map(_obj(data, "map")),
         route=_parse_route(_obj(data, "route")),
         event=_parse_event(_obj(data, "event")),
+        custom=_parse_custom(_list(data, "custom")),
     )
     return StateResult(OK, state=state, contract_version=version)
 
