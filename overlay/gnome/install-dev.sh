@@ -14,7 +14,7 @@ UUID="ultima@mio"
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SRC="$HERE/$UUID"
 DEST="${XDG_DATA_HOME:-$HOME/.local/share}/gnome-shell/extensions/$UUID"
-FILES=(metadata.json extension.js palette.js geometry.js state.js render.js plan.js)
+FILES=(metadata.json extension.js palette.js geometry.js state.js render.js plan.js grammar.js hud.js effects.js)
 
 die() { echo "ERREUR : $*" >&2; exit 1; }
 
@@ -33,17 +33,27 @@ PY
     local tmp; tmp="$(mktemp -d)"
     glib-compile-schemas --strict --targetdir="$tmp" "$SRC/schemas"
     echo "schéma OK : $(ls "$tmp")"
-    gnome-extensions pack --force --out-dir="$tmp" \
-        --extra-source=palette.js --extra-source=geometry.js --extra-source=state.js \
-        --extra-source=render.js --extra-source=plan.js "$SRC" >/dev/null
+    local extra=()
+    for f in "${FILES[@]}"; do
+        [[ "$f" == metadata.json || "$f" == extension.js ]] || extra+=("--extra-source=$f")
+    done
+    gnome-extensions pack --force --out-dir="$tmp" "${extra[@]}" "$SRC" >/dev/null
+    # Le paquet contient bien tous les modules (un oubli = extension cassée en session).
+    for f in "${FILES[@]}"; do
+        python3 -c 'import sys, zipfile; sys.exit(0 if sys.argv[2] in zipfile.ZipFile(sys.argv[1]).namelist() else 1)' \
+            "$tmp"/*.zip "$f" || die "absent du paquet : $f"
+    done
     echo "pack OK : $(ls "$tmp"/*.zip)"
     rm -rf "$tmp"
-    # Modules purs : tests sans session GNOME (rendu, lecture d'état, planificateur, géométrie).
+    # Aucune touche F dans les raccourcis (la rangée F du portable de Mio envoie des touches média).
+    if grep -nE "<default>.*'[^']*F[0-9]+'" "$SRC/schemas/"*.gschema.xml; then die "touche F dans le schéma"; fi
+    # Modules purs : tests sans session GNOME (rendu, lecture d'état, réglages HUD, planificateur, géométrie).
     command -v gjs >/dev/null || die "gjs absent"
     gjs -m "$HERE/tests/test-pure.js" | tail -n 1
+    gjs -m "$HERE/tests/test-hud.js" | tail -n 1
     gjs -m "$HERE/tests/test-render.js" | tail -n 1
     if command -v node >/dev/null; then
-        (cd "$HERE" && node tests/test-render.js | tail -n 1 &&
+        (cd "$HERE" && node tests/test-hud.js | tail -n 1 && node tests/test-render.js | tail -n 1 &&
             node --import ./tests/shell-harness/register.mjs tests/test-extension.mjs | tail -n 1)
     else
         echo "node absent : harnais extension (tests/test-extension.mjs) non exécuté"

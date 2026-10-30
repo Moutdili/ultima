@@ -14,12 +14,16 @@ export const PALETTE = Object.freeze({
     purple: '#EE82EE',     // StsColors.purple — debuff
     aqua: '#2AEBBE',       // StsColors.aqua — énergie, valeurs secondaires
     lightGray: '#BFBFBF',  // StsColors.lightGray — texte désactivé
+    gray: '#808080',       // StsColors.gray — note « — » (non calculée), skill design §9
     glassTint: '#192930',  // docs/17 §3 — teinte du verre
     shadow: '#000000',     // docs/17 §3 — ombre (#000000 @ 0.35)
 });
 
 // Tons autorisés pour les données publiées par le daemon (jamais une couleur brute).
-export const TONES = Object.freeze(['cream', 'gold', 'red', 'green', 'blue', 'orange', 'purple', 'aqua', 'lightGray']);
+export const TONES = Object.freeze(['cream', 'gold', 'red', 'green', 'blue', 'orange', 'purple', 'aqua', 'lightGray', 'gray']);
+
+// Texte secondaire : crème à 60 % (skill design §11 « texte secondaire en crème 60 % »).
+export const MUTED_ALPHA = 0.6;
 
 export function toneHex(tone) {
     return TONES.includes(tone) ? PALETTE[tone] : PALETTE.cream;
