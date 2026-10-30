@@ -14,7 +14,7 @@ UUID="ultima@mio"
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SRC="$HERE/$UUID"
 DEST="${XDG_DATA_HOME:-$HOME/.local/share}/gnome-shell/extensions/$UUID"
-FILES=(metadata.json extension.js palette.js geometry.js state.js render.js plan.js grammar.js hud.js effects.js)
+FILES=(metadata.json extension.js geometry.js state.js render.js plan.js grammar.js hud.js effects.js appearance.js theme.js themes/sts.json)
 
 die() { echo "ERREUR : $*" >&2; exit 1; }
 
@@ -50,10 +50,12 @@ PY
     # Modules purs : tests sans session GNOME (rendu, lecture d'état, réglages HUD, planificateur, géométrie).
     command -v gjs >/dev/null || die "gjs absent"
     gjs -m "$HERE/tests/test-pure.js" | tail -n 1
+    gjs -m "$HERE/tests/test-theme.js" | tail -n 1
     gjs -m "$HERE/tests/test-hud.js" | tail -n 1
     gjs -m "$HERE/tests/test-render.js" | tail -n 1
     if command -v node >/dev/null; then
-        (cd "$HERE" && node tests/test-hud.js | tail -n 1 && node tests/test-render.js | tail -n 1 &&
+        (cd "$HERE" && node tests/test-theme.js | tail -n 1 && node tests/test-hud.js | tail -n 1 &&
+            node tests/test-render.js | tail -n 1 &&
             node --import ./tests/shell-harness/register.mjs tests/test-extension.mjs | tail -n 1)
     else
         echo "node absent : harnais extension (tests/test-extension.mjs) non exécuté"

@@ -5,10 +5,10 @@
 // docs/ipc/state.v13.sample.json (produit par `ultima-daemon dump`, contrat v1.3) + variantes.
 // ULTIMA_PRINT=1 : imprime aussi les sorties texte complètes (preuve brute).
 import {buildView, fitView, viewToText, orderedModules, fmtScore, gradeFromTotal, groupCards,
-    spansMarkup, bestOption, mainReason, rowCost, MODULE_IDS} from '../ultima@mio/render.js';
+    spansMarkup, bestOption, mainReason, rowCost, customModules, MODULE_IDS} from '../ultima@mio/render.js';
 import {parseEngineState, StateStore, SUPPORTED_CONTRACT} from '../ultima@mio/state.js';
-import {GRADE_TONE, GRADES, MODULE_LABEL, NO_SCORE} from '../ultima@mio/grammar.js';
-import {PALETTE, TONES, MUTED_ALPHA, toneHex} from '../ultima@mio/palette.js';
+import {GRADE_TONE, GRADES, MODULE_LABEL, NO_SCORE, DATA_TONES} from '../ultima@mio/grammar.js';
+import {parseTheme, toneColor, normalizeTone} from '../ultima@mio/theme.js';
 
 // ---------- shim gjs / node ----------
 const isNode = typeof globalThis.process?.versions?.node === 'string';
@@ -212,7 +212,8 @@ Note du deck C`);
     check('note du deck absente -> « — », jamais 0', render(s).endsWith('Note du deck —'));
     check('couleurs S-F = §9 (S or, A vert, B aqua, C bleu, D orange, F rouge, — gris)',
         JSON.stringify(GRADE_TONE) === JSON.stringify({S: 'gold', A: 'green', B: 'aqua', C: 'blue', D: 'orange', F: 'red', [NO_SCORE]: 'gray'}));
-    check('chaque ton de note est un ton de palette', [...GRADES, NO_SCORE].every(g => TONES.includes(GRADE_TONE[g])));
+    check('chaque ton de note se résout dans le thème (contrat v1.4)',
+        [...GRADES, NO_SCORE].every(g => normalizeTone(GRADE_TONE[g]) !== null));
     check('libellés : un par module connu', MODULE_IDS.every(id => typeof MODULE_LABEL[id] === 'string'));
     // Une seule grammaire (§11) : mêmes libellés que le compagnon (settings.py MODULE_LABELS).
     const py = readText('../../companion/ultima_companion/settings.py');
@@ -313,7 +314,8 @@ Note du deck C`);
 
 // ---------- 11. balisage : couleurs de la palette seulement, texte échappé ----------
 {
-    const resolve = tone => (tone === 'muted' ? {hex: PALETTE.cream, alpha: MUTED_ALPHA} : {hex: toneHex(tone), alpha: 1});
+    const STS = parseTheme(readText('../../../themes/sts.json'), {fileId: 'sts'}).theme;
+    const resolve = tone => toneColor(STS, tone);
     const s = sample();
     s.screen = 'Map';
     s.run.relics[0].name = '<b>pirate</b> & "co"';
@@ -327,18 +329,118 @@ Note du deck C`);
     }
     const markup = all.join('\n');
     const colors = new Set(markup.match(/#[0-9A-Fa-f]{6}/g));
-    const allowed = new Set(Object.values(PALETTE));
-    check('balisage : toutes les couleurs ∈ palette', [...colors].every(c => allowed.has(c)), [...colors].join(' '));
+    const allowed = new Set(Object.values(STS.tones).map(c => c.hex));
+    check('balisage : toutes les couleurs ∈ thème sts (aucune couleur inventée)',
+        [...colors].every(c => allowed.has(c)), [...colors].filter(c => !allowed.has(c)).join(' '));
     check('balisage : texte de l\'état échappé', markup.includes('&lt;b&gt;pirate&lt;/b&gt; &amp; &quot;co&quot;'));
-    check('balisage : texte secondaire en crème 60 %', markup.includes(`foreground="${PALETTE.cream}" fgalpha="60%"`));
-    check('tons de la vue ∈ palette ou « muted »', view(s, {detail: true}).rows.every(r =>
-        [...r.spans, ...(r.reason ?? [])].every(x => x.tone === 'muted' || TONES.includes(x.tone))));
+    check('balisage : texte secondaire = ton muted du thème (crème 60 %)',
+        markup.includes(`foreground="${STS.tones.text.hex}" fgalpha="60%"`));
+    check('tons de la vue : tous résolus par le thème (alias v1.3 compris)', view(s, {detail: true}).rows.every(r =>
+        [...r.spans, ...(r.reason ?? [])].every(x => normalizeTone(x.tone) !== null)));
 }
 
 // ---------- 12. rail (§12) : la vue ne fournit RIEN au rail ----------
 {
     const v = buildView(parsed);
     check('aucune pastille, aucun indicateur de rail dans la vue', !('rail' in v) && !('dots' in v));
+}
+
+// ---------- 13. modules perso et plugins : EngineState.Custom dessiné à la place de modules[] ----------
+// Le daemon évalue (modules déclaratifs, plugins isolés) ; la vue ne fait que dessiner. Aucun code
+// tiers n'est chargé, importé ni évalué ici.
+{
+    const s = sample();
+    s.screen = 'Map';
+    s.shop = null;
+    s.paths = null;
+    const long = 'x'.repeat(120);
+    s.custom = [
+        {id: 'x.or-par-etage', label: 'Or / étage', source: 'module', screens: null, health: 'ok', problem: null,
+            rows: [{text: '134 or · étage 5', tone: 'accent', grade: null},
+                {text: 'Shop rentable', tone: 'ok', grade: 'A'}]},
+        {id: 'x.casse', label: 'Cassé', source: 'plugin', screens: ['combat'], health: 'error', problem: 'délai',
+            rows: [{text: 'ne doit pas apparaître en carte', tone: 'warn', grade: null}]},
+        {id: 'x.long', label: 'Long', source: 'module', screens: [], health: 'stale', problem: null,
+            rows: [{text: long, tone: 'accent', grade: null}]},
+        {id: 'x.bizarre', label: 'Bizarre', source: 'module', screens: null, health: 'ok', problem: null,
+            rows: [{text: 'ton inconnu', tone: 'ton-inconnu', grade: 'Z'}]},
+        {id: 'sans-prefixe', label: 'Ignoré', source: 'module', rows: [{text: 'non'}]},
+        {id: 'x.or-par-etage', label: 'Doublon', source: 'module', rows: [{text: 'ignoré'}]},
+        null, 'pas un objet',
+    ];
+    const v = view(s);
+    const text = viewToText(v);
+    const line = v.rows.find(r => r.key === 'line:x.or-par-etage');
+    check('module perso : une ligne d\'en-tête avec son libellé et son nombre de lignes',
+        line && line.kind === 'line' && line.spans[0].text === 'Or / étage 2', line?.spans[0].text);
+    check('module perso replié : la première ligne seulement, le reste annoncé « … +N »',
+        text.includes('Or / étage 2') && text.includes('134 or · étage 5') && !text.includes('Shop rentable') &&
+        text.includes('… +1'), text.split('\n').filter(l => l.includes('x') || l.includes('Or')).join(' | '));
+    check('screens respecté : un module d\'un autre écran est absent',
+        !text.includes('Cassé') && !text.includes('ne doit pas apparaître'));
+    check('santé ≠ ok : atténuée (ton muted) ET le mot (jamais la couleur seule)',
+        v.rows.find(r => r.key === 'line:x.long').spans.every(sp => sp.tone === 'muted') &&
+        viewToText(v).includes('retard'));
+    check('texte tronqué proprement (≤ 60 caractères, terminé par « … »)',
+        [...viewToText(v)].some(l => l.endsWith('…')) && !viewToText(v).includes(long.slice(0, 80)));
+    check('ton inconnu -> texte normal, note inconnue ignorée',
+        v.rows.find(r => r.key === 'x.bizarre:0').spans.every(sp => sp.tone === 'cream') &&
+        !v.rows.some(r => r.key === 'x.bizarre:0' && r.spans.some(sp => sp.text === 'Z')));
+    check('id sans préfixe « x. » et doublon ignorés', !viewToText(view(s)).includes('Ignoré') &&
+        !viewToText(view(s)).includes('Doublon'));
+    const d = view(s, {detail: true});
+    const detail = viewToText(d);
+    check('épinglé : toutes les lignes du module, note S-F en tête de ligne',
+        detail.includes('Shop rentable') && d.rows.some(r => r.key === 'x.or-par-etage:1' &&
+            r.spans[0].text === 'A' && r.spans[0].tone === 'green' && r.spans[0].bold));
+    s.screen = 'Combat';
+    check('screens d\'un module perso : visible sur son écran, un module sans `screens` reste partout',
+        viewToText(view(s)).includes('Cassé') && viewToText(view(s)).includes('ne doit pas apparaître en carte') &&
+        viewToText(view(s)).includes('Or / étage'));
+    s.screen = 'Map';
+    s.settings.modules = [{id: 'x.or-par-etage', enabled: false, order: 0}, {id: 'x.long', enabled: true, order: 1}];
+    check('réglages : module perso désactivé absent, ordre des modules perso respecté',
+        !viewToText(view(s)).includes('Or / étage') && viewToText(view(s)).includes('Long'));
+    s.settings.modules = [];
+    s.custom[0].rows[0].text = '<b>accent</b> & "co"';
+    const markup = spansMarkup(view(s).rows.find(r => r.key === 'x.or-par-etage:0').spans,
+        tone => toneColor(parseTheme(readText('../../../themes/sts.json')).theme, tone));
+    check('balisage : texte d\'un module perso échappé (aucune injection)',
+        markup.includes('&lt;b&gt;accent&lt;/b&gt; &amp; &quot;co&quot;'));
+    const t = sample();
+    check('état sans `custom` (contrat v1.3) : aucune ligne en plus',
+        !viewToText(view(t)).includes('Or / étage') && customModules(t).length === 0);
+    check('customModules : entrées aberrantes ignorées, jamais d\'exception',
+        customModules({custom: 'x'}).length === 0 && customModules({custom: [{}]}).length === 0 &&
+        customModules({custom: [{id: 'x.a', rows: 'nope'}]})[0].rows.length === 0);
+    check('tons des modules perso : vocabulaire du contrat v1.4 (Tones)', DATA_TONES.includes('accent') &&
+        DATA_TONES.includes('grade.F') && DATA_TONES.length === 15);
+
+    // ModuleSetting.Screens (contrat v1.4) : un module natif limité à certains écrans.
+    const sr = sample();
+    sr.settings.modules = [{id: 'deck', enabled: true, order: 0, screens: ['map']},
+        {id: 'relics', enabled: true, order: 1}, {id: 'potions', enabled: true, order: 2}];
+    sr.screen = 'Combat';
+    sr.paths = null;
+    check('screens d\'un module natif : absent hors de ses écrans, les autres restent',
+        !render(sr).includes('Deck') && render(sr).includes('Reliques'), render(sr).replace(/\n/g, ' / '));
+    sr.screen = 'Map';
+    check('screens d\'un module natif : présent sur son écran', render(sr).includes('Deck 11'));
+
+    // Hauteur limitée : les lignes de module perso sont retirées les unes après les autres,
+    // l'en-tête reste, et la troncature est annoncée.
+    const many = sample();
+    many.screen = 'Map';
+    many.paths = null;
+    many.settings.modules = MODULE_IDS.map((id, i) => ({id, enabled: id === 'deck', order: i}));
+    many.custom = [{id: 'x.beaucoup', label: 'Beaucoup', source: 'module', screens: null, health: 'ok', problem: null,
+        rows: Array.from({length: 12}, (_, i) => ({text: `ligne ${i}`, tone: 'text', grade: null}))}];
+    const fitted = fitView(buildView({kind: 'state', state: many}, {detail: true}), {maxLines: 8, cols: 45});
+    const shown = fitted.rows.filter(r => r.kind === 'detail' && r.group === 'x.beaucoup').length;
+    check('budget de lignes : en-tête du module perso conservé, lignes retirées et annoncées (« … +N »)',
+        fitted.rows.some(r => r.key === 'line:x.beaucoup') && fitted.rows.some(r => r.key === 'more:x.beaucoup') &&
+        shown > 0 && shown < 12 && rowCost(fitted.rows.find(r => r.key === 'more:x.beaucoup'), 45) === 1,
+    `${shown}/12 lignes`);
 }
 
 out(failures ? `\n${failures} échec(s)` : '\ntous les tests passent');

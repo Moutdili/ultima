@@ -85,25 +85,11 @@ function caseless(obj, names) {
     return out;
 }
 
-// Texte de ~/.config/ultima/settings.json -> {kind: 'hud', hud} | {kind: 'none'} (pas de « hud »)
-// | {kind: 'invalid', error}. Ne lève jamais. Le fichier n'est JAMAIS écrit par l'overlay.
-export const MAX_SETTINGS_BYTES = 256 * 1024;
-export function parseSettingsHud(text) {
-    if (typeof text !== 'string')
-        return {kind: 'invalid', error: 'contenu non textuel'};
-    if (text.length > MAX_SETTINGS_BYTES)
-        return {kind: 'invalid', error: `réglages trop gros (${text.length} octets)`};
-    let raw;
-    try {
-        raw = JSON.parse(text);
-    } catch (e) {
-        return {kind: 'invalid', error: `JSON invalide : ${e.message}`};
-    }
-    if (!asObject(raw))
-        return {kind: 'invalid', error: 'racine non objet'};
-    const hud = asObject(caseless(raw, ['hud'])?.hud);
-    return hud ? {kind: 'hud', hud} : {kind: 'none'};
-}
+// Lecture de ~/.config/ultima/settings.json : le fichier est partagé avec le bloc `appearance`
+// (v1.4, appearance.js), qui possède l'analyse JSON. Réexporté ici pour les appelants v1.3.
+//   -> {kind: 'hud', hud} | {kind: 'none'} (pas de « hud ») | {kind: 'invalid', error}
+// Ne lève jamais. Le fichier n'est JAMAIS écrit par l'overlay.
+export {MAX_SETTINGS_BYTES, parseSettingsHud} from './appearance.js';
 
 // sources : {file, state, gsettings} — objets « hud » bruts (chacun peut être absent ou partiel).
 // Retour : {...réglages, source: {champ: 'fichier'|'état'|'gsettings'|'défaut'}}.

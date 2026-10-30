@@ -11,12 +11,12 @@
 // Sortie (« vue ») : {mode, decision: bool, rows: [row]} où row =
 //   {key, kind, group, fixed, spans: [{text, tone, bold}], grade?, gradeTone?, lines?}
 //   kind : 'alert' | 'decision' | 'line' (résumé d'un module) | 'detail' | 'more'.
-//   tone : nom de ton de palette.js ou 'muted' (crème 60 %) — jamais une couleur brute.
+//   tone : nom de ton de la vue (palette du jeu / 'muted') — theme.js le traduit en couleur du thème.
 //
 // Contrat (skill sts2-engine-contract) : note en LETTRE S à F ; Score null -> « — » (jamais 0, jamais
 // une valeur inventée) ; health.degraded != null -> affiché en tête ; screen pilote les contextes.
 
-import {gradeTone, MODULE_LABEL, NO_SCORE, SEP, COUNT, MORE, TONE, GRADES} from './grammar.js';
+import {gradeTone, MODULE_LABEL, NO_SCORE, SEP, COUNT, MORE, TONE, GRADES, DATA_TONES} from './grammar.js';
 
 export {NO_SCORE, GRADES};
 
@@ -26,7 +26,20 @@ export const MODULE_IDS = Object.freeze(['deck', 'enchanted', 'curses', 'relics'
     'reward', 'shop', 'event', 'paths', 'deck_score']);
 export const DEFAULT_MODULES = Object.freeze(MODULE_IDS.map((id, order) => ({id, enabled: true, order})));
 
-export const WRAP_COLS = 32;     // estimation : 232 px de texte à 14 px ≈ 32 caractères par ligne
+// Préfixe des modules personnalisés / plugins (Ultima.Engine.Contracts.CustomIds.Prefix).
+export const CUSTOM_PREFIX = 'x.';
+const CUSTOM_MAX_TEXT = 60;      // un texte de module perso plus long est tronqué avec « … »
+const CUSTOM_MAX_LABEL = 40;
+const CUSTOM_HEALTH_FR = {stale: 'retard', error: 'erreur', disabled: 'désactivé'};
+
+// Colonnes de texte estimées : (largeur utile) / (0,52 × taille de police). 360 px à 14 px -> 45.
+export const TEXT_INSET = 32;    // marges gauche + droite du panneau (2 × 16 px)
+export function wrapCols(width, size = 14) {
+    const w = Number.isFinite(width) ? width : 360;
+    const s = Number.isFinite(size) && size > 0 ? size : 14;
+    return Math.max(8, Math.min(200, Math.floor((w - TEXT_INSET) / (s * 0.52))));
+}
+export const WRAP_COLS = wrapCols(360, 14);
 export const DECISION_LINES = 3; // hauteur de la carte de décision, en lignes de corps (lettre 44 px)
 
 const MAX_TEXT = 60;             // borne par champ texte venant de l'état
@@ -397,8 +410,18 @@ function pathsModule(paths, detail) {
     return rows;
 }
 
-// Contexte de chaque module selon l'écran.
-function moduleVisible(id, screen, hud) {
+// Écrans autorisés : `screens` absent/vide = écrans par défaut du module. Le contrat donne les
+// écrans en camelCase (« restSite ») ; screenOf() ramène l'écran courant au même alphabet.
+export function screensAllow(screens, screen) {
+    if (!Array.isArray(screens) || !screens.length)
+        return true;
+    return screens.some(s => screenOf({screen: s}) === screen);
+}
+
+// Contexte de chaque module selon l'écran. `screens` (ModuleSetting.Screens, v1.4) primes.
+function moduleVisible(id, screen, hud, screens) {
+    if (!screensAllow(screens, screen))
+        return false;
     switch (id) {
     case 'reward': case 'shop': case 'event':
         return false; // modules de décision : rendus par la carte de décision
@@ -407,6 +430,90 @@ function moduleVisible(id, screen, hud) {
     default: return true;
     }
 }
+
+// ---------- modules personnalisés et plugins (EngineState.Custom, contrat v1.4) ----------
+//
+// Le daemon ÉVALUE (modules déclaratifs, plugins isolés) et publie `state.custom` ; l'extension ne
+// fait que dessiner : aucun code tiers n'est chargé, importé ni évalué ici. Un champ manquant ou
+// invalide est ignoré (libellé -> id, ton inconnu -> text, santé inconnue -> atténuée + mot).
+
+function customText(v, max) {
+    if (v === null || v === undefined || v === '')
+        return '';
+    const s = String(v).replace(/[\r\n\t]+/g, ' ').trim();
+    const chars = [...s];
+    if (chars.length <= max)
+        return s;
+    return `${chars.slice(0, Math.max(1, max - 1)).join('')}${MORE}`;
+}
+
+export function customModules(state) {
+    const list = arr(state?.custom);
+    const out = [];
+    const seen = new Set();
+    for (const m of list) {
+        if (!m || typeof m !== 'object')
+            continue;
+        const id = typeof m.id === 'string' ? m.id.trim() : '';
+        if (!id.startsWith(CUSTOM_PREFIX) || seen.has(id))
+            continue;
+        seen.add(id);
+        out.push({
+            id,
+            label: customText(m.label, CUSTOM_MAX_LABEL) || id,
+            source: m.source === 'plugin' ? 'plugin' : 'module',
+            screens: Array.isArray(m.screens) ? m.screens.filter(s => typeof s === 'string') : null,
+            health: typeof m.health === 'string' ? m.health : 'ok',
+            rows: arr(m.rows).filter(r => r && typeof r === 'object').map(r => ({
+                text: customText(r.text, CUSTOM_MAX_TEXT),
+                tone: DATA_TONES.includes(r.tone) ? r.tone : TONE.text,
+                grade: GRADES.includes(r.grade) ? r.grade : null,
+            })).filter(r => r.text),
+        });
+    }
+    return out;
+}
+
+// Lignes d'un module perso : une ligne d'en-tête (libellé, santé) puis ses lignes. Replié, la
+// première ligne seulement (grammaire §11 : une ligne par module) ; épinglé/survol, toutes.
+function customRows(m, opts) {
+    const bad = m.health !== 'ok';
+    const head = [span(`${m.label}${m.rows.length ? ` ${m.rows.length}` : ''}`, bad ? TONE.muted : TONE.text)];
+    if (bad)
+        head.push(span(`${SEP}${CUSTOM_HEALTH_FR[m.health] ?? customText(m.health, 20)}`, TONE.muted));
+    const rows = [lineRow(m.id, head)];
+    const shown = opts.detail ? m.rows : m.rows.slice(0, 1);
+    shown.forEach((r, i) => {
+        const spans = [];
+        if (r.grade)
+            spans.push(span(r.grade, gradeTone(r.grade), true), muted(SEP));
+        // Santé ≠ ok : le texte du module est atténué, mais la note garde son ton.
+        spans.push(span(r.text, bad && !r.grade ? TONE.muted : r.tone));
+        rows.push(detailRow(`${m.id}:${i}`, m.id, spans));
+    });
+    if (!opts.detail && m.rows.length > 1)
+        rows.push(row(`more:${m.id}`, 'more', [muted(`${MORE} +${m.rows.length - 1}`)], {group: m.id, fixed: true}));
+    return rows;
+}
+
+// Entrées affichables, dans l'ordre des réglages : modules connus + modules perso (ids `x.`),
+// réglages absents -> tout activé (même normalisation que le daemon : id inconnu ignoré, doublon ->
+// première occurrence, module connu ABSENT de la liste -> ajouté après les autres).
+export function orderedEntries(settings, custom = []) {
+    const list = arr(settings?.modules);
+    const known = new Set([...MODULE_IDS, ...custom.map(m => m.id)]);
+    const src = list.length ? list : [...MODULE_IDS.map(id => ({id})), ...custom.map(m => ({id: m.id}))];
+    const seen = new Set();
+    const entries = src
+        .map((m, i) => ({id: m?.id, enabled: m?.enabled !== false, order: int(m?.order) ?? 1000 + i, i,
+            screens: Array.isArray(m?.screens) ? m.screens : null}))
+        .filter(m => known.has(m.id) && !seen.has(m.id) && seen.add(m.id))
+        .sort((a, b) => a.order - b.order || a.i - b.i);
+    const missing = [...MODULE_IDS, ...custom.map(m => m.id)].filter(id => !seen.has(id))
+        .map(id => ({id, enabled: true, screens: null}));
+    return [...entries, ...missing].filter(e => e.enabled);
+}
+
 
 function moduleRows(id, state, opts) {
     const run = state.run;
@@ -451,7 +558,9 @@ export function buildView(current, {hud = {}, detail = false} = {}) {
     }
 
     const screen = screenOf(state);
-    const ids = orderedModules(state.settings);
+    const custom = customModules(state);
+    const entries = orderedEntries(state.settings, custom);
+    const ids = entries.map(e => e.id);
     // Moment de décision : la carte prend la place ; le reste n'apparaît qu'à l'épinglage.
     let decision = null;
     if (DECISION_SCREENS[screen] && ids.includes(screen))
@@ -461,9 +570,17 @@ export function buildView(current, {hud = {}, detail = false} = {}) {
         if (!opts.detail)
             return {mode: 'run', decision: true, rows};
     }
-    for (const id of ids) {
-        if (moduleVisible(id, screen, hud))
-            rows.push(...moduleRows(id, state, {...opts, detail: opts.detail && !decision}));
+    const byId = new Map(custom.map(m => [m.id, m]));
+    for (const e of entries) {
+        const detail = opts.detail && !decision;
+        if (byId.has(e.id)) {
+            const m = byId.get(e.id);
+            const screens = m.screens && m.screens.length ? m.screens : e.screens;
+            if (screensAllow(screens, screen))
+                rows.push(...customRows(m, {...opts, detail}));
+        } else if (moduleVisible(e.id, screen, hud, e.screens)) {
+            rows.push(...moduleRows(e.id, state, {...opts, detail}));
+        }
     }
     return {mode: 'run', decision: !!decision, rows};
 }
@@ -532,19 +649,22 @@ export function viewToText(view) {
     }).join('\n');
 }
 
-// ---------- balisage Pango (couleurs de palette.js uniquement) ----------
+// ---------- balisage Pango (couleurs du THÈME uniquement, via theme.js) ----------
 
 function escapeMarkup(s) {
     return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
         .replace(/'/g, '&#39;').replace(/"/g, '&quot;');
 }
 
-// spans -> balisage Pango. resolveTone(tone) -> {hex, alpha} (palette.js, fourni par l'appelant).
+// spans -> balisage Pango. resolveTone(tone) -> {hex, alpha} (theme.js : tons du thème courant).
+// Un ton que le thème ne connaît pas (hex null) s'affiche avec la couleur par défaut de St : aucune
+// couleur n'est inventée ici.
 export function spansMarkup(spans, resolveTone) {
     return spans.map(s => {
-        const {hex, alpha} = resolveTone(s.tone);
-        const a = alpha < 1 ? ` fgalpha="${Math.round(alpha * 100)}%"` : '';
+        const {hex, alpha} = resolveTone(s.tone) ?? {hex: null, alpha: 1};
+        const fg = hex ? ` foreground="${hex}"` : '';
+        const a = hex && alpha < 1 ? ` fgalpha="${Math.round(alpha * 100)}%"` : '';
         const w = s.bold ? ' weight="bold"' : '';
-        return `<span foreground="${hex}"${a}${w}>${escapeMarkup(s.text)}</span>`;
+        return `<span${fg}${a}${w}>${escapeMarkup(s.text)}</span>`;
     }).join('');
 }
