@@ -21,6 +21,7 @@ os.environ["WAYLAND_DISPLAY"] = NO_DISPLAY
 HERE = Path(__file__).resolve().parent
 COMPANION = HERE.parent
 REPO = COMPANION.parent.parent
+FIXTURES = HERE / "fixtures"
 sys.path.insert(0, str(COMPANION))
 
 REAL_SETTINGS = Path.home() / ".config" / "ultima" / "settings.json"
@@ -56,6 +57,17 @@ def sample_path() -> Path:
 @pytest.fixture
 def sample(sample_path) -> dict:
     return json.loads(sample_path.read_text(encoding="utf-8"))
+
+
+@pytest.fixture
+def demo_path() -> Path:
+    """État v1.3 complet (map, route, event, party, hud) au texte ENTIÈREMENT fictif (« (démo) »)."""
+    return FIXTURES / "state.v13.demo.json"
+
+
+@pytest.fixture
+def demo(demo_path) -> dict:
+    return json.loads(demo_path.read_text(encoding="utf-8"))
 
 
 def pytest_sessionfinish(session, exitstatus):

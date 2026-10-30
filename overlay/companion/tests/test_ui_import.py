@@ -29,6 +29,10 @@ def test_ui_imports_without_window():
     assert issubclass(ui.CompanionApp, Adw.Application)
     assert issubclass(ui.CompanionWindow, Adw.ApplicationWindow)
     assert issubclass(ui.OverlayPage, Adw.PreferencesPage)
+    assert issubclass(ui.HudPage, Adw.PreferencesPage)
+    from gi.repository import Gtk
+    assert issubclass(ui.ItemRow, Gtk.ListBoxRow)
+    assert issubclass(ui.DashboardPage, Gtk.Box) and issubclass(ui.RunPage, Gtk.Box)
     assert ui.APP_ID.count(".") >= 2
     # Aucun écran ouvert : sans GdkDisplay, aucune fenêtre ne peut exister.
     assert Gdk.Display.get_default() is None
@@ -36,8 +40,8 @@ def test_ui_imports_without_window():
 
 def test_gtk_symbols_exist():
     from ultima_companion import ui  # noqa: F401
-    from gi.repository import Adw, Gtk, Gio, GLib
-    mods = {"Adw": Adw, "Gtk": Gtk, "Gio": Gio, "GLib": GLib}
+    from gi.repository import Adw, Gdk, Gtk, Gio, GLib, Pango
+    mods = {"Adw": Adw, "Gdk": Gdk, "Gtk": Gtk, "Gio": Gio, "GLib": GLib, "Pango": Pango}
     tree = ast.parse(UI.read_text(encoding="utf-8"))
     used = set()
     for node in ast.walk(tree):
@@ -56,12 +60,23 @@ def test_gtk_symbols_exist():
                       (Adw.SwitchRow, "add_suffix"), (Adw.SwitchRow, "set_active"),
                       (Adw.ViewStack, "add_titled_with_icon"), (Adw.ToolbarView, "add_top_bar"),
                       (Adw.ToolbarView, "set_content"), (Adw.Banner, "set_revealed"),
-                      (Adw.Toast, "set_use_markup"), (Adw.ToastOverlay, "add_toast")]:
+                      (Adw.Toast, "set_use_markup"), (Adw.ToastOverlay, "add_toast"),
+                      (Adw.ToggleGroup, "add"), (Adw.ToggleGroup, "set_active_name"),
+                      (Adw.ToggleGroup, "get_active_name"), (Adw.ActionRow, "add_prefix"),
+                      (Adw.ToolbarView, "add_bottom_bar"), (Adw.ApplicationWindow, "add_breakpoint"),
+                      (Adw.Breakpoint, "add_setter"), (Adw.StyleManager, "set_color_scheme"),
+                      (Gtk.CssProvider, "load_from_string"), (Gtk.Label, "set_natural_wrap_mode"),
+                      (Gtk.Revealer, "set_reveal_child"), (Gtk.Scale, "set_draw_value"),
+                      (Gdk.Display, "is_rgba"), (Gdk.Display, "is_composited")]:
         assert hasattr(cls, meth), f"{cls.__name__}.{meth}"
     # propriétés passées en kwargs
     for cls, prop in [(Adw.ActionRow, "use-markup"), (Adw.SwitchRow, "use-markup"),
                       (Adw.Banner, "use-markup"), (Adw.ViewSwitcher, "policy"),
-                      (Adw.PreferencesGroup, "description"), (Adw.Toast, "timeout")]:
+                      (Adw.PreferencesGroup, "description"), (Adw.Toast, "timeout"),
+                      (Adw.Toggle, "name"), (Adw.Toggle, "label"), (Adw.Toggle, "tooltip"),
+                      (Adw.ViewSwitcherBar, "reveal"), (Adw.HeaderBar, "title-widget"),
+                      (Adw.Clamp, "tightening-threshold"), (Adw.StatusPage, "description"),
+                      (Gtk.Revealer, "transition-duration")]:
         assert cls.find_property(prop) is not None, f"{cls.__name__}:{prop}"
 
 
@@ -83,6 +98,7 @@ def test_launcher_text_modes(isolated_xdg, sample_path):
     r = _run(["--check"], env)
     assert r.returncode == 0, r.stderr
     assert "Écran courant : Boutique (Shop)" in r.stdout and "0. deck activé" in r.stdout
+    assert "== HUD\n  Verre · hauteur 55 % · repos 62 % · droite\n" in r.stdout
     # --check est en lecture seule : aucun settings.json créé
     assert not (isolated_xdg["config"] / "ultima").exists()
 

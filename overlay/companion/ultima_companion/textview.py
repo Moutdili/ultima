@@ -1,6 +1,6 @@
 """Mise en texte (pure, sans GTK) des pages État et Run. L'UI ne fait qu'afficher ces sections.
 
-Design en dernier (décision Mio) : texte brut, lisible. Score absent → « — », jamais 0.
+Sert à `ultima-companion --check` et à la page Sources (texte). Score absent → « — », jamais 0.
 """
 
 from __future__ import annotations
@@ -8,7 +8,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 
-from . import ipc
+from . import ipc, views
 from .settings import OverlaySettings
 from .state import (INVALID, MISSING, OK, SUPPORTED_CONTRACT_VERSION, TOO_NEW, Card, Score,
                     StateResult)
@@ -102,7 +102,7 @@ def card_title(c: Card) -> str:
 
 
 def card_subtitle(c: Card) -> str:
-    cost = "injouable" if (c.cost < 0 and c.is_curse) else f"coût {c.cost}"
+    cost = views.cost_text(c)
     parts = [TYPE_LABELS.get(c.type, c.type), RARITY_LABELS.get(c.rarity, c.rarity), cost,
              f"score {fmt_score(c.score)}"]
     line = " · ".join(parts)
@@ -178,11 +178,12 @@ def status_sections(result: StateResult, daemon: str, local: OverlaySettings | N
 
     st = result.state
     daemon_rows += [
-        Row("Version du contrat", f"v{st.contract_version} (supportée : v{SUPPORTED_CONTRACT_VERSION})"),
+        Row("Version du contrat", f"v{st.contract_version}.{st.contract_minor} "
+                                  f"(supportée : v{SUPPORTED_CONTRACT_VERSION}.x)"),
         Row("Dernier état publié", fmt_at(st.at, st.at_raw)),
     ]
     if local is not None and st.settings is not None:
-        same = local.same_modules(st.settings)
+        same = local.same_applied(st.settings)
         daemon_rows.append(Row("Réglages appliqués par le daemon",
                                "identiques à settings.json" if same
                                else "différents de settings.json (rechargement en attente)"))

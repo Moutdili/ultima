@@ -31,8 +31,14 @@ def test_sample_parses(sample):
     assert st.deck.score.total == 48 and st.deck.score.grade == "C"
     assert st.deck.potential_archetypes == ["Âmes (exemple)"]
     assert [c.id for c in st.deck.curses] == ["CARD.ASCENDERS_BANE"]
-    assert st.settings.to_json() == OverlaySettings.default().to_json()
+    # Sample v1.0 : 9 modules sans hud → lu sans perte, modules v1.2 ajoutés, hud par défaut.
+    assert st.settings.ids()[:9] == [m["id"] for m in sample["settings"]["modules"]]
+    assert st.settings.hud.to_json() == OverlaySettings.default().hud.to_json()
     assert st.has_shop and not st.has_reward and not st.has_paths
+    assert st.contract_minor == 0 and st.map is None and st.route is None and st.event is None
+    assert run.party == [] and run.allies == []
+    assert st.shop.removal_price == 75 and [i.kind for i in st.shop.items] == ["card", "card", "relic", "potion"]
+    assert st.shop.items[2].affordable is False and st.shop.items[1].on_sale is True
 
 
 def test_sample_file_load(sample_path):

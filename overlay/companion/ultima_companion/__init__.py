@@ -7,4 +7,4 @@ Les modules `paths`, `settings`, `state`, `textview` sont purs (aucun import GTK
 affichage ; `watch` n'importe que Gio/GLib ; `ui`/`app` importent GTK4 + libadwaita.
 """
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"

@@ -1,0 +1,838 @@
+{
+ "contractVersion": 1,
+ "contractMinor": 3,
+ "at": "2026-10-29T18:00:00+01:00",
+ "health": {
+  "gameRunning": true,
+  "saveOk": true,
+  "mirrorOk": true,
+  "mirrorLatencyMs": 96,
+  "degraded": null
+ },
+ "screen": "Reward",
+ "run": {
+  "characterId": "CHARACTER.NECROBINDER",
+  "characterName": "Personnage (démo)",
+  "actIndex": 0,
+  "actId": "ACT.DEMO",
+  "bossId": "ENCOUNTER.DEMO_BOSS",
+  "bossName": "Boss (démo)",
+  "ascension": 9,
+  "hp": 52,
+  "maxHp": 66,
+  "gold": 131,
+  "floor": 7,
+  "deck": [
+   {
+    "id": "CARD.DEMO_BLADE",
+    "name": "Lame (démo)",
+    "type": "Attack",
+    "rarity": "Basic",
+    "cost": 1,
+    "upgrade": 0,
+    "enchantment": null,
+    "isCurse": false,
+    "score": null,
+    "description": "Inflige 6 dégâts (texte fictif)."
+   },
+   {
+    "id": "CARD.DEMO_BLADE",
+    "name": "Lame (démo)",
+    "type": "Attack",
+    "rarity": "Basic",
+    "cost": 1,
+    "upgrade": 0,
+    "enchantment": null,
+    "isCurse": false,
+    "score": null,
+    "description": "Inflige 6 dégâts (texte fictif)."
+   },
+   {
+    "id": "CARD.DEMO_BLADE",
+    "name": "Lame (démo)",
+    "type": "Attack",
+    "rarity": "Basic",
+    "cost": 1,
+    "upgrade": 0,
+    "enchantment": null,
+    "isCurse": false,
+    "score": null,
+    "description": "Inflige 6 dégâts (texte fictif)."
+   },
+   {
+    "id": "CARD.DEMO_BLADE",
+    "name": "Lame (démo)",
+    "type": "Attack",
+    "rarity": "Basic",
+    "cost": 1,
+    "upgrade": 0,
+    "enchantment": null,
+    "isCurse": false,
+    "score": null,
+    "description": "Inflige 6 dégâts (texte fictif)."
+   },
+   {
+    "id": "CARD.DEMO_GUARD",
+    "name": "Garde (démo)",
+    "type": "Skill",
+    "rarity": "Basic",
+    "cost": 1,
+    "upgrade": 0,
+    "enchantment": null,
+    "isCurse": false,
+    "score": null,
+    "description": "Gagne 5 de blocage (texte fictif)."
+   },
+   {
+    "id": "CARD.DEMO_GUARD",
+    "name": "Garde (démo)",
+    "type": "Skill",
+    "rarity": "Basic",
+    "cost": 1,
+    "upgrade": 0,
+    "enchantment": null,
+    "isCurse": false,
+    "score": null,
+    "description": "Gagne 5 de blocage (texte fictif)."
+   },
+   {
+    "id": "CARD.DEMO_GUARD",
+    "name": "Garde (démo)",
+    "type": "Skill",
+    "rarity": "Basic",
+    "cost": 1,
+    "upgrade": 0,
+    "enchantment": null,
+    "isCurse": false,
+    "score": null,
+    "description": "Gagne 5 de blocage (texte fictif)."
+   },
+   {
+    "id": "CARD.DEMO_GUARD",
+    "name": "Garde (démo)",
+    "type": "Skill",
+    "rarity": "Basic",
+    "cost": 1,
+    "upgrade": 0,
+    "enchantment": null,
+    "isCurse": false,
+    "score": null,
+    "description": "Gagne 5 de blocage (texte fictif)."
+   },
+   {
+    "id": "CARD.DEMO_GUARD",
+    "name": "Garde (démo)",
+    "type": "Skill",
+    "rarity": "Basic",
+    "cost": 1,
+    "upgrade": 0,
+    "enchantment": {
+     "id": "ENCHANTMENT.DEMO",
+     "name": "Vivacité (démo)",
+     "amount": 1,
+     "description": "Effet d'enchantement fictif."
+    },
+    "isCurse": false,
+    "score": null,
+    "description": "Gagne 5 de blocage (texte fictif)."
+   },
+   {
+    "id": "CARD.DEMO_RITUAL",
+    "name": "Rituel (démo)",
+    "type": "Power",
+    "rarity": "Rare",
+    "cost": 2,
+    "upgrade": 1,
+    "enchantment": null,
+    "isCurse": false,
+    "score": {
+     "total": 88,
+     "terms": [
+      {
+       "label": "Méta",
+       "points": 80,
+       "source": "exemple",
+       "evidence": null
+      },
+      {
+       "label": "Synergie deck",
+       "points": 8,
+       "source": "exemple",
+       "evidence": "3 cartes d'âme dans le deck"
+      }
+     ],
+     "confidence": "medium",
+     "grade": "S"
+    },
+    "description": "Pouvoir fictif."
+   },
+   {
+    "id": "CARD.DEMO_BANE",
+    "name": "Fardeau (démo)",
+    "type": "Curse",
+    "rarity": "Curse",
+    "cost": -1,
+    "upgrade": 0,
+    "enchantment": null,
+    "isCurse": true,
+    "score": {
+     "total": 5,
+     "terms": [
+      {
+       "label": "Malédiction injouable",
+       "points": -20,
+       "source": "exemple",
+       "evidence": "occupe une pioche"
+      }
+     ],
+     "confidence": "high",
+     "grade": "F",
+     "deltaG": -4.5
+    },
+    "description": "Injouable (texte fictif)."
+   }
+  ],
+  "relics": [
+   {
+    "id": "RELIC.DEMO_A",
+    "name": "Relique A (démo)",
+    "description": "Effet de relique fictif.",
+    "score": {
+     "total": 74,
+     "terms": [
+      {
+       "label": "Méta",
+       "points": 70,
+       "source": "exemple",
+       "evidence": null
+      },
+      {
+       "label": "Synergie",
+       "points": 4,
+       "source": "exemple",
+       "evidence": null
+      }
+     ],
+     "confidence": "medium",
+     "grade": "A"
+    }
+   },
+   {
+    "id": "RELIC.DEMO_B",
+    "name": "Relique B (démo)",
+    "description": "Autre effet fictif.",
+    "score": null
+   }
+  ],
+  "potions": [
+   {
+    "id": "POTION.DEMO",
+    "name": "Potion (démo)",
+    "description": "Effet de potion fictif.",
+    "score": {
+     "total": 41,
+     "terms": [
+      {
+       "label": "Méta",
+       "points": 41,
+       "source": "exemple",
+       "evidence": null
+      }
+     ],
+     "confidence": "low",
+     "grade": "C"
+    }
+   }
+  ],
+  "party": [
+   {
+    "netId": 1,
+    "name": "Mio",
+    "characterId": "CHARACTER.NECROBINDER",
+    "isLocal": true,
+    "hp": 52,
+    "maxHp": 66,
+    "deck": [],
+    "relics": []
+   },
+   {
+    "netId": 2,
+    "name": "Allié (démo)",
+    "characterId": "CHARACTER.IRONCLAD",
+    "isLocal": false,
+    "hp": 61,
+    "maxHp": 80,
+    "deck": [
+     {
+      "id": "CARD.DEMO_BLADE",
+      "name": "Lame (démo)",
+      "type": "Attack",
+      "rarity": "Basic",
+      "cost": 1,
+      "upgrade": 0,
+      "enchantment": null,
+      "isCurse": false,
+      "score": null,
+      "description": null
+     },
+     {
+      "id": "CARD.DEMO_BLADE",
+      "name": "Lame (démo)",
+      "type": "Attack",
+      "rarity": "Basic",
+      "cost": 1,
+      "upgrade": 0,
+      "enchantment": null,
+      "isCurse": false,
+      "score": null,
+      "description": null
+     }
+    ],
+    "relics": []
+   }
+  ]
+ },
+ "reward": {
+  "offered": [
+   {
+    "id": "CARD.DEMO_SPARK",
+    "name": "Étincelle (démo)",
+    "type": "Attack",
+    "rarity": "Common",
+    "cost": 1,
+    "upgrade": 0,
+    "enchantment": null,
+    "isCurse": false,
+    "score": {
+     "total": 58,
+     "terms": [
+      {
+       "label": "Méta",
+       "points": 50,
+       "source": "exemple",
+       "evidence": null
+      },
+      {
+       "label": "Courbe de coût",
+       "points": 8,
+       "source": "exemple",
+       "evidence": "2 cartes à 0 dans le deck"
+      }
+     ],
+     "confidence": "medium",
+     "grade": "B"
+    },
+    "description": null
+   },
+   {
+    "id": "CARD.DEMO_WARD",
+    "name": "Rempart (démo)",
+    "type": "Skill",
+    "rarity": "Uncommon",
+    "cost": 2,
+    "upgrade": 0,
+    "enchantment": null,
+    "isCurse": false,
+    "score": {
+     "total": 73,
+     "terms": [
+      {
+       "label": "Méta",
+       "points": 62,
+       "source": "exemple",
+       "evidence": null
+      },
+      {
+       "label": "Vs boss acte 1",
+       "points": 11,
+       "source": "exemple",
+       "evidence": "boss à attaques multiples"
+      }
+     ],
+     "confidence": "medium",
+     "grade": "A"
+    },
+    "description": "Gagne 12 de blocage (texte fictif)."
+   },
+   {
+    "id": "CARD.DEMO_ECHO",
+    "name": "Écho (démo)",
+    "type": "Power",
+    "rarity": "Rare",
+    "cost": 3,
+    "upgrade": 0,
+    "enchantment": null,
+    "isCurse": false,
+    "score": {
+     "total": 31,
+     "terms": [
+      {
+       "label": "Méta",
+       "points": 45,
+       "source": "exemple",
+       "evidence": null
+      },
+      {
+       "label": "Coût élevé",
+       "points": -14,
+       "source": "exemple",
+       "evidence": "courbe déjà lourde"
+      }
+     ],
+     "confidence": "medium",
+     "grade": "D"
+    },
+    "description": null
+   }
+  ],
+  "skipScore": {
+   "total": 22,
+   "terms": [
+    {
+     "label": "Deck déjà compact",
+     "points": 22,
+     "source": "exemple",
+     "evidence": null
+    }
+   ],
+   "confidence": "low",
+   "grade": "F"
+  },
+  "alreadyTaken": false
+ },
+ "shop": {
+  "items": [
+   {
+    "kind": "card",
+    "id": "CARD.DEMO_SPARK",
+    "name": "Étincelle (démo)",
+    "price": 52,
+    "onSale": false,
+    "affordable": true,
+    "card": {
+     "id": "CARD.DEMO_SPARK",
+     "name": "Étincelle (démo)",
+     "type": "Attack",
+     "rarity": "Common",
+     "cost": 1,
+     "upgrade": 0,
+     "enchantment": null,
+     "isCurse": false,
+     "score": null
+    },
+    "score": {
+     "total": 58,
+     "grade": "B",
+     "confidence": "medium",
+     "terms": [
+      {
+       "label": "Méta",
+       "points": 58,
+       "source": "exemple",
+       "evidence": null
+      }
+     ]
+    }
+   },
+   {
+    "kind": "card",
+    "id": "CARD.DEMO_SCYTHE",
+    "name": "Faux (démo)",
+    "price": 38,
+    "onSale": true,
+    "affordable": true,
+    "card": {
+     "id": "CARD.DEMO_SCYTHE",
+     "name": "Faux (démo)",
+     "type": "Skill",
+     "rarity": "Uncommon",
+     "cost": 1,
+     "upgrade": 0,
+     "enchantment": null,
+     "isCurse": false,
+     "score": null
+    },
+    "score": {
+     "total": 77,
+     "grade": "A",
+     "confidence": "medium",
+     "terms": [
+      {
+       "label": "Méta",
+       "points": 65,
+       "source": "exemple",
+       "evidence": null
+      },
+      {
+       "label": "Prix soldé",
+       "points": 12,
+       "source": "exemple",
+       "evidence": "38 or sur 131"
+      }
+     ]
+    }
+   },
+   {
+    "kind": "relic",
+    "id": "RELIC.DEMO_C",
+    "name": "Relique C (démo)",
+    "price": 181,
+    "onSale": false,
+    "affordable": false,
+    "card": null,
+    "score": {
+     "total": 86,
+     "grade": "S",
+     "confidence": "medium",
+     "terms": [
+      {
+       "label": "Méta",
+       "points": 86,
+       "source": "exemple",
+       "evidence": null
+      }
+     ]
+    }
+   },
+   {
+    "kind": "potion",
+    "id": "POTION.DEMO_B",
+    "name": "Potion B (démo)",
+    "price": 49,
+    "onSale": false,
+    "affordable": true,
+    "card": null,
+    "score": null
+   }
+  ],
+  "removalPrice": 75,
+  "removalUsed": false,
+  "removalScore": {
+   "total": 68,
+   "grade": "B",
+   "confidence": "medium",
+   "terms": [
+    {
+     "label": "Retirer Fardeau (démo)",
+     "points": 68,
+     "source": "exemple",
+     "evidence": "malédiction injouable"
+    }
+   ]
+  }
+ },
+ "paths": {
+  "totalPaths": 23,
+  "nextChoices": [
+   {
+    "col": 1,
+    "row": 8,
+    "roomType": "elite",
+    "pathCount": 9,
+    "min": {},
+    "median": {},
+    "max": {},
+    "expectedDamage": 14.2,
+    "riskBasis": "exemple"
+   },
+   {
+    "col": 3,
+    "row": 8,
+    "roomType": "rest_site",
+    "pathCount": 14,
+    "min": {},
+    "median": {},
+    "max": {},
+    "expectedDamage": 6.0,
+    "riskBasis": "exemple"
+   }
+  ]
+ },
+ "deck": {
+  "score": {
+   "total": 61,
+   "terms": [
+    {
+     "label": "Méta des cartes",
+     "points": 52,
+     "source": "exemple",
+     "evidence": null
+    },
+    {
+     "label": "Malédiction",
+     "points": -6,
+     "source": "exemple",
+     "evidence": "1 carte injouable"
+    },
+    {
+     "label": "Vs boss acte 1",
+     "points": 15,
+     "source": "exemple",
+     "evidence": null
+    }
+   ],
+   "confidence": "medium",
+   "grade": "B"
+  },
+  "archetype": null,
+  "potentialArchetypes": [
+   "Âmes (démo)"
+  ],
+  "curses": [
+   {
+    "id": "CARD.DEMO_BANE",
+    "name": "Fardeau (démo)",
+    "type": "Curse",
+    "rarity": "Curse",
+    "cost": -1,
+    "upgrade": 0,
+    "enchantment": null,
+    "isCurse": true,
+    "score": {
+     "total": 5,
+     "terms": [
+      {
+       "label": "Malédiction injouable",
+       "points": -20,
+       "source": "exemple",
+       "evidence": "occupe une pioche"
+      }
+     ],
+     "confidence": "high",
+     "grade": "F",
+     "deltaG": -4.5
+    },
+    "description": "Injouable (texte fictif)."
+   }
+  ]
+ },
+ "settings": {
+  "modules": [
+   {
+    "id": "deck",
+    "enabled": true,
+    "order": 0
+   },
+   {
+    "id": "enchanted",
+    "enabled": true,
+    "order": 1
+   },
+   {
+    "id": "curses",
+    "enabled": true,
+    "order": 2
+   },
+   {
+    "id": "relics",
+    "enabled": true,
+    "order": 3
+   },
+   {
+    "id": "potions",
+    "enabled": true,
+    "order": 4
+   },
+   {
+    "id": "reward",
+    "enabled": true,
+    "order": 5
+   },
+   {
+    "id": "shop",
+    "enabled": true,
+    "order": 6
+   },
+   {
+    "id": "event",
+    "enabled": true,
+    "order": 7
+   },
+   {
+    "id": "paths",
+    "enabled": true,
+    "order": 8
+   },
+   {
+    "id": "route",
+    "enabled": true,
+    "order": 9
+   },
+   {
+    "id": "party",
+    "enabled": true,
+    "order": 10
+   },
+   {
+    "id": "deck_score",
+    "enabled": true,
+    "order": 11
+   }
+  ],
+  "hud": {
+   "quality": "verre",
+   "heightFraction": 0.55,
+   "restOpacity": 0.62,
+   "side": "right",
+   "deckScoreInCombat": false,
+   "gradesOnly": false
+  }
+ },
+ "map": {
+  "actIndex": 0,
+  "width": 7,
+  "height": 15,
+  "nodes": [
+   {
+    "col": 2,
+    "row": 7,
+    "roomType": "monster",
+    "children": [
+     {
+      "col": 1,
+      "row": 8
+     },
+     {
+      "col": 3,
+      "row": 8
+     }
+    ],
+    "visited": true
+   },
+   {
+    "col": 1,
+    "row": 8,
+    "roomType": "elite",
+    "children": [
+     {
+      "col": 1,
+      "row": 9
+     }
+    ],
+    "visited": false
+   },
+   {
+    "col": 3,
+    "row": 8,
+    "roomType": "rest_site",
+    "children": [
+     {
+      "col": 2,
+      "row": 9
+     }
+    ],
+    "visited": false
+   },
+   {
+    "col": 2,
+    "row": 9,
+    "roomType": "unknown",
+    "children": [
+     {
+      "col": 3,
+      "row": 15
+     }
+    ],
+    "visited": false
+   },
+   {
+    "col": 1,
+    "row": 9,
+    "roomType": "shop",
+    "children": [
+     {
+      "col": 3,
+      "row": 15
+     }
+    ],
+    "visited": false
+   }
+  ],
+  "position": {
+   "col": 2,
+   "row": 7
+  },
+  "boss": {
+   "col": 3,
+   "row": 15
+  }
+ },
+ "route": {
+  "path": [
+   {
+    "col": 3,
+    "row": 8
+   },
+   {
+    "col": 2,
+    "row": 9
+   },
+   {
+    "col": 3,
+    "row": 15
+   }
+  ],
+  "expectedHpAtBoss": 38,
+  "mayBeLethal": false,
+  "terms": [
+   {
+    "label": "Feu avant l'élite",
+    "points": 6,
+    "source": "exemple",
+    "evidence": "PV 52/66"
+   }
+  ],
+  "basis": "exemple (démo)"
+ },
+ "event": {
+  "eventId": "EVENT.DEMO",
+  "name": "Événement (démo)",
+  "options": [
+   {
+    "id": "A",
+    "label": "Accepter (démo)",
+    "description": "Conséquence fictive A.",
+    "available": true,
+    "score": {
+     "total": 66,
+     "terms": [
+      {
+       "label": "Gain estimé",
+       "points": 66,
+       "source": "exemple",
+       "evidence": null
+      }
+     ],
+     "confidence": "medium",
+     "grade": "B"
+    }
+   },
+   {
+    "id": "B",
+    "label": "Refuser (démo)",
+    "description": null,
+    "available": true,
+    "score": {
+     "total": 40,
+     "terms": [
+      {
+       "label": "Neutre",
+       "points": 40,
+       "source": "exemple",
+       "evidence": null
+      }
+     ],
+     "confidence": "medium",
+     "grade": "C"
+    }
+   },
+   {
+    "id": "C",
+    "label": "Payer 75 or (démo)",
+    "description": null,
+    "available": false,
+    "score": null
+   }
+  ]
+ }
+}
