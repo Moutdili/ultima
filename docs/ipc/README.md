@@ -21,7 +21,10 @@ settings.json (inotify, compagnon → daemon)
 | Revues | `$XDG_RUNTIME_DIR/ultima/review/<hash>.json` | `ReviewTimeline` (v1.2) écrite à la demande (§4.1), tmp + rename. |
 | Journal | `~/.local/state/ultima/daemon.log` (`$XDG_STATE_HOME`) | `AAAA-MM-JJ HH:MM:SS.mmm NIVEAU message`, niveau ∈ `INFO` `WARN` `ERROR` `DEBUG` (aligné sur 5) ; copie sur stderr ; rotation > 5 Mio → `daemon.log.1`. Jamais à la racine de `~`. |
 | Verrou | `$XDG_RUNTIME_DIR/ultima/daemon.lock` | une seule instance par utilisateur (verrou exclusif, contient le PID). |
-| Réglages | `~/.config/ultima/settings.json` (`$XDG_CONFIG_HOME`) | écrits par le compagnon, **lus** par le daemon (jamais écrits). |
+| Réglages | `~/.config/ultima/settings.json` (`$XDG_CONFIG_HOME`) | écrits par le compagnon et le TUI, **lus** par le daemon (il ne les écrit **jamais**). |
+| Modules perso | `~/.config/ultima/modules/*.json` (`$XDG_CONFIG_HOME`) | **lus** par le daemon (§4.3), rechargés à chaud ; jamais écrits. |
+| Plugins | `~/.local/share/ultima/plugins/<id>/plugin.json` (`$XDG_DATA_HOME`) | lus par le daemon (§4.3) ; le dossier du plugin est son dossier de travail. |
+| Schémas | à côté de l'exécutable (`schemas/*.schema.json`, copiés du dépôt) | servent à valider modules et sorties de plugins (`$ULTIMA_SCHEMAS` pour un autre dossier). |
 
 Sans `$XDG_RUNTIME_DIR` : repli `/tmp/ultima-<utilisateur>`. Option `--runtime-dir` pour tout autre dossier.
 
@@ -29,9 +32,10 @@ Sans `$XDG_RUNTIME_DIR` : repli `/tmp/ultima-<utilisateur>`. Option `--runtime-d
 Aucun message « je suis vivant » : un état identique n'est jamais republié.
 
 **Sérialisation** : System.Text.Json, camelCase, enums en chaîne (`"Shop"`), `null` explicite —
-même forme que `docs/22-state.sample.json` (prouvé par `ContractShapeTests`). Contrat publié : **v1.3**
-(`contractVersion` 1, `contractMinor` 3). État réel généré par le daemon (save réelle, jeu fermé) :
-[`state.v13.sample.json`](state.v13.sample.json).
+même forme que `docs/22-state.sample.json` (prouvé par `ContractShapeTests`). Contrat publié : **v1.4**
+(`contractVersion` 1, `contractMinor` 4). État réel généré par le daemon (save réelle, jeu fermé) :
+[`state.v13.sample.json`](state.v13.sample.json) ; état v1.4 (section `custom` avec un module et un plugin) :
+[`state.v14.sample.json`](state.v14.sample.json), reproduit à l'identique par le sérialiseur (`V14Tests`).
 
 | Champ (version) | Source | Rempli quand |
 |---|---|---|
@@ -39,7 +43,9 @@ même forme que `docs/22-state.sample.json` (prouvé par `ContractShapeTests`). 
 | `map` (v1.2, `MapView`) | save : carte de l'acte COURANT (types de case = `RoomTypes`, liens, cases visitées, position, boss) | run en cours ; actes futurs jamais publiés |
 | `route` (v1.2, `RouteView`) | `IRoutePlanner` (Hermes `RoutePlanner`) sur `map` + contexte | à chaque save ; panne → `null` |
 | `event` (v1.2, `EventView`) | miroir section `event` (Miroir 2) + `IEventAdvisor` (Hermes) | écran `Event` ; **`null` tant que le miroir ne lit pas cette section** |
-| `settings.hud` (v1.3, `HudSettings`) | `settings.json` | toujours (défaut `verre, 0.55, 0.62, right`) |
+| `settings.hud` (v1.3, `HudSettings`) | `settings.json` | toujours (défaut `verre, 0.55, 0.62, right`) ; bornes hauteur 0,30–0,85 / opacité 0,35–1 |
+| `settings.modules[].screens` (v1.4) | `settings.json` | si le fichier le donne (validé contre `ScreenIds.All`) |
+| `custom` (v1.4, `CustomModuleView[]`) | modules déclaratifs + plugins (§4.3) | dès qu'un module ou un plugin est configuré (`null` sinon) |
 | `card.description`, `potion.score` (v1.1), `score.grade`, `score.deltaG`, `term.evidence` | connaissance / calcul | selon le calcul (`null` sinon) |
 
 `ScoringContext.Allies` (v1.2) : alliés de la save, joueur local exclu (vide en solo), passé à tout le calcul.
@@ -147,8 +153,10 @@ envoyée qu'à ce client, entre deux lignes d'état :
 ← {"op":"review.open","runId":"1780696537","ok":false,"error":"review indisponible"}
 ```
 Calcul hors boucle principale, 30 s max, une revue à la fois, résultat mis en cache (hash du run + date du
-fichier + implémentation). Refusé pendant une partie (« calculée hors ligne »). **Aujourd'hui Hermes ne
-fournit aucune implémentation d'`IReviewBuilder` : la réponse est toujours `"review indisponible"`.**
+fichier + implémentation). Refusé pendant une partie (« calculée hors ligne »). Depuis la v1.4
+`IReviewBuilder` est **branché** (`Ultima.Engine/Scoring/Review/ReviewBuilder`, S31) : la réponse n'est plus
+`"review indisponible"` — sauf si le calcul est désactivé (`--no-scoring`) ou si le constructeur échoue au
+démarrage (journal : `revue de run indisponible`).
 Autres erreurs : `runId invalide` (seulement `[A-Za-z0-9_-]`), `run introuvable`, `op inconnue`,
 `requête illisible`. Requête > 4 Kio : client déconnecté.
 
@@ -168,14 +176,59 @@ de la pioche (champ interdit par `ReadGuard`).
 Alternative sans socket : surveiller `state.json` (inotify `IN_MOVED_TO` sur le dossier), mais sa
 seule présence ne prouve pas que le daemon tourne (le fichier survit à l'arrêt).
 
+### 4.3 Modules déclaratifs et plugins (v1.4, docs/44 §6-7)
+
+**Modules** (`~/.config/ultima/modules/*.json`) : déclaratifs, **aucun code exécuté**. Le daemon lit le
+dossier au démarrage puis à chaque écriture (inotify, regroupé 200 ms), valide chaque fichier avec
+`schemas/module.schema.json` puis le compile. Un fichier refusé (JSON, schéma, filtre inconnu, `when`
+invalide, API ≠ 1) est publié en `Health="error"` avec sa raison dans `Problem` — jamais un arrêt, jamais
+les autres modules bloqués.
+
+- Chemins : `{run.gold}`, `{run.deck[0].name}`, `{reward.offered.count}` — propriétés publiques de
+  `EngineState` (camelCase), 8 segments au plus. **Chemin absent ou `null` ⇒ « — »**, jamais 0 ni le chemin.
+- Filtres : `|upper`, `|pct` (0…1 → pourcentage, sinon déjà en %), `|grade` (total 0-100 → `Grades`), `|count`.
+  Toute autre valeur rend le module invalide (refusé au chargement, pas ignoré en silence).
+- `when` : comparaisons `== != < <= > >=` sur un chemin (avec ou sans accolades : `run.gold >= 150`), `and`
+  plus fort que `or`, aucune parenthèse, aucun filtre, 8 comparaisons au plus. Chemin absent ⇒ comparaison
+  **fausse**. `text` ≤ 160 caractères, `rows` ≤ 20 (schéma) ; le rendu est tronqué à 160 au besoin.
+- Sortie : une `CustomModuleView` (`Source="module"`, `Screens` recopiés) dans `EngineState.Custom`.
+
+**Plugins** (`~/.local/share/ultima/plugins/<id>/plugin.json`) : code réel, **processus séparé**.
+
+| Point | Règle appliquée par le daemon |
+|---|---|
+| Activation | seulement les ids listés dans `settings.json` → `pluginsEnabled` (docs/44, section « pluginsEnabled ») ; id hors `x.` refusé |
+| Processus | enfant dédié, dossier de travail = dossier du plugin, **`nice 19`**, stderr drainé (512 o max) |
+| Protocole | une ligne `{"api":1,"state":EngineState}` sur stdin **au plus une fois par `minIntervalMs`** et seulement si l'état change ; **une** ligne JSON sur stdout |
+| Réponse | validée par `schemas/plugin-output.schema.json` (`rows` ≤ 20, `text` ≤ 160, `tone`/`grade` du contrat) ; ligne bornée à 8 Kio |
+| Délai | `timeoutMs` (10–500, défaut 200) ; dépassement ⇒ processus tué, plugin `stale` pour ce tour |
+| Échecs | 3 échecs consécutifs ⇒ `Health="disabled"` + journal (`plugin x.… : échec 3/3 … DÉSACTIVÉ`) ; plus aucun envoi ensuite |
+| Publication | `Submit` ne fait que déposer une ligne : un plugin endormi, planté, bavard ou invalide ne retarde **jamais** la publication (mesuré &lt; 50 ms par `V14PluginTests`) |
+| Arrêt | `SIGTERM`/`SIGINT` du daemon ⇒ tous les enfants tués et récoltés (test dédié) |
+
+**Commandes de test** (mêmes validateurs que le daemon, aucune écriture) :
+
+```
+ultima-daemon module-test <fichier> [--state F]   valide + rend les lignes ; 0 ok, 2 refusé
+ultima-daemon plugin-test <dossier> [--state F]   lance le plugin sur docs/ipc/*.sample.json ;
+                                                  0 ok, 2 manifeste refusé, 3 sortie invalide / délai / processus mort
+```
+
+Sans `--state`, les deux commandes rejouent **tous** les `docs/ipc/state.*.sample.json` (v1.3 puis v1.4), ce
+qui vérifie qu'un module ou un plugin supporte l'état sans run comme l'état avec run. `1` = usage.
+
 ## 5. CLI
 
 ```
 ultima-daemon run    [options]   premier plan (systemd : §7)
 ultima-daemon status [options]   état publié + daemon joignable ? (code 3 si injoignable)
 ultima-daemon dump   [options]   calcule UNE fois l'état depuis les fichiers, l'écrit sur stdout (rien n'est publié, aucune lecture mémoire)
+ultima-daemon module-test <fichier> [--state F]  valide un module déclaratif et rend ses lignes (§4.3)
+ultima-daemon plugin-test <dossier> [--state F]  lance un plugin sur les états d'exemple (§4.3)
   --root DIR  --runtime-dir DIR  --settings FILE  --mirror FILE  --no-mirror  --no-scoring
   --data DIR  --game-comm NAME   --log FILE   -v|--verbose
+  --modules-dir DIR  --plugins-dir DIR  --schemas-dir DIR   (valeurs par défaut : docs/44 §2)
+  --state FILE       (module-test / plugin-test) état à rejouer
 ```
 Journal : `~/.local/state/ultima/daemon.log` (+ stderr → journald sous systemd), une ligne par événement
 utile, jamais par sondage.
@@ -223,5 +276,9 @@ E/S idle). Pré-requis du miroir : `cat /proc/sys/kernel/yama/ptrace_scope` doit
   `GodotLogTail.Start()` (sondage 250 ms) n'est **pas** utilisé : le log est lu sur événement inotify.
 - **Aucune lecture mémoire en combat** (garde au départ + annulation à l'entrée en combat).
 - Scores recalculés une fois par save ; vues récompense/marchand mises en cache.
+- **Modules et plugins (v1.4)** : les modules sont évalués par réflexion bornée (8 segments, ≤ 20 lignes) sur
+  l'état déjà composé, sans I/O ; les plugins tournent dans leur propre processus (`nice 19`, dossier de leur
+  plugin) sur un fil dédié — la publication ne fait que leur déposer une ligne, elle n'attend jamais leur
+  réponse (mesuré : aucune publication > 50 ms avec un plugin endormi, planté, bavard ou invalide).
 - GC poste de travail non concurrent ; nice 10 + classe d'E/S idle sur tous les fils.
 - Mesuré jeu fermé : 0 tick CPU et 6 réveils de fils en 60 s (voir `status/cableur.md`).

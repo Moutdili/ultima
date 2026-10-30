@@ -1,0 +1,145 @@
+{
+  "contractVersion": 1,
+  "at": "2026-10-30T12:00:00+01:00",
+  "health": {
+    "gameRunning": false,
+    "saveOk": true,
+    "mirrorOk": false,
+    "mirrorLatencyMs": null,
+    "degraded": null
+  },
+  "screen": "Menu",
+  "run": null,
+  "reward": null,
+  "shop": null,
+  "paths": null,
+  "deck": null,
+  "settings": {
+    "modules": [
+      {
+        "id": "deck",
+        "enabled": true,
+        "order": 0,
+        "screens": null
+      },
+      {
+        "id": "enchanted",
+        "enabled": true,
+        "order": 1,
+        "screens": null
+      },
+      {
+        "id": "curses",
+        "enabled": true,
+        "order": 2,
+        "screens": null
+      },
+      {
+        "id": "relics",
+        "enabled": true,
+        "order": 3,
+        "screens": null
+      },
+      {
+        "id": "potions",
+        "enabled": true,
+        "order": 4,
+        "screens": null
+      },
+      {
+        "id": "reward",
+        "enabled": true,
+        "order": 5,
+        "screens": [
+          "reward"
+        ]
+      },
+      {
+        "id": "shop",
+        "enabled": true,
+        "order": 6,
+        "screens": null
+      },
+      {
+        "id": "event",
+        "enabled": true,
+        "order": 7,
+        "screens": null
+      },
+      {
+        "id": "paths",
+        "enabled": true,
+        "order": 8,
+        "screens": null
+      },
+      {
+        "id": "route",
+        "enabled": true,
+        "order": 9,
+        "screens": null
+      },
+      {
+        "id": "party",
+        "enabled": true,
+        "order": 10,
+        "screens": null
+      },
+      {
+        "id": "deck_score",
+        "enabled": true,
+        "order": 11,
+        "screens": null
+      }
+    ],
+    "hud": {
+      "quality": "verre",
+      "heightFraction": 0.55,
+      "restOpacity": 0.62,
+      "side": "right",
+      "deckScoreInCombat": false,
+      "gradesOnly": false
+    }
+  },
+  "contractMinor": 4,
+  "map": null,
+  "route": null,
+  "event": null,
+  "custom": [
+    {
+      "id": "x.or-par-etage",
+      "label": "Or / étage",
+      "source": "module",
+      "screens": [
+        "map",
+        "shop"
+      ],
+      "rows": [
+        {
+          "text": "— or · étage —",
+          "tone": "accent",
+          "grade": null
+        }
+      ],
+      "health": "ok",
+      "problem": null
+    },
+    {
+      "id": "x.echo",
+      "label": "Écho",
+      "source": "plugin",
+      "screens": [
+        "map",
+        "shop"
+      ],
+      "rows": [
+        {
+          "text": "écran Menu",
+          "tone": "muted",
+          "grade": null
+        }
+      ],
+      "health": "ok",
+      "problem": null
+    }
+  ]
+}

@@ -119,6 +119,24 @@ liste les familles par dossier. Famille introuvable ⇒ police du thème, puis p
      qui lit lui-même la mémoire ou les saves du jeu enfreint les règles d'ULTIMA (documenté, non supporté).
   5. L'API est versionnée (`api: 1`) ; un plugin d'une API inconnue est refusé, pas deviné.
 
+## 7bis. `settings.json` → `pluginsEnabled` (v1.4, additif)
+
+Un plugin est du **vrai code** : sa présence sur le disque ne suffit pas. Le daemon ne démarre que les ids
+listés dans `settings.json` :
+
+```json
+"pluginsEnabled": ["x.echo", "x.shop-or"]
+```
+
+- Clé **hors contrat** (`EngineState` ne la contient pas) : le daemon la lit, le TUI et le compagnon
+  l'écrivent (`ultima plugin enable|disable <id>`) ; les autres surfaces l'ignorent.
+- Absente, vide ou `null` ⇒ **aucun plugin** n'est lancé.
+- Un id commence par `x.` (comme les modules perso) ; un id hors préfixe est ignoré avec un WARN.
+- Dossier absent, manifeste invalide ou API inconnue ⇒ le plugin apparaît quand même dans
+  `EngineState.Custom` avec `health = "error"` et `problem` (rien n'est deviné, rien n'est lancé).
+- Le daemon **ne réécrit jamais** `settings.json` : il relit la clé à chaque rechargement (inotify, 150 ms)
+  et arrête les plugins retirés de la liste.
+
 ## 8. Contrat C# v1.4 (additif, `ContractMinor = 4`)
 - `EngineState.Custom : IReadOnlyList<CustomModuleView>?` —
   `CustomModuleView(string Id, string Label, string Source /* "module" | "plugin" */, IReadOnlyList<string>? Screens,

@@ -19,6 +19,26 @@ public static class ProcessPriority
     [DllImport("libc", SetLastError = true)] private static extern int getpriority(int which, uint who);
     [DllImport("libc", SetLastError = true)] private static extern long syscall(long number, int which, int who, int ioprio);
 
+    /// <summary>
+    /// Fixe le nice d'un processus enfant (plugin : « nice 19 », docs/44 §7). Ne lève jamais : un échec
+    /// (processus déjà mort, droits) est seulement journalisé par l'appelant.
+    /// </summary>
+    /// <returns>true si le nice a bien été appliqué.</returns>
+    public static bool SetNice(int pid, int nice)
+    {
+        if (pid <= 0 || !OperatingSystem.IsLinux()) return false;
+        try
+        {
+            if (setpriority(PRIO_PROCESS, (uint)pid, nice) != 0) return false;
+            syscall(SYS_ioprio_set, IOPRIO_WHO_PROCESS, pid, IOPRIO_CLASS_IDLE << IOPRIO_CLASS_SHIFT);
+            return true;
+        }
+        catch (Exception e) when (e is DllNotFoundException or EntryPointNotFoundException)
+        {
+            return false;
+        }
+    }
+
     /// <returns>nombre de fils ajustés.</returns>
     public static int Lower(int nice = 10)
     {

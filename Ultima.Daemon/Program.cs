@@ -28,6 +28,9 @@ var options = new DaemonOptions
     MirrorEnabled = !Flag("--no-mirror"),
     Scoring = !Flag("--no-scoring"),
     DataDir = Opt("--data"),
+    ModulesDir = Opt("--modules-dir"),
+    PluginsDir = Opt("--plugins-dir"),
+    SchemasDir = Opt("--schemas-dir"),
 };
 
 return cmd switch
@@ -35,6 +38,8 @@ return cmd switch
     "run" => Run(),
     "status" => Status(),
     "dump" => Dump(),
+    "module-test" => ModuleTest(),
+    "plugin-test" => PluginTest(),
     _ => Usage(),
 };
 
@@ -44,20 +49,42 @@ int Usage()
         ultima-daemon run    [options]   démarre le daemon (premier plan ; systemd : docs/ipc/ultima-daemon.service)
         ultima-daemon status [options]   état publié + daemon joignable ? (code 3 si injoignable)
         ultima-daemon dump   [options]   calcule UNE fois l'état depuis les fichiers et l'écrit sur stdout (rien n'est publié)
+        ultima-daemon module-test <fichier> [--state F]  valide un module déclaratif et rend ses lignes (code 2 si refusé)
+        ultima-daemon plugin-test <dossier> [--state F]  lance un plugin sur les états d'exemple (code 2 refusé, 3 échec)
 
         options :
           --root DIR          racine des données du jeu (défaut : Flatpak Steam ; env ULTIMA_STS2_ROOT)
           --runtime-dir DIR   dossier IPC (défaut : $XDG_RUNTIME_DIR/ultima)
           --settings FILE     réglages (défaut : ~/.config/ultima/settings.json)
+          --modules-dir DIR   modules déclaratifs (défaut : ~/.config/ultima/modules)
+          --plugins-dir DIR   plugins (défaut : ~/.local/share/ultima/plugins)
+          --schemas-dir DIR   schémas du contrat (défaut : ceux livrés à côté de l'exécutable)
           --mirror FILE       exécutable ultima-mirror (défaut : $ULTIMA_MIRROR, ../mirror/, build/mirror/)
           --no-mirror         jamais de lecture mémoire (fichiers seulement)
           --no-scoring        pas de calcul (scores et chemins null)
           --data DIR          racine des données (meta/, catalog/…) ; défaut $ULTIMA_DATA puis data/ du dépôt
           --game-comm NAME    nom du processus du jeu (/proc/PID/comm, défaut SlayTheSpire2)
           --log FILE          journal (défaut : ~/.local/state/ultima/daemon.log ; copie sur stderr)
+          --state FILE        (module-test, plugin-test) état d'exemple à rejouer (défaut : docs/ipc/*.sample.json)
           -v, --verbose       journal détaillé (niveau DEBUG)
         """);
     return cmd == "help" || cmd == "--help" ? 0 : 1;
+}
+
+int ModuleTest()
+{
+    var file = args.Length > 1 && !args[1].StartsWith('-') ? args[1] : null;
+    if (file is null) { Console.Error.WriteLine("usage : ultima-daemon module-test <fichier> [--state F]"); return 1; }
+    Diag.Stderr = false;
+    return Ultima.Daemon.Custom.CustomCli.ModuleTest(file, Opt("--state"), Console.Out);
+}
+
+int PluginTest()
+{
+    var dir = args.Length > 1 && !args[1].StartsWith('-') ? args[1] : null;
+    if (dir is null) { Console.Error.WriteLine("usage : ultima-daemon plugin-test <dossier> [--state F]"); return 1; }
+    Diag.Stderr = false;
+    return Ultima.Daemon.Custom.CustomCli.PluginTest(dir, Opt("--state"), Console.Out);
 }
 
 int Run()
@@ -113,6 +140,8 @@ int Status()
     else Console.WriteLine("run        : aucune");
     if (st.Deck is { } d && d.Curses.Count > 0) Console.WriteLine($"malédictions: {string.Join(", ", d.Curses.Select(c => c.Name))}");
     Console.WriteLine($"modules    : {string.Join(" ", st.Settings.Modules.OrderBy(m => m.Order).Select(m => m.Enabled ? m.Id : $"({m.Id})"))}");
+    if (st.Custom is { Count: > 0 } custom)
+        Console.WriteLine($"perso      : {string.Join(" ", custom.Select(c => $"{c.Id}={c.Health}"))}");
     return alive ? 0 : 3;
 }
 

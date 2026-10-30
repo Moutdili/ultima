@@ -1,15 +1,20 @@
 using System.Text.Json;
+using System.Text.Json.Nodes;
 using Ultima.Daemon.State;
 using Ultima.Engine.Contracts;
 
 namespace Ultima.Daemon.Settings;
 
+/// <summary>Réglages lus dans <c>settings.json</c> : contrat (<see cref="OverlaySettings"/>) + liste des plugins.</summary>
+public sealed record SettingsSnapshot(OverlaySettings Settings, IReadOnlyList<string> PluginsEnabled);
+
 /// <summary>
-/// Réglages de l'overlay : <c>~/.config/ultima/settings.json</c> (écrit par le compagnon, LU par le daemon).
-/// Format : la sérialisation camelCase d'<see cref="OverlaySettings"/> (<c>{"modules":[{"id","enabled","order"}],"hud":{…}}</c>, v1.3).
+/// Réglages de l'overlay : <c>~/.config/ultima/settings.json</c> (écrit par le compagnon et le TUI, LU par le
+/// daemon — il ne le réécrit JAMAIS). Format : la sérialisation camelCase d'<see cref="OverlaySettings"/>
+/// (<c>{"modules":[{"id","enabled","order","screens"}],"hud":{…},"pluginsEnabled":[…]}</c>, v1.3/v1.4).
 /// Absent → <see cref="OverlaySettings.Default"/>. Illisible → dernier réglage valide conservé.
-/// Normalisation : ids inconnus ignorés, doublons ignorés, modules manquants ajoutés (activés) après les autres,
-/// ordre renuméroté 0..n-1.
+/// <c>enabled</c> ABSENT vaut <c>true</c> (v1.4) ; <c>screens</c> est validé contre <see cref="ScreenIds.All"/> ;
+/// les bornes du HUD sont RAMENÉES à la borne (<see cref="HudSettings.HeightMin"/> …) et non remplacées par le défaut.
 /// </summary>
 public static class SettingsStore
 {
@@ -24,40 +29,117 @@ public static class SettingsStore
     public static readonly IReadOnlyList<string> KnownModules = OverlaySettings.Default.Modules.Select(m => m.Id).ToArray();
 
     /// <summary>Lit le fichier. <paramref name="error"/> non nul : fichier présent mais invalide.</summary>
-    public static OverlaySettings? TryLoad(string path, out string? error)
+    public static OverlaySettings? TryLoad(string path, out string? error) =>
+        TryLoadSnapshot(path, out error)?.Settings;
+
+    /// <summary>Lit le fichier, avec la liste <c>pluginsEnabled</c> (hors contrat : réglage du daemon).</summary>
+    public static SettingsSnapshot? TryLoadSnapshot(string path, out string? error)
     {
         error = null;
-        if (!File.Exists(path)) return OverlaySettings.Default;
+        if (!File.Exists(path)) return new SettingsSnapshot(OverlaySettings.Default, Array.Empty<string>());
+        string text;
         try
         {
             using var fs = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete);
-            var raw = JsonSerializer.Deserialize<OverlaySettings>(fs, StateJson.Options);
-            if (raw?.Modules is null) { error = "settings.json sans « modules »"; return null; }
-            return Normalize(raw);
+            using var reader = new StreamReader(fs);
+            text = reader.ReadToEnd();
         }
-        catch (Exception e) when (e is JsonException or IOException or UnauthorizedAccessException or NotSupportedException)
+        catch (Exception e) when (e is IOException or UnauthorizedAccessException)
+        {
+            error = $"settings.json illisible : {e.Message}";
+            return null;
+        }
+        try
+        {
+            if (JsonNode.Parse(text, documentOptions: new JsonDocumentOptions { AllowTrailingCommas = true }) is not JsonObject root)
+            {
+                error = "settings.json : objet attendu";
+                return null;
+            }
+            if (root["modules"] is not JsonArray modules)
+            {
+                error = "settings.json sans « modules »";
+                return null;
+            }
+            var list = new List<ModuleSetting>(modules.Count);
+            for (int i = 0; i < modules.Count; i++)
+            {
+                if (modules[i] is not JsonObject m) continue;
+                var id = Str(m, "id");
+                if (id is null) continue;
+                // v1.4 : « enabled » absent ⇒ true (un module cité est activé sauf mention contraire)
+                bool enabled = m["enabled"] is JsonValue ev && ev.TryGetValue<bool>(out var b) ? b : true;
+                int order = m["order"] is JsonValue ov && ov.TryGetValue<int>(out var o) ? o : i;
+                list.Add(new ModuleSetting(id, enabled, order) { Screens = Screens(m) });
+            }
+            return new SettingsSnapshot(
+                new OverlaySettings(Normalize(list)) { Hud = NormalizeHud(ParseHud(root["hud"])) },
+                PluginsEnabled(root["pluginsEnabled"]));
+        }
+        catch (Exception e) when (e is JsonException or FormatException or InvalidOperationException or NotSupportedException)
         {
             error = $"settings.json illisible : {e.Message}";
             return null;
         }
     }
 
-    public static OverlaySettings Normalize(OverlaySettings s)
+    private static string? Str(JsonObject o, string name) =>
+        o[name] is JsonValue v && v.TryGetValue<string>(out var s) ? s : null;
+
+    private static HudSettings? ParseHud(JsonNode? node)
+    {
+        if (node is null) return null;
+        try { return node.Deserialize<HudSettings>(StateJson.Options); }
+        catch (JsonException) { return null; }
+    }
+
+    /// <summary>v1.4 : écrans d'un bloc (ScreenIds.All, doublons retirés, valeurs inconnues ignorées).</summary>
+    private static IReadOnlyList<string>? Screens(JsonObject m)
+    {
+        if (m["screens"] is not JsonArray arr) return null;
+        var list = new List<string>(arr.Count);
+        foreach (var s in arr)
+        {
+            if (s is not JsonValue v || !v.TryGetValue<string>(out var name)) continue;
+            if (!ScreenIds.All.Contains(name) || list.Contains(name)) continue;
+            list.Add(name);
+        }
+        return list.Count == 0 ? null : list;
+    }
+
+    /// <summary><c>pluginsEnabled</c> : ids de plugins (hors contrat ; le daemon seul les lit).</summary>
+    private static IReadOnlyList<string> PluginsEnabled(JsonNode? node)
+    {
+        if (node is not JsonArray arr) return Array.Empty<string>();
+        var list = new List<string>(arr.Count);
+        foreach (var s in arr)
+        {
+            if (s is not JsonValue v || !v.TryGetValue<string>(out var id)) continue;
+            if (string.IsNullOrWhiteSpace(id) || list.Contains(id)) continue;
+            list.Add(id);
+        }
+        return list;
+    }
+
+    public static OverlaySettings Normalize(OverlaySettings s) =>
+        new(Normalize(s.Modules)) { Hud = NormalizeHud(s.Hud) };
+
+    private static IReadOnlyList<ModuleSetting> Normalize(IReadOnlyList<ModuleSetting> modules)
     {
         var seen = new HashSet<string>(StringComparer.Ordinal);
-        var list = s.Modules
+        var list = modules
             .Where(m => m?.Id is not null && KnownModules.Contains(m.Id) && seen.Add(m.Id))
             .OrderBy(m => m.Order)
             .ToList();
         foreach (var d in OverlaySettings.Default.Modules)
             if (seen.Add(d.Id)) list.Add(d with { Order = int.MaxValue });
-        return new OverlaySettings(list.Select((m, i) => m with { Order = i }).ToArray()) { Hud = NormalizeHud(s.Hud) };
+        return list.Select((m, i) => m with { Order = i }).ToArray();
     }
 
     /// <summary>
-    /// v1.3 : réglages du HUD, validés champ par champ (une valeur invalide reprend SA valeur par défaut,
-    /// les autres sont gardées) : qualité ∈ eco|verre|loupe, hauteur ∈ ]0,1], opacité au repos ∈ [0,1],
-    /// côté ∈ right|left. « hud » absent ou null → <see cref="HudSettings.Default"/>.
+    /// v1.3/v1.4 : réglages du HUD, validés champ par champ. Une valeur HORS BORNES est ramenée à la borne
+    /// (hauteur 0,30–0,85 ; opacité 0,35–1) ; une valeur non finie ou d'un type inconnu reprend le défaut de
+    /// SON champ ; les autres champs sont conservés. « hud » absent ou null → <see cref="HudSettings.Default"/>.
     /// </summary>
     public static HudSettings NormalizeHud(HudSettings? h)
     {
@@ -66,8 +148,8 @@ public static class SettingsStore
         static bool Finite(double v) => !double.IsNaN(v) && !double.IsInfinity(v);
         return new HudSettings(
             h.Quality is { } q && HudSettings.Qualities.Contains(q.ToLowerInvariant()) ? q.ToLowerInvariant() : d.Quality,
-            Finite(h.HeightFraction) && h.HeightFraction > 0 && h.HeightFraction <= 1 ? h.HeightFraction : d.HeightFraction,
-            Finite(h.RestOpacity) && h.RestOpacity >= 0 && h.RestOpacity <= 1 ? h.RestOpacity : d.RestOpacity,
+            Finite(h.HeightFraction) ? Math.Clamp(h.HeightFraction, HudSettings.HeightMin, HudSettings.HeightMax) : d.HeightFraction,
+            Finite(h.RestOpacity) ? Math.Clamp(h.RestOpacity, HudSettings.OpacityMin, HudSettings.OpacityMax) : d.RestOpacity,
             h.Side?.ToLowerInvariant() is "right" or "left" ? h.Side.ToLowerInvariant() : d.Side,
             h.DeckScoreInCombat,
             h.GradesOnly);

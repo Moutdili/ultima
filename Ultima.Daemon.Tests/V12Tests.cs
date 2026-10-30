@@ -166,7 +166,8 @@ public sealed class V12Tests : IDisposable
         Assert.Equal(2, ev.Options.Count);
         Assert.Equal("Plonger", ev.Options[0].Label);
         Assert.Equal(80, ev.Options[0].Score!.Total);
-        Assert.Equal("ABSTAIN", ev.Options[1].Label);
+        Assert.Null(ev.Options[1].Label); // v1.4 : texte inconnu ⇒ null, jamais l'id nu
+        Assert.Null(ev.Name);
         Assert.True(ev.Options[1].Available);
         Assert.Null(ev.Options[1].Score);
         Assert.Null(asm.BuildEvent(null, part));
@@ -266,10 +267,12 @@ public sealed class V12Tests : IDisposable
         var s = SettingsStore.TryLoad(path, out _)!;
         Assert.Equal(new HudSettings("loupe", 0.7, 0.4, "left", true, true), s.Hud);
 
+        // v1.4 : une valeur HORS BORNES est RAMENÉE à la borne (heightFraction 3 → 0,85 ; restOpacity −1 → 0,35),
+        // une valeur d'un domaine inconnu (quality, side) reprend le défaut de son champ.
         File.WriteAllText(path, """{"modules":[],"hud":{"quality":"ultra","heightFraction":3,"restOpacity":-1,"side":"top","deckScoreInCombat":true,"gradesOnly":false}}""");
         var bad = SettingsStore.TryLoad(path, out _)!;
         var d = HudSettings.Default;
-        Assert.Equal(new HudSettings(d.Quality, d.HeightFraction, d.RestOpacity, d.Side, true, false), bad.Hud);
+        Assert.Equal(new HudSettings(d.Quality, HudSettings.HeightMax, HudSettings.OpacityMin, d.Side, true, false), bad.Hud);
 
         File.WriteAllText(path, """{"modules":[]}""");
         Assert.Equal(HudSettings.Default, SettingsStore.TryLoad(path, out _)!.Hud);

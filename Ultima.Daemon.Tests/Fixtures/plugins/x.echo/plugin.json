@@ -1,0 +1,11 @@
+{
+  "id": "x.echo",
+  "label": "Écho",
+  "api": 1,
+  "version": "1.0",
+  "description": "Plugin d'exemple minimal : recopie l'écran et l'or de l'état reçu.",
+  "exec": ["python3", "main.py"],
+  "screens": ["map", "shop"],
+  "timeoutMs": 200,
+  "minIntervalMs": 500
+}

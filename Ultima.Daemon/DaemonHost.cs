@@ -1,4 +1,5 @@
 using System.Collections.Concurrent;
+using Ultima.Daemon.Custom;
 using Ultima.Daemon.Knowledge;
 using Ultima.Daemon.Mirror;
 using Ultima.Daemon.Publish;
@@ -27,6 +28,12 @@ public sealed record DaemonOptions
     public bool Scoring { get; init; } = true;
     /// <summary>Racine des données (ULTIMA_DATA) ; null = variable puis remontée depuis l'exécutable.</summary>
     public string? DataDir { get; init; }
+    /// <summary>v1.4 : dossier des modules déclaratifs (défaut <c>~/.config/ultima/modules</c>).</summary>
+    public string? ModulesDir { get; init; }
+    /// <summary>v1.4 : dossier des plugins (défaut <c>~/.local/share/ultima/plugins</c>).</summary>
+    public string? PluginsDir { get; init; }
+    /// <summary>v1.4 : dossier des schémas (défaut : ceux livrés à côté de l'exécutable).</summary>
+    public string? SchemasDir { get; init; }
 }
 
 /// <summary>
@@ -63,7 +70,11 @@ public sealed class DaemonHost : IDisposable
     public sealed record EngineParts(IKnowledge Knowledge, IScorer? Scorer, IPathAnalyzer? Paths,
         IRoutePlanner? Route, IEventAdvisor? Events, IReviewBuilder? Review)
     {
-        public StateAssembler Assembler(ulong? steamId64) => new(Knowledge, Scorer, Paths, steamId64, Route, Events);
+        /// <summary>v1.4 : textes des événements par clé de localisation (paresseux ; absent = null).</summary>
+        public ILocTexts Texts { get; init; } = LocTexts.FromEnvironment(
+            (Knowledge as Ultima.Knowledge.KnowledgeBase)?.Document.Source.LocalizationDir);
+
+        public StateAssembler Assembler(ulong? steamId64) => new(Knowledge, Scorer, Paths, steamId64, Route, Events, Texts);
     }
 
     /// <summary>Construit connaissance + calcul. Toute erreur du calcul → null (scores « — »), jamais un arrêt.</summary>
@@ -85,7 +96,8 @@ public sealed class DaemonHost : IDisposable
             Try<IPathAnalyzer>("calcul des chemins", () => new PathAnalyzer(personal)),
             Try<IRoutePlanner>("planificateur de route", () => new Ultima.Engine.Scoring.Paths.RoutePlanner()),
             Try<IEventAdvisor>("conseil d'événement", () => new Ultima.Engine.Scoring.Events.EventAdvisor()),
-            Review: null); // aucune implémentation d'IReviewBuilder chez Hermes à ce jour → « review indisponible »
+            // v1.4 : revue de run (S31, Ultima.Engine/Scoring/Review) — op socket « review.open »
+            Try<IReviewBuilder>("revue de run", () => new Ultima.Engine.Scoring.Review.ReviewBuilder()));
     }
 
     /// <summary>
@@ -136,6 +148,19 @@ public sealed class DaemonHost : IDisposable
             debounce: _o.MirrorDebounce);
         Core = core;
 
+        // v1.4 : modules déclaratifs + plugins (docs/44 §6-7). Leurs vues entrent dans EngineState.Custom ;
+        // la ligne d'état leur est déposée APRÈS publication (sink), jamais l'inverse.
+        var schemas = SchemaSet.Load(_o.SchemasDir);
+        if (schemas.Error is not null) Diag.Warn($"modules/plugins : {schemas.Error}");
+        var custom = new CustomHost(
+            _o.ModulesDir ?? CustomPaths.ModulesDir(),
+            _o.PluginsDir ?? CustomPaths.PluginsDir(),
+            schemas,
+            () => Post(() => Core?.Publish()));
+        core.CustomProvider = custom.Views;
+        Publisher.AddSink(custom);
+        _owned.Add(custom);
+
         _loop = new Thread(() =>
         {
             _loopThreadId = Environment.CurrentManagedThreadId;
@@ -149,15 +174,19 @@ public sealed class DaemonHost : IDisposable
         {
             try
             {
-                var settings = SettingsStore.TryLoad(_o.SettingsPath, out var serr);
+                var snapshot = SettingsStore.TryLoadSnapshot(_o.SettingsPath, out var serr);
                 if (serr is not null) Diag.Warn(serr);
-                core.OnSettings(settings ?? OverlaySettings.Default);
+                var settings = snapshot?.Settings ?? OverlaySettings.Default;
+                core.OnSettings(settings);
+                custom.Start();
+                custom.SetPluginsEnabled(snapshot?.PluginsEnabled ?? Array.Empty<string>());
                 var sw = new SettingsWatcher(_o.SettingsPath, () => Post(() =>
                 {
-                    var s = SettingsStore.TryLoad(_o.SettingsPath, out var err);
+                    var s = SettingsStore.TryLoadSnapshot(_o.SettingsPath, out var err);
                     if (err is not null) { Diag.Warn(err + " (réglage précédent conservé)"); return; }
                     Diag.Info("réglages rechargés");
-                    core.OnSettings(s!);
+                    core.OnSettings(s!.Settings);
+                    custom.SetPluginsEnabled(s.PluginsEnabled);
                 }));
                 sw.Start();
                 _owned.Add(sw);

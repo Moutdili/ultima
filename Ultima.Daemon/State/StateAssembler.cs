@@ -29,11 +29,13 @@ public sealed class StateAssembler
     private readonly IRoutePlanner? _route;
     private readonly IEventAdvisor? _events;
     private readonly ulong? _steamId64;
+    private readonly ILocTexts _texts;
     private readonly HashSet<string> _warned = new(StringComparer.Ordinal);
 
     public StateAssembler(IKnowledge knowledge, IScorer? scorer, IPathAnalyzer? paths, ulong? steamId64,
-        IRoutePlanner? route = null, IEventAdvisor? events = null)
+        IRoutePlanner? route = null, IEventAdvisor? events = null, ILocTexts? texts = null)
     {
+        _texts = texts ?? NullLocTexts.Instance;
         _k = knowledge;
         _scorer = scorer;
         _paths = paths;
@@ -182,23 +184,52 @@ public sealed class StateAssembler
     public static IReadOnlyList<AllyView> OverlayParty(IReadOnlyList<AllyView> party, MRun mem) =>
         party.Select(a => mem.Players.FirstOrDefault(m => m.NetId == a.NetId) is { } m ? a with { Hp = m.Hp, MaxHp = m.MaxHp } : a).ToArray();
 
+    /// <summary>Id synthétique de l'unique bouton « Continuer » d'un événement fini (absent des options lues).</summary>
+    public const string ContinueOptionId = "CONTINUE";
+    public const string ContinueLabel = "Continuer";
+
     /// <summary>
     /// v1.2 : événement courant lu par le miroir (section « event ») + notes de l'<see cref="IEventAdvisor"/>
     /// (Hermes). Les identifiants sont passés NUS au calcul (<c>EVENT.ABYSSAL_BATHS</c> → <c>ABYSSAL_BATHS</c>,
     /// option <c>…options.ABSTAIN</c> → <c>ABSTAIN</c>) ; null = option non mesurée (« — »).
+    /// Textes (v1.4, Miroir 2) : rendus en FR à partir des clés <c>nameKey</c>/<c>titleKey</c>/<c>descriptionKey</c> ;
+    /// texte absent ⇒ <c>null</c> (jamais l'identifiant ni la clé). Options inconnues (<c>optionsKnown=false</c>)
+    /// ⇒ pas de vue ; événement fini ⇒ une seule option « Continuer ».
     /// </summary>
     public EventView? BuildEvent(MEvent? mem, RunPart? run)
     {
-        if (mem?.EventId is not { Length: > 0 } eventId || mem.Options is null) return null;
+        if (mem?.EventId is not { Length: > 0 } eventId) return null;
+        var name = mem.Name ?? Guard("texts.event", () => _texts.Text(mem.NameKey?.Table, mem.NameKey?.Key));
+        if (mem.IsFinished == true)
+            return new EventView(eventId, name!, new[] { new EventOptionView(ContinueOptionId, ContinueLabel, null, true, null) });
+        if (mem.OptionsKnown == false || mem.Options is null) return null;
         var options = mem.Options.Where(o => o.Id is { Length: > 0 }).ToArray();
         var ids = options.Select(o => BareOption(o.Id!)).ToArray();
         IReadOnlyList<Score?> scores = Array.Empty<Score?>();
         if (_events is not null && run?.Context is { } ctx)
             scores = Guard("event", () => _events.Rank(BareEvent(eventId), ids, ctx)) ?? Array.Empty<Score?>();
-        var views = options.Select((o, i) => new EventOptionView(o.Id!, o.Label ?? ids[i], o.Description, o.Available ?? true,
+        // Label/Name null : texte inconnu (l'UI affiche son propre repli). Contrat : string non nullable → demande de contrat.
+        var views = options.Select((o, i) => new EventOptionView(o.Id!, OptionLabel(o)!, OptionDescription(o), o.Available ?? true,
             i < scores.Count && scores[i] is { Terms.Count: > 0 } sc ? sc : null)).ToArray();
-        return new EventView(eventId, mem.Name ?? BareEvent(eventId), views);
+        return new EventView(eventId, name!, views);
     }
+
+    private string? OptionLabel(MEventOption o)
+    {
+        if (o.Label is { Length: > 0 } l) return l;
+        if (Guard("texts.event", () => _texts.Text(o.TitleKey?.Table, o.TitleKey?.Key)) is { } t) return t;
+        // option d'ancien : titre = nom de la relique (EventOption.cs:126-131), connu de la base même sans localisation
+        var relic = o.RelicId ?? (o.TitleKey is { Table: "relics", Key: { } k } && k.EndsWith(".title", StringComparison.Ordinal)
+            ? "RELIC." + k[..^6] : null);
+        if (relic is not null && Guard("knowledge.relic", () => _k.Relic(relic)) is { Name: { Length: > 0 } rn } && rn != relic) return rn;
+        return null;
+    }
+
+    private string? OptionDescription(MEventOption o) =>
+        o.Description is { Length: > 0 } d ? d : Guard("texts.event", () => _texts.Text(o.DescriptionKey?.Table, o.DescriptionKey?.Key));
+
+    internal static Enchantment? Enchant(MEnchant? e) =>
+        e?.Id is { Length: > 0 } id ? new Enchantment(id, e.Amount) : null;
 
     internal static string BareEvent(string id) => id.StartsWith("EVENT.", StringComparison.Ordinal) ? id[6..] : id;
 
@@ -214,7 +245,7 @@ public sealed class StateAssembler
         if (mem is null || mem.CardRewards.Count == 0) return null;
         var pick = mem.CardRewards.FirstOrDefault(r => !r.AlreadyTaken) ?? mem.CardRewards[^1];
         var offered = pick.Offered.Where(c => c.Id is not null)
-            .Select(c => new CardInstance(c.Id!, c.Upgrade, null, null)).ToArray();
+            .Select(c => new CardInstance(c.Id!, c.Upgrade, Enchant(c.Enchantment), null)).ToArray(); // v1.4 : enchantement (Miroir 2)
         var ctx = run?.Context;
         var cards = offered.Select(c => Card(c, ctx is null ? null : SafeScore("score.card", s => s.ScoreCard(c, ctx)))).ToArray();
         var skip = ctx is null ? null : SafeScore("score.skip", s => s.ScoreSkip(offered, ctx));
@@ -236,7 +267,7 @@ public sealed class StateAssembler
         {
             if (e.Card.Id is not { } id) continue;
             int price = e.EstimatedDisplayedCost ?? e.BaseCost;
-            var ci = new CardInstance(id, e.Card.Upgrade, null, null);
+            var ci = new CardInstance(id, e.Card.Upgrade, Enchant(e.Card.Enchantment), null); // v1.4 : enchantement (Miroir 2)
             var card = Card(ci, ctx is null ? null : SafeScore("score.card", s => s.ScoreCard(ci, ctx)));
             items.Add(new ShopItem("card", id, card.Name, price, e.OnSale, Affordable(price), card, ItemScore("card", id, price)));
         }
