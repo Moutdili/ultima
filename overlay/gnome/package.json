@@ -3,6 +3,6 @@
   "type": "module",
   "description": "Uniquement pour les tests Node sans session (modules ES). Non empaqueté dans l'extension.",
   "scripts": {
-    "test": "gjs -m tests/test-pure.js && gjs -m tests/test-render.js && node tests/test-render.js && node --import ./tests/shell-harness/register.mjs tests/test-extension.mjs"
+    "test": "gjs -m tests/test-pure.js && gjs -m tests/test-hud.js && node tests/test-hud.js && gjs -m tests/test-render.js && node tests/test-render.js && node --import ./tests/shell-harness/register.mjs tests/test-extension.mjs"
   }
 }
