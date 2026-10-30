@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ultima.local/schemas/settings.schema.json",
+  "title": "~/.config/ultima/settings.json (racine, v1.5)",
+  "description": "Écrivains : TUI et compagnon (relire avant d'écrire, ne toucher que ses clés, conserver les clés inconnues, écriture atomique). Le daemon ne l'écrit jamais. Bornes : valeur hors bornes ramenée à la borne, jamais rejetée.",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "modules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "additionalProperties": true,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "enabled": {
+            "type": "boolean",
+            "default": true,
+            "description": "absent ⇒ true"
+          },
+          "order": {
+            "type": "integer"
+          },
+          "screens": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "menu",
+                "map",
+                "combat",
+                "reward",
+                "shop",
+                "event",
+                "restSite",
+                "treasure"
+              ]
+            },
+            "uniqueItems": true,
+            "description": "Choix de l'utilisateur : prime sur CustomModuleView.screens et sur les écrans par défaut du module."
+          }
+        }
+      }
+    },
+    "hud": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "quality": {
+          "enum": [
+            "eco",
+            "verre",
+            "loupe"
+          ]
+        },
+        "heightFraction": {
+          "type": "number",
+          "minimum": 0.3,
+          "maximum": 0.85
+        },
+        "restOpacity": {
+          "type": "number",
+          "minimum": 0.35,
+          "maximum": 1
+        },
+        "side": {
+          "enum": [
+            "left",
+            "right"
+          ],
+          "description": "DÉPRÉCIÉ v1.5 : appearance.hud.position.side fait autorité ; tenu synchronisé par les écrivains."
+        },
+        "deckScoreInCombat": {
+          "type": "boolean"
+        },
+        "gradesOnly": {
+          "type": "boolean"
+        }
+      }
+    },
+    "appearance": {
+      "$ref": "appearance.schema.json"
+    },
+    "pluginsEnabled": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^x\\.[a-z0-9][a-z0-9-]{0,39}$"
+      },
+      "uniqueItems": true
+    }
+  }
+}

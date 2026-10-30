@@ -100,7 +100,7 @@
       "gradesOnly": false
     }
   },
-  "contractMinor": 4,
+  "contractMinor": 5,
   "map": null,
   "route": null,
   "event": null,
@@ -141,5 +141,7 @@
       "health": "ok",
       "problem": null
     }
-  ]
+  ],
+  "combat": null,
+  "restSite": null
 }

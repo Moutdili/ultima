@@ -8,4 +8,4 @@ VERSION = "0.1.0"
 
 # Contrat moteur supporté (Ultima.Engine/Contracts : EngineState.CurrentVersion / ContractInfo.CurrentMinor).
 CONTRACT_MAJOR = 1
-CONTRACT_MINOR = 4
+CONTRACT_MINOR = 5

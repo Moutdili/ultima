@@ -61,6 +61,11 @@ public class ContractShapeTests
         "hud" => path == "$.settings", // v1.3
         "custom" => path == "$", // v1.4
         "screens" => path.StartsWith("$.settings.modules["), // v1.4
+        "combat" or "restSite" => path == "$", // v1.5
+        "costKind" => obj.ContainsKey("isCurse"), // v1.5
+        "slot" => path.Contains(".items["), // v1.5
+        "inventoryOpen" => path == "$.shop", // v1.5
+        "community" => obj.ContainsKey("confidence"), // v1.5
         "deltaG" => obj.ContainsKey("confidence"),
         "evidence" => obj.ContainsKey("points"),
         _ => false,

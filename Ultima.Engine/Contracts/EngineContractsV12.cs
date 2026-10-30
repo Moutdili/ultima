@@ -9,7 +9,7 @@ namespace Ultima.Engine.Contracts;
 
 public static class ContractInfo
 {
-    public const int CurrentMinor = 4;   // v1.3 : HudSettings ; v1.4 : Custom, ModuleSetting.Screens
+    public const int CurrentMinor = 5;   // v1.3 : HudSettings ; v1.4 : Custom, ModuleSetting.Screens ; v1.5 : docs/46
 }
 
 // ---- Carte et route (MapView → PathPlanner) ---------------------------------------------------
@@ -39,10 +39,11 @@ public sealed record AllyContext(ulong NetId, string CharacterId, int Hp, int Ma
 
 // ---- Événements (EventView → EventScorer) -----------------------------------------------------
 
-public sealed record EventOptionView(string Id, string Label, string? Description, bool Available, Score? Score);
+/// <summary>v1.5 : Label nullable (texte absent de la base FR ⇒ null, jamais la clé ni l'id).</summary>
+public sealed record EventOptionView(string Id, string? Label, string? Description, bool Available, Score? Score);
 
 /// <summary>Événement courant (salle « ? » ou ancien) et ses options proposées à l'écran.</summary>
-public sealed record EventView(string EventId, string Name, IReadOnlyList<EventOptionView> Options);
+public sealed record EventView(string EventId, string? Name, IReadOnlyList<EventOptionView> Options);  // v1.5 : Name nullable
 
 // ---- Revue de run (docs/29 §5.3, repris tel que proposé par Hermes) ----------------------------
 

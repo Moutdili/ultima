@@ -70,3 +70,7 @@ Libellés affichés : `Ultima.Knowledge` fait foi. Données de calcul : registre
 - Bornes communes des `HudSettings` (décision chef, 2026-10-30) : `HeightFraction` 0,30–0,85, `RestOpacity`
   0,35–1 (`HudSettings.HeightMin/HeightMax/OpacityMin/OpacityMax`). Hors bornes ⇒ ramené à la borne, partout
   (daemon, HUD, compagnon, TUI). Au-delà de 0,85 le panneau couvre trop le jeu.
+
+## v1.5 — (2026-10-30)
+Notes sous les choix, coût X/injouable, combat (après validation FPS), feu de camp, réponses aux 18 demandes de
+Hermes : **`docs/46-contrat-v15.md`**.

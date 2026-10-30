@@ -586,3 +586,18 @@ finale : `git filter-repo --replace-text` (ID → `<steam-id>`) en plus du retra
   ancien script sauvegardé en `~/.local/bin/ultima.old-20261029`.
 5. Réponses chef à Console : bornes du contrat à appliquer au compagnon et au daemon (Câbleur 3) ; dégradé du
    bandeau limité à `palette.py` (pas de nouvel or) ; uninstall restaure ce qui existait avant (défaire exactement).
+
+## Fenêtre de test n°2 (2026-10-30 19:21-22:10, vrai jeu, Nécrolieuse A0, étages 5-9)
+**Prouvé** (preuves locales : `/home/mio/sts2-proofs/tw2-20261030/`, 2 captures, jamais commitées) :
+- Installation propre réelle (`tools/install.sh`, `ultima doctor` vert), daemon avec miroir, chaîne jeu → mémoire →
+  daemon → TUI/HUD. TUI : « bon début, il manque une tonne de trucs » (liste exhaustive de Mio à venir).
+- Récompense étage 6 : 3/3 cartes lues avant le choix (Graveblast, Pagestorm, Scourge) ; **bug daemon trouvé et
+  corrigé en direct** (« selected card reward » = ouverture du choix, `0328aee`).
+- Shop étage 6 : 13/13 prix exacts (solde compris), note C confirmée par Mio ; achat vu seulement à la sortie (le jeu
+  n'écrit rien au moment de l'achat ni du choix d'une carte).
+- Récompense étage 9 : ordre mémoire == ordre écran ; formule de placement du jeu vérifiée (350 px).
+- HUD v1.4 actif après reconnexion ; survol piloté par le curseur fonctionnel au-dessus du jeu plein écran.
+- Le jeu rend en 1920×1080 avec bandes noires de 60 px sur l'écran 1920×1200.
+**Non fait / reporté** : événement `?` (tombé sur un combat), mesure FPS (MangoHud), situations 4-10, compagnon,
+co-op. **Nouvelles demandes de Mio** : notes sous les choix façon HDT (T7), opacité 0,8 → 1,0 au survol.
+**Suite** : contrat v1.5 livré (`docs/46`), T7 et T8 confiés à Hermes (`docs/45-plan-hermes/`).

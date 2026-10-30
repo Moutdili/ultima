@@ -32,6 +32,10 @@ public sealed record EngineState(
     public EventView? Event { get; init; }
     /// <summary>v1.4 : modules perso et plugins évalués par le daemon (docs/44).</summary>
     public IReadOnlyList<CustomModuleView>? Custom { get; init; }
+    /// <summary>v1.5 : combat en cours (piles comptées, ennemis visibles) — rempli après validation FPS (docs/46).</summary>
+    public CombatView? Combat { get; init; }
+    /// <summary>v1.5 : feu de camp (options visibles et leur note).</summary>
+    public RestSiteView? RestSite { get; init; }
 }
 
 /// <summary>Santé des sources. Degraded != null → l'UI l'annonce (jamais de faux chiffre).</summary>
@@ -55,6 +59,8 @@ public sealed record CardView(
 {
     /// <summary>Description FR rendue (IKnowledge). Ajout v1.1, demande du compagnon.</summary>
     public string? Description { get; init; }
+    /// <summary>v1.5 : nature du coût (CostKinds) ; distingue « X » d'« injouable » quand Cost est null.</summary>
+    public string? CostKind { get; init; }
 }
 
 public sealed record EnchantmentView(string Id, string Name, int Amount, string Description);
@@ -78,6 +84,8 @@ public sealed record Score(int Total, IReadOnlyList<ScoreTerm> Terms, string Con
     /// <summary>v1.2 : effet SIGNÉ sur la force du joueur (ΔG). Une malédiction a un DeltaG négatif
     /// alors que Total reste borné 0..100 (lettre). null = non calculé.</summary>
     public double? DeltaG { get; init; }
+    /// <summary>v1.5 : avis de la communauté, structuré pour le survol des notes sous les choix (T7).</summary>
+    public CommunityView? Community { get; init; }
 }
 
 /// <summary>
@@ -109,11 +117,19 @@ public sealed record ScoreTerm(string Label, int Points, string Source)
 /// <summary>SkipScore null = « passer » non évaluable (v1.3). CardView.Cost null = coût X ou injouable (v1.3).</summary>
 public sealed record RewardView(IReadOnlyList<CardView> Offered, Score? SkipScore, bool AlreadyTaken);
 
-public sealed record ShopView(IReadOnlyList<ShopItem> Items, int RemovalPrice, bool RemovalUsed, Score? RemovalScore);
+public sealed record ShopView(IReadOnlyList<ShopItem> Items, int RemovalPrice, bool RemovalUsed, Score? RemovalScore)
+{
+    /// <summary>v1.5 : inventaire du marchand ouvert et immobile (null = inconnu). Article vendu ⇒ absent de Items.</summary>
+    public bool? InventoryOpen { get; init; }
+}
 
 /// <summary>Kind : card | relic | potion. Price = prix affiché (estimé, réductions de reliques comprises).</summary>
 public sealed record ShopItem(string Kind, string Id, string Name, int Price, bool OnSale, bool Affordable,
-    CardView? Card, Score? Score);
+    CardView? Card, Score? Score)
+{
+    /// <summary>v1.5 : emplacement à l'écran (ShopSlots), pour les notes sous les choix (T7).</summary>
+    public string? Slot { get; init; }
+}
 
 public sealed record RoomCounts(int Monster, int Elite, int Unknown, int Rest, int Shop, int Treasure);
 

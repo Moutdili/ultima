@@ -48,13 +48,15 @@
           "grade.D",
           "grade.F",
           "background",
-          "border"
+          "border",
+          "shadow"
         ]
       },
       "additionalProperties": {
         "type": "string",
         "pattern": "^#[0-9A-Fa-f]{6}([0-9A-Fa-f]{2})?$"
-      }
+      },
+      "description": "background, border, shadow : réservés aux thèmes (v1.5 : shadow, défaut = noir à 45 %)."
     },
     "logColors": {
       "type": "object",

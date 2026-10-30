@@ -14,7 +14,8 @@
 | T4 | HUD v1.4 : thèmes, polices, disposition, modules perso | **Hermes** | T2 (thèmes intégrés) | `T4-hud-v14.md` |
 | T5 | Calcul : pouvoirs comportementaux, derniers trous, retrait unique | **Hermes** | — | `T5-calcul.md` |
 | T6 | Fonctions HDT qui demandent un nouveau contrat (piles, feu de camp, stats) | **bloqué** | contrat v1.5 du chef | `T6-en-attente-contrat.md` |
-| T7 | **Notes sous les choix façon HDT** (récompenses + shop), disparition immédiate, opacité 0,8 → 1,0 au survol | **Hermes** | contrat v1.5 du chef | `T7-notes-sous-les-choix.md` |
+| T7 | **Notes sous les choix façon HDT** (récompenses + shop), disparition immédiate, opacité 0,8 → 1,0 au survol | **Hermes** | contrat v1.5 (livré, docs/46) | `T7-notes-sous-les-choix.md` |
+| T8 | **Contrat v1.5 appliqué** (réponses aux 18 demandes) + **défauts vus en jeu** (polices du jeu, courbe de coût, retrait F, notes tassées) + feu de camp, combat derrière un réglage | **Hermes** | docs/46 (livré) | `T8-v15-et-defauts-du-jeu.md` |
 | — | Fenêtre de test n°2 sur le vrai jeu (chaîne complète, miroir 2, FPS, 10 situations) | **chef + Mio** | rien (l'état actuel de main suffit) | `overlay/gnome/TEST-WINDOW.md` |
 | — | Contrat v1.5, intégration, réparations, installation réelle, réécriture finale de l'historique | **chef** | — | — |
 
