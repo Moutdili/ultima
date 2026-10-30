@@ -134,16 +134,17 @@ trap 'rm -rf -- "$stage"' EXIT
 export DOTNET_NOLOGO=1 DOTNET_CLI_TELEMETRY_OPTOUT=1 DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1
 # dotnet et NuGet écrivent sous $HOME (store X509, migrations NuGet, sentinelles) : on leur donne un HOME
 # jetable dans le staging, en gardant le cache de paquets de l'utilisateur (pas de téléchargement).
-dotnet_env=(env HOME="$stage/home" DOTNET_CLI_HOME="$stage/home"
+# Aucun serveur de build laissé en mémoire après l'installation (y compris le `dotnet run` de build-kb).
+dotnet_env=(env HOME="$stage/home" DOTNET_CLI_HOME="$stage/home" MSBUILDDISABLENODEREUSE=1 DOTNET_CLI_USE_MSBUILD_SERVER=0 UseSharedCompilation=false
             NUGET_PACKAGES="${NUGET_PACKAGES:-$HOME/.nuget/packages}" DOTNET_ROOT="${DOTNET_ROOT:-$(dirname "${dotnet:-/}")}")
 if (( build )); then
     mkdir -p "$stage/home"
     step "build Release : Ultima.Daemon"
-    "${dotnet_env[@]}" "$dotnet" publish "$repo/Ultima.Daemon" -c Release -o "$stage/daemon" --nologo -v q \
+    "${dotnet_env[@]}" "$dotnet" publish "$repo/Ultima.Daemon" -c Release -o "$stage/daemon" --nologo -v q --disable-build-servers \
         >"$stage/build.log" 2>&1 || { tail -20 "$stage/build.log" >&2; die "échec du build du daemon"; }
     step "build Release : Ultima.Mirror.Probe (ultima-mirror)"
     "${dotnet_env[@]}" "$dotnet" publish "$repo/Ultima.Mirror/src/Ultima.Mirror.Probe" -c Release -o "$stage/mirror" \
-        --nologo -v q >"$stage/build.log" 2>&1 || { tail -20 "$stage/build.log" >&2; die "échec du build du miroir"; }
+        --nologo -v q --disable-build-servers >"$stage/build.log" 2>&1 || { tail -20 "$stage/build.log" >&2; die "échec du build du miroir"; }
     ok "build Release"
 else
     cp -a -- "$build_dir/daemon" "$stage/daemon"
