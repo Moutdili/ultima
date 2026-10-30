@@ -97,7 +97,6 @@ def main() -> int:
             "avg_turns": round(entry["turns"] / entry["turns_n"], 2) if entry["turns_n"] else None,
             "fatal": entry["fatal"],
             "fatal_rate": round(entry["fatal"] / entry["n"], 4),
-            "characters": dict(entry["characters"].most_common()),
             "by_character": {
                 name: {
                     "n": values["n"],

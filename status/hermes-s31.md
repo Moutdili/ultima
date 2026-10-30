@@ -54,11 +54,21 @@ raison. Réserves dans `ReviewCoverage` : deck reconstitué depuis le deck final
 reconstituables), reliques = set final, potions vides par étage.
 Tests : `ReviewBuilderTests` (4). **269 tests** au total.
 
+## Point 4 — rencontres sans stats : FAIT
+
+`tools/encounters/measure.py` mesure le corpus (785 121 runs lus, 475 845 solo) →
+`data/calibration/encounter_measure.json` (63 Ko, 157 rencontres). **35 des 37 manquantes sont
+couvertes** ; 2 restent sous le seuil de 200 runs (`THE_ARCHITECT_EVENT_ENCOUNTER`,
+`TUNNELER_NORMAL`).
+`ThreatModel` complète les stats absentes sans jamais écraser le catalogue, provenance
+`Source = "measured"`, et ne publie une stat par personnage qu'au-delà de 200 runs.
+Doc : `docs/46-rencontres-mesure.md`. Tests : `EncounterMeasureTests` (3) + `ThreatTests` mis à
+jour (AEONGLASS_BOSS passe de « aucune stat » à 43,97 dégâts sur 40 286 runs).
+
 ## File restante
 
-1. 37 rencontres sans statistiques.
-2. 204 pouvoirs comportementaux (d'un bloc, plus tard).
-3. A2 pioche — attendre le miroir (piles de combat).
+1. 204 pouvoirs comportementaux (d'un bloc, plus tard).
+2. A2 pioche — attendre le miroir (piles de combat).
 3. 37 rencontres sans statistiques.
 4. 204 pouvoirs comportementaux — d'un bloc, plus tard.
 5. A2 (probabilité de pioche, docs/25) — **ne pas commencer** avant que le miroir publie les piles.
