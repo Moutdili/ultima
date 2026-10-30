@@ -71,7 +71,12 @@ public sealed class FitTests
         Assert.NotNull(covered.Terms.SingleOrDefault(t => t.Label == "Besoin immédiat — coup du boss"));
         Assert.DoesNotContain(bare.Terms, t => t.Label.Contains("PV bas", StringComparison.Ordinal));
         Assert.Equal("S", bare.Grade);
-        Assert.Equal("B", covered.Grade);
+
+        // Le deck couvert n'a QUE des cartes à 1 énergie (10 Frappes + 15 Défenses), et Impervious
+        // coûte 2 : le créneau est réellement libre. Depuis que la courbe de coût lit le catalogue
+        // (et non la seule méta, qui n'exposait aucun coût ici), ce +3 s'applique — d'où A et non B.
+        Assert.Contains(covered.Terms, t => t.Label == "Courbe de coût à 2 énergie" && t.Points == 3);
+        Assert.Equal("A", covered.Grade);
     }
 
     // ---------------------------------------------------- (b) le fit porte la note

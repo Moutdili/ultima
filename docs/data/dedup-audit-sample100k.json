@@ -1,5 +1,5 @@
 {
-  "audit_export": "/home/mio/sts2/data/exports/runs-v0.107.1.jsonl.gz",
+  "audit_export": "data/exports/runs-v0.107.1.jsonl.gz",
   "runs_lues": 100000,
   "seeds_distinctes": 74792,
   "seeds_multi_signatures": 585,

@@ -24,7 +24,9 @@ public enum MirrorNeed
 /// - <c>Card rarity: Rolled</c> après une salle (combat, événement, feu, trésor) : écran de récompense
 ///   (lecture reward). Les MÊMES lignes précèdent aussi la génération du marchand (vote → tirages →
 ///   <c>Preloading 'Merchant Room'</c>) : depuis la carte, un tirage ne change donc rien.
-/// - <c>Player N selected card reward</c> (joueur local) : fin de la récompense.
+/// - <c>Player N selected card reward</c> (joueur local) : le jeu l'écrit à l'OUVERTURE de l'écran de choix des
+///   cartes (CardReward.OnSelect, ligne 185), pas au choix : la récompense continue, simple relecture. Fin de la
+///   récompense : vote sur la carte, entrée dans une salle, ou le miroir ne voit plus d'offre (fenêtre de test n°2).
 /// - <c>Player vote changed for N</c> (joueur local) / <c>Continuing run</c> : carte.
 /// - Processus lancé : menu ; arrêté : inconnu ; plus de run en cours (save absente) : menu.
 /// </summary>
@@ -68,8 +70,7 @@ public sealed class ScreenTracker
                 RollsSinceScreen++;
                 return MirrorNeed.Reward;
             case CardRewardSelected sel when IsLocal(sel.PlayerNetId) && Screen == Screen.Reward:
-                EndReward();
-                return MirrorNeed.None;
+                return MirrorNeed.Reward;
             case MapVote v when IsLocal(v.PlayerNetId):
                 return Set(Screen.Map);
             case RunContinued:

@@ -213,7 +213,7 @@ public class RunSaveReaderTests
     }
 
     [Fact]
-    public void JSON_invalide_transitoire_relecture()
+    public async Task JSON_invalide_transitoire_relecture()
     {
         using var t = new TempDir();
         File.WriteAllText(t.File("current_run.save"), "{ tronque");
@@ -225,7 +225,7 @@ public class RunSaveReaderTests
         });
         var s = new RunSaveReader(new RobustReadOptions { Attempts = 10, RetryDelay = TimeSpan.FromMilliseconds(100) })
             .Read(t.File("current_run.save"));
-        fix.Wait();
+        await fix;   // attente non bloquante (xUnit1031) : le runner gère l'async
         Assert.False(s.ReadFromBackup);
         Assert.Equal(14, s.Players[0].Deck.Count);
     }

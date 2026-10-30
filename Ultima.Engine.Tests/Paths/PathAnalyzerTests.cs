@@ -290,14 +290,23 @@ public sealed class PathAnalyzerTests
 
         analyzer.Analyze(m.Map, m.Position, m.ActIndex, "CHARACTER.SILENT", 70); // warm-up JIT
 
+        // Deux instruments, deux rôles (voir DeckTests.Deck_de_60_cartes_reste_sous_5ms) : le temps
+        // mural dépend de la charge de la machine — cinq projets de tests tournent en parallèle dans
+        // la solution, et ce test tombait sans qu'aucune ligne de code n'ait changé. Les octets
+        // alloués par thread sont déterministes ; le temps reste un plafond de catastrophe.
         const int calls = 200;
+        var alloc0 = GC.GetAllocatedBytesForCurrentThread();
         var sw = Stopwatch.StartNew();
         for (int i = 0; i < calls; i++)
             analyzer.Analyze(m.Map, m.Position, m.ActIndex, "CHARACTER.SILENT", 70);
         sw.Stop();
+        var allocPerCall = (GC.GetAllocatedBytesForCurrentThread() - alloc0) / calls;
+        var perCall = sw.Elapsed.TotalMilliseconds / calls;
 
-        Assert.True(sw.ElapsedMilliseconds < 1000,
-            $"{calls} appels en {sw.ElapsedMilliseconds} ms (moyenne {sw.Elapsed.TotalMilliseconds / calls:0.###} ms)");
+        Assert.True(allocPerCall < 2_000_000,
+            $"moins de 2 Mo alloués par analyse, mesuré {allocPerCall} o");
+        Assert.True(sw.ElapsedMilliseconds < 4000,
+            $"{calls} appels en {sw.ElapsedMilliseconds} ms (moyenne {perCall:0.###} ms)");
     }
 
     // ---------- 7. cas limites ----------

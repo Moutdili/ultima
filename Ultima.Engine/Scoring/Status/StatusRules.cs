@@ -25,13 +25,14 @@ public sealed record StatusEffect(
     double DealtMultiplier,
     int DealtFlat,
     double TakenMultiplier,
+    int TakenFlat,
     int? TakenCap,
     double BlockMultiplier,
     int BlockFlat,
     IReadOnlyList<string> Notes)
 {
     public static StatusEffect Neutral { get; } =
-        new(1, 0, 1, null, 1, 0, Array.Empty<string>());
+        new(1, 0, 1, 0, null, 1, 0, Array.Empty<string>());
 }
 
 /// <summary>
@@ -141,6 +142,7 @@ public sealed class StatusRules
         var taken = 1.0;
         var block = 1.0;
         var dealtFlat = 0;
+        var takenFlat = 0;
         var blockFlat = 0;
         int? cap = null;
         List<string>? notes = null;
@@ -171,6 +173,9 @@ public sealed class StatusRules
                 case "taken_mult":
                     taken *= value;
                     break;
+                case "taken_add":
+                    takenFlat += (int)Math.Round(rule.PerStack ? rule.Value * stacks : rule.Value);
+                    break;
                 case "block_mult":
                     block *= value;
                     break;
@@ -190,7 +195,7 @@ public sealed class StatusRules
             }
         }
 
-        return new StatusEffect(dealt, dealtFlat, taken, cap, block, blockFlat,
+        return new StatusEffect(dealt, dealtFlat, taken, takenFlat, cap, block, blockFlat,
             notes ?? (IReadOnlyList<string>)Array.Empty<string>());
     }
 
@@ -206,7 +211,9 @@ public sealed class StatusRules
 
         if (baseDamage <= 0) return 0;
 
-        var damage = (baseDamage + attacker.DealtFlat) * attacker.DealtMultiplier * defender.TakenMultiplier;
+        // Ordre du pipeline : plats (attaquant + cible), puis multiplicatifs, puis plafond (docs/47).
+        var damage = (baseDamage + attacker.DealtFlat + defender.TakenFlat)
+                     * attacker.DealtMultiplier * defender.TakenMultiplier;
         var rounded = (int)Math.Round(damage, MidpointRounding.AwayFromZero);
         if (defender.TakenCap is { } cap) rounded = Math.Min(rounded, cap);
         return Math.Max(0, rounded);

@@ -70,11 +70,33 @@ public sealed class StatusRulesTests
     public void Unqualified_power_is_reported_never_applied()
     {
         var rules = StatusRules.Default;
-        var effect = rules.Evaluate(S(("colossus", 1)));
+        // « slow » dépend de DynamicVars[SlowAmount] : publié non modélisé, jamais appliqué au hasard.
+        var effect = rules.Evaluate(S(("slow", 1)));
 
         Assert.Equal(1, effect.DealtMultiplier);
         Assert.Equal(1, effect.TakenMultiplier);
-        Assert.Contains(effect.Notes, n => n.Contains("colossus") && n.Contains("non modélisé"));
+        Assert.Contains(effect.Notes, n => n.Contains("slow") && n.Contains("non modélisé"));
+    }
+
+    [Fact]
+    public void Directions_qualified_from_the_code_are_applied()
+    {
+        var rules = StatusRules.Default;
+
+        // Colossus (ColossusPower.cs:26, garde target != Owner) : dégâts SUBIS x0,5.
+        Assert.Equal(10, rules.Incoming(20, null, S(("colossus", 1))));
+        // Double Damage (DoubleDamagePower.cs:19, garde dealer != Owner) : dégâts INFLIGÉS x2.
+        Assert.Equal(20, rules.Incoming(10, S(("double_damage", 1)), null));
+        // Tainted (TaintedPower.cs:18) : +Amount de dégâts SUBIS.
+        Assert.Equal(13, rules.Incoming(10, null, S(("tainted", 3))));
+        // Hard to Kill (HardToKillPower.cs:14) : plafond = Amount.
+        Assert.Equal(5, rules.Incoming(50, null, S(("hard_to_kill", 5))));
+        // Covered : multiplicateur 0 (immunité).
+        Assert.Equal(0, rules.Incoming(30, null, S(("covered", 1))));
+        // Guarded (x0,5) sur une cible vulnérable (x1,5) : 10 -> 7,5 -> 8.
+        Assert.Equal(8, rules.Incoming(10, null, S(("guarded", 1), ("vulnerable", 1))));
+        // Unmovable (armure x2).
+        Assert.Equal(20, rules.BlockGained(10, S(("unmovable", 1))));
     }
 
     [Fact]
@@ -106,8 +128,8 @@ public sealed class StatusRulesTests
     {
         var rules = StatusRules.Default;
 
-        Assert.True(rules.ModelledCount >= 10, $"règles modélisées : {rules.ModelledCount}");
-        Assert.Contains(rules.Unqualified, r => r.Id == "colossus");
+        Assert.True(rules.ModelledCount >= 28, $"règles modélisées : {rules.ModelledCount}");
+        Assert.Contains(rules.Unqualified, r => r.Id == "slow");
         Assert.All(rules.Unqualified, r => Assert.False(string.IsNullOrWhiteSpace(r.Reason)));
     }
 }

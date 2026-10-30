@@ -35,7 +35,7 @@ public sealed class TreasureIndexTests
         Assert.True(index.Ids(TreasurePool.Ancient).Count >= 50, $"Ancient : {index.Ids(TreasurePool.Ancient).Count}");
 
         // Aucune relique sans rareté déclarée n'entre dans un pool.
-        Assert.Empty(index.Ids(TreasurePool.Starter).Where(id => id.Contains("VAKUU")));
+        Assert.DoesNotContain(index.Ids(TreasurePool.Starter), id => id.Contains("VAKUU"));
     }
 
     [Fact]
