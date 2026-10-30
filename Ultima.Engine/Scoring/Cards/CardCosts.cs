@@ -27,18 +27,33 @@ public static class CardCosts
     private static readonly Lazy<IReadOnlyDictionary<string, int>> Lazy = new(
         Load, LazyThreadSafetyMode.ExecutionAndPublication);
 
+    /// <summary>Mémo des résolutions déjà faites (identifiant brut → coût, ou null si inconnu).</summary>
+    private static readonly System.Collections.Concurrent.ConcurrentDictionary<string, int?> Cache =
+        new(StringComparer.Ordinal);
+
     /// <summary>Nombre de cartes dont le coût est connu (0 si le catalogue est introuvable).</summary>
     public static int Count => Lazy.Value.Count;
 
     /// <summary>Le catalogue a-t-il pu être lu ?</summary>
     public static bool IsLoaded => Lazy.Value.Count > 0;
 
-    /// <summary>Coût déclaré par le catalogue, ou <c>false</c> si la carte est inconnue.</summary>
+    /// <summary>
+    /// Coût déclaré par le catalogue, ou <c>false</c> si la carte est inconnue. Le résultat est
+    /// mémorisé par identifiant brut : une évaluation de deck interroge 60 fois les mêmes cartes,
+    /// et la normalisation de clé allouait une chaîne à chaque appel (la courbe de coût est dans
+    /// le chemin chaud de la note de deck).
+    /// </summary>
     public static bool TryCost(string? cardId, out int cost)
     {
         cost = 0;
         if (string.IsNullOrWhiteSpace(cardId)) return false;
-        return Lazy.Value.TryGetValue(Key(cardId), out cost);
+
+        var known = Cache.GetOrAdd(cardId, static id =>
+            Lazy.Value.TryGetValue(Key(id), out var found) ? found : (int?)null);
+
+        if (known is null) return false;
+        cost = known.Value;
+        return true;
     }
 
     /// <summary>Clé de rapprochement : dernier segment après un point, sans ponctuation, en minuscules.</summary>

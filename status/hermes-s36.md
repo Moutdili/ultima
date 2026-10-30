@@ -36,15 +36,47 @@
 - L'advisor se dote d'un scorer de reliques complet quand il est construit sans (le daemon fait
   `new EventAdvisor()`), donc aucun câblage supplémentaire n'est nécessaire côté daemon.
 
+### §5 — Deux bugs trouvés en test réel (situation 1/10 de Claude)
+
+- **Courbe de coût** : la densité se calculait sur les seules cartes dont la MÉTA connaît le coût.
+  Terme affiché « 2/4 cartes à 1 énergie → ce coût sature (−4) » sur un deck de 14 cartes.
+  Corrigé : le coût vient du catalogue (578 cartes), source « N cartes comptées sur M ».
+  Deux tests : deck 2/14 → aucun malus ; deck 8/14 → malus réel.
+- **« passer » à F 23** : `ScoreSkip` = taux de passage × 60 − 0,35 × meilleure carte. Le `−0,35`
+  est un chiffre magique et la note de « passer » dépend des cartes proposées. **Non corrigé** :
+  proposition envoyée à Mio, en attente de son go.
+
+### §6 — Doom, le point aveugle de Pestilence
+
+`DoomPower.cs:65` — `IsOwnerDoomed() => Owner.CurrentHp <= Amount`, tué en fin de tour adverse
+(`:68`). Ce n'est pas un dégât, c'est un **seuil d'exécution** : 13 Doom = mort à ≤ 13 PV.
+Primitive `Scoring/Powers/Doom.cs` + 4 tests (`IsLethal`, `EffectiveHp`, `StacksToCondemn`).
+`DoomPower` ne surcharge **aucun** hook indexé — c'est pourquoi la note de Pestilence ne repose que
+sur la méta 44/100.
+
+### §7 — Porte instable : cause trouvée, corrigée à la racine
+
+Deux tests mesuraient du **temps mural** (`DeckTests.Deck_de_60_cartes_reste_sous_5ms`,
+`PathAnalyzerTests.Two_hundred_calls_stay_under_one_second`). La solution lance cinq projets de
+tests en parallèle : le premier tombait à 7,9 ms au lieu de 0,65 ms sans une instruction de plus.
+Remplacés par un instrument déterministe — **octets alloués par thread** — plus un plafond de
+catastrophe large. Mesure réelle : 0,65 ms et 190 624 o par évaluation de 60 cartes.
+**4 passes consécutives de `dotnet test Ultima.sln` vertes**, puis `tools/verify-all.sh` → PORTE VERTE.
+
 ## Prouvé
 
-    dotnet test Ultima.Engine.Tests  → Réussi 292, échec 0 (30 oct., après les trois changements)
+    dotnet test Ultima.Engine.Tests  → Réussi 303, échec 0 (30 oct., après tous les changements)
     dotnet test Ultima.sln           → 60 + 57 + 38 + 292 + 39 tests, échec 0
     build Ultima.Engine              → 0 erreur, 0 avertissement
     tests ajoutés : Price_never_changes_the_letter_only_the_notes,
                     EventAdvisor_note_une_relique_proposee_par_un_ancien,
                     EventAdvisor_rend_null_pour_une_option_qui_n_est_ni_texte_ni_relique
     registry.json                    → gaps.declared_absent = DEPRECATED_RELIC + raison
+
+    dotnet test Ultima.sln           → 4 passes consécutives exit 0
+    tools/verify-all.sh              → .NET vert · compagnon vert · hud vert · console vert
+                                       PORTE : VERTE, sortie 0
+    perf mesuré                      → 0,65 ms et 190 624 o par évaluation de 60 cartes
 
 ## NON prouvé
 
