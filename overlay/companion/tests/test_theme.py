@@ -77,6 +77,10 @@ def test_theme_files_are_the_only_color_source():
     assert files, "les thèmes intégrés doivent être dans themes/"
     for path in files:
         data = json.loads(path.read_text(encoding="utf-8"))
+        if data.get("id") == "auto-perso":
+            # Sélecteur (docs/44 §3) : résolu à l'affichage vers le thème du personnage, aucune couleur propre.
+            assert "tones" not in data and data.get("extends") == "sts", path
+            continue
         assert isinstance(data.get("tones"), dict), path
 
 
