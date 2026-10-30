@@ -32,3 +32,6 @@ data/exports/
 data/codex/
 data/index/
 data/replays/
+
+# sorties d outils (extraction de corpus, intermédiaires)
+tmp/

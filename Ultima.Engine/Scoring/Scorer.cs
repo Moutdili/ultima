@@ -61,7 +61,7 @@ public sealed class Scorer : IScorer
         _relics = new RelicScorer(Meta, Personal, RelicCatalog.Load());
         _potions = new PotionScorer(PotionCatalog.Load());
         _shop = new ShopScorer(_cards, _relics, _potions);
-        _deck = new DeckEvaluator(Meta, _cards);
+        _deck = new DeckEvaluator(Meta, _cards, DeckPercentiles.Default);
         _removal = new RemovalAdvisor(meta: Meta);
     }
 

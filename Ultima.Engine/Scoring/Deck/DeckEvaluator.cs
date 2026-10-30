@@ -1,6 +1,7 @@
 using Ultima.Engine.Contracts;
 using Ultima.Engine.Scoring.Cards;
 using Ultima.Engine.Scoring.Model;
+using Ultima.Engine.Scoring.Strength;
 using Ultima.Saves.Model;
 
 namespace Ultima.Engine.Scoring.Deck;
@@ -49,11 +50,16 @@ public sealed class DeckEvaluator
 
     private readonly IMetaTable _meta;
     private readonly CardScorer _cards;
+    private readonly DeckPercentiles _percentiles;
+    private readonly PlayerStrengthCalculator _strength;
 
-    public DeckEvaluator(IMetaTable meta, CardScorer cards)
+    public DeckEvaluator(IMetaTable meta, CardScorer cards,
+        DeckPercentiles? percentiles = null, PlayerStrengthCalculator? strength = null)
     {
         _meta = meta ?? throw new ArgumentNullException(nameof(meta));
         _cards = cards ?? throw new ArgumentNullException(nameof(cards));
+        _percentiles = percentiles ?? DeckPercentiles.Default;
+        _strength = strength ?? new PlayerStrengthCalculator();
     }
 
     public DeckEvaluation Evaluate(ScoringContext ctx)
@@ -136,6 +142,26 @@ public sealed class DeckEvaluator
             if (points > 0)
                 b.Add($"Correspondance d'archétype ({chosen.Name})", points,
                     $"data/meta/archetypes.json : {chosen.Describe()}");
+        }
+
+        // 6) Note relative : percentile de G parmi les decks arrêtés au même acte (corpus).
+        //    La moyenne des notes de cartes donnait « F 17 » à un deck de départ, ce qui ne dit rien.
+        //    Le terme porte l'écart exact vers le percentile : Total = percentile, et les termes
+        //    précédents restent visibles pour expliquer de quoi le deck est fait.
+        // À PV pleins : sans ça, prendre un coup ferait baisser la note du deck.
+        var strength = _strength.Compute(ctx with { Hp = ctx.MaxHp });
+        var act = ctx.ActIndex + 1;
+        var percentile = _percentiles.Percentile(ctx.CharacterId, act, strength.Total);
+        if (percentile is { } pct)
+        {
+            var bucket = _percentiles.Find(ctx.CharacterId, act);
+            b.Add($"Percentile des decks (acte {act})", pct - b.RawTotal,
+                $"corpus : {bucket?.N ?? 0} decks, médiane {bucket?.P50 ?? 0}, G = {strength.Total}");
+        }
+        else
+        {
+            b.Add("Percentile indisponible", 0,
+                _percentiles.Problem ?? $"aucune référence pour l'acte {act}");
         }
 
         return new DeckEvaluation(b.Build(Confidence.Of(sources.Count, 0)), chosen?.Name, potential, curses);
