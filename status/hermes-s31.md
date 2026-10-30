@@ -34,10 +34,18 @@ Générateur : `tools/deck_percentiles/` (`extract.py` + outil C#). Doc : `docs/
 - G est normalisé par acte → comparaison valable **à acte égal** seulement (c'est le bucket) ;
 - 27 % des runs de l'index n'ont aucune décision → acte inconnu, écartés, jamais devinés.
 
+## Point 2 — reliques muettes : FAIT (`559a3ba`)
+
+Barème de repli borné par tags (`RelicTagValues`, docs/44) : plafond **B (55)**, plancher 0,
+confiance `low`, chaque terme portant le tag + le début de la description FR.
+Mesure : **303 / 304 reliques notées** (avant : 164). Seule exception `DEPRECATED_RELIC`
+(artefact de développement sans effet). Circlet reste à 73 — c'est la méta communautaire qui note
+la blague, pas au moteur de la corriger.
+Tests : `RelicTagTests` (6) + `RelicCoverageTests` (2 invariants). **265 tests** au total.
+
 ## File restante
 
-1. **(S31, en cours)** conversion des tags de reliques : 304 taguées, 7 lues, **163 muettes**.
-2. **IReviewBuilder** (contrat v1.2, `review.open`) — à faire avant rencontres et pouvoirs.
+1. **IReviewBuilder** (contrat v1.2, `review.open`) — à faire avant rencontres et pouvoirs.
 3. 37 rencontres sans statistiques.
 4. 204 pouvoirs comportementaux — d'un bloc, plus tard.
 5. A2 (probabilité de pioche, docs/25) — **ne pas commencer** avant que le miroir publie les piles.
