@@ -30,7 +30,7 @@ from textual.widgets import (DataTable, Footer, Input, OptionList, RichLog, Stat
                              TabPane)
 from textual.widgets.option_list import Option
 
-from . import consolecfg, doctor, logs, paths, procs, settings, textview
+from . import banner, consolecfg, doctor, logs, paths, procs, settings, textview
 from .palette import CURSE_MARK, DASH, PALETTE, SEP, TIMES, grade_tone
 from .settings import SIDE_LABELS, OverlaySettings
 from .state import ALIVE, ABSENT, OK, REFUSED, StateResult, get, load as load_state, parse as parse_state
@@ -202,7 +202,7 @@ class UltimaApp(App):
     TabbedContent { height: 1fr; }
     TabPane { padding: 0 1; }
     #statusbar { height: 1; padding: 0 1; color: $text-muted; }
-    #dash { padding: 1 0 0 0; }
+    #dash-body { padding: 1 0 0 0; }
     .detail { height: auto; max-height: 8; border-top: solid $primary 20%; padding: 0 0; }
     DataTable { height: 1fr; background: $background; }
     DataTable > .datatable--header { background: $background; color: $text-muted; text-style: none; }
@@ -417,7 +417,9 @@ class UltimaApp(App):
     # ----- 1 État -----
     def render_dashboard(self) -> None:
         width = max(40, self.size.width - 4)
-        self.query_one("#dash-body", Static).update(to_text(textview.dashboard(self.state, self.health(), width)))
+        head = banner.segments(self.size.width, self.size.height) + [[]]
+        self.query_one("#dash-body", Static).update(
+            to_text(head + textview.dashboard(self.state, self.health(), width)))
 
     # ----- 2 Deck -----
     def render_deck(self) -> None:

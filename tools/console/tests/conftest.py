@@ -42,6 +42,9 @@ def env(tmp_path, monkeypatch):
     monkeypatch.setenv("XDG_RUNTIME_DIR", str(run))
     monkeypatch.setenv("ULTIMA_NO_SYSTEMCTL", "1")
     monkeypatch.setenv("TERM", "xterm-256color")
+    for var in ("LC_ALL", "LC_CTYPE"):
+        monkeypatch.delenv(var, raising=False)
+    monkeypatch.setenv("LANG", "C.UTF-8")          # locale UTF-8 déterministe (bandeau complet possible)
     fake = tmp_path / "fake-bin"
     fake.mkdir()
     gx = fake / "gnome-extensions"

@@ -189,6 +189,9 @@ run_installer "${args[@]}"
 
 home="${ULTIMA_HOME:-${XDG_DATA_HOME:-$HOME/.local/share}/ultima}"
 bindir="${ULTIMA_BIN_DIR:-$HOME/.local/bin}"
+echo
+PYTHONPATH="$console" "$py" -B -P -m ultima_console banner || true
+echo
 ok "ULTIMA installé : $home (commande $bindir/ultima)"
 case ":$PATH:" in *":$bindir:"*) ;; *) warn "$bindir n'est pas dans le PATH" ;; esac
 echo

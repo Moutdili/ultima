@@ -9,7 +9,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-from . import CONTRACT_MAJOR, CONTRACT_MINOR, VERSION, consolecfg, doctor, logs, paths, procs, settings, textview
+from . import CONTRACT_MAJOR, CONTRACT_MINOR, VERSION, banner, consolecfg, doctor, logs, paths, procs, settings, textview
 from .palette import KO_MARK, OK_MARK, SEP, WARN_MARK, Ansi, color_enabled
 from .state import ALIVE, load as load_state, probe_socket
 
@@ -111,6 +111,7 @@ def main(argv: list[str] | None = None) -> int:
             "install": lambda: cmd_install(args + passthrough),
             "uninstall": lambda: cmd_uninstall(out, args),
             "version": lambda: cmd_version(out, as_json), "--version": lambda: cmd_version(out, as_json),
+            "banner": lambda: cmd_banner(out),
             "daemon-exec": lambda: cmd_daemon_exec(args + passthrough),
             "help": lambda: _usage(0, color=color), "-h": lambda: _usage(0, color=color),
             "--help": lambda: _usage(0, color=color),
@@ -359,10 +360,19 @@ def cmd_version(out: Out, as_json: bool) -> int:
     if as_json:
         print(json.dumps(info, ensure_ascii=False, indent=2))
         return 0
+    cmd_banner(out)
+    print()
     contract = info["contract"]
     print(f"ultima {VERSION}" + out.ansi.dim(f"{SEP}contrat v{contract}"))
     if info["commit"]:
         print(out.ansi.dim(f"commit {info['commit']}{SEP}installé {info['installedAt']}"))
+    return 0
+
+
+def cmd_banner(out: Out) -> int:
+    """Bandeau ULTIMA (repli une ligne si terminal < 52×30 ou locale non UTF-8) ; fin de tools/install.sh."""
+    size = shutil.get_terminal_size((80, 24))
+    print(banner.render(out.ansi, size.columns, size.lines))
     return 0
 
 
