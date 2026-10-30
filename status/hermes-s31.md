@@ -65,10 +65,23 @@ couvertes** ; 2 restent sous le seuil de 200 runs (`THE_ARCHITECT_EVENT_ENCOUNTE
 Doc : `docs/46-rencontres-mesure.md`. Tests : `EncounterMeasureTests` (3) + `ThreatTests` mis à
 jour (AEONGLASS_BOSS passe de « aucune stat » à 43,97 dégâts sur 40 286 runs).
 
+## Statuts — trois familles indexées (docs/47)
+
+`tools/status/index_sources.py` (lancé sur la machine du jeu) : **238 cartes** appliquent un pouvoir
+(192 sur soi, 75 sur l'ennemi), **96 monstres** (131 buffs sur soi, 50 debuffs au joueur), 458
+applications, 228 pouvoirs distincts, **0 inconnu**.
+`tools/status/build_status_rules.py` génère les règles depuis les hooks de `powers.json` : 36
+pouvoirs touchent aux dégâts, **12 modélisés**, 24 publiés non modélisés avec leur raison
+(direction non déductible du hook).
+`StatusRules.Incoming` (plat → multiplicatifs → plafond) et `BlockGained` sont branchés sur
+`ThreatModel.PredictedMaxHit`. `StatusSources` répond « qui applique quoi », avec la ligne.
+**284 tests**.
+
 ## File restante
 
-1. 204 pouvoirs comportementaux (d'un bloc, plus tard).
-2. A2 pioche — attendre le miroir (piles de combat).
+1. 204 pouvoirs comportementaux (d'un bloc, plus tard) — l'index statuts est la première brique.
+2. Rotation des monstres : non modélisée (docs/22 interdit de l'inventer).
+3. A2 pioche — attendre le miroir (piles de combat).
 3. 37 rencontres sans statistiques.
 4. 204 pouvoirs comportementaux — d'un bloc, plus tard.
 5. A2 (probabilité de pioche, docs/25) — **ne pas commencer** avant que le miroir publie les piles.
