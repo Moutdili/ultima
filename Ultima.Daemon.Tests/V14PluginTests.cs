@@ -236,13 +236,13 @@ public sealed class V14PluginTests : IDisposable
         Assert.All(times, ms => Assert.True(ms < 50, $"publication retardée de {ms:0.0} ms par un plugin"));
 
         // 3 échecs consécutifs ⇒ disabled (il faut laisser passer minIntervalMs entre deux tours)
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < 4; i++)
         {
-            Thread.Sleep(300);
+            Thread.Sleep(350);
             core.OnSettings(new OverlaySettings(
                 OverlaySettings.Default.Modules.Select((m, k) => m with { Order = (k + i + 40) % 12 }).ToArray()));
         }
-        Assert.True(WaitUntil(() => custom.Plugins.Views().All(v => v.Health == CustomHealth.Disabled), 10000),
+        Assert.True(WaitUntil(() => custom.Plugins.Views().All(v => v.Health == CustomHealth.Disabled), 8000),
             string.Join(" | ", custom.Plugins.Views().Select(v => $"{v.Id}={v.Health}:{v.Problem}")));
         Assert.All(custom.Plugins.Views(), v =>
         {
@@ -297,7 +297,7 @@ public sealed class V14PluginTests : IDisposable
                 n += 1
                 sys.stdout.write(json.dumps({"rows": [{"text": f"tour {n}"}]}) + "\n")
                 sys.stdout.flush()
-            """, timeoutMs: 300, minIntervalMs: 400);
+            """, timeoutMs: 300, minIntervalMs: 250);
         var set = SchemaSet.Load();
         using var runtime = new PluginRuntime(
             PluginManifest.TryLoad(Path.Combine(dir, "x.count"), set.Plugin, out _)!, set.PluginOutput, () => { });
@@ -309,10 +309,10 @@ public sealed class V14PluginTests : IDisposable
         Assert.Equal("tour 1", runtime.Rows.Single().Text);
 
         runtime.Submit(StateJson.Serialize(State(101)));   // juste après : dans l'intervalle
-        Thread.Sleep(80);
+        Thread.Sleep(60);
         Assert.Equal(1, runtime.Sends);                    // minIntervalMs pas écoulé
         runtime.Submit(StateJson.Serialize(State(102)));   // remplace l'état en attente
-        Thread.Sleep(600);
+        Thread.Sleep(400);
         Assert.Equal(2, runtime.Sends);
         Assert.Equal("tour 2", runtime.Rows.Single().Text);
     }
