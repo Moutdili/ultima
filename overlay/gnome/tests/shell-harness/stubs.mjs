@@ -101,6 +101,7 @@ const GLib = {
     build_filenamev: parts => path.join(...parts),
     get_user_runtime_dir: () => process.env.XDG_RUNTIME_DIR,
     get_user_config_dir: () => process.env.XDG_CONFIG_HOME,
+    get_user_data_dir: () => process.env.XDG_DATA_HOME ?? path.join(process.env.HOME ?? '/tmp', '.local', 'share'),
     get_monotonic_time: () => clock.now * 1000,
     timeout_add: (_prio, ms, fn) => clock.add(ms, fn),
     source_remove: id => clock.remove(id),
@@ -154,6 +155,34 @@ class File {
         return this._p;
     }
 
+    get_child(name) {
+        return new File(path.join(this._p, name));
+    }
+
+    query_exists(_canc) {
+        return fs.existsSync(this._p);
+    }
+
+    // Énumération synchrone (comme g_file_enumerate_children) : dossier absent -> lève, comme Gio.
+    enumerate_children(_attrs, _flags, _canc) {
+        if (!fs.existsSync(this._p) || !fs.statSync(this._p).isDirectory())
+            throw new GioError(IOErrorEnum.NOT_FOUND, `${this._p} : dossier absent`);
+        const names = fs.readdirSync(this._p);
+        let i = 0;
+        return {
+            next_file: () => (i < names.length ? {get_name: () => names[i++]} : null),
+            close: () => {},
+        };
+    }
+
+    load_contents(_canc) {
+        try {
+            return [true, new Uint8Array(fs.readFileSync(this._p))];
+        } catch (e) {
+            throw new GioError(e.code === 'ENOENT' ? IOErrorEnum.NOT_FOUND : IOErrorEnum.FAILED, e.message);
+        }
+    }
+
     monitor_file(_flags, _canc) {
         const m = new FileMonitor(this._p);
         monitors.set(this._p, m);
@@ -179,6 +208,7 @@ class File {
 }
 const Gio = {
     File, Cancellable, IOErrorEnum,
+    FileQueryInfoFlags: {NONE: 0, NOFOLLOW_SYMLINKS: 4},
     FileMonitorFlags: {NONE: 0, WATCH_MOVES: 8},
     FileMonitorEvent: {CHANGED: 0, CHANGES_DONE_HINT: 1, DELETED: 2, CREATED: 3, ATTRIBUTE_CHANGED: 4,
         PRE_UNMOUNT: 5, UNMOUNTED: 6, MOVED: 7, RENAMED: 8, MOVED_IN: 9, MOVED_OUT: 10},

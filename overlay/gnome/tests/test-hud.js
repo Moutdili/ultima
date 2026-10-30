@@ -5,6 +5,8 @@
 import {HUD_DEFAULTS, QUALITIES, resolveHud, parseSettingsHud, effectiveQuality, detectCaps, hudKey}
     from '../ultima@mio/hud.js';
 import {computePlan, HoverWatch, BLUR_RADIUS} from '../ultima@mio/plan.js';
+import {parseSettings, parseSettingsAppearance, resolveAppearance, appearanceKey, APPEARANCE_DEFAULTS,
+    ANCHORS, POSITION_WIDTH_RANGE} from '../ultima@mio/appearance.js';
 
 const isNode = typeof globalThis.process?.versions?.node === 'string';
 const out = isNode ? s => console.log(s) : s => globalThis.print(s);
@@ -296,6 +298,65 @@ function makeTracker() {
     check('event sans curseur disponible -> repli poll', nw.mode === 'poll');
     nw.stop();
     w.stop();
+}
+
+// ---------- 9. appearance.hud (contrat v1.4) : thème, police, tons, position, railEdge ----------
+{
+    check('défauts du contrat docs/44 §3', APPEARANCE_DEFAULTS.theme === 'sts' &&
+        APPEARANCE_DEFAULTS.font.family === null && APPEARANCE_DEFAULTS.font.size === null &&
+        APPEARANCE_DEFAULTS.position.side === null && APPEARANCE_DEFAULTS.position.anchor === 'center' &&
+        APPEARANCE_DEFAULTS.position.offsetX === 0 && APPEARANCE_DEFAULTS.position.offsetY === 0 &&
+        APPEARANCE_DEFAULTS.position.width === 360 && APPEARANCE_DEFAULTS.railEdge === true);
+    const none = resolveAppearance(null);
+    check('appearance absent -> défauts, sources « défaut »',
+        appearanceKey(none) === appearanceKey(resolveAppearance(undefined)) &&
+        Object.values(none.source).every(v => v === 'défaut') && none.theme === 'sts');
+    check('appearance non objet -> défauts', resolveAppearance('auto-perso').theme === 'sts');
+    const full = resolveAppearance({
+        theme: ' Auto-Perso ', tones: {accent: '#FF0000', rose: '#00FF00', text: 'rouge'},
+        font: {family: ' Fira Sans ', size: 16.4},
+        position: {side: 'LEFT', anchor: 'bottom', offsetX: 40.6, offsetY: -20, width: 480},
+        railEdge: false,
+    });
+    check('thème « auto-perso » accepté (casse et espaces ignorés)', full.theme === 'auto-perso');
+    check('police : famille validée, taille arrondie', full.font.family === 'Fira Sans' && full.font.size === 16);
+    check('tons : seuls les tons connus et les couleurs valides sont gardés',
+        full.tones.accent === '#FF0000' && !full.tones.rose && !full.tones.text);
+    check('position : côté/ancrage normalisés, décalages entiers, largeur dans 280-520',
+        full.position.side === 'left' && full.position.anchor === 'bottom' && full.position.offsetX === 41 &&
+        full.position.offsetY === -20 && full.position.width === 480);
+    check('railEdge false respecté', full.railEdge === false &&
+        Object.values(full.source).every(v => v === 'fichier'));
+    const bad = resolveAppearance({theme: 'Ironclad!', font: {family: 'Arial; background: red', size: 40},
+        position: {side: 'haut', anchor: 'milieu', offsetX: 'loin', offsetY: NaN, width: 100}, railEdge: 'oui'});
+    check('valeurs invalides -> défauts champ par champ, bornes RAMENÉES (aucune injection CSS possible)',
+        bad.theme === 'sts' && bad.font.family === null && bad.font.size === 24 && bad.position.side === null &&
+        bad.position.anchor === 'center' && bad.position.offsetX === 0 && bad.position.offsetY === 0 &&
+        bad.position.width === 280 && bad.railEdge === true);
+    const wide = resolveAppearance({position: {width: 9999}});
+    check('largeur hors bornes RAMENÉE à 520', wide.position.width === 520);
+    const offsets = resolveAppearance({position: {offsetX: 1e9, offsetY: -1e9}});
+    check('décalages absurdes ramenés (bornage final par la géométrie)',
+        Math.abs(offsets.position.offsetX) <= 4000 && Math.abs(offsets.position.offsetY) <= 4000);
+    check('ancrages du contrat', ANCHORS.join(',') === 'top,center,bottom' &&
+        POSITION_WIDTH_RANGE.join(',') === '280,520');
+    check('noms de champs insensibles à la casse (comme le daemon)',
+        resolveAppearance({THEME: 'nuit', Position: {ANCHOR: 'top'}}).theme === 'nuit' &&
+        resolveAppearance({Position: {ANCHOR: 'top'}}).position.anchor === 'top');
+    const text = JSON.stringify({modules: [], hud: {quality: 'eco'},
+        appearance: {hud: {theme: 'ironclad', font: {family: 'Fira Sans', size: 15},
+            tones: {accent: '#FF5555'}, position: {side: 'left', width: 420}, railEdge: false}}});
+    const parsed = parseSettings(text);
+    check('parseSettings sépare les deux blocs du même fichier',
+        parsed.kind === 'ok' && parsed.hud.quality === 'eco' && parsed.appearance.theme === 'ironclad' &&
+        parseSettingsAppearance(text).position.width === 420);
+    check('sans bloc appearance : null (défauts)', parseSettings('{"modules": []}').appearance === null &&
+        parseSettings('{"hud": {"quality": "eco"}}').appearance === null);
+    check('JSON invalide -> invalide (l\'extension garde les derniers réglages valides)',
+        parseSettings('{"appearance": {').kind === 'invalid' && parseSettings('[]').kind === 'invalid');
+    check('appearance: null -> défauts', parseSettings('{"appearance": null}').appearance === null);
+    const k1 = appearanceKey(resolveAppearance({theme: 'sts'})), k2 = appearanceKey(resolveAppearance({theme: 'nuit'}));
+    check('clé de changement stable et sensible au thème', k1 === appearanceKey(resolveAppearance({theme: 'sts'})) && k1 !== k2);
 }
 
 out(failures ? `\n${failures} échec(s)` : '\ntous les tests passent');

@@ -19,13 +19,16 @@ Chaque changement est appliqué **sans recharger l'extension** et journalisé av
 
 Le **niveau de verre** suit `HudSettings.Quality` (contrat v1.3), lu dans `~/.config/ultima/settings.json`
 (outil : `tools/hud-set.py quality=eco|verre|loupe`), sinon dans `state.settings.hud`, sinon la clé
-GSettings `quality` :
+GSettings `quality`. Depuis la v1.4, **apparence** (thème, police, tons, position, railEdge) vit dans
+`appearance.hud` du même fichier (`tools/hud-set.py theme=… fontFamily=… fontSize=… anchor=… width=…
+offsetX=… offsetY=… positionSide=… railEdge=…`) : ce sont des réglages de rendu, aucun n'ajoute de
+coût par image, et ils ne sont relus qu'au changement du fichier :
 
 | Niveau | Rail (replié) | Panneau ouvert | Coût attendu (hypothèse) |
 |---|---|---|---|
 | `eco` | aplat teinté #192930 @ 0.85 + liseré or | idem, **aucun effet** (ni flou, ni GLSL, ni clone) | ~0 : styles St seulement |
-| `verre` (défaut) | aplat (flou coupé) | `Shell.BlurEffect` BACKGROUND rayon 24 + reflet GLSL (`Shell.GLSLEffect`, uniformes fixes) | flou recalculé à chaque image où le jeu bouge, borné à 260×H logiques |
-| `loupe` | aplat | flou rayon 10 + reflet + `Clutter.Clone` de la fenêtre du jeu ×1,06 réfracté sur les bords | + une peinture de la texture du jeu dans un tampon 260×H ; clone créé à l'ouverture (plaque immobile), **détruit** au début du repli ; absent si l'unredirect n'est pas inhibé |
+| `verre` (défaut) | aplat (flou coupé) | `Shell.BlurEffect` BACKGROUND rayon 24 + reflet GLSL (`Shell.GLSLEffect`, uniformes fixes) | flou recalculé à chaque image où le jeu bouge, borné à la largeur du panneau (280-520 px) × H logiques |
+| `loupe` | aplat | flou rayon 10 + reflet + `Clutter.Clone` de la fenêtre du jeu ×1,06 réfracté sur les bords | + une peinture de la texture du jeu dans un tampon (largeur × H) ; clone créé à l'ouverture (plaque immobile), **détruit** au début du repli ; absent si l'unredirect n'est pas inhibé |
 
 Commandes (installé dans `~/.local/share/gnome-shell/extensions/ultima@mio`) :
 
@@ -56,6 +59,12 @@ journalctl --user -b -o short-precise | grep -E '\[ULTIMA\] (plan|réglages perf
   et `~/.config/ultima/settings.json` (lu, jamais écrit),
   avec un anti-rebond de 100 ms (une rafale d'écritures donne une seule lecture asynchrone). Aucune
   relecture périodique.
+- **Thème et police : rien au repos.** Les fichiers `themes/*.json` ne sont lus qu'à l'ouverture de
+  l'extension et à chaque changement de `settings.json` (jamais à chaque publication d'état, jamais par
+  image). Changer de thème ou de police ne crée **aucune** minuterie : les tests le prouvent sur
+  l'horloge virtuelle (`tests/test-extension.mjs` §11bis, 10 min de repos après un changement de thème
+  et de police : 0 source GLib, 0 écriture d'acteur). Un thème cassé est résolu une fois puis remplacé
+  par `sts` : aucun coût récurrent.
 - **Rendu différé** : panneau replié, le rail est une simple bande de verre (skill design §12) :
   un état publié ne touche **aucun acteur** (prouvé : `tests/test-extension.mjs` §3, compteur
   d'activité des bouchons). Le texte est appliqué à l'ouverture. Panneau ouvert, un état republié

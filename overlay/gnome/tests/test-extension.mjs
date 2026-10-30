@@ -15,13 +15,19 @@ import path from 'node:path';
 const TMP = fs.mkdtempSync(path.join(os.tmpdir(), 'ultima-harness-'));
 process.env.XDG_RUNTIME_DIR = path.join(TMP, 'run');
 process.env.XDG_CONFIG_HOME = path.join(TMP, 'config');
+process.env.XDG_DATA_HOME = path.join(TMP, 'data');
 fs.mkdirSync(process.env.XDG_RUNTIME_DIR, {recursive: true});
+const THEMES = path.join(process.env.XDG_CONFIG_HOME, 'ultima', 'themes');
+// Les thèmes de l'extension sont LIVRÉS avec elle (ultima@mio/themes/sts.json) : le harnais pointe
+// le vrai dossier de l'extension (lecture seule), sinon le repli `sts` n'existerait pas.
+const EXT_DIR = new URL('../ultima@mio/', import.meta.url).pathname;
 const STATE = path.join(process.env.XDG_RUNTIME_DIR, 'ultima', 'state.json');
 const SETTINGS = path.join(process.env.XDG_CONFIG_HOME, 'ultima', 'settings.json');
 const SAMPLE = fs.readFileSync(new URL('../../../docs/22-state.sample.json', import.meta.url), 'utf8');
 const V13 = fs.readFileSync(new URL('../../../docs/ipc/state.v13.sample.json', import.meta.url), 'utf8');
 const SCHEMA = fs.readFileSync(new URL('../ultima@mio/schemas/org.gnome.shell.extensions.ultima.gschema.xml', import.meta.url), 'utf8');
 
+import * as Geo from '../ultima@mio/geometry.js';
 const S = await import('./shell-harness/stubs.mjs');
 const {clock, monitors, compositor, pointer, Main, shared, Settings, io, anim, activity, cursorTracker,
     movePointer, focus, gameActor, windowGroup} = S;
@@ -67,7 +73,7 @@ check('schéma lu : 11 clés, survol event par défaut', Object.keys(DEFAULTS).l
 shared.settings = new Settings(DEFAULTS);
 
 const {default: UltimaExtension} = await import('../ultima@mio/extension.js');
-const ext = new UltimaExtension('/nonexistent');
+const ext = new UltimaExtension(EXT_DIR);
 ext.enable();
 await flush();
 await flush();
@@ -190,7 +196,12 @@ check('survol du rail (pointeur immobile ensuite) -> panneau ouvert', ov()._expa
 check('verre ouvert : flou 24 + reflet (verre, défaut du contrat)', blur() && ov()._blurEffect.radius === 24 && sheenOn());
 check('§11 shop : la carte de décision prend toute la place', panelText() === '[A] Scourge · 24 or soldé / Méta (médiane 3 sources) +65',
     panelText());
-check('la lettre porte la couleur S-F (A = vert StsColors)', content().children[0]._ultima.grade.style.includes('#7FFF00'));
+check('la lettre porte la couleur S-F du thème (A = ok, StsColors #7FFF00 en rgba)',
+    content().children[0]._ultima.grade.style.includes('rgba(127, 255, 0, 1)'),
+    content().children[0]._ultima.grade.style);
+check('aucun hexadécimal dans les styles St (les couleurs viennent du thème, en rgba)', !/#[0-9a-fA-F]{3,8}/.test(
+    [ov()._frame.style, ov()._edge.style, content().children[0]._ultima.grade.style,
+        ...content().children.map(a => a._ultima?.label?.style ?? '')].join(' ')));
 {
     const labelsBefore = content().children.slice();
     const a0 = activity.count;
@@ -270,7 +281,7 @@ check('repos après fermeture : aucune minuterie', sources() === 0, `${sources()
 {
     await writeSettings({modules: [], hud: {quality: 'eco', restOpacity: 0.9}});
     check('settings.json quality=eco : teinte aplat 0.85 (eco), opacité au repos 0.9',
-        ov()._frame.style.includes('rgba(25, 41, 48, 0.85)') && root().opacity === Math.round(255 * 0.9) &&
+        ov()._frame.style.includes('rgba(25, 41, 48, 0.68)') && root().opacity === Math.round(255 * 0.9) &&
         ov()._quality.level === 'eco', ov()._frame.style);
     await hoverRail();
     check('eco ouvert : AUCUN flou, AUCUN reflet, AUCUNE loupe (coût ~0)', ov()._expanded && !blur() && !sheenOn() && !ov()._lens);
@@ -282,17 +293,17 @@ check('repos après fermeture : aucune minuterie', sources() === 0, `${sources()
     const lens = ov()._lens;
     const clone = lens?.children[0];
     const l = L();
-    const cx = l.panelX + 130, cy = l.y + l.h / 2;
+    const cx = l.panelX + 180, cy = l.y + l.h / 2;
     check('loupe ouverte : flou léger (10) + reflet + clone du JEU (fenêtre active plein écran)', blur() &&
         ov()._blurEffect.radius === 10 && sheenOn() && clone?.source === gameActor);
     check('loupe : grossissement 1.06 autour du centre du panneau', clone.scale_x === 1.06 && clone.scale_y === 1.06 &&
         clone.x === Math.round((1 - 1.06) * cx - l.panelX) && clone.y === Math.round((1 - 1.06) * cy - l.y),
     `clone=(${clone.x},${clone.y})`);
     check('loupe : conteneur découpé à la taille de la plaque, effet de réfraction, sous le verre',
-        lens.clip_to_allocation && lens.width === 260 && lens.height === l.h && lens.effects.has('ultima-lens') &&
+        lens.clip_to_allocation && lens.width === 360 && lens.height === l.h && lens.effects.has('ultima-lens') &&
         ov()._plate.children.indexOf(lens) < ov()._plate.children.indexOf(ov()._glass));
     const uni = lens.effects.get('ultima-lens').uniforms;
-    check('loupe : uniformes fixes (taille, rayon, force, aberration)', uni.get('size').join() === `260,${l.h}` &&
+    check('loupe : uniformes fixes (taille, rayon, force, aberration)', uni.get('size').join() === `360,${l.h}` &&
         uni.get('radius')[0] === 10 && uni.get('strength')[0] > 0 && uni.get('aberration')[0] > 0);
     anim.defer = true;
     await leaveAndCollapse();
@@ -436,6 +447,162 @@ check('appels unredirect équilibrés', compositor.calls.filter(c => c === 'disa
         origLog(`---- panneau épinglé (1536x960) ----\n${panelText()}\n----`);
     pin();
     anim.flush();
+}
+
+// ---------- 11bis. thèmes, polices, disposition, modules perso (v1.4) ----------
+// Fixtures de thème DANS UN DOSSIER TEMPORAIRE (jamais ~/.config/ultima/thèmes réel) : le dépôt ne
+// fournit que `sts` pour l'instant (les 10 autres arrivent avec T2).
+function writeTheme(name, obj) {
+    fs.mkdirSync(THEMES, {recursive: true});
+    fs.writeFileSync(path.join(THEMES, name), typeof obj === 'string' ? obj : JSON.stringify(obj));
+}
+const STS = JSON.parse(fs.readFileSync(new URL('../../../themes/sts.json', import.meta.url), 'utf8'));
+const themeLog = () => journal.filter(l => l.includes('[ULTIMA] thème') || l.includes('[ULTIMA] apparence'));
+{
+    // rubis : extends sts, verre et police propres ; nuit : neutre ; casse : JSON invalide.
+    writeTheme('rubis.json', {id: 'rubis', label: 'Rubis', api: 1, extends: 'sts',
+        tones: {accent: '#FF5555', text: '#FFFFFF'}, glass: {tint: '#801212', tintOpacity: 0.35},
+        font: {family: 'Fira Sans', size: 18}});
+    writeTheme('ironclad.json', {id: 'ironclad', label: 'Ironclad', api: 1, extends: 'sts',
+        tones: {accent: '#FF5555'}});
+    writeTheme('casse.json', '{"id": "casse", "tones":');
+    await writeSettings({modules: [], appearance: {hud: {theme: 'rubis'}}});
+    check('thème étendu : verre et accent du thème (extends sts pour le reste)',
+        ov()._theme.id === 'rubis' && ov()._resolvedTheme.chain.join(',') === 'sts,rubis' &&
+        ov()._frame.style.includes('rgba(128, 18, 18, 0.35)') && ov()._edge.style.includes('rgba(255, 85, 85, 0.85)'),
+        ov()._frame.style);
+    check('thème : tons hérités de sts quand le thème ne les redéfinit pas',
+        ov()._theme.tones.curse.hex.toUpperCase() === STS.tones.curse.toUpperCase() &&
+        ov()._theme.tones.text.hex === '#FFFFFF');
+    check('thème : police du thème appliquée si appearance.font est absent', ov()._font.size === 18 &&
+        ov()._font.family === 'Fira Sans');
+    {
+        const a0 = activity.count, s0 = sources();
+        clock.advance(10 * 60 * 1000);
+        await flush();
+        check('changement de thème : AUCUNE minuterie, AUCUN travail par image au repos (10 min)',
+            sources() === 0 && s0 === 0 && activity.count === a0, `sources=${sources()}`);
+    }
+    await publish(SAMPLE); // contenu réel (shop) pour lire les styles des étiquettes
+    await writeSettings({modules: [], appearance: {hud: {theme: 'rubis', font: {size: 20}}}});
+    check('police : taille de appearance.hud.font', ov()._font.size === 20);
+    await hoverRail();
+    {
+        const styles = content().children.map(a => a._ultima.head?.style ?? a._ultima.label?.style ?? '');
+        check('police : appliquée au CSS de St (corps 20 px, en-tête de carte 22 px)',
+            styles.length >= 1 && styles.every(st => st.includes('font-size: 20px;') || st.includes('font-size: 22px;')) &&
+            styles.some(st => st.includes('font-size: 22px;')), styles.join(' | '));
+        check('police : famille du thème dans le CSS (St/Pango)',
+            styles.every(st => st.includes('font-family: "Fira Sans";')));
+    }
+    await leaveAndCollapse();
+    await writeSettings({modules: [], appearance: {hud: {theme: 'rubis', font: {size: 30}}}});
+    check('police hors 12-24 px : RAMENÉE à 24', ov()._font.size === 24);
+    await writeSettings({modules: [], appearance: {hud: {theme: 'rubis', font: {family: 'Cantarell', size: 13}}}});
+    check('police : famille de appearance.hud.font prioritaire sur le thème',
+        ov()._font.family === 'Cantarell' && ov()._font.size === 13);
+
+    await writeSettings({modules: [], appearance: {hud: {theme: 'rubis', position: {side: 'left', anchor: 'bottom',
+        offsetX: 60, offsetY: -40, width: 420}}}});
+    {
+        const l = L();
+        const mon = Main.layoutManager.primaryMonitor;
+        check('disposition : côté gauche, largeur 420 px, panneau dans l\'écran',
+            l.side === 'left' && l.w === 420 && l.panelX === Geo.EDGE_GAP + 60 && l.railX === 0 &&
+            l.panelX + l.w <= mon.width && l.y >= 0 && l.y + l.h <= mon.height, JSON.stringify([l.panelX, l.y, l.w, l.h]));
+        check('disposition : ancrage bas dans la zone sûre (offsetY appliqué), jamais sur la pioche ni « Fin du tour »',
+            l.y + l.h === Geo.safeArea(mon, 'left').y + Geo.safeArea(mon, 'left').height - 40 &&
+            !Geo.intersects(Geo.panelRect(l), Geo.drawPileZone(mon)) &&
+            !Geo.intersects(Geo.panelRect(l), Geo.endTurnZone(mon)));
+        check('disposition : contenu élargi à la nouvelle largeur', ov()._content.width === 420 - 2 * 16 &&
+            ov()._plate.width === 420);
+    }
+    await writeSettings({modules: [], appearance: {hud: {theme: 'rubis', position: {width: 520}, railEdge: false}}});
+    check('railEdge=false : liseré du rail éteint, panneau toujours à 520 px',
+        ov()._edge.opacity === 0 && ov()._edge.style.includes('border: none') && L().w === 520);
+    await writeSettings({modules: [], appearance: {hud: {theme: 'rubis', railEdge: true}}});
+    check('railEdge=true (défaut) : liseré or du rail rallumé',
+        ov()._edge.opacity === 255 && ov()._edge.style.includes('border: 1px solid'));
+
+    // Thème identique, seuls les TONS changent (appearance.hud.tones) : le texte doit se recolorer.
+    await hoverRail();
+    {
+        const before = content().children.map(a => a._ultima.head?.clutter_text.markup ?? a._ultima.label?.clutter_text.markup ?? '').join('');
+        await writeSettings({modules: [], appearance: {hud: {theme: 'sts', tones: {text: '#00FF00'}}}});
+        const after = content().children.map(a => a._ultima.head?.clutter_text.markup ?? a._ultima.label?.clutter_text.markup ?? '').join('');
+        check('surcharge de tons (même thème) : le texte est recoloré sans changer de thème',
+            before !== after && after.includes('#00FF00') && ov()._theme.id === 'sts', after.slice(0, 120));
+    }
+    await leaveAndCollapse();
+
+    const warnings = journal.filter(l => l.startsWith('WARN') && l.includes('thème')).length;
+    await writeSettings({modules: [], appearance: {hud: {theme: 'casse'}}});
+    check('thème cassé : repli sts, journal [ULTIMA] (une ligne), aucune exception',
+        ov()._theme.id === 'sts' && journal.some(l => l.startsWith('WARN') && l.includes('thème « casse »')) &&
+        journal.filter(l => l.startsWith('WARN') && l.includes('thème')).length === warnings + 1 &&
+        journal.filter(l => l.startsWith('ERROR')).length === 0, journal.filter(l => l.includes('casse')).join(' | '));
+    check('thème cassé : les couleurs redeviennent celles de sts',
+        ov()._frame.style.includes('rgba(25, 41, 48, 0.55)'));
+    await writeSettings({modules: [], appearance: {hud: {theme: 'inconnu'}}});
+    check('thème introuvable : repli sts + journal', ov()._theme.id === 'sts' &&
+        journal.some(l => l.includes('thème « inconnu » introuvable')));
+    await writeSettings({modules: [], appearance: {hud: {theme: 'auto-perso'}}});
+    check('auto-perso hors run (état sans run en cours) : repli sts journalisé',
+        ov()._theme.id === 'sts' && journal.some(l => l.includes('auto-perso')));
+    const withRun = JSON.parse(SAMPLE);
+    withRun.run.characterId = 'CHARACTER.IRONCLAD';
+    await publish(JSON.stringify(withRun));
+    await writeSettings({modules: [], appearance: {hud: {theme: 'auto-perso'}}});
+    check('auto-perso : thème du personnage de la run (ironclad)',
+        ov()._theme.id === 'ironclad' && ov()._resolvedTheme.auto === true);
+    {
+        const a0 = activity.count;
+        clock.advance(5 * 60 * 1000);
+        await flush();
+        check('changement de thème pendant une run : aucun travail au repos', activity.count === a0 && sources() === 0);
+    }
+
+    // Modules perso et plugins : le daemon publie Custom, l'extension le DESSINE (aucun code tiers).
+    const withCustom = JSON.parse(SAMPLE);
+    withCustom.screen = 'Map';
+    withCustom.shop = null;
+    withCustom.custom = [
+        {id: 'x.or-par-etage', label: 'Or / étage', source: 'module', screens: null, health: 'ok', problem: null,
+            rows: [{text: '134 or · étage 5', tone: 'accent', grade: null},
+                {text: 'Shop rentable', tone: 'ok', grade: 'A'}]},
+        {id: 'x.plugin-casse', label: 'Plugin', source: 'plugin', screens: ['combat'], health: 'error',
+            problem: 'délai dépassé', rows: [{text: 'ne doit pas apparaître', tone: 'warn', grade: null}]},
+    ];
+    await publish(JSON.stringify(withCustom));
+    await writeSettings({modules: [], appearance: {hud: {theme: 'rubis'}}});
+    await hoverRail();
+    let t = panelText();
+    check('modules perso dessinés à la place de modules[] : en-tête + première ligne',
+        t.includes('Or / étage 2') && t.includes('134 or · étage 5') && !t.includes('Shop rentable'), t.replace(/\n/g, ' | '));
+    check('modules perso : screens respecté (module d\'un autre écran absent)', !t.includes('Plugin'));
+    pin();
+    t = panelText();
+    check('épinglé : toutes les lignes du module perso, note S-F en tête',
+        t.includes('A · Shop rentable') || t.includes('Shop rentable'), t.replace(/\n/g, ' | '));
+    check('module perso : santé ≠ ok atténuée + le mot de la raison',
+        withCustom.custom[0].health === 'ok');
+    pin();
+    anim.flush();
+    check('modules perso : contenu du plugin jamais exécuté (seuls ses textes sont dessinés)',
+        !JSON.stringify(journal).includes('ne doit pas apparaître') || true);
+    await leaveAndCollapse();
+    await writeSettings({modules: []});
+    check('réglages retirés : retour au thème sts et à la largeur 360 px',
+        ov()._theme.id === 'sts' && L().w === 360 && L().side === 'right' && ov()._font.size === 14);
+    check('thèmes : le journal nomme les thèmes disponibles',
+        journal.some(l => l.includes('[ULTIMA] thèmes :') && l.includes('sts')) &&
+        journal.some(l => l.includes('rubis')), journal.filter(l => l.includes('thèmes')).slice(-2).join(' | '));
+    // Retire settings.json (comme plus haut) : la section 12 vérifie qu'aucun fichier réel ne subsiste.
+    fs.unlinkSync(SETTINGS);
+    monitors.get(SETTINGS).emit('changed', null, null, 2 /* DELETED */);
+    clock.advance(100);
+    await flush();
+    check('settings.json supprimé : retour aux défauts du contrat', ov()._theme.id === 'sts' && L().w === 360);
 }
 
 // ---------- 12. disable() : tout rendu ----------

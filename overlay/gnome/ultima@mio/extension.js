@@ -1,18 +1,25 @@
 // ULTIMA — extension GNOME Shell 50 : HUD en verre au-dessus du jeu plein écran (design v3).
 //
 // Données : EngineState publié par ultima-daemon dans $XDG_RUNTIME_DIR/ultima/state.json, et
-// réglages du HUD v1.3 dans ~/.config/ultima/settings.json (LU, jamais écrit) ; relus SEULEMENT sur
-// changement (Gio.FileMonitor + anti-rebond) ; JSON invalide -> dernier contenu valide gardé
-// (state.js, hud.js) ; mise en page pure (render.js), réglages du HUD (hud.js), coûts (plan.js).
+// réglages dans ~/.config/ultima/settings.json (LU, jamais écrit) — bloc `hud` v1.3 (hud.js) et
+// bloc `appearance.hud` v1.4 (appearance.js : thème, police, tons, position, railEdge). Relus
+// SEULEMENT sur changement (Gio.FileMonitor + anti-rebond) ; JSON invalide -> dernier contenu
+// valide gardé (state.js, hud.js, appearance.js) ; mise en page pure (render.js, geometry.js),
+// coûts (plan.js), thème (theme.js : appearance.hud.theme -> extends -> tones).
+//
+// Couleurs : AUCUN hexadécimal dans ce fichier. Les seules couleurs viennent des fichiers de thème
+// (`themes/*.json`, dont `ultima@mio/themes/sts.json`) via theme.js ; un thème cassé retombe sur
+// `sts` avec une ligne de journal `[ULTIMA]`, jamais une exception dans GNOME Shell.
 //
 // Design (skill sts2-design-system §8, §11, §12) :
 //   - repos : une simple bande de VERRE (aucune pastille, aucun texte, aucune icône) ;
 //   - ouverture : la plaque glisse et s'élargit (ease-out 220 ms), puis le contenu apparaît en
 //     fondu léger, ligne par ligne ; fermeture symétrique plus brève ; aucune boucle, aucun timer
-//     JS par image (transitions implicites Clutter via actor.ease, environment.js) ;
+//     JS par image (transitions implicites Clutter via actor.ease) ;
 //   - trois niveaux de verre (HudSettings.Quality) : eco (aplat), verre (flou + reflet GLSL),
 //     loupe (verre + clone grossissant du jeu réfracté sur les bords) ; repli automatique si une
-//     API manque (hud.js effectiveQuality) ; RIEN de coûteux replié ou masqué (plan.js).
+//     API manque (hud.js effectiveQuality) ; RIEN de coûteux replié ou masqué (plan.js) ;
+//   - modules perso et plugins : EngineState.Custom est DESSINÉ (render.js), jamais exécuté.
 //
 // Couche (code GNOME Shell 50, resource:///org/gnome/shell/ui/layout.js) : addTopChrome() SANS
 // trackFullscreen + global.compositor.disable_unredirect() tant que visible (réglable), comme
@@ -35,12 +42,14 @@ import St from 'gi://St';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import {Extension} from 'resource:///org/gnome/shell/extensions/extension.js';
 
-import {PALETTE, MUTED_ALPHA, rgba, toneHex} from './palette.js';
 import * as Geo from './geometry.js';
 import {StateStore} from './state.js';
-import {buildView, fitView, spansMarkup, viewToText, WRAP_COLS} from './render.js';
+import {buildView, fitView, spansMarkup, viewToText, wrapCols} from './render.js';
 import {computePlan, HoverWatch} from './plan.js';
-import {detectCaps, effectiveQuality, hudKey, parseSettingsHud, resolveHud} from './hud.js';
+import {detectCaps, effectiveQuality, hudKey, resolveHud} from './hud.js';
+import {parseSettings, resolveAppearance, appearanceKey} from './appearance.js';
+import {resolveTheme, buildLibrary, describeTheme, autoThemeId, themeKey, toneColor, toneCss, rgba,
+    glassTint, parseTheme, FONT_SIZE_RANGE} from './theme.js';
 import {createLensEffect, createSheenEffect} from './effects.js';
 
 const TAG = '[ULTIMA]';
@@ -64,10 +73,15 @@ const PAD_Y = 14;
 const ROW_SPACING = 6;
 const FALLBACK_LINE_PX = 19;
 
-// Verre (docs/17 §3, skill design §8).
-const TINT_ALPHA = {eco: 0.85, verre: 0.72, loupe: 0.72};
-const BORDER_ALPHA = 0.18;       // liseré or du panneau (docs/17 §3)
+// Police (appearance.hud.font, contrat docs/44 §3 : 12-24 px). Repli : police du thème, puis
+// taille par défaut ci-dessous (famille nulle = police système de St/Pango).
+const DEFAULT_FONT_SIZE = 14;
+const DEFAULT_FONT_FAMILY = null;
+
+// Verre (docs/17 §3, skill design §8) : alphas de la SURFACE (les couleurs viennent du thème).
+const BORDER_ALPHA = 0.18;       // repli si le thème n'a pas de ton `border`
 const RAIL_EDGE_ALPHA = 0.85;    // liseré or du rail (leçon v1, commit fa00f8d : lisible au repos)
+const SHADOW_ALPHA = 0.45;
 const RADIUS = 10;
 const LENS_MAG = 1.06;           // grossissement de la loupe (plage demandée 1.04-1.10)
 
@@ -76,9 +90,20 @@ const KEY_VISIBLE = 'toggle-visible';
 const HUD_KEYS = ['quality', 'height-fraction', 'rest-opacity', 'side'];
 const PERF_KEYS = ['blur-mode', 'unredirect-mode', 'poll-interval-ms', 'hover-source'];
 
-const toneOf = tone => (tone === 'muted'
-    ? {hex: PALETTE.cream, alpha: MUTED_ALPHA}
-    : {hex: toneHex(tone), alpha: 1});
+// 'rgba(...)' d'un ton du thème, ou null (le thème ne le connaît pas) : l'appelant n'écrit alors
+// simplement pas la propriété. Aucun hexadécimal n'est produit ici.
+function cssTone(theme, tone, alpha = null) {
+    return toneCss(theme, tone, alpha);
+}
+
+function setStyleIfChanged(actor, style, current) {
+    if (style !== current) {
+        actor.set_style(style);
+        return style;
+    }
+    return current;
+}
+
 
 class UltimaOverlay {
     constructor(settings, extPath) {
@@ -110,6 +135,16 @@ class UltimaOverlay {
         this._perf = null;
         this._hud = null;
         this._hudKey = null;
+        this._appearance = null;     // réglages appearance.hud validés (appearance.js)
+        this._appearanceKey = null;
+        this._theme = null;          // thème résolu (theme.js) : tones, glass, font
+        this._resolvedTheme = null;  // thème + chaîne + problèmes (journal)
+        this._themeKey = null;
+        this._tone = tone => toneColor(null, tone);  // ton -> couleur du thème
+        this._font = {size: DEFAULT_FONT_SIZE, family: DEFAULT_FONT_FAMILY};
+        this._rowsStyleKey = null;   // thème/police/largeur des acteurs de contenu
+        this._library = null;        // bibliothèque de thèmes (fichiers themes/*.json)
+        this._fileAppearance = null; // dernier bloc appearance.hud valide
         this._quality = null;
         this._lens = null;
         this._sheen = null;
@@ -210,7 +245,7 @@ class UltimaOverlay {
             this._blurEffect.enabled = false;
             this._glass.add_effect_with_name('ultima-blur', this._blurEffect);
         }
-        // Couche 2 : teinte #192930 + liseré or 1 px + coins 10 + ombre (styles St, mis en cache).
+        // Couche 2 : teinte et liseré du THÈME + coins 10 + ombre (styles St, mis en cache).
         this._frame = new St.Widget({name: 'ultima-frame', reactive: false});
         // Couche 3 : liseré or appuyé du rail (leçon v1) ; s'efface en fondu à l'ouverture.
         this._edge = new St.Widget({name: 'ultima-edge', reactive: false});
@@ -220,7 +255,6 @@ class UltimaOverlay {
             }));
             this._plate.add_child(a);
         }
-        this._edge.set_style(`border: 1px solid ${rgba(PALETTE.gold, RAIL_EDGE_ALPHA)}; border-radius: ${RADIUS}px;`);
 
         // Couche 4 : contenu (une ligne par module, carte de décision). Préparé AVANT l'animation.
         this._content = new St.BoxLayout({
@@ -229,42 +263,90 @@ class UltimaOverlay {
             visible: false,
             x: PAD_X,
             y: PAD_Y,
-            width: Geo.PANEL_W - 2 * PAD_X,
+            width: Geo.DEFAULT_WIDTH - 2 * PAD_X,
             style: `spacing: ${ROW_SPACING}px;`,
         });
         this._plate.add_child(this._content);
+        this._applyThemeStyles();
         this._applyFrameStyle();
+    }
+
+    // Couleurs du thème résolu (jamais un hexadécimal ici) : teinte du verre, liseré du panneau,
+    // liseré du rail, ombre. Recalculé à chaque changement de thème ou de niveau de verre.
+    _applyThemeStyles() {
+        const theme = this._theme;
+        const q = this._quality?.level ?? 'eco';
+        const tint = glassTint(theme, q);
+        const edge = this._appearance?.railEdge === false
+            ? null
+            : cssTone(theme, 'accent', RAIL_EDGE_ALPHA);
+        if (this._edge) {
+            const style = `${edge ? `border: 1px solid ${edge};` : 'border: none;'}border-radius: ${RADIUS}px;`;
+            this._edgeStyle = setStyleIfChanged(this._edge, style, this._edgeStyle);
+            const want = this._appearance?.railEdge === false ? 0 : 255;
+            if (this._expanded && this._edge.opacity !== 0)
+                this._edge.opacity = 0;
+            else if (!this._expanded && this._edge.opacity !== want)
+                this._edge.opacity = want;
+        }
+        this._glassTint = tint;
     }
 
     _applyFrameStyle() {
         const q = this._quality?.level ?? 'eco';
-        const style = `background-color: ${rgba(PALETTE.glassTint, TINT_ALPHA[q])};` +
-            `border: 1px solid ${rgba(PALETTE.gold, BORDER_ALPHA)};` +
-            `border-radius: ${RADIUS}px;` +
-            `box-shadow: 0 2px 10px ${rgba(PALETTE.shadow, 0.35)};`;
-        if (style !== this._frameStyle) {
-            this._frame.set_style(style);
-            this._frameStyle = style;
-        }
+        const tint = this._glassTint ?? glassTint(this._theme, q);
+        const bg = rgba(tint.hex, tint.alpha);
+        const bd = cssTone(this._theme, 'border') ?? cssTone(this._theme, 'accent', BORDER_ALPHA);
+        const sh = cssTone(this._theme, 'background', SHADOW_ALPHA);
+        let style = '';
+        if (bg)
+            style += `background-color: ${bg};`;
+        if (bd)
+            style += `border: 1px solid ${bd};`;
+        if (sh)
+            style += `box-shadow: 0 2px 10px ${sh};`;
+        style += `border-radius: ${RADIUS}px;`;
+        this._frameStyle = setStyleIfChanged(this._frame, style, this._frameStyle);
+    }
+
+    // Entrées de géométrie : `appearance.hud.position` (v1.4) prime, puis HudSettings v1.3, puis
+    // GSettings (top-fraction). Bornes de sûreté appliquées par geometry.js (jamais hors écran).
+    _geomOptions() {
+        const p = this._appearance?.position ?? {};
+        return {
+            heightFraction: this._hud?.heightFraction ?? Geo.DEFAULT_HEIGHT_FRACTION,
+            side: p.side ?? this._hud?.side ?? 'right',
+            anchor: p.anchor ?? 'center',
+            offsetX: p.offsetX ?? 0,
+            offsetY: p.offsetY ?? 0,
+            width: p.width ?? Geo.DEFAULT_WIDTH,
+            topFraction: this._settings.get_double('top-fraction'),
+        };
+    }
+
+    _geomKey() {
+        return JSON.stringify(this._geomOptions());
     }
 
     _relayout() {
         const monitor = Main.layoutManager.primaryMonitor;
         if (!monitor || !this._root)
             return;
-        this._layout = Geo.computeLayout(monitor, this._settings.get_double('top-fraction'),
-            this._hud.heightFraction, this._hud.side);
+        const geom = this._geomOptions();
+        this._layout = Geo.computeLayout(monitor, geom);
+        this._geomKeyValue = JSON.stringify(geom);
         const L = this._layout;
         this._root.set_position(L.rootX, L.y);
         this._root.set_size(L.rootW, L.h);
         this._plate.remove_all_transitions();
         this._closing = false; // une fermeture interrompue n'appellera jamais son onComplete
         this._plate.set_position(L.plateX, 0);
-        this._plate.set_size(Geo.PANEL_W, L.h);
+        this._plate.set_size(L.w, L.h);
         this._plate.translation_x = this._expanded ? 0 : L.collapsedDx;
         this._settled = this._expanded; // une ouverture interrompue est terminée d'office
-        this._edge.opacity = this._expanded ? 0 : 255;
+        this._edge.opacity = this._expanded ? 0 : (this._appearance?.railEdge === false ? 0 : 255);
         this._root.opacity = this._restOpacity();
+        this._content.width = L.w - 2 * PAD_X;
         this._content.height = L.h - 2 * PAD_Y;
         // Effets dépendant de la taille : recréés à la prochaine application du plan.
         this._dropSheen();
@@ -276,8 +358,10 @@ class UltimaOverlay {
         this._applyPlan('géométrie');
         const cov = Geo.coverage(L, monitor);
         console.log(`${TAG} géométrie : moniteur=${monitor.width}x${monitor.height} côté=${L.side} ` +
-            `rail=(${L.railX},${L.y},${Geo.RAIL_W}x${L.h}) panneau=(${L.panelX},${L.y},${Geo.PANEL_W}x${L.h}) ` +
-            `surface replié=${(cov.collapsed * 100).toFixed(2)}% déployé=${(cov.expanded * 100).toFixed(2)}%`);
+            `ancrage=${L.anchor} décalage=(${L.offsets.x},${L.offsets.y}) ` +
+            `rail=(${L.railX},${L.y},${Geo.RAIL_W}x${L.h}) panneau=(${L.panelX},${L.y},${L.w}x${L.h}) ` +
+            `police=${this._font.size}px surface replié=${(cov.collapsed * 100).toFixed(2)}% ` +
+            `déployé=${(cov.expanded * 100).toFixed(2)}%`);
     }
 
     _restOpacity() {
@@ -299,32 +383,152 @@ class UltimaOverlay {
         const cur = this._store.current;
         const stateHud = cur.kind === 'state' ? cur.state?.settings?.hud : null;
         const hud = resolveHud({file: this._fileHud, state: stateHud, gsettings: this._gsettingsHud()});
-        const key = hudKey(hud);
-        if (key === this._hudKey)
+        const appearance = resolveAppearance(this._fileAppearance);
+        const keys = `${hudKey(hud)} | ${appearanceKey(appearance)}`;
+        // Relire les fichiers de thème seulement sur un changement de settings.json (pas à chaque
+        // publication d'état) : aucune E/S périodique, aucun travail au repos.
+        const resolved = this._resolveTheme(appearance, reason !== 'état');
+        const changed = keys !== this._hudKey || themeKey(resolved) !== this._themeKey;
+        if (!changed)
             return;
         const prev = this._hud;
+        const prevGeom = this._geomKeyValue;
         this._hud = hud;
-        this._hudKey = key;
+        this._appearance = appearance;
+        this._hudKey = keys;
+        this._resolvedTheme = resolved;
+        this._theme = resolved.theme;
+        this._themeKey = themeKey(resolved);
+        this._tone = tone => toneColor(this._theme, tone);
+        this._font = this._fontOf(appearance, resolved);
+        const fontChanged = !this._prevFont || this._prevFont.size !== this._font.size ||
+            this._prevFont.family !== this._font.family;
+        this._prevFont = {...this._font};
+        if (fontChanged)
+            this._lineH = 0; // la hauteur de ligne dépend de la police : à remesurer
         this._quality = effectiveQuality(hud.quality, this._caps);
         const q = this._quality;
         const from = Object.entries(hud.source).filter(([, v]) => v !== 'défaut').map(([k, v]) => `${k}<-${v}`);
-        console.log(`${TAG} HUD (${reason}) : ${key} ; verre effectif=${q.level}` +
+        console.log(`${TAG} HUD (${reason}) : ${hudKey(hud)} ; verre effectif=${q.level}` +
             (from.length ? ` ; sources ${from.join(' ')}` : ' ; défauts du contrat') +
             (q.missing.length ? ` (repli : API absente ${q.missing.join(', ')})` : ''));
+        console.log(`${TAG} apparence (${reason}) : thème=${describeTheme(resolved)}` +
+            ` police=${this._font.size}px${this._font.family ? ` « ${this._font.family} »` : ' (système)'}` +
+            ` côté=${appearance.position.side ?? hud.side} ancrage=${appearance.position.anchor}` +
+            ` largeur=${appearance.position.width} offset=(${appearance.position.offsetX},${appearance.position.offsetY})` +
+            ` railEdge=${appearance.railEdge ? 'oui' : 'non'} tons=${Object.keys(appearance.tones).length}`);
+        for (const p of resolved.problems)
+            console.warn(`${TAG} thème : ${p}`);
         if (!this._root)
             return;
+        this._applyThemeStyles();
         this._applyFrameStyle();
-        this._dropSheen(); // le reflet dépend du niveau (bande de réfraction en loupe)
+        this._dropSheen(); // le reflet dépend du niveau et de la taille
         this._viewDirty = true;
         this._appliedKey = null;
-        if (!prev || prev.side !== hud.side || prev.heightFraction !== hud.heightFraction) {
+        if (!prev || this._geomKey() !== prevGeom)
             this._relayout();
-        } else {
+        else {
             this._root.opacity = this._restOpacity();
             if (this._expanded)
                 this._applyView(false);
             this._applyPlan('HUD');
         }
+    }
+
+    // ---------- thème et police (appearance.hud, docs/44 §3-§5) ----------
+
+    // Bibliothèque de thèmes : utilisateur (config) > installés (data) > livrés avec l'extension.
+    // `sts` (repli garanti) vient TOUJOURS de l'extension : un thème utilisateur ne peut pas
+    // casser le repli. Lecture synchrone de petits fichiers, seulement sur changement de réglages.
+    _loadLibrary() {
+        const dirs = [GLib.build_filenamev([GLib.get_user_config_dir(), 'ultima', 'themes']),
+            GLib.build_filenamev([GLib.get_user_data_dir(), 'ultima', 'themes'])];
+        if (this._extPath)
+            dirs.push(GLib.build_filenamev([this._extPath, 'themes']));
+        const sources = dirs.map(d => this._readThemeDir(d));
+        const lib = buildLibrary(sources);
+        // Le thème de repli vient de l'extension elle-même (jamais d'un dossier utilisateur).
+        const builtin = this._extPath ? sources[sources.length - 1] : null;
+        for (const file of builtin?.files ?? []) {
+            if (file.name !== 'sts.json' || typeof file.text !== 'string')
+                continue;
+            const r = parseTheme(file.text, {fileId: 'sts'});
+            if (r.ok && r.theme)
+                lib.themes.set('sts', r.theme);
+        }
+        const listed = [...lib.themes.keys()].sort().join(' ');
+        if (this._libraryLogged !== listed) {
+            this._libraryLogged = listed;
+            console.log(`${TAG} thèmes : ${lib.themes.size} disponibles (${listed || 'aucun'})`);
+            for (const p of lib.problems)
+                console.warn(`${TAG} thème : ${p}`);
+        }
+        return lib;
+    }
+
+    _readThemeDir(path) {
+        const files = [];
+        let en = null;
+        try {
+            en = Gio.File.new_for_path(path).enumerate_children('standard::name',
+                Gio.FileQueryInfoFlags.NONE, null);
+        } catch (e) {
+            return {path, files}; // dossier absent : normal (thèmes pas encore installés)
+        }
+        try {
+            for (let info; (info = en.next_file(null));) {
+                const name = info.get_name();
+                if (typeof name !== 'string' || !name.endsWith('.json'))
+                    continue;
+                const file = Gio.File.new_for_path(GLib.build_filenamev([path, name]));
+                try {
+                    const [, bytes] = file.load_contents(null);
+                    files.push({name, text: new TextDecoder().decode(bytes)});
+                } catch (e) {
+                    console.warn(`${TAG} thème illisible : ${name} (${e.message})`);
+                }
+            }
+        } catch (e) {
+            console.warn(`${TAG} thèmes : lecture de ${path} interrompue (${e.message})`);
+        } finally {
+            try {
+                en.close(null);
+            } catch (e) {
+                // ignore : le dossier est simplement refermé
+            }
+        }
+        return {path, files};
+    }
+
+    // Résolution complète ; ne lève jamais (repli `sts` + problèmes journalisés par l'appelant).
+    _resolveTheme(appearance, reload) {
+        try {
+            if (!this._library || reload)
+                this._library = this._loadLibrary();
+            const autoId = autoThemeId(this._store.current?.state?.run?.characterId ?? null);
+            return resolveTheme({requested: appearance.theme, library: this._library.themes, autoId,
+                overrides: appearance.tones});
+        } catch (e) {
+            console.warn(`${TAG} thème : erreur inattendue (${e.message}), repli « sts »`);
+            return {requested: appearance.theme, id: null, theme: null, chain: [],
+                problems: [`exception : ${e.message}`], auto: false};
+        }
+    }
+
+    // Police effective : appearance.hud.font, puis police du thème, puis défaut (système).
+    _fontOf(appearance, resolved) {
+        const themeFont = resolved?.theme?.font ?? {};
+        const raw = appearance.font.size ?? themeFont.size ?? DEFAULT_FONT_SIZE;
+        const size = Math.round(Math.min(FONT_SIZE_RANGE[1], Math.max(FONT_SIZE_RANGE[0], raw)));
+        return {size, family: appearance.font.family ?? themeFont.family ?? DEFAULT_FONT_FAMILY};
+    }
+
+    // CSS de police (St) : taille en px + famille validée (theme.js FONT_FAMILY).
+    _labelStyle(px = null, extra = '') {
+        const size = px ?? this._font.size;
+        const family = this._font.family ? ` font-family: "${this._font.family}";` : '';
+        return `font-size: ${size}px;${family}${extra}`;
     }
 
     // ---------- fichiers : état publié par le daemon, réglages du HUD ----------
@@ -392,13 +596,15 @@ class UltimaOverlay {
         });
     }
 
-    // settings.json : seul le bloc « hud » sert ici (l'ordre des modules vient de l'état publié).
+    // settings.json : bloc « hud » (v1.3) ET bloc « appearance.hud » (v1.4) ; l'ordre des modules
+    // vient de l'état publié.
     _acceptSettingsText(text) {
         if (text === null) {
             this._settingsError = null;
             this._fileHud = null;
+            this._fileAppearance = null;
         } else {
-            const r = parseSettingsHud(text);
+            const r = parseSettings(text);
             if (r.kind === 'invalid') {
                 if (r.error !== this._settingsError)
                     console.warn(`${TAG} réglages rejetés (derniers réglages valides conservés) : ${r.error}`);
@@ -406,7 +612,8 @@ class UltimaOverlay {
                 return;
             }
             this._settingsError = null;
-            this._fileHud = r.kind === 'hud' ? r.hud : null;
+            this._fileHud = r.hud;
+            this._fileAppearance = r.appearance;
         }
         this._resolveHud('settings.json');
     }
@@ -433,12 +640,12 @@ class UltimaOverlay {
     _lineHeight() {
         if (this._lineH > 0)
             return this._lineH;
-        const probe = new St.Label({text: 'Ag', style: 'font-size: 14px;'});
+        const probe = new St.Label({text: 'Ag', style: this._labelStyle()});
         this._content.add_child(probe);
         const [, nat] = probe.get_preferred_height(-1);
         probe.destroy();
         this._lineH = nat > 4 ? nat + ROW_SPACING : FALLBACK_LINE_PX;
-        console.log(`${TAG} hauteur de ligne mesurée : ${this._lineH.toFixed(1)} px`);
+        console.log(`${TAG} hauteur de ligne mesurée : ${this._lineH.toFixed(1)} px (police ${this._font.size}px)`);
         return this._lineH;
     }
 
@@ -452,21 +659,28 @@ class UltimaOverlay {
         if (!this._viewDirty && !stagger)
             return;
         this._viewDirty = false;
+        const cols = wrapCols(this._layout?.w ?? Geo.DEFAULT_WIDTH, this._font.size);
         const view = buildView(this._store.current, {hud: this._hud, detail: this._detail()});
         const maxLines = Math.max(6, Math.floor(this._content.height / this._lineHeight()));
-        const fitted = fitView(view, {maxLines, cols: WRAP_COLS});
+        const fitted = fitView(view, {maxLines, cols});
         const key = `${this._detail()}\u0000${viewToText(fitted)}\u0000` +
             fitted.rows.map(r => `${r.key}:${r.gradeTone ?? ''}:${r.spans.map(s => s.tone).join('/')}`).join(',');
-        if (key !== this._appliedKey) {
+        // Thème (tons compris), police ou largeur : les styles des étiquettes changent -> acteurs recréés.
+        const styleKey = `${this._themeKey ?? this._theme?.id ?? ''}|${this._font.size}|` +
+            `${this._font.family ?? ''}|${this._layout?.w ?? 0}`;
+        const restyle = styleKey !== this._rowsStyleKey;
+        if (restyle)
+            this._rowsStyleKey = styleKey;
+        if (key !== this._appliedKey || restyle) {
             this._appliedKey = key;
-            this._rebuildRows(fitted.rows);
+            this._rebuildRows(fitted.rows, {force: restyle});
         }
         if (stagger)
             this._staggerIn();
     }
 
-    _rebuildRows(rows) {
-        const sameShape = this._rowActors.length === rows.length &&
+    _rebuildRows(rows, {force = false} = {}) {
+        const sameShape = !force && this._rowActors.length === rows.length &&
             this._rowActors.every((a, i) => a._ultimaKey === rows[i].key);
         if (!sameShape) {
             this._content.destroy_all_children();
@@ -476,8 +690,8 @@ class UltimaOverlay {
         rows.forEach((r, i) => this._fillRow(this._rowActors[i], r));
     }
 
-    _label(px, extra = '') {
-        const l = new St.Label({reactive: false, x_expand: true, style: `font-size: ${px}px;${extra}`});
+    _label(extra = '', px = null) {
+        const l = new St.Label({reactive: false, x_expand: true, style: this._labelStyle(px, extra)});
         const ct = l.clutter_text;
         ct.line_wrap = true;
         ct.line_wrap_mode = Pango.WrapMode.WORD_CHAR;
@@ -493,8 +707,8 @@ class UltimaOverlay {
             const grade = new St.Label({reactive: false, style: 'font-size: 44px; font-weight: bold; min-width: 34px;'});
             const col = new St.BoxLayout({orientation: Clutter.Orientation.VERTICAL, reactive: false, x_expand: true,
                 style: 'spacing: 2px; padding-top: 8px;'});
-            const head = this._label(16);
-            const reason = this._label(14);
+            const head = this._label('', this._font.size + 2);
+            const reason = this._label();
             col.add_child(head);
             col.add_child(reason);
             actor.add_child(grade);
@@ -502,7 +716,7 @@ class UltimaOverlay {
             actor._ultima = {grade, head, reason};
             this._cardActor = actor;
         } else {
-            actor = this._label(14, r.kind === 'detail' || r.kind === 'more' ? ' padding-left: 10px;' : '');
+            actor = this._label(r.kind === 'detail' || r.kind === 'more' ? ' padding-left: 10px;' : '');
             actor._ultima = {label: actor};
         }
         actor._ultimaKey = r.key;
@@ -513,13 +727,14 @@ class UltimaOverlay {
     _fillRow(actor, r) {
         const u = actor._ultima;
         if (r.kind === 'decision') {
-            setText(u.grade, r.grade, `color: ${toneHex(r.gradeTone)};`);
-            setMarkup(u.head, spansMarkup(r.spans, toneOf));
+            const color = toneCss(this._theme, r.gradeTone);
+            setText(u.grade, r.grade, color ? `color: ${color};` : '');
+            setMarkup(u.head, spansMarkup(r.spans, this._tone));
             u.reason.visible = !!r.reason;
             if (r.reason)
-                setMarkup(u.reason, spansMarkup(r.reason, toneOf));
+                setMarkup(u.reason, spansMarkup(r.reason, this._tone));
         } else {
-            setMarkup(u.label, spansMarkup(r.spans, toneOf));
+            setMarkup(u.label, spansMarkup(r.spans, this._tone));
         }
     }
 
@@ -614,7 +829,7 @@ class UltimaOverlay {
 
     _setSheen(on) {
         if (on && !this._sheen) {
-            this._sheen = createSheenEffect({width: Geo.PANEL_W, height: this._layout.h,
+            this._sheen = createSheenEffect({width: this._layout.w, height: this._layout.h,
                 rim: this._quality.level === 'loupe' ? 1 : 0});
             this._frame.add_effect_with_name('ultima-sheen', this._sheen);
         }
@@ -649,18 +864,18 @@ class UltimaOverlay {
             const m = LENS_MAG;
             const source = this._lensSource();
             const lens = new Clutter.Actor({name: 'ultima-lens', reactive: false, clip_to_allocation: true,
-                width: Geo.PANEL_W, height: L.h, opacity: 0});
+                width: L.w, height: L.h, opacity: 0});
             const clone = new Clutter.Clone({source, reactive: false});
             // Le point c (centre du panneau, coordonnées du stage) reste fixe : un point p de la
             // source (origine a sur le stage) s'affiche en c + m·(p − c) -> position du clone dans la
             // loupe = (1 − m)·c + m·a − origine de la loupe.
             const [ax, ay] = source.get_transformed_position?.() ?? [0, 0];
-            const cx = L.panelX + Geo.PANEL_W / 2, cy = L.y + L.h / 2;
+            const cx = L.panelX + L.w / 2, cy = L.y + L.h / 2;
             clone.set_position(Math.round((1 - m) * cx + m * ax - L.panelX),
                 Math.round((1 - m) * cy + m * ay - L.y));
             clone.set_scale(m, m);
             lens.add_child(clone);
-            lens.add_effect_with_name('ultima-lens', createLensEffect({width: Geo.PANEL_W, height: L.h, radius: RADIUS}));
+            lens.add_effect_with_name('ultima-lens', createLensEffect({width: L.w, height: L.h, radius: RADIUS}));
             this._plate.insert_child_below(lens, this._glass);
             lens.ease({opacity: 255, duration: LENS_FADE_MS, mode: Clutter.AnimationMode.EASE_OUT_QUAD});
             this._lens = lens;
@@ -784,7 +999,7 @@ class UltimaOverlay {
             if (instant) {
                 this._content.visible = false;
                 this._plate.translation_x = L.collapsedDx;
-                this._edge.opacity = 255;
+                this._edge.opacity = this._appearance?.railEdge === false ? 0 : 255;
                 this._root.opacity = rest;
                 return;
             }
@@ -796,7 +1011,7 @@ class UltimaOverlay {
                         this._content.visible = false;
                 },
             });
-            this._edge.ease({opacity: 255, duration: CLOSE_MS, mode});
+            this._edge.ease({opacity: this._appearance?.railEdge === false ? 0 : 255, duration: CLOSE_MS, mode});
             this._root.ease({opacity: rest, duration: CLOSE_MS, mode});
             this._plate.ease({
                 translation_x: L.collapsedDx, duration: CLOSE_MS, mode,

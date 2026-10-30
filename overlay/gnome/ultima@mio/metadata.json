@@ -1,9 +1,11 @@
 {
   "uuid": "ultima@mio",
   "name": "ULTIMA overlay",
-  "description": "HUD ULTIMA (tracker Slay the Spire 2) dessiné par le compositeur au-dessus du jeu plein écran : bande de verre au repos, ouverture fluide, l'essentiel de l'état publié par ultima-daemon (contrat moteur v1.3). Verre eco / verre / loupe, click-through, raccourcis Super+Maj+I / Super+Maj+O, leviers de performance réglables.",
-  "shell-version": ["50"],
+  "description": "HUD ULTIMA (tracker Slay the Spire 2) dessiné par le compositeur au-dessus du jeu plein écran : bande de verre au repos, ouverture fluide, l'essentiel de l'état publié par ultima-daemon (contrat moteur v1.4). Thèmes (extends, tons, teinte du verre), polices 12-24 px, disposition (côté, ancrage, décalages, largeur 280-520 px, railEdge), modules perso et plugins dessinés depuis EngineState.Custom (aucun code tiers exécuté). Verre eco / verre / loupe, click-through, raccourcis Super+Maj+I / Super+Maj+O, leviers de performance réglables.",
+  "shell-version": [
+    "50"
+  ],
   "settings-schema": "org.gnome.shell.extensions.ultima",
-  "version-name": "0.3.0-verre-v3",
+  "version-name": "0.4.0-themes-v1.4",
   "url": "https://github.com/Moutdili/ultima"
 }

@@ -41,6 +41,8 @@ export const MODULE_LABEL = Object.freeze({
 
 // Tons sémantiques (skill design §9) : malédiction = violet + le MOT ; enchantement = aqua + nom ;
 // avertissement = orange ; secondaire = crème 60 %.
+// Vocabulaire de la VUE : noms de la palette du jeu. Le thème (theme.js, TONE_ALIASES) les traduit
+// en tons sémantiques du contrat v1.4 (text, accent, curse…) puis en couleurs.
 export const TONE = Object.freeze({
     text: 'cream',
     curse: 'purple',
@@ -48,5 +50,13 @@ export const TONE = Object.freeze({
     warn: 'orange',
     danger: 'red',
     accent: 'gold',
-    muted: 'muted', // pseudo-ton : crème à MUTED_ALPHA (palette.js)
+    muted: 'muted', // pseudo-ton : texte secondaire (ton `muted` du thème)
 });
+
+// Tons du CONTRAT v1.4 (Ultima.Engine.Contracts.Tones + Tones.Grades) : c'est ce que publient les
+// modules déclaratifs et les plugins dans `EngineState.Custom[].Rows[].Tone`. Acceptés tels quels
+// par render.js ; un ton inconnu retombe sur le texte normal.
+export const DATA_TONES = Object.freeze([
+    'text', 'muted', 'accent', 'danger', 'ok', 'warn', 'curse', 'enchant', 'info',
+    'grade.S', 'grade.A', 'grade.B', 'grade.C', 'grade.D', 'grade.F',
+]);
