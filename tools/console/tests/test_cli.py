@@ -9,7 +9,7 @@ import sys
 import pytest
 from conftest import CONSOLE, load_fixture, publish
 
-from ultima_console import cli, paths
+from ultima_console import appearance, cli, paths
 
 ESC = "\x1b["
 GOLD_BOLD = "\x1b[1;38;2;239;200;81m"
@@ -26,7 +26,7 @@ def test_help_and_unknown(capsys, monkeypatch):
     assert code == 0 and "ultima status" in out and "NO_COLOR" in out and ESC not in out
     code, out, _ = run(capsys, "help", "--color", "always")
     assert f"{GOLD_BOLD}  ultima status\x1b[0m" in out           # commande en or
-    assert "\x1b[38;2;191;191;191m" in out                       # description en secondaire
+    assert "\x1b[2m" in out                                    # description en secondaire
     monkeypatch.setenv("FORCE_COLOR", "1")
     monkeypatch.setenv("NO_COLOR", "1")
     assert ESC not in run(capsys, "-h")[1]
@@ -98,10 +98,9 @@ def test_logs_filtered_and_colored(capsys):
     assert out.splitlines() == ["2026-10-29 17:54:04.250 DEBUG mirror ms=12"]
     _, out, _ = run(capsys, "logs", "-n", "1", "--color", "always")
     assert "\x1b[1;38;2;255;85;85mERROR\x1b[0m" in out       # error = red (défaut)
-    paths.config_dir().mkdir(parents=True)
-    paths.console_config_path().write_text('{"logColors": {"error": "aqua"}}')
+    appearance.set_log_color("error", "enchant")             # appearance.tui.logColors (v1.4)
     _, out, _ = run(capsys, "logs", "-n", "1", "--color", "always")
-    assert "\x1b[1;38;2;42;235;190mERROR\x1b[0m" in out      # couleur personnalisée (console.json)
+    assert "\x1b[1;38;2;42;235;190mERROR\x1b[0m" in out      # ton enchant du thème
 
 
 def test_logs_json(capsys):

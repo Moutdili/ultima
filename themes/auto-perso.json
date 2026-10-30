@@ -1,0 +1,7 @@
+{
+  "id": "auto-perso",
+  "label": "Auto (personnage)",
+  "api": 1,
+  "extends": "sts",
+  "description": "Thème du personnage de la run en cours (ironclad, silent, defect, regent, necrobinder) ; hors run, repli sts."
+}

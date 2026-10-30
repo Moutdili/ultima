@@ -162,6 +162,12 @@ class ModuleSetting:
     order: int = 0
     extra: dict[str, Any] = field(default_factory=dict)
 
+    @property
+    def screens(self) -> list[str] | None:
+        """Écrans où le bloc apparaît (v1.4, docs/44 §3) ; absent = écrans par défaut du module."""
+        value = self.extra.get("screens")
+        return [s for s in value if isinstance(s, str)] if isinstance(value, list) else None
+
     def to_json(self) -> dict[str, Any]:
         out: dict[str, Any] = {"id": self.id, "enabled": self.enabled, "order": self.order}
         out.update(self.extra)
@@ -256,6 +262,80 @@ class SettingsError(Exception):
     pass
 
 
+def read_raw(path: Path | None = None) -> tuple[dict[str, Any], str | None]:
+    """(contenu JSON, erreur). Absent → ({}, None) ; illisible → ({}, message) — jamais d'écrasement."""
+    path = path or paths.settings_path()
+    try:
+        text = path.read_text(encoding="utf-8")
+    except FileNotFoundError:
+        return {}, None
+    except OSError as e:
+        return {}, f"settings.json illisible : {e}"
+    try:
+        data = json.loads(text)
+    except (ValueError, RecursionError) as e:
+        return {}, f"settings.json invalide : {e}"
+    if not isinstance(data, dict):
+        return {}, "settings.json : objet JSON attendu"
+    return data, None
+
+
+def _deep_set(target: dict[str, Any], patch: dict[str, Any]) -> None:
+    """Applique un patch ; `None` SUPPRIME la clé. Les clés inconnues du fichier sont conservées."""
+    for key, value in patch.items():
+        if value is None:
+            target.pop(key, None)
+        elif isinstance(value, dict):
+            sub = target.get(key)
+            if not isinstance(sub, dict):
+                sub = {}
+                target[key] = sub
+            _deep_set(sub, value)
+        else:
+            target[key] = value
+
+
+def write_merge(patch: dict[str, Any], path: Path | None = None) -> Path:
+    """RELIT le fichier, applique `patch`, écrit atomiquement. Refuse d'écraser un JSON invalide."""
+    path = path or paths.settings_path()
+    data, err = read_raw(path)
+    if err:
+        raise SettingsError(f"{err} — fichier non réécrit (le réparer ou le retirer)")
+    _deep_set(data, patch)
+    atomic_write_text(path, json.dumps(data, ensure_ascii=False, indent=2) + "\n")
+    return path
+
+
+def patch_module(module_id: str, fields: dict[str, Any], path: Path | None = None) -> Path:
+    """Modifie UNIQUEMENT les champs donnés de l'entrée `modules[]` de cet id."""
+    path = path or paths.settings_path()
+    data, err = read_raw(path)
+    if err:
+        raise SettingsError(f"{err} — fichier non réécrit")
+    modules = data.get("modules")
+    if not isinstance(modules, list):
+        modules = []
+    entry = next((m for m in modules if isinstance(m, dict) and m.get("id") == module_id), None)
+    if entry is None:
+        entry = {"id": module_id}
+        modules.append(entry)
+    for key, value in fields.items():
+        if value is None:
+            entry.pop(key, None)
+        else:
+            entry[key] = value
+    data["modules"] = modules
+    atomic_write_text(path, json.dumps(data, ensure_ascii=False, indent=2) + "\n")
+    return path
+
+
+def plugins_enabled(path: Path | None = None) -> list[str]:
+    """`pluginsEnabled` (réglage du daemon, docs/44 §7) : ids `x.…` seulement."""
+    data, _ = read_raw(path)
+    value = data.get("pluginsEnabled")
+    return [v for v in value if isinstance(v, str) and v.startswith("x.")] if isinstance(value, list) else []
+
+
 def load(path: Path | None = None) -> tuple[OverlaySettings, str | None]:
     """(réglages, erreur). Absent → défaut sans erreur ; illisible → défaut + message (le fichier
     n'est réécrit qu'après une modification explicite)."""
@@ -303,6 +383,13 @@ def atomic_write_text(path: Path, text: str, mode: int = 0o644) -> None:
 
 
 def save(settings: OverlaySettings, path: Path | None = None) -> Path:
+    """RELIT le fichier avant d'écrire, ne remplace que `modules` et `hud` (les clés inconnues —
+    `appearance`, `pluginsEnabled`, un champ d'une version future — sont conservées telles quelles)."""
     path = path or paths.settings_path()
-    atomic_write_text(path, settings.to_text())
+    data, err = read_raw(path)
+    if err:
+        raise SettingsError(f"{err} — fichier non réécrit (le réparer ou le retirer)")
+    data["modules"] = [m.to_json() for m in settings.modules]
+    data["hud"] = settings.hud.to_json()
+    atomic_write_text(path, json.dumps(data, ensure_ascii=False, indent=2) + "\n")
     return path

@@ -68,6 +68,67 @@ def manifest_path() -> Path:
     return ultima_home() / "manifest.json"
 
 
+def repo_root() -> Path | None:
+    """Racine du dépôt (contient `schemas/` et `themes/`), trouvée en remontant depuis le paquet.
+
+    Installé, le paquet vit dans `$ULTIMA_HOME/lib/console/ultima_console` : la remontée ne trouve rien,
+    et les schémas/thèmes sont alors lus sous `$ULTIMA_HOME` (`share_root`)."""
+    for parent in Path(__file__).resolve().parents:
+        if (parent / "schemas").is_dir() and (parent / "themes").is_dir():
+            return parent
+    return None
+
+
+def share_root() -> Path:
+    """Racine des fichiers partagés : schémas, thèmes, polices livrées (dépôt ou installation)."""
+    installed = ultima_home()
+    if (installed / "schemas").is_dir() or (installed / "themes").is_dir():
+        return installed
+    root = repo_root()
+    return root if root is not None else installed
+
+
+def schemas_dir() -> Path:
+    value = os.environ.get("ULTIMA_SCHEMAS")
+    if value and os.path.isabs(value):
+        return Path(value)
+    return share_root() / "schemas"
+
+
+def themes_dir() -> Path:
+    """Thèmes intégrés (livrés avec le dépôt, copiés dans l'installation)."""
+    value = os.environ.get("ULTIMA_THEMES")
+    if value and os.path.isabs(value):
+        return Path(value)
+    return share_root() / "themes"
+
+
+def user_themes_dir() -> Path:
+    return config_dir() / "themes"
+
+
+def modules_dir() -> Path:
+    return config_dir() / "modules"
+
+
+def plugins_dir() -> Path:
+    return ultima_home() / "plugins"
+
+
+def fonts_dir() -> Path:
+    return ultima_home() / "fonts"
+
+
+def repo_fonts_dir() -> Path:
+    """Polices libres livrées DANS le dépôt (`fonts/base`, avec licences et sha256)."""
+    root = repo_root()
+    return (root if root is not None else share_root()) / "fonts"
+
+
+def fontconfig_path() -> Path:
+    return config_home() / "fontconfig" / "conf.d" / "60-ultima.conf"
+
+
 def venv_dir() -> Path:
     return ultima_home() / "venv"
 

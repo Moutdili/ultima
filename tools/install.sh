@@ -15,9 +15,11 @@
 #   --wheels DIR      venv hors ligne : pip --no-index --find-links DIR
 #   --no-extension    ne pas copier l'extension GNOME ultima@mio
 #   --systemd         écrire l'unité utilisateur ultima-daemon.service (jamais activée ici)
+#   --game-fonts DIR  copier LOCALEMENT les polices du jeu (jamais versionnées) dans fonts/jeu/
 #   --kb auto|yes|no  base FR (tools/kb/build-kb) : auto = seulement si kb.json est absent (défaut auto)
 #
-# Disposition : ~/.local/share/ultima/{bin,lib/{daemon,mirror,console},data,venv,manifest.json,backup/},
+# Disposition : ~/.local/share/ultima/{bin,lib/{daemon,mirror,console},data,themes,schemas,fonts,venv,
+# manifest.json,backup/} ; fontconfig dédié ~/.config/fontconfig/conf.d/60-ultima.conf,
 # lien ~/.local/bin/ultima. Un ~/.local/bin/ultima existant qui n'est pas à l'installation est sauvegardé
 # dans ~/.local/share/ultima/backup/ et remis en place par --uninstall. HOME, XDG_DATA_HOME,
 # XDG_CONFIG_HOME et XDG_STATE_HOME sont respectés (tests : HOME temporaire).
@@ -28,13 +30,13 @@ here="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 repo="$(cd "$here/.." && pwd)"
 console="$repo/tools/console"
 
-prefix="" ; build=1 ; build_dir="" ; venv=1 ; wheels="" ; extension=1 ; systemd=0 ; kb="auto"
+prefix="" ; build=1 ; build_dir="" ; venv=1 ; wheels="" ; extension=1 ; systemd=0 ; kb="auto" ; game_fonts=""
 mode="install" ; purge=0 ; yes=0
 
-die()  { printf '\033[1;38;2;255;85;85m✗\033[0m %s\n' "$*" >&2; exit 1; }
-ok()   { printf '\033[1;38;2;127;255;0m✓\033[0m %s\n' "$*"; }
-warn() { printf '\033[1;38;2;255;165;24m!\033[0m %s\n' "$*"; }
-step() { printf '\033[38;2;239;200;81m·\033[0m %s\n' "$*"; }
+die()  { printf '\033[1;31m✗\033[0m %s\n' "$*" >&2; exit 1; }
+ok()   { printf '\033[1;32m✓\033[0m %s\n' "$*"; }
+warn() { printf '\033[1;33m!\033[0m %s\n' "$*"; }
+step() { printf '\033[33m·\033[0m %s\n' "$*"; }
 if [[ -n "${NO_COLOR:-}" || ! -t 1 ]]; then
     die()  { printf '✗ %s\n' "$*" >&2; exit 1; }
     ok()   { printf '✓ %s\n' "$*"; }
@@ -51,13 +53,15 @@ while [[ $# -gt 0 ]]; do
         --no-venv) venv=0; shift ;;
         --wheels) wheels="${2:?--wheels DIR}"; shift 2 ;;
         --no-extension) extension=0; shift ;;
+        --game-fonts) game_fonts="${2:?--game-fonts DIR}"; shift 2 ;;
+        --game-fonts=*) game_fonts="${1#*=}"; shift ;;
         --systemd) systemd=1; shift ;;
         --kb) kb="${2:?--kb auto|yes|no}"; shift 2 ;;
         --check) mode="check"; shift ;;
         --uninstall|uninstall) mode="uninstall"; shift ;;
         --purge) purge=1; shift ;;
         -y|--yes) yes=1; shift ;;
-        -h|--help) sed -n '2,26p' "$0"; exit 0 ;;
+        -h|--help) sed -n '2,28p' "$0"; exit 0 ;;
         *) die "option inconnue : $1 (tools/install.sh --help)" ;;
     esac
 done
@@ -184,7 +188,8 @@ args=(install --repo "$repo" --stage "$stage" "${kb_args[@]}")
 (( systemd )) && args+=(--systemd)
 (( venv )) || args+=(--no-venv)
 [[ -n "$wheels" ]] && args+=(--wheels "$wheels")
-step "déploiement"
+(( ${#game_fonts} )) && export ULTIMA_GAME_FONTS="$game_fonts"
+step "déploiement (schémas, thèmes, polices, fontconfig)"
 run_installer "${args[@]}"
 
 home="${ULTIMA_HOME:-${XDG_DATA_HOME:-$HOME/.local/share}/ultima}"
@@ -200,4 +205,6 @@ echo "  ultima doctor                     vérifier l'installation"
 echo "  ultima start                      lancer le daemon (ou ultima, puis s)"
 (( extension )) && echo "  se reconnecter, puis ultima hud on  activer l'extension GNOME $(printf %s 'ultima@mio')"
 (( systemd )) && echo "  systemctl --user daemon-reload && systemctl --user enable --now ultima-daemon.service"
+echo "  ultima theme list                  thèmes (TUI, HUD, compagnon) et personnalisation"
+echo "  ultima font list                   polices : base, systeme, jeu, perso"
 echo "  tools/install.sh --uninstall      tout retirer (réglages conservés ; --purge pour les retirer aussi)"

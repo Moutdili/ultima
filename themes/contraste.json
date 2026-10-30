@@ -1,0 +1,37 @@
+{
+  "id": "contraste",
+  "label": "Contraste",
+  "api": 1,
+  "extends": "sts",
+  "description": "Haut contraste : fond noir, texte blanc (21:1), accents saturés ; pour écrans difficiles.",
+  "tones": {
+    "text": "#FFFFFF",
+    "muted": "#FFFFFFCC",
+    "accent": "#FFD400",
+    "danger": "#FF4D4D",
+    "ok": "#00FF66",
+    "warn": "#FFC400",
+    "curse": "#FF80FF",
+    "enchant": "#00FFFF",
+    "info": "#66B3FF",
+    "grade.S": "#FFD400",
+    "grade.A": "#00FF66",
+    "grade.B": "#00FFFF",
+    "grade.C": "#66B3FF",
+    "grade.D": "#FFC400",
+    "grade.F": "#FF4D4D",
+    "background": "#000000",
+    "border": "#FFFFFF80"
+  },
+  "logColors": {
+    "timestamp": "muted",
+    "debug": "muted",
+    "info": "text",
+    "warn": "warn",
+    "error": "danger"
+  },
+  "glass": {
+    "tint": "#000000",
+    "tintOpacity": 0.85
+  }
+}

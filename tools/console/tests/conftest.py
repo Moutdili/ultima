@@ -52,6 +52,19 @@ def env(tmp_path, monkeypatch):
                   "if [ \"$1\" = info ]; then printf '%s\\n' 'ultima@mio' '  Enabled: Yes' '  State: ACTIVE'; fi\n")
     gx.chmod(0o755)
     monkeypatch.setenv("ULTIMA_GNOME_EXTENSIONS", str(gx))
+    # fontconfig factice : deux polices livrées du dépôt, ordre déterministe (jamais le vrai fc-list).
+    fcl = fake / "fc-list"
+    fcl.write_text("#!/bin/sh\n"
+                   f"printf '%s\\t%s\\n' '{REPO}/fonts/base/LiberationSans-Regular.ttf' 'Liberation Sans'\n"
+                   f"printf '%s\\t%s\\n' '{REPO}/fonts/base/LiberationMono-Regular.ttf' 'Liberation Mono'\n")
+    fcl.chmod(0o755)
+    fcs = fake / "fc-scan"
+    fcs.write_text("#!/bin/sh\n"
+                   "case \"$*\" in *LiberationSans*) printf 'Liberation Sans';; "
+                   "*LiberationMono*) printf 'Liberation Mono';; *) printf 'Police';; esac\n")
+    fcs.chmod(0o755)
+    monkeypatch.setenv("ULTIMA_FC_LIST", str(fcl))
+    monkeypatch.setenv("PATH", f"{fake}:{os.environ.get('PATH', '')}")
     monkeypatch.chdir(tmp_path)
     for p in (paths.config_dir(), paths.settings_path(), paths.log_path(), paths.runtime_dir(), paths.state_path(),
               paths.socket_path(), paths.ultima_home(), paths.bin_dir(), paths.kb_path(), paths.extension_dir(),

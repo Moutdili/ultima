@@ -1,0 +1,37 @@
+{
+  "id": "silent",
+  "label": "Silent",
+  "api": 1,
+  "extends": "sts",
+  "description": "Verte : accent #7FFF00 (NameColor), teinte du verre #004F04 (EnergyLabelOutlineColor).",
+  "tones": {
+    "text": "#FFF6E2",
+    "muted": "#FFF6E299",
+    "accent": "#7FFF00",
+    "danger": "#FF5555",
+    "ok": "#7FFF00",
+    "warn": "#FFA518",
+    "curse": "#EE82EE",
+    "enchant": "#2AEBBE",
+    "info": "#87CEEB",
+    "grade.S": "#7FFF00",
+    "grade.A": "#7FFF00",
+    "grade.B": "#2AEBBE",
+    "grade.C": "#87CEEB",
+    "grade.D": "#FFA518",
+    "grade.F": "#FF5555",
+    "background": "#101A0E",
+    "border": "#7FFF0066"
+  },
+  "logColors": {
+    "timestamp": "muted",
+    "debug": "muted",
+    "info": "text",
+    "warn": "warn",
+    "error": "danger"
+  },
+  "glass": {
+    "tint": "#004F04",
+    "tintOpacity": 0.45
+  }
+}

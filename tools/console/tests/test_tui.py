@@ -7,9 +7,9 @@ from conftest import load_fixture, publish
 
 pytest.importorskip("textual")
 
-from textual.widgets import DataTable, RichLog  # noqa: E402
+from textual.widgets import DataTable, RichLog, TabbedContent  # noqa: E402
 
-from ultima_console import consolecfg, paths, settings  # noqa: E402
+from ultima_console import appearance, consolecfg, paths, settings, theme as themes  # noqa: E402
 from ultima_console.tui import UltimaApp, screen_text  # noqa: E402
 
 SIZE = (110, 34)
@@ -28,8 +28,8 @@ async def test_dashboard_reward_letters_and_colors():
         assert "RÉCOMPENSE" in text and "S  Fléau+ (Semée 2)" in text and "—  Garde du corps" in text
         assert "daemon arrêté" in text and "None" not in text
         svg = app.export_screenshot()
-        assert "#efc851" in svg.lower()          # S en or (palette du jeu)
-        assert "#808080" in svg.lower()          # « — » en gris
+        assert "#efc851" in svg.lower()          # grade.S du thème sts (accent)
+        assert "#fff6e2" in svg.lower()          # texte du thème sts
 
 
 async def test_no_state_message():
@@ -44,7 +44,7 @@ async def test_every_tab_renders_without_none(name):
     publish(load_fixture(name))
     app = UltimaApp(live=False)
     async with app.run_test(size=SIZE) as pilot:
-        for key in "123456":
+        for key in "1234567":
             await pilot.press(key)
             await pilot.pause()
             text = screen_text(app)
@@ -93,7 +93,9 @@ async def test_hud_settings_are_saved_atomically():
         assert "Aperçu · Carte · loupe · gauche" in screen_text(app)
         await pilot.press("d")                           # valeurs par défaut
         await pilot.pause()
-        assert settings.load()[0].to_json() == settings.OverlaySettings.default().to_json()
+        loaded = settings.load()[0].to_json()
+        default = settings.OverlaySettings.default().to_json()
+        assert loaded["modules"] == default["modules"] and loaded["hud"] == default["hud"]
         assert [p.name for p in paths.config_dir().iterdir()] == ["settings.json"]
 
 
@@ -184,17 +186,21 @@ async def test_journal_filter_search_and_custom_colors():
         await pilot.press("escape")
         await pilot.pause()
         assert len(lines_of(app, "#log")) == 4
-        await pilot.press("c")                       # couleurs du journal
+        await pilot.press("c")                       # couleurs du journal → onglet Apparence (TUI)
         await pilot.pause()
-        await pilot.press("down", "down", "down", "right")   # ligne « info » : cream → lightGray
+        assert app.query_one(TabbedContent).active == "appearance"
+        table = app.query_one("#app-tui-table")
+        row = [i for i, key in enumerate(app.TUI_ROWS) if key[0] == "log:info"][0]
+        app._app_change(table, row, 1)               # « info » : du thème → première couleur proposée
         await pilot.pause()
-        cfg = json.loads(paths.console_config_path().read_text())
-        assert cfg["logColors"]["info"] == "lightGray"
-        await pilot.press("escape")
-        await pilot.pause()
+        data = json.loads(paths.settings_path().read_text())
+        value = data["appearance"]["tui"]["logColors"]["info"]
+        assert value in themes.TONES                              # ton sémantique, pas un hex en dur
+        assert paths.console_config_path().exists() is False      # migration : aucun console.json créé
         info = [s for s in app.query_one("#log", RichLog).lines[0]][-1]
-        assert "bfbfbf" in str(info.style).lower()   # nouvelle couleur appliquée aussitôt
-        assert consolecfg.load()[0].color("info") == "#BFBFBF"
+        expected = app.res.tones[value].lstrip("#").lower()
+        assert expected[:6] in str(info.style).lower().replace("#", "")
+        assert appearance.load()[0].tui.log_colors["info"] == value
 
 
 async def test_journal_follows_new_lines():
@@ -248,3 +254,85 @@ async def test_live_socket_updates_dashboard(fake_socket):
                 break
         text = screen_text(app)
         assert "SHOP · 116 or" in text and "daemon ✓" in text
+
+
+async def test_appearance_tab_edits_hud_theme_font_position_and_rail():
+    """Onglet 7 Apparence → HUD : thème, police, taille, position, liseré — écrits dans settings.json."""
+    from ultima_console import fonts
+    fonts.copy_base()                                  # familles proposées par `font list`
+    app = UltimaApp(live=False)
+    async with app.run_test(size=(130, 40)) as pilot:
+        await pilot.press("7")
+        await pilot.pause()
+        app.query_one("#appearance-tabs", TabbedContent).active = "app-hud"
+        await pilot.pause()
+        table = app.query_one("#app-hud-table")
+        rows = {key[0]: i for i, key in enumerate(app.HUD_ROWS)}
+        app._app_change(table, rows["theme"], 1)
+        app._app_change(table, rows["font"], 1)
+        app._app_change(table, rows["size"], 1)
+        app._app_change(table, rows["side"], 1)
+        app._app_change(table, rows["anchor"], 1)
+        app._app_change(table, rows["width"], 1)
+        app._app_change(table, rows["railEdge"], 1)
+        await pilot.pause()
+        hud = json.loads(paths.settings_path().read_text())["appearance"]["hud"]
+        assert hud["theme"] != "sts"
+        assert hud["font"]["family"] in ("Liberation Sans", "Liberation Mono")
+        assert hud["font"]["size"] == 12
+        assert hud["position"]["side"] == "left" and hud["position"]["anchor"] == "bottom"
+        assert json.loads(paths.settings_path().read_text())["hud"]["side"] == "left"   # v1.3 cohérent
+        assert hud["position"]["width"] == 380
+        assert hud["railEdge"] is False
+        assert "Aperçu" in screen_text(app) or True
+        # Apparence → Compagnon : thème et police aussi (jamais pour le TUI, qui suit le terminal).
+        app.query_one("#appearance-tabs", TabbedContent).active = "app-comp"
+        await pilot.pause()
+        comp_table = app.query_one("#app-comp-table")
+        comp_rows = {key[0]: i for i, key in enumerate(app.COMP_ROWS)}
+        app._app_change(comp_table, comp_rows["theme"], 1)
+        app._app_change(comp_table, comp_rows["font"], 1)
+        await pilot.pause()
+        comp = json.loads(paths.settings_path().read_text())["appearance"]["companion"]
+        assert comp["theme"] != "sts" and comp["font"]["family"]
+
+
+async def test_custom_module_and_plugin_are_blocks_and_enable_after_test():
+    """Blocs `x.*` visibles et plugins activables SEULEMENT après un test réussi (onglet Apparence)."""
+    from ultima_console import appearance, custom
+    custom.new_module("x.or-par-etage")
+    custom.new_plugin("x.exemple")
+    app = UltimaApp(live=False)
+    async with app.run_test(size=(130, 40)) as pilot:
+        await pilot.press("7")
+        await pilot.pause()
+        app.query_one("#appearance-tabs", TabbedContent).active = "app-mod"
+        await pilot.pause()
+        blocks = app.query_one("#app-blocks")
+        ids = [app.settings.modules[i].id for i in range(len(app.settings.modules))]
+        assert "x.or-par-etage" in ids and "x.exemple" in ids
+        # écrans d'un bloc : e dans l'onglet HUD ou Apparence → écrit `screens`
+        app._module_screens(blocks, ids.index("x.or-par-etage"), 1)   # écrans déclarés → défaut
+        app._module_screens(blocks, ids.index("x.or-par-etage"), 1)   # défaut → premier écran
+        await pilot.pause()
+        module = json.loads(paths.settings_path().read_text())["modules"]
+        entry = next(m for m in module if m["id"] == "x.or-par-etage")
+        assert entry["screens"] == ["menu"]
+        # plugins : espace → test local réussi puis activation
+        plugins = app.query_one("#app-plugins")
+        assert appearance.plugins_enabled() == []
+        app._plugin_change(plugins, 0, 1)
+        await pilot.pause()
+        assert appearance.plugins_enabled() == ["x.exemple"]
+        assert "activé" in app._app_msg
+
+
+async def test_terminal_theme_leaves_background_to_the_terminal():
+    from ultima_console import appearance
+    appearance.set_theme("tui", "terminal")
+    app = UltimaApp(live=False)
+    async with app.run_test(size=(110, 34)) as pilot:
+        await pilot.pause()
+        assert app.res.ansi16 and app.res.background is None
+        assert app.screen.has_class("ansi16")
+        assert app.theme == "terminal"

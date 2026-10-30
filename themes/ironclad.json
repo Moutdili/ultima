@@ -1,0 +1,37 @@
+{
+  "id": "ironclad",
+  "label": "Ironclad",
+  "api": 1,
+  "extends": "sts",
+  "description": "Rouge du Fer : accent #FF5555 (NameColor), teinte du verre #801212 (EnergyLabelOutlineColor).",
+  "tones": {
+    "text": "#FFF6E2",
+    "muted": "#FFF6E299",
+    "accent": "#FF5555",
+    "danger": "#FF5555",
+    "ok": "#7FFF00",
+    "warn": "#FFA518",
+    "curse": "#EE82EE",
+    "enchant": "#2AEBBE",
+    "info": "#87CEEB",
+    "grade.S": "#FF5555",
+    "grade.A": "#7FFF00",
+    "grade.B": "#2AEBBE",
+    "grade.C": "#87CEEB",
+    "grade.D": "#FFA518",
+    "grade.F": "#FF5555",
+    "background": "#1E1214",
+    "border": "#FF555566"
+  },
+  "logColors": {
+    "timestamp": "muted",
+    "debug": "muted",
+    "info": "text",
+    "warn": "warn",
+    "error": "danger"
+  },
+  "glass": {
+    "tint": "#801212",
+    "tintOpacity": 0.45
+  }
+}

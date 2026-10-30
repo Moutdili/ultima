@@ -31,7 +31,7 @@ import sys
 from dataclasses import dataclass
 from pathlib import Path
 
-from . import VERSION, paths, procs
+from . import VERSION, fonts, paths, procs
 from .settings import atomic_write_text
 
 MARKER = "ultima-install"
@@ -120,6 +120,12 @@ def _data_files(repo: Path) -> list[Path]:
     return sorted(out)
 
 
+def _json_tree(src: Path, dest: Path, items: list[Item]) -> None:
+    """Fichiers d'un dossier de données du dépôt (schémas, thèmes) — silencieux s'il est absent."""
+    if src.is_dir():
+        _tree(src, dest, items)
+
+
 def plan(repo: Path, stage: Path, home: Path, bin_dir: Path, *, extension: bool, systemd: bool,
          kb_stage: Path | None) -> list[Item]:
     items: list[Item] = []
@@ -142,6 +148,15 @@ def plan(repo: Path, stage: Path, home: Path, bin_dir: Path, *, extension: bool,
         compiled = stage / "extension-schemas" / "gschemas.compiled"
         if compiled.is_file():
             items.append(Item(paths.extension_dir(EXT_UUID) / "schemas" / "gschemas.compiled", "file", src=compiled))
+    # v1.4 : schémas et thèmes intégrés voyagent avec l'installation (le TUI les lit sous $ULTIMA_HOME).
+    _json_tree(repo / "schemas", home / "schemas", items)
+    _json_tree(repo / "themes", home / "themes", items)
+    _json_tree(repo / "fonts" / "base", home / "fonts" / "base", items)
+    # États d'exemple (docs/ipc/*.sample.json) : `ultima plugin test` les rejoue hors du dépôt.
+    samples = repo / "docs" / "ipc"
+    if samples.is_dir():
+        for f in sorted(samples.glob("state.*.sample.json")):
+            items.append(Item(home / "samples" / f.name, "file", src=f))
     if systemd:
         unit = stage / "ultima-daemon.service"
         unit.write_text(systemd_unit(home), encoding="utf-8")
@@ -320,6 +335,35 @@ def install(repo: Path, stage: Path, *, extension: bool = True, systemd: bool = 
             os.symlink(it.target, it.dest)
         changed += 1
 
+    # 3bis. Polices (docs/44 §5) : dossier `systeme/` = liens fc-list, index, fontconfig dédié.
+    for name in fonts.FOLDERS:                        # dossiers créés = notés (retirés à la désinstallation)
+        _mkdirs(home / "fonts" / name, created)
+    fonts.ensure_dirs()
+    try:
+        fonts.copy_base(home / "fonts" / "base")
+    except fonts.FontError as e:
+        log(f"polices livrées ignorées : {e}")
+    game_fonts = os.environ.get("ULTIMA_GAME_FONTS")
+    if game_fonts:                                    # extraction LOCALE, jamais versionnée
+        try:
+            copied = fonts.extract_game_fonts(Path(game_fonts))
+            log(f"polices du jeu : {len(copied)} fichier(s) copiés dans {home / 'fonts' / 'jeu'}")
+        except fonts.FontError as e:
+            log(f"! polices du jeu non copiées : {e}")
+    font_info = fonts.refresh()
+    for w in font_info["warnings"]:
+        log(f"! {w}")
+    conf = paths.fontconfig_path()
+    _mkdirs(conf.parent, created)
+    conf = fonts.write_fontconfig()
+    entries = [e for e in entries if not _under(Path(e["path"]), home / "fonts")
+               and Path(e["path"]) != conf]
+    entries += _font_entries(home, conf)
+    entries.sort(key=lambda e: e["path"])
+    man["entries"] = entries
+    man["fonts"] = {"dir": str(home / "fonts"), "fontconfig": str(conf)}
+    _write_manifest(home, man)
+
     # 4. Entrées de l'ancienne installation qui ne font plus partie du plan.
     new_paths = {e["path"] for e in entries}
     for p, e in old_entries.items():
@@ -339,8 +383,10 @@ def install(repo: Path, stage: Path, *, extension: bool = True, systemd: bool = 
             log(f"venv inchangé : {venv_dir}")
 
     # Dossiers vides laissés par l'étape 4 : retirés s'ils ont été créés par l'installation.
-    _prune(created, keep=new_paths | {str(home / "manifest.json")})
-    man["createdDirs"] = created
+    # Les quatre dossiers de polices sont VOULUS vides (jeu, perso) : ils restent.
+    keep = new_paths | {str(home / "manifest.json")} | {str(home / "fonts" / n) for n in fonts.FOLDERS}
+    _prune(created, keep=keep)
+    man["createdDirs"] = list(dict.fromkeys(created))
     man["status"] = "complete"
     _write_manifest(home, man)
     log(f"{changed} élément(s) écrit(s), {len(entries)} entrée(s) au manifeste")
@@ -362,7 +408,7 @@ def _make_venv(venv_dir: Path, req: Path, wheels: Path | None, log) -> None:
 def _prune(created: list[str], keep: set[str]) -> None:
     for d in sorted(created, key=lambda s: s.count(os.sep), reverse=True):
         p = Path(d)
-        if p.is_dir() and not p.is_symlink() and not any(k.startswith(d + os.sep) for k in keep):
+        if p.is_dir() and not p.is_symlink() and not any(k == d or k.startswith(d + os.sep) for k in keep):
             try:
                 p.rmdir()
             except OSError:
@@ -379,6 +425,45 @@ def _git_commit(repo: Path) -> str | None:
 
 def _now() -> str:
     return _dt.datetime.now().astimezone().isoformat(timespec="seconds")
+
+
+def _font_entries(home: Path, conf: Path) -> list[dict]:
+    """Entrées de manifeste pour tout l'arbre des polices + le fichier fontconfig."""
+    out: list[dict] = []
+    root = home / "fonts"
+    if root.is_dir():
+        for dirpath, dirs, files in os.walk(root):
+            dirs.sort()
+            for name in sorted(files):
+                p = Path(dirpath) / name
+                rel = p.relative_to(root)
+                if "__pycache__" in rel.parts:
+                    continue
+                if p.is_symlink():
+                    out.append({"path": str(p), "type": "symlink", "target": os.readlink(p)})
+                else:
+                    out.append({"path": str(p), "type": "file", "mode": oct(os.stat(p).st_mode & 0o777),
+                                "sha256": sha256(p)})
+    if conf.is_file():
+        out.append({"path": str(conf), "type": "file", "mode": oct(os.stat(conf).st_mode & 0o777),
+                    "sha256": sha256(conf)})
+    return out
+
+
+def record_font_entries() -> int:
+    """`ultima font refresh` hors installation : met le manifeste à jour (liens recréés, index)."""
+    home = paths.ultima_home()
+    man = read_manifest(home)
+    if man is None:
+        return 0
+    conf = paths.fontconfig_path()
+    old = [e for e in man.get("entries", [])
+           if not _under(Path(e["path"]), home / "fonts") and Path(e["path"]) != conf]
+    new = old + _font_entries(home, conf)
+    new.sort(key=lambda e: e["path"])
+    man["entries"] = new
+    _write_manifest(home, man)
+    return len(new) - len(old)
 
 
 # ---------- désinstallation ----------
