@@ -570,6 +570,11 @@ def run_blocks(st: EngineState, order: list[str] | None = None,
                                  kind="custom"))
             else:
                 out.append(custom_group(module))
+    # Un module perso publié mais absent des réglages reste visible (la page Run est la vue complète).
+    seen = {g.key for g in out}
+    for module in st.custom:
+        if module.id not in seen:
+            out.append(custom_group(module))
     return out
 
 

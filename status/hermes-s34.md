@@ -56,7 +56,7 @@ conservée telle quelle (DISPLAY retiré, XDG temporaires, contrôle du vrai `se
 
 ```
 $ cd overlay/companion && /usr/bin/python3 -m pytest -q -p no:cacheprovider
-284 passed, 1 skipped, 5 warnings in 0.93s
+285 passed, 1 skipped, 5 warnings in 1.14s
 ```
 (avant modification, sur `origin/main` : `172 passed, 1 skipped` ; le skip est le test du vrai daemon,
 sans `ULTIMA_DAEMON_DLL`.)
@@ -104,6 +104,7 @@ tons manquants, label, racine), `test_check_shows_a_broken_theme_alert_and_falls
 `test_save_companion_reuses_existing_key_case`, `test_contract_bounds_are_the_v1_4_ones`,
 `test_enabled_absent_means_true`, `test_screens_parsed_case_insensitively_and_serialized_only_when_present`,
 `test_run_blocks_include_deck_score_at_its_settings_place`, `test_run_blocks_show_disabled_modules_with_a_note`,
+`test_run_blocks_show_a_published_module_absent_from_settings`,
 `test_custom_health_is_discreet_and_never_colour_only`, `test_custom_groups_follow_settings_order_and_screens`,
 `test_font_files_and_families_by_folder`, `test_resolve_from_folders_then_fontconfig_then_theme_then_system`,
 `test_no_game_pck_read_anymore`.

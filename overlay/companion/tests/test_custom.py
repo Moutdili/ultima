@@ -168,6 +168,14 @@ def test_run_blocks_without_run_is_empty(demo):
     assert views.run_blocks(st, ["deck"]) == []
 
 
+def test_run_blocks_show_a_published_module_absent_from_settings(demo):
+    """La page Run est la vue complète : un module `x.*` publié mais absent des réglages est dessiné."""
+    st = _state(demo, custom=[{"id": "x.nouveau", "label": "Nouveau", "rows": [{"text": "ligne"}]}]).state
+    blocks = views.run_blocks(st, ["deck", "relics"])
+    assert blocks[-1].key == "x.nouveau" and blocks[-1].title == "Nouveau"
+    assert [b.key for b in blocks].count("x.nouveau") == 1
+
+
 def test_status_sections_list_custom_modules(demo):
     st = _state(demo, custom=CUSTOM)
     sections = {s.title: s for s in textview.status_sections(st, ipc.ALIVE, None)}
