@@ -383,58 +383,25 @@ def cmd_install(args: list[str]) -> int:
     return 1
 
 
-def _safe_prefix(p: Path) -> bool:
-    p = Path(os.path.realpath(p))
-    forbidden = {Path("/"), Path(os.path.realpath(paths.home())), Path(os.path.realpath(paths.data_home())),
-                 Path(os.path.realpath(paths.config_home()))}
-    return p not in forbidden and len(p.parts) >= 3
-
-
-def uninstall_plan(purge: bool) -> tuple[list[Path], dict]:
-    man = doctor.read_manifest()
-    if man is None:
-        return [], {}
-    home = paths.ultima_home()
-    items: list[Path] = []
-    link = paths.bin_dir() / "ultima"
-    if link.is_symlink() and os.path.realpath(link).startswith(os.path.realpath(home) + os.sep):
-        items.append(link)
-    unit = man.get("systemdUnit")
-    if unit and Path(unit).is_file():
-        items.append(Path(unit))
-    ext = man.get("extension")
-    if ext and Path(ext).is_dir():
-        items.append(Path(ext))
-    kb = man.get("kb")
-    if kb and Path(kb).exists() and not str(Path(kb)).startswith(str(home) + os.sep):
-        items.append(Path(kb))
-    items.append(home)
-    if purge:
-        for p in (paths.config_dir(), paths.log_dir()):
-            if p.exists():
-                items.append(p)
-    return items, man
-
-
 def cmd_uninstall(out: Out, args: list[str]) -> int:
+    """Retire exactement ce que le manifeste liste ; --purge : réglages, journal et dossier IPC aussi."""
+    from . import installer   # importé en entier AVANT que ses fichiers soient supprimés
     purge = _pop_flag(args, "--purge")
     yes = _pop_flag(args, "-y", "--yes")
-    keep_hud = _pop_flag(args, "--keep-hud")
-    items, man = uninstall_plan(purge)
-    home = paths.ultima_home()
-    if not man:
-        print(f"{PROG} uninstall : aucune installation trouvée dans {home} (manifest.json absent)", file=sys.stderr)
+    man = installer.read_manifest()
+    if man is None:
+        print(f"{PROG} uninstall : aucune installation trouvée dans {paths.ultima_home()} (manifest.json absent)",
+              file=sys.stderr)
         return 1
-    if not _safe_prefix(home):
-        print(f"{PROG} uninstall : refus de supprimer {home}", file=sys.stderr)
-        return 2
-    if keep_hud and man.get("extension"):
-        items = [p for p in items if str(p) != man["extension"]]
-    print("Sera supprimé :")
-    for p in items:
-        print(f"  {p}")
+    p = installer.uninstall_plan(man, purge)
+    print(f"Sera retiré : {len(p['remove'])} élément(s) listés dans {paths.manifest_path()}")
+    for b in p["restore"]:
+        print(f"  remis en place : {b['original']}")
+    for x in p["purge"]:
+        print(out.ansi.fg(f"  PURGE : {x}", "orange"))
     if not purge:
-        print(out.ansi.dim(f"Conservé : {paths.config_dir()} (réglages), {paths.log_dir()} (journal) — --purge pour tout retirer"))
+        print(out.ansi.dim(f"Conservé : {paths.config_dir()} (réglages), {paths.log_dir()} (journal)"
+                           f" — --purge pour tout retirer"))
     if not yes:
         if not sys.stdin.isatty():
             print(f"{PROG} uninstall : confirmer avec -y (entrée non interactive)", file=sys.stderr)
@@ -442,25 +409,11 @@ def cmd_uninstall(out: Out, args: list[str]) -> int:
         if input("Continuer ? [o/N] ").strip().lower() not in ("o", "oui", "y", "yes"):
             print("annulé")
             return 1
-    procs.stop()
-    sc = procs.systemctl()
-    unit = man.get("systemdUnit")
-    if unit and sc and Path(unit).is_file():
-        subprocess.run([sc, "--user", "disable", "--now", procs.UNIT], capture_output=True)
-    if man.get("extension") and not keep_hud and Path(man["extension"]).is_dir():
-        tool = procs.gnome_extensions()
-        if tool:
-            subprocess.run([tool, "disable", procs.EXT_UUID], capture_output=True)
-    for p in items:
-        try:
-            if p.is_symlink() or p.is_file():
-                p.unlink()
-            elif p.is_dir():
-                shutil.rmtree(p)
-        except OSError as e:
-            print(f"{out.ansi.fg(KO_MARK, 'red')} {p} : {e}", file=sys.stderr)
-    if unit and sc:
-        subprocess.run([sc, "--user", "daemon-reload"], capture_output=True)
+    try:
+        installer.uninstall(purge=purge, log=lambda m: print(out.ansi.dim(f"  {m}")))
+    except installer.InstallError as e:
+        print(f"{out.ansi.fg(KO_MARK, 'red')} {e}", file=sys.stderr)
+        return 1
     print(f"{out.ansi.fg(OK_MARK, 'green')} ULTIMA désinstallé")
     return 0
 

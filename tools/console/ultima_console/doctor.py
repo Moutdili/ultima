@@ -5,7 +5,6 @@ Statuts : ok, warn (fonctionne en mode réduit), fail (à corriger), info.
 
 from __future__ import annotations
 
-import json
 import os
 import shutil
 import subprocess
@@ -29,11 +28,8 @@ class Check:
 
 
 def read_manifest() -> dict | None:
-    try:
-        m = json.loads(paths.manifest_path().read_text(encoding="utf-8"))
-    except (OSError, ValueError):
-        return None
-    return m if isinstance(m, dict) and m.get("marker") == "ultima-install" else None
+    from .installer import read_manifest as _read
+    return _read()
 
 
 def _dotnet_runtime_ok() -> tuple[bool, str]:
