@@ -68,6 +68,23 @@ function asObject(v) {
     return v && typeof v === 'object' && !Array.isArray(v) ? v : null;
 }
 
+// Noms de propriétés insensibles à la casse, comme le daemon (StateJson :
+// PropertyNameCaseInsensitive = true) et le compagnon : « Quality » vaut « quality ».
+// Première occurrence gagnante si deux casses coexistent.
+function caseless(obj, names) {
+    const o = asObject(obj);
+    if (!o)
+        return null;
+    const out = {};
+    const lower = new Map(names.map(n => [n.toLowerCase(), n]));
+    for (const [k, v] of Object.entries(o)) {
+        const name = lower.get(k.toLowerCase());
+        if (name && !(name in out))
+            out[name] = v;
+    }
+    return out;
+}
+
 // Texte de ~/.config/ultima/settings.json -> {kind: 'hud', hud} | {kind: 'none'} (pas de « hud »)
 // | {kind: 'invalid', error}. Ne lève jamais. Le fichier n'est JAMAIS écrit par l'overlay.
 export const MAX_SETTINGS_BYTES = 256 * 1024;
@@ -84,7 +101,7 @@ export function parseSettingsHud(text) {
     }
     if (!asObject(raw))
         return {kind: 'invalid', error: 'racine non objet'};
-    const hud = asObject(raw.hud);
+    const hud = asObject(caseless(raw, ['hud'])?.hud);
     return hud ? {kind: 'hud', hud} : {kind: 'none'};
 }
 
@@ -93,7 +110,8 @@ export function parseSettingsHud(text) {
 const ORDER = [['file', 'fichier'], ['state', 'état'], ['gsettings', 'gsettings']];
 export function resolveHud(sources = {}) {
     const src = asObject(sources) ?? {};
-    const objs = ORDER.map(([k, name]) => [asObject(src[k]) ?? {}, name]);
+    const fields = Object.keys(READERS);
+    const objs = ORDER.map(([k, name]) => [caseless(src[k], fields) ?? {}, name]);
     const out = {source: {}};
     for (const [k, read] of Object.entries(READERS)) {
         out[k] = HUD_DEFAULTS[k];

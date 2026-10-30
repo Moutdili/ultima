@@ -96,13 +96,13 @@ Note du deck C`);
         mainReason({terms: [{label: 'a', points: 5}, {label: 'b', points: -9}]}) === 'b -9');
     s.screen = 'Shop';
     s.shop = null;
-    check('shop non lu : annoncé, pas de faux prix', render(s) === '[—] Boutique\n    articles non lus');
+    check('shop non lu : annoncé, pas de faux prix', render(s) === '[—] Shop\n    articles non lus');
     s.shop = sample().shop;
     for (const it of s.shop.items)
         it.score = null;
     s.shop.removalScore = null;
     check('shop sans aucune note : « — » + « notes non calculées » (jamais 0 ni F)',
-        render(s) === '[—] Boutique\n    notes non calculées');
+        render(s) === '[—] Shop\n    notes non calculées');
 }
 
 // ---------- 3. récompense, événement ----------
@@ -214,6 +214,17 @@ Note du deck C`);
         JSON.stringify(GRADE_TONE) === JSON.stringify({S: 'gold', A: 'green', B: 'aqua', C: 'blue', D: 'orange', F: 'red', [NO_SCORE]: 'gray'}));
     check('chaque ton de note est un ton de palette', [...GRADES, NO_SCORE].every(g => TONES.includes(GRADE_TONE[g])));
     check('libellés : un par module connu', MODULE_IDS.every(id => typeof MODULE_LABEL[id] === 'string'));
+    // Une seule grammaire (§11) : mêmes libellés que le compagnon (settings.py MODULE_LABELS).
+    const py = readText('../../companion/ultima_companion/settings.py');
+    const companion = Object.fromEntries([...py.matchAll(/^\s+([A-Z_]+): "([^"]+)",$/gm)].map(m => [m[1].toLowerCase(), m[2]]));
+    const diff = Object.keys(MODULE_LABEL).filter(id => companion[id] !== undefined && companion[id] !== MODULE_LABEL[id]);
+    check('libellés identiques à ceux du compagnon', Object.keys(companion).length >= 12 && diff.length === 0,
+        diff.map(id => `${id}: ${MODULE_LABEL[id]} ≠ ${companion[id]}`).join(', '));
+    const pal = readText('../../companion/ultima_companion/palette.py');
+    const block = /GRADE_TONES[^{]*\{([^}]*)\}/.exec(pal)?.[1] ?? '';
+    const tones = Object.fromEntries([...block.matchAll(/"([^"]+)":\s*"([a-z]+)"/g)].map(m => [m[1], m[2]]));
+    check('tons des notes S-F identiques à ceux du compagnon (palette.py GRADE_TONES)',
+        Object.keys(tones).length === 7 && JSON.stringify(tones) === JSON.stringify(GRADE_TONE), JSON.stringify(tones));
 }
 
 // ---------- 7. dégradé, version future, attente ----------

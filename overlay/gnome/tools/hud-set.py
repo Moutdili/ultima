@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Règle les HudSettings (contrat v1.3) dans ~/.config/ultima/settings.json, pour la fenêtre de test.
 
-Ni le TUI `ultima` ni le compagnon n'éditent encore le bloc « hud » : ce script le fait, et
-seulement lui. Écriture atomique (fichier temporaire dans le même dossier + rename), comme le
+Le compagnon (page HUD) édite aussi ce bloc ; le TUI `ultima` pas encore. Ce script, lui, se lance
+depuis un terminal pendant la fenêtre de test et ne touche QUE le bloc « hud ».
+Bornes du compagnon (interface) : hauteur 0,30-0,90, opacité 0,20-1 ; le HUD ramène à 0,2-0,85 et 0,35-1. Écriture atomique (fichier temporaire dans le même dossier + rename), comme le
 compagnon ; les autres clés (« modules »…) sont gardées telles quelles. Ne lit ni n'écrit rien du jeu.
 
     tools/hud-set.py                       # affiche le bloc hud actuel

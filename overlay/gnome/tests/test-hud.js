@@ -57,6 +57,9 @@ const same = (a, b) => JSON.stringify(strip(a)) === JSON.stringify(strip(b));
     const hi = resolveHud({state: {heightFraction: 1}});
     check('valeurs valides hors bornes de sûreté RAMENÉES (opacité ≥ 0.35 : leçon v1 ; hauteur 0.2-0.85)',
         lo.restOpacity === 0.35 && lo.heightFraction === 0.2 && hi.heightFraction === 0.85);
+    check('noms de champs insensibles à la casse (comme le daemon)',
+        resolveHud({file: {Quality: 'eco', SIDE: 'left', restopacity: 0.5}}).quality === 'eco' &&
+        resolveHud({file: {SIDE: 'left'}}).side === 'left' && resolveHud({file: {restopacity: 0.5}}).restOpacity === 0.5);
     check('booléens stricts', resolveHud({state: {deckScoreInCombat: true, gradesOnly: true}}).gradesOnly === true &&
         resolveHud({state: {gradesOnly: 'true'}}).gradesOnly === false);
 }
@@ -83,6 +86,8 @@ const same = (a, b) => JSON.stringify(strip(a)) === JSON.stringify(strip(b));
     const p = parseSettingsHud(JSON.stringify(real));
     check('settings.json (forme OverlaySettings v1.3) -> hud lu', p.kind === 'hud' && same(resolveHud({file: p.hud}), HUD_DEFAULTS));
     check('settings.json sans « hud » (écrit avant v1.3) -> none', parseSettingsHud('{"modules": []}').kind === 'none');
+    check('settings.json « Hud » (casse du record C#) -> lu', parseSettingsHud('{"Modules": [], "Hud": {"Quality": "eco"}}').kind === 'hud' &&
+        resolveHud({file: parseSettingsHud('{"Hud": {"Quality": "eco"}}').hud}).quality === 'eco');
     check('settings.json « hud »: null -> none', parseSettingsHud('{"modules": [], "hud": null}').kind === 'none');
     check('JSON tronqué -> invalide (dernier réglage valide gardé par l\'extension)', parseSettingsHud('{"hud": {"qua').kind === 'invalid');
     check('racine non objet -> invalide', parseSettingsHud('[]').kind === 'invalid' && parseSettingsHud('null').kind === 'invalid');

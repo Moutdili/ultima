@@ -19,7 +19,8 @@ Raccourcis : **Super+Maj+I** épingler (détail), **Super+Maj+O** masquer. Jamai
 cd ~/v2-verrier-design                   # ou le dépôt après merge
 overlay/gnome/install-dev.sh --check     # metadata, schéma strict, pack, 6 suites de tests ; n'installe rien
 cp -a ~/.config/ultima/settings.json /tmp/ultima-settings.bak 2>/dev/null || echo "pas de settings.json"
-H=overlay/gnome/tools/hud-set.py         # règle le bloc « hud » de settings.json (écriture atomique)
+H=overlay/gnome/tools/hud-set.py         # règle le bloc « hud » de settings.json (écriture atomique) ;
+                                         # la page HUD du compagnon fait la même chose à la souris
 S="gsettings --schemadir $HOME/.local/share/gnome-shell/extensions/ultima@mio/schemas"
 K=org.gnome.shell.extensions.ultima
 ```

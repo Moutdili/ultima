@@ -22,15 +22,16 @@ export const SEP = ' · ';
 export const COUNT = '×';
 export const MORE = '…';
 
-// Libellés courts (une ligne par module, skill design §11). Même ordre que le contrat.
+// Libellés courts (une ligne par module, skill design §11). Même ordre que le contrat, mêmes mots
+// que le compagnon (overlay/companion/ultima_companion/settings.py MODULE_LABELS).
 export const MODULE_LABEL = Object.freeze({
     deck: 'Deck',
     enchanted: 'Enchantées',
-    curses: 'Malédiction',
+    curses: 'Malédictions',
     relics: 'Reliques',
     potions: 'Potions',
     reward: 'Récompense',
-    shop: 'Boutique',
+    shop: 'Shop',
     event: 'Événement',
     paths: 'Chemins',
     route: 'Route',
