@@ -1,11 +1,12 @@
-"""Préférences de la console : `~/.config/ultima/console.json` (propre au TUI/CLI, hors contrat).
+"""Options de LANCEMENT du daemon : `~/.config/ultima/console.json` (hors contrat).
 
-    {"theme": "ultima",
-     "logColors": {"timestamp": "gray", "debug": "gray", "info": "cream", "warn": "orange", "error": "red"},
-     "daemon": {"mirror": false, "verbose": false, "extraArgs": []}}
+    {"daemon": {"mirror": false, "verbose": false, "extraArgs": []},
+     "theme": "ultima", "logColors": {"info": "cream", …}}   ← v1.3, MIGRÉ une fois dans settings.json
 
-Couleurs : un token de la palette du jeu (cream, gold, red, green, blue, orange, purple, aqua, lightGray,
-gray) ou « #RRGGBB ». `daemon.mirror` = false reproduit le script `ultima` d'origine (`run --no-mirror`).
+Depuis la v1.4 (docs/44 §3), l'apparence du TUI (thème, couleurs du journal) vit dans
+`settings.json → appearance.tui`. Ce fichier ne garde que le lancement du daemon ; ses anciennes clés
+`theme`/`logColors` sont seulement LUES pour la migration (`appearance.migrate_console`), conservées
+telles quelles à l'écriture, et jamais réutilisées ensuite.
 """
 
 from __future__ import annotations
@@ -15,28 +16,27 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
-from . import palette, paths
+from . import paths, theme
 from .settings import atomic_write_text
 
 LEVELS: tuple[str, ...] = ("debug", "info", "warn", "error")
 COLOR_KEYS: tuple[str, ...] = ("timestamp",) + LEVELS
+# Anciens défauts (v1.3) : conservés pour la migration, plus utilisés pour dessiner.
 DEFAULT_LOG_COLORS: dict[str, str] = {
-    "timestamp": "gray", "debug": "gray", "info": "cream", "warn": "orange", "error": "red",
+    "timestamp": "muted", "debug": "muted", "info": "text", "warn": "warn", "error": "danger",
 }
-# Ordre de rotation proposé dans le TUI (palette du jeu uniquement).
-COLOR_CHOICES: tuple[str, ...] = ("cream", "lightGray", "gray", "gold", "aqua", "blue", "green",
-                                  "orange", "purple", "red")
-# « ultima » = palette du jeu sur la teinte du verre ; « ansi-* » = couleurs du terminal ; autres = Textual.
-THEMES: tuple[str, ...] = ("ultima", "ansi-dark", "ansi-light", "textual-dark", "nord", "gruvbox", "tokyo-night")
 
 
 @dataclass
 class ConsoleConfig:
-    theme: str = "ultima"
-    log_colors: dict[str, str] = field(default_factory=lambda: dict(DEFAULT_LOG_COLORS))
     mirror: bool = False
     verbose: bool = False
     extra_args: list[str] = field(default_factory=list)
+    theme: str = "sts"                       # hérité (v1.3), lu pour la migration seulement
+    log_colors: dict[str, str] = field(default_factory=dict)
+    legacy_theme: bool = False
+    legacy_log_colors: bool = False
+    legacy_keys: list[str] = field(default_factory=list)
     extra: dict[str, Any] = field(default_factory=dict)
 
     @classmethod
@@ -44,13 +44,6 @@ class ConsoleConfig:
         c = cls()
         if not isinstance(data, dict):
             return c
-        if isinstance(data.get("theme"), str) and data["theme"]:
-            c.theme = data["theme"]
-        lc = data.get("logColors")
-        if isinstance(lc, dict):
-            for k in COLOR_KEYS:
-                if palette.is_color(lc.get(k)):
-                    c.log_colors[k] = lc[k]
         d = data.get("daemon")
         if isinstance(d, dict):
             if isinstance(d.get("mirror"), bool):
@@ -59,34 +52,42 @@ class ConsoleConfig:
                 c.verbose = d["verbose"]
             if isinstance(d.get("extraArgs"), list) and all(isinstance(a, str) for a in d["extraArgs"]):
                 c.extra_args = list(d["extraArgs"])
-        c.extra = {k: v for k, v in data.items() if k not in ("theme", "logColors", "daemon")}
+        if isinstance(data.get("theme"), str) and data["theme"]:
+            c.theme = data["theme"]
+            c.legacy_theme = True
+        c.log_colors = {k: DEFAULT_LOG_COLORS[k] for k in COLOR_KEYS}
+        lc = data.get("logColors")
+        if isinstance(lc, dict):
+            c.legacy_log_colors = True
+            for k in COLOR_KEYS:
+                if k not in lc:
+                    continue                      # ne pas inventer une clé absente (migration fidèle)
+                c.legacy_keys.append(k)
+                v = lc.get(k)
+                if isinstance(v, str) and (theme.is_hex(v) or v in theme.TONES or v in LEGACY_TOKENS):
+                    c.log_colors[k] = v
+        # Tout ce que ce module ne comprend pas (dont theme/logColors) est conservé tel quel.
+        c.extra = {k: v for k, v in data.items() if k != "daemon"}
         return c
 
+    def has_legacy_appearance(self) -> bool:
+        return self.legacy_theme or self.legacy_log_colors
+
     def to_json(self) -> dict[str, Any]:
-        out: dict[str, Any] = {
-            "theme": self.theme,
-            "logColors": {k: self.log_colors.get(k, DEFAULT_LOG_COLORS[k]) for k in COLOR_KEYS},
-            "daemon": {"mirror": self.mirror, "verbose": self.verbose, "extraArgs": self.extra_args},
-        }
-        out.update(self.extra)
+        out = dict(self.extra)
+        out["daemon"] = {"mirror": self.mirror, "verbose": self.verbose, "extraArgs": self.extra_args}
         return out
-
-    def color(self, key: str) -> str:
-        """#RRGGBB d'une clé (timestamp, debug, info, warn, error)."""
-        return palette.resolve(self.log_colors.get(key), DEFAULT_LOG_COLORS.get(key, "cream"))
-
-    def cycle_color(self, key: str, step: int) -> str:
-        cur = self.log_colors.get(key, DEFAULT_LOG_COLORS[key])
-        choices = list(COLOR_CHOICES)
-        i = choices.index(cur) if cur in choices else -1
-        self.log_colors[key] = choices[(i + step) % len(choices)]
-        return self.log_colors[key]
 
     def daemon_args(self) -> list[str]:
         args = [] if self.mirror else ["--no-mirror"]
         if self.verbose:
             args.append("--verbose")
         return args + self.extra_args
+
+
+#: Tokens de la palette v1.3 (skill design §1) encore lus dans console.json pour la migration.
+LEGACY_TOKENS: tuple[str, ...] = ("cream", "gold", "red", "green", "blue", "orange", "purple", "aqua",
+                                  "lightGray", "gray")
 
 
 def load(path: Path | None = None) -> tuple[ConsoleConfig, str | None]:

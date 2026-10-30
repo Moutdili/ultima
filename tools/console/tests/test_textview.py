@@ -6,7 +6,9 @@ import pytest
 from conftest import load_fixture
 
 from ultima_console import textview as tv
-from ultima_console.palette import CHARACTER_COLORS, DASH, GRADE_TONES
+from ultima_console.palette import DASH
+from ultima_console import theme
+from ultima_console.textview import GRADE_TONES
 from ultima_console.settings import OverlaySettings
 
 ALIVE = tv.Health("alive", [], "ok", 1.0)
@@ -27,8 +29,9 @@ def test_grade_prefers_published_letter_and_null_is_dash():
     assert tv.grade({"total": 10, "grade": "A"}) == "A"
     assert tv.grade(None) == DASH
     assert tv.grade({"total": None}) == DASH
-    assert tv.grade_seg(None) == (DASH, "gray", False)
-    assert GRADE_TONES == {"S": "gold", "A": "green", "B": "aqua", "C": "blue", "D": "orange", "F": "red", "—": "gray"}
+    assert tv.grade_seg(None) == (DASH, "muted", False)
+    assert GRADE_TONES == {"S": "grade.S", "A": "grade.A", "B": "grade.B", "C": "grade.C",
+                           "D": "grade.D", "F": "grade.F"}
 
 
 @pytest.mark.parametrize("name", ["v13", "map", "reward", "shop"])
@@ -113,7 +116,8 @@ def test_party_line_coop_uses_character_colors():
     s["run"]["party"].append(ally)
     line = tv.party_line(s, 80)
     tones = {t: tone for t, tone, _ in line}
-    assert tones["Ironclad"] == CHARACTER_COLORS["CHARACTER.IRONCLAD"]
+    assert tones["Ironclad"] == "perso:CHARACTER.IRONCLAD"
+    assert theme.resolve("sts").color(tones["Ironclad"]) == theme.resolve("ironclad").tones["accent"]
     assert any("(toi)" in t for t, _, _ in line)
     assert f" {DASH}/" in tv.plain(line)
 
@@ -129,7 +133,7 @@ def test_health_line_one_accent():
     h = tv.Health("absent", [], "ok", 5.0)
     line = tv.health_line(load_fixture("reward"), h)
     accents = [tone for _, tone, _ in line if tone not in (None, "dim")]
-    assert accents == ["red"]
+    assert accents == ["danger"]
     assert "daemon arrêté" in tv.plain(line)
 
 

@@ -11,7 +11,7 @@ import subprocess
 from dataclasses import dataclass
 from pathlib import Path
 
-from . import VERSION, consolecfg, paths, procs, settings
+from . import VERSION, appearance, consolecfg, fonts, paths, procs, settings
 from .state import ALIVE, probe_socket
 
 OK, WARN, FAIL, INFO = "ok", "warn", "fail", "info"
@@ -116,9 +116,23 @@ def run_checks(quick: bool = False) -> list[Check]:
     s, err = settings.load()
     out.append(Check(FAIL if err else OK, "settings.json",
                      err or f"{paths.settings_path()} (HUD {s.hud.quality}, {round(s.hud.height_fraction * 100)} %)"))
+    app, aerr = appearance.load()
+    out.append(Check(FAIL if aerr else OK, "apparence",
+                     aerr or f"thème TUI {app.tui.theme} · HUD {app.hud.theme} · "
+                             f"compagnon {app.companion.theme}"))
+    font_problems = fonts.verify_installed()
+    if not paths.fonts_dir().is_dir():
+        out.append(Check(INFO, "polices", f"{paths.fonts_dir()} absent (tools/install.sh)"))
+    else:
+        out.append(Check(WARN if font_problems else OK, "polices",
+                         " ; ".join(font_problems[:3]) if font_problems else
+                         f"{paths.fonts_dir()} · fontconfig {paths.fontconfig_path()}"))
     _, cerr = consolecfg.load()
     if cerr:
         out.append(Check(WARN, "console.json", cerr))
+    elif consolecfg.load()[0].has_legacy_appearance():
+        out.append(Check(INFO, "console.json", "ancien theme/logColors : repris une fois dans "
+                                               "appearance.tui (migration v1.4)"))
 
     log = paths.log_path()
     out.append(Check(OK if log.parent.is_dir() else INFO, "journal", str(log)))

@@ -1,4 +1,4 @@
-"""Bandeau ULTIMA : dessin exact (48 × 8), couleurs de la palette, repli une ligne (taille, locale), NO_COLOR."""
+"""Bandeau ULTIMA : dessin exact (48 × 8), couleurs du THÈME, repli une ligne (taille, locale), NO_COLOR."""
 
 from ultima_console import CONTRACT_MAJOR, CONTRACT_MINOR
 import os
@@ -8,14 +8,16 @@ import sys
 import pytest
 from conftest import CONSOLE
 
-from ultima_console import banner, cli
-from ultima_console.palette import PALETTE, Ansi
+from ultima_console import banner, cli, theme
+from ultima_console.palette import Ansi
+
+RES = theme.resolve("sts")
 
 ESC = "\x1b["
 
 
 def rgb(token):
-    h = PALETTE[token]
+    h = RES.tones[token]
     return f"38;2;{int(h[1:3], 16)};{int(h[3:5], 16)};{int(h[5:7], 16)}m"
 
 
@@ -48,14 +50,14 @@ def test_utf8_locale(env, ok):
     assert banner.utf8_locale(env) is ok
 
 
-def test_colors_are_palette_golds():
+def test_colors_are_theme_tones():
     out = banner.render(Ansi(True), 80, 40, True).split("\n")
     for line, tone in zip(out, banner.ROW_TONES):
         assert line.startswith(f"{ESC}1;{rgb(tone)}")
-    assert set(banner.ROW_TONES) <= {"cream", "gold", "orange"}
-    assert out[7].startswith(f"{ESC}{rgb('lightGray')}")          # sous-titre crème atténué
+    assert banner.ROW_TONES == ("text", "accent", "accent", "accent", "warn", "warn")
+    assert out[7].startswith(f"{ESC}2m")                          # sous-titre atténué (ton « dim »)
     one = banner.render(Ansi(True), 40, 40, True)
-    assert one.startswith(f"{ESC}1;{rgb('gold')}ULTIMA")
+    assert one.startswith(f"{ESC}1;{rgb('accent')}ULTIMA")
 
 
 def test_version_banner_and_no_color(capsys, monkeypatch):
@@ -63,7 +65,7 @@ def test_version_banner_and_no_color(capsys, monkeypatch):
     monkeypatch.setenv("LINES", "40")
     assert cli.main(["version", "--color", "always"]) == 0
     out = capsys.readouterr().out
-    assert f"{rgb('gold')}{banner.ART[1]}" in out and f"contrat v{CONTRACT_MAJOR}.{CONTRACT_MINOR}" in out
+    assert f"{rgb('accent')}{banner.ART[1]}" in out and f"contrat v{CONTRACT_MAJOR}.{CONTRACT_MINOR}" in out
     monkeypatch.setenv("NO_COLOR", "1")
     monkeypatch.setenv("FORCE_COLOR", "1")
     cli.main(["version"])

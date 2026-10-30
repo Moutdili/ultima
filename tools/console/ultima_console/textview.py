@@ -2,13 +2,15 @@
 
 Grammaire partagée avec le HUD (overlay/gnome/ultima@mio/render.js) et la charte (skill
 sts2-design-system §9, §11) :
-- lettre S-F TOUJOURS écrite, colorée (S gold, A green, B aqua, C blue, D orange, F red, « — » gray) ;
-- score null → « — », jamais 0 ; malédiction = « !! » + mot « Malédiction » en violet ;
-- enchantement = nom + valeur (« Célérité 1 ») en aqua ; séparateur « · », quantité « 2× », amélioration « + » ;
-- au plus UN accent coloré par ligne, texte secondaire en gris clair ;
+- lettre S-F TOUJOURS écrite, colorée par un ton du contrat (`grade.S` … `grade.F`, « — » = `muted`) ;
+- score null → « — », jamais 0 ; malédiction = « !! » + mot « Malédiction » en `curse` ;
+- enchantement = nom + valeur (« Célérité 1 ») en `enchant` ; séparateur « · », quantité « 2× », amélioration « + » ;
+- au plus UN accent coloré par ligne, texte secondaire en `muted` ;
 - l'actionnable d'abord : la décision (récompense, shop, événement, carte) prend la place.
 
-Une ligne = liste de segments (texte, ton, gras). Ton : token de palette, "dim" (secondaire) ou None (crème).
+Une ligne = liste de segments (texte, ton, gras). Le ton est un TON SÉMANTIQUE du contrat (`text`, `muted`,
+`accent`, `danger`, `ok`, `warn`, `curse`, `enchant`, `info`, `grade.S`…, `perso:<personnage>`), "dim"
+(secondaire du terminal) ou None (texte). Aucune couleur ici : `theme.resolve()` les fournit.
 """
 
 from __future__ import annotations
@@ -16,7 +18,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any, Iterable
 
-from .palette import CHARACTER_COLORS, CURSE_MARK, DASH, SEP, TIMES, grade_tone
+from .palette import CURSE_MARK, DASH, SEP, TIMES
 from .settings import CONTEXT_SCREEN, MODULE_LABELS, OverlaySettings
 from .state import arr, get, num
 
@@ -34,6 +36,8 @@ CONFIDENCE_LABELS = {"high": "haute", "medium": "moyenne", "low": "basse"}
 ROOM_LABELS = {"monster": "combat", "elite": "élite", "unknown": "?", "rest_site": "feu", "shop": "shop",
                "treasure": "trésor", "boss": "boss", "ancient": "ancien"}
 GRADE_RANK = {"S": 0, "A": 1, "B": 2, "C": 3, "D": 4, "F": 5}
+GRADE_TONES = {"S": "grade.S", "A": "grade.A", "B": "grade.B", "C": "grade.C", "D": "grade.D",
+               "F": "grade.F"}
 _SCALE = (("S", 85), ("A", 70), ("B", 55), ("C", 40), ("D", 25))
 
 
@@ -77,6 +81,11 @@ def grade(score: Any) -> str:
     if g in GRADE_RANK:
         return g
     return grade_from_total(score.get("total")) or DASH
+
+
+def grade_tone(g: str | None) -> str:
+    """Lettre S-F → ton du contrat (`grade.S` … `grade.F`) ; « — » → `muted`."""
+    return GRADE_TONES.get(g or DASH, "muted")
 
 
 def grade_seg(score: Any, width: int = 1) -> Seg:
@@ -182,9 +191,9 @@ def health_line(state: Any, h: Health) -> Line:
     if h.daemon == "alive":
         parts.append(("daemon ✓", None))
     elif h.pids:
-        parts.append((f"daemon démarre (pid {h.pids[0]})", "orange"))
+        parts.append((f"daemon démarre (pid {h.pids[0]})", "warn"))
     else:
-        parts.append(("daemon arrêté", "red"))
+        parts.append(("daemon arrêté", "danger"))
     if state is not None and h.state_kind == "ok":
         parts.append(("jeu ✓" if hl.get("gameRunning") else "jeu fermé", None if hl.get("gameRunning") else "dim"))
         if hl.get("mirrorOk"):
@@ -199,7 +208,7 @@ def health_line(state: Any, h: Health) -> Line:
     for i, (t, tone) in enumerate(parts):
         if i:
             line.append(seg(SEP, "dim"))
-        if tone in ("red", "orange"):
+        if tone in ("danger", "warn"):
             if accent_used:
                 tone = None
             accent_used = True
@@ -237,7 +246,7 @@ def party_line(state: Any, width: int) -> Line | None:
     for i, a in enumerate(party):
         if i:
             line.append(seg(SEP, "dim"))
-        color = CHARACTER_COLORS.get(str(a.get("characterId")))
+        color = f"perso:{a.get('characterId')}"
         name = txt(a.get("name"), DASH, 24) + (" (toi)" if a.get("isLocal") else "")
         line.append(seg(name, color))
         line.append(seg(f" {n(a.get('hp'))}/{n(a.get('maxHp'))}", "dim"))
@@ -246,7 +255,7 @@ def party_line(state: Any, width: int) -> Line | None:
 
 def degraded_line(state: Any) -> Line | None:
     d = get(state, "health", "degraded")
-    return [seg(f"DÉGRADÉ{SEP}{txt(d, limit=200)}", "orange", True)] if d else None
+    return [seg(f"DÉGRADÉ{SEP}{txt(d, limit=200)}", "warn", True)] if d else None
 
 
 def reward_lines(state: Any, width: int) -> list[Line]:
@@ -333,7 +342,7 @@ def map_lines(state: Any, width: int) -> list[Line]:
         hp = num(route.get("expectedHpAtBoss"))
         line: Line = [seg("ROUTE", None, True), seg(f"{SEP}PV au boss ~{DASH if hp is None else hp}", "dim")]
         if route.get("mayBeLethal"):
-            line.append(seg(f"{SEP}LÉTAL possible", "red", True))
+            line.append(seg(f"{SEP}LÉTAL possible", "danger", True))
         out.append(line)
     p = get(state, "paths")
     if isinstance(p, dict):
@@ -372,7 +381,7 @@ def curse_lines(state: Any, width: int) -> list[Line]:
     out = []
     for c, k in group_cards(curses):
         count = f"{k}{TIMES} " if k > 1 else ""
-        out.append([seg(fit(f"{CURSE_MARK} Malédiction{SEP}{count}{card_label(c)}", width), "purple", True)])
+        out.append([seg(fit(f"{CURSE_MARK} Malédiction{SEP}{count}{card_label(c)}", width), "curse", True)])
     return out
 
 
@@ -383,7 +392,7 @@ def enchanted_line(state: Any, width: int) -> Line | None:
         return None
     parts = [f"{card_label(c)} ({enchant_text(c.get('enchantment'))})" + (f" {TIMES}{n}" if n > 1 else "")
              for c, n in group_cards(ench)]
-    return [seg("Enchantées  ", "dim"), seg(fit(SEP.join(parts), width - 12), "aqua")]
+    return [seg("Enchantées  ", "dim"), seg(fit(SEP.join(parts), width - 12), "enchant")]
 
 
 def summary_line(state: Any) -> Line:
@@ -414,15 +423,15 @@ def dashboard(state: Any, h: Health, width: int = 80) -> list[Line]:
     if h.state_kind == "missing" or state is None and h.state_kind != "too_new":
         out: list[Line] = [[seg("Aucun état publié.", None, True)]]
         if h.daemon != "alive":
-            out.append([seg("Démarrer le daemon : ", "dim"), seg("ultima start", "gold", True),
+            out.append([seg("Démarrer le daemon : ", "dim"), seg("ultima start", "accent", True),
                         seg(" (ou s dans le TUI).", "dim")])
         if h.error:
-            out.append([seg(h.error, "orange")])
+            out.append([seg(h.error, "warn")])
         return out
     if h.state_kind == "too_new":
-        return [[seg(f"{h.error or 'Contrat plus récent'} — mettre à jour ULTIMA.", "orange", True)]]
+        return [[seg(f"{h.error or 'Contrat plus récent'} — mettre à jour ULTIMA.", "warn", True)]]
     if h.state_kind == "invalid":
-        return [[seg(f"État illisible : {h.error}", "orange")]]
+        return [[seg(f"État illisible : {h.error}", "warn")]]
     out = []
     d = degraded_line(state)
     if d:
@@ -460,10 +469,10 @@ def card_detail(card: Any) -> list[Line]:
     head.append(seg(f"{SEP}{SEP.join(m for m in meta if m)}", "dim"))
     out.append(head)
     if card.get("isCurse"):
-        out.append([seg(f"{CURSE_MARK} Malédiction", "purple", True)])
+        out.append([seg(f"{CURSE_MARK} Malédiction", "curse", True)])
     e = card.get("enchantment")
     if isinstance(e, dict):
-        out.append([seg(enchant_text(e), "aqua"), seg(f"{SEP}{txt(e.get('description'), '', 300)}", "dim")])
+        out.append([seg(enchant_text(e), "enchant"), seg(f"{SEP}{txt(e.get('description'), '', 300)}", "dim")])
     if card.get("description"):
         out.append([seg(txt(card.get("description"), "", 400))])
     if isinstance(card.get("score"), dict):
@@ -503,7 +512,7 @@ def hud_preview(state: Any, settings: OverlaySettings, width: int = 34) -> list[
     out: list[Line] = []
     d = degraded_line(state)
     if d:
-        out.append([seg(fit(plain(d), width), "orange", True)])
+        out.append([seg(fit(plain(d), width), "warn", True)])
     in_decision = screen in ("Reward", "Shop", "Event")
     for mid in settings.enabled_ids():
         ctx = CONTEXT_SCREEN.get(mid)
@@ -529,10 +538,10 @@ def _module_summary(state: Any, mid: str, grades_only: bool, width: int) -> Line
         return [seg(fit(f"{label}{SEP}{len(deck)} cartes", width))]
     if mid == "enchanted":
         k = sum(1 for c in deck if isinstance(c, dict) and c.get("enchantment"))
-        return [seg(fit(f"{label}{SEP}{k}", width), "aqua" if k else "dim")]
+        return [seg(fit(f"{label}{SEP}{k}", width), "enchant" if k else "dim")]
     if mid == "curses":
         k = sum(1 for c in deck if isinstance(c, dict) and c.get("isCurse"))
-        return [seg(fit(f"{CURSE_MARK} {label}{SEP}{k}", width), "purple", True)] if k else None
+        return [seg(fit(f"{CURSE_MARK} {label}{SEP}{k}", width), "curse", True)] if k else None
     if mid == "relics":
         return [seg(fit(f"{label}{SEP}{len(arr(run.get('relics')))}", width))]
     if mid == "potions":

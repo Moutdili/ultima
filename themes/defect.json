@@ -1,0 +1,37 @@
+{
+  "id": "defect",
+  "label": "Defect",
+  "api": 1,
+  "extends": "sts",
+  "description": "Bleu du Défect : accent #87CEEB (NameColor), teinte du verre #163E64 (EnergyLabelOutlineColor).",
+  "tones": {
+    "text": "#FFF6E2",
+    "muted": "#FFF6E299",
+    "accent": "#87CEEB",
+    "danger": "#FF5555",
+    "ok": "#7FFF00",
+    "warn": "#FFA518",
+    "curse": "#EE82EE",
+    "enchant": "#2AEBBE",
+    "info": "#87CEEB",
+    "grade.S": "#87CEEB",
+    "grade.A": "#7FFF00",
+    "grade.B": "#2AEBBE",
+    "grade.C": "#87CEEB",
+    "grade.D": "#FFA518",
+    "grade.F": "#FF5555",
+    "background": "#0D1620",
+    "border": "#87CEEB66"
+  },
+  "logColors": {
+    "timestamp": "muted",
+    "debug": "muted",
+    "info": "text",
+    "warn": "warn",
+    "error": "danger"
+  },
+  "glass": {
+    "tint": "#163E64",
+    "tintOpacity": 0.45
+  }
+}

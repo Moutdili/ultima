@@ -1,0 +1,37 @@
+{
+  "id": "ardoise",
+  "label": "Ardoise",
+  "api": 1,
+  "extends": "sts",
+  "description": "Neutre ardoise : gris bleuté mat, accents désaturés, contraste du texte ≥ 7:1.",
+  "tones": {
+    "text": "#EDF0F5",
+    "muted": "#EDF0F5AA",
+    "accent": "#A8C0E0",
+    "danger": "#FF7A7A",
+    "ok": "#86D69A",
+    "warn": "#E9C46A",
+    "curse": "#CBA6E3",
+    "enchant": "#78D6C9",
+    "info": "#9CC0E8",
+    "grade.S": "#A8C0E0",
+    "grade.A": "#86D69A",
+    "grade.B": "#78D6C9",
+    "grade.C": "#9CC0E8",
+    "grade.D": "#E9C46A",
+    "grade.F": "#FF7A7A",
+    "background": "#232833",
+    "border": "#FFFFFF3D"
+  },
+  "logColors": {
+    "timestamp": "muted",
+    "debug": "muted",
+    "info": "text",
+    "warn": "warn",
+    "error": "danger"
+  },
+  "glass": {
+    "tint": "#232833",
+    "tintOpacity": 0.6
+  }
+}

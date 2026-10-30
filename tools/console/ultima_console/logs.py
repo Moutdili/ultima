@@ -18,7 +18,8 @@ from pathlib import Path
 from typing import Iterator
 
 from . import paths
-from .consolecfg import ConsoleConfig, LEVELS
+from .consolecfg import LEVELS
+from .theme import Resolution
 from .palette import Ansi
 
 _LINE = re.compile(r"^(?P<ts>(?:\d{4}-\d\d-\d\d[ T])?\d\d:\d\d:\d\d(?:\.\d+)?) +"
@@ -119,12 +120,12 @@ def follow(path: Path | None = None, interval: float = 0.5, stop=None) -> Iterat
             time.sleep(interval)
 
 
-def color_line(ll: LogLine, cfg: ConsoleConfig, ansi: Ansi) -> str:
+def color_line(ll: LogLine, res: Resolution, ansi: Ansi) -> str:
+    """Couleurs du journal depuis le thème (`Resolution.log_style`), jamais depuis un hex en dur."""
     if not ansi.enabled:
         return ll.raw
     if ll.ts is None:
-        return ansi.fg(ll.raw, cfg.color(ll.level))
-    lvl_color = cfg.color(ll.level)
-    return (ansi.fg(ll.ts, cfg.color("timestamp")) + " "
-            + ansi.fg(f"{ll.level.upper():<5}", lvl_color, bold=ll.level in ("warn", "error"))
-            + " " + ansi.fg(ll.msg, lvl_color))
+        return ansi.tone(ll.raw, res.log_style(ll.level))
+    lvl_style = res.log_style(ll.level, bold=ll.level in ("warn", "error"))
+    return (ansi.tone(ll.ts, res.log_style("timestamp")) + " "
+            + ansi.tone(f"{ll.level.upper():<5}", lvl_style) + " " + ansi.tone(ll.msg, lvl_style))

@@ -1,9 +1,8 @@
 """Bandeau « ULTIMA » (dessin fourni par Mio, recopié tel quel : 48 colonnes, 8 lignes).
 
 Où : en tête du tableau de bord du TUI, dans `ultima version`, à la fin de tools/install.sh (`ultima banner`).
-Couleurs : dégradé vertical par paliers des ors de la palette du jeu (palette.py / StsColors : cream → gold →
-orange, aucune couleur interpolée), sous-titre en crème atténué (ton « dim »). NO_COLOR / --color never : sans
-couleur. Repli sur une ligne « ULTIMA · a simple tracker for sts2 » si le terminal fait moins de 52 colonnes
+Couleurs : dégradé vertical par paliers de TONS du thème (text → accent → warn, aucune couleur interpolée,
+résolue par `theme.resolve`), sous-titre atténué (ton « dim »). NO_COLOR / --color never : sans couleur. Repli sur une ligne « ULTIMA · a simple tracker for sts2 » si le terminal fait moins de 52 colonnes
 ou moins de 30 lignes (le bandeau ne doit pas manger le tableau de bord), ou si la locale n'est pas UTF-8.
 """
 
@@ -12,6 +11,7 @@ from __future__ import annotations
 import os
 
 from .palette import SEP, Ansi
+from . import theme
 
 ART: tuple[str, ...] = (
     '██╗   ██╗██╗     ████████╗██╗███╗   ███╗ █████╗',
@@ -28,7 +28,7 @@ HEIGHT = len(LINES)                             # 8
 ONE_LINE = f"ULTIMA{SEP}a simple tracker for sts2"
 MIN_COLS, MIN_ROWS = 52, 30
 # Une couleur de la palette par ligne du dessin (du haut vers le bas).
-ROW_TONES: tuple[str, ...] = ("cream", "gold", "gold", "gold", "orange", "orange")
+ROW_TONES: tuple[str, ...] = ("text", "accent", "accent", "accent", "warn", "warn")
 
 
 def utf8_locale(env: dict | None = None) -> bool:
@@ -53,18 +53,21 @@ def full(cols: int, rows: int, utf8: bool | None = None) -> bool:
 def segments(cols: int, rows: int, utf8: bool | None = None) -> list[list[tuple[str, str | None, bool]]]:
     """Lignes au format textview (texte, ton, gras)."""
     if not full(cols, rows, utf8):
-        return [[("ULTIMA", "gold", True), (f"{SEP}a simple tracker for sts2", "dim", False)]]
+        return [[("ULTIMA", "accent", True), (f"{SEP}a simple tracker for sts2", "dim", False)]]
     out = [[(line, tone, True)] for line, tone in zip(ART, ROW_TONES)]
     out.append([])
     out.append([(SUBTITLE, "dim", False)])
     return out
 
 
-def render(ansi: Ansi, cols: int, rows: int, utf8: bool | None = None) -> str:
+def render(ansi: Ansi, cols: int, rows: int, utf8: bool | None = None,
+           res: "theme.Resolution | None" = None) -> str:
+    """`res` = résolution du thème (CLI) ; sans elle, le thème par défaut est résolu ici."""
+    res = res or theme.resolve(theme.DEFAULT)
     out = []
     for line in segments(cols, rows, utf8):
         parts = []
         for text, tone, bold in line:
-            parts.append(ansi.dim(text) if tone == "dim" else ansi.fg(text, tone, bold=bold))
+            parts.append(ansi.tone(text, res.style(tone, bold)))
         out.append("".join(parts))
     return "\n".join(out)

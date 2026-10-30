@@ -1,0 +1,4 @@
+# Polices du jeu : extraction LOCALE, jamais versionnée (droit d'auteur).
+jeu/
+# Copie locale des polices système (liens recréés à l'installation).
+systeme/

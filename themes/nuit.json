@@ -1,0 +1,37 @@
+{
+  "id": "nuit",
+  "label": "Nuit",
+  "api": 1,
+  "extends": "sts",
+  "description": "Neutre sobre : noir minimal, un seul accent clair, contraste du texte ≥ 7:1.",
+  "tones": {
+    "text": "#F5F5F7",
+    "muted": "#F5F5F799",
+    "accent": "#C7CEDB",
+    "danger": "#FF6B6B",
+    "ok": "#77D98B",
+    "warn": "#E7C46B",
+    "curse": "#C9A2E0",
+    "enchant": "#6FD3C7",
+    "info": "#8FB3D9",
+    "grade.S": "#E7C46B",
+    "grade.A": "#77D98B",
+    "grade.B": "#6FD3C7",
+    "grade.C": "#8FB3D9",
+    "grade.D": "#E7C46B",
+    "grade.F": "#FF6B6B",
+    "background": "#0B0B0D",
+    "border": "#FFFFFF33"
+  },
+  "logColors": {
+    "timestamp": "muted",
+    "debug": "muted",
+    "info": "text",
+    "warn": "warn",
+    "error": "danger"
+  },
+  "glass": {
+    "tint": "#0B0B0D",
+    "tintOpacity": 0.55
+  }
+}
