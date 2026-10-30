@@ -84,3 +84,24 @@ pas de `flatpak-spawn` dans le bac à sable du jeu) → repli S3 (vision).
 - L'attache sur le vrai sandbox Steam (Flatpak + pressure-vessel) : simulée seulement.
 - L'absence d'à-coups dans le jeu pendant une sonde (aucune suspension, mais ~7 000–8 000
   `process_vm_readv` par sonde complète ; à mesurer en jeu).
+
+---
+
+## 6. Miroir 2 (2026-10-29, campagne rejouée le 2026-10-30) — mêmes garanties, nouvelles sections
+
+Sorties brutes : `evidence/miroir2/` (rejouables : `evidence/miroir2/run-campaign.sh`). **Cible de test
+uniquement** ; le harnais `mirror-proof` (Ultima.Mirror/testtarget/Sts2Shape.ProofRunner) refuse tout
+processus dont `/proc/PID/comm` ≠ `Sts2Shape.TestT` : il ne peut pas lire le vrai jeu.
+
+| Mesure | Résultat |
+|---|---|
+| strace de 9 sondes (événement, ancien, événement périmé, shop, CLI historique, 40 sondes de pioche, 3 × CLI `--json`) | **0 `ptrace`, 0 `process_vm_writev`** ; 1 seul `kill(pid, 0)` par sonde ; ~6 600–7 400 `process_vm_readv` par sonde complète (evidence/miroir2/23-28, 30, 32) |
+| Endurance : 4 scènes × 20 sondes indépendantes, GC compactant toutes les 20 ms + pioche rebattue toutes les 5 ms | **80/80 stables** (evidence/miroir2/29) |
+| Données cachées (`SECRET_MUST_NOT_LEAK` dans `RunState.Rng`, `Player.PlayerRng`, `RelicGrabBag`, `PlayerCombatState._piles`, `EventModel.Rng`, `EventSynchronizer._multiplayerOptionSelectionRng`) | **0 occurrence** dans les sorties du miroir (evidence/miroir2/30) |
+| Ordre de la pioche (rebattue toutes les 5 ms par la cible, qui affiche elle-même l'ordre changeant) | 40 sondes ⇒ **1 seule sortie** (contenu compté trié) (evidence/miroir2/28) |
+| `ReadGuard` | `Check` refuse toujours `<DrawPile>k__BackingField`, `_piles`, `Rng`, … ; `CheckUnordered` n'accepte que la pioche (evidence/miroir2/22) |
+| Non-régression : `ultima-mirror probe --sections run,reward,shop,combat` (CLI inchangée) | exit 0, toutes sections stables, mêmes valeurs qu'en S2 + champ `Enchantment` (evidence/miroir2/27) |
+| Format consommé par le daemon : `ultima-mirror probe --json --sections run,reward,shop,event,piles` (3 scènes) | exit 0, `unsupported: []`, 0 `ptrace`, 0 `process_vm_writev` ; lignes brutes analysées par `MirrorResult.Parse` du daemon dans `Ultima.Mirror.Tests` : **38/38** (evidence/miroir2/32, 33) |
+
+Le miroir 2 n'ajoute **aucun** appel système, aucune méthode du jeu, aucun parcours de pile/tas : seulement
+des champs de plus, suivis depuis les mêmes racines statiques (`RunManager.Instance`).

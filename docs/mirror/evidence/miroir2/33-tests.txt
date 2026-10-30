@@ -1,0 +1,2 @@
+# 2026-10-30T14:44:51+01:00 tests automatisés du miroir (fixtures = lignes 32-probe-json-*.jsonl ci-dessus)
+Passed!  - Failed:     0, Passed:    38, Skipped:     0, Total:    38, Duration: 113 ms - Ultima.Mirror.Tests.dll (net9.0)

@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Tests du miroir SANS processus cible : logique pure (piles comptées, ReadGuard) et compatibilité de la
+       sortie JSON de `ultima-mirror probe` avec le lecteur du daemon (Ultima.Daemon référencé, jamais modifié). -->
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <IsPackable>false</IsPackable>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
+    <PackageReference Include="xunit" Version="2.9.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../src/Ultima.Mirror/Ultima.Mirror.csproj" />
+    <ProjectReference Include="../../../Ultima.Daemon/Ultima.Daemon.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- Sorties BRUTES de la CLI sur la cible de test, produites par docs/mirror/evidence/miroir2/run-campaign.sh. -->
+    <None Include="../../../docs/mirror/evidence/miroir2/32-probe-json-*.jsonl" Link="Fixtures/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>

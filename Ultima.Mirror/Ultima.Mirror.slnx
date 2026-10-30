@@ -4,6 +4,10 @@
     <Project Path="src/Ultima.Mirror/Ultima.Mirror.csproj" />
   </Folder>
   <Folder Name="/testtarget/">
+    <Project Path="testtarget/Sts2Shape.ProofRunner/Sts2Shape.ProofRunner.csproj" />
     <Project Path="testtarget/Sts2Shape.TestTarget/Sts2Shape.TestTarget.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Ultima.Mirror.Tests/Ultima.Mirror.Tests.csproj" />
   </Folder>
 </Solution>

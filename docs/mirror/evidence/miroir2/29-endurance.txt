@@ -1,0 +1,5 @@
+# 2026-10-30T14:44:20+01:00 endurance : 20 sondes indépendantes par scène (nouvelle attache à chaque fois)
+scene=event ok=20 inconnu_ou_echec=0
+scene=ancient ok=20 inconnu_ou_echec=0
+scene=event-stale ok=20 inconnu_ou_echec=0
+scene=shop ok=20 inconnu_ou_echec=0

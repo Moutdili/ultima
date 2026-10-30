@@ -1,0 +1,16 @@
+# 2026-10-30T14:44:51+01:00 fuite de données cachées : occurrences de SECRET dans les sorties du MIROIR (hors sortie de la cible)
+20-build.txt : 0
+21-layout.txt : 0
+22-guard.txt : 0
+23-event.txt : 0
+24-ancient.txt : 0
+25-event-stale.txt : 0
+26-shop.txt : 0
+27-regression-cli.txt : 0
+28-draw-order.txt : 0
+29-endurance.txt : 0
+32-probe-json-ancient.jsonl : 0
+32-probe-json-event.jsonl : 0
+32-probe-json-event-stale.jsonl : 0
+32-probe-json.txt : 0
+# total strace : ptrace=0 process_vm_writev=0

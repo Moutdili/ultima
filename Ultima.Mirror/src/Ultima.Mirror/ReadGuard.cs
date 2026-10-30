@@ -27,6 +27,19 @@ public static class ReadGuard
             throw new ForbiddenReadException($"champ hors liste blanche ObjectPaths : {fieldName}");
     }
 
+    static readonly HashSet<string> UnorderedAllowed = new(ObjectPaths.UnorderedOnly.Select(s => s.Field), StringComparer.Ordinal);
+
+    /// <summary>
+    /// Gate for <see cref="ObjectPaths.UnorderedOnly"/> (draw pile). Accepts ONLY those fields, and
+    /// is called ONLY by <see cref="MirrorSession.ReadUnorderedPile"/>, which erases the order before
+    /// returning. Any other field — including every forbidden fragment — is refused here too.
+    /// </summary>
+    public static void CheckUnordered(string fieldName)
+    {
+        if (!UnorderedAllowed.Contains(fieldName))
+            throw new ForbiddenReadException($"champ hors liste « contenu sans ordre » : {fieldName}");
+    }
+
     /// <summary>Self-check: no whitelisted field may match a forbidden fragment.</summary>
     public static IEnumerable<string> WhitelistViolations() =>
         ObjectPaths.All.Where(s => ObjectPaths.ForbiddenFieldFragments
