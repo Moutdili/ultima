@@ -166,7 +166,8 @@ public sealed class V12Tests : IDisposable
         Assert.Equal(2, ev.Options.Count);
         Assert.Equal("Plonger", ev.Options[0].Label);
         Assert.Equal(80, ev.Options[0].Score!.Total);
-        Assert.Equal("ABSTAIN", ev.Options[1].Label);
+        Assert.Null(ev.Options[1].Label); // v1.4 : texte inconnu ⇒ null, jamais l'id nu
+        Assert.Null(ev.Name);
         Assert.True(ev.Options[1].Available);
         Assert.Null(ev.Options[1].Score);
         Assert.Null(asm.BuildEvent(null, part));
