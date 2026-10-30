@@ -20,5 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Fixtures/*.log" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Fixtures/plugins/**/*" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Fixtures/modules/**/*" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>

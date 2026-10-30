@@ -1,0 +1,12 @@
+{
+  "id": "x.or-par-etage",
+  "label": "Or / étage",
+  "api": 1,
+  "screens": ["map", "shop"],
+  "rows": [
+    { "text": "{run.gold} or · étage {run.floor}", "tone": "accent" },
+    { "text": "Shop rentable", "tone": "ok", "when": "run.gold >= 150" },
+    { "text": "PV {run.hp|pct} · deck {run.deck.count|count}", "tone": "muted", "when": "run.hp > 0 and run.deck.count >= 1" },
+    { "text": "Note {deck.score.total|grade}", "tone": "info", "when": "deck.score.total >= 0 or screen == Menu" }
+  ]
+}

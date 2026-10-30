@@ -47,6 +47,9 @@ public sealed class HostIntegrationTests : IDisposable
         {
             Root = root, RuntimeDir = runtime, SettingsPath = settings,
             GameComm = "NoSuchGame-xyz", MirrorEnabled = false, Scoring = false,
+            // v1.4 : jamais les vrais dossiers de Mio (~/.config/ultima, ~/.local/share/ultima)
+            ModulesDir = Path.Combine(_tmp, "cfg", "ultima", "modules"),
+            PluginsDir = Path.Combine(_tmp, "data", "ultima", "plugins"),
         });
         host.Start();
 

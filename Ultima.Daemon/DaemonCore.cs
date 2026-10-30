@@ -70,6 +70,13 @@ public sealed class DaemonCore
     public Screen Screen => Tracker.Screen;
     public bool GameRunning => _gameRunning;
 
+    /// <summary>
+    /// v1.4 : modules perso et plugins (docs/44 §6-7). Appelé à chaque composition d'état avec l'état déjà
+    /// assemblé ; rend la liste publiée dans <c>EngineState.Custom</c> (null = pas de section). Toute exception
+    /// est journalisée et laisse <c>Custom</c> vide : jamais un arrêt, jamais un état partiel.
+    /// </summary>
+    public Func<EngineState, IReadOnlyList<CustomModuleView>?>? CustomProvider { get; set; }
+
     /// <summary>Appels au miroir effectivement lancés (probe), et lectures de structure (layout).</summary>
     public int MirrorProbes { get; private set; }
     public int MirrorLayouts { get; private set; }
@@ -376,7 +383,19 @@ public sealed class DaemonCore
         var runView = _runPart?.View;
         if (runView is not null && _memRun is not null && _memRunAt > _runAt)
             runView = runView with { Party = StateAssembler.OverlayParty(runView.Party, _memRun) };
-        return StateAssembler.Compose(_clock(), health, Screen, _runPart, reward, shop, _settings, ev, runView);
+        var state = StateAssembler.Compose(_clock(), health, Screen, _runPart, reward, shop, _settings, ev, runView);
+        if (CustomProvider is { } provider)
+        {
+            try
+            {
+                if (provider(state) is { } custom) state = state with { Custom = custom };
+            }
+            catch (Exception e)
+            {
+                Diag.Warn($"modules perso : {e.GetType().Name}: {e.Message}");
+            }
+        }
+        return state;
     }
 
     public void Publish()

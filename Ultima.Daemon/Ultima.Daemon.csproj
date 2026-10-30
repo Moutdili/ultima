@@ -25,4 +25,10 @@
   <ItemGroup>
     <InternalsVisibleTo Include="Ultima.Daemon.Tests" />
   </ItemGroup>
+  <ItemGroup>
+    <!-- Schémas du contrat (propriété du chef, jamais modifiés ici) livrés À CÔTÉ de l'exécutable :
+         le daemon valide les modules et plugins avec CES fichiers, pas avec une copie écrite en dur. -->
+    <Content Include="../schemas/*.schema.json" Link="schemas/%(Filename)%(Extension)"
+             CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
 </Project>
