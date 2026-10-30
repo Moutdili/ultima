@@ -122,13 +122,19 @@ public sealed class ThreatTests
         Assert.Equal(9.1, Model.AverageDamage("NIBBITS_WEAK", "IRONCLAD"));
         Assert.Equal(4.3, Model.AverageDamage("NIBBITS_WEAK", "CHARACTER.SILENT"));
 
-        // Personnage hors échantillon, rencontre hors échantillon, id inconnu : null, pas 0.
+        // Personnage hors échantillon, rencontre sous le seuil de mesure, id inconnu : null, pas 0.
         Assert.Null(Model.AverageDamage("NIBBITS_WEAK", "WATCHER"));
-        Assert.Null(Model.AverageDamage("AEONGLASS_BOSS", null));
+        Assert.Null(Model.AverageDamage("TUNNELER_NORMAL", null));   // < 200 runs : non publiée
         Assert.Null(Model.AverageDamage("NOPE_NOT_AN_ENCOUNTER", "IRONCLAD"));
 
+        // Depuis la mesure maison (docs/46) : un boss qui n'avait AUCUNE statistique en a une,
+        // mesurée sur 40 286 runs et marquée comme telle.
+        Assert.Equal(43.97, Model.AverageDamage("AEONGLASS_BOSS", null));
+        Assert.Equal("measured", Model.Encounter("AEONGLASS_BOSS")!.Stats!.Source);
+
         Assert.Equal(3.83, Model.AverageTurns("NIBBITS_WEAK"));
-        Assert.Null(Model.AverageTurns("AEONGLASS_BOSS"));
+        Assert.Equal(6.83, Model.AverageTurns("AEONGLASS_BOSS"));      // mesuré (docs/46)
+        Assert.Null(Model.AverageTurns("NOPE_NOT_AN_ENCOUNTER"));
     }
 
     [Fact]
