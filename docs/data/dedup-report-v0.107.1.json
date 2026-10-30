@@ -1,7 +1,7 @@
 {
   "genere_le": "2026-10-29T16:51:13+0100",
-  "source": "/home/mio/sts2/data/index/runs-v0.107.1.jsonl.gz",
-  "sortie": "/home/mio/sts2/data/index/deduped-v0.107.1.jsonl.gz",
+  "source": "data/index/runs-v0.107.1.jsonl.gz",
+  "sortie": "data/index/deduped-v0.107.1.jsonl.gz",
   "signature_defaut": "picks",
   "duree_s": 236.8,
   "runs_lues": 785121,
