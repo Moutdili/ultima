@@ -97,6 +97,57 @@ async def test_hud_settings_are_saved_atomically():
         assert [p.name for p in paths.config_dir().iterdir()] == ["settings.json"]
 
 
+async def test_every_hud_field_and_module_is_settable():
+    """Tout ce que le HUD affiche se règle depuis le TUI : 6 champs HudSettings v1.3 + chaque module."""
+    app = UltimaApp(live=False)
+    async with app.run_test(size=SIZE) as pilot:
+        await pilot.press("4")
+        await pilot.pause()
+        hud = app.query_one("#hud-set")
+        hud.focus()
+        await pilot.press("left", "left")                       # verre → eco → loupe (rotation)
+        await pilot.press("down", *["right"] * 20)              # hauteur : bornée à 85 %
+        await pilot.press("down", *["left"] * 40)               # opacité : bornée à 35 %
+        await pilot.press("down", "right")                      # côté
+        await pilot.press("down", "space")                      # note du deck en combat
+        await pilot.press("down", "space")                      # lettres seules
+        await pilot.pause()
+        h = json.loads(paths.settings_path().read_text())["hud"]
+        assert h == {"quality": "loupe", "heightFraction": 0.85, "restOpacity": 0.35, "side": "left",
+                     "deckScoreInCombat": True, "gradesOnly": True}
+        text = screen_text(app)
+        assert "85 % de l'écran  30–85" in text and "35 %  35–100" in text
+        mods = app.query_one("#modules")
+        mods.focus()
+        for i in range(len(settings.DEFAULT_ORDER)):            # chaque module : masqué puis réaffiché
+            await pilot.press("space")
+            await pilot.pause()
+            assert json.loads(paths.settings_path().read_text())["modules"][i]["enabled"] is False
+            await pilot.press("space", "down")
+        await pilot.press("shift+up")                           # dernier module (Note du deck) remonte
+        await pilot.pause()
+        data = json.loads(paths.settings_path().read_text())
+        assert all(m["enabled"] for m in data["modules"])
+        assert [m["id"] for m in data["modules"]][-2:] == ["deck_score", "party"]
+        assert [m["order"] for m in data["modules"]] == list(range(len(settings.DEFAULT_ORDER)))
+        labels = [str(mods.get_row_at(i)[1]) for i in range(mods.row_count)]
+        assert labels[:3] == ["Deck", "Enchantées", "Malédictions"] and labels[-2:] == ["Note du deck", "Équipe"]
+
+
+async def test_out_of_bounds_file_is_clamped_in_tui():
+    paths.config_dir().mkdir(parents=True)
+    paths.settings_path().write_text('{"modules": [{"id": "shop", "order": 0}], "hud": {"heightFraction": 0.99,'
+                                     ' "restOpacity": 0.05}}')
+    app = UltimaApp(live=False)
+    async with app.run_test(size=SIZE) as pilot:
+        await pilot.press("4")
+        await pilot.pause()
+        text = screen_text(app)
+        assert "85 % de l'écran" in text and "35 %" in text
+        assert str(app.query_one("#modules").get_row_at(0)[1]) == "Shop"
+        assert app.settings.modules[0].enabled is True           # listé sans « enabled » → true
+
+
 async def test_settings_changed_elsewhere_are_reloaded():
     app = UltimaApp(live=False)
     async with app.run_test(size=SIZE) as pilot:

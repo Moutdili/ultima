@@ -208,7 +208,7 @@ class UltimaApp(App):
     DataTable > .datatable--header { background: $background; color: $text-muted; text-style: none; }
     .title { height: 1; color: $text-muted; }
     #hud-row { height: 1fr; }
-    #hud-left { width: 40; }
+    #hud-left { width: 50; }
     #hud-set { height: 8; }
     #modules { height: 1fr; }
     #hud-preview { width: 1fr; padding: 0 0 0 2; }
@@ -498,8 +498,11 @@ class UltimaApp(App):
                 quality.append(" ")
             quality.append(q, style=f"bold {PALETTE['gold']}" if q == h.quality else "dim")
         t.add_row("Qualité du verre", quality)
-        t.add_row("Hauteur", f"{round(h.height_fraction * 100)} % de l'écran")
-        t.add_row("Opacité au repos", f"{round(h.rest_opacity * 100)} %")
+        bounds = "dim"
+        t.add_row("Hauteur", Text(f"{round(h.height_fraction * 100)} % de l'écran")
+                  + Text(f"  {round(settings.HEIGHT_MIN * 100)}–{round(settings.HEIGHT_MAX * 100)}", style=bounds))
+        t.add_row("Opacité au repos", Text(f"{round(h.rest_opacity * 100)} %")
+                  + Text(f"  {round(settings.OPACITY_MIN * 100)}–{round(settings.OPACITY_MAX * 100)}", style=bounds))
         t.add_row("Côté", SIDE_LABELS.get(h.side, h.side))
         t.add_row("Note du deck en combat", yn(h.deck_score_in_combat))
         t.add_row("Lettres seules", yn(h.grades_only))

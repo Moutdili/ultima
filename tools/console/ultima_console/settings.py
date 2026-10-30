@@ -59,19 +59,19 @@ SIDES: tuple[str, ...] = ("right", "left")
 QUALITY_LABELS = {"eco": "eco", "verre": "verre", "loupe": "loupe"}
 SIDE_LABELS = {"right": "droite", "left": "gauche"}
 
-# Bornes de saisie du TUI (le contrat ne fixe que le type ; valeurs hors (0, 1] refusées à la lecture).
-HEIGHT_MIN, HEIGHT_MAX, HEIGHT_STEP = 0.30, 0.95, 0.05
-OPACITY_MIN, OPACITY_MAX, OPACITY_STEP = 0.20, 1.00, 0.02
+# Bornes du contrat v1.3 (HudSettings.HeightMin/HeightMax/OpacityMin/OpacityMax, docs/22) : communes au
+# daemon, au HUD, au compagnon et au TUI ; une valeur hors bornes est RAMENÉE à la borne.
+HEIGHT_MIN, HEIGHT_MAX, HEIGHT_STEP = 0.30, 0.85, 0.05
+OPACITY_MIN, OPACITY_MAX, OPACITY_STEP = 0.35, 1.00, 0.02
 
 
 def module_label(module_id: str) -> str:
     return MODULE_LABELS.get(module_id, f"{module_id} (inconnu)")
 
 
-def _num(v: float) -> float | int:
-    """Nombre JSON tel que l'écrirait System.Text.Json (1.0 → 1, 0.55 → 0.55)."""
-    v = round(float(v), 4)
-    return int(v) if v == int(v) else v
+def _num(v: float) -> float:
+    """Même écriture que le compagnon (overlay/companion/ultima_companion/settings.py) : 2 décimales."""
+    return round(float(v), 2)
 
 
 @dataclass
@@ -88,8 +88,8 @@ class HudSettings:
 
     @classmethod
     def from_json(cls, data: Any) -> "HudSettings":
-        """Même validation que le daemon (SettingsStore.NormalizeHud) : champ par champ, une valeur
-        invalide reprend SA valeur par défaut ; noms de clés et valeurs texte sans casse."""
+        """Champ par champ (comme SettingsStore.NormalizeHud) : valeur invalide (type, NaN) → SA valeur par
+        défaut ; nombre hors bornes du contrat → ramené à la borne ; clés et valeurs texte sans casse."""
         d = cls()
         if not isinstance(data, dict):
             return d
@@ -105,11 +105,11 @@ class HudSettings:
         if isinstance(q, str) and q.lower() in QUALITIES:
             d.quality = q.lower()
         h = canon.get("heightFraction")
-        if _is_num(h) and 0 < h <= 1:
-            d.height_fraction = float(h)
+        if _is_num(h):
+            d.height_fraction = _clamp(h, HEIGHT_MIN, HEIGHT_MAX)
         o = canon.get("restOpacity")
-        if _is_num(o) and 0 <= o <= 1:
-            d.rest_opacity = float(o)
+        if _is_num(o):
+            d.rest_opacity = _clamp(o, OPACITY_MIN, OPACITY_MAX)
         s = canon.get("side")
         if isinstance(s, str) and s.lower() in SIDES:
             d.side = s.lower()
