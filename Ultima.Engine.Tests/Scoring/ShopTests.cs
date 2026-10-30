@@ -149,8 +149,9 @@ public sealed class ShopTests
         var withCurse = scorer.ScoreRemoval(price, Ctx(gold: 99, "CARD.DECAY", "CARD.STRIKE_SILENT"));
         var withoutCurse = scorer.ScoreRemoval(price, Ctx(gold: 99, "CARD.STRIKE_SILENT", "CARD.DEFEND_SILENT"));
 
-        Assert.Contains(withCurse.Terms, t => t.Label == "Retirer une malédiction" && t.Points == 30);
-        Assert.DoesNotContain(withoutCurse.Terms, t => t.Label == "Retirer une malédiction");
+        // Une seule vérité (T5 §1) : le gain vient du RemovalAdvisor, pas d'un bonus fixe.
+        var curseTerm = Assert.Single(withCurse.Terms, t => t.Label.StartsWith("Meilleur retrait"));
+        Assert.Contains("toxicité mesurée", curseTerm.Source);
         Assert.True(withCurse.Total > withoutCurse.Total,
             $"avec malédiction {withCurse.Total} > sans {withoutCurse.Total}");
         Assert.InRange(withCurse.Total, 0, 100);
@@ -172,19 +173,35 @@ public sealed class ShopTests
         var withCurse = scorer.ScoreRemoval(50, Ctx(gold: 99, "CARD.BAD_OMEN_TEST"));
         var withoutCurse = scorer.ScoreRemoval(50, Ctx(gold: 99, "CARD.STRIKE_SILENT"));
 
-        Assert.Contains(withCurse.Terms, t => t.Label == "Retirer une malédiction");
-        Assert.True(withCurse.Total > withoutCurse.Total);
+        // La reconnaissance vient de la méta (type « Curse »), pas de l'identifiant.
+        var candidate = scorer.Removal.Recommend(Ctx(gold: 99, "CARD.BAD_OMEN_TEST")).First();
+        Assert.True(candidate.IsCurse, "la carte doit être reconnue comme malédiction par la méta");
+
+        // Cette malédiction synthétique n'a AUCUNE toxicité mesurée : elle ne doit donc pas être
+        // présentée comme un gain (le classement « malédiction > Frappe » se prouve avec une vraie
+        // malédiction mesurée, test Removal_with_a_curse_beats_removal_without).
+        Assert.Equal(0, candidate.Toxicity);
+        Assert.False(candidate.WorthIt, "sans toxicité mesurée, retirer cette carte ne vaut pas son prix");
     }
 
     [Fact]
-    public void Removal_gets_more_expensive_with_price()
+    public void Price_never_changes_the_letter_only_the_notes()
     {
         var scorer = new Scorer();
-        var cheap = scorer.ScoreRemoval(10, Ctx(gold: 100));
-        var dear = scorer.ScoreRemoval(150, Ctx(gold: 100));
+        var cheap = scorer.ScoreRemoval(10, Ctx(gold: 100, "CARD.STRIKE_SILENT"));
+        var dear = scorer.ScoreRemoval(150, Ctx(gold: 100, "CARD.STRIKE_SILENT"));
 
-        Assert.True(dear.Total < cheap.Total, $"retrait cher {dear.Total} < bon marché {cheap.Total}");
+        // Le prix est un terme informatif à 0 point : il ne note pas (arbitrage T5 §1).
+        Assert.Equal(cheap.Total, dear.Total);
+        Assert.All(cheap.Terms.Where(t => t.Label == "Prix du retrait"), t => Assert.Equal(0, t.Points));
         Assert.Contains(dear.Terms, t => t.Label == "Retrait non abordable" && t.Points == 0);
+
+        // Ce qui dépend du prix, c'est la rentabilité, portée par le conseiller.
+        var deck = Ctx(gold: 100, "CARD.STRIKE_SILENT");
+        var advisor = scorer.Removal.Recommend(deck, 10, 100).First();
+        var expensive = scorer.Removal.Recommend(deck, 150, 100).First();
+        Assert.True(advisor.WorthIt || !expensive.WorthIt,
+            $"un retrait à 10 or doit être plus souvent rentable qu'à 150 (seuils {advisor.BreakEven:0.##} vs {expensive.BreakEven:0.##})");
     }
 
     // ------------------------------------------------------------- 3. reliques

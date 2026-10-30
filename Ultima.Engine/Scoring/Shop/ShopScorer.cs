@@ -1,5 +1,6 @@
 using Ultima.Engine.Contracts;
 using Ultima.Engine.Scoring.Cards;
+using Ultima.Engine.Scoring.Deck;
 using Ultima.Engine.Scoring.Model;
 using Ultima.Engine.Scoring.Potions;
 using Ultima.Engine.Scoring.Relics;
@@ -12,7 +13,8 @@ namespace Ultima.Engine.Scoring.Shop;
 /// <list type="bullet">
 /// <item>article : la note de la récompense (carte, relique) — <b>le prix ne change pas la lettre</b> ;</item>
 /// <item>potion : note plafonnée à <see cref="PotionCap"/>, marquée non comparable ;</item>
-/// <item>retrait : <c>25 + 30 si le deck contient une malédiction − clamp(prix/or, 0, 1.5) × 20</c>.</item>
+/// <item>retrait : le <b>gain réel du meilleur retrait</b> (ΔG mesuré par <see cref="Deck.RemovalAdvisor"/>),
+/// le prix n'étant qu'un terme informatif à 0 point.</item>
 /// </list>
 ///
 /// <para>
@@ -49,12 +51,15 @@ public sealed class ShopScorer
     private readonly CardScorer _cards;
     private readonly RelicScorer _relics;
     private readonly PotionScorer? _potions;
+    private readonly RemovalAdvisor? _removal;
 
-    public ShopScorer(CardScorer cards, RelicScorer relics, PotionScorer? potions = null)
+    public ShopScorer(CardScorer cards, RelicScorer relics, PotionScorer? potions = null,
+        RemovalAdvisor? removal = null)
     {
         _cards = cards;
         _relics = relics;
         _potions = potions;
+        _removal = removal;
     }
 
     /// <summary>
@@ -116,28 +121,44 @@ public sealed class ShopScorer
     {
         int p = Math.Max(0, price);
         int gold = Math.Max(0, ctx.Gold);
+        var advisor = _removal ?? LazyRemoval.Value;
+        var best = advisor.Recommend(ctx, p, gold).FirstOrDefault();
 
-        var b = new ScoreBuilder();
-        b.Add("Base retrait", RemovalBase, "une carte de moins dans le deck");
+        // Les termes informatifs sont ajoutés À LA MAIN : ScoreBuilder.Add ignore les 0 point,
+        // or c'est exactement la règle du moteur (chiffre dans Source, 0 point, Total inchangé).
+        var terms = new List<ScoreTerm>();
 
-        var curses = CursesInDeck(ctx);
-        if (curses.Count > 0)
-            b.Add("Retirer une malédiction", RemovalCurseBonus, DescribeCurse(curses));
-
-        b.Add("Coût du retrait", RemovalCost(p, gold), PriceBasis(p, gold, removal: true));
-
-        var score = b.Build(Confidence.Low);
-        if (p > gold)
+        if (best is null)
         {
-            var terms = new List<ScoreTerm>(score.Terms)
-            {
-                new("Retrait non abordable", 0, $"{p} or > {gold} or disponible")
-            };
-            score = score with { Terms = terms };
+            terms.Add(new ScoreTerm("Aucune carte à retirer", 0,
+                "deck vide : l'emplacement de retrait ne vaut rien"));
+            return new Score(0, terms, Confidence.Low);
         }
 
-        return score;
+        int points = Math.Clamp(best.Score, 0, 100);
+        terms.Add(new ScoreTerm($"Meilleur retrait : {best.Name}", points, best.Reason));
+
+        if (best.Score != points)
+            terms.Add(new ScoreTerm("Gain hors barème", 0,
+                $"score brut {best.Score} ramené à {points} (barème 0-100)"));
+
+        terms.Add(new ScoreTerm("Prix du retrait", 0, p == 0
+            ? "retrait gratuit — informatif, n'entre pas dans la note"
+            : $"{p} or — informatif, n'entre pas dans la note"));
+
+        if (!best.Affordable)
+            terms.Add(new ScoreTerm("Retrait non abordable", 0,
+                $"{p} or > {gold} or disponible — la note ne change pas"));
+
+        if (!best.WorthIt)
+            terms.Add(new ScoreTerm("Sous le seuil de rentabilité", 0,
+                $"gain {best.Score} < seuil {best.BreakEven:0.##} de G ({p} or / {RemovalAdvisor.PointsPerGold:0})"));
+
+        return new Score(points, terms, Confidence.Low);
     }
+
+    private static readonly Lazy<RemovalAdvisor> LazyRemoval =
+        new(() => new RemovalAdvisor(), LazyThreadSafetyMode.ExecutionAndPublication);
 
     /// <summary>
     /// Hérite de la source du terme dominant du score de valeur (ex. « spirecodex-scores (n=1…) »)

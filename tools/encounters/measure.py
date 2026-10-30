@@ -13,6 +13,7 @@ import collections
 import gzip
 import json
 import sys
+from pathlib import Path
 
 SRC = "data/exports/runs-v0.107.1.jsonl.gz"
 OUT = "data/calibration/encounter_measure.json"
@@ -108,6 +109,28 @@ def main() -> int:
             },
         })
 
+    # Absence EXPLICITE (T5 §3), en format COMPACT : le corpus contient des centaines de modèles
+    # internes sous le seuil (1444 au dernier passage) ; publier une ligne par modèle coûtait
+    # 137 Ko et cassait le budget de 2 Mo. On publie donc :
+    #   - les rencontres du CATALOGUE absentes ou sous le seuil, avec leur n (celles qu'un joueur
+    #     peut croiser, et les deux trous documentés) ;
+    #   - le volume global des autres (compte + n max), pour que le silence reste mesuré.
+    catalog_path = Path("data/catalog/encounters.json")
+    known: set[str] = set()
+    if catalog_path.exists():
+        catalog = json.loads(catalog_path.read_text(encoding="utf-8"))
+        known = {row["id"] for row in catalog.get("encounters", []) if row.get("id")}
+
+    below = [(model, entry) for model, entry in sorted(acc.items()) if entry["n"] < MIN_N]
+    visible = {model: entry["n"] for model, entry in below if model in known}
+    absent = sorted(known - set(acc))
+    under = {
+        "below_threshold_total": len(below),
+        "below_threshold_max_n": max((entry["n"] for _, entry in below), default=0),
+        "catalog_below_threshold": visible,
+        "absent_from_corpus": absent,
+    }
+
     document = {
         "schema": "ultima.encounter-measure/1",
         "source": {
@@ -124,12 +147,16 @@ def main() -> int:
         },
         "count": len(published),
         "encounters": published,
+        "not_measured_count": under["below_threshold_total"] + len(under["absent_from_corpus"]),
+        "not_measured": under,
     }
 
     with open(OUT, "w", encoding="utf-8") as handle:
         json.dump(document, handle, ensure_ascii=False, separators=(",", ":"))
 
-    print(f"runs lus : {runs} | solo : {solo} | rencontres publiées : {len(published)} -> {OUT}")
+    print(f"runs lus : {runs} | solo : {solo} | publiées : {len(published)} | "
+          f"sous seuil : {under['below_threshold_total']} | absentes : {len(under['absent_from_corpus'])}"
+          f" -> {OUT}")
     return 0
 
 

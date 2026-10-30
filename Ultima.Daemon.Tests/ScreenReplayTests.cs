@@ -41,7 +41,7 @@ public class ScreenReplayTests
         Assert.Equal(Screen.Combat, s[319]);  // Creating NCombatRoom … SHRINKER_BEETLE_WEAK
         Assert.Equal(Screen.Reward, s[405]);  // 1er tirage de rareté après le combat
         Assert.Equal(Screen.Reward, s[407]);
-        Assert.Equal(Screen.Map, s[423]);     // Player 1 selected card reward
+        Assert.Equal(Screen.Reward, s[423]);  // Player 1 selected card reward = ouverture du choix, pas la fin
         Assert.Equal(Screen.Event, s[473]);
         Assert.Equal(Screen.Map, s[485]);     // Continuing run with character: CHARACTER.DEFECT
         Assert.Equal(Screen.Event, s[577]);
@@ -49,7 +49,7 @@ public class ScreenReplayTests
         Assert.Equal(Screen.Map, s[589]);
         Assert.Equal(Screen.Combat, s[597]);  // SLIMES_WEAK
         Assert.Equal(Screen.Reward, s[632]);
-        Assert.Equal(Screen.Map, s[637]);
+        Assert.Equal(Screen.Reward, s[637]);  // ouverture du choix des cartes : toujours la récompense
         Assert.Equal(Screen.Map, s[639]);     // vote (4,2)
         Assert.Equal(Screen.Map, s[644]);     // tirages du MARCHAND depuis la carte : pas une récompense
         Assert.Equal(Screen.Map, s[648]);
@@ -131,9 +131,10 @@ public class ScreenReplayTests
 
         // 5 entrées d'événement (l. 283, 473, 492, 532, 577), 2 écrans de récompense (2×3 tirages → 2 lectures
         // grâce à l'anti-rebond), 1 marchand — dans l'ordre du log
-        Assert.Equal(new[] { MirrorNeed.Event, MirrorNeed.Reward, MirrorNeed.Event, MirrorNeed.Event, MirrorNeed.Event,
-            MirrorNeed.Event, MirrorNeed.Reward, MirrorNeed.Shop }, mirror.Probes);
-        Assert.Equal(8, core.MirrorProbes);
+        // Chaque récompense = lecture à l'apparition + relecture à l'ouverture du choix (« selected card reward »).
+        Assert.Equal(new[] { MirrorNeed.Event, MirrorNeed.Reward, MirrorNeed.Reward, MirrorNeed.Event, MirrorNeed.Event,
+            MirrorNeed.Event, MirrorNeed.Event, MirrorNeed.Reward, MirrorNeed.Reward, MirrorNeed.Shop }, mirror.Probes);
+        Assert.Equal(10, core.MirrorProbes);
         Assert.DoesNotContain(core.ProbeLog, p => p.Screen == Screen.Combat);
         Assert.Equal(Screen.Shop, core.Screen);
         Assert.NotNull(core.LastState!.Shop);
@@ -168,7 +169,8 @@ public class ScreenReplayTests
             prev = e;
         }
         timers.Advance(TimeSpan.FromSeconds(10));
-        Assert.Equal(new[] { MirrorNeed.Event, MirrorNeed.Reward, MirrorNeed.Reward, MirrorNeed.Shop }, mirror.Probes);
+        Assert.Equal(new[] { MirrorNeed.Event, MirrorNeed.Reward, MirrorNeed.Reward, MirrorNeed.Reward, MirrorNeed.Reward,
+            MirrorNeed.Shop }, mirror.Probes);
         Assert.Null(core.LastState!.Event);
         Assert.Null(core.LastState.Health.Degraded); // non pris en charge ≠ dégradé
         // nouveau lancement du jeu : on retente (le miroir a pu être mis à jour)
@@ -176,7 +178,7 @@ public class ScreenReplayTests
         core.OnLog(new RoomEntered(default, "", RoomKind.Event, "Event Room"));
         timers.Advance(TimeSpan.FromSeconds(1));
         Assert.Equal(MirrorNeed.Event, mirror.Probes[^1]);
-        Assert.Equal(5, mirror.Probes.Count);
+        Assert.Equal(7, mirror.Probes.Count);
     }
 
     [Fact]
@@ -197,7 +199,10 @@ public class ScreenReplayTests
         Assert.Equal(Screen.Reward, st.Screen);
         Assert.Equal(new[] { "CARD.A", "CARD.B", "CARD.C" }, st.Reward!.Offered.Select(c => c.Id));
         Assert.False(st.Reward.AlreadyTaken);
-        core.OnLog(new CardRewardSelected(default, "", 1));
+        core.OnLog(new CardRewardSelected(default, "", 1));   // ouverture de l'écran de choix : on reste
+        Assert.Equal(Screen.Reward, core.LastState!.Screen);
+        Assert.NotNull(core.LastState.Reward);
+        core.OnLog(new MapVote(default, "", 1, null, null, null)); // vote sur la carte : fin de la récompense
         Assert.Equal(Screen.Map, core.LastState!.Screen);
         Assert.Null(core.LastState.Reward);
     }
