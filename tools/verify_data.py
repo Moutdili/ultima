@@ -121,6 +121,22 @@ def main() -> int:
           f"({sum(pools.values())} dans les pools réels, {len(rarity.get('exceptions', {}))} exceptions, "
           f"{len(orphans)} hors catalogue : {', '.join(sorted(orphans)[:4])})")
 
+    # ---------- pouvoirs ----------
+    inventory = load(DATA / "catalog" / "power_inventory.json")
+    counts = inventory["counts"]
+    states = [p["state"] for p in inventory["powers"]]
+    check(len(states) == counts["powers"], "inventaire pouvoirs : total = compteur")
+    check(states.count("hook") == counts["with_hook"], "pouvoirs à hook = compteur")
+    check(states.count("dynamic_only") == counts["dynamic_only"], "dynamic_only = compteur")
+    check(states.count("conditional_only") == counts["conditional_only"], "conditional_only = compteur")
+    check(states.count("no_signal") == counts["no_signal"], "no_signal = compteur")
+    check(all(p["primitives"] for p in inventory["powers"] if p["state"] == "hook"),
+          "un pouvoir à hook a au moins une primitive")
+    check(all(not p["primitives"] for p in inventory["powers"] if p["state"] != "hook"),
+          "une primitive n'apparaît que sur un état hook")
+    primitives = {primitive for p in inventory["powers"] for primitive in p["primitives"]}
+    check(primitives <= set(counts["by_primitive"]), "primitives publiées = primitives du compteur")
+
     # ---------- reliques ----------
     tags = load(DATA / "catalog" / "relic_tags.json")
     tagged = tags.get("relics", tags) if isinstance(tags, dict) else tags

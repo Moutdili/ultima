@@ -94,6 +94,15 @@ Trois anomalies trouvées et corrigées : 2 reliques `RelicRarity.None` rangées
 trésor, 222 decks d'actes sous le seuil non documentés, et un contrôle de poids qui lisait la
 mauvaise clé. Résultat : **PASS, 0 échec**, budget 1 999 681 / 2 097 152 octets (95,4 %).
 
+## Pouvoirs — inventaire (docs/49, étape 1 du plan)
+
+`tools/powers/index_inventory.py` (machine du jeu) → `data/catalog/power_inventory.json` (38 Ko) :
+**260 pouvoirs**, 56 à hook (dont les primitives : damage_multiplier 21, draw 8, damage_flat 7,
+card_play_count 6, energy 5, block 2+4, damage_cap 2), 24 `dynamic_only`, 151 `conditional_only`,
+29 sans signal. **227/260** sont appliqués par une carte ou un monstre (lien avec l'index statuts).
+Étape suivante : primitives + **backtest AUC comme porte de sortie** (si l'AUC ne bouge pas, on
+s'arrête et on l'écrit).
+
 ## File restante
 
 1. 204 pouvoirs comportementaux (d'un bloc, plus tard) — l'index statuts est la première brique.
