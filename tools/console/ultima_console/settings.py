@@ -9,7 +9,8 @@ Fichier `~/.config/ultima/settings.json`, forme System.Text.Json camelCase du re
 
 Lecture tolérante (consommateur du contrat) : clés inconnues conservées telles quelles (premier niveau,
 `hud`, modules d'une version future), valeurs invalides → défaut du contrat, modules connus manquants
-ajoutés à la fin (activés), ordre renuméroté 0..n-1.
+ajoutés à la fin (activés), ordre renuméroté 0..n-1. Différence assumée avec le daemon : un module d'id
+inconnu (version future) est conservé dans le fichier au lieu d'être supprimé (le daemon l'ignore).
 Écriture atomique : fichier temporaire dans le même dossier, fsync, rename(2) (le daemon surveille le
 dossier par inotify et regroupe tmp + rename).
 """
@@ -87,28 +88,35 @@ class HudSettings:
 
     @classmethod
     def from_json(cls, data: Any) -> "HudSettings":
+        """Même validation que le daemon (SettingsStore.NormalizeHud) : champ par champ, une valeur
+        invalide reprend SA valeur par défaut ; noms de clés et valeurs texte sans casse."""
         d = cls()
         if not isinstance(data, dict):
             return d
-        q = data.get("quality")
-        if q in QUALITIES:
-            d.quality = q
-        h = data.get("heightFraction")
+        lower = {k.lower(): k for k in cls.KEYS}
+        canon: dict[str, Any] = {}
+        d.extra = {}
+        for k, v in data.items():
+            if isinstance(k, str) and k.lower() in lower:
+                canon[lower[k.lower()]] = v
+            else:
+                d.extra[k] = v
+        q = canon.get("quality")
+        if isinstance(q, str) and q.lower() in QUALITIES:
+            d.quality = q.lower()
+        h = canon.get("heightFraction")
         if _is_num(h) and 0 < h <= 1:
             d.height_fraction = float(h)
-        o = data.get("restOpacity")
+        o = canon.get("restOpacity")
         if _is_num(o) and 0 <= o <= 1:
             d.rest_opacity = float(o)
-        s = data.get("side")
-        if s in SIDES:
-            d.side = s
-        if isinstance(data.get("deckScoreInCombat"), bool):
-            d.deck_score_in_combat = data["deckScoreInCombat"]
-        if isinstance(data.get("gradesOnly"), bool):
-            d.grades_only = data["gradesOnly"]
-        # Clés de casse différente (le daemon lit sans casse) : on les remplace par la forme canonique.
-        lower = {k.lower() for k in cls.KEYS}
-        d.extra = {k: v for k, v in data.items() if k.lower() not in lower}
+        s = canon.get("side")
+        if isinstance(s, str) and s.lower() in SIDES:
+            d.side = s.lower()
+        if isinstance(canon.get("deckScoreInCombat"), bool):
+            d.deck_score_in_combat = canon["deckScoreInCombat"]
+        if isinstance(canon.get("gradesOnly"), bool):
+            d.grades_only = canon["gradesOnly"]
         return d
 
     def to_json(self) -> dict[str, Any]:
@@ -187,17 +195,18 @@ class OverlaySettings:
         for index, item in enumerate(raw):
             if not isinstance(item, dict):
                 continue
-            mid = item.get("id")
+            low = {k.lower(): v for k, v in item.items() if isinstance(k, str)}
+            mid = low.get("id")
             if not isinstance(mid, str) or not mid or mid in seen:
                 continue
             seen.add(mid)
-            enabled = item.get("enabled", True)
+            enabled = low.get("enabled", True)
             if not isinstance(enabled, bool):
                 enabled = True
-            order = item.get("order", index)
+            order = low.get("order", index)
             if isinstance(order, bool) or not isinstance(order, int):
                 order = index
-            mextra = {k: v for k, v in item.items() if k not in ("id", "enabled", "order")}
+            mextra = {k: v for k, v in item.items() if not (isinstance(k, str) and k.lower() in ("id", "enabled", "order"))}
             parsed.append((order, index, ModuleSetting(mid, enabled, order, mextra)))
         parsed.sort(key=lambda t: (t[0], t[1]))
         modules = [m for _, _, m in parsed]

@@ -29,6 +29,12 @@ GRADE_TONES: dict[str, str] = {
     "S": "gold", "A": "green", "B": "aqua", "C": "blue", "D": "orange", "F": "red", "—": "gray",
 }
 
+# Couleur d'un joueur = celle de son personnage (NameColor, Models/Characters/<Perso>.cs ; §2).
+CHARACTER_COLORS: dict[str, str] = {
+    "CHARACTER.IRONCLAD": "#FF5555", "CHARACTER.SILENT": "#7FFF00", "CHARACTER.DEFECT": "#87CEEB",
+    "CHARACTER.REGENT": "#FFA518", "CHARACTER.NECROBINDER": "#EE82EE",
+}
+
 # Symboles partagés avec le HUD (overlay/gnome/ultima@mio/render.js).
 DASH = "—"          # score non calculé (jamais 0)
 SEP = " · "

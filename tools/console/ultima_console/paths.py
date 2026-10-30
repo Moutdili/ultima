@@ -100,6 +100,11 @@ def log_path() -> Path:
     return log_dir() / "daemon.log"
 
 
+def daemon_capture_path() -> Path:
+    """stdout/stderr du daemon lancé par `ultima start` (le journal lui-même est daemon.log)."""
+    return log_path().parent / "daemon.stderr"
+
+
 def runtime_dir() -> Path:
     """Même règle que le daemon (StatePublisher.DefaultDir) : $XDG_RUNTIME_DIR/ultima, sinon
     <tmp>/ultima-<utilisateur>."""

@@ -11,7 +11,7 @@ from pathlib import Path
 
 from . import CONTRACT_MAJOR, CONTRACT_MINOR, VERSION, consolecfg, doctor, logs, paths, procs, settings, textview
 from .palette import KO_MARK, OK_MARK, SEP, WARN_MARK, Ansi, color_enabled
-from .state import ALIVE, MISSING, OK, load as load_state, probe_socket
+from .state import ALIVE, load as load_state, probe_socket
 
 PROG = "ultima"
 
@@ -112,11 +112,12 @@ def main(argv: list[str] | None = None) -> int:
             "uninstall": lambda: cmd_uninstall(out, args),
             "version": lambda: cmd_version(out, as_json), "--version": lambda: cmd_version(out, as_json),
             "daemon-exec": lambda: cmd_daemon_exec(args + passthrough),
-            "help": lambda: _usage(0), "-h": lambda: _usage(0), "--help": lambda: _usage(0),
+            "help": lambda: _usage(0, color=color), "-h": lambda: _usage(0, color=color),
+            "--help": lambda: _usage(0, color=color),
         }.get(cmd)
         if handler is None:
             print(f"{PROG} : commande inconnue « {cmd} »\n", file=sys.stderr)
-            return _usage(2, sys.stderr)
+            return _usage(2, sys.stderr, color)
         return handler()
     except KeyboardInterrupt:
         return 130
@@ -128,8 +129,30 @@ def main(argv: list[str] | None = None) -> int:
         return 0
 
 
-def _usage(code: int, stream=None) -> int:
-    print(USAGE, end="", file=stream or sys.stdout)
+def colored_usage(ansi: Ansi) -> str:
+    """Aide en couleur : titre crème gras, commandes en or, descriptions et options en secondaire."""
+    if not ansi.enabled:
+        return USAGE
+    out = []
+    for i, line in enumerate(USAGE.splitlines()):
+        stripped = line.strip()
+        if i == 0:
+            out.append(ansi.fg(line, "cream", bold=True))
+        elif line.startswith(f"  {PROG}"):
+            cmd, sep, desc = stripped.partition("  ")
+            gap = line[: len(line) - len(line.lstrip())] + cmd
+            rest = line[len(gap):]
+            out.append(ansi.fg(gap, "gold", bold=True) + ansi.dim(rest) if sep else ansi.fg(line, "gold", bold=True))
+        elif stripped:
+            out.append(ansi.dim(line))
+        else:
+            out.append(line)
+    return "\n".join(out) + "\n"
+
+
+def _usage(code: int, stream=None, color: str = "auto") -> int:
+    stream = stream or sys.stdout
+    print(colored_usage(Ansi(color_enabled(stream, color))), end="", file=stream)
     return code
 
 
@@ -207,9 +230,6 @@ def cmd_restart(out: Out, args: list[str]) -> int:
 
 def cmd_logs(out: Out, args: list[str], as_json: bool) -> int:
     path = paths.log_path()
-    if _pop_flag(args, "--rotate"):
-        print("journal archivé" if logs.rotate(path, 0) else "rien à archiver")
-        return 0
     follow = _pop_flag(args, "-f", "--follow")
     n = int(_pop_opt(args, "-n", "50") or 50)
     level = _pop_opt(args, "--level", "debug") or "debug"

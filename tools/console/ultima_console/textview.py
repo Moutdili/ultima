@@ -16,7 +16,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any, Iterable
 
-from .palette import CURSE_MARK, DASH, SEP, TIMES, grade_tone
+from .palette import CHARACTER_COLORS, CURSE_MARK, DASH, SEP, TIMES, grade_tone
 from .settings import CONTEXT_SCREEN, MODULE_LABELS, OverlaySettings
 from .state import arr, get, num
 
@@ -45,6 +45,12 @@ def seg(text: str, tone: str | None = None, bold: bool = False) -> Seg:
 
 def plain(line: Line) -> str:
     return "".join(t for t, _, _ in line)
+
+
+def n(v: Any) -> str:
+    """Nombre affiché ; absent / null / non numérique → « — » (jamais « None », jamais 0)."""
+    x = num(v)
+    return DASH if x is None else str(x)
 
 
 def txt(v: Any, fallback: str = "?", limit: int = 60) -> str:
@@ -100,7 +106,7 @@ def terms_text(score: Any) -> str:
         sign = DASH if p is None else (f"+{p}" if p > 0 else str(p))
         parts.append(f"{txt(t.get('label'))} {sign}")
     conf = CONFIDENCE_LABELS.get(get(score, "confidence"), get(score, "confidence"))
-    tail = f" (total {num(get(score, 'total'))}/100, confiance {conf})" if isinstance(score, dict) else ""
+    tail = f" (total {n(get(score, 'total'))}/100, confiance {conf or DASH})" if isinstance(score, dict) else ""
     return SEP.join(parts) + tail
 
 
@@ -217,9 +223,25 @@ def run_line(state: Any) -> Line:
     if not isinstance(run, dict):
         return [seg(f"Pas de run en cours{SEP}{screen_label(state)}", "dim")]
     act = num(run.get("actIndex"))
-    t = (f"{txt(run.get('characterName'))} A{num(run.get('ascension'))}{SEP}acte {'?' if act is None else act + 1}"
-         f"{SEP}étage {num(run.get('floor'))}{SEP}{screen_label(state)}")
+    t = (f"{txt(run.get('characterName'), DASH)} A{n(run.get('ascension'))}{SEP}acte {DASH if act is None else act + 1}"
+         f"{SEP}étage {n(run.get('floor'))}{SEP}{screen_label(state)}")
     return [seg(t, "dim")]
+
+
+def party_line(state: Any, width: int) -> Line | None:
+    """Co-op seulement (≥ 2 joueurs) : chaque joueur dans la couleur de son personnage (§2), PV."""
+    party = [a for a in arr(get(state, "run", "party")) if isinstance(a, dict)]
+    if len(party) < 2:
+        return None
+    line: Line = [seg("Équipe  ", "dim")]
+    for i, a in enumerate(party):
+        if i:
+            line.append(seg(SEP, "dim"))
+        color = CHARACTER_COLORS.get(str(a.get("characterId")))
+        name = txt(a.get("name"), DASH, 24) + (" (toi)" if a.get("isLocal") else "")
+        line.append(seg(name, color))
+        line.append(seg(f" {n(a.get('hp'))}/{n(a.get('maxHp'))}", "dim"))
+    return line
 
 
 def degraded_line(state: Any) -> Line | None:
@@ -265,7 +287,7 @@ def shop_lines(state: Any, width: int) -> list[Line]:
     for it in items:
         name = card_label(it.get("card")) if isinstance(it.get("card"), dict) else txt(it.get("name"))
         kind = KIND_LABELS.get(it.get("kind"), txt(it.get("kind")))
-        price = f"{num(it.get('price'))} or"
+        price = f"{n(it.get('price'))} or"
         notes = []
         if it.get("onSale"):
             notes.append("soldé")
@@ -278,7 +300,7 @@ def shop_lines(state: Any, width: int) -> list[Line]:
     if shop.get("removalUsed"):
         rows.append((None, "retrait", "", "utilisé", ""))
     else:
-        rows.append((shop.get("removalScore"), "retrait", "", f"{num(shop.get('removalPrice'))} or",
+        rows.append((shop.get("removalScore"), "retrait", "", f"{n(shop.get('removalPrice'))} or",
                      top_reason(shop.get("removalScore"))))
     name_w = min(max([len(r[1]) for r in rows] + [6]), 24)
     for score, name, kind, price, notes in rows:
@@ -291,7 +313,8 @@ def shop_lines(state: Any, width: int) -> list[Line]:
 def event_lines(state: Any, width: int) -> list[Line]:
     ev = get(state, "event")
     if not isinstance(ev, dict):
-        return []
+        # v1.2 : `event` reste null tant que le miroir ne lit pas cette section.
+        return [[seg("ÉVÉNEMENT", None, True), seg(f"{SEP}non lu", "dim")]]
     out: list[Line] = [[seg("ÉVÉNEMENT", None, True), seg(f"{SEP}{txt(ev.get('name'))}", "dim")]]
     for o in arr(ev.get("options")):
         if not isinstance(o, dict):
@@ -314,17 +337,19 @@ def map_lines(state: Any, width: int) -> list[Line]:
         out.append(line)
     p = get(state, "paths")
     if isinstance(p, dict):
-        out.append([seg("CHEMINS", None, True), seg(f"{SEP}{num(p.get('totalPaths'))} jusqu'au boss", "dim")])
+        out.append([seg("CHEMINS", None, True), seg(f"{SEP}{n(p.get('totalPaths'))} jusqu'au boss", "dim")])
         for c in arr(p.get("nextChoices"))[:4]:
             if not isinstance(c, dict):
                 continue
-            n = num(c.get("pathCount"))
+            k = num(c.get("pathCount"))
             dmg = c.get("expectedDamage")
             room = ROOM_LABELS.get(str(c.get("roomType")), txt(c.get("roomType")))
-            t = f"  col {num(c.get('col'))} {room}{SEP}{n} chemin{'s' if n != 1 else ''}"
+            t = f"  col {n(c.get('col'))} {room}{SEP}{n(k)} chemin{'s' if k != 1 else ''}"
             if isinstance(dmg, (int, float)) and not isinstance(dmg, bool):
                 t += f"{SEP}dégâts ~{round(dmg)}"
             out.append([seg(fit(t, width))])
+    if not out:
+        out.append([seg("CHEMINS", None, True), seg(f"{SEP}{DASH}", "dim")])
     return out
 
 
@@ -345,8 +370,8 @@ def curse_lines(state: Any, width: int) -> list[Line]:
     deck = arr(get(state, "run", "deck"))
     curses = [c for c in deck if isinstance(c, dict) and c.get("isCurse")]
     out = []
-    for c, n in group_cards(curses):
-        count = f"{n}{TIMES} " if n > 1 else ""
+    for c, k in group_cards(curses):
+        count = f"{k}{TIMES} " if k > 1 else ""
         out.append([seg(fit(f"{CURSE_MARK} Malédiction{SEP}{count}{card_label(c)}", width), "purple", True)])
     return out
 
@@ -389,8 +414,8 @@ def dashboard(state: Any, h: Health, width: int = 80) -> list[Line]:
     if h.state_kind == "missing" or state is None and h.state_kind != "too_new":
         out: list[Line] = [[seg("Aucun état publié.", None, True)]]
         if h.daemon != "alive":
-            out.append([seg("Démarrer le daemon : ", "dim"), seg("s", "gold", True),
-                        seg(" ici (onglet Contrôles) ou « ultima start ».", "dim")])
+            out.append([seg("Démarrer le daemon : ", "dim"), seg("ultima start", "gold", True),
+                        seg(" (ou s dans le TUI).", "dim")])
         if h.error:
             out.append([seg(h.error, "orange")])
         return out
@@ -403,6 +428,9 @@ def dashboard(state: Any, h: Health, width: int = 80) -> list[Line]:
     if d:
         out.append(d)
     out.append(run_line(state))
+    party = party_line(state, width)
+    if party:
+        out.append(party)
     dec = decision_lines(state, width)
     if dec:
         out.append([])
@@ -455,15 +483,14 @@ def item_detail(item: Any) -> list[Line]:
 
 
 def _cost(card: dict) -> str:
+    """v1.3 : `cost` null = coût X ou injouable (« — ») ; négatif (v1.0-1.2) = injouable."""
     c = num(card.get("cost"))
-    if c is None:
-        return ""
-    return "injouable" if c < 0 else f"coût {c}"
+    return f"coût {DASH}" if c is None or c < 0 else f"coût {c}"
 
 
 def cost_text(card: dict) -> str:
     c = num(card.get("cost"))
-    return "" if c is None else ("—" if c < 0 else str(c))
+    return DASH if c is None or c < 0 else str(c)
 
 
 # ---------- aperçu texte du HUD (onglet HUD) ----------
@@ -501,11 +528,11 @@ def _module_summary(state: Any, mid: str, grades_only: bool, width: int) -> Line
     if mid == "deck":
         return [seg(fit(f"{label}{SEP}{len(deck)} cartes", width))]
     if mid == "enchanted":
-        n = sum(1 for c in deck if isinstance(c, dict) and c.get("enchantment"))
-        return [seg(fit(f"{label}{SEP}{n}", width), "aqua" if n else "dim")]
+        k = sum(1 for c in deck if isinstance(c, dict) and c.get("enchantment"))
+        return [seg(fit(f"{label}{SEP}{k}", width), "aqua" if k else "dim")]
     if mid == "curses":
-        n = sum(1 for c in deck if isinstance(c, dict) and c.get("isCurse"))
-        return [seg(fit(f"{CURSE_MARK} {label}{SEP}{n}", width), "purple", True)] if n else None
+        k = sum(1 for c in deck if isinstance(c, dict) and c.get("isCurse"))
+        return [seg(fit(f"{CURSE_MARK} {label}{SEP}{k}", width), "purple", True)] if k else None
     if mid == "relics":
         return [seg(fit(f"{label}{SEP}{len(arr(run.get('relics')))}", width))]
     if mid == "potions":
@@ -523,8 +550,7 @@ def _module_summary(state: Any, mid: str, grades_only: bool, width: int) -> Line
             line.append(seg(fit(f"  {name}", width - len(label) - 3), "dim"))
         return line
     if mid == "paths":
-        t = num(get(state, "paths", "totalPaths"))
-        return [seg(f"{label}{SEP}{DASH if t is None else t}")]
+        return [seg(f"{label}{SEP}{n(get(state, 'paths', 'totalPaths'))}")]
     if mid == "route":
         hp = num(get(state, "route", "expectedHpAtBoss"))
         return [seg(f"{label}{SEP}PV boss ~{DASH if hp is None else hp}")] if get(state, "route") else None

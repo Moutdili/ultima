@@ -1,8 +1,10 @@
 """Journal du daemon (`~/.local/state/ultima/daemon.log`) : niveaux, filtre, couleurs, suivi, rotation.
 
-Format du daemon (Ultima.Daemon/Diag.cs) : « HH:mm:ss.fff <niveau> <message> » avec niveau ∈ info|warn|debug.
-Les autres lignes (exception .NET, message d'erreur de lancement) sont classées « error » si elles en
-ont l'air, sinon rattachées au niveau de la ligne précédente (suite d'une trace).
+Format du daemon (Ultima.Daemon/Diag.cs, contrat IPC v1.3, docs/ipc/README.md §1) :
+« AAAA-MM-JJ HH:MM:SS.mmm NIVEAU message », NIVEAU ∈ INFO|WARN|ERROR|DEBUG aligné sur 5 caractères.
+L'ancien format « HH:mm:ss.fff niveau message » (minuscules) reste lu. Les autres lignes (exception .NET,
+message d'erreur de lancement) sont classées « error » si elles en ont l'air, sinon rattachées au niveau
+de la ligne précédente (suite d'une trace). La rotation (> 5 Mio → daemon.log.1) est faite par le daemon.
 """
 
 from __future__ import annotations
@@ -19,12 +21,12 @@ from . import paths
 from .consolecfg import ConsoleConfig, LEVELS
 from .palette import Ansi
 
-_LINE = re.compile(r"^(?P<ts>\d\d:\d\d:\d\d(?:\.\d+)?) (?P<level>info|warn|debug|error|fail|crit)\b ?(?P<msg>.*)$")
+_LINE = re.compile(r"^(?P<ts>(?:\d{4}-\d\d-\d\d[ T])?\d\d:\d\d:\d\d(?:\.\d+)?) +"
+                   r"(?P<level>info|warn|warning|debug|error|fail|crit)\b *(?P<msg>.*)$", re.IGNORECASE)
 _ERRORISH = re.compile(r"(unhandled exception|exception|erreur|error|introuvable|n'a pas démarré|tourne déjà|fatal)",
                        re.IGNORECASE)
-_LEVEL_ALIASES = {"fail": "error", "crit": "error"}
+_LEVEL_ALIASES = {"fail": "error", "crit": "error", "warning": "warn"}
 LEVEL_RANK = {lvl: i for i, lvl in enumerate(LEVELS)}
-ROTATE_BYTES = 5 * 1024 * 1024
 
 
 @dataclass
@@ -39,7 +41,8 @@ def parse_line(raw: str, prev_level: str = "info") -> LogLine:
     raw = raw.rstrip("\n")
     m = _LINE.match(raw)
     if m:
-        lvl = _LEVEL_ALIASES.get(m.group("level"), m.group("level"))
+        lvl = m.group("level").lower()
+        lvl = _LEVEL_ALIASES.get(lvl, lvl)
         return LogLine(raw, m.group("ts"), lvl, m.group("msg"))
     if raw.startswith((" ", "\t")) and prev_level == "error":
         return LogLine(raw, None, "error", raw)
@@ -123,17 +126,5 @@ def color_line(ll: LogLine, cfg: ConsoleConfig, ansi: Ansi) -> str:
         return ansi.fg(ll.raw, cfg.color(ll.level))
     lvl_color = cfg.color(ll.level)
     return (ansi.fg(ll.ts, cfg.color("timestamp")) + " "
-            + ansi.fg(f"{ll.level:<5}", lvl_color, bold=ll.level in ("warn", "error"))
+            + ansi.fg(f"{ll.level.upper():<5}", lvl_color, bold=ll.level in ("warn", "error"))
             + " " + ansi.fg(ll.msg, lvl_color))
-
-
-def rotate(path: Path | None = None, limit: int = ROTATE_BYTES) -> bool:
-    """daemon.log > limit → daemon.log.1 (une seule génération gardée)."""
-    path = path or paths.log_path()
-    try:
-        if path.stat().st_size <= limit:
-            return False
-    except FileNotFoundError:
-        return False
-    os.replace(path, path.with_name(path.name + ".1"))
-    return True

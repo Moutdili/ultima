@@ -30,9 +30,9 @@ from textual.widgets import (DataTable, Footer, Input, OptionList, RichLog, Stat
                              TabPane)
 from textual.widgets.option_list import Option
 
-from . import VERSION, consolecfg, doctor, logs, paths, procs, settings, textview
+from . import consolecfg, doctor, logs, paths, procs, settings, textview
 from .palette import CURSE_MARK, DASH, PALETTE, SEP, TIMES, grade_tone
-from .settings import MODULE_LABELS, SIDE_LABELS, OverlaySettings
+from .settings import SIDE_LABELS, OverlaySettings
 from .state import ALIVE, ABSENT, OK, REFUSED, StateResult, get, load as load_state, parse as parse_state
 
 ULTIMA_THEME = Theme(
@@ -621,7 +621,7 @@ class UltimaApp(App):
         if ll.ts is None:
             return Text(ll.raw, style=c.color(ll.level))
         t = Text(ll.ts, style=c.color("timestamp"))
-        t.append(f" {ll.level:<5} ", style=("bold " if ll.level in ("warn", "error") else "") + c.color(ll.level))
+        t.append(f" {ll.level.upper():<5} ", style=("bold " if ll.level in ("warn", "error") else "") + c.color(ll.level))
         t.append(ll.msg, style=c.color(ll.level))
         return t
 

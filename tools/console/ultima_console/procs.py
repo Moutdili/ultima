@@ -162,9 +162,12 @@ def start(cfg: ConsoleConfig, extra: list[str] | None = None, wait_s: float = 2.
         return Result(False, "binaire du daemon introuvable (tools/install.sh, ou ULTIMA_DAEMON=/chemin)", [])
     log = paths.log_path()
     paths.private_dir(log.parent)
-    logs.rotate(log)
-    argv = [str(daemon), "run", *cfg.daemon_args(), *(extra or [])]
-    with open(log, "ab", buffering=0) as lf:
+    # Le daemon écrit lui-même daemon.log (et le fait tourner) ET en copie chaque ligne sur stderr :
+    # stdout/stderr vont donc dans un fichier de capture à part (sinon chaque ligne serait en double),
+    # utile seulement si le daemon meurt avant d'avoir ouvert son journal (runtime .NET absent…).
+    capture = paths.daemon_capture_path()
+    argv = daemon_argv(daemon, cfg, extra or [])
+    with open(capture, "wb", buffering=0) as lf:
         lf.write(f"--- ultima start : {' '.join(argv)}\n".encode())
         proc = subprocess.Popen(argv, stdin=subprocess.DEVNULL, stdout=lf, stderr=lf,
                                 start_new_session=True, env=paths.daemon_env(), close_fds=True)
@@ -176,12 +179,21 @@ def start(cfg: ConsoleConfig, extra: list[str] | None = None, wait_s: float = 2.
     deadline = time.monotonic() + wait_s
     while time.monotonic() < deadline:
         if proc.poll() is not None:
-            tail = "".join(logs.tail(log, 3)).strip()
-            return Result(False, f"le daemon s'est arrêté (code {proc.returncode}) : {tail}", [])
+            tail = " ".join(ln.strip() for ln in logs.tail(capture, 4)[1:] if ln.strip())
+            _cleanup_pidfile()
+            return Result(False, f"le daemon s'est arrêté (code {proc.returncode}) : {tail or '?'}", [])
         if probe_socket() == ALIVE:
             return Result(True, f"ULTIMA lancé (pid {proc.pid})", [proc.pid])
         time.sleep(0.1)
     return Result(True, f"ULTIMA lancé (pid {proc.pid}, socket pas encore prête)", [proc.pid])
+
+
+def daemon_argv(daemon: Path, cfg: ConsoleConfig, extra: list[str]) -> list[str]:
+    """`ultima-daemon run` + options de console.json + `--log` (même journal que `ultima logs`)."""
+    args = [*cfg.daemon_args(), *extra]
+    if "--log" not in args and not any(a.startswith("--log=") for a in args):
+        args += ["--log", str(paths.log_path())]
+    return [str(daemon), "run", *args]
 
 
 def _wait_up(wait_s: float, via: str) -> Result:
@@ -197,6 +209,13 @@ def stop(all_users_daemons: bool = False, grace_s: float = 5.0) -> Result:
     if uses_systemd() and unit_active():
         subprocess.run([systemctl(), "--user", "stop", UNIT], capture_output=True)
     pids = all_daemon_pids() if all_users_daemons else owned_pids()
+    return stop_pids(pids, grace_s)
+
+
+def stop_pids(pids: list[int], grace_s: float = 5.0) -> Result:
+    """SIGTERM puis, après `grace_s`, SIGKILL — uniquement des PID dont /proc/PID/cmdline est un
+    `ultima-daemon run` (jamais un PID réutilisé par un autre programme)."""
+    pids = [p for p in pids if is_daemon_argv(cmdline(p))]
     if not pids:
         _cleanup_pidfile()
         return Result(True, "ULTIMA ne tourne pas", [])
@@ -242,7 +261,7 @@ def exec_daemon(cfg: ConsoleConfig, extra: list[str]) -> None:
     daemon = paths.find_daemon()
     if daemon is None:
         raise SystemExit("ultima : binaire du daemon introuvable")
-    argv = [str(daemon), "run", *cfg.daemon_args(), *extra]
+    argv = daemon_argv(daemon, cfg, extra)
     os.execve(str(daemon), argv, paths.daemon_env())
 
 
