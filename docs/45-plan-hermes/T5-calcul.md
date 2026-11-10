@@ -1,5 +1,9 @@
 # T5 — Calcul (ton périmètre habituel)
 
+> **2026-11-10** : d'après `status/hermes-s36.md`, §1, §3 et §4 sont faits mais non poussés ; §2 reste. Pousse-les
+> en premier dans `hermes/v1-calcul` (vague 1, voie C). Les défauts T8 §2.2-2.3 et T9 §3.1-3.2 montrent que le
+> retrait reste F (9 cas sur 9) et que le malus de courbe à 1 énergie persiste : à traiter dans la même branche.
+
 **Skills** : `sts2-meta-scoring`, `sts2-combat-math`, `sts2-map-paths`, `sts2-game-api`.
 **Périmètre** : `Ultima.Engine/Scoring/**`, `Ultima.Engine/Paths/**`, leurs tests, `data/**`, `tools/` de calcul.
 

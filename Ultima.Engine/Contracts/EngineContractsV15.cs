@@ -41,7 +41,17 @@ public sealed record CombatView(int Turn, IReadOnlyList<PileEntry> Hand, IReadOn
 
 // ---- Feu de camp (T6) -------------------------------------------------------------------------
 
-/// <summary>Option du feu de camp (« rest », « smith », … id du jeu). Target = carte conseillée pour « smith ».</summary>
-public sealed record RestOptionView(string Id, string? Label, bool Available, Score? Score, CardView? Target);
+/// <summary>Option du feu de camp. Id = id du jeu en majuscules (RestOptionIds, v1.6). Target = carte conseillée pour « SMITH ».</summary>
+public sealed record RestOptionView(string Id, string? Label, bool Available, Score? Score, CardView? Target)
+{
+    /// <summary>v1.6 : allié conseillé pour une option qui vise un joueur (« MEND »), AllyView.NetId. null sinon.</summary>
+    public ulong? TargetPlayer { get; init; }
+}
 
-public sealed record RestSiteView(IReadOnlyList<RestOptionView> Options);
+public sealed record RestSiteView(IReadOnlyList<RestOptionView> Options)
+{
+    /// <summary>v1.6 : actions encore possibles à ce feu (1 en général, plus avec certaines reliques). null = inconnu.</summary>
+    public int? ActionsRemaining { get; init; }
+    /// <summary>v1.6 : meilleure combinaison pour les actions restantes, dans l'ordre conseillé. null = non calculée.</summary>
+    public IReadOnlyList<RestStepView>? Plan { get; init; }
+}

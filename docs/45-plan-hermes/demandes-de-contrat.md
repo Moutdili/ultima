@@ -111,3 +111,14 @@ supprimer le dernier endroit où deux vocabulaires de couleur coexistent.
 Aucune de ces demandes n'a été résolue en modifiant le contrat. Quand un composant avait besoin d'une
 réponse, il a choisi **localement**, l'a écrit dans son rapport, et le comportement est couvert par un
 test — donc réversible en changeant une seule ligne dès que le chef tranche.
+
+---
+
+## v1.6 — demandes ouvertes (à partir du 2026-11-10)
+
+Contrat livré : `docs/51-contrat-v16.md`. Écris ici, une entrée par demande : champ, type, raison, consommateur,
+tâche et voie qui la portent. Le chef répond dans ce fichier et dans la version suivante du contrat.
+
+Attendues (annoncées par les fiches, à confirmer par toi avec la signature exacte) :
+- T6 §1.4 : interface du calcul en combat (probabilité de pioche, dégâts entrants, létal, conseil de potion).
+- T6 §3.4 : id de module `combat` dans `ModuleIds`, et id `restSite` si le module du feu de camp en a besoin.

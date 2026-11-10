@@ -74,3 +74,7 @@ Libellés affichés : `Ultima.Knowledge` fait foi. Données de calcul : registre
 ## v1.5 — (2026-10-30)
 Notes sous les choix, coût X/injouable, combat (après validation FPS), feu de camp, réponses aux 18 demandes de
 Hermes : **`docs/46-contrat-v15.md`**.
+
+## v1.6 — (2026-11-10)
+Second boss, feu de camp à plusieurs actions et soin d'un allié, offres enchaînées ou relancées, emplacements de
+potion, statistiques par l'op `stats.open` : **`docs/51-contrat-v16.md`**.

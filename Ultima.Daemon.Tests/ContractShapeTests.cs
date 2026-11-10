@@ -66,6 +66,10 @@ public class ContractShapeTests
         "slot" => path.Contains(".items["), // v1.5
         "inventoryOpen" => path == "$.shop", // v1.5
         "community" => obj.ContainsKey("confidence"), // v1.5
+        "secondBossId" or "secondBossName" or "potionSlots" => path == "$.run", // v1.6
+        "offerIndex" or "pendingRewards" => path == "$.reward", // v1.6
+        "targetPlayer" => path.Contains(".restSite."), // v1.6
+        "actionsRemaining" or "plan" => path == "$.restSite", // v1.6
         "deltaG" => obj.ContainsKey("confidence"),
         "evidence" => obj.ContainsKey("points"),
         _ => false,

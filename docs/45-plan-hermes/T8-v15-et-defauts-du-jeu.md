@@ -1,6 +1,8 @@
 # T8 — Appliquer le contrat v1.5 + défauts vus sur le vrai jeu (fenêtre de test n°2)
 
 **À lire d'abord** : `docs/46-contrat-v15.md` (réponses du chef à tes 18 demandes + ajouts v1.5).
+**Vague 1** de `01-ARCHITECTURE-DE-LA-SUITE.md` (le tableau y répartit chaque décision par voie). Ids du feu de
+camp en majuscules (`RestOptionIds`, v1.6) ; le plan à plusieurs actions est dans T10 §3, pas ici.
 **Skills** : selon la partie touchée (`sts2-daemon`, `sts2-console-tui`, `sts2-companion-app`, `sts2-external-overlay`,
 `sts2-meta-scoring`, `sts2-memory-mirror`). Périmètres habituels de T1-T5.
 
@@ -24,7 +26,7 @@
    list` : jeu 0). L'extraction locale (`game/pck/fonts`, dossier ignoré par git, ou l'installation Steam) doit
    remplir `jeu/` ; jamais de commit de ces fichiers.
 2. **« Courbe de coût à 1 énergie −4 »** sur TOUTES les cartes à 1 énergie, deux récompenses de suite, deck de 15-16
-   cartes (Nécrolieuse A0, actes 1, étages 6 et 9), y compris après `ecf4c34`. Le texte précédent disait « 2/4 cartes
+   cartes (NECROBINDER A0, actes 1, étages 6 et 9), y compris après `ecf4c34`. Le texte précédent disait « 2/4 cartes
    à 1 énergie » pour un deck de 14. Vérifier le comptage sur le deck réel (fixture tirée d'une save anonymisée).
 3. **Retrait noté F 75 or** (« meilleur retrait : Bodyguard ») au shop de l'étage 6 avec un deck de départ quasi
    intact : un retrait de Frappe/Défense à 75 or ne devrait pas être F. Revoir l'échelle unique du retrait.

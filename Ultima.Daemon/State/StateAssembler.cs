@@ -109,6 +109,7 @@ public sealed class StateAssembler
             Allies = run.Players.Where(p => p.NetId != me.NetId)
                 .Select(p => new AllyContext(p.NetId, p.CharacterId, p.CurrentHp, p.MaxHp, p.Deck, p.Relics.Select(r => r.Id).ToArray()))
                 .ToArray(),
+            SecondBossId = act?.SecondBossId, // v1.6
         };
 
         var deck = me.Deck.Select(c => Card(c, SafeScore("score.card", s => s.ScoreCard(c, ctx)))).ToArray();
@@ -125,6 +126,10 @@ public sealed class StateAssembler
             deck, relics, potions)
         {
             Party = BuildParty(run, me, deck, relics), // v1.2
+            // v1.6 : second boss (visible en jeu) et emplacements de potion
+            SecondBossId = act?.SecondBossId,
+            SecondBossName = act?.SecondBossId is { } b2 ? Guard("knowledge.encounter", () => _k.EncounterName(b2)) ?? b2 : null,
+            PotionSlots = me.MaxPotionSlotCount > 0 ? me.MaxPotionSlotCount : null,
         };
 
         // Malédictions : TOUJOURS renseignées par le daemon (module « curses »), même si le calcul échoue.

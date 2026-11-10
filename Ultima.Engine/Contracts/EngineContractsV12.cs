@@ -9,7 +9,7 @@ namespace Ultima.Engine.Contracts;
 
 public static class ContractInfo
 {
-    public const int CurrentMinor = 5;   // v1.3 : HudSettings ; v1.4 : Custom, ModuleSetting.Screens ; v1.5 : docs/46
+    public const int CurrentMinor = 6;   // v1.3 : HudSettings ; v1.4 : Custom, ModuleSetting.Screens ; v1.5 : docs/46 ; v1.6 : docs/51
 }
 
 // ---- Carte et route (MapView → PathPlanner) ---------------------------------------------------
@@ -68,7 +68,14 @@ public sealed record ReviewPoint(
     int Index, int Floor, int ActIndex, string RoomType, string? ModelId,
     IReadOnlyList<string> MonsterIds, int TurnsTaken, ulong PlayerId,
     int? StateBefore, int StateAfter, ReviewDelta Delta, ReviewKind Kind, ReviewChoice? Chosen,
-    IReadOnlyList<ReviewOption> Options, ReviewRegret? Regret, string? Note);
+    IReadOnlyList<ReviewOption> Options, ReviewRegret? Regret, string? Note)
+{
+    /// <summary>v1.6 : rang du choix à cet étage pour ce joueur (0 = premier). Plusieurs récompenses ou une
+    /// relance au même étage donnent plusieurs points, un par offre.</summary>
+    public int Sequence { get; init; }
+    /// <summary>v1.6 : true si le joueur est mort pendant ce combat et a été relevé à 1 PV (co-op).</summary>
+    public bool DiedHere { get; init; }
+}
 
 public sealed record ReviewDelta(int DamageTaken, int HpHealed, int GoldDelta, int MaxHpDelta);
 

@@ -42,3 +42,13 @@ Version majeure = rupture seulement ; ajouts compatibles = `ContractMinor`. Nouv
 DeckScoreInCombat, GradesOnly)` ; défaut `("verre", 0.55, 0.62, "right", false, false)`. Écrits dans
 `~/.config/ultima/settings.json` par le TUI `ultima` ou le compagnon, publiés par le daemon dans `state.settings.hud`,
 appliqués par l'extension.
+
+## v1.4 à v1.6 (mineure 6) : où lire
+- v1.4 `docs/44-personnalisation.md` : thèmes, tons, modules perso et plugins (`EngineState.Custom`).
+- v1.5 `docs/46-contrat-v15.md` : notes sous les choix (`ShopItem.Slot`, `Score.Community`), `CardView.CostKind`,
+  `EngineState.Combat` (publié seulement après mesure FPS), `EngineState.RestSite`.
+- v1.6 `docs/51-contrat-v16.md` : `RunView.SecondBossId/PotionSlots`, `ScoringContext.SecondBossId`,
+  `RewardView.OfferIndex/PendingRewards`, `RestSiteView.ActionsRemaining/Plan` (`IRestAdvisor`, ids en majuscules
+  `RestOptionIds`), `ReviewPoint.Sequence/DiedHere`, statistiques par l'op `stats.open` (`StatsView`, `IStatsBuilder`).
+- Demandes de champ : `docs/45-plan-hermes/demandes-de-contrat.md`, section v1.6. Plan d'exécution :
+  `docs/45-plan-hermes/01-ARCHITECTURE-DE-LA-SUITE.md`.

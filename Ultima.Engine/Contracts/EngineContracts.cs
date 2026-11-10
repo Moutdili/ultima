@@ -50,6 +50,12 @@ public sealed record RunView(
 {
     /// <summary>v1.2 : tous les joueurs (co-op) ; solo = le joueur local seul.</summary>
     public IReadOnlyList<AllyView> Party { get; init; } = Array.Empty<AllyView>();
+    /// <summary>v1.6 : second boss de l'acte (palier « double boss »), affronté juste après le premier, sans
+    /// repos ni récompense entre les deux. null = un seul boss. Visible en jeu (icône de la barre du haut).</summary>
+    public string? SecondBossId { get; init; }
+    public string? SecondBossName { get; init; }
+    /// <summary>v1.6 : nombre d'emplacements de potion du joueur local (reliques comprises, jusqu'à 8 vus). null = inconnu.</summary>
+    public int? PotionSlots { get; init; }
 }
 
 /// <summary>Carte (deck, récompense, shop). Enchantment = bonus spécial (Sown, Swift…). IsCurse = malédiction.</summary>
@@ -115,7 +121,14 @@ public sealed record ScoreTerm(string Label, int Points, string Source)
 }
 
 /// <summary>SkipScore null = « passer » non évaluable (v1.3). CardView.Cost null = coût X ou injouable (v1.3).</summary>
-public sealed record RewardView(IReadOnlyList<CardView> Offered, Score? SkipScore, bool AlreadyTaken);
+public sealed record RewardView(IReadOnlyList<CardView> Offered, Score? SkipScore, bool AlreadyTaken)
+{
+    /// <summary>v1.6 : rang de cette offre à cet étage (0 = première). Augmente à chaque nouvelle offre :
+    /// relance (les cartes changent) ou récompense suivante. Les surfaces redessinent quand il change.</summary>
+    public int OfferIndex { get; init; }
+    /// <summary>v1.6 : récompenses de cartes encore à ouvrir après celle-ci, telles que l'écran les montre. null = inconnu.</summary>
+    public int? PendingRewards { get; init; }
+}
 
 public sealed record ShopView(IReadOnlyList<ShopItem> Items, int RemovalPrice, bool RemovalUsed, Score? RemovalScore)
 {

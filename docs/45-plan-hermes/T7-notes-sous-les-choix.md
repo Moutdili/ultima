@@ -3,7 +3,8 @@
 > Demande de Mio (fenêtre de test n°2, 2026-10-30) : « comme sur Hearthstone Deck Tracker : les notes au moment des
 > picks sont en dessous ». Dans le shop, sous chaque carte, relique, potion (et le retrait), une petite case avec la
 > note S-F, **toujours visible** pendant le choix ; au survol, elle se développe avec des infos pratiques (notes de
-> la communauté…). Idem sous les cartes d'une récompense. **Dépend du contrat v1.5** (§4) : le chef le livre d'abord.
+> la communauté…). Idem sous les cartes d'une récompense. Contrat v1.5 **livré** (`docs/46`) ; relances et offres enchaînées :
+> `RewardView.OfferIndex` (v1.6, `docs/51`, T10 §1). **Vague 2** de `01-ARCHITECTURE-DE-LA-SUITE.md`.
 
 **Skills** : `sts2-external-overlay`, `sts2-design-system` (§8-12), `sts2-engine-contract`, `sts2-memory-mirror`,
 `sts2-daemon`, `sts2-performance`, `sts2-game-api`.

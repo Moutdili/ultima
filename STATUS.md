@@ -601,3 +601,17 @@ finale : `git filter-repo --replace-text` (ID → `<steam-id>`) en plus du retra
 **Non fait / reporté** : événement `?` (tombé sur un combat), mesure FPS (MangoHud), situations 4-10, compagnon,
 co-op. **Nouvelles demandes de Mio** : notes sous les choix façon HDT (T7), opacité 0,8 → 1,0 au survol.
 **Suite** : contrat v1.5 livré (`docs/46`), T7 et T8 confiés à Hermes (`docs/45-plan-hermes/`).
+
+## Reprise 2026-11-10 — contrat v1.6 et architecture de la suite (chef)
+Décision de Mio : le chef conçoit la suite et documente, Hermes exécute.
+- **Contrat v1.6 livré** (`docs/51-contrat-v16.md`, `EngineContractsV16.cs`, mineure 6) : second boss, plan du feu
+  de camp (`IRestAdvisor`), `OfferIndex`/`PendingRewards`, `PotionSlots`, `ReviewPoint.Sequence`/`DiedHere`,
+  statistiques (`StatsView`, `IStatsBuilder`, op `stats.open`). Le daemon remplit déjà le second boss et les
+  emplacements de potion ; le reste est `null` jusqu'à T10 et T11.
+- **Plan** (`docs/45-plan-hermes/01-ARCHITECTURE-DE-LA-SUITE.md`) : 5 voies par dossier (calcul, revue et données,
+  daemon et miroir, HUD, console et compagnon), 4 vagues, branches `hermes/v<vague>-<voie>`, le chef merge.
+  Nouvelles fiches : T6 (combat, débloqué), T10 (v1.6 appliqué), T11 (statistiques), T12 (données et calibration),
+  FT3 (fenêtre de test n°3). T9 et sa fixture co-op A10 sont commités.
+- **Porte** : `tools/verify-all.sh` verte après le contrat v1.6.
+- **Non prouvé** : rien de la v1.6 n'a tourné sur le vrai jeu. Le second boss publié n'a été vu que par les tests.
+- **En attente de Mio** : sa liste des manques du TUI (future T13), le go sur la note de « passer ».

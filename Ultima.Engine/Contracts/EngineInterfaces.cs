@@ -33,6 +33,8 @@ public sealed record ScoringContext(
 {
     /// <summary>v1.2 : alliés (co-op), joueur local exclu. Vide en solo.</summary>
     public IReadOnlyList<AllyContext> Allies { get; init; } = Array.Empty<AllyContext>();
+    /// <summary>v1.6 : second boss de l'acte (double boss), enchaîné sans repos après BossId. null = un seul boss.</summary>
+    public string? SecondBossId { get; init; }
 }
 
 /// <summary>Stratège : scores explicables (méta communautaire + historique perso + synergies).</summary>
