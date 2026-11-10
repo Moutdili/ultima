@@ -72,6 +72,12 @@ Si une voie finit avant les autres, elle prend sa case de la vague suivante **se
 - Un critère de fiche = un test nommé. Le rapport donne le nom du test en face de chaque critère.
 - Ce qui n'a tourné que sur fixture ou cible simulée va dans « NON prouvé », avec le geste à faire en jeu.
 
+## 5 bis. Budget de données : il reste 10 Ko
+`tools/verify_data.py` mesure 2 086 722 octets sur 2 097 152 (99,5 %). T10 §2.3 (paire de boss) et T12 §2.3
+(salles en co-op) ajoutent des données : **la porte tombera au premier ajout**. Avant d'ajouter un fichier, la voie
+concernée libère de la place (JSON compact, champs non lus par le moteur retirés) et donne le gain dans son
+rapport. Ne relève pas le plafond toi-même : c'est une décision de Mio.
+
 ## 6. Ce qui n'est pas dans ce plan
 | Sujet | Pourquoi | Qui |
 |---|---|---|

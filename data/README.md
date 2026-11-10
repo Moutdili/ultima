@@ -16,12 +16,12 @@ dotnet test Ultima.Engine.Tests -c Release   # OfflinePackagingTests.cs encode l
 puis build et teste ce clone. Si un test dépend d'un fichier non commité, il échoue là-bas — donc il
 échoue avant le merge.
 
-## 1. Commité — lu par le moteur à l'exécution (1,6 Mo au total)
+## 1. Commité — lu par le moteur à l'exécution (2,0 Mo au total : budget utilisé à 99,5 % au 2026-11-10, `tools/verify_data.py`)
 
 Budget : **< 2 Mo** (`OfflinePackagingTests.Committed_data_stays_within_the_clone_budget`).
 Ces fichiers sont générés : ne pas les éditer à la main, relancer le script indiqué.
 
-### `data/catalog/` — catalogues du jeu (885 Ko)
+### `data/catalog/` — catalogues du jeu (1,3 Mo)
 
 | Fichier | Rôle (ce que le moteur en fait) | Volume | Généré par |
 |---|---|---|---|

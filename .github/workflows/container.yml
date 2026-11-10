@@ -1,8 +1,10 @@
 name: Container
 
+# L'image ne dépend que de containers/ : inutile de la reconstruire à chaque push sur main.
 on:
   push:
     branches: [main]
+    paths: ["containers/**", ".github/workflows/container.yml"]
     tags: ["v*"]
   workflow_dispatch:
 

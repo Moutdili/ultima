@@ -81,8 +81,10 @@ public sealed class DaemonCore
     public int MirrorProbes { get; private set; }
     public int MirrorLayouts { get; private set; }
 
-    /// <summary>Écran au moment de chaque lancement de probe (preuve « jamais en combat »).</summary>
+    /// <summary>Écran au moment des derniers lancements de probe (preuve « jamais en combat »). Borné :
+    /// le daemon tourne des heures, on ne garde que les <see cref="ProbeLogMax"/> derniers.</summary>
     public List<(Screen Screen, MirrorNeed Need)> ProbeLog { get; } = new();
+    public const int ProbeLogMax = 256;
 
     public EngineState? LastState { get; private set; }
 
@@ -152,7 +154,9 @@ public sealed class DaemonCore
         var need = Tracker.OnLog(e);
         AfterScreenChange(before);
         if (!_replaying && need != MirrorNeed.None) Scheduler.Request(need);
-        Publish();
+        // Une ligne de log ne change l'état publié que par l'écran : sans changement d'écran, rien à recomposer
+        // (évite de sérialiser et de hacher tout l'état à chaque ligne pendant un combat).
+        if (Tracker.Screen != before || LastState is null) Publish();
     }
 
     /// <summary>Rejoue le log existant (démarrage, jeu déjà lancé) sans aucune lecture mémoire ni publication.</summary>
@@ -202,6 +206,7 @@ public sealed class DaemonCore
         // ne lire que ce que l'écran courant affiche
         need = Screen switch { Screen.Shop => MirrorNeed.Shop, Screen.Event => MirrorNeed.Event, _ => MirrorNeed.Reward };
         MirrorProbes++;
+        if (ProbeLog.Count >= ProbeLogMax) ProbeLog.RemoveAt(0);
         ProbeLog.Add((Screen, need));
         Task<MirrorResult> task;
         try { task = _mirror!.ProbeAsync(need); }

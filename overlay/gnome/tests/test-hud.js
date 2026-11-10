@@ -57,8 +57,8 @@ const same = (a, b) => JSON.stringify(strip(a)) === JSON.stringify(strip(b));
         resolveHud({state: {quality: ' Eco ', side: 'LEFT'}}).quality === 'eco' && resolveHud({state: {side: 'LEFT'}}).side === 'left');
     const lo = resolveHud({state: {restOpacity: 0.1, heightFraction: 0.05}});
     const hi = resolveHud({state: {heightFraction: 1}});
-    check('valeurs valides hors bornes de sûreté RAMENÉES (opacité ≥ 0.35 : leçon v1 ; hauteur 0.2-0.85)',
-        lo.restOpacity === 0.35 && lo.heightFraction === 0.2 && hi.heightFraction === 0.85);
+    check('valeurs valides hors bornes de sûreté RAMENÉES (opacité ≥ 0.35 : leçon v1 ; hauteur 0.30-0.85)',
+        lo.restOpacity === 0.35 && lo.heightFraction === 0.30 && hi.heightFraction === 0.85);
     check('noms de champs insensibles à la casse (comme le daemon)',
         resolveHud({file: {Quality: 'eco', SIDE: 'left', restopacity: 0.5}}).quality === 'eco' &&
         resolveHud({file: {SIDE: 'left'}}).side === 'left' && resolveHud({file: {restopacity: 0.5}}).restOpacity === 0.5);

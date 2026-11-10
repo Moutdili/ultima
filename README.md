@@ -1,69 +1,63 @@
-# ULTIMA — Slay the Spire 2 Combat Intelligence
+# ULTIMA — tracker externe pour Slay the Spire 2
 
-Tracker de deck **augmenté** pour Slay the Spire 2 (Early Access), construit sur une base
-de reverse engineering reproductible (REA + ILSpy + GDRE Tools).
+Compagnon de jeu pour Slay the Spire 2 (Early Access, `v0.107.1`) sur Fedora GNOME, dans l'esprit de
+Hearthstone Deck Tracker : il **observe** le jeu de l'extérieur et affiche des notes et des conseils par-dessus.
+Ce n'est pas un mod : rien n'est injecté dans le jeu, rien n'y est écrit.
 
-Etat : dossier de préconnaissance + squelette de repo. Le code du mod est à écrire
-(voir `docs/06-architecture.md`), mais **toute la connaissance du jeu est déjà extraite
-et indexée** dans `docs/10-source-map.md` + `docs/11-api-catalog.md`.
+## Ce que fait ULTIMA
+- **Notes S à F explicables** pour les cartes d'une récompense, les articles du marchand, le retrait, les
+  options d'événement et le deck, avec les termes chiffrés et leur source.
+- **Deck, reliques, potions, malédictions, cartes enchantées** de la run en cours, et ceux des alliés en co-op.
+- **Chemins et route conseillée** sur la carte de l'acte, avec le risque estimé.
+- **Revue de run** après coup : chaque choix comparé à la meilleure option.
+- **Personnalisation** : thèmes, polices, disposition, modules déclaratifs et plugins.
 
-## Ce que fait ULTIMA (différentiel vs trackers existants)
+Règle de fond : **probabiliste seulement**. ULTIMA n'utilise que ce que le joueur voit à l'écran, jamais les
+tirages cachés (ordre de la pioche, rencontres à venir, graine).
 
-1. **Forecast de dégâts ennemis** : dégâts actuels, + variante *hypothétique avec Weak*,
-   + variante Vulnerable, par ennemi et par cible.
-2. **Létalité exacte** : sur `16x3` avec 35 PV, dit *« le 3e coup te tue »* (block inclus,
-   overkill affiché).
-3. **Alertes multi** : si un joueur tient une carte « payoff si jouée en premier ce tour »,
-   le tracker le signale aux autres AVANT qu'ils jouent.
-4. **Broadcast** : chaque client partage ses infos (forecast, létalité, prio de tour) via
-   des `INetMessage` custom — les mods sont auto-découverts par le jeu.
-5. **Scoring de run** : contribution réelle des cartes/reliques/potions aux dégâts,
-   qualité du deck, et **risque des chemins** sur la map.
-6. **UI compacte** : overlay Godot léger, déplaçable, opacité au repos, hotkeys.
-7. **Linux Fedora natif** (le jeu tourne en build Linux, pas Proton).
+## Architecture
+```
+saves + godot.log + mémoire du jeu (lecture seule)
+        │
+   Ultima.Saves   Ultima.Mirror   Ultima.Knowledge
+        └──────────────┬──────────────┘
+                 Ultima.Daemon ──► Ultima.Engine (notes, chemins, revue)
+                       │
+        state.json + state.sock  ($XDG_RUNTIME_DIR/ultima)
+        ┌──────────────┼──────────────┐
+   overlay/gnome   tools/console   overlay/companion
+   (HUD au-dessus  (commande et    (fenêtre GTK4)
+    du jeu)         TUI `ultima`)
+```
+Le contrat entre le daemon et les surfaces est dans `Ultima.Engine/Contracts/` et décrit par
+`docs/22-contrat-moteur.md`, `docs/44-personnalisation.md`, `docs/46-contrat-v15.md` et `docs/51-contrat-v16.md`.
 
-## Machines
-
-- **fedora** (`100.123.83.40`) : la machine de JEU. Le jeu, la décompilation et le
-  développement du mod vivent ici. Claude Code travaille ici.
-- **fedora-hp** (`100.76.54.29`) : la machine de rédaction/coordination (ce repo y est né).
-
-## Démarrage rapide (sur fedora)
-
+## Installer (Fedora, sans sudo)
 ```bash
-cd ~/sts2
-cat CLAUDE.md                 # manuel d'opération (à lire en premier)
-cat docs/10-source-map.md     # où vit chaque système dans le code du jeu
-cat docs/11-api-catalog.md    # classes/hooks/API vérifiés
-bash tools/doctor.sh          # vérifie toolchain + jeu + mods
+tools/install.sh --check     # vérifie les prérequis, n'écrit rien
+tools/install.sh             # installe sous ~/.local (daemon, miroir, console, extension, données)
+ultima doctor                # diagnostic
+ultima                       # tableau de bord dans le terminal
+tools/install.sh --uninstall # retire exactement ce qui a été installé
 ```
+La lecture mémoire demande `kernel.yama.ptrace_scope = 0`. Sans elle, ULTIMA fonctionne en mode dégradé à
+partir des sauvegardes seules et l'annonce.
 
-## Clone hors ligne (aucun gros téléchargement)
-
-Un clone suffit pour compiler et tester le moteur : les catalogues utilisés à l'exécution sont
-**commités** dans `data/catalog/` et `data/meta/` (~1,6 Mo au total), les corpus de backtest
-(`data/exports/`, `data/index/`, `data/runs/`, `data/codex/`) sont gitignorés et facultatifs.
-
+## Développer
 ```bash
-bash tools/check-offline.sh   # preuve : git archive → build + tests sur un clone propre, hors réseau
+tools/verify-all.sh          # porte : .NET, compagnon, HUD, console ; doit sortir 0 avant tout push
+bash tools/check-offline.sh  # un clone seul suffit à compiler et tester le moteur, hors réseau
 ```
+- Données lues par le moteur : `data/` (commitées, budget 2 Mo, voir `data/README.md`). Les gros corpus de
+  backtest ne sont pas versionnés.
+- Plan de travail en cours : `docs/45-plan-hermes/` (commencer par `00-LISEZMOI.md`). État : `STATUS.md`.
+- La décompilation du jeu (`game/`) n'est jamais commitée ; `tools/decompile.sh` la reproduit localement.
 
-Détail des fichiers (rôle, poids, script de régénération) : [`data/README.md`](data/README.md).
-
-## Arborescence
-
-```
-sts2/
-  CLAUDE.md              manuel pour l'agent
-  .mcp.json              MCP REA (portée projet)
-  docs/                  dossier de préconnaissance
-  research/repos/        clones des trackers/mods existants (gitignored)
-  tools/                 install / decompile / index / doctor / build / deploy
-  skills-src/            skills au format Claude Code (source)
-  game/                  sortie de décompilation (gitignored)
-```
+## Héritage
+Le projet a commencé comme un mod en jeu (dossiers `Ultima/`, `Ultima.Tests/`, `Makefile`, `containers/`,
+`TEST-NOW.md`, `SPEC.md`, `AGENT-MANUAL.md`, docs 00 à 19). Cette approche est abandonnée depuis
+`docs/20-pivot-externe.md` ; ces fichiers ne décrivent plus le produit.
 
 ## Avertissement
-
-Recherche et interopérabilité sur un jeu possédé. Aucun asset du jeu n'est redistribué.
-Le mod est **read-only** côté gameplay (il observe, il ne modifie pas l'état).
+Recherche et interopérabilité sur un jeu possédé. ULTIMA lit, il ne modifie rien. Slay the Spire 2 appartient à
+Mega Crit.

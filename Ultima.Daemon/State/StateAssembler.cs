@@ -206,17 +206,17 @@ public sealed class StateAssembler
         if (mem?.EventId is not { Length: > 0 } eventId) return null;
         var name = mem.Name ?? Guard("texts.event", () => _texts.Text(mem.NameKey?.Table, mem.NameKey?.Key));
         if (mem.IsFinished == true)
-            return new EventView(eventId, name!, new[] { new EventOptionView(ContinueOptionId, ContinueLabel, null, true, null) });
+            return new EventView(eventId, name, new[] { new EventOptionView(ContinueOptionId, ContinueLabel, null, true, null) });
         if (mem.OptionsKnown == false || mem.Options is null) return null;
         var options = mem.Options.Where(o => o.Id is { Length: > 0 }).ToArray();
         var ids = options.Select(o => BareOption(o.Id!)).ToArray();
         IReadOnlyList<Score?> scores = Array.Empty<Score?>();
         if (_events is not null && run?.Context is { } ctx)
             scores = Guard("event", () => _events.Rank(BareEvent(eventId), ids, ctx)) ?? Array.Empty<Score?>();
-        // Label/Name null : texte inconnu (l'UI affiche son propre repli). Contrat : string non nullable → demande de contrat.
-        var views = options.Select((o, i) => new EventOptionView(o.Id!, OptionLabel(o)!, OptionDescription(o), o.Available ?? true,
+        // Label/Name null : texte inconnu, les surfaces affichent « — » (contrat v1.5, décision A1).
+        var views = options.Select((o, i) => new EventOptionView(o.Id!, OptionLabel(o), OptionDescription(o), o.Available ?? true,
             i < scores.Count && scores[i] is { Terms.Count: > 0 } sc ? sc : null)).ToArray();
-        return new EventView(eventId, name!, views);
+        return new EventView(eventId, name, views);
     }
 
     private string? OptionLabel(MEventOption o)
@@ -254,7 +254,7 @@ public sealed class StateAssembler
         var ctx = run?.Context;
         var cards = offered.Select(c => Card(c, ctx is null ? null : SafeScore("score.card", s => s.ScoreCard(c, ctx)))).ToArray();
         var skip = ctx is null ? null : SafeScore("score.skip", s => s.ScoreSkip(offered, ctx));
-        return new RewardView(cards, skip!, pick.AlreadyTaken); // skip null = « — » (demande de contrat : Score?)
+        return new RewardView(cards, skip, pick.AlreadyTaken); // skip null = « — » (nullable depuis la v1.3)
     }
 
     /// <summary>Inventaire du marchand. Prix = prix AFFICHÉ estimé (réductions de reliques comprises).</summary>

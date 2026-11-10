@@ -29,8 +29,8 @@ export const HUD_DEFAULTS = Object.freeze({
 });
 
 // Bornes de sûreté : leçon v1 (un rail à 0.30 était INVISIBLE en jeu) -> opacité au repos ≥ 0.35 ;
-// surface déployée < 15 % (docs/17 §7) -> hauteur ≤ 0.85 ; en dessous de 0.2, plus rien de lisible.
-export const HEIGHT_RANGE = Object.freeze([0.2, 0.85]);
+// surface déployée < 15 % (docs/17 §7) -> hauteur ≤ 0.85 ; hauteur ≥ 0.30 (borne du contrat, docs/22).
+export const HEIGHT_RANGE = Object.freeze([0.30, 0.85]);
 export const REST_OPACITY_RANGE = Object.freeze([0.35, 1]);
 
 function finite(v) {

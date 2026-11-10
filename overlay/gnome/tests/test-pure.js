@@ -39,8 +39,8 @@ for (const [name, mon] of SCREENS) {
     check(`${name} : ouvert, translation 0 = panneau`, L.rootX + L.plateX === L.panelX);
     check(`${name} : largeur par défaut 360 px (contrat 280-520)`,
         L.w === Geo.DEFAULT_WIDTH && L.w >= Geo.MIN_WIDTH && L.w <= Geo.MAX_WIDTH, `${L.w}`);
-    check(`${name} : hauteur dans les bornes du contrat v1.3 (0.2-0.85 de l'écran)`,
-        L.h >= Math.floor(mon.height * 0.2) - 1 && L.h <= Math.ceil(mon.height * 0.85) + 1, `${L.h}`);
+    check(`${name} : hauteur dans les bornes du contrat v1.3 (0.30-0.85 de l'écran)`,
+        L.h >= Math.floor(mon.height * 0.30) - 1 && L.h <= Math.ceil(mon.height * 0.85) + 1, `${L.h}`);
     check(`${name} : panneau entièrement dans l'écran`,
         L.panelX >= mon.x && L.panelX + L.w <= mon.x + mon.width &&
         L.y >= mon.y && L.y + L.h <= mon.y + mon.height);
@@ -55,7 +55,7 @@ for (const [name, mon] of SCREENS) {
         for (const anchor of ANCHORS) {
             for (const [offsetX, offsetY] of OFFSETS) {
                 for (const width of [280, 360, 520]) {
-                    for (const heightFraction of [0.2, 0.55, 0.85]) {
+                    for (const heightFraction of [0.30, 0.55, 0.85]) {
                         total++;
                         const L = Geo.computeLayout(mon, {anchor, offsetX, offsetY, width, heightFraction});
                         const r = Geo.panelRect(L);

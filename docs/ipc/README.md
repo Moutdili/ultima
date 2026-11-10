@@ -32,8 +32,8 @@ Sans `$XDG_RUNTIME_DIR` : repli `/tmp/ultima-<utilisateur>`. Option `--runtime-d
 Aucun message « je suis vivant » : un état identique n'est jamais republié.
 
 **Sérialisation** : System.Text.Json, camelCase, enums en chaîne (`"Shop"`), `null` explicite —
-même forme que `docs/22-state.sample.json` (prouvé par `ContractShapeTests`). Contrat publié : **v1.4**
-(`contractVersion` 1, `contractMinor` 4). État réel généré par le daemon (save réelle, jeu fermé) :
+même forme que `docs/22-state.sample.json` (prouvé par `ContractShapeTests`). Contrat publié : **v1.6**
+(`contractVersion` 1, `contractMinor` 6 ; les champs v1.5 et v1.6 non encore remplis sortent à `null`). État réel généré par le daemon (save réelle, jeu fermé) :
 [`state.v13.sample.json`](state.v13.sample.json) ; état v1.4 (section `custom` avec un module et un plugin) :
 [`state.v14.sample.json`](state.v14.sample.json), reproduit à l'identique par le sérialiseur (`V14Tests`).
 

@@ -159,7 +159,7 @@ cosmétique, déplace les sauvegardes dans `modded/`.
 ```
 …/SlayTheSpire2/steam/<steam-id>/profile1|2|3/      ← vanilla, intact
 …/SlayTheSpire2/steam/<steam-id>/modded/profile1/   ← créé par ULTIMA
-…/Steam/userdata/1555371581/2868840/remote/                ← miroir Steam Cloud
+…/Steam/userdata/<id du compte>/2868840/remote/                ← miroir Steam Cloud
 ```
 
 **Remèdes possibles**

@@ -18,7 +18,7 @@ click-through ne changent pas** :
   repli sur la police du thème, puis sur la police système.
 - **Disposition** : `appearance.hud.position` = `side` (left/right), `anchor` (top/center/bottom),
   `offsetX`/`offsetY` (bornés à l'écran), `width` 280-520 px ; `railEdge` (liseré or du rail).
-  La hauteur reste `heightFraction` (0,2-0,85) et l'opacité au repos `restOpacity` (0,35-1).
+  La hauteur reste `heightFraction` (0,30-0,85) et l'opacité au repos `restOpacity` (0,35-1).
   Le panneau est toujours placé dans une **zone sûre** : jamais sur « Fin du tour » (bas droite),
   ni sur la pioche (bas gauche), ni sur la barre du haut.
 - **Modules perso et plugins** : `EngineState.Custom` est dessiné à la place de `modules[]`

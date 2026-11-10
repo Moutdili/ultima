@@ -24,7 +24,7 @@ export const SHADOW_PAD = 10;      // px de marge côté intérieur pour l'ombre
 export const HOVER_SLOP = 10;      // px de tolérance côté intérieur pour le survol
 export const DEFAULT_TOP_FRACTION = 0.22;
 export const DEFAULT_HEIGHT_FRACTION = 0.55;   // contrat v1.3 HudSettings.Default
-export const HEIGHT_RANGE = Object.freeze([0.2, 0.85]);  // bornes de sûreté v1.3 (hud.js)
+export const HEIGHT_RANGE = Object.freeze([0.30, 0.85]);  // bornes du contrat (HudSettings.HeightMin/HeightMax, docs/22)
 export const ANCHORS = Object.freeze(['top', 'center', 'bottom']);
 export const MAX_OFFSET_FRACTION = 0.4;  // |offsetX| ≤ 40 % largeur, |offsetY| ≤ 40 % hauteur
 
@@ -92,7 +92,7 @@ export function computeLayout(monitor, options = {}) {
     const maxW = Math.max(RAIL_W, monitor.width - 2 * EDGE_GAP);
     const w = Math.round(clamp(clamp(o.width ?? DEFAULT_WIDTH, MIN_WIDTH, MAX_WIDTH), MIN_WIDTH, maxW));
 
-    // Hauteur : bornes v1.3 (0.2-0.85) puis zone sûre.
+    // Hauteur : bornes du contrat (0.30-0.85) puis zone sûre.
     const safe = safeArea(monitor, side);
     const frac = clamp(o.heightFraction ?? DEFAULT_HEIGHT_FRACTION, HEIGHT_RANGE[0], HEIGHT_RANGE[1]);
     const h = Math.round(Math.min(clamp(Math.round(monitor.height * frac), 40, monitor.height - 2 * EDGE_GAP),
